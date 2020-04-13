@@ -9,5 +9,8 @@
         <module name="ApProject_OnlineShop" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ApProject_OnlineShop" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
