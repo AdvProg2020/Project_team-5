@@ -45,9 +45,14 @@ public class Good {
         return goodId;
     }
 
+    public SubCategory getSubCategory() {
+        return subCategory;
+    }
+
     public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
         return sellerRelatedInfoAboutGoods;
     }
+
     public void AddSeller(SellerRelatedInfoAboutGood newSellerRelatedInfo){
         this.sellerRelatedInfoAboutGoods.add(newSellerRelatedInfo);
     }
@@ -70,5 +75,5 @@ public class Good {
 }
 
 enum GoodStatus {
-    BUILTPROCESSING, EDITTINGPROCESSING, CONFIRMED;
+    BUILTPROCESSING, EDITTINGPROCESSING, CONFIRMED
 }
