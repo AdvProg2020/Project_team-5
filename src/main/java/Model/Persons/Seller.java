@@ -1,9 +1,9 @@
-package Model.Persons;
+package model.persons;
 
-import Model.Orders.Order;
-import Model.Persons.Person;
-import Model.ProductThings.Good;
-import Model.ProductThings.Off;
+import model.orders.Order;
+import model.persons.Person;
+import model.productThings.Good;
+import model.productThings.Off;
 
 import java.util.ArrayList;
 

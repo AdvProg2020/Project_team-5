@@ -1,4 +1,4 @@
-package Model.Persons;
+package model.persons;
 
 public abstract class Person {
     private String username;

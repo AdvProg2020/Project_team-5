@@ -1,4 +1,4 @@
-package Model.ProductThings;
+package model.productThings;
 
 public class GoodInCart {
 }

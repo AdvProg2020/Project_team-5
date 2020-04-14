@@ -1,4 +1,4 @@
-package Model.Orders;
+package model.orders;
 
 public class OrderForSeller {
 }

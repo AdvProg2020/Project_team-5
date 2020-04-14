@@ -1,8 +1,8 @@
-package Model.Persons;
+package model.persons;
 
-import Model.Orders.Order;
-import Model.Persons.Person;
-import Model.ProductThings.DiscountCode;
+import model.orders.Order;
+import model.persons.Person;
+import model.productThings.DiscountCode;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Model.Category;
+package model.category;
 
 public class SubCategory {
 }

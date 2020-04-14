@@ -1,4 +1,4 @@
-package Model.Persons;
+package model.persons;
 
 public class Company {
     private String name;

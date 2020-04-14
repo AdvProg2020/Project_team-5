@@ -1,6 +1,6 @@
-package Model.Persons;
+package model.persons;
 
-import Model.Persons.Person;
+import model.persons.Person;
 
 public class Manager extends Person {
 
