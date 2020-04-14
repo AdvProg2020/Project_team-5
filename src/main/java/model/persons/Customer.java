@@ -1,6 +1,7 @@
 package model.persons;
 
 import model.orders.Order;
+import model.orders.OrderForCustomer;
 import model.persons.Person;
 import model.productThings.DiscountCode;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public class Customer extends Person {
     private ArrayList<DiscountCode> discountCodes;
-    private ArrayList<Order> previousOrders;
+    private ArrayList<OrderForCustomer> previousOrders;
     private long credit;
 
     public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
@@ -31,11 +32,11 @@ public class Customer extends Person {
         this.discountCodes = discountCodes;
     }
 
-    public ArrayList<Order> getPreviousOrders() {
+    public ArrayList<OrderForCustomer> getPreviousOrders() {
         return previousOrders;
     }
 
-    public void setPreviousOrders(ArrayList<Order> previousOrders) {
+    public void setPreviousOrders(ArrayList<OrderForCustomer> previousOrders) {
         this.previousOrders = previousOrders;
     }
 

@@ -11,7 +11,7 @@ public class OrderForSeller extends Order {
     private Seller seller;
     private String customerName;
     private double offDeduct;
-    private HashMap<Good, Integer> numberPerGood = new HashMap<Good, Integer>();
+    private HashMap<Good, Integer> numberPerGood = new HashMap<>();
 
     public OrderForSeller(Seller seller, String customerName, ArrayList<GoodInCart> goods) {
         this.seller = seller;
@@ -40,6 +40,8 @@ public class OrderForSeller extends Order {
     public HashMap<Good, Integer> getNumberPerGood() {
         return numberPerGood;
     }
+
+
 
     @Override
     public String toString() {
