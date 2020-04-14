@@ -49,6 +49,10 @@ public class Good {
         return sellerRelatedInfoAboutGoods;
     }
 
+    public SubCategory getSubCategory() {
+        return subCategory;
+    }
+
     public void AddSeller(SellerRelatedInfoAboutGood newSellerRelatedInfo) {
         this.sellerRelatedInfoAboutGoods.add(newSellerRelatedInfo);
     }
