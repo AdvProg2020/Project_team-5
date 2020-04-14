@@ -48,11 +48,12 @@ public class Good {
     public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
         return sellerRelatedInfoAboutGoods;
     }
-    public void AddSeller(SellerRelatedInfoAboutGood newSellerRelatedInfo){
+
+    public void AddSeller(SellerRelatedInfoAboutGood newSellerRelatedInfo) {
         this.sellerRelatedInfoAboutGoods.add(newSellerRelatedInfo);
     }
 
-    public void removeSeller(SellerRelatedInfoAboutGood sellerRelatedInfo){
+    public void removeSeller(SellerRelatedInfoAboutGood sellerRelatedInfo) {
         this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfo);
     }
 
@@ -61,14 +62,10 @@ public class Good {
     }
 
     public long getPriceBySeller(Seller seller) {
-        for (SellerRelatedInfoAboutGood goodInfo : sellerRelatedInfoAboutGoods) {
-            if (goodInfo.getSeller().equals(seller))
-                return goodInfo.getPrice();
-        }
-        return 0;
+        return sellerRelatedInfoAboutGoods.stream().filter((info) -> info.getSeller().equals(seller)).map(SellerRelatedInfoAboutGood::getPrice).findAny().orElse(0L);
     }
 }
 
 enum GoodStatus {
-    BUILTPROCESSING, EDITTINGPROCESSING, CONFIRMED;
+    BUILTPROCESSING, EDITTINGPROCESSING, CONFIRMED
 }
