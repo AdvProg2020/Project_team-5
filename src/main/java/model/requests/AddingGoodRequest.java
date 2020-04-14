@@ -3,6 +3,8 @@ package model.requests;
 import model.persons.Seller;
 import model.productThings.Good;
 
+import static model.productThings.GoodStatus.CONFIRMED;
+
 public class AddingGoodRequest extends Request {
     private Good good;
     private Seller seller;
@@ -17,6 +19,7 @@ public class AddingGoodRequest extends Request {
         good.getSubCategory().addGood(this.good);
         if (good.getSellerRelatedInfoAboutGoods().size() > 1){
             good.getSellerRelatedInfoAboutGoods().get(good.getSellerRelatedInfoAboutGoods().size()-1).getSeller().addToActiveGoods(good);
+            good.setGoodStatus(CONFIRMED);
         }
     }
 

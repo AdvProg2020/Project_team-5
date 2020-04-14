@@ -54,6 +54,10 @@ public class Seller extends Person {
         this.activeOffs = activeOffs;
     }
 
+    public void addOff(Off off){
+        this.activeOffs.add(off);
+    }
+
     public ArrayList<String> buyersOfAGood(Good good) {
         ArrayList<String> buyers = new ArrayList<>();
         for (OrderForSeller order : previousSells) {
