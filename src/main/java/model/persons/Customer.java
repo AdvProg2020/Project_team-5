@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Customer extends Person {
     private ArrayList<DiscountCode> discountCodes;
     private ArrayList<Order> previousOrders;
-    private Long credit;
+    private long credit;
 
     public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
         super(username, firstName, lastName, email, phoneNumber, password);
@@ -50,6 +50,6 @@ public class Customer extends Person {
     @Override
     public String toString() {
         return super.toString() +
-                "credit: " + getCredit() + "\n" + "-------------------";
+                "credit = " + getCredit() + "\n" + "-------------------";
     }
 }
