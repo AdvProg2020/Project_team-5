@@ -48,6 +48,17 @@ public class Good {
     public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
         return sellerRelatedInfoAboutGoods;
     }
+    public void AddSeller(SellerRelatedInfoAboutGood newSellerRelatedInfo){
+        this.sellerRelatedInfoAboutGoods.add(newSellerRelatedInfo);
+    }
+
+    public void removeSeller(SellerRelatedInfoAboutGood sellerRelatedInfo){
+        this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfo);
+    }
+
+    public void setAverageRate(double averageRate) {
+        this.averageRate = averageRate;
+    }
 
     public long getPriceBySeller(Seller seller) {
         for (SellerRelatedInfoAboutGood goodInfo : sellerRelatedInfoAboutGoods) {
