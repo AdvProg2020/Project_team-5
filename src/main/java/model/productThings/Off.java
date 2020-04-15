@@ -15,7 +15,7 @@ public class Off {
     private int discountPercent;
     private Seller seller;
 
-    enum OffStatus {
+    public enum OffStatus {
         ValidationProgress,
         EditingProcess,
         Accepted,
@@ -23,10 +23,10 @@ public class Off {
         Rejected
     }
 
-    public Off(ArrayList<Good> offGoods, Date endDate, long maxDiscount, int discountPercent, Seller seller) {
+    public Off(ArrayList<Good> offGoods,Date startDate, Date endDate, long maxDiscount, int discountPercent, Seller seller) {
         this.offGoods = offGoods;
         this.offStatus = OffStatus.ValidationProgress;
-        this.startDate = new Date();
+        this.startDate = startDate;
         this.endDate = endDate;
         this.maxDiscount = maxDiscount;
         this.discountPercent = discountPercent;
