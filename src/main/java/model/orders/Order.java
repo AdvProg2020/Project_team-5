@@ -9,6 +9,10 @@ public abstract class Order {
     private long price;
     private OrderStatus orderStatus;
 
+    public enum OrderStatus {
+        PROCESSING, READYTOSEND, SENT, RECEIVED
+    }
+
     public Order() {
         this.date = LocalDate.now();
         this.orderStatus = OrderStatus.PROCESSING;
@@ -36,6 +40,3 @@ public abstract class Order {
     }
 }
 
-enum OrderStatus {
-    PROCESSING, READYTOSEND, SENT, RECEIVED;
-}

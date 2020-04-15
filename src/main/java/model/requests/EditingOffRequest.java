@@ -3,6 +3,7 @@ package model.requests;
 import model.Shop;
 import model.productThings.Off;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class EditingOffRequest extends Request {
@@ -19,7 +20,7 @@ public class EditingOffRequest extends Request {
         Off off= Shop.getInstance().findOffById(offId);
         for (String field : editedFields.keySet()) {
             if(field.equalsIgnoreCase("endDate")){
-              //  off.setEndDate(SimpleDateFormat.parse(editedFields.get(field)); how to parse date?
+                off.setEndDate(LocalDate.parse(editedFields.get(field)));
             }else if (field.equalsIgnoreCase("maxDiscount"))
                 off.setMaxDiscount(Long.parseLong(editedFields.get(field)));
             else if (field.equalsIgnoreCase("discountPercent"))

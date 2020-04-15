@@ -2,7 +2,6 @@ package model.requests;
 
 import model.Shop;
 import model.productThings.Good;
-import model.productThings.GoodStatus;
 
 import java.util.HashMap;
 
@@ -44,6 +43,6 @@ public class EditingGoodRequest extends Request {
 
              */
         }
-        good.setGoodStatus(GoodStatus.CONFIRMED);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
     }
 }

@@ -32,4 +32,11 @@ public class SellerRelatedInfoAboutGood {
     public void setAvailableNumber(int availableNumber) {
         this.availableNumber = availableNumber;
     }
+
+    @Override
+    public String toString() {
+        return "seller = " + seller.getUsername() +
+                "\tprice = " + price +
+                "\tavailableNumber = " + availableNumber;
+    }
 }

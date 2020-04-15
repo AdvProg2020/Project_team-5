@@ -2,18 +2,18 @@ package model.productThings;
 
 import model.persons.Customer;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class DiscountCode {
     private String code;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Long MaxDiscountAmount;
     private int discountPercent;
     private HashMap<Customer, Integer> includedCustomers;
 
-    public DiscountCode(String code, Date startDate, Date endDate, Long maxDiscountAmount, int discountPercent, HashMap<Customer, Integer> includedCustomers) {
+    public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent, HashMap<Customer, Integer> includedCustomers) {
         this.code = code;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -26,11 +26,11 @@ public class DiscountCode {
         return code;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -54,11 +54,11 @@ public class DiscountCode {
         MaxDiscountAmount = maxDiscountAmount;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 

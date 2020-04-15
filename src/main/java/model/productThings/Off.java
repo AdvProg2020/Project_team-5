@@ -2,15 +2,15 @@ package model.productThings;
 
 import model.persons.Seller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Off {
     private long offId;
     private ArrayList<Good> offGoods;
     private OffStatus offStatus;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private long maxDiscount;
     private int discountPercent;
     private Seller seller;
@@ -23,7 +23,7 @@ public class Off {
         Rejected
     }
 
-    public Off(ArrayList<Good> offGoods,Date startDate, Date endDate, long maxDiscount, int discountPercent, Seller seller) {
+    public Off(ArrayList<Good> offGoods,LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
         this.offGoods = offGoods;
         this.offStatus = OffStatus.ValidationProgress;
         this.startDate = startDate;
@@ -45,11 +45,11 @@ public class Off {
         return offStatus;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -73,11 +73,11 @@ public class Off {
         this.offStatus = offStatus;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

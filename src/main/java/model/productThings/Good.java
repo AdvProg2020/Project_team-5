@@ -21,6 +21,11 @@ public class Good {
     private LocalDate modificationDate;
     private HashMap<String, Object> categoryProperties;
 
+    public enum GoodStatus {
+        BUILTPROCESSING, EDITINGPROCESSING, CONFIRMED
+    }
+
+
     public Good(String name, String brand, SubCategory subCategory, String details, HashMap<String, Object> categoryProperties, Seller seller, long price, int availableNumber) {
         this.name = name;
         this.brand = brand;
@@ -77,6 +82,25 @@ public class Good {
         for (SellerRelatedInfoAboutGood sellerRelatedInfo : getSellerRelatedInfoAboutGoods()) {
             sellerRelatedInfo.getSeller().removeFromActiveGoods(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        String sellerRelatedInfos="";
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
+            sellerRelatedInfos = sellerRelatedInfos + relatedInfoAboutGood.toString() +"\n";
+        }
+        return "------------------------------------\n"
+                + "name = " + name
+                + "\ngoodStatus = " + goodStatus
+                + "\nbrand = " + brand
+                +"\naverage rate = " + averageRate
+                +"\ncategory = "+ subCategory.getParentCategory().getName()
+                +"\nsubcategory = "+ subCategory.getName() +"\n" + sellerRelatedInfos
+                +"details =\n" + details
+                +"\nmodification date = "+ modificationDate.toString()
+                +"\nseen number = "+ seenNumber + "\n" +
+                "------------------------------------\n";
     }
 }
 
