@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class DiscountCodeTest {
@@ -20,7 +20,7 @@ public class DiscountCodeTest {
         HashMap<Customer, Integer> includedCustomers = new HashMap<>();
         includedCustomers.put(customer, 4);
         discountCode = new DiscountCode("asdSDhjk43iu3tr",
-                new Date(), new Date(), 300L, 20, includedCustomers);
+                LocalDate.now(), LocalDate.now(), 300L, 20, includedCustomers);
     }
 
     @Test
