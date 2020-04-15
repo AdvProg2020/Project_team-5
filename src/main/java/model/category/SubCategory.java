@@ -1,6 +1,7 @@
 package model.category;
 
 import model.productThings.Good;
+import model.productThings.SellerRelatedInfoAboutGood;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,9 @@ public class SubCategory {
     }
 
     public void removeGood(Good good){
+        for (SellerRelatedInfoAboutGood sellerRelatedInfo : good.getSellerRelatedInfoAboutGoods()) {
+            sellerRelatedInfo.getSeller().removeFromActiveGoods(good);
+        }
         this.goods.remove(good);
     }
 

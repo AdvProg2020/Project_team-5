@@ -33,6 +33,8 @@ public class Category {
     }
 
     public void removeSubCategory(SubCategory subCategory) {
+        for (int i=0 ; i<subCategory.getGoods().size() ;)
+            subCategory.removeGood(subCategory.getGoods().get(0));
         this.subCategories.remove(subCategory);
     }
 

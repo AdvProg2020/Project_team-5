@@ -32,23 +32,23 @@ public class Shop {
         this.cart = new ArrayList<>();
     }
 
-    public void removePerson(Person user){
+    public void removePerson(Person user) {
         allPersons.remove(user);
     }
 
-    public void addPerson(Person user){
+    public void addPerson(Person user) {
         allPersons.add(user);
     }
 
-    public void removeProduct(Good good){
+    public void removeProduct(Good good) {
         good.getSubCategory().removeGood(good);
     }
 
-    public void addProduct(Good good){
+    public void addProduct(Good good) {
         good.getSubCategory().addGood(good);
     }
 
-    public Person findUser(String userName){
+    public Person findUser(String userName) {
         for (Person person : allPersons) {
             if (person.getUsername().equals(userName))
                 return person;
@@ -56,7 +56,7 @@ public class Shop {
         return null;
     }
 
-    public Good findGoodById(long goodId){
+    public Good findGoodById(long goodId) {
         for (Category category : allCategories) {
             if (category.findGoodInSubCategories(goodId) != null)
                 return category.findGoodInSubCategories(goodId);
@@ -64,11 +64,19 @@ public class Shop {
         return null;
     }
 
-    public void removeDiscountCode(DiscountCode discountCode){
+    public DiscountCode findDiscountCode(String code) {
+        for (DiscountCode discountCode : allDiscountCodes) {
+            if (discountCode.getCode().equals(code))
+                return discountCode;
+        }
+        return null;
+    }
+
+    public void removeDiscountCode(DiscountCode discountCode) {
         allDiscountCodes.remove(discountCode);
     }
 
-    public Request findReQuestById(long requestId){
+    public Request findReQuestById(long requestId) {
         for (Request request : allRequest) {
             if (request.getRequestId() == requestId)
                 return request;
@@ -76,23 +84,25 @@ public class Shop {
         return null;
     }
 
-    public void removeRequest(Request request){
+    public void removeRequest(Request request) {
         allRequest.remove(request);
     }
 
-    public void addRequest(Request request){
+    public void addRequest(Request request) {
         allRequest.add(request);
     }
 
-    public void addCategory(Category category){
+    public void addCategory(Category category) {
         allCategories.add(category);
     }
 
-    public void removeCategory(Category category){
+    public void removeCategory(Category category) {
+        for(int i=0 ; i<category.getSubCategories().size() ; )
+            category.removeSubCategory(category.getSubCategories().get(0));
         allCategories.remove(category);
     }
 
-    public ArrayList<Rate> getRatesOfAGood(Good good){
+    public ArrayList<Rate> getRatesOfAGood(Good good) {
         ArrayList<Rate> ratesOfGood = new ArrayList<>();
         for (Rate rate : allRates) {
             if (rate.getGood().equals(good))
@@ -101,27 +111,39 @@ public class Shop {
         return ratesOfGood;
     }
 
-    public void addGoodToCart(Good good,Seller seller){
+    public void addGoodToCart(Good good, Seller seller) {
         cart.add(new GoodInCart(good, seller, 1));
     }
 
-    public void reduceGoodInCartNumber(Good good){
+    public void reduceGoodInCartNumber(Good good) {
         for (GoodInCart goodInCart : cart) {
-            if (goodInCart.getGood().equals(good)){
-                goodInCart.setNumber(goodInCart.getNumber()-1);
-                if(goodInCart.getNumber() == 0)
+            if (goodInCart.getGood().equals(good)) {
+                goodInCart.setNumber(goodInCart.getNumber() - 1);
+                if (goodInCart.getNumber() == 0)
                     cart.remove(goodInCart);
                 return;
             }
         }
     }
 
-    public void increaseGoodInCartNumber(Good good){
+    public void increaseGoodInCartNumber(Good good) {
         for (GoodInCart goodInCart : cart) {
             if (goodInCart.getGood().equals(good)) {
                 goodInCart.setNumber(goodInCart.getNumber() + 1);
                 return;
             }
         }
+    }
+
+    public Off findOffById(long offId) {
+        for (Off off : offs) {
+            if (off.getOffId() == offId)
+                return off;
+        }
+        return null;
+    }
+
+    public void addOff(Off off) {
+        offs.remove(off);
     }
 }
