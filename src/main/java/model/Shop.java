@@ -1,6 +1,7 @@
 package model;
 
 import model.category.Category;
+import model.persons.Customer;
 import model.persons.Person;
 import model.persons.Seller;
 import model.productThings.*;
@@ -8,6 +9,7 @@ import model.requests.Request;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Shop {
     private static Shop ourInstance = new Shop();
@@ -18,6 +20,7 @@ public class Shop {
     private ArrayList<DiscountCode> allDiscountCodes;
     private ArrayList<Rate> allRates;
     private ArrayList<GoodInCart> cart;
+    private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
         return ourInstance;
@@ -77,7 +80,7 @@ public class Shop {
         allDiscountCodes.remove(discountCode);
     }
 
-    public void addDiscountCode(DiscountCode discountCode){
+    public void addDiscountCode(DiscountCode discountCode) {
         allDiscountCodes.add(discountCode);
     }
 
@@ -150,18 +153,35 @@ public class Shop {
         offs.remove(off);
     }
 
-    public void removeOff(Off off){
+    public void removeOff(Off off) {
         offs.remove(off);
     }
 
-    public void deleteCategory(Category category){
-        for (int i=0 ; i< category.getSubCategories().size() ; i++){
+    public void deleteCategory(Category category) {
+        for (int i = 0; i < category.getSubCategories().size(); i++) {
             category.deleteSubCategory(category.getSubCategories().get(0));
         }
         removeCategory(category);
     }
 
-    public void generatePeriodRandomDiscountCodes (){
+    public void generatePeriodRandomDiscountCodes(LocalDate endDate) {
+        String code=DiscountCode.generateRandomDiscountCode();
+        DiscountCode discountCode = new DiscountCode(code,LocalDate.now(),endDate,100000L,20,randomCustomers(5,1));
+        allDiscountCodes.add(discountCode);
+        for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
+            customer.addDiscountCode(discountCode);
+        }
+    }
 
+    private HashMap<Customer,Integer> randomCustomers(int customerNumbers,int repeatingTimes){
+        HashMap<Customer,Integer> randomCustomers=new HashMap<>();
+        while(randomCustomers.size() < customerNumbers){
+            int randomNumber = ((int)(Math.random() * 1000000)) % allPersons.size();
+            Person person = allPersons.get(randomNumber);
+            if(person instanceof Customer){
+                randomCustomers.put((Customer) person ,repeatingTimes);
+            }
+        }
+        return randomCustomers;
     }
 }
