@@ -17,7 +17,7 @@ public class DiscountCode {
         this.code = code;
         this.startDate = startDate;
         this.endDate = endDate;
-        MaxDiscountAmount = maxDiscountAmount;
+        this.MaxDiscountAmount = maxDiscountAmount;
         this.discountPercent = discountPercent;
         this.includedCustomers = includedCustomers;
     }

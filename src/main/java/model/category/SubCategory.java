@@ -42,10 +42,12 @@ public class SubCategory {
     }
 
     public void removeGood(Good good){
-        for (SellerRelatedInfoAboutGood sellerRelatedInfo : good.getSellerRelatedInfoAboutGoods()) {
-            sellerRelatedInfo.getSeller().removeFromActiveGoods(good);
-        }
         this.goods.remove(good);
+    }
+
+    public void deleteGood(Good good){
+        good.deleteGoodFromSellerList();
+        removeGood(good);
     }
 
     public Good findGoodById(long goodId){

@@ -72,5 +72,11 @@ public class Good {
     public long getPriceBySeller(Seller seller) {
         return sellerRelatedInfoAboutGoods.stream().filter((info) -> info.getSeller().equals(seller)).map(SellerRelatedInfoAboutGood::getPrice).findAny().orElse(0L);
     }
+
+    public void deleteGoodFromSellerList(){
+        for (SellerRelatedInfoAboutGood sellerRelatedInfo : getSellerRelatedInfoAboutGoods()) {
+            sellerRelatedInfo.getSeller().removeFromActiveGoods(this);
+        }
+    }
 }
 

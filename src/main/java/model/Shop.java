@@ -76,6 +76,10 @@ public class Shop {
         allDiscountCodes.remove(discountCode);
     }
 
+    public void addDiscountCode(DiscountCode discountCode){
+        allDiscountCodes.add(discountCode);
+    }
+
     public Request findReQuestById(long requestId) {
         for (Request request : allRequest) {
             if (request.getRequestId() == requestId)
@@ -97,8 +101,6 @@ public class Shop {
     }
 
     public void removeCategory(Category category) {
-        for(int i=0 ; i<category.getSubCategories().size() ; )
-            category.removeSubCategory(category.getSubCategories().get(0));
         allCategories.remove(category);
     }
 
@@ -145,5 +147,16 @@ public class Shop {
 
     public void addOff(Off off) {
         offs.remove(off);
+    }
+
+    public void removeOff(Off off){
+        offs.remove(off);
+    }
+
+    public void deleteCategory(Category category){
+        for (int i=0 ; i< category.getSubCategories().size() ; i++){
+            category.deleteSubCategory(category.getSubCategories().get(0));
+        }
+        removeCategory(category);
     }
 }

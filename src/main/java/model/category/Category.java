@@ -32,9 +32,14 @@ public class Category {
         subCategory.setParentCategory(this);
     }
 
-    public void removeSubCategory(SubCategory subCategory) {
-        for (int i=0 ; i<subCategory.getGoods().size() ;)
-            subCategory.removeGood(subCategory.getGoods().get(0));
+    public void deleteSubCategory(SubCategory subCategory){
+        for (int i=0 ; i<subCategory.getGoods().size() ;){
+            subCategory.deleteGood(subCategory.getGoods().get(0));
+        }
+        removeSubCategoryFromList(subCategory);
+    }
+
+    public void removeSubCategoryFromList(SubCategory subCategory) {
         this.subCategories.remove(subCategory);
     }
 
