@@ -80,7 +80,7 @@ public class Shop {
         allDiscountCodes.add(discountCode);
     }
 
-    public Request findReQuestById(long requestId) {
+    public Request findRequestById(long requestId) {
         for (Request request : allRequest) {
             if (request.getRequestId() == requestId)
                 return request;

@@ -1,4 +1,4 @@
-package model.tests;
+package modelTest.persons;
 
 import model.persons.Customer;
 import org.junit.Assert;

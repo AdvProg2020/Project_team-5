@@ -6,11 +6,11 @@ import model.productThings.GoodStatus;
 
 import java.util.HashMap;
 
-public class EdittingGoodRequest extends Request {
+public class EditingGoodRequest extends Request {
     private long goodId;
     private HashMap<String, String> editedFields;
 
-    public EdittingGoodRequest(long goodId, HashMap<String, String> editedFields) {
+    public EditingGoodRequest(long goodId, HashMap<String, String> editedFields) {
         this.goodId = goodId;
         this.editedFields = editedFields;
     }
