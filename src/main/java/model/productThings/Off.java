@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Off {
+    private static long offsCount = 1;
     private long offId;
     private ArrayList<Good> offGoods;
     private OffStatus offStatus;
@@ -16,16 +17,15 @@ public class Off {
     private Seller seller;
 
     public enum OffStatus {
-        ValidationProgress,
-        EditingProcess,
-        Accepted,
-        OutOfDate,
-        Rejected
+        VALIDATING,
+        EDITING,
+        ACCEPTED
     }
 
-    public Off(ArrayList<Good> offGoods,LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
+    public Off(ArrayList<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
+        this.offId = offsCount++;
         this.offGoods = offGoods;
-        this.offStatus = OffStatus.ValidationProgress;
+        this.offStatus = OffStatus.VALIDATING;
         this.startDate = startDate;
         this.endDate = endDate;
         this.maxDiscount = maxDiscount;
@@ -90,7 +90,7 @@ public class Off {
     }
 
     public long getPriceAfterOff(Good good) {
-        return this.offGoods.stream().filter(offGood -> offGood.equals(good)).map(offGood -> (long)(offGood.getPriceBySeller(seller) * (1 - discountPercent/(double)100))).findAny().orElse(0L);
+        return this.offGoods.stream().filter(offGood -> offGood.equals(good)).map(offGood -> (long) (offGood.getPriceBySeller(seller) * (1 - discountPercent / (double) 100))).findAny().orElse(0L);
     }
 
     @Override

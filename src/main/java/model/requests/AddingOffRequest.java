@@ -14,7 +14,7 @@ public class AddingOffRequest extends Request {
     public void acceptRequest() {
         Shop.getInstance().addOff(off);
         off.getSeller().addOff(off);
-        off.setOffStatus(Off.OffStatus.Accepted);
+        off.setOffStatus(Off.OffStatus.ACCEPTED);
     }
 
     @Override

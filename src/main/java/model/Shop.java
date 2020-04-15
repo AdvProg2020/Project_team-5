@@ -6,6 +6,7 @@ import model.persons.Seller;
 import model.productThings.*;
 import model.requests.Request;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Shop {
@@ -158,5 +159,9 @@ public class Shop {
             category.deleteSubCategory(category.getSubCategories().get(0));
         }
         removeCategory(category);
+    }
+
+    public void generatePeriodRandomDiscountCodes (){
+
     }
 }

@@ -67,7 +67,7 @@ public class DiscountCode {
         StringBuilder randomCode = new StringBuilder(15);
 
         for (int i = 0; i < 15; i++) {
-            int index = (int)(AlphaNumericString.length() * Math.random());
+            int index = (int) (AlphaNumericString.length() * Math.random());
             randomCode.append(AlphaNumericString.charAt(index));
         }
         return randomCode.toString();

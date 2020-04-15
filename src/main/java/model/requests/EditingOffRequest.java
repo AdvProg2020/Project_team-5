@@ -26,7 +26,7 @@ public class EditingOffRequest extends Request {
             else if (field.equalsIgnoreCase("discountPercent"))
                 off.setDiscountPercent(Integer.parseInt(editedFields.get(field)));
         }
-        off.setOffStatus(Off.OffStatus.Accepted);
+        off.setOffStatus(Off.OffStatus.ACCEPTED);
     }
 
     @Override

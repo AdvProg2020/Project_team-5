@@ -11,9 +11,9 @@ public class Comment {
     private boolean didCommenterBoughtThisProduct;
 
     enum CommentStatus {
-        Accepted,
-        InProgress,
-        Rejected
+        ACCEPTED,
+        INPROGRESS,
+        REJECTED
     }
 
     public Comment(Person person, Good good, String title, String comment, boolean didCommenterBoughtThisProduct) {
@@ -22,7 +22,7 @@ public class Comment {
         this.title = title;
         this.comment = comment;
         this.didCommenterBoughtThisProduct = didCommenterBoughtThisProduct;
-        this.commentStatus = CommentStatus.InProgress;
+        this.commentStatus = CommentStatus.INPROGRESS;
     }
 
     public Person getPerson() {

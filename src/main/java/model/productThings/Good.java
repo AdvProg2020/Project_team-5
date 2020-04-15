@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Good {
+    private static long goodsCount = 1;
     private long goodId;
     private GoodStatus goodStatus;
     private String name;
@@ -25,8 +26,8 @@ public class Good {
         BUILTPROCESSING, EDITINGPROCESSING, CONFIRMED
     }
 
-
     public Good(String name, String brand, SubCategory subCategory, String details, HashMap<String, Object> categoryProperties, Seller seller, long price, int availableNumber) {
+        this.goodId = goodsCount++;
         this.name = name;
         this.brand = brand;
         this.subCategory = subCategory;
@@ -78,7 +79,7 @@ public class Good {
         return sellerRelatedInfoAboutGoods.stream().filter((info) -> info.getSeller().equals(seller)).map(SellerRelatedInfoAboutGood::getPrice).findAny().orElse(0L);
     }
 
-    public void deleteGoodFromSellerList(){
+    public void deleteGoodFromSellerList() {
         for (SellerRelatedInfoAboutGood sellerRelatedInfo : getSellerRelatedInfoAboutGoods()) {
             sellerRelatedInfo.getSeller().removeFromActiveGoods(this);
         }
@@ -86,20 +87,20 @@ public class Good {
 
     @Override
     public String toString() {
-        String sellerRelatedInfos="";
+        String sellerRelatedInfos = "";
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
-            sellerRelatedInfos = sellerRelatedInfos + relatedInfoAboutGood.toString() +"\n";
+            sellerRelatedInfos = sellerRelatedInfos + relatedInfoAboutGood.toString() + "\n";
         }
         return "------------------------------------\n"
                 + "name = " + name
                 + "\ngoodStatus = " + goodStatus
                 + "\nbrand = " + brand
-                +"\naverage rate = " + averageRate
-                +"\ncategory = "+ subCategory.getParentCategory().getName()
-                +"\nsubcategory = "+ subCategory.getName() +"\n" + sellerRelatedInfos
-                +"details =\n" + details
-                +"\nmodification date = "+ modificationDate.toString()
-                +"\nseen number = "+ seenNumber + "\n" +
+                + "\naverage rate = " + averageRate
+                + "\ncategory = " + subCategory.getParentCategory().getName()
+                + "\nsubcategory = " + subCategory.getName() + "\n" + sellerRelatedInfos
+                + "details =\n" + details
+                + "\nmodification date = " + modificationDate.toString()
+                + "\nseen number = " + seenNumber + "\n" +
                 "------------------------------------\n";
     }
 }
