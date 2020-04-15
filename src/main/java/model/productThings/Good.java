@@ -75,8 +75,28 @@ public class Good {
         this.goodStatus = goodStatus;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setSubCategory(SubCategory subCategory) {
+        this.subCategory = subCategory;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
     public long getPriceBySeller(Seller seller) {
         return sellerRelatedInfoAboutGoods.stream().filter((info) -> info.getSeller().equals(seller)).map(SellerRelatedInfoAboutGood::getPrice).findAny().orElse(0L);
+    }
+
+    public HashMap<String, Object> getCategoryProperties() {
+        return categoryProperties;
     }
 
     public void deleteGoodFromSellerList() {
