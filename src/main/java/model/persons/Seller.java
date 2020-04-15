@@ -38,8 +38,12 @@ public class Seller extends Person {
         return activeGoods;
     }
 
-    public void setActiveGoods(ArrayList<Good> activeGoods) {
-        this.activeGoods = activeGoods;
+    public void addToActiveGoods(Good good) {
+        this.activeGoods.add(good);
+    }
+
+    public void removeFromActiveGoods(Good good) {
+        this.activeGoods.remove(good);
     }
 
     public ArrayList<Off> getActiveOffs() {
@@ -48,6 +52,10 @@ public class Seller extends Person {
 
     public void setActiveOffs(ArrayList<Off> activeOffs) {
         this.activeOffs = activeOffs;
+    }
+
+    public void addOff(Off off){
+        this.activeOffs.add(off);
     }
 
     public ArrayList<String> buyersOfAGood(Good good) {

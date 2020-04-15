@@ -34,4 +34,18 @@ public class Category {
         this.subCategories.remove(subCategory);
     }
 
+    @Override
+    public String toString() {
+        String categoryStr = "Name of Category : " + getName() + "\nSubcategories :";
+        for (int i = 0; i < subCategories.size(); i++) {
+            categoryStr += "\n" + (i + 1) + "- " + subCategories.get(i).getName();
+        }
+        categoryStr += "\nSpecial properties :";
+        for (int i = 0; i < details.size(); i++) {
+            categoryStr += "\n" + (i + 1) + "- " + details.get(i);
+        }
+
+        return categoryStr;
+    }
+
 }

@@ -49,6 +49,10 @@ public class Good {
         return sellerRelatedInfoAboutGoods;
     }
 
+    public SubCategory getSubCategory() {
+        return subCategory;
+    }
+
     public void AddSeller(SellerRelatedInfoAboutGood newSellerRelatedInfo) {
         this.sellerRelatedInfoAboutGoods.add(newSellerRelatedInfo);
     }
@@ -61,11 +65,12 @@ public class Good {
         this.averageRate = averageRate;
     }
 
+    public void setGoodStatus(GoodStatus goodStatus) {
+        this.goodStatus = goodStatus;
+    }
+
     public long getPriceBySeller(Seller seller) {
         return sellerRelatedInfoAboutGoods.stream().filter((info) -> info.getSeller().equals(seller)).map(SellerRelatedInfoAboutGood::getPrice).findAny().orElse(0L);
     }
 }
 
-enum GoodStatus {
-    BUILTPROCESSING, EDITTINGPROCESSING, CONFIRMED
-}
