@@ -8,8 +8,14 @@ public class GoodInCart {
     private int number;
 
     public GoodInCart(Good good, Seller seller, int number) {
+        if(seller == null)
+            seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
         this.good = good;
         this.seller = seller;
+        this.number = number;
+    }
+
+    public void setNumber(int number) {
         this.number = number;
     }
 

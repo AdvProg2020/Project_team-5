@@ -1,5 +1,7 @@
 package model.category;
 
+import model.productThings.Good;
+
 import java.util.ArrayList;
 
 public class Category {
@@ -32,6 +34,14 @@ public class Category {
 
     public void removeSubCategory(SubCategory subCategory) {
         this.subCategories.remove(subCategory);
+    }
+
+    public Good findGoodInSubCategories(long goodId){
+        for (SubCategory subCategory : subCategories) {
+           if (subCategory.findGoodById(goodId) != null)
+               return subCategory.findGoodById(goodId);
+        }
+        return null;
     }
 
     @Override

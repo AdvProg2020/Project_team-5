@@ -44,6 +44,14 @@ public class SubCategory {
         this.goods.remove(good);
     }
 
+    public Good findGoodById(long goodId){
+        for (Good good : goods) {
+            if (good.getGoodId() == goodId)
+                return good;
+        }
+        return null;
+    }
+
     @Override
     public String toString(){
         String subCategoryStr = getName() + " of " + parentCategory.getName() +" category";
