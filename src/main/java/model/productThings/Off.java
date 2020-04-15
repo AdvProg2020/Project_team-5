@@ -90,7 +90,16 @@ public class Off {
     }
 
     public long getPriceAfterOff(Good good) {
-        return this.offGoods.stream().filter(offGood -> offGood.equals(good)).map(offGood -> (long) (offGood.getPriceBySeller(seller) * (1 - discountPercent / (double) 100))).findAny().orElse(0L);
+        return this.offGoods.stream().filter(offGood -> offGood.equals(good)).map(offGood -> (long) (offGood.getPriceBySeller(seller)
+                * (1 - discountPercent / (double) 100))).findAny().orElse(0L);
+    }
+
+    public void addGood(Good good){
+        offGoods.add(good);
+    }
+
+    public void removeGood(Good good){
+        offGoods.remove(good);
     }
 
     @Override

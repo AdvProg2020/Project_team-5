@@ -25,6 +25,10 @@ public class EditingOffRequest extends Request {
                 off.setMaxDiscount(Long.parseLong(editedFields.get(field)));
             else if (field.equalsIgnoreCase("discountPercent"))
                 off.setDiscountPercent(Integer.parseInt(editedFields.get(field)));
+            else if (field.equalsIgnoreCase("add good"))
+                off.addGood(Shop.getInstance().findGoodById(Long.parseLong(editedFields.get(field))));
+            else if (field.equalsIgnoreCase("remove good"))
+                off.removeGood(Shop.getInstance().findGoodById(Long.parseLong(editedFields.get(field))));
         }
         off.setOffStatus(Off.OffStatus.ACCEPTED);
     }
