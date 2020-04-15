@@ -72,4 +72,19 @@ public class DiscountCode {
         }
         return randomCode.toString();
     }
+
+    public void discountBeUsedForCustomer(Customer customer) throws Exception {
+        for (Customer includedCustomer : includedCustomers.keySet()) {
+            if (includedCustomer.equals(customer)) {
+                int remainedNumberOfUse = includedCustomers.get(includedCustomer);
+                if (remainedNumberOfUse > 1) {
+                    includedCustomers.replace(includedCustomer, remainedNumberOfUse - 1);
+                } else {
+                    includedCustomers.remove(includedCustomer);
+                }
+                return;
+            }
+        }
+        throw new Exception("CustomerNotFoundException");
+    }
 }
