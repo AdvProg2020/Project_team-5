@@ -43,4 +43,22 @@ public class SubCategory {
     public void removeGood(Good good){
         this.goods.remove(good);
     }
+
+    @Override
+    public String toString(){
+        String subCategoryStr = getName() + " of " + parentCategory.getName() +" category";
+        subCategoryStr += "\nproperties :";
+        for (int i=0 ; i< details.size() + parentCategory.getDetails().size() ; i++){
+            subCategoryStr += "\n" + (i+1) + "- ";
+            if (i<parentCategory.getDetails().size())
+                subCategoryStr += parentCategory.getDetails().get(i);
+            else
+                subCategoryStr += details.get(i-parentCategory.getDetails().size());
+        }
+        subCategoryStr += "\nProducts :";
+        for (Good good : goods) {
+            subCategoryStr += "- " + good.toString();
+        }
+        return subCategoryStr;
+    }
 }
