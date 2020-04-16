@@ -37,20 +37,20 @@ public class SubCategory {
         return goods;
     }
 
-    public void addGood(Good good){
+    public void addGood(Good good) {
         this.goods.add(good);
     }
 
-    public void removeGood(Good good){
+    public void removeGood(Good good) {
         this.goods.remove(good);
     }
 
-    public void deleteGood(Good good){
+    public void deleteGood(Good good) {
         good.deleteGoodFromSellerList();
-        removeGood(good);
+        this.removeGood(good);
     }
 
-    public Good findGoodById(long goodId){
+    public Good findGoodById(long goodId) {
         for (Good good : goods) {
             if (good.getGoodId() == goodId)
                 return good;
@@ -59,19 +59,19 @@ public class SubCategory {
     }
 
     @Override
-    public String toString(){
-        String subCategoryStr = getName() + " of " + parentCategory.getName() +" category";
-        subCategoryStr += "\nproperties :";
-        for (int i=0 ; i< details.size() + parentCategory.getDetails().size() ; i++){
-            subCategoryStr += "\n" + (i+1) + "- ";
-            if (i<parentCategory.getDetails().size())
+    public String toString() {
+        String subCategoryStr = getName() + " of " + parentCategory.getName() + " category";
+        subCategoryStr += "\nproperties =";
+        for (int i = 0; i < details.size() + parentCategory.getDetails().size(); i++) {
+            subCategoryStr += ("\n" + (i + 1) + "- ");
+            if (i < parentCategory.getDetails().size())
                 subCategoryStr += parentCategory.getDetails().get(i);
             else
-                subCategoryStr += details.get(i-parentCategory.getDetails().size());
+                subCategoryStr += details.get(i - parentCategory.getDetails().size());
         }
-        subCategoryStr += "\nProducts :";
+        subCategoryStr += "\nProducts =\n";
         for (Good good : goods) {
-            subCategoryStr += "- " + good.toString();
+            subCategoryStr += (good.toString());
         }
         return subCategoryStr;
     }

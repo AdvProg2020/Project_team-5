@@ -64,7 +64,7 @@ public class Comment {
     @Override
     public String toString() {
         return String.format("Commenter Username : %s\nProduct Id : %d\n" +
-                "Product Name : %s\nTitle : %s\nContent : %s\n", this.person.getUsername(),
+                        "Product Name : %s\nTitle : %s\nContent : %s\n", this.person.getUsername(),
                 this.good.getGoodId(), this.good.getName(), this.title, this.comment);
     }
 }

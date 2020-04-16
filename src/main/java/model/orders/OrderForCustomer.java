@@ -5,7 +5,7 @@ import model.productThings.GoodInCart;
 import java.util.ArrayList;
 
 public class OrderForCustomer extends Order {
-    private ArrayList<GoodInCart> goodsDetails ;
+    private ArrayList<GoodInCart> goodsDetails;
     private long discountAmount;
     private String address;
     private String phoneNumber;

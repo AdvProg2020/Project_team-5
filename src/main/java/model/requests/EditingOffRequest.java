@@ -17,11 +17,11 @@ public class EditingOffRequest extends Request {
 
     @Override
     public void acceptRequest() {
-        Off off= Shop.getInstance().findOffById(offId);
+        Off off = Shop.getInstance().findOffById(offId);
         for (String field : editedFields.keySet()) {
-            if(field.equalsIgnoreCase("endDate")){
+            if (field.equalsIgnoreCase("endDate")) {
                 off.setEndDate(LocalDate.parse(editedFields.get(field)));
-            }else if (field.equalsIgnoreCase("maxDiscount"))
+            } else if (field.equalsIgnoreCase("maxDiscount"))
                 off.setMaxDiscount(Long.parseLong(editedFields.get(field)));
             else if (field.equalsIgnoreCase("discountPercent"))
                 off.setDiscountPercent(Integer.parseInt(editedFields.get(field)));
@@ -36,7 +36,8 @@ public class EditingOffRequest extends Request {
     @Override
     public String toString() {
         return "EditingOffRequest :\n" +
-                 Shop.getInstance().findOffById(offId) +
-                "editedFields =\n" + editedFields ;
+                "request id = " + super.getRequestId() + "\n" +
+                Shop.getInstance().findOffById(offId) +
+                "editedFields =\n" + editedFields;
     }
 }

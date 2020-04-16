@@ -32,8 +32,8 @@ public class Category {
         subCategory.setParentCategory(this);
     }
 
-    public void deleteSubCategory(SubCategory subCategory){
-        for (int i=0 ; i<subCategory.getGoods().size() ;){
+    public void deleteSubCategory(SubCategory subCategory) {
+        for (int i = 0; i < subCategory.getGoods().size(); ) {
             subCategory.deleteGood(subCategory.getGoods().get(0));
         }
         removeSubCategoryFromList(subCategory);
@@ -43,23 +43,23 @@ public class Category {
         this.subCategories.remove(subCategory);
     }
 
-    public Good findGoodInSubCategories(long goodId){
+    public Good findGoodInSubCategories(long goodId) {
         for (SubCategory subCategory : subCategories) {
-           if (subCategory.findGoodById(goodId) != null)
-               return subCategory.findGoodById(goodId);
+            if (subCategory.findGoodById(goodId) != null)
+                return subCategory.findGoodById(goodId);
         }
         return null;
     }
 
     @Override
     public String toString() {
-        String categoryStr = "Name of Category : " + getName() + "\nSubcategories :";
+        String categoryStr = "Name of Category = " + getName() + "\nSubcategories =";
         for (int i = 0; i < subCategories.size(); i++) {
-            categoryStr += "\n" + (i + 1) + "- " + subCategories.get(i).getName();
+            categoryStr += ("\n" + (i + 1) + "- " + subCategories.get(i).getName());
         }
         categoryStr += "\nSpecial properties :";
         for (int i = 0; i < details.size(); i++) {
-            categoryStr += "\n" + (i + 1) + "- " + details.get(i);
+            categoryStr += ("\n" + (i + 1) + "- " + details.get(i));
         }
 
         return categoryStr;

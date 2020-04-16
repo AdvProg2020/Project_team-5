@@ -40,7 +40,7 @@ public class Rate {
     @Override
     public String toString() {
         return String.format("################\nCustomer Username: %s\n" +
-                "Product Id : %d\nProduct Name : %s\nRate : %d\n################\n"
+                        "Product Id : %d\nProduct Name : %s\nRate : %d\n################\n"
                 , this.customer.getUsername(), this.good.getGoodId(),
                 this.good.getName(), this.rate);
     }

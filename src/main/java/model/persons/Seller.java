@@ -54,7 +54,7 @@ public class Seller extends Person {
         this.activeOffs = activeOffs;
     }
 
-    public void addOff(Off off){
+    public void addOff(Off off) {
         this.activeOffs.add(off);
     }
 

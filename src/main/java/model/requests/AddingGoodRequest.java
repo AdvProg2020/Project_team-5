@@ -1,5 +1,6 @@
 package model.requests;
 
+import model.Shop;
 import model.persons.Seller;
 import model.productThings.Good;
 
@@ -15,16 +16,20 @@ public class AddingGoodRequest extends Request {
 
     @Override
     public void acceptRequest() {
-        good.getSubCategory().addGood(this.good);
-        if (good.getSellerRelatedInfoAboutGoods().size() > 1){
-            good.getSellerRelatedInfoAboutGoods().get(good.getSellerRelatedInfoAboutGoods().size()-1).getSeller().addToActiveGoods(good);
-            good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+
+        Good originalGood;
+        if ((originalGood = Shop.getInstance().getGoodByNameAndBrandAndSubCategory(good.getName(), good.getBrand(), good.getSubCategory())) == null) {
+            good.getSubCategory().addGood(good);
+        } else {
+            originalGood.addSeller(good.getSellerRelatedInfoAboutGoods().get(0));
         }
+        seller.addToActiveGoods(good);
     }
 
     @Override
     public String toString() {
         return "AddingGoodRequest :\n" +
-                good.toString() + seller.toString();
+                "request id = " + super.getRequestId() + "\n" +
+                good.toString() + "seller = " + seller.getUsername();
     }
 }

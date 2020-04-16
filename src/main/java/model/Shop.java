@@ -1,6 +1,7 @@
 package model;
 
 import model.category.Category;
+import model.category.SubCategory;
 import model.persons.Customer;
 import model.persons.Person;
 import model.persons.Seller;
@@ -165,27 +166,27 @@ public class Shop {
     }
 
     public void generatePeriodRandomDiscountCodes(LocalDate endDate) {
-        String code=DiscountCode.generateRandomDiscountCode();
-        DiscountCode discountCode = new DiscountCode(code,LocalDate.now(),endDate,100000L,20,randomCustomers(5,1));
+        String code = DiscountCode.generateRandomDiscountCode();
+        DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20, randomCustomers(5, 1));
         allDiscountCodes.add(discountCode);
         for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
             customer.addDiscountCode(discountCode);
         }
     }
 
-    private HashMap<Customer,Integer> randomCustomers(int customerNumbers,int repeatingTimes){
-        HashMap<Customer,Integer> randomCustomers=new HashMap<>();
-        while(randomCustomers.size() < customerNumbers){
-            int randomNumber = ((int)(Math.random() * 1000000)) % allPersons.size();
+    private HashMap<Customer, Integer> randomCustomers(int customerNumbers, int repeatingTimes) {
+        HashMap<Customer, Integer> randomCustomers = new HashMap<>();
+        while (randomCustomers.size() < customerNumbers) {
+            int randomNumber = ((int) (Math.random() * 1000000)) % allPersons.size();
             Person person = allPersons.get(randomNumber);
-            if(person instanceof Customer){
-                randomCustomers.put((Customer) person ,repeatingTimes);
+            if (person instanceof Customer) {
+                randomCustomers.put((Customer) person, repeatingTimes);
             }
         }
         return randomCustomers;
     }
 
-    public long getFinalPriceOfAGood(Good good, Seller seller){
+    public long getFinalPriceOfAGood(Good good, Seller seller) {
         if (seller == null)
             seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
         for (Off off : offs) {
@@ -193,5 +194,31 @@ public class Shop {
                 return off.getPriceAfterOff(good, seller);
         }
         return good.getPriceBySeller(seller);
+    }
+
+    public SubCategory findSubCategoryByName(String name){
+        for (Category category : allCategories) {
+            for (SubCategory subCategory : category.getSubCategories()) {
+             if (subCategory.getName().equalsIgnoreCase(name))
+                 return subCategory;
+            }
+        }
+        return null;
+    }
+
+    public Category findCategoryByName(String name){
+        for (Category category : allCategories) {
+            if (category.getName().equalsIgnoreCase(name))
+                return category;
+        }
+        return null;
+    }
+
+    public Good getGoodByNameAndBrandAndSubCategory(String name, String brand, SubCategory subCategory){
+        for (Good good : subCategory.getGoods()) {
+            if(good.getBrand().equalsIgnoreCase(brand) && good.getName().equalsIgnoreCase(name))
+                return good;
+        }
+        return null;
     }
 }

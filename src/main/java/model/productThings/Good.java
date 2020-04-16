@@ -23,7 +23,7 @@ public class Good {
     private HashMap<String, Object> categoryProperties;
 
     public enum GoodStatus {
-        BUILTPROCESSING, EDITINGPROCESSING, CONFIRMED
+        BUILTPROCESSING, EDITINGPROCESSING, CONFIRMED, NOTAVAILABLE
     }
 
     public Good(String name, String brand, SubCategory subCategory, String details, HashMap<String, Object> categoryProperties, Seller seller, long price, int availableNumber) {
@@ -51,6 +51,14 @@ public class Good {
         return goodId;
     }
 
+    public static long getGoodsCount() {
+        return goodsCount;
+    }
+
+    public static void setGoodsCount(long goodsCount) {
+        Good.goodsCount = goodsCount;
+    }
+
     public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
         return sellerRelatedInfoAboutGoods;
     }
@@ -59,12 +67,17 @@ public class Good {
         return subCategory;
     }
 
-    public void AddSeller(SellerRelatedInfoAboutGood newSellerRelatedInfo) {
-        this.sellerRelatedInfoAboutGoods.add(newSellerRelatedInfo);
+    public void addSeller(SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood) {
+        this.sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
     }
 
-    public void removeSeller(SellerRelatedInfoAboutGood sellerRelatedInfo) {
-        this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfo);
+    public void removeSeller(Seller seller) {
+        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
+            if (relatedInfoAboutGood.getSeller().equals(seller))
+                sellerRelatedInfoAboutGood = relatedInfoAboutGood;
+        }
+        if (sellerRelatedInfoAboutGood != null) this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfoAboutGood);
     }
 
     public void setAverageRate(double averageRate) {
@@ -108,8 +121,9 @@ public class Good {
     @Override
     public String toString() {
         String sellerRelatedInfos = "";
+        int i = 1;
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
-            sellerRelatedInfos = sellerRelatedInfos + relatedInfoAboutGood.toString() + "\n";
+            sellerRelatedInfos += ((i++) + "- " + relatedInfoAboutGood.toString() + "\n");
         }
         return "------------------------------------\n"
                 + "name = " + name
@@ -117,7 +131,8 @@ public class Good {
                 + "\nbrand = " + brand
                 + "\naverage rate = " + averageRate
                 + "\ncategory = " + subCategory.getParentCategory().getName()
-                + "\nsubcategory = " + subCategory.getName() + "\n" + sellerRelatedInfos
+                + "\nsubcategory = " + subCategory.getName()
+                + "\nsellers = " + sellerRelatedInfos
                 + "details =\n" + details
                 + "\nmodification date = " + modificationDate.toString()
                 + "\nseen number = " + seenNumber + "\n" +

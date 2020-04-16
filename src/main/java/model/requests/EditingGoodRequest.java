@@ -12,7 +12,7 @@ public class EditingGoodRequest extends Request {
     private HashMap<String, String> editedFields;
     private Seller seller;
 
-    public EditingGoodRequest(long goodId,Seller seller , HashMap<String, String> editedFields) {
+    public EditingGoodRequest(long goodId, Seller seller, HashMap<String, String> editedFields) {
         this.goodId = goodId;
         this.seller = seller;
         this.editedFields = editedFields;
@@ -28,8 +28,9 @@ public class EditingGoodRequest extends Request {
 
     @Override
     public String toString() {
-        return "EditingGoodRequest\n" +
-                "goodId : " + goodId +
+        return "EditingGoodRequest :\n" +
+                "request id = " + super.getRequestId() +
+                "\ngoodId = " + goodId +
                 "\nfieldsWithValuesForEditing : " + editedFields.toString();
     }
 
