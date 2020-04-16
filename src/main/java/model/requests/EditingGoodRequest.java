@@ -51,7 +51,7 @@ public class EditingGoodRequest extends Request {
                 information.setPrice(Long.parseLong(editedFields.get("price")));
             } else if (field.equalsIgnoreCase("availableNumber")) {
                 SellerRelatedInfoAboutGood information = (SellerRelatedInfoAboutGood) good.getSellerRelatedInfoAboutGoods().stream().filter(info -> info.getSeller().equals(seller)).toArray()[0];
-                information.setAvailableNumber(Integer.parseInt(editedFields.get("price")));
+                information.setAvailableNumber(Integer.parseInt(editedFields.get("availableNumber")));
             }
             for (String subCategoryProperty : good.getCategoryProperties().keySet()) {
                 if (field.equalsIgnoreCase(subCategoryProperty)) {
