@@ -184,4 +184,14 @@ public class Shop {
         }
         return randomCustomers;
     }
+
+    public long getFinalPriceOfAGood(Good good, Seller seller){
+        if (seller == null)
+            seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
+        for (Off off : offs) {
+            if (off.getPriceAfterOff(good, seller) != 0)
+                return off.getPriceAfterOff(good, seller);
+        }
+        return good.getPriceBySeller(seller);
+    }
 }
