@@ -1,5 +1,6 @@
 package model.productThings;
 
+import model.Shop;
 import model.persons.Seller;
 
 public class GoodInCart {
@@ -8,7 +9,7 @@ public class GoodInCart {
     private int number;
 
     public GoodInCart(Good good, Seller seller, int number) {
-        if(seller == null)
+        if (seller == null)
             seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
         this.good = good;
         this.seller = seller;
@@ -32,10 +33,14 @@ public class GoodInCart {
     }
 
     @Override
-    public String toString(){
-        String good = "name : " + getGood().getName() + "\tbrand : " + getGood().getBrand() + "\tprice before off : " + getGood().getPriceBySeller(getSeller())
-                // + "price after off : " + getGood.getPriceAfterOff
-                + "\tnumber :" + getNumber() + "\tseller : " + getSeller().getFirstName() + " " + getSeller().getLastName();
-        return good;
+    public String toString() {
+        String toString = "name : " + getGood().getName() + "\tbrand : " + getGood().getBrand();
+        if (Shop.getInstance().getFinalPriceOfAGood(good, seller) != good.getPriceBySeller(seller))
+            toString += ("\tprice before off : " + getGood().getPriceBySeller(getSeller())
+                    + "price after off : " + Shop.getInstance().getFinalPriceOfAGood(good, seller));
+        else
+            toString += (("\tprice : " + getGood().getPriceBySeller(getSeller())));
+        toString += ("\tnumber :" + getNumber() + "\tseller : " + getSeller().getFirstName() + " " + getSeller().getLastName());
+        return toString;
     }
 }
