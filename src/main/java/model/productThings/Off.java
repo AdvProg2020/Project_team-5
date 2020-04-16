@@ -92,8 +92,10 @@ public class Off {
     public long getPriceAfterOff(Good good, Seller productSeller) {
         if (!productSeller.equals(seller))
             return 0L;
-        return this.offGoods.stream().filter(offGood -> offGood.equals(good)).map(offGood -> (long) (offGood.getPriceBySeller(seller)
-                * (1 - discountPercent / (double)  100))).findAny().orElse(0L);
+        return this.offGoods.stream().filter(offGood -> offGood.equals(good))
+                .map(offGood -> (long) (offGood.getPriceBySeller(seller)
+                * (1 - discountPercent / (double)  100)))
+                .findAny().orElse(0L);
     }
 
     public void addGood(Good good) {

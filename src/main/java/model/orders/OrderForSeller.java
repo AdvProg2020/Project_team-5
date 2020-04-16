@@ -1,5 +1,6 @@
 package model.orders;
 
+import model.Shop;
 import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.GoodInCart;
@@ -42,7 +43,6 @@ public class OrderForSeller extends Order {
     }
 
 
-
     @Override
     public String toString() {
         String sellerLog = "--------------------------------------------------------------------------------" +
@@ -50,14 +50,18 @@ public class OrderForSeller extends Order {
                 "\nDate : " + this.getDate() +
                 "\nGoodsList :";
         for (Good good : this.numberPerGood.keySet()) {
-            sellerLog += "\nname : " + good.getName() + "\tbrand : " + good.getBrand() + "\tprice before off : " + good.getPriceBySeller(getSeller())
-                    // + "price after off : " + getGood.getPriceAfterOff
-                    + "\tnumber :" + numberPerGood.get(good);
+            sellerLog += ("\nname : " + good.getName() + "\tbrand : " + good.getBrand());
+            if (Shop.getInstance().getFinalPriceOfAGood(good, seller) != good.getPriceBySeller(seller))
+                sellerLog += ("\tprice before off : " + good.getPriceBySeller(getSeller())
+                        + "price after off : " + Shop.getInstance().getFinalPriceOfAGood(good, seller));
+            else
+                sellerLog += ("\tprice : " + good.getPriceBySeller(getSeller()));
+            sellerLog += ("\tnumber :" + numberPerGood.get(good));
         }
-        sellerLog += "\nPaid price : " + this.getPrice() +
+        sellerLog += ("\nPaid price : " + this.getPrice() +
                 "\nDiscount amount : " + this.getOffDeduct() +
                 "\nOrder status : " + this.getOrderStatus() +
-                "--------------------------------------------------------------------------------";
+                "--------------------------------------------------------------------------------");
         return sellerLog;
     }
 }
