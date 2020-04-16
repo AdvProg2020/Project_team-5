@@ -151,7 +151,7 @@ public class Shop {
     }
 
     public void addOff(Off off) {
-        offs.remove(off);
+        offs.add(off);
     }
 
     public void removeOff(Off off) {
