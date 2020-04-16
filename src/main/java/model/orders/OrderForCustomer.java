@@ -5,8 +5,8 @@ import model.productThings.GoodInCart;
 import java.util.ArrayList;
 
 public class OrderForCustomer extends Order {
-    private ArrayList<GoodInCart> goodsDetails = new ArrayList<>();
-    private double discountAmount;
+    private ArrayList<GoodInCart> goodsDetails ;
+    private long discountAmount;
     private String address;
     private String phoneNumber;
 
@@ -20,7 +20,7 @@ public class OrderForCustomer extends Order {
         return goodsDetails;
     }
 
-    public double getDiscountAmount() {
+    public long getDiscountAmount() {
         return discountAmount;
     }
 
@@ -40,7 +40,7 @@ public class OrderForCustomer extends Order {
                 "\nDate : " + this.getDate() +
                 "\nGoodsList :";
         for (GoodInCart goodInfo : getGoodsDetails()) {
-            customerLog += "\n" + goodInfo.toString();
+            customerLog += ("\n" + goodInfo.toString());
         }
 
         customerLog += "\nPaid price : " + this.getPrice() +

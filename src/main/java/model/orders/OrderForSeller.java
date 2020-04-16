@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class OrderForSeller extends Order {
     private Seller seller;
     private String customerName;
-    private double offDeduct;
+    private long offDeduct;
     private HashMap<Good, Integer> numberPerGood = new HashMap<>();
 
     public OrderForSeller(Seller seller, String customerName, ArrayList<GoodInCart> goods) {
@@ -33,7 +33,7 @@ public class OrderForSeller extends Order {
         return customerName;
     }
 
-    public double getOffDeduct() {
+    public long getOffDeduct() {
         return offDeduct;
     }
 

@@ -5,7 +5,6 @@ import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 
 public class EditingGoodRequest extends Request {
