@@ -1,8 +1,6 @@
 package model.persons;
 
-import model.orders.Order;
 import model.orders.OrderForCustomer;
-import model.persons.Person;
 import model.productThings.DiscountCode;
 
 import java.util.ArrayList;
@@ -28,16 +26,8 @@ public class Customer extends Person {
         return discountCodes;
     }
 
-    public void setDiscountCodes(ArrayList<DiscountCode> discountCodes) {
-        this.discountCodes = discountCodes;
-    }
-
     public ArrayList<OrderForCustomer> getPreviousOrders() {
         return previousOrders;
-    }
-
-    public void setPreviousOrders(ArrayList<OrderForCustomer> previousOrders) {
-        this.previousOrders = previousOrders;
     }
 
     public Long getCredit() {
@@ -51,6 +41,6 @@ public class Customer extends Person {
     @Override
     public String toString() {
         return super.toString() +
-                "credit = " + getCredit() + "\n" + "-------------------";
+                "\ncredit = " + getCredit() + "\n" + "-------------------";
     }
 }

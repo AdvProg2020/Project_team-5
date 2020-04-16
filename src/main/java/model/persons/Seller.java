@@ -1,12 +1,11 @@
 package model.persons;
 
-import model.orders.Order;
 import model.orders.OrderForSeller;
-import model.persons.Person;
 import model.productThings.Good;
 import model.productThings.Off;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Seller extends Person {
     private Company company;
@@ -30,10 +29,6 @@ public class Seller extends Person {
         return previousSells;
     }
 
-    public void setPreviousSells(ArrayList<OrderForSeller> previousSells) {
-        this.previousSells = previousSells;
-    }
-
     public ArrayList<Good> getActiveGoods() {
         return activeGoods;
     }
@@ -48,10 +43,6 @@ public class Seller extends Person {
 
     public ArrayList<Off> getActiveOffs() {
         return activeOffs;
-    }
-
-    public void setActiveOffs(ArrayList<Off> activeOffs) {
-        this.activeOffs = activeOffs;
     }
 
     public void addOff(Off off) {
@@ -69,15 +60,11 @@ public class Seller extends Person {
     }
 
     public long balance() {
-        long sum = 0;
-        for (OrderForSeller order : this.previousSells) {
-            sum += (order.getPrice());
-        }
-        return sum;
+        return this.previousSells.stream().mapToLong(OrderForSeller::getPrice).sum();
     }
 
     @Override
     public String toString() {
-        return super.toString() + company.toString() + "active goods:\n" + activeGoods.toString() + "\n" + "-------------------";
+        return super.toString() + "\n" + company.toString() + "active goods:\n" + activeGoods.toString() + "\n" + "-------------------";
     }
 }
