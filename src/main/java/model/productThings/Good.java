@@ -126,6 +126,7 @@ public class Good {
             sellerRelatedInfos += ((i++) + "- " + relatedInfoAboutGood.toString() + "\n");
         }
         return "------------------------------------\n"
+                + "GoodId = " + goodId
                 + "name = " + name
                 + "\ngoodStatus = " + goodStatus
                 + "\nbrand = " + brand
