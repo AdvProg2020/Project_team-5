@@ -42,8 +42,6 @@ public class EditingGoodRequest extends Request {
                 good.setName(editedFields.get("name"));
             } else if (field.equalsIgnoreCase("brand")) {
                 good.setBrand(editedFields.get("brand"));
-            } else if (field.equalsIgnoreCase("subCategory")) {
-                //TODO
             } else if (field.equalsIgnoreCase("details")) {
                 good.setDetails(editedFields.get("details"));
             } else if (field.equalsIgnoreCase("price")) {
