@@ -1,5 +1,6 @@
 package model.productThings;
 
+import model.Shop;
 import model.category.SubCategory;
 import model.persons.Seller;
 
@@ -84,6 +85,15 @@ public class Good {
         this.averageRate = averageRate;
     }
 
+    public void updateRate() {
+        ArrayList<Rate> rates = Shop.getInstance().getRatesOfAGood(this);
+        long someRates = 0;
+        for (Rate rate : rates) {
+            someRates += rate.getRate();
+        }
+        this.setAverageRate((double) someRates / rates.size());
+    }
+
     public void setGoodStatus(GoodStatus goodStatus) {
         this.goodStatus = goodStatus;
     }
@@ -105,7 +115,10 @@ public class Good {
     }
 
     public long getPriceBySeller(Seller seller) {
-        return sellerRelatedInfoAboutGoods.stream().filter((info) -> info.getSeller().equals(seller)).map(SellerRelatedInfoAboutGood::getPrice).findAny().orElse(0L);
+        return sellerRelatedInfoAboutGoods.stream()
+                .filter((info) -> info.getSeller().equals(seller))
+                .map(SellerRelatedInfoAboutGood::getPrice)
+                .findAny().orElse(0L);
     }
 
     public HashMap<String, Object> getCategoryProperties() {
@@ -127,7 +140,7 @@ public class Good {
         }
         return "------------------------------------\n"
                 + "GoodId = " + goodId
-                + "name = " + name
+                + "\nname = " + name
                 + "\ngoodStatus = " + goodStatus
                 + "\nbrand = " + brand
                 + "\naverage rate = " + averageRate
