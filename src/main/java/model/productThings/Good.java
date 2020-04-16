@@ -133,10 +133,10 @@ public class Good {
 
     @Override
     public String toString() {
-        String sellerRelatedInfos = "";
+        StringBuilder sellerRelatedInfos = new StringBuilder();
         int i = 1;
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
-            sellerRelatedInfos += ((i++) + "- " + relatedInfoAboutGood.toString() + "\n");
+            sellerRelatedInfos.append(i++).append("- ").append(relatedInfoAboutGood.toString()).append("\n");
         }
         return "------------------------------------\n"
                 + "GoodId = " + goodId
@@ -146,11 +146,11 @@ public class Good {
                 + "\naverage rate = " + averageRate
                 + "\ncategory = " + subCategory.getParentCategory().getName()
                 + "\nsubcategory = " + subCategory.getName()
-                + "\nsellers = " + sellerRelatedInfos
+                + "\nsellers = " + sellerRelatedInfos.toString()
                 + "details =\n" + details
                 + "\nmodification date = " + modificationDate.toString()
                 + "\nseen number = " + seenNumber + "\n" +
-                "------------------------------------\n";
+                "------------------------------------";
     }
 }
 

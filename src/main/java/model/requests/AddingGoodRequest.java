@@ -16,7 +16,6 @@ public class AddingGoodRequest extends Request {
 
     @Override
     public void acceptRequest() {
-
         Good originalGood;
         if ((originalGood = Shop.getInstance().getGoodByNameAndBrandAndSubCategory(good.getName(), good.getBrand(), good.getSubCategory())) == null) {
             good.getSubCategory().addGood(good);
@@ -30,6 +29,6 @@ public class AddingGoodRequest extends Request {
     public String toString() {
         return "AddingGoodRequest :\n" +
                 "request id = " + super.getRequestId() + "\n" +
-                good.toString() + "seller = " + seller.getUsername();
+                good.toString() + "\nseller = " + seller.getUsername();
     }
 }

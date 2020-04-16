@@ -5,7 +5,6 @@ import model.productThings.Good;
 import model.productThings.Off;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class Seller extends Person {
     private Company company;
