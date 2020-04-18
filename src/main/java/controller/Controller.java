@@ -24,20 +24,11 @@ public abstract class Controller {
     }
 
     public static Boolean isPhoneNumberValid(String phoneNumber) {
-        for (int i = 0; i < phoneNumber.length(); i++) {
-            if (phoneNumber.charAt(i) > '9' || phoneNumber.charAt(i) < '0') {
-                return false;
-            }
-        }
-        if (phoneNumber.length() != 11)
-            return false;
-        return true;
+        return Pattern.compile("^\\d{11}$").matcher(phoneNumber).find();
     }
 
     public static Boolean isEmailValid(String email){
-        Pattern pattern= Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher=pattern.matcher(email);
-        return matcher.find();
+        return Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE).matcher(email).find();
     }
 
 }
