@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class MainController {
     private static MainController ourInstance = new MainController();
     private Shop shop;
-    private static Person currentPerson;
+    private Person currentPerson;
     private LoginRegisterController loginRegisterController;
     private AccountAreaForCustomerController accountAreaForCustomerController;
     private AccountAreaForManagerController accountAreaForManagerController;
@@ -81,11 +81,11 @@ public class MainController {
         return productController;
     }
 
-    public static Person getCurrentPerson() {
+    public Person getCurrentPerson() {
         return currentPerson;
     }
 
-    public static void setCurrentPerson(Person person) {
+    public void setCurrentPerson(Person person) {
         currentPerson = person;
     }
 
