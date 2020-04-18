@@ -10,7 +10,6 @@ public class Menu {
     protected ArrayList<Menu> submenus;
     protected Menu parentMenu;
     public static Scanner scanner;
-    protected static MainController mainController;
 
     public Menu(String name, Menu parentMenu) {
         this.name = name;
@@ -37,9 +36,6 @@ public class Menu {
         Menu.scanner = scanner;
     }
 
-    public static void setMainController(MainController mainController) {
-        Menu.mainController = mainController;
-    }
 
     public void help() {
         System.out.println(this.getName() + ":");
@@ -47,7 +43,7 @@ public class Menu {
         for (Menu submenu : this.getSubmenus()) {
             System.out.println("" + (i++) + "-" + submenu.getName());
         }
-        if (mainController.getCurrentPerson() == null) {
+        if (MainController.getInstance().getCurrentPerson() == null) {
             System.out.println("" + (i++) + "- Login or Register");
         } else {
             System.out.println("" + (i++) + "- Logout");
@@ -67,7 +63,7 @@ public class Menu {
             else
                 nextMenu = this.parentMenu;
         } else if (chosenMenu == submenus.size() + 1) {
-            if (mainController.getCurrentPerson() == null){
+            if (MainController.getInstance().getCurrentPerson() == null){
                 //ToDo
                 //go to login register menu
             } else{
@@ -79,4 +75,5 @@ public class Menu {
         nextMenu.help();
         nextMenu.execute();
     }
+
 }

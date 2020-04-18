@@ -1,4 +1,4 @@
 package controller;
 
-public class LoginRegisterController extends Controller {
+public class LoginRegisterController {
 }

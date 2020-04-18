@@ -1,4 +1,4 @@
-package view;
+package view.accountArea;
 
 public class AccountAreaForCustomer {
 }
