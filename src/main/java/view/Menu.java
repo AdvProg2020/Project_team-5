@@ -32,13 +32,44 @@ public abstract class Menu {
         return parentMenu;
     }
 
+    public void setParentMenu(Menu parentMenu) {
+        this.parentMenu = parentMenu;
+    }
+
     public static void setScanner(Scanner scanner) {
         Menu.scanner = scanner;
     }
 
 
-    public abstract void help();
+    public  void help(){
+        System.out.println(this.getName() + ":");
+        int i = 1;
+        for (Menu submenu : this.getSubmenus()) {
+            System.out.println("" + (i++) + "-" + submenu.getName());
+        }
+        if (MainController.getInstance().getCurrentPerson() == null) {
+            System.out.println("" + (i++) + "- Login or Register");
+        } else {
+            System.out.println("" + (i++) + "- Logout");
+        }
+        if (this.parentMenu != null)
+            System.out.println((i++) + "= Back");
+        else
+            System.out.println((i++) + "- Exit");
+    }
 
-    public abstract void execute();
+    public  void execute(){
+        Menu nextMenu = null;
+        int chosenMenu = Integer.parseInt(scanner.nextLine());
+        if (chosenMenu == submenus.size() + 2) {
+            if (this.parentMenu == null)
+                System.exit(1);
+            else
+                nextMenu = this.parentMenu;
+        } else
+            nextMenu = submenus.get(chosenMenu-1);
+        nextMenu.help();
+        nextMenu.execute();
+    }
 
 }

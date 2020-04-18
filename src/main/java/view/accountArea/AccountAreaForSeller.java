@@ -1,4 +1,19 @@
 package view.accountArea;
 
-public class AccountAreaForSeller {
+import view.Menu;
+
+public class AccountAreaForSeller extends Menu {
+    public AccountAreaForSeller(Menu parentMenu) {
+        super("Account area for seller", parentMenu);
+    }
+
+    @Override
+    public void help() {
+
+    }
+
+    @Override
+    public void execute() {
+
+    }
 }

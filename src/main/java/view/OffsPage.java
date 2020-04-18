@@ -2,7 +2,19 @@ package view;
 
 public class OffsPage extends Menu{
 
-    public OffsPage(String name, Menu parentMenu) {
-        super(name, parentMenu);
+    public OffsPage(Menu parentMenu) {
+        super("Offs menu", parentMenu);
+
+
+    }
+
+    @Override
+    public void help() {
+
+    }
+
+    @Override
+    public void execute() {
+
     }
 }
