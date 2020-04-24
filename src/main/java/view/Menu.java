@@ -42,6 +42,7 @@ public abstract class Menu {
 
 
     public  void help(){
+        ScreenClearing.clearScreen();
         System.out.println(this.getName() + ":");
         int i = 1;
         for (Menu submenu : this.getSubmenus()) {
@@ -50,12 +51,12 @@ public abstract class Menu {
         if (MainController.getInstance().getCurrentPerson() == null) {
             System.out.println("" + (i++) + "- Login or Register");
         } else {
-            System.out.println("" + (i++) + "- Logout");
+            System.out.println("" + (i++) + "-Logout");
         }
         if (this.parentMenu != null)
-            System.out.println((i++) + "= Back");
+            System.out.println((i++) + "-Back");
         else
-            System.out.println((i++) + "- Exit");
+            System.out.println((i++) + "-Exit");
     }
 
     public  void execute(){
