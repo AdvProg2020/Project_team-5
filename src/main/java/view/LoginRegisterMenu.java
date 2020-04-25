@@ -11,8 +11,13 @@ public class LoginRegisterMenu extends Menu {
         super(name, parentMenu);
     }
 
+    @Override
+    protected void setCommandNames() {
+
+    }
+
     private void registerUser() {
-        
+
     }
 
     private void loginUser() {

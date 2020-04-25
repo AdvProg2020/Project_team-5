@@ -16,45 +16,22 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class AccountAreaForSeller extends Menu {
-    ArrayList<String> commandNames = new ArrayList<>();
 
     public AccountAreaForSeller(Menu parentMenu) {
         super("Account area for seller", parentMenu);
-        setCommandNames();
-    }
-
-    private void setCommandNames() {
-        this.commandNames.add("- view company information");
-        this.commandNames.add("- view sales history");
-        this.commandNames.add("- add product");
-        this.commandNames.add("- remove product");
-        this.commandNames.add("- show categories");
-        this.commandNames.add("- view balance");
     }
 
     @Override
-    public void help() {
-        int i = 1;
-        System.out.println("menus of " + this.getName() + ":");
-        for (Menu submenu : submenus) {
-            if (submenu instanceof LoginRegisterMenu) {
-                if (MainController.getInstance().getCurrentPerson() == null) {
-                    System.out.println("" + (i++) + "- Login or Register");
-                } else {
-                    System.out.println("" + (i++) + "- Logout");
-                }
-            } else
-                System.out.println("" + (i++) + "-" + submenu.getName());
-        }
-        System.out.println("commands of " + this.getName() + ":");
-        for (String command : commandNames) {
-            System.out.println("" + (i++) + command);
-        }
-        if (this.parentMenu != null)
-            System.out.println((i++) + "- Back");
-        else
-            System.out.println((i++) + "- Exit");
+    protected void setCommandNames() {
+        this.commandNames.add("-view company information");
+        this.commandNames.add("-view sales history");
+        this.commandNames.add("-add product");
+        this.commandNames.add("-remove product");
+        this.commandNames.add("-show categories");
+        this.commandNames.add("-view balance");
     }
+
+
 
     @Override
     public void execute() {
@@ -88,7 +65,7 @@ public class AccountAreaForSeller extends Menu {
     }
 
     public ArrayList<String> buyersOfProduct(long productId){
-        return ((Seller)MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId))
+        return ((Seller)MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId));
     }
 
     public class notHaveThisProduct extends Exception{

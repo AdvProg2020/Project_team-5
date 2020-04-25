@@ -27,6 +27,11 @@ public class MainMenu extends Menu{
     }
 
     @Override
+    protected void setCommandNames() {
+
+    }
+
+    @Override
     public void execute(){
         Menu nextMenu = null;
         int chosenMenu = Integer.parseInt(scanner.nextLine());
@@ -35,8 +40,6 @@ public class MainMenu extends Menu{
                 System.exit(1);
             else
                 nextMenu = this.parentMenu;
-        } else if (MainController.getInstance().getCurrentPerson() == null && chosenMenu == 1){
-            System.out.println("you must login or register first");
         } else
             nextMenu = submenus.get(chosenMenu-1);
         nextMenu.help();

@@ -10,10 +10,14 @@ public abstract class Menu {
     protected ArrayList<Menu> submenus;
     protected Menu parentMenu;
     public static Scanner scanner;
+    protected ArrayList<String> commandNames;
 
     public Menu(String name, Menu parentMenu) {
         this.name = name;
         this.parentMenu = parentMenu;
+        this.submenus = new ArrayList<>();
+        this.commandNames = new ArrayList<>();
+        setCommandNames();
     }
 
     public String getName() {
@@ -40,37 +44,35 @@ public abstract class Menu {
         Menu.scanner = scanner;
     }
 
+    protected abstract void setCommandNames();
 
-    public  void help(){
+
+    public void help() {
         ScreenClearing.clearScreen();
-        System.out.println(this.getName() + ":");
         int i = 1;
-        for (Menu submenu : this.getSubmenus()) {
-            System.out.println("" + (i++) + "-" + submenu.getName());
+        if (!submenus.isEmpty())
+            System.out.println("Menus of " + this.getName() + ":");
+        for (Menu submenu : submenus) {
+            if (submenu instanceof LoginRegisterMenu) {
+                if (MainController.getInstance().getCurrentPerson() == null) {
+                    System.out.println("" + (i++) + "-Login or Register");
+                } else {
+                    System.out.println("" + (i++) + "-Logout");
+                }
+            } else
+                System.out.println("" + (i++) + "-" + submenu.getName());
         }
-        if (MainController.getInstance().getCurrentPerson() == null) {
-            System.out.println("" + (i++) + "- Login or Register");
-        } else {
-            System.out.println("" + (i++) + "-Logout");
+        if (!commandNames.isEmpty())
+            System.out.println("Commands of " + this.getName() + ":");
+        for (String command : commandNames) {
+            System.out.println("" + (i++) + command);
         }
         if (this.parentMenu != null)
-            System.out.println((i++) + "-Back");
+            System.out.println((i) + "-Back");
         else
-            System.out.println((i++) + "-Exit");
+            System.out.println((i) + "-Exit");
     }
 
-    public  void execute(){
-        Menu nextMenu = null;
-        int chosenMenu = Integer.parseInt(scanner.nextLine());
-        if (chosenMenu == submenus.size() + 2) {
-            if (this.parentMenu == null)
-                System.exit(1);
-            else
-                nextMenu = this.parentMenu;
-        } else
-            nextMenu = submenus.get(chosenMenu-1);
-        nextMenu.help();
-        nextMenu.execute();
-    }
+    public abstract void execute();
 
 }
