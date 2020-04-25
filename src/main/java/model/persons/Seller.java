@@ -58,6 +58,10 @@ public class Seller extends Person {
         return buyers;
     }
 
+    public Good findProductOfSeller(long productId) {
+        return this.activeGoods.stream().filter((good -> good.getGoodId() == productId)).findAny().orElse(null);
+    }
+
     public long balance() {
         return this.previousSells.stream().mapToLong(OrderForSeller::getPrice).sum();
     }

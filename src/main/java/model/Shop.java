@@ -2,6 +2,7 @@ package model;
 
 import model.category.Category;
 import model.category.SubCategory;
+import model.orders.OrderForCustomer;
 import model.persons.Customer;
 import model.persons.Person;
 import model.persons.Seller;
@@ -11,6 +12,8 @@ import model.requests.Request;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Shop {
     private static Shop ourInstance = new Shop();
@@ -196,17 +199,17 @@ public class Shop {
         return good.getPriceBySeller(seller);
     }
 
-    public SubCategory findSubCategoryByName(String name){
+    public SubCategory findSubCategoryByName(String name) {
         for (Category category : allCategories) {
             for (SubCategory subCategory : category.getSubCategories()) {
-             if (subCategory.getName().equalsIgnoreCase(name))
-                 return subCategory;
+                if (subCategory.getName().equalsIgnoreCase(name))
+                    return subCategory;
             }
         }
         return null;
     }
 
-    public Category findCategoryByName(String name){
+    public Category findCategoryByName(String name) {
         for (Category category : allCategories) {
             if (category.getName().equalsIgnoreCase(name))
                 return category;
@@ -214,11 +217,13 @@ public class Shop {
         return null;
     }
 
-    public Good getGoodByNameAndBrandAndSubCategory(String name, String brand, SubCategory subCategory){
+    public Good getGoodByNameAndBrandAndSubCategory(String name, String brand, SubCategory subCategory) {
         for (Good good : subCategory.getGoods()) {
-            if(good.getBrand().equalsIgnoreCase(brand) && good.getName().equalsIgnoreCase(name))
+            if (good.getBrand().equalsIgnoreCase(brand) && good.getName().equalsIgnoreCase(name))
                 return good;
         }
         return null;
     }
+
+
 }

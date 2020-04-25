@@ -27,10 +27,6 @@ public class MainMenu extends Menu{
     }
 
     @Override
-    public void help() {
-    }
-
-    @Override
     public void execute(){
         Menu nextMenu = null;
         int chosenMenu = Integer.parseInt(scanner.nextLine());
