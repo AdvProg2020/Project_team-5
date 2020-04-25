@@ -36,7 +36,7 @@ public class LoginRegisterMenu extends Menu {
     @Override
     public void execute() {
         Menu nextMenu = null;
-        int chosenMenu = Integer.parseInt(scanner.nextLine());
+        int chosenMenu = getInput();
         if (MainController.getInstance().getCurrentPerson() == null) {
             if (chosenMenu == 1) {
                 registerUser();
