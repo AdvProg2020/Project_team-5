@@ -38,16 +38,7 @@ public class AccountAreaForSeller extends Menu {
         int chosenCommand = Integer.parseInt(getInput());
     }
 
-    private String getInput(){
-        String input;
-        while (true){
-            input = scanner.nextLine();
-            if(Pattern.matches("[0-9]+",input))
-                if (Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= commandNames.size() + submenus.size() +1)
-                    return input;
-            System.out.println("not valid input. please try again");
-        }
-    }
+
 
     public void removeProduct(long productId) throws notHaveThisProduct{
         Seller seller = (Seller)MainController.getInstance().getCurrentPerson();

@@ -13,10 +13,16 @@ public class LoginRegisterMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-
+        if (MainController.getInstance().getCurrentPerson() == null) {
+            this.commandNames.add("-Register");
+            this.commandNames.add("-Login");
+        } else {
+            this.commandNames.add("-Logout");
+        }
     }
 
     private void registerUser() {
+        System.out.println("create account [type] [username]");
 
     }
 
@@ -26,18 +32,6 @@ public class LoginRegisterMenu extends Menu {
     private void logout() {
     }
 
-    @Override
-    public void help() {
-        ScreenClearing.clearScreen();
-        if (MainController.getInstance().getCurrentPerson() == null) {
-            System.out.println("1-Register");
-            System.out.println("2-Login");
-            System.out.println("3-Back");
-        } else {
-            System.out.println("1-Logout");
-            System.out.println("2-Back");
-        }
-    }
 
     @Override
     public void execute() {

@@ -4,6 +4,7 @@ import controller.MainController;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public abstract class Menu {
     private String name;
@@ -46,6 +47,16 @@ public abstract class Menu {
 
     protected abstract void setCommandNames();
 
+    protected String getInput(){
+        String input;
+        while (true){
+            input = scanner.nextLine();
+            if(Pattern.matches("[0-9]+",input))
+                if (Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= commandNames.size() + submenus.size() +1)
+                    return input;
+            System.out.println("not valid input. please try again");
+        }
+    }
 
     public void help() {
         ScreenClearing.clearScreen();
