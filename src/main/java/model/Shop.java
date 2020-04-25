@@ -40,6 +40,10 @@ public class Shop {
         this.cart = new ArrayList<>();
     }
 
+    public ArrayList<Category> getAllCategories() {
+        return allCategories;
+    }
+
     public void removePerson(Person user) {
         allPersons.remove(user);
     }

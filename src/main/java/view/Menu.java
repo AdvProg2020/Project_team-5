@@ -58,6 +58,16 @@ public abstract class Menu {
         }
     }
 
+    protected String getValidInput(String regex, String massage){
+        String input;
+        while (true){
+            System.out.println(massage);
+            input = scanner.nextLine();
+            if (Pattern.matches(regex, input))
+                return input;
+        }
+    }
+
     public void help() {
         ScreenClearing.clearScreen();
         int i = 1;
