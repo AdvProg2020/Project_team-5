@@ -41,8 +41,9 @@ public class ManageProductsMenu extends Menu {
 
     private void viewProduct(){
         try {
+            System.out.println("Enter product ID :");
             String product = MainController.getInstance().getAccountAreaForSellerController().
-                    viewProduct(Long.parseLong(getValidInput("[0-9]+", "Enter product ID :")));
+                    viewProduct(Long.parseLong(getValidInput("[0-9]+", "Not valid product ID")));
             System.out.println(product);
         }catch (ProductNotFoundException exception){
             System.out.println(exception.getMessage());
@@ -51,8 +52,9 @@ public class ManageProductsMenu extends Menu {
 
     private void viewBuyers(){
         try {
+            System.out.println("Enter product ID :");
             ArrayList<String> buyers = MainController.getInstance().getAccountAreaForSellerController().
-                    buyersOfProduct(Long.parseLong(getValidInput("[0-9]+", "Enter product ID :")));
+                    buyersOfProduct(Long.parseLong(getValidInput("[0-9]+", "Not valid product ID")));
             for (String buyer : buyers) {
                 System.out.println(buyer);
             }

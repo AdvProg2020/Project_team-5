@@ -11,6 +11,7 @@ import view.LoginRegisterMenu;
 import view.Menu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AccountAreaForSeller extends Menu {
@@ -70,13 +71,43 @@ public class AccountAreaForSeller extends Menu {
     }
 
     private void addProduct() {
+        ArrayList<String> productDetails = new ArrayList<>();
+        System.out.println("name :");
+        productDetails.add(scanner.nextLine());
+        System.out.println("brand :");
+        productDetails.add(scanner.nextLine());
+        System.out.println("price :");
+        productDetails.add(getValidInput("\\d\\d\\d\\d+", "Not valid price"));
+        System.out.println("available number :");
+        productDetails.add(getValidInput("[0-9]{1,3}", "Not valid number"));
+        System.out.println("Additional details");
+        productDetails.add(scanner.nextLine());
+        productDetails.add(getCorrectSubCategory());
+    }
 
+    private String getCorrectSubCategory(){
+        System.out.println("subcategory :");
+        String subCategory = scanner.nextLine();
+        if (MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(subCategory))
+            return subCategory;
+        System.out.println("This subcategory does not exist");
+        return getCorrectSubCategory();
+    }
+
+    private HashMap<String, Object> getDetails(String subcategory){
+        HashMap<String, Object> detailValues = new HashMap<>();
+        for (String detail : MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(subcategory)) {
+            System.out.println(detail + " :");
+            detailValues.put(detail,scanner.nextLine());
+        }
+        return detailValues;
     }
 
     private void removeProduct() {
-        long productId = Long.parseLong(getValidInput("[0-9]+", "Enter productId :"));
+        System.out.println("Enter product ID :");
         try {
-            MainController.getInstance().getAccountAreaForSellerController().removeProduct(productId);
+            MainController.getInstance().getAccountAreaForSellerController().removeProduct
+                    (Long.parseLong(getValidInput("[0-9]+", "Not valid product ID")));
             System.out.println("product removed successfully");
         } catch (ProductNotFoundException exception) {
             System.out.println(exception.getMessage());
@@ -91,6 +122,6 @@ public class AccountAreaForSeller extends Menu {
     }
 
     private void viewBalance() {
-        System.out.println(MainController.getInstance().getAccountAreaForSellerController().viewBalance());
+        System.out.println(MainController.getInstance().getAccountAreaForSellerController().viewBalance() + "Rial");
     }
 }

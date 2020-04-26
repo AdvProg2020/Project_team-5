@@ -37,10 +37,11 @@ public class ViewOffsMenu extends Menu {
 
     private void viewOff() {
         try {
+            System.out.println("Enter off ID :");
             String offDetails = MainController.getInstance().getAccountAreaForSellerController().
-                    viewOff(Long.parseLong(getValidInput("[0-9]+", "Enter off ID")));
+                    viewOff(Long.parseLong(getValidInput("[0-9]+", "Not valid off ID")));
             System.out.println(offDetails);
-        }catch (ProductNotFoundException exception){
+        } catch (ProductNotFoundException exception) {
             System.out.println(exception);
         }
     }
