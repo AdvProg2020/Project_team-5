@@ -1,5 +1,7 @@
 package view.accountArea.AccountAreaForSeller;
 
+import controller.MainController;
+import exception.ProductNotFoundException;
 import view.Menu;
 
 public class ViewOffsMenu extends Menu {
@@ -34,7 +36,13 @@ public class ViewOffsMenu extends Menu {
     }
 
     private void viewOff() {
-
+        try {
+            String offDetails = MainController.getInstance().getAccountAreaForSellerController().
+                    viewOff(Long.parseLong(getValidInput("[0-9]+", "Enter off ID")));
+            System.out.println(offDetails);
+        }catch (ProductNotFoundException exception){
+            System.out.println(exception);
+        }
     }
 
     private void editOff() {

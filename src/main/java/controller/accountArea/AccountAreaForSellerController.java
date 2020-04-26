@@ -15,16 +15,14 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public void removeProduct(long productId) throws ProductNotFoundException {
         Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
         Good good = seller.findProductOfSeller(productId);
-        if (good != null) {
-            if (good.getSellerRelatedInfoAboutGoods().size() == 1)
-                good.getSubCategory().deleteGood(good);
-            else {
-                good.removeSeller(seller);
-                seller.removeFromActiveGoods(good);
-            }
-        }
-        if (good == null)
+        if (seller.hasThisProduct(productId))
             throw new ProductNotFoundException();
+        if (good.getSellerRelatedInfoAboutGoods().size() == 1)
+            good.getSubCategory().deleteGood(good);
+        else {
+            good.removeSeller(seller);
+            seller.removeFromActiveGoods(good);
+        }
     }
 
     public String getCompanyInfo() {
@@ -40,16 +38,21 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return ((Seller) MainController.getInstance().getCurrentPerson()).balance();
     }
 
-    public ArrayList<String> buyersOfProduct(long productId) {
+    public ArrayList<String> buyersOfProduct(long productId) throws ProductNotFoundException {
+        if (!((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(productId))
+            throw new ProductNotFoundException();
         return ((Seller) MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId));
     }
 
-    public String viewProduct(long productId) throws ProductNotFoundException{
-        Seller seller = ((Seller)MainController.getInstance().getCurrentPerson());
-        Good good = seller.findProductOfSeller(productId);
-        if (good == null)
+    public String viewProduct(long productId) throws ProductNotFoundException {
+        if (!((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(productId))
             throw new ProductNotFoundException();
-        return good.toString();
+        return ((Seller) MainController.getInstance().getCurrentPerson()).findProductOfSeller(productId).toString();
     }
 
+    public String viewOff(long offId) throws ProductNotFoundException{
+        if (!((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(offId))
+            throw new ProductNotFoundException();
+        return ((Seller) MainController.getInstance().getCurrentPerson()).findOffById(offId).toString();
+    }
 }
