@@ -2,18 +2,12 @@ package view.accountArea;
 
 import controller.MainController;
 import model.Shop;
-import model.orders.OrderForCustomer;
-import model.persons.Customer;
 import model.persons.Seller;
 import model.productThings.Good;
-import view.LoginRegisterMenu;
 import view.Menu;
+import exception.*;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class AccountAreaForSeller extends Menu {
 
@@ -39,3 +33,24 @@ public class AccountAreaForSeller extends Menu {
     }
 
 
+
+    public void removeProduct(long productId) throws ProductNotFoundException{
+        Seller seller = (Seller)MainController.getInstance().getCurrentPerson();
+        Good good = seller.findProductOfSeller(productId);
+        if (good != null){
+            if (good.getSellerRelatedInfoAboutGoods().size()==1)
+                good.getSubCategory().deleteGood(good);
+            else {
+                good.removeSeller(seller);
+                seller.removeFromActiveGoods(good);
+            }
+        }
+        if (good== null)
+            throw new ProductNotFoundException();
+    }
+
+    public ArrayList<String> buyersOfProduct(long productId){
+        return ((Seller)MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId));
+    }
+
+}

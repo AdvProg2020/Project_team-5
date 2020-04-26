@@ -8,12 +8,17 @@ public class AccountAreaForManager extends Menu {
     }
 
     @Override
+    protected void setCommandNames() {
+        this.commandNames.add("-create discount code");
+    }
+
+    @Override
     public void help() {
 
     }
 
     @Override
     public void execute() {
-
+        int chosenMenu = getInput();
     }
 }
