@@ -9,11 +9,39 @@ public class ManageRequestsMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-
+        this.commandNames.add("- show");
+        this.commandNames.add("- accept");
+        this.commandNames.add("- decline");
     }
 
     @Override
     public void execute() {
+        int chosenCommand = getInput();
+        Menu nextMenu;
+        if (chosenCommand == 4)
+            nextMenu = getParentMenu();
+        else {
+            if (chosenCommand == 1)
+                showDetails();
+            if (chosenCommand == 2)
+                acceptRequest();
+            if (chosenCommand == 3)
+                declineRequest();
+            nextMenu = this;
+        }
+        nextMenu.help();
+        nextMenu.execute();
+    }
+
+    private void showDetails() {
+
+    }
+
+    private void acceptRequest() {
+
+    }
+
+    private void declineRequest() {
 
     }
 }
