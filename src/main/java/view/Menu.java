@@ -4,6 +4,7 @@ import controller.MainController;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Menu {
@@ -58,15 +59,21 @@ public abstract class Menu {
         }
     }
 
-    protected String getValidInput(String regex, String massage) {
-        String input;
-        while (true) {
-            System.out.println(massage);
-            input = scanner.nextLine();
-            if (Pattern.matches(regex, input))
-                return input;
-        }
+    protected String getValidInput(String regex, String error) {
+        Pattern pattern = Pattern.compile(regex);
+        boolean inputIsInvalid;
+        String line;
+        do {
+            line = scanner.nextLine().trim();
+            Matcher matcher = pattern.matcher(line);
+            inputIsInvalid = !matcher.find();
+            if (inputIsInvalid)
+                System.out.println(error);
+        } while (inputIsInvalid);
+        return line;
     }
+
+
 
     public void help() {
         ScreenClearing.clearScreen();
