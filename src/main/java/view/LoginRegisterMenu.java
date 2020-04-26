@@ -2,6 +2,7 @@ package view;
 
 import controller.MainController;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,12 +27,34 @@ public class LoginRegisterMenu extends Menu {
 
     private void registerUser() {
         System.out.println("create account [type] [username]");
-        String input = getInputInFormatWithError("(?i)create account\\s+(manager|customer|seller)\\s+good\\s+(\\w+)","not valid format");
+        String input = getValidInput("(?i)create account\\s+(manager|customer|seller)\\s+good\\s+(\\w+)","not valid format");
         Matcher matcher = Pattern.compile("(?i)create account\\s+(manager|customer|seller)\\s+good\\s+(\\w+)").matcher(input);
+        ArrayList<String> details=new ArrayList<>();
+        if(matcher.group(1).equals("customer")){
+            System.out.println("enter first name");
+            details.add(getValidInput("[a-zA-Z]{2,}","not valid format for first name"));
+            System.out.println("enter last name");
+            details.add(getValidInput("[a-zA-Z]{2,}","not valid format for last name"));
+            System.out.println("enter email");
+            details.add(getValidInput("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$","not valid format for email"));
+            System.out.println("enter phone number");
+            details.add(getValidInput("^\\d{11}$","not valid format for phone number"));
+            System.out.println("enter password\n" +
+                    "-must contains one digit from 0-9\n" +
+                    "-must contains one lowercase characters\n" +
+                    "-must contains one uppercase characters\n" +
+                    "-length at least 4 characters and maximum of 16\n");
+            details.add(getValidInput("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})","not valid format for password"));
+            System.out.println("enter your credit");
+            details.add(getValidInput("\\d\\d\\d\\d+","not valid format"));
+        }else if (matcher.group(1).equals("seller")){
+
+        }else{
+
+        }
         try {
             MainController.getInstance().getLoginRegisterController().createAccount(matcher.group(1),matcher.group(2));
         }catch (Exception e){
-
         }
     }
 
@@ -41,19 +64,6 @@ public class LoginRegisterMenu extends Menu {
     private void logout() {
     }
 
-    private static String getInputInFormatWithError(String regex, String error) {
-        Pattern pattern = Pattern.compile(regex);
-        boolean inputIsInvalid;
-        String line;
-        do {
-            line = scanner.nextLine().trim();
-            Matcher matcher = pattern.matcher(line);
-            inputIsInvalid = !matcher.find();
-            if (inputIsInvalid)
-                System.out.println(error);
-        } while (inputIsInvalid);
-        return line;
-    }
 
 
     @Override
