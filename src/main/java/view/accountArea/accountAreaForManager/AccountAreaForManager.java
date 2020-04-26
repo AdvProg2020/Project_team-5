@@ -1,4 +1,4 @@
-package view.accountArea;
+package view.accountArea.accountAreaForManager;
 
 import view.Menu;
 
@@ -10,6 +10,7 @@ public class AccountAreaForManager extends Menu {
     @Override
     protected void setCommandNames() {
         this.commandNames.add("-create discount code");
+
     }
 
     @Override
