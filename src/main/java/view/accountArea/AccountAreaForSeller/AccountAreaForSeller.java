@@ -1,7 +1,7 @@
 package view.accountArea.AccountAreaForSeller;
 
 import controller.MainController;
-import exception.NotHaveThisProduct;
+import exception.ProductNotFoundException;
 import model.Shop;
 import model.orders.OrderForCustomer;
 import model.persons.Customer;
@@ -78,7 +78,7 @@ public class AccountAreaForSeller extends Menu {
         try {
             MainController.getInstance().getAccountAreaForSellerController().removeProduct(productId);
             System.out.println("product removed successfully");
-        } catch (NotHaveThisProduct exception) {
+        } catch (ProductNotFoundException exception) {
             System.out.println(exception.getMessage());
         }
     }

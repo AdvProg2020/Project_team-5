@@ -1,7 +1,7 @@
 package controller.accountArea;
 
 import controller.MainController;
-import exceptions.NotHaveThisProduct;
+import exception.ProductNotFoundException;
 import model.Shop;
 import model.persons.Seller;
 import model.productThings.Good;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class AccountAreaForSellerController extends AccountAreaController {
 
-    public void removeProduct(long productId) throws NotHaveThisProduct {
+    public void removeProduct(long productId) throws ProductNotFoundException {
         Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
         Good good = seller.findProductOfSeller(productId);
         if (good != null) {
@@ -24,7 +24,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
             }
         }
         if (good == null)
-            throw new NotHaveThisProduct();
+            throw new ProductNotFoundException();
     }
 
     public String getCompanyInfo() {
@@ -44,11 +44,11 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return ((Seller) MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId));
     }
 
-    public String viewProduct(long productId) throws NotHaveThisProduct{
+    public String viewProduct(long productId) throws ProductNotFoundException{
         Seller seller = ((Seller)MainController.getInstance().getCurrentPerson());
         Good good = seller.findProductOfSeller(productId);
         if (good == null)
-            throw new NotHaveThisProduct();
+            throw new ProductNotFoundException();
         return good.toString();
     }
 
