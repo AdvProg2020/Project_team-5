@@ -14,13 +14,13 @@ public class ViewOffsMenu extends Menu {
         if (chosenCommand == 4)
             nextMenu = getParentMenu();
         else {
-        if (chosenCommand == 1)
-            viewOff();
-        if (chosenCommand == 2)
-            editOff();
-        if (chosenCommand == 3)
-            addOff();
-        nextMenu = this;
+            if (chosenCommand == 1)
+                viewOff();
+            if (chosenCommand == 2)
+                editOff();
+            if (chosenCommand == 3)
+                addOff();
+            nextMenu = this;
         }
         nextMenu.help();
         nextMenu.execute();

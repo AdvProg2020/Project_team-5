@@ -27,22 +27,29 @@ public class AccountAreaForSellerController extends AccountAreaController {
             throw new NotHaveThisProduct();
     }
 
-    public String getCompanyInfo(){
-        return ((Seller)MainController.getInstance().getCurrentPerson()).getCompany().toString();
+    public String getCompanyInfo() {
+        return ((Seller) MainController.getInstance().getCurrentPerson()).getCompany().toString();
     }
 
-    public List<String> getSalesLog(){
-        return ((Seller)MainController.getInstance().getCurrentPerson()).getPreviousSells().stream().
+    public List<String> getSalesLog() {
+        return ((Seller) MainController.getInstance().getCurrentPerson()).getPreviousSells().stream().
                 map(orderForSeller -> orderForSeller.toString()).collect(Collectors.toList());
     }
 
-    public long viewBalance(){
-        return ((Seller)MainController.getInstance().getCurrentPerson()).balance();
+    public long viewBalance() {
+        return ((Seller) MainController.getInstance().getCurrentPerson()).balance();
     }
 
     public ArrayList<String> buyersOfProduct(long productId) {
         return ((Seller) MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId));
     }
 
+    public String viewProduct(long productId) throws NotHaveThisProduct{
+        Seller seller = ((Seller)MainController.getInstance().getCurrentPerson());
+        Good good = seller.findProductOfSeller(productId);
+        if (good == null)
+            throw new NotHaveThisProduct();
+        return good.toString();
+    }
 
 }

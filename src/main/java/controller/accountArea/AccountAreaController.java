@@ -7,12 +7,11 @@ import model.category.SubCategory;
 import java.util.ArrayList;
 
 public class AccountAreaController {
-
-    public ArrayList<String> showCategories(){
+    public ArrayList<String> showCategories() {
         ArrayList<String> categories = new ArrayList<>();
         for (Category category : Shop.getInstance().getAllCategories()) {
-            String thisCategory = "* subcategories of " + category.getName()+ "\n";
-            int i=1;
+            String thisCategory = "* subcategories of " + category.getName() + "\n";
+            int i = 1;
             for (SubCategory subCategory : category.getSubCategories()) {
                 thisCategory += (i++) + "- " + subCategory.getName() + "\n";
             }
