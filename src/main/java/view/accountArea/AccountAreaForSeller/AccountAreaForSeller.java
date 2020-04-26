@@ -1,7 +1,7 @@
 package view.accountArea.AccountAreaForSeller;
 
 import controller.MainController;
-import exceptions.NotHaveThisProduct;
+import exception.ProductNotFoundException;
 import model.Shop;
 import model.orders.OrderForCustomer;
 import model.persons.Customer;
@@ -12,14 +12,13 @@ import view.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class AccountAreaForSeller extends Menu {
 
     public AccountAreaForSeller(Menu parentMenu) {
         super("Account area for seller", parentMenu);
+        submenus.add(new ManageProductsMenu(this));
+        submenus.add(new ViewOffsMenu(this));
     }
 
     @Override
@@ -31,7 +30,6 @@ public class AccountAreaForSeller extends Menu {
         this.commandNames.add("-show categories");
         this.commandNames.add("-view balance");
     }
-
 
     @Override
     public void execute() {
@@ -71,28 +69,28 @@ public class AccountAreaForSeller extends Menu {
         }
     }
 
-    private void addProduct(){
+    private void addProduct() {
 
     }
 
-    private void removeProduct(){
+    private void removeProduct() {
         long productId = Long.parseLong(getValidInput("[0-9]+", "Enter productId :"));
         try {
             MainController.getInstance().getAccountAreaForSellerController().removeProduct(productId);
             System.out.println("product removed successfully");
-        }catch (NotHaveThisProduct exception){
+        } catch (ProductNotFoundException exception) {
             System.out.println(exception.getMessage());
         }
     }
 
-    private void showCategories(){
+    private void showCategories() {
         ArrayList<String> categories = MainController.getInstance().getAccountAreaForSellerController().showCategories();
         for (String category : categories) {
             System.out.print(category);
         }
     }
 
-    private void viewBalance(){
+    private void viewBalance() {
         System.out.println(MainController.getInstance().getAccountAreaForSellerController().viewBalance());
     }
 }

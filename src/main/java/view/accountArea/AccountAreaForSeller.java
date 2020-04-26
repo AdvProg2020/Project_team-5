@@ -39,3 +39,29 @@ public class AccountAreaForSeller extends Menu {
     }
 
 
+
+    public void removeProduct(long productId) throws notHaveThisProduct{
+        Seller seller = (Seller)MainController.getInstance().getCurrentPerson();
+        Good good = seller.findProductOfSeller(productId);
+        if (good != null){
+            if (good.getSellerRelatedInfoAboutGoods().size()==1)
+                good.getSubCategory().deleteGood(good);
+            else {
+                good.removeSeller(seller);
+                seller.removeFromActiveGoods(good);
+            }
+        }
+        if (good== null)
+            throw new notHaveThisProduct();
+    }
+
+    public ArrayList<String> buyersOfProduct(long productId){
+        return ((Seller)MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId));
+    }
+
+    public class notHaveThisProduct extends Exception{
+        public notHaveThisProduct() {
+            super("You do not have product with this productId");
+        }
+    }
+}
