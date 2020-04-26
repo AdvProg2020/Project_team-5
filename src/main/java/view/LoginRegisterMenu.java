@@ -50,7 +50,7 @@ public class LoginRegisterMenu extends Menu {
             Matcher matcher = pattern.matcher(line);
             inputIsInvalid = !matcher.find();
             if (inputIsInvalid)
-                System.out.print(error);
+                System.out.println(error);
         } while (inputIsInvalid);
         return line;
     }
