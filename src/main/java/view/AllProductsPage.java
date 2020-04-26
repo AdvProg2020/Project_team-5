@@ -6,6 +6,11 @@ public class AllProductsPage extends Menu {
     }
 
     @Override
+    protected void setCommandNames() {
+
+    }
+
+    @Override
     public void help() {
 
     }
