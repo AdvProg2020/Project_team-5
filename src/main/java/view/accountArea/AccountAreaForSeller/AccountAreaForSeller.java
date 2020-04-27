@@ -7,7 +7,6 @@ import model.orders.OrderForCustomer;
 import model.persons.Customer;
 import model.persons.Seller;
 import model.productThings.Good;
-import view.LoginRegisterMenu;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -83,6 +82,7 @@ public class AccountAreaForSeller extends Menu {
         System.out.println("Additional details");
         productDetails.add(scanner.nextLine());
         productDetails.add(getCorrectSubCategory());
+        MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, getDetails(productDetails.get(5)));
     }
 
     private String getCorrectSubCategory(){

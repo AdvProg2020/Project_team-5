@@ -13,6 +13,11 @@ public class AccountAreaForCustomer extends Menu {
     }
 
     @Override
+    public void setCommandNames(){
+
+    }
+
+    @Override
     public void execute() {
 
     }
