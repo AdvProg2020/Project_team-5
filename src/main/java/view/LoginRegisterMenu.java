@@ -1,5 +1,6 @@
 package view;
 
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import controller.MainController;
 import exception.PasswordIncoreectException;
 import exception.UsernameNotFoundException;
@@ -117,7 +118,10 @@ public class LoginRegisterMenu extends Menu {
         return nextMenu;
     }
 
-    private void logout() {
+    private Menu logout(){
+        Menu nextMenu=this.getParentMenu();
+        MainController.getInstance().getLoginRegisterController().logoutUser();
+        return nextMenu;
     }
 
 
@@ -135,7 +139,7 @@ public class LoginRegisterMenu extends Menu {
             }
         } else {
             if (chosenMenu == 1) {
-                logout();
+                nextMenu = logout();
             } else if (chosenMenu == 2) {
                 nextMenu = this.parentMenu;
             }

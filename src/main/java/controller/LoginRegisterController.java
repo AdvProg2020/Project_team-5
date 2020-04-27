@@ -42,4 +42,8 @@ public class LoginRegisterController {
             throw new PasswordIncoreectException();
         MainController.getInstance().setCurrentPerson(person);
     }
+
+    public void logoutUser(){
+        MainController.getInstance().setCurrentPerson(null);
+    }
 }
