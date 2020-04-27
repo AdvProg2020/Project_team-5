@@ -1,10 +1,6 @@
 package view;
 
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import controller.MainController;
-import exception.PasswordIncoreectException;
-import exception.UsernameNotFoundException;
-import model.Shop;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
@@ -12,7 +8,6 @@ import view.accountArea.AccountAreaForCustomer;
 import view.accountArea.AccountAreaForSeller.AccountAreaForSeller;
 import view.accountArea.accountAreaForManager.AccountAreaForManager;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -119,11 +114,18 @@ public class LoginRegisterMenu extends Menu {
     }
 
     private Menu logout(){
+        Menu mainMenu=getMainMenu(this);
+        mainMenu.setSubMenu(0,new LoginRegisterMenu("Account area",mainMenu));
         Menu nextMenu=this.getParentMenu();
         MainController.getInstance().getLoginRegisterController().logoutUser();
         return nextMenu;
     }
 
+    private Menu getMainMenu(Menu menu){
+        if (menu.getParentMenu() == null)
+            return this;
+        return getMainMenu(menu.getParentMenu());
+    }
 
     @Override
     public void execute() {
