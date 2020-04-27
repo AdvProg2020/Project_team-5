@@ -9,8 +9,8 @@ import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
 import view.accountArea.AccountAreaForCustomer;
-import view.accountArea.AccountAreaForManager;
 import view.accountArea.AccountAreaForSeller.AccountAreaForSeller;
+import view.accountArea.accountAreaForManager.AccountAreaForManager;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
