@@ -10,8 +10,9 @@ public class Customer extends Person {
     private ArrayList<OrderForCustomer> previousOrders;
     private long credit;
 
-    public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
+    public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password, long credit) {
         super(username, firstName, lastName, email, phoneNumber, password);
+        this.credit = credit;
     }
 
     public void addDiscountCode(DiscountCode discountCode) {

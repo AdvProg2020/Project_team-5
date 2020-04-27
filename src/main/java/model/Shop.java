@@ -4,6 +4,7 @@ import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
 import model.persons.Customer;
+import model.persons.Manager;
 import model.persons.Person;
 import model.persons.Seller;
 import model.productThings.*;
@@ -227,6 +228,14 @@ public class Shop {
                 return good;
         }
         return null;
+    }
+
+    public boolean didManagerRegistered(){
+        for (Person person : allPersons) {
+            if (person instanceof Manager)
+                return true;
+        }
+        return false;
     }
 
 

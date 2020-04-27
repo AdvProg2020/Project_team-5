@@ -1,7 +1,19 @@
 package view;
 
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import controller.MainController;
+import exception.PasswordIncoreectException;
+import exception.UsernameNotFoundException;
+import model.Shop;
+import model.persons.Customer;
+import model.persons.Manager;
+import model.persons.Seller;
+import view.accountArea.AccountAreaForCustomer;
+import view.accountArea.AccountAreaForManager;
+import view.accountArea.AccountAreaForSeller.AccountAreaForSeller;
 
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,35 +36,92 @@ public class LoginRegisterMenu extends Menu {
         }
     }
 
-    private void registerUser() {
+    private Menu registerUser() {
         System.out.println("create account [type] [username]");
-        String input = getInputInFormatWithError("(?i)create account\\s+(manager|customer|seller)\\s+good\\s+(\\w+)","not valid format");
+        String input = getValidInput("(?i)create account\\s+(manager|customer|seller)\\s+good\\s+(\\w+)", "not valid format");
         Matcher matcher = Pattern.compile("(?i)create account\\s+(manager|customer|seller)\\s+good\\s+(\\w+)").matcher(input);
-        try {
-            MainController.getInstance().getLoginRegisterController().createAccount(matcher.group(1),matcher.group(2));
-        }catch (Exception e){
-
+        ArrayList<String> details = new ArrayList<>();
+        System.out.println("enter first name");
+        details.add(getValidInput("[a-zA-Z]{2,}", "not valid format for first name"));
+        System.out.println("enter last name");
+        details.add(getValidInput("[a-zA-Z]{2,}", "not valid format for last name"));
+        System.out.println("enter email");
+        details.add(getValidInput("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", "not valid format for email"));
+        System.out.println("enter phone number");
+        details.add(getValidInput("^\\d{11}$", "not valid format for phone number"));
+        System.out.println("enter password\n" +
+                "-must contains one digit from 0-9\n" +
+                "-must contains one lowercase characters\n" +
+                "-must contains one uppercase characters\n" +
+                "-length at least 4 characters and maximum of 16\n");
+        details.add(getValidInput("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})", "not valid format for password"));
+        System.out.println("enter your credit");
+        details.add(getValidInput("\\d\\d\\d\\d+", "not valid format"));
+        if (matcher.group(1).equals("seller")) {
+            System.out.println("now you must enter your company details");
+            System.out.println("enter company name");
+            details.add(getValidInput("[a-zA-Z]{1,}", "not valid format for name"));
+            System.out.println("enter company's website");
+            details.add(getValidInput("^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\\.)+[\\w]{2,}(\\/\\S*)?$",
+                    "not valid format for website"));
+            System.out.println("enter company's phone number");
+            details.add(getValidInput("^\\d{11}$", "not valid format for phone number"));
+            System.out.println("enter company's fax number");
+            details.add(getValidInput("^\\d+{6,}$", "not valid format for fax number"));
+            System.out.println("enter company's address");
+            details.add(scanner.nextLine());
         }
+        try {
+            MainController.getInstance().getLoginRegisterController().createAccount(matcher.group(1), matcher.group(2), details);
+            System.out.println("registered successful");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("enter any key to continue");
+        scanner.nextLine();
+        return this;
     }
 
-    private void loginUser() {
+    private Menu loginUser() {
+        Menu nextMenu;
+        System.out.println("enter username");
+        String username = scanner.nextLine();
+        System.out.println("enter password");
+        String password = scanner.nextLine();
+        try {
+            MainController.getInstance().getLoginRegisterController().loginUser(username, password);
+            System.out.println("login succefull");
+            nextMenu = this.setNextMenu();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            nextMenu = this;
+        }
+        System.out.println("press any key to conitune");
+        scanner.nextLine();
+        return nextMenu;
     }
 
-    private void logout() {
+    private Menu setNextMenu() {
+        Menu nextMenu;
+        if (this.getName().equals("Account area")) {
+            if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+                this.getParentMenu().setSubMenu(0, new AccountAreaForManager(this.getParentMenu()));
+            } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+                this.getParentMenu().setSubMenu(0, new AccountAreaForCustomer(this.getParentMenu()));
+            } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+                this.getParentMenu().setSubMenu(0, new AccountAreaForSeller(this.getParentMenu()));
+            }
+            nextMenu = this.getParentMenu().getSubmenus().get(0);
+        } else {
+            nextMenu = this.getParentMenu();
+        }
+        return nextMenu;
     }
 
-    private static String getInputInFormatWithError(String regex, String error) {
-        Pattern pattern = Pattern.compile(regex);
-        boolean inputIsInvalid;
-        String line;
-        do {
-            line = scanner.nextLine().trim();
-            Matcher matcher = pattern.matcher(line);
-            inputIsInvalid = !matcher.find();
-            if (inputIsInvalid)
-                System.out.println(error);
-        } while (inputIsInvalid);
-        return line;
+    private Menu logout(){
+        Menu nextMenu=this.getParentMenu();
+        MainController.getInstance().getLoginRegisterController().logoutUser();
+        return nextMenu;
     }
 
 
@@ -62,18 +131,20 @@ public class LoginRegisterMenu extends Menu {
         int chosenMenu = getInput();
         if (MainController.getInstance().getCurrentPerson() == null) {
             if (chosenMenu == 1) {
-                registerUser();
+                nextMenu = registerUser();
             } else if (chosenMenu == 2) {
-                loginUser();
+                nextMenu = loginUser();
             } else if (chosenMenu == 3) {
                 nextMenu = this.parentMenu;
             }
         } else {
             if (chosenMenu == 1) {
-                logout();
+                nextMenu = logout();
             } else if (chosenMenu == 2) {
                 nextMenu = this.parentMenu;
             }
         }
+        nextMenu.help();
+        nextMenu.execute();
     }
 }
