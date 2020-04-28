@@ -1,6 +1,11 @@
 package model.productThings;
 
+import controller.MainController;
+import exception.DiscountCodeNotFoundException;
+import exception.UsernameNotFoundException;
+import model.Shop;
 import model.persons.Customer;
+import model.persons.Person;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -20,6 +25,17 @@ public class DiscountCode {
         this.MaxDiscountAmount = maxDiscountAmount;
         this.discountPercent = discountPercent;
         this.includedCustomers = includedCustomers;
+        Shop.getInstance().addDiscountCode(this);
+    }
+
+    public static void addCustomerToCode(String code, String customerUsername, int numberOfUse) throws DiscountCodeNotFoundException, UsernameNotFoundException {
+        DiscountCode discountCode = Shop.getInstance().findDiscountCode(code);
+        if (discountCode != null) {
+            Person person = Shop.getInstance().findUser(customerUsername);
+            if (person instanceof Customer) {
+                discountCode.includedCustomers.put((Customer)person, numberOfUse);
+            } else throw new UsernameNotFoundException();
+        } else throw new DiscountCodeNotFoundException();
     }
 
     public String getCode() {

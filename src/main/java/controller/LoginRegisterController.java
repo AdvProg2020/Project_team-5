@@ -1,7 +1,7 @@
 package controller;
 
 import exception.MainManagerAlreadyRegistered;
-import exception.PasswordIncoreectException;
+import exception.PasswordIncorrectException;
 import exception.UsernameIsTakenAlreadyException;
 import exception.UsernameNotFoundException;
 import model.Shop;
@@ -34,12 +34,12 @@ public class LoginRegisterController {
         }
     }
 
-    public void loginUser(String username, String password) throws UsernameNotFoundException, PasswordIncoreectException {
+    public void loginUser(String username, String password) throws UsernameNotFoundException, PasswordIncorrectException {
         if (Shop.getInstance().findUser(username) == null)
             throw new UsernameNotFoundException();
         Person person = Shop.getInstance().findUser(username);
         if (!(person.getPassword().equals(password)))
-            throw new PasswordIncoreectException();
+            throw new PasswordIncorrectException();
         MainController.getInstance().setCurrentPerson(person);
     }
 
