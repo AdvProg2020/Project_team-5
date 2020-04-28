@@ -85,13 +85,13 @@ public class LoginRegisterMenu extends Menu {
         String password = scanner.nextLine();
         try {
             MainController.getInstance().getLoginRegisterController().loginUser(username, password);
-            System.out.println("login succefull");
+            System.out.println("login successful");
             nextMenu = this.setNextMenu();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             nextMenu = this;
         }
-        System.out.println("press any key to conitune");
+        System.out.println("press any key to continue");
         scanner.nextLine();
         return nextMenu;
     }
