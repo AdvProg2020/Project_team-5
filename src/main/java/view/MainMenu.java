@@ -7,6 +7,7 @@ import model.persons.Seller;
 import view.accountArea.AccountAreaForCustomer;
 import view.accountArea.accountAreaForManager.AccountAreaForManager;
 import view.accountArea.AccountAreaForSeller.AccountAreaForSeller;
+import view.productsPage.AllProductsPage;
 
 public class MainMenu extends Menu{
 
@@ -28,7 +29,6 @@ public class MainMenu extends Menu{
 
     @Override
     protected void setCommandNames() {
-
     }
 
 

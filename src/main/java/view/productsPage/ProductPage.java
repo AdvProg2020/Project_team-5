@@ -1,14 +1,17 @@
-package view;
+package view.productsPage;
+
+import view.Menu;
 
 public class ProductPage extends Menu {
 
     public ProductPage(Menu parentMenu) {
-        super("product page", parentMenu);
+        super("page of a special product", parentMenu);
 
 }
 
+
     @Override
-    public void help() {
+    protected void setCommandNames() {
 
     }
 

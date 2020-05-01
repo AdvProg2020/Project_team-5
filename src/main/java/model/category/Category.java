@@ -61,8 +61,7 @@ public class Category {
         for (int i = 0; i < details.size(); i++) {
             categoryStr += ("\n" + (i + 1) + "- " + details.get(i));
         }
-
-        return categoryStr;
+        return (categoryStr + "\n");
     }
 
 }
