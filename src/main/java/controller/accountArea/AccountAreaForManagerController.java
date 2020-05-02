@@ -42,7 +42,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         } catch (Exception e) {
             throw new DiscountCodeCantCreatedException("number of use");
         }
-        discountCode.addCustomerToCode((Customer)person, number);
+        discountCode.addCustomerToCode((Customer) person, number);
     }
 
     public ArrayList<String> getAllDiscountCodesInfo() {
@@ -58,5 +58,15 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
             throw new DiscountCodeNotFoundException();
         return discountCode.getPrintableProperties();
+    }
+
+    public void removeDiscountCode(String code) throws DiscountCodeNotFoundException {
+        DiscountCode discountCode;
+        if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
+            throw new DiscountCodeNotFoundException();
+        for(Customer customer : discountCode.getIncludedCustomers().keySet())
+            customer.removeDiscountCode(discountCode);
+        Shop.getInstance().removeDiscountCode(discountCode);
+        //Delete discount code from external files
     }
 }

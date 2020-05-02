@@ -59,6 +59,7 @@ public class AccountAreaForManager extends Menu {
         try {
             MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(inputFields);
             getIncludedCustomers(inputFields.get(0));
+            System.out.println("discount code created successfully.");
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }

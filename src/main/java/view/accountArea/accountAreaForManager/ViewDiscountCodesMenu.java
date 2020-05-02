@@ -56,10 +56,11 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private void removeDiscountCode() {
-        System.out.println("enter code that you want view: ");
+        System.out.println("enter code that you want remove: ");
         String code = getValidInput("\\w+", "invalid code format.");
         try {
-
+            MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode(code);
+            System.out.println("discount code removed successfully.");
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
