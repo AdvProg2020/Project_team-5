@@ -26,10 +26,13 @@ public class DiscountCode {
 
     public void addCustomerToCode(Customer customer, int numberOfUse) {
         this.includedCustomers.put(customer, numberOfUse);
+        customer.addDiscountCode(this);
     }
 
     public void addAllCustomers (HashMap<Customer,Integer> allCustomers) {
         this.includedCustomers.putAll(allCustomers);
+        for (Customer customer : allCustomers.keySet())
+            customer.addDiscountCode(this);
     }
 
     public String getCode() {

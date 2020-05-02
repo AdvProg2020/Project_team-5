@@ -182,9 +182,6 @@ public class Shop {
         DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
         discountCode.addAllCustomers(randomCustomers(5, 1));
         allDiscountCodes.add(discountCode);
-        for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
-            customer.addDiscountCode(discountCode);
-        }
     }
 
     private HashMap<Customer, Integer> randomCustomers(int customerNumbers, int repeatingTimes) {
