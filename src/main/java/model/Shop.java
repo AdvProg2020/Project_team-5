@@ -49,6 +49,10 @@ public class Shop {
         return allDiscountCodes;
     }
 
+    public ArrayList<Request> getAllRequest() {
+        return allRequest;
+    }
+
     public void removePerson(Person user) {
         allPersons.remove(user);
     }

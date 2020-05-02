@@ -8,6 +8,7 @@ import model.Shop;
 import model.persons.Customer;
 import model.persons.Person;
 import model.productThings.DiscountCode;
+import model.requests.Request;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -92,5 +93,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
             customer.removeDiscountCode(discountCode);
         Shop.getInstance().removeDiscountCode(discountCode);
         //Delete discount code from external files
+    }
+
+    public ArrayList<String> getAllRequestsInfo() {
+        ArrayList<String> requests = new ArrayList<>();
+        for (Request request : Shop.getInstance().getAllRequest()) {
+            requests.add(request.getBriefInfo());
+        }
+        return requests;
     }
 }

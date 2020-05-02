@@ -1,5 +1,6 @@
 package view.accountArea.accountAreaForManager;
 
+import controller.MainController;
 import view.Menu;
 
 public class ManageRequestsMenu extends Menu {
@@ -31,6 +32,12 @@ public class ManageRequestsMenu extends Menu {
         }
         nextMenu.help();
         nextMenu.execute();
+    }
+
+    private void printAllRequests() {
+        for (String request : MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo()) {
+            System.out.println(request);
+        }
     }
 
     private void showDetails() {

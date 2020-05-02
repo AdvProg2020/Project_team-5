@@ -8,6 +8,10 @@ public abstract class Request {
         this.requestId = requestCount++;
     }
 
+    public String getBriefInfo() {
+        return "request id: " + this.requestId + " " + this.getClass().getName();
+    }
+
     public long getRequestId() {
         return requestId;
     }
