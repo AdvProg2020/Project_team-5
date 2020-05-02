@@ -45,6 +45,10 @@ public class Shop {
         return allCategories;
     }
 
+    public ArrayList<DiscountCode> getAllDiscountCodes() {
+        return allDiscountCodes;
+    }
+
     public void removePerson(Person user) {
         allPersons.remove(user);
     }
@@ -175,7 +179,8 @@ public class Shop {
 
     public void generatePeriodRandomDiscountCodes(LocalDate endDate) {
         String code = DiscountCode.generateRandomDiscountCode();
-        DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20, randomCustomers(5, 1));
+        DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
+        discountCode.addAllCustomers(randomCustomers(5, 1));
         allDiscountCodes.add(discountCode);
         for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
             customer.addDiscountCode(discountCode);

@@ -44,4 +44,19 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         discountCode.addCustomerToCode((Customer)person, number);
     }
+
+    public ArrayList<String> getAllDiscountCodesInfo() {
+        ArrayList<String> allDiscountCodes = new ArrayList<>();
+        for (DiscountCode discountCode : Shop.getInstance().getAllDiscountCodes()) {
+            allDiscountCodes.add(discountCode.toString());
+        }
+        return allDiscountCodes;
+    }
+
+    public String viewDiscountCode(String code) throws DiscountCodeNotFoundException {
+        DiscountCode discountCode;
+        if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
+            throw new DiscountCodeNotFoundException();
+        return discountCode.getPrintableProperties();
+    }
 }

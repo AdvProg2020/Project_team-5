@@ -1,5 +1,6 @@
 package view.accountArea.accountAreaForManager;
 
+import controller.MainController;
 import view.Menu;
 
 public class ViewDiscountCodesMenu extends Menu {
@@ -16,6 +17,7 @@ public class ViewDiscountCodesMenu extends Menu {
 
     @Override
     public void execute() {
+        printAllDiscountCodes();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 4)
@@ -33,8 +35,20 @@ public class ViewDiscountCodesMenu extends Menu {
         nextMenu.execute();
     }
 
-    private void viewDiscountCode() {
+    private void printAllDiscountCodes() {
+        for (String discountCode : MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodesInfo()) {
+            System.out.println(discountCode);
+        }
+    }
 
+    private void viewDiscountCode() {
+        System.out.println("enter code that you want view: ");
+        String code = getValidInput("\\w+", "invalid code format.");
+        try {
+            System.out.println(MainController.getInstance().getAccountAreaForManagerController().viewDiscountCode(code));
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     private void editDiscountCode() {

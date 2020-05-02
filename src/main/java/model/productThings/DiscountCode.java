@@ -1,11 +1,7 @@
 package model.productThings;
 
-import controller.MainController;
-import exception.DiscountCodeNotFoundException;
-import exception.UsernameNotFoundException;
 import model.Shop;
 import model.persons.Customer;
-import model.persons.Person;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -30,6 +26,10 @@ public class DiscountCode {
 
     public void addCustomerToCode(Customer customer, int numberOfUse) {
         this.includedCustomers.put(customer, numberOfUse);
+    }
+
+    public void addAllCustomers (HashMap<Customer,Integer> allCustomers) {
+        this.includedCustomers.putAll(allCustomers);
     }
 
     public String getCode() {
@@ -96,5 +96,18 @@ public class DiscountCode {
             }
         }
         throw new Exception("CustomerNotFoundException");
+    }
+
+    public String getPrintableProperties() {
+        return "code: " + code +
+                "\nstartDate: " + startDate +
+                "\nendDate: " + endDate +
+                "\ndiscountPercent=" + discountPercent +
+                "\n##################";
+    }
+
+    @Override
+    public String toString() {
+        return "code: " + code;
     }
 }
