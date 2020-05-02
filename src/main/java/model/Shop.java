@@ -125,6 +125,10 @@ public class Shop {
         return ratesOfGood;
     }
 
+    public void addRate(Customer customer, long productId, int rate){
+        allRates.add(new Rate(customer, findGoodById(productId), rate));
+    }
+
     public ArrayList<GoodInCart> getCart() {
         return cart;
     }

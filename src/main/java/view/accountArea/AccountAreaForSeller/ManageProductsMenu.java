@@ -1,9 +1,7 @@
 package view.accountArea.AccountAreaForSeller;
 
 import controller.MainController;
-import exception.ProductNotFoundException;
-import model.Shop;
-import model.persons.Seller;
+import exception.ProductNotFoundExceptionForSeller;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -45,7 +43,7 @@ public class ManageProductsMenu extends Menu {
             String product = MainController.getInstance().getAccountAreaForSellerController().
                     viewProduct(Long.parseLong(getValidInput("[0-9]+", "Not valid product ID")));
             System.out.println(product);
-        }catch (ProductNotFoundException exception){
+        }catch (ProductNotFoundExceptionForSeller exception){
             System.out.println(exception.getMessage());
         }
     }
@@ -58,7 +56,7 @@ public class ManageProductsMenu extends Menu {
             for (String buyer : buyers) {
                 System.out.println(buyer);
             }
-        }catch (ProductNotFoundException exception){
+        }catch (ProductNotFoundExceptionForSeller exception){
             System.out.println(exception.getMessage());
         }
     }

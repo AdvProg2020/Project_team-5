@@ -2,6 +2,7 @@ package model.persons;
 
 import model.orders.OrderForCustomer;
 import model.productThings.DiscountCode;
+import model.productThings.GoodInCart;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,16 @@ public class Customer extends Person {
 
     public void setCredit(Long credit) {
         this.credit = credit;
+    }
+
+    public boolean hasBuyProduct(long productId){
+        for (OrderForCustomer order : previousOrders) {
+            for (GoodInCart goodInCart : order.getGoodsDetails()) {
+                if (goodInCart.getGood().getGoodId() == productId)
+                    return true;
+            }
+        }
+        return false;
     }
 
     @Override

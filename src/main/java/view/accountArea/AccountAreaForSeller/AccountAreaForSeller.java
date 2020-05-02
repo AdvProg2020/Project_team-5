@@ -1,12 +1,7 @@
 package view.accountArea.AccountAreaForSeller;
 
 import controller.MainController;
-import exception.ProductNotFoundException;
-import model.Shop;
-import model.orders.OrderForCustomer;
-import model.persons.Customer;
-import model.persons.Seller;
-import model.productThings.Good;
+import exception.ProductNotFoundExceptionForSeller;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -109,7 +104,7 @@ public class AccountAreaForSeller extends Menu {
             MainController.getInstance().getAccountAreaForSellerController().removeProduct
                     (Long.parseLong(getValidInput("[0-9]+", "Not valid product ID")));
             System.out.println("product removed successfully");
-        } catch (ProductNotFoundException exception) {
+        } catch (ProductNotFoundExceptionForSeller exception) {
             System.out.println(exception.getMessage());
         }
     }

@@ -2,11 +2,9 @@ package view.accountArea.AcountAreaForCustomer;
 
 import controller.MainController;
 import exception.ProductNotExistInCart;
-import model.Shop;
 import view.LoginRegisterMenu;
 import view.Menu;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 

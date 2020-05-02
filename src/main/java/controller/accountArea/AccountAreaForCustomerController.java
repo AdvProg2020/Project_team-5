@@ -4,6 +4,7 @@ import controller.MainController;
 import model.Shop;
 import model.persons.Customer;
 import model.productThings.GoodInCart;
+import model.productThings.Rate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +43,17 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     public long getTotalPriceOfCart(){
         return Shop.getInstance().getCart().stream().map(goodInCart -> Shop.getInstance().getFinalPriceOfAGood(goodInCart.getGood(),
                 goodInCart.getSeller())).reduce(0L,(ans,i)-> ans+i);
+    }
+
+    public boolean checkExistProduct(long productId){
+        return Shop.getInstance().findGoodById(productId) != null;
+    }
+
+    public boolean hasBuyProduct(long productId){
+       return ((Customer)MainController.getInstance().getCurrentPerson()).hasBuyProduct(productId);
+    }
+
+    public void rateProduct(long productId, int rate){
+        Shop.getInstance().addRate(((Customer)MainController.getInstance().getCurrentPerson()),productId,rate);
     }
 }
