@@ -9,7 +9,6 @@ import model.persons.Customer;
 import model.persons.Person;
 import model.productThings.DiscountCode;
 
-import java.nio.file.DirectoryIteratorException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -63,7 +62,26 @@ public class AccountAreaForManagerController extends AccountAreaController {
 
     public void editDiscountCode(String code, String field, String newValue)
             throws DiscountCodeNotFoundException, DiscountCodeCantBeEditedException {
-
+        DiscountCode discountCode;
+        if ((discountCode = Shop.getInstance().findDiscountCode(code)) != null) {
+            if (field.equalsIgnoreCase("startDate")) {
+                if (!newValue.matches("\\d{4}-\\d{2}-\\d{2}") || LocalDate.parse(newValue).isBefore(LocalDate.now()))
+                    throw new DiscountCodeCantBeEditedException("new start date value");
+                discountCode.setStartDate(LocalDate.parse(newValue));
+            } else if (field.equalsIgnoreCase("endDate")) {
+                if (!newValue.matches("\\d{4}-\\d{2}-\\d{2}") || LocalDate.parse(newValue).isBefore(discountCode.getStartDate()))
+                    throw new DiscountCodeCantBeEditedException("new end date value");
+                discountCode.setEndDate(LocalDate.parse(newValue));
+            } else if (field.equalsIgnoreCase("maxDiscountAmount")) {
+                if (!newValue.matches("\\d{1,15}"))
+                    throw new DiscountCodeCantBeEditedException("new discount code amount value");
+                discountCode.setMaxDiscountAmount(Long.parseLong(newValue));
+            } else if (field.equalsIgnoreCase("discountPercent")) {
+                if (!newValue.matches("\\d{1,2}"))
+                    throw new DiscountCodeCantBeEditedException("new discount percent value");
+                discountCode.setDiscountPercent(Integer.parseInt(newValue));
+            } else throw new DiscountCodeCantBeEditedException("field name for edit");
+        } else throw new DiscountCodeNotFoundException();
     }
 
     public void removeDiscountCode(String code) throws DiscountCodeNotFoundException {
