@@ -1,10 +1,7 @@
 package view.accountArea.AcountAreaForCustomer;
 
 import controller.MainController;
-import exception.NotBuyProductByThisId;
-import exception.NotValidInput;
-import exception.ProductNotFoundExceptionForSeller;
-import exception.ProductWithThisIdNotExist;
+import exception.*;
 import view.LoginRegisterMenu;
 import view.Menu;
 
@@ -42,7 +39,12 @@ public class ViewOrdersMenu extends Menu {
     }
 
     private void showOrderById(){
-
+        try {
+            long orderId = getOrderId();
+            System.out.println(MainController.getInstance().getAccountAreaForCustomerController().viewAnOrder(orderId));
+        }catch (Exception exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     private void rateProduct(){
@@ -52,6 +54,16 @@ public class ViewOrdersMenu extends Menu {
         }catch (Exception exception){
             System.out.println(exception.getMessage());
         }
+    }
+
+    private long getOrderId() throws Exception{
+        System.out.println("enter order ID :");
+        String input = scanner.nextLine();
+        if (!Pattern.matches("[\\d]+", input))
+            throw new NotValidInput();
+        if (!MainController.getInstance().getAccountAreaForCustomerController().existOrderById(Long.parseLong(input)))
+            throw new NotFoundOrderById();
+        return Long.parseLong(input);
     }
 
     private long getProductId() throws Exception{

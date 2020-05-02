@@ -39,6 +39,14 @@ public class Customer extends Person {
         this.credit = credit;
     }
 
+    public OrderForCustomer findOrderById(long orderId){
+        for (OrderForCustomer order : previousOrders) {
+            if (order.getOrderId() == orderId)
+                return order;
+        }
+        return null;
+    }
+
     public boolean hasBuyProduct(long productId){
         for (OrderForCustomer order : previousOrders) {
             for (GoodInCart goodInCart : order.getGoodsDetails()) {
