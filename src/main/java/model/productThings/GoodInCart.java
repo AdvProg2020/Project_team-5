@@ -37,7 +37,7 @@ public class GoodInCart {
         String toString = "name : " + getGood().getName() + "\tbrand : " + getGood().getBrand();
         if (Shop.getInstance().getFinalPriceOfAGood(good, seller) != good.getPriceBySeller(seller))
             toString += ("\tprice before off : " + getGood().getPriceBySeller(getSeller())
-                    + "price after off : " + Shop.getInstance().getFinalPriceOfAGood(good, seller));
+                    + "\tprice after off : " + Shop.getInstance().getFinalPriceOfAGood(good, seller));
         else
             toString += (("\tprice : " + getGood().getPriceBySeller(getSeller())));
         toString += ("\tnumber :" + getNumber() + "\tseller : " + getSeller().getFirstName() + " " + getSeller().getLastName());

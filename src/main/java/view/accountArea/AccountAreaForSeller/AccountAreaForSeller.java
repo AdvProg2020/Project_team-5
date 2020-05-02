@@ -37,7 +37,7 @@ public class AccountAreaForSeller extends Menu {
         Menu nextMenu;
         if (chosenCommand <= submenus.size())
             nextMenu = submenus.get(chosenCommand - 1);
-        if (chosenCommand == submenus.size() + commandNames.size() + 1)
+        else if (chosenCommand == submenus.size() + commandNames.size() + 1)
             nextMenu = parentMenu;
         else {
             if (chosenCommand == submenus.size() + 1)

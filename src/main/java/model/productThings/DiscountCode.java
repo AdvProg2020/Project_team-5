@@ -9,7 +9,7 @@ public class DiscountCode {
     private String code;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Long MaxDiscountAmount;
+    private Long maxDiscountAmount;
     private int discountPercent;
     private HashMap<Customer, Integer> includedCustomers;
 
@@ -17,7 +17,7 @@ public class DiscountCode {
         this.code = code;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.MaxDiscountAmount = maxDiscountAmount;
+        this.maxDiscountAmount = maxDiscountAmount;
         this.discountPercent = discountPercent;
         this.includedCustomers = includedCustomers;
     }
@@ -35,7 +35,7 @@ public class DiscountCode {
     }
 
     public Long getMaxDiscountAmount() {
-        return MaxDiscountAmount;
+        return maxDiscountAmount;
     }
 
     public int getDiscountPercent() {
@@ -51,7 +51,7 @@ public class DiscountCode {
     }
 
     public void setMaxDiscountAmount(Long maxDiscountAmount) {
-        MaxDiscountAmount = maxDiscountAmount;
+        this.maxDiscountAmount = maxDiscountAmount;
     }
 
     public void setEndDate(LocalDate endDate) {
@@ -60,6 +60,11 @@ public class DiscountCode {
 
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
+    }
+    @Override
+    public String toString(){
+        return "discount code : " + code + "\nstart date : " + startDate + "\nend date : " + endDate + "\nmaximum supported amount : "
+                + maxDiscountAmount + "\ndiscount percent :" + discountPercent ;
     }
 
     public static String generateRandomDiscountCode() {

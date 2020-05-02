@@ -125,13 +125,21 @@ public class Shop {
         return ratesOfGood;
     }
 
+    public ArrayList<GoodInCart> getCart() {
+        return cart;
+    }
+
+    public boolean checkExistProductInCart(long productId) {
+        return !cart.stream().filter(goodInCart -> goodInCart.getGood().getGoodId() == productId).findAny().isEmpty();
+    }
+
     public void addGoodToCart(Good good, Seller seller) {
         cart.add(new GoodInCart(good, seller, 1));
     }
 
-    public void reduceGoodInCartNumber(Good good) {
+    public void reduceGoodInCartNumber(long productId) {
         for (GoodInCart goodInCart : cart) {
-            if (goodInCart.getGood().equals(good)) {
+            if (goodInCart.getGood().getGoodId() == productId) {
                 goodInCart.setNumber(goodInCart.getNumber() - 1);
                 if (goodInCart.getNumber() == 0)
                     cart.remove(goodInCart);
@@ -140,9 +148,9 @@ public class Shop {
         }
     }
 
-    public void increaseGoodInCartNumber(Good good) {
+    public void increaseGoodInCartNumber(long productId) {
         for (GoodInCart goodInCart : cart) {
-            if (goodInCart.getGood().equals(good)) {
+            if (goodInCart.getGood().getGoodId() == productId) {
                 goodInCart.setNumber(goodInCart.getNumber() + 1);
                 return;
             }
