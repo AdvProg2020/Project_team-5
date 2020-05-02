@@ -19,4 +19,12 @@ public class AccountAreaController {
         }
         return categories;
     }
+
+    public String getUserPersonalInfo() {
+        return "";
+    }
+
+    public void editField (String field, String newValue) {
+        //TODO
+    }
 }
