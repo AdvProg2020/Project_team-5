@@ -1,7 +1,13 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
+import exception.DiscountCodeCantBeEditedException;
+import exception.DiscountCodeNotFoundException;
 import view.Menu;
+
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ViewDiscountCodesMenu extends Menu {
     public ViewDiscountCodesMenu(Menu parentMenu) {
@@ -52,7 +58,31 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private void editDiscountCode() {
-
+        System.out.println("please enter code that you want edit: ");
+        String code = getValidInput("\\w+", "invalid code format.");
+        try {
+            System.out.println("fields for edit :\n-startDate\n-endDate\n-maxDiscountAmount\n-discountPercent");
+            System.out.println("enter field for edit and its value: (fieldName newValue)");
+            System.out.println("after edit fields, enter [end] to return.");
+            Pattern pattern = Pattern.compile("(\\w+) (\\w+)");
+            String input, field, newValue;
+            Scanner scanner = new Scanner(System.in);
+            while (!(input = scanner.nextLine()).equalsIgnoreCase("end")) {
+                Matcher matcher = pattern.matcher(input);
+                if (matcher.find()) {
+                    field = matcher.group(1);
+                    newValue = matcher.group(2);
+                    try {
+                        MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(code, field, newValue);
+                    } catch (DiscountCodeCantBeEditedException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else
+                    System.out.println("invalid input format.");
+            }
+        } catch (DiscountCodeNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void removeDiscountCode() {

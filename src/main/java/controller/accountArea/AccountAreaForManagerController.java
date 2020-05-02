@@ -1,5 +1,6 @@
 package controller.accountArea;
 
+import exception.DiscountCodeCantBeEditedException;
 import exception.DiscountCodeCantCreatedException;
 import exception.DiscountCodeNotFoundException;
 import exception.UsernameNotFoundException;
@@ -60,11 +61,16 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return discountCode.getPrintableProperties();
     }
 
+    public void editDiscountCode(String code, String field, String newValue)
+            throws DiscountCodeNotFoundException, DiscountCodeCantBeEditedException {
+
+    }
+
     public void removeDiscountCode(String code) throws DiscountCodeNotFoundException {
         DiscountCode discountCode;
         if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
             throw new DiscountCodeNotFoundException();
-        for(Customer customer : discountCode.getIncludedCustomers().keySet())
+        for (Customer customer : discountCode.getIncludedCustomers().keySet())
             customer.removeDiscountCode(discountCode);
         Shop.getInstance().removeDiscountCode(discountCode);
         //Delete discount code from external files
