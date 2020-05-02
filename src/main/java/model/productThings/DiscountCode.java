@@ -18,24 +18,18 @@ public class DiscountCode {
     private int discountPercent;
     private HashMap<Customer, Integer> includedCustomers;
 
-    public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent, HashMap<Customer, Integer> includedCustomers) {
+    public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent) {
         this.code = code;
         this.startDate = startDate;
         this.endDate = endDate;
         this.MaxDiscountAmount = maxDiscountAmount;
         this.discountPercent = discountPercent;
-        this.includedCustomers = includedCustomers;
+        this.includedCustomers = new HashMap<>();
         Shop.getInstance().addDiscountCode(this);
     }
 
-    public static void addCustomerToCode(String code, String customerUsername, int numberOfUse) throws DiscountCodeNotFoundException, UsernameNotFoundException {
-        DiscountCode discountCode = Shop.getInstance().findDiscountCode(code);
-        if (discountCode != null) {
-            Person person = Shop.getInstance().findUser(customerUsername);
-            if (person instanceof Customer) {
-                discountCode.includedCustomers.put((Customer)person, numberOfUse);
-            } else throw new UsernameNotFoundException();
-        } else throw new DiscountCodeNotFoundException();
+    public void addCustomerToCode(Customer customer, int numberOfUse) {
+        this.includedCustomers.put(customer, numberOfUse);
     }
 
     public String getCode() {
