@@ -74,11 +74,6 @@ public class DiscountCode {
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-    @Override
-    public String toString(){
-        return "discount code : " + code + "\nstart date : " + startDate + "\nend date : " + endDate + "\nmaximum supported amount : "
-                + maxDiscountAmount + "\ndiscount percent :" + discountPercent ;
-    }
 
     public static String generateRandomDiscountCode() {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvxyz";

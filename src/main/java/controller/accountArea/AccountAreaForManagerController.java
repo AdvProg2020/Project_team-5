@@ -1,9 +1,6 @@
 package controller.accountArea;
 
-import exception.DiscountCodeCantBeEditedException;
-import exception.DiscountCodeCantCreatedException;
-import exception.DiscountCodeNotFoundException;
-import exception.UsernameNotFoundException;
+import exception.*;
 import model.Shop;
 import model.persons.Customer;
 import model.persons.Person;
@@ -101,5 +98,12 @@ public class AccountAreaForManagerController extends AccountAreaController {
             requests.add(request.getBriefInfo());
         }
         return requests;
+    }
+
+    public String viewRequestDetails(String requestId) throws RequestNotFoundException {
+        Request request;
+        if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
+            throw new RequestNotFoundException();
+        return request.toString();
     }
 }
