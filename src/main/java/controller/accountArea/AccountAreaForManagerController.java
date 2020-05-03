@@ -106,4 +106,19 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new RequestNotFoundException();
         return request.toString();
     }
+
+    public void acceptRequest(String requestId) throws RequestNotFoundException {
+        Request request;
+        if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
+            throw new RequestNotFoundException();
+        request.acceptRequest();
+        Shop.getInstance().getAllRequest().remove(request);
+    }
+
+    public void declineRequest(String requestId) throws RequestNotFoundException {
+        Request request;
+        if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
+            throw new RequestNotFoundException();
+        Shop.getInstance().getAllRequest().remove(request);
+    }
 }
