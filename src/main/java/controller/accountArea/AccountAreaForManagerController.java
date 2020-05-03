@@ -2,6 +2,7 @@ package controller.accountArea;
 
 import exception.*;
 import model.Shop;
+import model.category.Category;
 import model.persons.Customer;
 import model.persons.Person;
 import model.productThings.DiscountCode;
@@ -120,5 +121,20 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
             throw new RequestNotFoundException();
         Shop.getInstance().getAllRequest().remove(request);
+    }
+
+    public void editCategory() {
+
+    }
+
+    public void addCategory() {
+
+    }
+
+    public void removeCategory(String categoryName) throws CategoryNotFoundException {
+        Category category;
+        if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
+            throw new  CategoryNotFoundException();
+        Shop.getInstance().removeCategory(category);
     }
 }

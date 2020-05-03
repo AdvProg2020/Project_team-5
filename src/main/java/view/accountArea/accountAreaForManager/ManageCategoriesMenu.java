@@ -1,5 +1,6 @@
 package view.accountArea.accountAreaForManager;
 
+import controller.MainController;
 import view.Menu;
 
 public class ManageCategoriesMenu extends Menu {
@@ -33,12 +34,22 @@ public class ManageCategoriesMenu extends Menu {
         nextMenu.execute();
     }
 
+    private void showAllCategories() {
+
+    }
+
     private void addCategory() {
 
     }
 
     private void removeCategory() {
-
+        System.out.println("enter category name that you want delete:");
+        String name = getValidInput("\\w+", "invalid name format.");
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().removeCategory(name);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void editCategory() {
