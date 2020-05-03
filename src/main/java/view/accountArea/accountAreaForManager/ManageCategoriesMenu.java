@@ -3,6 +3,8 @@ package view.accountArea.accountAreaForManager;
 import controller.MainController;
 import view.Menu;
 
+import java.util.ArrayList;
+
 public class ManageCategoriesMenu extends Menu {
     public ManageCategoriesMenu(Menu parentMenu) {
         super("manage categories", parentMenu);
@@ -42,7 +44,16 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private void addCategory() {
-
+        String name;
+        ArrayList<String> properties = new ArrayList<>();
+        do {
+            System.out.print("enter category name: ");
+            name = getValidInput("\\w+", "invalid name format");
+        } while (MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(name));
+        System.out.println("now enter name of category properties, each property in a separate line. (enter [end] to finish)");
+        String field;
+        while (!(field = getValidInput("\\w+", "invalid name format")).equalsIgnoreCase("end"))
+            properties.add(field);
     }
 
     private void removeCategory() {

@@ -113,14 +113,14 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
             throw new RequestNotFoundException();
         request.acceptRequest();
-        Shop.getInstance().getAllRequest().remove(request);
+        Shop.getInstance().removeRequest(request);
     }
 
     public void declineRequest(String requestId) throws RequestNotFoundException {
         Request request;
         if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
             throw new RequestNotFoundException();
-        Shop.getInstance().getAllRequest().remove(request);
+        Shop.getInstance().removeRequest(request);
     }
 
     public ArrayList<String> getAllCategories() {
@@ -135,8 +135,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
 
     }
 
-    public void addCategory() {
+    public boolean isExistCategoryWithThisName(String name) {
+        return Shop.getInstance().findCategoryByName(name) != null;
+    }
 
+    public void addCategory(String name, ArrayList<String> properties) {
+        Category category = new Category(name, properties, null);
+        Shop.getInstance().addCategory(category);
     }
 
     public void removeCategory(String categoryName) throws CategoryNotFoundException {
