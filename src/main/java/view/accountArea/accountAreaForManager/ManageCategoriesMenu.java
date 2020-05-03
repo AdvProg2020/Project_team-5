@@ -17,6 +17,7 @@ public class ManageCategoriesMenu extends Menu {
 
     @Override
     public void execute() {
+        showAllCategories();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 4)
@@ -35,7 +36,9 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private void showAllCategories() {
-
+        for (String category : MainController.getInstance().getAccountAreaForManagerController().getAllCategories()) {
+            System.out.println(category);
+        }
     }
 
     private void addCategory() {

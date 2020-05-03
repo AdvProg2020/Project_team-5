@@ -123,6 +123,14 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Shop.getInstance().getAllRequest().remove(request);
     }
 
+    public ArrayList<String> getAllCategories() {
+        ArrayList<String> categories = new ArrayList<>();
+        for (Category category : Shop.getInstance().getAllCategories()) {
+            categories.add(category.toString());
+        }
+        return categories;
+    }
+
     public void editCategory() {
 
     }
