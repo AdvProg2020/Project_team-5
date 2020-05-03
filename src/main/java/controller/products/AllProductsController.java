@@ -1,7 +1,7 @@
 package controller.products;
 
 import controller.MainController;
-import exception.ProductNotFoundException;
+import exception.ProductWithThisIdNotExist;
 import model.Shop;
 import model.category.Category;
 
@@ -18,9 +18,9 @@ public class AllProductsController {
         return output;
     }
 
-    public void showAProduct(long id) throws ProductNotFoundException {
+    public void showAProduct(long id) throws ProductWithThisIdNotExist {
         if (Shop.getInstance().findGoodById(id) == null){
-            throw new ProductNotFoundException();
+            throw new ProductWithThisIdNotExist();
         }else{
             MainController.getInstance().getProductController().setGood(Shop.getInstance().findGoodById(id));
         }

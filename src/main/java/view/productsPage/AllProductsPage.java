@@ -1,7 +1,7 @@
 package view.productsPage;
 
 import controller.MainController;
-import exception.ProductNotFoundException;
+import exception.ProductWithThisIdNotExist;
 import view.Menu;
 import view.ScreenClearing;
 
@@ -29,7 +29,7 @@ public class AllProductsPage extends Menu {
         try {
             MainController.getInstance().getAllProductsController().showAProduct(id);
             return this.submenus.get(2);
-        } catch (ProductNotFoundException e) {
+        } catch (ProductWithThisIdNotExist e) {
             System.out.println(e.getMessage());
             return this;
         }
