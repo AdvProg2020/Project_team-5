@@ -4,11 +4,12 @@ import model.persons.Seller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Off {
     private static long offsCount = 1;
     private long offId;
-    private ArrayList<Good> offGoods;
+    private List<Good> offGoods;
     private OffStatus offStatus;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -22,7 +23,7 @@ public class Off {
         ACCEPTED
     }
 
-    public Off(ArrayList<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
+    public Off(List<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
         this.offId = offsCount++;
         this.offGoods = offGoods;
         this.offStatus = OffStatus.VALIDATING;
@@ -37,7 +38,7 @@ public class Off {
         return offId;
     }
 
-    public ArrayList<Good> getOffGoods() {
+    public List<Good> getOffGoods() {
         return offGoods;
     }
 

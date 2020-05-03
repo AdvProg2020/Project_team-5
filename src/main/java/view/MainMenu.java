@@ -4,10 +4,9 @@ import controller.MainController;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
-import view.accountArea.AccountAreaForCustomer;
+import view.accountArea.acountAreaForCustomer.AccountAreaForCustomer;
+import view.accountArea.accountAreaForSeller.AccountAreaForSeller;
 import view.accountArea.accountAreaForManager.AccountAreaForManager;
-import view.accountArea.AccountAreaForSeller.AccountAreaForSeller;
-import view.productsPage.AllProductsPage;
 
 public class MainMenu extends Menu{
 
@@ -29,8 +28,8 @@ public class MainMenu extends Menu{
 
     @Override
     protected void setCommandNames() {
-    }
 
+    }
 
     @Override
     public void execute(){

@@ -1,5 +1,6 @@
 package view.accountArea.accountAreaForManager;
 
+import controller.MainController;
 import view.Menu;
 
 public class ManageRequestsMenu extends Menu {
@@ -33,15 +34,41 @@ public class ManageRequestsMenu extends Menu {
         nextMenu.execute();
     }
 
-    private void showDetails() {
+    private void printAllRequests() {
+        for (String request : MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo()) {
+            System.out.println(request);
+        }
+    }
 
+    private void showDetails() {
+        System.out.println("enter request id that you want view its details: ");
+        String requestId = getValidInput("\\d+", "invalid id format.");
+        try {
+            System.out.println(MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails(requestId));
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     private void acceptRequest() {
-
+        System.out.println("enter request id that you want to accept:");
+        String requestId = getValidInput("\\d+", "invalid id format.");
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().acceptRequest(requestId);
+            System.out.println("request accepted.");
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     private void declineRequest() {
-
+        System.out.println("enter request id that you want to decline:");
+        String requestId = getValidInput("\\d+", "invalid id format.");
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().declineRequest(requestId);
+            System.out.println("request declined.");
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 }

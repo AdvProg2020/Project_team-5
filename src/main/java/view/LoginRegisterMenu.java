@@ -5,7 +5,7 @@ import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
 import view.accountArea.AccountAreaForCustomer;
-import view.accountArea.AccountAreaForSeller.AccountAreaForSeller;
+import view.accountArea.accountAreaForSeller.AccountAreaForSeller;
 import view.accountArea.accountAreaForManager.AccountAreaForManager;
 
 import java.util.ArrayList;

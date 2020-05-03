@@ -1,11 +1,7 @@
 package model.productThings;
 
-import controller.MainController;
-import exception.DiscountCodeNotFoundException;
-import exception.UsernameNotFoundException;
 import model.Shop;
 import model.persons.Customer;
-import model.persons.Person;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -14,28 +10,29 @@ public class DiscountCode {
     private String code;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Long MaxDiscountAmount;
+    private Long maxDiscountAmount;
     private int discountPercent;
     private HashMap<Customer, Integer> includedCustomers;
 
-    public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent, HashMap<Customer, Integer> includedCustomers) {
+    public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent) {
         this.code = code;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.MaxDiscountAmount = maxDiscountAmount;
+        this.maxDiscountAmount = maxDiscountAmount;
         this.discountPercent = discountPercent;
-        this.includedCustomers = includedCustomers;
+        this.includedCustomers = new HashMap<>();
         Shop.getInstance().addDiscountCode(this);
     }
 
-    public static void addCustomerToCode(String code, String customerUsername, int numberOfUse) throws DiscountCodeNotFoundException, UsernameNotFoundException {
-        DiscountCode discountCode = Shop.getInstance().findDiscountCode(code);
-        if (discountCode != null) {
-            Person person = Shop.getInstance().findUser(customerUsername);
-            if (person instanceof Customer) {
-                discountCode.includedCustomers.put((Customer)person, numberOfUse);
-            } else throw new UsernameNotFoundException();
-        } else throw new DiscountCodeNotFoundException();
+    public void addCustomerToCode(Customer customer, int numberOfUse) {
+        this.includedCustomers.put(customer, numberOfUse);
+        customer.addDiscountCode(this);
+    }
+
+    public void addAllCustomers (HashMap<Customer,Integer> allCustomers) {
+        this.includedCustomers.putAll(allCustomers);
+        for (Customer customer : allCustomers.keySet())
+            customer.addDiscountCode(this);
     }
 
     public String getCode() {
@@ -51,7 +48,7 @@ public class DiscountCode {
     }
 
     public Long getMaxDiscountAmount() {
-        return MaxDiscountAmount;
+        return maxDiscountAmount;
     }
 
     public int getDiscountPercent() {
@@ -67,7 +64,7 @@ public class DiscountCode {
     }
 
     public void setMaxDiscountAmount(Long maxDiscountAmount) {
-        MaxDiscountAmount = maxDiscountAmount;
+        this.maxDiscountAmount = maxDiscountAmount;
     }
 
     public void setEndDate(LocalDate endDate) {
@@ -102,5 +99,18 @@ public class DiscountCode {
             }
         }
         throw new Exception("CustomerNotFoundException");
+    }
+
+    public String getPrintableProperties() {
+        return "code: " + code +
+                "\nstartDate: " + startDate +
+                "\nendDate: " + endDate +
+                "\ndiscountPercent=" + discountPercent +
+                "\n##################";
+    }
+
+    @Override
+    public String toString() {
+        return "code: " + code;
     }
 }

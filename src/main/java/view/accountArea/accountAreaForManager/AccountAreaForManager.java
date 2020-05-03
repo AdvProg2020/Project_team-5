@@ -1,8 +1,16 @@
 package view.accountArea.accountAreaForManager;
 
+import controller.MainController;
+import exception.DiscountCodeCantCreatedException;
+import exception.DiscountCodeNotFoundException;
+import exception.UsernameNotFoundException;
+import model.Shop;
 import view.Menu;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AccountAreaForManager extends Menu {
     public AccountAreaForManager(Menu parentMenu) {
@@ -48,10 +56,30 @@ public class AccountAreaForManager extends Menu {
         inputFields.add(getValidInput("\\d{1,15}", "invalid discount amount"));
         System.out.println("enter discount percent:");
         inputFields.add(getValidInput("\\d{1,2}", "invalid discount percent"));
-        //TODO
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(inputFields);
+            getIncludedCustomers(inputFields.get(0));
+            System.out.println("discount code created successfully.");
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
-    private void getIncludedCustomers() {
-        //TODO
+    private void getIncludedCustomers(String code)
+        throws UsernameNotFoundException, DiscountCodeNotFoundException, DiscountCodeCantCreatedException {
+        Pattern pattern = Pattern.compile("(\\w+) (\\d+)");
+        String input, username, numberOfUse;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("enter customer and number of use for each customer: -> (#username #number)");
+        System.out.println("if all customers inserted, enter [end]");
+        while (!(input = scanner.nextLine()).equalsIgnoreCase("end")) {
+            Matcher matcher = pattern.matcher(input);
+            if (matcher.find()) {
+                username = matcher.group(1);
+                numberOfUse = matcher.group(2);
+                MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode(code, username, numberOfUse);
+            } else
+                System.out.println("invalid input format.");
+        }
     }
 }

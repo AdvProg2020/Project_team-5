@@ -58,8 +58,20 @@ public class Seller extends Person {
         return buyers;
     }
 
+   public Off findOffById(long offId){
+      return activeOffs.stream().filter(off -> off.getOffId() == offId).findAny().orElse(null);
+   }
+
+   public boolean hasThisOff(long offId){
+       return findOffById(offId) != null;
+   }
+
     public Good findProductOfSeller(long productId) {
         return this.activeGoods.stream().filter((good -> good.getGoodId() == productId)).findAny().orElse(null);
+    }
+
+    public boolean hasThisProduct(long productId){
+        return findProductOfSeller(productId) != null;
     }
 
     public long balance() {

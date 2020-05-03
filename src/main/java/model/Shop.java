@@ -45,6 +45,14 @@ public class Shop {
         return allCategories;
     }
 
+    public ArrayList<DiscountCode> getAllDiscountCodes() {
+        return allDiscountCodes;
+    }
+
+    public ArrayList<Request> getAllRequest() {
+        return allRequest;
+    }
+
     public void removePerson(Person user) {
         allPersons.remove(user);
     }
@@ -126,13 +134,25 @@ public class Shop {
         return ratesOfGood;
     }
 
+    public void addRate(Customer customer, long productId, int rate){
+        allRates.add(new Rate(customer, findGoodById(productId), rate));
+    }
+
+    public ArrayList<GoodInCart> getCart() {
+        return cart;
+    }
+
+    public boolean checkExistProductInCart(long productId) {
+        return !cart.stream().filter(goodInCart -> goodInCart.getGood().getGoodId() == productId).findAny().isEmpty();
+    }
+
     public void addGoodToCart(Good good, Seller seller) {
         cart.add(new GoodInCart(good, seller, 1));
     }
 
-    public void reduceGoodInCartNumber(Good good) {
+    public void reduceGoodInCartNumber(long productId) {
         for (GoodInCart goodInCart : cart) {
-            if (goodInCart.getGood().equals(good)) {
+            if (goodInCart.getGood().getGoodId() == productId) {
                 goodInCart.setNumber(goodInCart.getNumber() - 1);
                 if (goodInCart.getNumber() == 0)
                     cart.remove(goodInCart);
@@ -141,9 +161,9 @@ public class Shop {
         }
     }
 
-    public void increaseGoodInCartNumber(Good good) {
+    public void increaseGoodInCartNumber(long productId) {
         for (GoodInCart goodInCart : cart) {
-            if (goodInCart.getGood().equals(good)) {
+            if (goodInCart.getGood().getGoodId() == productId) {
                 goodInCart.setNumber(goodInCart.getNumber() + 1);
                 return;
             }
@@ -175,11 +195,9 @@ public class Shop {
 
     public void generatePeriodRandomDiscountCodes(LocalDate endDate) {
         String code = DiscountCode.generateRandomDiscountCode();
-        DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20, randomCustomers(5, 1));
+        DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
+        discountCode.addAllCustomers(randomCustomers(5, 1));
         allDiscountCodes.add(discountCode);
-        for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
-            customer.addDiscountCode(discountCode);
-        }
     }
 
     private HashMap<Customer, Integer> randomCustomers(int customerNumbers, int repeatingTimes) {
