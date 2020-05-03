@@ -1,4 +1,4 @@
-package view.accountArea.AccountAreaForSeller;
+package view.accountArea.accountAreaForSeller;
 
 import controller.MainController;
 import exception.ProductNotFoundExceptionForSeller;

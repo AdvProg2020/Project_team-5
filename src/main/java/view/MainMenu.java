@@ -4,9 +4,9 @@ import controller.MainController;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
-import view.accountArea.AcountAreaForCustomer.AccountAreaForCustomer;
-import view.accountArea.AccountAreaForManager.*;
-import view.accountArea.AccountAreaForSeller.AccountAreaForSeller;
+import view.accountArea.acountAreaForCustomer.AccountAreaForCustomer;
+import view.accountArea.accountAreaForSeller.AccountAreaForSeller;
+import view.accountArea.accountAreaForManager.AccountAreaForManager;
 
 public class MainMenu extends Menu{
 

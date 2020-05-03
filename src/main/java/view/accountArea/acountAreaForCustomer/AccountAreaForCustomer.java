@@ -1,4 +1,4 @@
-package view.accountArea.AcountAreaForCustomer;
+package view.accountArea.acountAreaForCustomer;
 
 import controller.MainController;
 import view.LoginRegisterMenu;
