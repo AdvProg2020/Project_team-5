@@ -4,6 +4,7 @@ import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
 import model.persons.Customer;
+import model.persons.Manager;
 import model.persons.Person;
 import model.persons.Seller;
 import model.productThings.*;
@@ -42,6 +43,14 @@ public class Shop {
 
     public ArrayList<Category> getAllCategories() {
         return allCategories;
+    }
+
+    public ArrayList<DiscountCode> getAllDiscountCodes() {
+        return allDiscountCodes;
+    }
+
+    public ArrayList<Request> getAllRequest() {
+        return allRequest;
     }
 
     public void removePerson(Person user) {
@@ -186,11 +195,9 @@ public class Shop {
 
     public void generatePeriodRandomDiscountCodes(LocalDate endDate) {
         String code = DiscountCode.generateRandomDiscountCode();
-        DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20, randomCustomers(5, 1));
+        DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
+        discountCode.addAllCustomers(randomCustomers(5, 1));
         allDiscountCodes.add(discountCode);
-        for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
-            customer.addDiscountCode(discountCode);
-        }
     }
 
     private HashMap<Customer, Integer> randomCustomers(int customerNumbers, int repeatingTimes) {
@@ -239,6 +246,14 @@ public class Shop {
                 return good;
         }
         return null;
+    }
+
+    public boolean didManagerRegistered(){
+        for (Person person : allPersons) {
+            if (person instanceof Manager)
+                return true;
+        }
+        return false;
     }
 
 

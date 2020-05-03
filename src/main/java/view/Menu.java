@@ -48,6 +48,10 @@ public abstract class Menu {
 
     protected abstract void setCommandNames();
 
+    protected void setSubMenu(int index,Menu menu){
+        submenus.set(index,menu);
+    }
+
     protected int getInput() {
         String input;
         while (true) {
@@ -72,8 +76,6 @@ public abstract class Menu {
         } while (inputIsInvalid);
         return line;
     }
-
-
 
     public void help() {
         ScreenClearing.clearScreen();

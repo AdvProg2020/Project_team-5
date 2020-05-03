@@ -1,5 +1,6 @@
 package model.productThings;
 
+import model.Shop;
 import model.persons.Customer;
 
 import java.time.LocalDate;
@@ -13,13 +14,25 @@ public class DiscountCode {
     private int discountPercent;
     private HashMap<Customer, Integer> includedCustomers;
 
-    public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent, HashMap<Customer, Integer> includedCustomers) {
+    public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent) {
         this.code = code;
         this.startDate = startDate;
         this.endDate = endDate;
         this.maxDiscountAmount = maxDiscountAmount;
         this.discountPercent = discountPercent;
-        this.includedCustomers = includedCustomers;
+        this.includedCustomers = new HashMap<>();
+        Shop.getInstance().addDiscountCode(this);
+    }
+
+    public void addCustomerToCode(Customer customer, int numberOfUse) {
+        this.includedCustomers.put(customer, numberOfUse);
+        customer.addDiscountCode(this);
+    }
+
+    public void addAllCustomers (HashMap<Customer,Integer> allCustomers) {
+        this.includedCustomers.putAll(allCustomers);
+        for (Customer customer : allCustomers.keySet())
+            customer.addDiscountCode(this);
     }
 
     public String getCode() {
@@ -91,5 +104,18 @@ public class DiscountCode {
             }
         }
         throw new Exception("CustomerNotFoundException");
+    }
+
+    public String getPrintableProperties() {
+        return "code: " + code +
+                "\nstartDate: " + startDate +
+                "\nendDate: " + endDate +
+                "\ndiscountPercent=" + discountPercent +
+                "\n##################";
+    }
+
+    @Override
+    public String toString() {
+        return "code: " + code;
     }
 }
