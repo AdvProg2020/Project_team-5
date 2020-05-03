@@ -3,6 +3,7 @@ package controller.accountArea;
 import exception.*;
 import model.Shop;
 import model.category.Category;
+import model.category.SubCategory;
 import model.persons.Customer;
 import model.persons.Person;
 import model.productThings.DiscountCode;
@@ -131,8 +132,27 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return categories;
     }
 
-    public void editCategory() {
+    public ArrayList<String> getCategorySubCatsNames(String categoryName) {
+        ArrayList<String> subCategories = new ArrayList<>();
+        for (SubCategory subCategory : Shop.getInstance().findCategoryByName(categoryName).getSubCategories()) {
+            subCategories.add(subCategory.getName());
+        }
+        return subCategories;
+    }
 
+    public ArrayList<String> getCategoryProperties(String categoryName) {
+        return Shop.getInstance().findCategoryByName(categoryName).getDetails();
+    }
+
+    public void editCategory(String name, String property, String newValue) throws PropertyOfCategoryNotFound {
+        Category category = Shop.getInstance().findCategoryByName(name);
+        for (int i = 0; i < category.getDetails().size(); i++) {
+            if (category.getDetails().get(i).equalsIgnoreCase(property)) {
+                category.getDetails().add(i, newValue);
+                return;
+            }
+        }
+        throw new PropertyOfCategoryNotFound();
     }
 
     public boolean isExistCategoryWithThisName(String name) {
