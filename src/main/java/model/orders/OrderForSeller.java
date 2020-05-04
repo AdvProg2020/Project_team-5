@@ -14,7 +14,8 @@ public class OrderForSeller extends Order {
     private long offDeduct;
     private HashMap<Good, Integer> numberPerGood = new HashMap<>();
 
-    public OrderForSeller(Seller seller, String customerName, ArrayList<GoodInCart> goods) {
+    public OrderForSeller(long price,Seller seller, String customerName, ArrayList<GoodInCart> goods) {
+        super(price);
         this.seller = seller;
         this.customerName = customerName;
         setNumberPerGood(goods);
