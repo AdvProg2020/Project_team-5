@@ -7,6 +7,7 @@ import model.persons.Seller;
 import view.accountArea.acountAreaForCustomer.AccountAreaForCustomer;
 import view.accountArea.accountAreaForSeller.AccountAreaForSeller;
 import view.accountArea.accountAreaForManager.AccountAreaForManager;
+import view.productsPage.AllProductsPage;
 
 public class MainMenu extends Menu{
 
