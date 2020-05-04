@@ -9,6 +9,11 @@ public class OffsPage extends Menu{
     }
 
     @Override
+    protected void setCommandNames() {
+
+    }
+
+    @Override
     public void help() {
 
     }
