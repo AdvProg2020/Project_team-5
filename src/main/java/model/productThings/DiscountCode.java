@@ -99,6 +99,7 @@ public class DiscountCode {
                     includedCustomers.replace(includedCustomer, remainedNumberOfUse - 1);
                 } else {
                     includedCustomers.remove(includedCustomer);
+                    includedCustomer.removeDiscountCode(this);
                 }
                 return;
             }

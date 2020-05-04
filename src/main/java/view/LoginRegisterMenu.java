@@ -52,6 +52,7 @@ public class LoginRegisterMenu extends Menu {
         details.add(getValidInput("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})", "not valid format for password"));
         System.out.println("enter your credit");
         details.add(getValidInput("\\d\\d\\d\\d+", "not valid format"));
+        matcher.find();
         if (matcher.group(1).equals("seller")) {
             System.out.println("now you must enter your company details");
             System.out.println("enter company name");
