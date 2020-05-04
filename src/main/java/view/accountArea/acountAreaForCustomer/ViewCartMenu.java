@@ -43,7 +43,9 @@ public class ViewCartMenu extends Menu {
                 decreaseProduct();
             if (chosenCommand == submenus.size() + 5)
                 showTotalPrice();
-                nextMenu = this;
+            nextMenu = this;
+            System.out.println("press enter to continue");
+            scanner.nextLine();
         }
         nextMenu.help();
         nextMenu.execute();
@@ -87,7 +89,7 @@ public class ViewCartMenu extends Menu {
         }
     }
 
-    private void showTotalPrice(){
+    private void showTotalPrice() {
         System.out.println(MainController.getInstance().getAccountAreaForCustomerController().getTotalPriceOfCart() + " Rial");
     }
 

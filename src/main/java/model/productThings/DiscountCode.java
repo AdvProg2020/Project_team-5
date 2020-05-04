@@ -74,8 +74,8 @@ public class DiscountCode {
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-    @Override
-    public String toString(){
+
+    public String detailedToString(){
         return "discount code : " + code + "\nstart date : " + startDate + "\nend date : " + endDate + "\nmaximum supported amount : "
                 + maxDiscountAmount + "\ndiscount percent :" + discountPercent ;
     }

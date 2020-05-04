@@ -256,5 +256,12 @@ public class Shop {
         return false;
     }
 
+    public boolean checkExistDiscountCode(String code){
+        return allDiscountCodes.stream().filter(discountCode -> discountCode.getCode().equals(code)).count() != 0;
+    }
+
+    public void clearCart(){
+        this.cart.clear();
+    }
 
 }

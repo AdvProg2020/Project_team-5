@@ -1,19 +1,110 @@
 package view.accountArea.acountAreaForCustomer;
 
+import controller.MainController;
+import exception.NotEnoughCredit;
 import view.Menu;
+import view.ScreenClearing;
+
+import java.util.ArrayList;
 
 public class PurchaseMenu extends Menu {
+    private boolean backFlag;
+
     public PurchaseMenu(Menu parentMenu) {
         super("purchase", parentMenu);
     }
 
     @Override
     protected void setCommandNames() {
-
+        commandNames.add("continue");
     }
 
     @Override
     public void execute() {
+        backFlag = false;
+        ArrayList<String> customerInfo = new ArrayList<>();
+        long totalPrice = 0;
+        getContinue();
+        if (!backFlag) {
+            customerInfo = receiveInformation();
+            successfulPageRun();
+        }
+        if (!backFlag) {
+            totalPrice = getDiscountCode();
+            successfulPageRun();
+        }
+        if (!backFlag) {
+            payment(customerInfo, totalPrice);
+        }
+        parentMenu.help();
+        parentMenu.execute();
+    }
 
+    private void successfulPageRun() {
+        help();
+        getContinue();
+        ScreenClearing.clearScreen();
+    }
+
+    private void getContinue() {
+        int chosenCommand = getInput();
+        if (chosenCommand == 1)
+            return;
+        if (chosenCommand == 2) {
+            backFlag = true;
+            return;
+        }
+        System.out.println("not valid input");
+        help();
+        getContinue();
+    }
+
+    public ArrayList<String> receiveInformation() {
+        ArrayList<String> customerInfo = new ArrayList<>();
+        System.out.println("enter name :");
+        customerInfo.add(getValidInput("[a-zA-Z\\s]+", "not valid name"));
+        System.out.println("enter postcode :");
+        customerInfo.add(getValidInput("[\\d]+", "not valid postcode"));
+        System.out.println("enter address :");
+        customerInfo.add(scanner.nextLine());
+        System.out.println("enter phone number :");
+        customerInfo.add(getValidInput("[\\d]{11}", "not valid phone number"));
+        return customerInfo;
+    }
+
+    public long getDiscountCode() {
+        long totalPrice = MainController.getInstance().getAccountAreaForCustomerController().getTotalPriceOfCart();
+        System.out.println("enter discount code : (if you don't have discount code enter 0)");
+        String discountCode = scanner.nextLine();
+        try {
+            MainController.getInstance().getAccountAreaForCustomerController().checkValidDiscountCode(discountCode);
+            totalPrice = MainController.getInstance().getAccountAreaForCustomerController().useDiscountCode(discountCode);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            notValidDiscountCode();
+        }
+        return totalPrice;
+    }
+
+    public void notValidDiscountCode() {
+        System.out.println("1- next step \n2- use discountCode");
+        String choice = scanner.next();
+        if (choice.equals("1"))
+            return;
+        if (choice.equals("2"))
+            getDiscountCode();
+        else
+            System.out.println("not valid input");
+    }
+
+    public void payment(ArrayList<String> customerInfo, long totalPrice) {
+        System.out.println("total price is " + totalPrice + " Rial");
+        System.out.println("press enter to continue");
+        scanner.nextLine();
+        try {
+            MainController.getInstance().getAccountAreaForCustomerController().purchase(totalPrice, customerInfo);
+        } catch (NotEnoughCredit notEnoughCredit) {
+            System.out.println(notEnoughCredit.getMessage());
+        }
     }
 }

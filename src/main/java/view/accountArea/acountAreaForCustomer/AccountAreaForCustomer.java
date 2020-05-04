@@ -32,6 +32,8 @@ public class AccountAreaForCustomer extends Menu {
             if (chosenCommand == submenus.size() + 2)
                 viewDiscountCodes();
             nextMenu = this;
+            System.out.println("press enter to continue");
+            scanner.nextLine();
         }
         nextMenu.help();
         nextMenu.execute();

@@ -14,6 +14,8 @@ public class Customer extends Person {
     public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password, long credit) {
         super(username, firstName, lastName, email, phoneNumber, password);
         this.credit = credit;
+        this.discountCodes = new ArrayList<>();
+        this.previousOrders = new ArrayList<>();
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
@@ -40,10 +42,22 @@ public class Customer extends Person {
         this.credit = credit;
     }
 
+    public void addOrder(OrderForCustomer order){
+        previousOrders.add(order);
+    }
+
     public OrderForCustomer findOrderById(long orderId){
         for (OrderForCustomer order : previousOrders) {
             if (order.getOrderId() == orderId)
                 return order;
+        }
+        return null;
+    }
+
+    public DiscountCode findDiscountCode(String code){
+        for (DiscountCode discountCode : discountCodes) {
+            if (discountCode.getCode().equals(code))
+                return discountCode;
         }
         return null;
     }

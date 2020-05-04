@@ -33,6 +33,8 @@ public class ViewOrdersMenu extends Menu {
             if (chosenCommand == submenus.size() + 2)
                 rateProduct();
             nextMenu = this;
+            System.out.println("press enter to continue");
+            scanner.nextLine();
         }
         nextMenu.help();
         nextMenu.execute();

@@ -13,14 +13,11 @@ public abstract class Order {
         PROCESSING, READYTOSEND, SENT, RECEIVED
     }
 
-    public Order() {
+    public Order(long price) {
+        this.price = price;
         this.date = LocalDate.now();
         this.orderStatus = OrderStatus.PROCESSING;
         orderId = ordersCount++;
-    }
-
-    public void setPrice(long price) {
-        this.price = price;
     }
 
     public long getOrderId() {
