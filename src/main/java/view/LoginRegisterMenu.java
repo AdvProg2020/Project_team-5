@@ -4,9 +4,9 @@ import controller.MainController;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
-import view.accountArea.AccountAreaForCustomer;
 import view.accountArea.accountAreaForSeller.AccountAreaForSeller;
 import view.accountArea.accountAreaForManager.AccountAreaForManager;
+import view.accountArea.acountAreaForCustomer.AccountAreaForCustomer;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

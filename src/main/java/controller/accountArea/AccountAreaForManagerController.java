@@ -1,10 +1,9 @@
 package controller.accountArea;
 
-import exception.DiscountCodeCantBeEditedException;
-import exception.DiscountCodeCantCreatedException;
-import exception.DiscountCodeNotFoundException;
-import exception.UsernameNotFoundException;
+import exception.*;
 import model.Shop;
+import model.category.Category;
+import model.category.SubCategory;
 import model.persons.Customer;
 import model.persons.Person;
 import model.productThings.DiscountCode;
@@ -101,5 +100,74 @@ public class AccountAreaForManagerController extends AccountAreaController {
             requests.add(request.getBriefInfo());
         }
         return requests;
+    }
+
+    public String viewRequestDetails(String requestId) throws RequestNotFoundException {
+        Request request;
+        if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
+            throw new RequestNotFoundException();
+        return request.toString();
+    }
+
+    public void acceptRequest(String requestId) throws RequestNotFoundException {
+        Request request;
+        if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
+            throw new RequestNotFoundException();
+        request.acceptRequest();
+        Shop.getInstance().removeRequest(request);
+    }
+
+    public void declineRequest(String requestId) throws RequestNotFoundException {
+        Request request;
+        if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
+            throw new RequestNotFoundException();
+        Shop.getInstance().removeRequest(request);
+    }
+
+    public ArrayList<String> getAllCategories() {
+        ArrayList<String> categories = new ArrayList<>();
+        for (Category category : Shop.getInstance().getAllCategories()) {
+            categories.add(category.toString());
+        }
+        return categories;
+    }
+
+    public ArrayList<String> getCategorySubCatsNames(String categoryName) {
+        ArrayList<String> subCategories = new ArrayList<>();
+        for (SubCategory subCategory : Shop.getInstance().findCategoryByName(categoryName).getSubCategories()) {
+            subCategories.add(subCategory.getName());
+        }
+        return subCategories;
+    }
+
+    public ArrayList<String> getCategoryProperties(String categoryName) {
+        return Shop.getInstance().findCategoryByName(categoryName).getDetails();
+    }
+
+    public void editCategory(String name, String property, String newValue) throws PropertyOfCategoryNotFound {
+        Category category = Shop.getInstance().findCategoryByName(name);
+        for (int i = 0; i < category.getDetails().size(); i++) {
+            if (category.getDetails().get(i).equalsIgnoreCase(property)) {
+                category.getDetails().add(i, newValue);
+                return;
+            }
+        }
+        throw new PropertyOfCategoryNotFound();
+    }
+
+    public boolean isExistCategoryWithThisName(String name) {
+        return Shop.getInstance().findCategoryByName(name) != null;
+    }
+
+    public void addCategory(String name, ArrayList<String> properties) {
+        Category category = new Category(name, properties, null);
+        Shop.getInstance().addCategory(category);
+    }
+
+    public void removeCategory(String categoryName) throws CategoryNotFoundException {
+        Category category;
+        if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
+            throw new  CategoryNotFoundException();
+        Shop.getInstance().removeCategory(category);
     }
 }
