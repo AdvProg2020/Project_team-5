@@ -1,4 +1,4 @@
-package exception;
+package exception.discountcodeExceptions;
 
 public class DiscountCodeExpired extends Exception {
     public DiscountCodeExpired() {

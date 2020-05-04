@@ -1,8 +1,8 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
-import exception.DiscountCodeCantBeEditedException;
-import exception.DiscountCodeNotFoundException;
+import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
+import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import view.Menu;
 
 import java.util.Scanner;

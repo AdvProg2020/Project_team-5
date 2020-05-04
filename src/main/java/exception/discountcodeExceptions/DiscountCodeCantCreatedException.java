@@ -1,4 +1,4 @@
-package exception;
+package exception.discountcodeExceptions;
 
 public class DiscountCodeCantCreatedException extends Exception{
     public DiscountCodeCantCreatedException(String incorrectField) {
