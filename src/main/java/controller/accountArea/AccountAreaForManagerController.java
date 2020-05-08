@@ -144,7 +144,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return Shop.getInstance().findCategoryByName(categoryName).getDetails();
     }
 
-    public void editCategory(String name, String property, String newValue) throws PropertyOfCategoryNotFound {
+    public void editCategory(String name, String property, String newValue) throws PropertyNotFoundException {
         Category category = Shop.getInstance().findCategoryByName(name);
         for (int i = 0; i < category.getDetails().size(); i++) {
             if (category.getDetails().get(i).equalsIgnoreCase(property)) {
@@ -152,7 +152,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
                 return;
             }
         }
-        throw new PropertyOfCategoryNotFound();
+        throw new PropertyNotFoundException();
     }
 
     public boolean isExistCategoryWithThisName(String name) {
@@ -190,5 +190,20 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if ((subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName)) == null)
             throw new SubCategoryNotFoundException();
         category.deleteSubCategory(subCategory);
+    }
+
+    public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
+        return Shop.getInstance().findSubCategoryByName(subcategoryName).getDetails();
+    }
+
+    public void editSubcategory(String subCategoryName, String property, String newValue) throws PropertyNotFoundException {
+        SubCategory subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName);
+        for (int i = 0; i < subCategory.getDetails().size(); i++) {
+            if (subCategory.getDetails().get(i).equalsIgnoreCase(property)) {
+                subCategory.getDetails().add(i, newValue);
+                return;
+            }
+        }
+        throw new PropertyNotFoundException();
     }
 }
