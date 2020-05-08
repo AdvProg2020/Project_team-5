@@ -10,7 +10,9 @@ import model.category.SubCategory;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
+import model.persons.Seller;
 import model.productThings.DiscountCode;
+import model.requests.RegisteringSellerRequest;
 import model.requests.Request;
 
 import java.time.LocalDate;
@@ -175,7 +177,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
     public void removeCategory(String categoryName) throws CategoryNotFoundException {
         Category category;
         if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
-            throw new  CategoryNotFoundException();
+            throw new CategoryNotFoundException();
         Shop.getInstance().removeCategory(category);
     }
 
@@ -189,7 +191,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throws CategoryNotFoundException, SubCategoryNotFoundException {
         Category category;
         if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
-            throw new  CategoryNotFoundException();
+            throw new CategoryNotFoundException();
         SubCategory subCategory;
         if ((subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName)) == null)
             throw new SubCategoryNotFoundException();
@@ -227,12 +229,20 @@ public class AccountAreaForManagerController extends AccountAreaController {
     }
 
     public void removeUser(String username)
-        throws UsernameNotFoundException, UserCantBeRemovedException{
+            throws UsernameNotFoundException, UserCantBeRemovedException {
         Person person;
         if ((person = Shop.getInstance().findUser(username)) == null)
             throw new UsernameNotFoundException();
         if (person instanceof Manager)
             throw new UserCantBeRemovedException();
         Shop.getInstance().removePerson(person);
+    }
+
+    public void createManagerAccount(String username, ArrayList<String> details) throws UsernameIsTakenAlreadyException {
+        if (Shop.getInstance().findUser(username) != null) {
+            throw new UsernameIsTakenAlreadyException();
+        }
+        Manager manager = new Manager(username, details.get(0), details.get(1), details.get(2), details.get(3), details.get(4));
+        Shop.getInstance().addPerson(manager);
     }
 }

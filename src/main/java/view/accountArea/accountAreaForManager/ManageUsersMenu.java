@@ -3,6 +3,8 @@ package view.accountArea.accountAreaForManager;
 import controller.MainController;
 import view.Menu;
 
+import java.util.ArrayList;
+
 public class ManageUsersMenu extends Menu {
     public ManageUsersMenu(Menu parentMenu) {
         super("manage users", parentMenu);
@@ -63,6 +65,28 @@ public class ManageUsersMenu extends Menu {
     }
 
     private void createManagerProfile() {
-
+        System.out.print("enter new manager's username: ");
+        String username = getValidInput("\\w+", "invalid username format");
+        ArrayList<String> details = new ArrayList<>();
+        System.out.println("enter first name:");
+        details.add(getValidInput("[a-zA-Z]{2,}", "not valid format for first name"));
+        System.out.println("enter last name:");
+        details.add(getValidInput("[a-zA-Z]{2,}", "not valid format for last name"));
+        System.out.println("enter email:");
+        details.add(getValidInput("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", "not valid format for email"));
+        System.out.println("enter phone number:");
+        details.add(getValidInput("^\\d{11}$", "not valid format for phone number"));
+        System.out.println("enter password:\n" +
+                "-must contains one digit from 0-9\n" +
+                "-must contains one lowercase characters\n" +
+                "-must contains one uppercase characters\n" +
+                "-length at least 4 characters and maximum of 16\n");
+        details.add(getValidInput("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})", "not valid format for password"));
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().createManagerAccount(username, details);
+            System.out.println("new manager created successfully.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
