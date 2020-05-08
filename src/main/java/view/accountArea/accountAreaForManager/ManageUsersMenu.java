@@ -9,9 +9,9 @@ public class ManageUsersMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("- view");
-        this.commandNames.add("- delete user");
-        this.commandNames.add("- create manager profile");
+        this.commandNames.add("view");
+        this.commandNames.add("delete user");
+        this.commandNames.add("create manager profile");
     }
 
     @Override

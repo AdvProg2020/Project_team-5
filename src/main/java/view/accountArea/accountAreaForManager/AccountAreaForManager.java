@@ -24,7 +24,7 @@ public class AccountAreaForManager extends Menu {
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("-create discount code");
+        this.commandNames.add("create discount code");
     }
 
     @Override

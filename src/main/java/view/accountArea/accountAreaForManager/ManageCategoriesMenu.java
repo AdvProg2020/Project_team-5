@@ -15,9 +15,9 @@ public class ManageCategoriesMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("- edit");
-        this.commandNames.add("- add");
-        this.commandNames.add("- remove");
+        this.commandNames.add("edit");
+        this.commandNames.add("add");
+        this.commandNames.add("remove");
     }
 
     @Override

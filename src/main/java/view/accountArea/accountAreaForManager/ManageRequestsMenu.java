@@ -10,9 +10,9 @@ public class ManageRequestsMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("- show");
-        this.commandNames.add("- accept");
-        this.commandNames.add("- decline");
+        this.commandNames.add("show request");
+        this.commandNames.add("accept request");
+        this.commandNames.add("decline request");
     }
 
     @Override
