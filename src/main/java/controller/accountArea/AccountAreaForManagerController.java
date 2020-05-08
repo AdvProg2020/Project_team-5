@@ -159,6 +159,10 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return Shop.getInstance().findCategoryByName(name) != null;
     }
 
+    public boolean isExistSubcategoryWithThisName(String subcategoryName) {
+        return Shop.getInstance().findSubCategoryByName(subcategoryName) != null;
+    }
+
     public void addCategory(String name, ArrayList<String> properties) {
         Category category = new Category(name, properties, null);
         Shop.getInstance().addCategory(category);
@@ -169,5 +173,11 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
             throw new  CategoryNotFoundException();
         Shop.getInstance().removeCategory(category);
+    }
+
+    public void addSubcategory(String categoryName, String subcategoryName, ArrayList<String> properties) {
+        Category category = Shop.getInstance().findCategoryByName(categoryName);
+        SubCategory subCategory = new SubCategory(subcategoryName, properties);
+        category.addSubCategory(subCategory);
     }
 }

@@ -15,9 +15,12 @@ public class ManageCategoriesMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("edit");
-        this.commandNames.add("add");
-        this.commandNames.add("remove");
+        this.commandNames.add("edit category");
+        this.commandNames.add("add category");
+        this.commandNames.add("remove category");
+        this.commandNames.add("add subcategory");
+        this.commandNames.add("edit subcategory");
+        this.commandNames.add("remove subcategory");
     }
 
     @Override
@@ -25,7 +28,7 @@ public class ManageCategoriesMenu extends Menu {
         showAllCategories();
         int chosenCommand = getInput();
         Menu nextMenu;
-        if (chosenCommand == 4)
+        if (chosenCommand == 7)
             nextMenu = getParentMenu();
         else {
             if (chosenCommand == 1)
@@ -34,6 +37,12 @@ public class ManageCategoriesMenu extends Menu {
                 editCategory();
             if (chosenCommand == 3)
                 removeCategory();
+            if (chosenCommand == 4)
+                addSubcategoryToCategory();
+            if (chosenCommand == 5)
+                editSubcategory();
+            if (chosenCommand == 6)
+                removeSubCategory();
             nextMenu = this;
         }
         nextMenu.help();
@@ -53,7 +62,7 @@ public class ManageCategoriesMenu extends Menu {
             System.out.print("enter category name: ");
             name = getValidInput("\\w+", "invalid name format");
         } while (MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(name));
-        System.out.println("now enter name of category properties, each property in a separate line. (enter [end] to finish)");
+        System.out.println("now enter name of category properties, each property in a separate line: (enter [end] to finish)");
         String field;
         while (!(field = getValidInput("\\w+", "invalid name format")).equalsIgnoreCase("end"))
             properties.add(field);
@@ -102,5 +111,31 @@ public class ManageCategoriesMenu extends Menu {
         }
     }
 
-    //add subcat, edit subcat, ...
+    private void addSubcategoryToCategory() {
+        String categoryName, subcategoryName;
+        ArrayList<String> properties = new ArrayList<>();
+        do {
+            System.out.print("enter category name that you want add subcategory to it:");
+            categoryName = getValidInput("\\w+", "invalid name format");
+        } while (MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(categoryName));
+        do {
+            System.out.print("enter subcategory name:");
+            subcategoryName = getValidInput("\\w+", "invalid name format");
+        } while (MainController.getInstance().getAccountAreaForManagerController().isExistSubcategoryWithThisName(subcategoryName));
+        System.out.println("now enter name of subcategory properties, each property in a separate line: (enter [end] to finish)");
+        String field;
+        while (!(field = getValidInput("\\w+", "invalid name format")).equalsIgnoreCase("end"))
+            properties.add(field);
+        MainController.getInstance().getAccountAreaForManagerController().addSubcategory(categoryName, subcategoryName, properties);
+        System.out.println("subcategory added successfully.");
+    }
+
+    private void removeSubCategory() {
+
+    }
+
+    private void editSubcategory() {
+
+    }
+
 }
