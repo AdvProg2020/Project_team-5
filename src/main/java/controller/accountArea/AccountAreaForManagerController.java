@@ -8,6 +8,7 @@ import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
 import model.persons.Customer;
+import model.persons.Manager;
 import model.persons.Person;
 import model.productThings.DiscountCode;
 import model.requests.Request;
@@ -223,5 +224,15 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if ((person = Shop.getInstance().findUser(username)) == null)
             throw new UsernameNotFoundException();
         return person.toString();
+    }
+
+    public void removeUser(String username)
+        throws UsernameNotFoundException, UserCantBeRemovedException{
+        Person person;
+        if ((person = Shop.getInstance().findUser(username)) == null)
+            throw new UsernameNotFoundException();
+        if (person instanceof Manager)
+            throw new UserCantBeRemovedException();
+        Shop.getInstance().removePerson(person);
     }
 }

@@ -52,7 +52,14 @@ public class ManageUsersMenu extends Menu {
     }
 
     private void deleteUser() {
-
+        System.out.print("enter username that you want remove: ");
+        String username = getValidInput("\\w+", "invalid username format");
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().removeUser(username);
+            System.out.println("user removed successfully.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void createManagerProfile() {
