@@ -67,6 +67,8 @@ public class ManageCategoriesMenu extends Menu {
         while (!(field = getValidInput("\\w+", "invalid name format")).equalsIgnoreCase("end"))
             properties.add(field);
         MainController.getInstance().getAccountAreaForManagerController().addCategory(name, properties);
+        System.out.println("because every category must have at least one subcategory, you automatically transfer to add subcategory section ...");
+        addSubcategoryToCategory();
         System.out.println("category added successfully.");
     }
 
