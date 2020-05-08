@@ -66,7 +66,7 @@ public class Shop {
     }
 
     public void removeProduct(Good good) {
-        good.getSubCategory().removeGood(good);
+        good.getSubCategory().deleteGood(good);
     }
 
     public void addProduct(Good good) {
