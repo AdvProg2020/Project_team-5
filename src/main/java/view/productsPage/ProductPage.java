@@ -85,6 +85,10 @@ public class ProductPage extends Menu {
         System.out.println(MainController.getInstance().getProductController().showComments());
     }
 
+    private void addComment(){
+        //ToDo
+    }
+
     @Override
     public void execute() {
         Menu nextMenu = this;
@@ -100,7 +104,7 @@ public class ProductPage extends Menu {
         } else if (input == 5) {
             showComments();
         } else if (input == 6) {
-            // addComment();
+            addComment();
         } else if (input == 7) {
             nextMenu = this.getParentMenu();
         }
