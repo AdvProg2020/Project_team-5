@@ -180,4 +180,15 @@ public class AccountAreaForManagerController extends AccountAreaController {
         SubCategory subCategory = new SubCategory(subcategoryName, properties);
         category.addSubCategory(subCategory);
     }
+
+    public void removeSubCategory(String categoryName, String subCategoryName)
+            throws CategoryNotFoundException, SubCategoryNotFoundException {
+        Category category;
+        if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
+            throw new  CategoryNotFoundException();
+        SubCategory subCategory;
+        if ((subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName)) == null)
+            throw new SubCategoryNotFoundException();
+        category.deleteSubCategory(subCategory);
+    }
 }

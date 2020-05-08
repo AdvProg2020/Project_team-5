@@ -84,7 +84,7 @@ public class ManageCategoriesMenu extends Menu {
     private void editCategory() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("enter category name that you want edit:");
-        String name = getValidInput("\\w+", "invalid name format.");
+        String name;
         do {
             System.out.print("enter category name: ");
             name = getValidInput("\\w+", "invalid name format");
@@ -131,7 +131,20 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     private void removeSubCategory() {
-
+        System.out.println("enter category name that you want delete a subcategory from that:");
+        String categoryName = getValidInput("\\w+", "invalid name format.");
+        System.out.println("list of subcategories of this category:");
+        for (String subcategory : MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames(categoryName)) {
+            System.out.println("-" + subcategory);
+        }
+        System.out.println("enter subcategory name that you want delete:");
+        String subcategoryName = getValidInput("\\w+", "invalid name format");
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().removeSubCategory(categoryName, subcategoryName);
+            System.out.println("subcategory removed successfully.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void editSubcategory() {
