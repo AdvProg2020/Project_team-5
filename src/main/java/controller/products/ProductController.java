@@ -3,6 +3,7 @@ package controller.products;
 import exception.DontHaveEnoughNumberOfThisProduct;
 import exception.ProductWithThisIdNotExist;
 import model.Shop;
+import model.productThings.Comment;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
 
@@ -66,8 +67,8 @@ public class ProductController {
             throw new ProductWithThisIdNotExist();
         Good good2 = Shop.getInstance().findGoodById(id);
         String output = "+-----------------+-----------------+-----------------+\n";
-        output +=       "| property        | good 1          | good 2          |\n";
-        output +=       "+-----------------+-----------------+-----------------+\n";
+        output += "| property        | good 1          | good 2          |\n";
+        output += "+-----------------+-----------------+-----------------+\n";
         output += String.format("| %-15s | %-15s | %-15s |%n", "name", good.getName(), good2.getName());
         output += String.format("| %-15s | %-15s | %-15s |%n", "brand", good.getBrand(), good2.getBrand());
         output += String.format("| %-15s | %-15s | %-15s |%n", "average rate", good.getAverageRate(), good2.getAverageRate());
@@ -76,7 +77,15 @@ public class ProductController {
         output += String.format("| %-15s | %-15s | %-15s |%n", "seen number", good.getSeenNumber(), good2.getSeenNumber());
         output += String.format("| %-15s | %-15s | %-15s |%n", "number of sellers", numbersOfSellers(good), numbersOfSellers(good2));
         output += String.format("| %-15s | %-15s | %-15s |%n", "minmum price of product", good.getMinimumPrice(), good2.getMinimumPrice());
-        output +=       "+-----------------+-----------------+-----------------+\n";
+        output += "+-----------------+-----------------+-----------------+\n";
+        return output;
+    }
+
+    public String showComments() {
+        String output = "--------------------------------------------";
+        for (Comment comment : good.getComments()) {
+            output += ("\n" + comment.toString() + "--------------------------------------------");
+        }
         return output;
     }
 }

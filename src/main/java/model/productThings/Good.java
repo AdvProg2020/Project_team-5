@@ -160,6 +160,10 @@ public class Good {
         return min;
     }
 
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
     @Override
     public String toString() {
         StringBuilder sellerRelatedInfos = new StringBuilder();

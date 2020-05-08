@@ -2,6 +2,7 @@ package view.productsPage;
 
 import controller.MainController;
 import exception.DontHaveEnoughNumberOfThisProduct;
+import exception.ProductWithThisIdNotExist;
 import view.Menu;
 
 public class ProductPage extends Menu {
@@ -67,10 +68,21 @@ public class ProductPage extends Menu {
         System.out.println(MainController.getInstance().getProductController().attributes());
     }
 
-    private void compareWithAnotherProduct(){
+    private void compareWithAnotherProduct() {
         System.out.println("enter product id");
-        long id=Long.parseLong(getValidInput("\\d+","you must enter a number"));
+        long id = Long.parseLong(getValidInput("\\d+", "you must enter a number"));
+        try {
+            System.out.println(MainController.getInstance().getProductController().compareWithAnotherProduct(id));
+        } catch (ProductWithThisIdNotExist productWithThisIdNotExist) {
+            productWithThisIdNotExist.getMessage();
+            System.out.println("press enter to continue");
+            scanner.nextLine();
+            compareWithAnotherProduct();
+        }
+    }
 
+    private void showComments(){
+        System.out.println(MainController.getInstance().getProductController().showComments());
     }
 
     @Override
@@ -83,10 +95,20 @@ public class ProductPage extends Menu {
             addGoodToCart();
         } else if (input == 3) {
             attributes();
-        } else if (input == 4){
+        } else if (input == 4) {
             compareWithAnotherProduct();
+        } else if (input == 5) {
+            showComments();
+        } else if (input == 6) {
+            // addComment();
+        } else if (input == 7) {
+            nextMenu = this.getParentMenu();
         }
-        System.out.println("press enter to continue");
-        scanner.nextLine();
+        if (input != 7){
+            System.out.println("press enter to continue");
+            scanner.nextLine();
+        }
+        nextMenu.help();
+        nextMenu.execute();
     }
 }
