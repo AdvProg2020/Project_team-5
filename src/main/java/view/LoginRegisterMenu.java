@@ -99,14 +99,14 @@ public class LoginRegisterMenu extends Menu {
 
     private Menu setNextMenu() {
         Menu nextMenu;
+        if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            this.getParentMenu().setSubMenu(0, new AccountAreaForManager(this.getParentMenu()));
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            this.getParentMenu().setSubMenu(0, new AccountAreaForCustomer(this.getParentMenu()));
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+            this.getParentMenu().setSubMenu(0, new AccountAreaForSeller(this.getParentMenu()));
+        }
         if (this.getName().equals("Account area")) {
-            if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
-                this.getParentMenu().setSubMenu(0, new AccountAreaForManager(this.getParentMenu()));
-            } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-                this.getParentMenu().setSubMenu(0, new AccountAreaForCustomer(this.getParentMenu()));
-            } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
-                this.getParentMenu().setSubMenu(0, new AccountAreaForSeller(this.getParentMenu()));
-            }
             nextMenu = this.getParentMenu().getSubmenus().get(0);
         } else {
             nextMenu = this.getParentMenu();
