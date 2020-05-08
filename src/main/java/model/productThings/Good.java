@@ -139,7 +139,26 @@ public class Good {
         this.seenNumber = seenNumber;
     }
 
+    public String getDetails() {
+        return details;
+    }
 
+    public double getAverageRate() {
+        return averageRate;
+    }
+
+    public LocalDate getModificationDate() {
+        return modificationDate;
+    }
+
+    public long getMinimumPrice(){
+        long min=10000000000000l;
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : this.getSellerRelatedInfoAboutGoods()) {
+            if(relatedInfoAboutGood.getPrice()<min)
+                min=relatedInfoAboutGood.getPrice();
+        }
+        return min;
+    }
 
     @Override
     public String toString() {
@@ -162,5 +181,7 @@ public class Good {
                 + "\nseen number = " + seenNumber + "\n" +
                 "------------------------------------";
     }
+
+
 }
 

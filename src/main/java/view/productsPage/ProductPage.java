@@ -23,8 +23,6 @@ public class ProductPage extends Menu {
 
     private void digest() {
         System.out.println(MainController.getInstance().getProductController().digest());
-        System.out.println("press enter to continue");
-        scanner.nextLine();
     }
 
     private void addGoodToCart() {
@@ -35,6 +33,7 @@ public class ProductPage extends Menu {
         int sellerNumber = getInputForSellers();
         try {
             MainController.getInstance().getProductController().addGoodToCart(number, sellerNumber);
+            System.out.println("succesfully added!");
         } catch (DontHaveEnoughNumberOfThisProduct dontHaveEnoughNumberOfThisProduct) {
             dontHaveEnoughNumberOfThisProduct.getMessage();
             System.out.println("this seller just have " +
@@ -51,7 +50,8 @@ public class ProductPage extends Menu {
             String input = scanner.nextLine();
             if (input.matches("\\d+")) {
                 output = Integer.parseInt(input);
-                if (output <= MainController.getInstance().getProductController().numbersOfSellers())
+                if (output <= MainController.getInstance().getProductController().numbersOfSellers
+                        (MainController.getInstance().getProductController().getGood()))
                     flag = true;
                 else {
                     System.out.println("enter valid number please!");
@@ -63,14 +63,30 @@ public class ProductPage extends Menu {
         return output;
     }
 
+    private void attributes() {
+        System.out.println(MainController.getInstance().getProductController().attributes());
+    }
+
+    private void compareWithAnotherProduct(){
+        System.out.println("enter product id");
+        long id=Long.parseLong(getValidInput("\\d+","you must enter a number"));
+
+    }
+
     @Override
     public void execute() {
-        Menu nextMenu = null;
+        Menu nextMenu = this;
         int input = getInput();
         if (input == 1) {
             digest();
         } else if (input == 2) {
             addGoodToCart();
+        } else if (input == 3) {
+            attributes();
+        } else if (input == 4){
+            compareWithAnotherProduct();
         }
+        System.out.println("press enter to continue");
+        scanner.nextLine();
     }
 }
