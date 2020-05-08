@@ -16,9 +16,9 @@ public class ViewDiscountCodesMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("- view discount code");
-        this.commandNames.add("- edit discount code");
-        this.commandNames.add("- remove discount code");
+        this.commandNames.add("view discount code");
+        this.commandNames.add("edit discount code");
+        this.commandNames.add("remove discount code");
     }
 
     @Override
