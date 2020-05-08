@@ -150,8 +150,8 @@ public class Shop {
         return !cart.stream().filter(goodInCart -> goodInCart.getGood().getGoodId() == productId).findAny().isEmpty();
     }
 
-    public void addGoodToCart(Good good, Seller seller) {
-        cart.add(new GoodInCart(good, seller, 1));
+    public void addGoodToCart(Good good, Seller seller,int number) {
+        cart.add(new GoodInCart(good, seller, number));
     }
 
     public void reduceGoodInCartNumber(long productId) {

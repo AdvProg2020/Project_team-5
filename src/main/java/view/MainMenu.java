@@ -35,8 +35,8 @@ public class MainMenu extends Menu{
     @Override
     public void execute(){
         Menu nextMenu = null;
-        int chosenMenu = Integer.parseInt(scanner.nextLine());
-        if (chosenMenu == submenus.size() + 2) {
+        int chosenMenu =this.getInput();
+        if (chosenMenu == submenus.size() + 1) {
             if (this.parentMenu == null)
                 System.exit(1);
             else

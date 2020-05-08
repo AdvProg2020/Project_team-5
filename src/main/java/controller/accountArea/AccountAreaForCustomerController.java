@@ -1,16 +1,14 @@
 package controller.accountArea;
 
 import controller.MainController;
-import exception.DiscountCodeCannotBeUsed;
-import exception.DiscountCodeExpired;
-import exception.DiscountCodeNotFoundException;
+import exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
+import exception.discountcodeExceptions.DiscountCodeExpired;
+import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.NotEnoughCredit;
 import model.Shop;
 import model.orders.OrderForCustomer;
 import model.persons.Customer;
 import model.productThings.DiscountCode;
-import model.productThings.GoodInCart;
-import model.productThings.Rate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

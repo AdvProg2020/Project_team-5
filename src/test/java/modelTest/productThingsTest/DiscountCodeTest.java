@@ -16,11 +16,11 @@ public class DiscountCodeTest {
     @Before
     public void initializeRequiredValuesForUsingDiscountCodeTest() {
         customer = new Customer("admin", "sadegh", "majidi",
-                "sadegh@gmail.com", "09360000000", "1234");
+                "sadegh@gmail.com", "09360000000", "1234",12212);
         HashMap<Customer, Integer> includedCustomers = new HashMap<>();
         includedCustomers.put(customer, 4);
         discountCode = new DiscountCode("asdSDhjk43iu3tr",
-                LocalDate.now(), LocalDate.now(), 300L, 20, includedCustomers);
+                LocalDate.now(), LocalDate.now(), 300L, 20);
     }
 
     @Test

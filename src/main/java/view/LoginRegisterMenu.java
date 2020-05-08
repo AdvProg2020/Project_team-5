@@ -24,17 +24,17 @@ public class LoginRegisterMenu extends Menu {
     @Override
     protected void setCommandNames() {
         if (MainController.getInstance().getCurrentPerson() == null) {
-            this.commandNames.add("-Register");
-            this.commandNames.add("-Login");
+            this.commandNames.add("Register");
+            this.commandNames.add("Login");
         } else {
-            this.commandNames.add("-Logout");
+            this.commandNames.add("Logout");
         }
     }
 
     private Menu registerUser() {
         System.out.println("create account [type] [username]");
-        String input = getValidInput("(?i)create account\\s+(manager|customer|seller)\\s+good\\s+(\\w+)", "not valid format");
-        Matcher matcher = Pattern.compile("(?i)create account\\s+(manager|customer|seller)\\s+good\\s+(\\w+)").matcher(input);
+        String input = getValidInput("(?i)create account\\s+(manager|customer|seller)\\s+(\\w+)", "not valid format");
+        Matcher matcher = Pattern.compile("(?i)create account\\s+(manager|customer|seller)\\s+(\\w+)").matcher(input);
         ArrayList<String> details = new ArrayList<>();
         System.out.println("enter first name");
         details.add(getValidInput("[a-zA-Z]{2,}", "not valid format for first name"));
@@ -52,6 +52,7 @@ public class LoginRegisterMenu extends Menu {
         details.add(getValidInput("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})", "not valid format for password"));
         System.out.println("enter your credit");
         details.add(getValidInput("\\d\\d\\d\\d+", "not valid format"));
+        matcher.find();
         if (matcher.group(1).equals("seller")) {
             System.out.println("now you must enter your company details");
             System.out.println("enter company name");

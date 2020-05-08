@@ -1,10 +1,9 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
-import exception.DiscountCodeCantCreatedException;
-import exception.DiscountCodeNotFoundException;
+import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
+import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.UsernameNotFoundException;
-import model.Shop;
 import view.Menu;
 
 import java.util.ArrayList;

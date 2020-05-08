@@ -1,4 +1,4 @@
-package exception;
+package exception.discountcodeExceptions;
 
 public class DiscountCodeNotFoundException extends Exception {
     public DiscountCodeNotFoundException() {

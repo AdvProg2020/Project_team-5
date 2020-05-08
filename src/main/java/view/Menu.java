@@ -11,7 +11,7 @@ public abstract class Menu {
     private String name;
     protected ArrayList<Menu> submenus;
     protected Menu parentMenu;
-    public static Scanner scanner;
+    public static Scanner scanner = new Scanner(System.in);
     protected ArrayList<String> commandNames;
 
     public Menu(String name, Menu parentMenu) {
@@ -48,8 +48,8 @@ public abstract class Menu {
 
     protected abstract void setCommandNames();
 
-    protected void setSubMenu(int index,Menu menu){
-        submenus.set(index,menu);
+    protected void setSubMenu(int index, Menu menu) {
+        submenus.set(index, menu);
     }
 
     protected int getInput() {
@@ -83,7 +83,7 @@ public abstract class Menu {
         if (!submenus.isEmpty())
             System.out.println("Menus of " + this.getName() + ":");
         for (Menu submenu : submenus) {
-            if (submenu instanceof LoginRegisterMenu) {
+            if (submenu instanceof LoginRegisterMenu && (!submenu.getName().equals("Account area"))) {
                 if (MainController.getInstance().getCurrentPerson() == null) {
                     System.out.println("" + (i++) + "-Login or Register");
                 } else {
@@ -95,7 +95,7 @@ public abstract class Menu {
         if (!commandNames.isEmpty())
             System.out.println("Commands of " + this.getName() + ":");
         for (String command : commandNames) {
-            System.out.println("" + (i++) + command);
+            System.out.println("" + (i++) + "-" + command);
         }
         if (this.parentMenu != null)
             System.out.println((i) + "-Back");

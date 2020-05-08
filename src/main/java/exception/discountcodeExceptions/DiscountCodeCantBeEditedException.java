@@ -1,4 +1,4 @@
-package exception;
+package exception.discountcodeExceptions;
 
 public class DiscountCodeCantBeEditedException extends Exception {
     public DiscountCodeCantBeEditedException(String error) {

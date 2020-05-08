@@ -9,7 +9,7 @@ public class CustomerTest {
     @Test
     public void testToString(){
          Customer customer=new Customer("aboots","mahdi","abootorabi",
-                "mahdi.abootorabi2@gmail.com","09193377991","123456");
+                "mahdi.abootorabi2@gmail.com","09193377991","123456",1212);
         Assert.assertEquals("-------------------\n"+
                 "username = aboots\n" +"firstName = mahdi\n"+ "lastName = abootorabi\n" +
                 "email = mahdi.abootorabi2@gmail.com\n" + "phoneNumber = 09193377991\n" + "credit = 0\n"

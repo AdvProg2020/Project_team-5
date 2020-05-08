@@ -131,6 +131,39 @@ public class Good {
         }
     }
 
+    public int getSeenNumber() {
+        return seenNumber;
+    }
+
+    public void setSeenNumber(int seenNumber) {
+        this.seenNumber = seenNumber;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public double getAverageRate() {
+        return averageRate;
+    }
+
+    public LocalDate getModificationDate() {
+        return modificationDate;
+    }
+
+    public long getMinimumPrice(){
+        long min=10000000000000l;
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : this.getSellerRelatedInfoAboutGoods()) {
+            if(relatedInfoAboutGood.getPrice()<min)
+                min=relatedInfoAboutGood.getPrice();
+        }
+        return min;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
     @Override
     public String toString() {
         StringBuilder sellerRelatedInfos = new StringBuilder();
@@ -152,5 +185,7 @@ public class Good {
                 + "\nseen number = " + seenNumber + "\n" +
                 "------------------------------------";
     }
+
+
 }
 
