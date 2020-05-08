@@ -1,6 +1,9 @@
 package view.accountArea;
 
+import controller.MainController;
 import view.Menu;
+
+import java.util.ArrayList;
 
 public class ViewingPersonalInfo extends Menu {
 
@@ -10,7 +13,7 @@ public class ViewingPersonalInfo extends Menu {
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("- edit field");
+        this.commandNames.add("edit field");
     }
 
     @Override
@@ -26,6 +29,10 @@ public class ViewingPersonalInfo extends Menu {
         }
         nextMenu.help();
         nextMenu.execute();
+    }
+
+    private void showPersonalInfo() {
+        System.out.println(MainController.getInstance().getAccountAreaForManagerController().getUserPersonalInfo());
     }
 
     private void editField() {
