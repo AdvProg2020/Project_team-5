@@ -1,4 +1,3 @@
-import model.persons.Customer;
 import view.MainMenu;
 
 public class Main {

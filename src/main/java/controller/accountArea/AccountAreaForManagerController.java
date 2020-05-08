@@ -21,7 +21,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeCantCreatedException("code length");
         if (LocalDate.parse(fields.get(1)).isBefore(LocalDate.now()))
             throw new DiscountCodeCantCreatedException("start date");
-        if (LocalDate.parse(fields.get(2)).isBefore(LocalDate.now()))
+        if (LocalDate.parse(fields.get(2)).isBefore(LocalDate.parse(fields.get(1))))
             throw new DiscountCodeCantCreatedException("end date");
         if (Integer.parseInt(fields.get(4)) > 100 && Integer.parseInt(fields.get(4)) <= 0)
             throw new DiscountCodeCantCreatedException("discount percent");
