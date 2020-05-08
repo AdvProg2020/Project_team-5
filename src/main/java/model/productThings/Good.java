@@ -131,6 +131,16 @@ public class Good {
         }
     }
 
+    public int getSeenNumber() {
+        return seenNumber;
+    }
+
+    public void setSeenNumber(int seenNumber) {
+        this.seenNumber = seenNumber;
+    }
+
+
+
     @Override
     public String toString() {
         StringBuilder sellerRelatedInfos = new StringBuilder();

@@ -2,6 +2,7 @@ package view.productsPage;
 
 import controller.MainController;
 import exception.ProductWithThisIdNotExist;
+import model.Shop;
 import view.Menu;
 import view.ScreenClearing;
 
