@@ -206,4 +206,19 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         throw new PropertyNotFoundException();
     }
+
+    public ArrayList<String> getAllUsersList() {
+        ArrayList<String> allUsersList = new ArrayList<>();
+        for (Person person : Shop.getInstance().getAllPersons()) {
+            allUsersList.add(person.getUsername());
+        }
+        return allUsersList;
+    }
+
+    public String viewUserInfo(String username) throws UsernameNotFoundException {
+        Person person;
+        if ((person = Shop.getInstance().findUser(username)) == null)
+            throw new UsernameNotFoundException();
+        return person.toString();
+    }
 }

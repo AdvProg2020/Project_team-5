@@ -53,6 +53,10 @@ public class Shop {
         return allRequest;
     }
 
+    public ArrayList<Person> getAllPersons() {
+        return allPersons;
+    }
+
     public void removePerson(Person user) {
         allPersons.remove(user);
     }

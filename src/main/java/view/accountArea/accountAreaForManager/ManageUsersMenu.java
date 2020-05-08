@@ -1,5 +1,6 @@
 package view.accountArea.accountAreaForManager;
 
+import controller.MainController;
 import view.Menu;
 
 public class ManageUsersMenu extends Menu {
@@ -16,6 +17,7 @@ public class ManageUsersMenu extends Menu {
 
     @Override
     public void execute() {
+        showAllUsers();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 4)
@@ -33,8 +35,20 @@ public class ManageUsersMenu extends Menu {
         nextMenu.execute();
     }
 
-    private void viewUser() {
+    private void showAllUsers() {
+        for (String person : MainController.getInstance().getAccountAreaForManagerController().getAllUsersList()) {
+            System.out.println("# " + person);
+        }
+    }
 
+    private void viewUser() {
+        System.out.print("enter username: ");
+        String username = getValidInput("\\w+", "invalid username format");
+        try {
+            System.out.println(MainController.getInstance().getAccountAreaForManagerController().viewUserInfo(username));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void deleteUser() {
