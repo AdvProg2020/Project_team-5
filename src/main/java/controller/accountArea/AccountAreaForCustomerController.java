@@ -7,12 +7,17 @@ import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.NotEnoughCredit;
 import model.Shop;
 import model.orders.OrderForCustomer;
+import model.orders.OrderForSeller;
 import model.persons.Customer;
+import model.persons.Seller;
 import model.productThings.DiscountCode;
+import model.productThings.GoodInCart;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AccountAreaForCustomerController extends AccountAreaController {
@@ -37,7 +42,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return Shop.getInstance().findGoodById(productId).toString();
     }
 
-    public void increaseInCartProduct(long productId) {
+    public void increaseInCartProduct(long productId) throws Exception {
         Shop.getInstance().increaseGoodInCartNumber(productId);
     }
 
@@ -92,10 +97,17 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return getTotalPriceOfCart() - (discountCode.getMaxDiscountAmount() * discountCode.getDiscountPercent() / 100);
     }
 
-    public void purchase(long totalPrice, ArrayList<String> customerInfo) throws NotEnoughCredit {
+    public void purchase(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws NotEnoughCredit {
         if (((Customer) MainController.getInstance().getCurrentPerson()).getCredit() < totalPrice)
             throw new NotEnoughCredit();
+        if (usedDiscountCode != null)
+            reduceNumberOfDiscountCode(usedDiscountCode);
         finalBuyProcess(totalPrice, customerInfo);
+    }
+
+    public void reduceNumberOfDiscountCode(String discountCode){
+        Customer customer= (Customer) MainController.getInstance().getCurrentPerson();
+        customer.findDiscountCode(discountCode).reduceNumberOfDiscountCodeForCostumer(customer);
     }
 
     public void finalBuyProcess(long price, ArrayList<String> customerInfo) {
@@ -103,6 +115,32 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         currentUser.addOrder(new OrderForCustomer(Shop.getInstance().getCart(), price, customerInfo.get(0), customerInfo.get(1),
                 customerInfo.get(2), customerInfo.get(3)));
         currentUser.setCredit(currentUser.getCredit() - price);
+        makeOrderForSeller(customerInfo.get(0));
+        reduceAvailableNumberOfGoodsAfterPurchase();
         Shop.getInstance().clearCart();
+    }
+
+    public void makeOrderForSeller(String customerName) {
+        Set<Seller> sellerSet = new HashSet<>();
+        ArrayList<GoodInCart> cart = Shop.getInstance().getCart();
+        for (GoodInCart good : cart) {
+            sellerSet.add(good.getSeller());
+        }
+        for (Seller seller : sellerSet) {
+            List<GoodInCart> sellerProduct = cart.stream().filter(good -> good.getSeller() == seller).collect(Collectors.toList());
+            seller.addOrder(new OrderForSeller(finalPrice(sellerProduct), seller, customerName, sellerProduct));
+        }
+    }
+
+    public long finalPrice(List<GoodInCart> products) {
+        return products.stream().map(good -> Shop.getInstance().getFinalPriceOfAGood(good.getGood(), good.getSeller()) * good.getNumber()).
+                reduce(0L, (ans, i) -> ans + i);
+    }
+
+    public void reduceAvailableNumberOfGoodsAfterPurchase() {
+        ArrayList<GoodInCart> cart = Shop.getInstance().getCart();
+        for (GoodInCart good : cart) {
+            good.getGood().reduceAvailableNumber(good.getSeller(), good.getNumber());
+        }
     }
 }

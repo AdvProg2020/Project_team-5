@@ -5,8 +5,8 @@ import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.GoodInCart;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class OrderForSeller extends Order {
     private Seller seller;
@@ -14,17 +14,26 @@ public class OrderForSeller extends Order {
     private long offDeduct;
     private HashMap<Good, Integer> numberPerGood = new HashMap<>();
 
-    public OrderForSeller(long price,Seller seller, String customerName, ArrayList<GoodInCart> goods) {
+    public OrderForSeller(long price, Seller seller, String customerName, List<GoodInCart> goods) {
         super(price);
         this.seller = seller;
         this.customerName = customerName;
+        calculateDeductAmount();
         setNumberPerGood(goods);
     }
 
-    private void setNumberPerGood(ArrayList<GoodInCart> goods) {
+    private void setNumberPerGood(List<GoodInCart> goods) {
         for (GoodInCart good : goods) {
             numberPerGood.put(good.getGood(), good.getNumber());
         }
+    }
+
+    private void calculateDeductAmount() {
+        int primaryPrice = 0;
+        for (Good good : numberPerGood.keySet()) {
+            primaryPrice += numberPerGood.get(good) * good.getPriceBySeller(seller);
+        }
+        offDeduct = primaryPrice - getPrice();
     }
 
     public Seller getSeller() {

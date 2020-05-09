@@ -52,12 +52,12 @@ public class Good {
         return goodId;
     }
 
-    public static long getGoodsCount() {
-        return goodsCount;
-    }
-
-    public static void setGoodsCount(long goodsCount) {
-        Good.goodsCount = goodsCount;
+    public long getPriceBySeller(Seller seller){
+        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+            if (sellerInfo.getSeller() == seller)
+                return sellerInfo.getPrice();
+        }
+        return 0L;
     }
 
     public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
@@ -114,13 +114,6 @@ public class Good {
         this.details = details;
     }
 
-    public long getPriceBySeller(Seller seller) {
-        return sellerRelatedInfoAboutGoods.stream()
-                .filter((info) -> info.getSeller().equals(seller))
-                .map(SellerRelatedInfoAboutGood::getPrice)
-                .findAny().orElse(0L);
-    }
-
     public HashMap<String, Object> getCategoryProperties() {
         return categoryProperties;
     }
@@ -164,12 +157,34 @@ public class Good {
         return comments;
     }
 
+    public void reduceAvailableNumber(Seller seller, int reductionNumber){
+        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+            if (sellerInfo.getSeller() == seller)
+                sellerInfo.setAvailableNumber(sellerInfo.getAvailableNumber() - reductionNumber);
+        }
+    }
+
+    public int getAvailableNumberBySeller(Seller seller){
+        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+            if (sellerInfo.getSeller() == seller)
+                return sellerInfo.getAvailableNumber();
+        }
+        return 0 ;
+    }
+
+    public void increaseAvailableNumber(Seller seller, int increaseNumber){
+        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+            if (sellerInfo.getSeller() == seller)
+                sellerInfo.setAvailableNumber(sellerInfo.getAvailableNumber() + increaseNumber);
+        }
+    }
+
     @Override
     public String toString() {
-        StringBuilder sellerRelatedInfos = new StringBuilder();
+        StringBuilder sellerRelatedInfo = new StringBuilder();
         int i = 1;
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
-            sellerRelatedInfos.append(i++).append("- ").append(relatedInfoAboutGood.toString()).append("\n");
+            sellerRelatedInfo.append(i++).append("- ").append(relatedInfoAboutGood.toString()).append("\n");
         }
         return "------------------------------------\n"
                 + "GoodId = " + goodId
@@ -179,7 +194,7 @@ public class Good {
                 + "\naverage rate = " + averageRate
                 + "\ncategory = " + subCategory.getParentCategory().getName()
                 + "\nsubcategory = " + subCategory.getName()
-                + "\nsellers = " + sellerRelatedInfos.toString()
+                + "\nsellers = " + sellerRelatedInfo.toString()
                 + "details =\n" + details
                 + "\nmodification date = " + modificationDate.toString()
                 + "\nseen number = " + seenNumber + "\n" +

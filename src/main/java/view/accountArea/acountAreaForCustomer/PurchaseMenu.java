@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class PurchaseMenu extends Menu {
     private boolean backFlag;
+    private String usedDiscountCode = null;
 
     public PurchaseMenu(Menu parentMenu) {
         super("purchase", parentMenu);
@@ -79,6 +80,8 @@ public class PurchaseMenu extends Menu {
         try {
             MainController.getInstance().getAccountAreaForCustomerController().checkValidDiscountCode(discountCode);
             totalPrice = MainController.getInstance().getAccountAreaForCustomerController().useDiscountCode(discountCode);
+            usedDiscountCode = discountCode;
+
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
             notValidDiscountCode();
@@ -102,7 +105,7 @@ public class PurchaseMenu extends Menu {
         System.out.println("press enter to continue");
         scanner.nextLine();
         try {
-            MainController.getInstance().getAccountAreaForCustomerController().purchase(totalPrice, customerInfo);
+            MainController.getInstance().getAccountAreaForCustomerController().purchase(totalPrice, customerInfo, usedDiscountCode);
         } catch (NotEnoughCredit notEnoughCredit) {
             System.out.println(notEnoughCredit.getMessage());
         }

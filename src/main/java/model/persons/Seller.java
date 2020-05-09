@@ -58,6 +58,10 @@ public class Seller extends Person {
         return buyers;
     }
 
+    public void addOrder(OrderForSeller order){
+        previousSells.add(order);
+    }
+
    public Off findOffById(long offId){
       return activeOffs.stream().filter(off -> off.getOffId() == offId).findAny().orElse(null);
    }

@@ -1,5 +1,6 @@
 package model;
 
+import exception.NotEnoughAvailableProduct;
 import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
@@ -165,9 +166,11 @@ public class Shop {
         }
     }
 
-    public void increaseGoodInCartNumber(long productId) {
+    public void increaseGoodInCartNumber(long productId) throws NotEnoughAvailableProduct {
         for (GoodInCart goodInCart : cart) {
             if (goodInCart.getGood().getGoodId() == productId) {
+                if (goodInCart.getNumber() >= goodInCart.getGood().getAvailableNumberBySeller(goodInCart.getSeller()))
+                    throw new NotEnoughAvailableProduct();
                 goodInCart.setNumber(goodInCart.getNumber() + 1);
                 return;
             }

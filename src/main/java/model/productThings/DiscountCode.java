@@ -75,6 +75,12 @@ public class DiscountCode {
         this.startDate = startDate;
     }
 
+    public void reduceNumberOfDiscountCodeForCostumer(Customer customer){
+        includedCustomers.put(customer, includedCustomers.get(customer) - 1);
+        if (includedCustomers.get(customer) == 0)
+            includedCustomers.remove(customer);
+    }
+
     public String detailedToString(){
         return "discount code : " + code + "\nstart date : " + startDate + "\nend date : " + endDate + "\nmaximum supported amount : "
                 + maxDiscountAmount + "\ndiscount percent :" + discountPercent ;
