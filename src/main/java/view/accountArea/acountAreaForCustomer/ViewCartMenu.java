@@ -75,7 +75,7 @@ public class ViewCartMenu extends Menu {
         try {
             long productId = getProductId();
             MainController.getInstance().getAccountAreaForCustomerController().increaseInCartProduct(productId);
-        } catch (ProductNotExistInCart productNotExistInCart) {
+        } catch (Exception productNotExistInCart) {
             System.out.println(productNotExistInCart.getMessage());
         }
     }
