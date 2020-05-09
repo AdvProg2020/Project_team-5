@@ -12,6 +12,7 @@ import model.persons.Manager;
 import model.persons.Person;
 import model.persons.Seller;
 import model.productThings.DiscountCode;
+import model.productThings.Good;
 import model.requests.RegisteringSellerRequest;
 import model.requests.Request;
 
@@ -244,5 +245,12 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         Manager manager = new Manager(username, details.get(0), details.get(1), details.get(2), details.get(3), details.get(4));
         Shop.getInstance().addPerson(manager);
+    }
+
+    public void removeProduct(String productId) throws ProductWithThisIdNotExist {
+        Good good = Shop.getInstance().findGoodById(Long.parseLong(productId));
+        if (good == null)
+            throw new ProductWithThisIdNotExist();
+        Shop.getInstance().removeProduct(good);
     }
 }

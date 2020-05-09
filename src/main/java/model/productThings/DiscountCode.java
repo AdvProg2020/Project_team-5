@@ -21,7 +21,6 @@ public class DiscountCode {
         this.maxDiscountAmount = maxDiscountAmount;
         this.discountPercent = discountPercent;
         this.includedCustomers = new HashMap<>();
-        Shop.getInstance().addDiscountCode(this);
     }
 
     public void addCustomerToCode(Customer customer, int numberOfUse) {

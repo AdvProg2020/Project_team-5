@@ -1,5 +1,6 @@
 package controller.accountArea;
 
+import controller.MainController;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
@@ -21,7 +22,7 @@ public class AccountAreaController {
     }
 
     public String getUserPersonalInfo() {
-        return "";
+        return MainController.getInstance().getCurrentPerson().toString();
     }
 
     public void editField (String field, String newValue) {

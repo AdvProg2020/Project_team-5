@@ -1,5 +1,6 @@
 package view.accountArea.accountAreaForManager;
 
+import controller.MainController;
 import view.Menu;
 
 public class ManageAllProductsMenu extends Menu {
@@ -28,6 +29,13 @@ public class ManageAllProductsMenu extends Menu {
     }
 
     private void removeProduct() {
-
+        System.out.println("enter product id that you want remove: ");
+        String productID = getValidInput("\\d+{,15}", "invalid id format");
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().removeProduct(productID);
+            System.out.println("product removed successfully.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
