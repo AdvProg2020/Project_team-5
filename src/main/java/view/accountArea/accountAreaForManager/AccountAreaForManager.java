@@ -5,6 +5,7 @@ import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.UsernameNotFoundException;
 import view.Menu;
+import view.accountArea.ViewingPersonalInfo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,6 +15,7 @@ import java.util.regex.Pattern;
 public class AccountAreaForManager extends Menu {
     public AccountAreaForManager(Menu parentMenu) {
         super("Account area for manager", parentMenu);
+        this.submenus.add(new ViewingPersonalInfo(this));
         this.submenus.add(new ManageUsersMenu(this));
         this.submenus.add(new ManageAllProductsMenu(this));
         this.submenus.add(new ViewDiscountCodesMenu(this));

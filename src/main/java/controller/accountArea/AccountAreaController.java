@@ -1,6 +1,7 @@
 package controller.accountArea;
 
 import controller.MainController;
+import exception.FieldCantBeEditedException;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
@@ -25,7 +26,27 @@ public class AccountAreaController {
         return MainController.getInstance().getCurrentPerson().toString();
     }
 
-    public void editField (String field, String newValue) {
-        //TODO
+    public void editField(int chosenField, String newValue) throws FieldCantBeEditedException, Exception {
+        if (chosenField == 1) {
+            MainController.getInstance().getCurrentPerson().setFirstName(newValue);
+        } else if (chosenField == 2) {
+            MainController.getInstance().getCurrentPerson().setLastName(newValue);
+        } else if (chosenField == 3) {
+            if (MainController.isEmailValid(newValue))
+                MainController.getInstance().getCurrentPerson().setEmail(newValue);
+            else
+                throw new FieldCantBeEditedException("email", "input has not correct format for email");
+        } else if (chosenField == 4) {
+            if (MainController.isPhoneNumberValid(newValue))
+                MainController.getInstance().getCurrentPerson().setPhoneNumber(newValue);
+            else
+                throw new FieldCantBeEditedException("phone number", "input has not correct format for phone number");
+        } else if (chosenField == 5) {
+            if (!newValue.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})"))
+                throw new FieldCantBeEditedException("password", "input has not conditions of a valid password");
+            if (newValue.equals(MainController.getInstance().getCurrentPerson().getPassword()))
+                throw new FieldCantBeEditedException("password", "new password and old password are identical");
+            MainController.getInstance().getCurrentPerson().setPassword(newValue);
+        } else throw new Exception("no valid field selected.");
     }
 }
