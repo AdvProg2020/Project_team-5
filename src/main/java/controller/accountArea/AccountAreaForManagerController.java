@@ -10,10 +10,8 @@ import model.category.SubCategory;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
-import model.persons.Seller;
 import model.productThings.DiscountCode;
 import model.productThings.Good;
-import model.requests.RegisteringSellerRequest;
 import model.requests.Request;
 
 import java.time.LocalDate;
@@ -27,7 +25,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeCantCreatedException("start date");
         if (LocalDate.parse(fields.get(2)).isBefore(LocalDate.parse(fields.get(1))))
             throw new DiscountCodeCantCreatedException("end date");
-        if (Integer.parseInt(fields.get(4)) > 100 && Integer.parseInt(fields.get(4)) <= 0)
+        if (Integer.parseInt(fields.get(4)) > 100 || Integer.parseInt(fields.get(4)) <= 0)
             throw new DiscountCodeCantCreatedException("discount percent");
         Shop.getInstance().addDiscountCode(new DiscountCode(fields.get(0), LocalDate.parse(fields.get(1)), LocalDate.parse(fields.get(2)),
                 Long.parseLong(fields.get(3)), Integer.parseInt(fields.get(4))));
