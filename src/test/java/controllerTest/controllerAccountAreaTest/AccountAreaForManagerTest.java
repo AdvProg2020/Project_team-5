@@ -1,9 +1,12 @@
 package controllerTest.controllerAccountAreaTest;
 
-import com.sun.tools.javac.Main;
 import controller.MainController;
+import exception.UsernameNotFoundException;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
+import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import model.Shop;
+import model.persons.Customer;
+import model.persons.Manager;
 import model.productThings.DiscountCode;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,6 +26,8 @@ public class AccountAreaForManagerTest {
         fields.add("2020-08-01");
         fields.add("9000000");
         fields.add("30");
+        Shop.getInstance().getAllPersons().add(new Customer("sadegh", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
+        Shop.getInstance().getAllPersons().add(new Manager("XxXxXx", "aboots", "zzzzz", "aboot@gmail.com", "06065656060", "pass2"));
     }
 
     @Test
@@ -45,5 +50,18 @@ public class AccountAreaForManagerTest {
         fields.add(4, "150");
         Assert.assertThrows("can not create discount code because discount percent is incorrect.", DiscountCodeCantCreatedException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields));
+    }
+
+    @Test
+    public void addCustomerToDiscountCodeTest() throws DiscountCodeCantCreatedException {
+        MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
+        Assert.assertThrows("discount code not found.", DiscountCodeNotFoundException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode("mdkedknkede", "sadegh", "4"));
+        Assert.assertThrows("username not found!", UsernameNotFoundException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode("RandomDiscount", "amooo", "4"));
+        Assert.assertThrows("can not create discount code because customer is incorrect.", DiscountCodeCantCreatedException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode("RandomDiscount", "XxXxXx", "4"));
+        Assert.assertThrows("can not create discount code because number of use is incorrect.", DiscountCodeCantCreatedException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode("RandomDiscount", "sadegh", "44444444444444444444444444444444"));
     }
 }
