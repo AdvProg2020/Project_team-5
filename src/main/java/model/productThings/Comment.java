@@ -10,7 +10,7 @@ public class Comment {
     private CommentStatus commentStatus;
     private boolean didCommenterBoughtThisProduct;
 
-    enum CommentStatus {
+    public enum CommentStatus {
         ACCEPTED,
         INPROGRESS,
         REJECTED

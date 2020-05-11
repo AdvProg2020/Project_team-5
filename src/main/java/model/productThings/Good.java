@@ -157,6 +157,10 @@ public class Good {
         return comments;
     }
 
+    public void addComment(Comment comment){
+        this.comments.add(comment);
+    }
+
     public void reduceAvailableNumber(Seller seller, int reductionNumber){
         for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
             if (sellerInfo.getSeller() == seller)
