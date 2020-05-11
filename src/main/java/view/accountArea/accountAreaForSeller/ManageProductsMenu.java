@@ -39,9 +39,7 @@ public class ManageProductsMenu extends Menu {
 
     private void viewProduct(){
         try {
-            System.out.println("Enter product ID :");
-            String product = MainController.getInstance().getAccountAreaForSellerController().
-                    viewProduct(Long.parseLong(getValidInput("[0-9]+", "Not valid product ID")));
+            String product = MainController.getInstance().getAccountAreaForSellerController().viewProduct(getProductId());
             System.out.println(product);
         }catch (ProductNotFoundExceptionForSeller exception){
             System.out.println(exception.getMessage());
@@ -50,9 +48,7 @@ public class ManageProductsMenu extends Menu {
 
     private void viewBuyers(){
         try {
-            System.out.println("Enter product ID :");
-            ArrayList<String> buyers = MainController.getInstance().getAccountAreaForSellerController().
-                    buyersOfProduct(Long.parseLong(getValidInput("[0-9]+", "Not valid product ID")));
+            ArrayList<String> buyers = MainController.getInstance().getAccountAreaForSellerController().buyersOfProduct(getProductId());
             for (String buyer : buyers) {
                 System.out.println(buyer);
             }
@@ -62,6 +58,18 @@ public class ManageProductsMenu extends Menu {
     }
 
    private void editProduct(){
+        editingProductHelp();
 
    }
+
+   private void editingProductHelp(){
+       System.out.println("you can edit below fields of this product:\n" +
+       "");
+   }
+
+
+    public long getProductId(){
+        System.out.println("Enter product ID :");
+        return Long.parseLong(getValidInput("[0-9]+", "Not valid product ID"));
+    }
 }

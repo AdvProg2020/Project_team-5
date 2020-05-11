@@ -53,6 +53,11 @@ public class ViewOffsMenu extends Menu {
 
     }
 
+    private void editOffHelp(){
+        System.out.println("edit end date [yyyy-mm-dd] or \nedit maximum discount [amount] or \nedit discount percent [1-99] or \n" +
+                "add produ");
+    }
+
     private void addOff() {
         ArrayList<String> offDetails = new ArrayList<>();
         System.out.println("start date : \t enter in format[2020-4-27]");
@@ -63,15 +68,15 @@ public class ViewOffsMenu extends Menu {
         offDetails.add(getValidInput("\\d\\d\\d\\d+", "Not valid amount"));
         System.out.println("discount percent :");
         offDetails.add(getValidInput("[\\d]{1,2}", "Not valid input"));
-        MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails, getProductIds());
+        MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails, getProductIdsForAddingOff());
     }
 
-    private ArrayList<Long> getProductIds() {
+    private ArrayList<Long> getProductIdsForAddingOff() {
         System.out.println("Enter number of product that will contain this off");
         int productNumber = Integer.parseInt(getValidInput("[\\d]{1,4}", "Not valid input"));
         if (!MainController.getInstance().getAccountAreaForSellerController().checkValidProductNumber(productNumber)) {
             System.out.println("You does not have this amount of product");
-            getProductIds();
+            getProductIdsForAddingOff();
         }
         ArrayList<Long> productIds = new ArrayList<>();
         for (int i = 0; i < productNumber; ) {

@@ -64,6 +64,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public void rateProduct(long productId, int rate) {
         Shop.getInstance().addRate(((Customer) MainController.getInstance().getCurrentPerson()), productId, rate);
+        Shop.getInstance().findGoodById(productId).updateRate();
     }
 
     public List<String> getBriefSummeryOfOrders(){

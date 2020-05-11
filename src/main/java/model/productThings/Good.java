@@ -52,7 +52,7 @@ public class Good {
         return goodId;
     }
 
-    public long getPriceBySeller(Seller seller){
+    public long getPriceBySeller(Seller seller) {
         for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
             if (sellerInfo.getSeller() == seller)
                 return sellerInfo.getPrice();
@@ -144,11 +144,11 @@ public class Good {
         return modificationDate;
     }
 
-    public long getMinimumPrice(){
-        long min=10000000000000l;
+    public long getMinimumPrice() {
+        long min = 10000000000000l;
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : this.getSellerRelatedInfoAboutGoods()) {
-            if(relatedInfoAboutGood.getPrice()<min)
-                min=relatedInfoAboutGood.getPrice();
+            if (relatedInfoAboutGood.getPrice() < min)
+                min = relatedInfoAboutGood.getPrice();
         }
         return min;
     }
@@ -157,26 +157,29 @@ public class Good {
         return comments;
     }
 
-    public void addComment(Comment comment){
+    public void addComment(Comment comment) {
         this.comments.add(comment);
     }
 
-    public void reduceAvailableNumber(Seller seller, int reductionNumber){
+    public void reduceAvailableNumber(Seller seller, int reductionNumber) {
         for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
-            if (sellerInfo.getSeller() == seller)
+            if (sellerInfo.getSeller() == seller) {
                 sellerInfo.setAvailableNumber(sellerInfo.getAvailableNumber() - reductionNumber);
+                if (sellerInfo.getAvailableNumber() == 0)
+                    goodStatus = GoodStatus.NOTAVAILABLE;
+            }
         }
     }
 
-    public int getAvailableNumberBySeller(Seller seller){
+    public int getAvailableNumberBySeller(Seller seller) {
         for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
             if (sellerInfo.getSeller() == seller)
                 return sellerInfo.getAvailableNumber();
         }
-        return 0 ;
+        return 0;
     }
 
-    public void increaseAvailableNumber(Seller seller, int increaseNumber){
+    public void increaseAvailableNumber(Seller seller, int increaseNumber) {
         for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
             if (sellerInfo.getSeller() == seller)
                 sellerInfo.setAvailableNumber(sellerInfo.getAvailableNumber() + increaseNumber);
