@@ -1,11 +1,14 @@
 package controller.products;
 
+import controller.MainController;
 import exception.DontHaveEnoughNumberOfThisProduct;
 import exception.ProductWithThisIdNotExist;
 import model.Shop;
+import model.persons.Customer;
 import model.productThings.Comment;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
+import model.requests.AddingCommentRequest;
 
 import java.util.HashMap;
 
@@ -92,6 +95,12 @@ public class ProductController {
     }
 
     public void addComment(String title,String content){
-
+        boolean didCommenterBoughtThisProduct=false;
+        if (MainController.getInstance().getCurrentPerson() instanceof Customer){
+            if (((Customer) MainController.getInstance().getCurrentPerson()).hasBuyProduct(good.getGoodId()))
+                didCommenterBoughtThisProduct=true;
+        }
+        Shop.getInstance().addRequest(new AddingCommentRequest(new Comment(MainController.getInstance().getCurrentPerson()
+                ,this.getGood(),title,content,didCommenterBoughtThisProduct)));
     }
 }

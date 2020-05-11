@@ -97,6 +97,7 @@ public class ProductPage extends Menu {
             System.out.println("content:");
             String content=scanner.nextLine();
             MainController.getInstance().getProductController().addComment(title,content);
+            System.out.println("your comment will be added soon if managers accept it");
         }
     }
 
