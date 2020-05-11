@@ -17,6 +17,7 @@ public class ManageRequestsMenu extends Menu {
 
     @Override
     public void execute() {
+        printAllRequests();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 4)

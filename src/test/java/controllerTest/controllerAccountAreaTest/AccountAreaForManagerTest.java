@@ -64,4 +64,14 @@ public class AccountAreaForManagerTest {
         Assert.assertThrows("can not create discount code because number of use is incorrect.", DiscountCodeCantCreatedException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode("RandomDiscount", "sadegh", "44444444444444444444444444444444"));
     }
+
+    @Test
+    public void removeDiscountCodeTest() throws DiscountCodeCantCreatedException, DiscountCodeNotFoundException {
+        if(Shop.getInstance().findDiscountCode("RandomDiscount") == null)
+            MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
+        Assert.assertThrows("discount code not found.", DiscountCodeNotFoundException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode("alalalalalal"));
+        MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode("RandomDiscount");
+        Assert.assertNull(Shop.getInstance().findDiscountCode("RandomDiscount"));
+    }
 }
