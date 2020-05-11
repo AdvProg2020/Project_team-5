@@ -2,6 +2,7 @@ package controllerTest.controllerAccountAreaTest;
 
 import controller.MainController;
 import exception.UsernameNotFoundException;
+import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import model.Shop;
@@ -74,4 +75,22 @@ public class AccountAreaForManagerTest {
         MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode("RandomDiscount");
         Assert.assertNull(Shop.getInstance().findDiscountCode("RandomDiscount"));
     }
+
+    @Test
+    public void editDiscountRequest() throws DiscountCodeCantCreatedException {
+        MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
+        Assert.assertThrows("discount code not found.", DiscountCodeNotFoundException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("kfmkff", "startDate", "2020-07-03"));
+        Assert.assertThrows("can not edit discount code because new start date value is incorrect.", DiscountCodeCantBeEditedException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "startDate", "2021-07-05"));
+        Assert.assertThrows("can not edit discount code because new end date value is incorrect.", DiscountCodeCantBeEditedException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "endDate", "2020-05-01"));
+        Assert.assertThrows("can not edit discount code because new discount code amount value is incorrect.", DiscountCodeCantBeEditedException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "maxDiscountAmount", "3333333333333333333333333333333333333333"));
+        Assert.assertThrows("can not edit discount code because new discount percent value is incorrect.", DiscountCodeCantBeEditedException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "discountPercent", "321"));
+        Assert.assertThrows("can not edit discount code because field name for edit is incorrect.", DiscountCodeCantBeEditedException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "fieldalaki", "100"));
+    }
 }
+

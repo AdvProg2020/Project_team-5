@@ -70,7 +70,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         DiscountCode discountCode;
         if ((discountCode = Shop.getInstance().findDiscountCode(code)) != null) {
             if (field.equalsIgnoreCase("startDate")) {
-                if (!newValue.matches("\\d{4}-\\d{2}-\\d{2}") || LocalDate.parse(newValue).isBefore(LocalDate.now()))
+                if (!newValue.matches("\\d{4}-\\d{2}-\\d{2}") || LocalDate.parse(newValue).isBefore(LocalDate.now()) || LocalDate.parse(newValue).isAfter(discountCode.getEndDate()))
                     throw new DiscountCodeCantBeEditedException("new start date value");
                 discountCode.setStartDate(LocalDate.parse(newValue));
             } else if (field.equalsIgnoreCase("endDate")) {
