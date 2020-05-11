@@ -16,6 +16,9 @@ import model.requests.Request;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountAreaForManagerController extends AccountAreaController {
     public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException {
@@ -256,5 +259,33 @@ public class AccountAreaForManagerController extends AccountAreaController {
         ArrayList<String> allUsers = getAllUsersList();
         allUsers.sort(String::compareTo);
         return allUsers;
+    }
+
+    public List<String> sortDiscountCodes(String field) throws Exception {
+        ArrayList<DiscountCode> discountCodes = Shop.getInstance().getAllDiscountCodes();
+        if (field.equalsIgnoreCase("startDate")) {
+            discountCodes.sort((discount1, discount2) -> {
+                if (discount1.getStartDate().isAfter(discount2.getStartDate()))
+                    return 1;
+                else if (discount1.getStartDate().isBefore(discount2.getStartDate()))
+                    return -1;
+                else
+                    return 0;
+            });
+        } else if (field.equalsIgnoreCase("endDate")) {
+            discountCodes.sort((discount1, discount2) -> {
+                if (discount1.getEndDate().isAfter(discount2.getEndDate()))
+                    return 1;
+                else if (discount1.getEndDate().isBefore(discount2.getEndDate()))
+                    return -1;
+                else
+                    return 0;
+            });
+        } else if (field.equalsIgnoreCase("maxDiscountAmount")) {
+            discountCodes.sort(Comparator.comparing(DiscountCode::getMaxDiscountAmount));
+        } else if (field.equalsIgnoreCase("discountPercent")) {
+            discountCodes.sort(Comparator.comparing(DiscountCode::getDiscountPercent));
+        } else throw new Exception("invalid field selected.");
+        return discountCodes.stream().map(DiscountCode::getCode).collect(Collectors.toList());
     }
 }
