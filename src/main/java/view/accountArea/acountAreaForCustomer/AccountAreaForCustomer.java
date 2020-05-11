@@ -3,10 +3,12 @@ package view.accountArea.acountAreaForCustomer;
 import controller.MainController;
 import view.LoginRegisterMenu;
 import view.Menu;
+import view.accountArea.ViewingPersonalInfo;
 
 public class AccountAreaForCustomer extends Menu {
     public AccountAreaForCustomer(Menu parentMenu) {
         super("Account area for customer", parentMenu);
+        submenus.add(new ViewingPersonalInfo(this));
         submenus.add(new ViewCartMenu(this));
         submenus.add(new ViewOrdersMenu(this));
         submenus.add(new LoginRegisterMenu(this));

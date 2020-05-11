@@ -3,6 +3,7 @@ package view.accountArea.accountAreaForSeller;
 import controller.MainController;
 import exception.ProductNotFoundExceptionForSeller;
 import view.Menu;
+import view.accountArea.ViewingPersonalInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ public class AccountAreaForSeller extends Menu {
 
     public AccountAreaForSeller(Menu parentMenu) {
         super("Account area for seller", parentMenu);
+        submenus.add(new ViewingPersonalInfo(this));
         submenus.add(new ManageProductsMenu(this));
         submenus.add(new ViewOffsMenu(this));
     }
