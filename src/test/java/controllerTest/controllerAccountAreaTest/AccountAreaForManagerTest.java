@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class AccountAreaForManagerTest {
@@ -77,7 +78,7 @@ public class AccountAreaForManagerTest {
     }
 
     @Test
-    public void editDiscountRequest() throws DiscountCodeCantCreatedException {
+    public void editDiscountRequest() throws DiscountCodeCantCreatedException, DiscountCodeNotFoundException, DiscountCodeCantBeEditedException {
         MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
         Assert.assertThrows("discount code not found.", DiscountCodeNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("kfmkff", "startDate", "2020-07-03"));
@@ -91,6 +92,10 @@ public class AccountAreaForManagerTest {
                 () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "discountPercent", "321"));
         Assert.assertThrows("can not edit discount code because field name for edit is incorrect.", DiscountCodeCantBeEditedException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "fieldalaki", "100"));
+        MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "startDate", "2020-07-10");
+        LocalDate newDate = Shop.getInstance().findDiscountCode("RandomDiscount").getStartDate();
+        LocalDate expectedDate = LocalDate.parse("2020-07-10");
+        Assert.assertEquals(newDate.toString(), expectedDate.toString());
     }
 }
 

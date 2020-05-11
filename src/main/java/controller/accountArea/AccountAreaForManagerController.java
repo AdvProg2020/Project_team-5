@@ -251,4 +251,10 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new ProductWithThisIdNotExist();
         Shop.getInstance().removeProduct(good);
     }
+
+    public ArrayList<String> sortUsers() {
+        ArrayList<String> allUsers = getAllUsersList();
+        allUsers.sort(String::compareTo);
+        return allUsers;
+    }
 }
