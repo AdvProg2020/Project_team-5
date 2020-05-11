@@ -52,7 +52,6 @@ public class OrderForSeller extends Order {
         return numberPerGood;
     }
 
-
     @Override
     public String toString() {
         String sellerLog = "--------------------------------------------------------------------------------" +

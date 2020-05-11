@@ -50,10 +50,9 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Shop.getInstance().reduceGoodInCartNumber(productId);
     }
 
-//    public long getTotalPriceOfCart() {
-//        return Shop.getInstance().getCart().stream().map(goodInCart -> Shop.getInstance().getFinalPriceOfAGood(goodInCart.getGood(),
-//                goodInCart.getSeller())).reduce(0L, (ans, i) -> ans + i);
-//    }
+    public long getTotalPriceOfCart() {
+        return finalPriceOfAList(Shop.getInstance().getCart());
+    }
 
     public boolean checkExistProduct(long productId) {
         return Shop.getInstance().findGoodById(productId) != null;
@@ -94,7 +93,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     public long calculateFinalPrice(DiscountCode discountCode) {
         if (finalPriceOfAList(Shop.getInstance().getCart()) <= discountCode.getMaxDiscountAmount())
             return finalPriceOfAList(Shop.getInstance().getCart()) * (100 - discountCode.getDiscountPercent()) / 100;
-        return finalPriceOfAList(Shop.getInstance().getCart())- (discountCode.getMaxDiscountAmount() * discountCode.getDiscountPercent() / 100);
+        return finalPriceOfAList(Shop.getInstance().getCart()) - (discountCode.getMaxDiscountAmount() * discountCode.getDiscountPercent() / 100);
     }
 
     public void purchase(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws NotEnoughCredit {

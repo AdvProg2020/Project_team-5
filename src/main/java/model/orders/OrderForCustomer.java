@@ -21,7 +21,8 @@ public class OrderForCustomer extends Order {
         this.phoneNumber = phoneNumber;
         this.postCode = postCode;
         this.name = name;
-        this.discountAmount = MainController.getInstance().getAccountAreaForCustomerController().getTotalPriceOfCart() - price;
+        this.discountAmount = MainController.getInstance().getAccountAreaForCustomerController().
+                finalPriceOfAList(Shop.getInstance().getCart()) - price;
     }
 
     public ArrayList<GoodInCart> getGoodsDetails() {

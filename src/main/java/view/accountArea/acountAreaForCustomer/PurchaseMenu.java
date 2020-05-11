@@ -2,6 +2,7 @@ package view.accountArea.acountAreaForCustomer;
 
 import controller.MainController;
 import exception.NotEnoughCredit;
+import model.Shop;
 import view.Menu;
 import view.ScreenClearing;
 
@@ -74,7 +75,7 @@ public class PurchaseMenu extends Menu {
     }
 
     public long getDiscountCode() {
-        long totalPrice = MainController.getInstance().getAccountAreaForCustomerController().getTotalPriceOfCart();
+        long totalPrice = MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(Shop.getInstance().getCart());
         System.out.println("enter discount code : (if you don't have discount code enter 0)");
         String discountCode = scanner.nextLine();
         try {
