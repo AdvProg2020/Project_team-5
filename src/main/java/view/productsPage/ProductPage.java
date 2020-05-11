@@ -10,7 +10,6 @@ public class ProductPage extends Menu {
 
     public ProductPage(Menu parentMenu) {
         super("page of a special product", parentMenu);
-
     }
 
     @Override
