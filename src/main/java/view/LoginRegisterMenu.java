@@ -48,7 +48,7 @@ public class LoginRegisterMenu extends Menu {
                 "-must contains one digit from 0-9\n" +
                 "-must contains one lowercase characters\n" +
                 "-must contains one uppercase characters\n" +
-                "-length at least 4 characters and maximum of 16\n");
+                "-length at least 4 characters and maximum of 16");
         details.add(getValidInput("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})", "not valid format for password"));
         System.out.println("enter your credit");
         details.add(getValidInput("\\d\\d\\d\\d+", "not valid format"));

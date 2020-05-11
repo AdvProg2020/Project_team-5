@@ -50,10 +50,10 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Shop.getInstance().reduceGoodInCartNumber(productId);
     }
 
-    public long getTotalPriceOfCart() {
-        return Shop.getInstance().getCart().stream().map(goodInCart -> Shop.getInstance().getFinalPriceOfAGood(goodInCart.getGood(),
-                goodInCart.getSeller())).reduce(0L, (ans, i) -> ans + i);
-    }
+//    public long getTotalPriceOfCart() {
+//        return Shop.getInstance().getCart().stream().map(goodInCart -> Shop.getInstance().getFinalPriceOfAGood(goodInCart.getGood(),
+//                goodInCart.getSeller())).reduce(0L, (ans, i) -> ans + i);
+//    }
 
     public boolean checkExistProduct(long productId) {
         return Shop.getInstance().findGoodById(productId) != null;
@@ -92,9 +92,9 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public long calculateFinalPrice(DiscountCode discountCode) {
-        if (getTotalPriceOfCart() <= discountCode.getMaxDiscountAmount())
-            return getTotalPriceOfCart() * (100 - discountCode.getDiscountPercent()) / 100;
-        return getTotalPriceOfCart() - (discountCode.getMaxDiscountAmount() * discountCode.getDiscountPercent() / 100);
+        if (finalPriceOfAList(Shop.getInstance().getCart()) <= discountCode.getMaxDiscountAmount())
+            return finalPriceOfAList(Shop.getInstance().getCart()) * (100 - discountCode.getDiscountPercent()) / 100;
+        return finalPriceOfAList(Shop.getInstance().getCart())- (discountCode.getMaxDiscountAmount() * discountCode.getDiscountPercent() / 100);
     }
 
     public void purchase(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws NotEnoughCredit {
@@ -128,13 +128,12 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
         for (Seller seller : sellerSet) {
             List<GoodInCart> sellerProduct = cart.stream().filter(good -> good.getSeller() == seller).collect(Collectors.toList());
-            seller.addOrder(new OrderForSeller(finalPrice(sellerProduct), seller, customerName, sellerProduct));
+            seller.addOrder(new OrderForSeller(finalPriceOfAList(sellerProduct), seller, customerName, sellerProduct));
         }
     }
 
-    public long finalPrice(List<GoodInCart> products) {
-        return products.stream().map(good -> Shop.getInstance().getFinalPriceOfAGood(good.getGood(), good.getSeller()) * good.getNumber()).
-                reduce(0L, (ans, i) -> ans + i);
+    public long finalPriceOfAList(List<GoodInCart> products) {
+        return products.stream().map(good -> good.getFinalPrice()).reduce(0L, (ans, i) -> ans + i);
     }
 
     public void reduceAvailableNumberOfGoodsAfterPurchase() {

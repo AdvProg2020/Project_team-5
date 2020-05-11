@@ -16,6 +16,10 @@ public class GoodInCart {
         this.number = number;
     }
 
+    public long getFinalPrice(){
+        return Shop.getInstance().getFinalPriceOfAGood(good, seller) * number;
+    }
+
     public void setNumber(int number) {
         this.number = number;
     }
