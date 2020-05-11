@@ -32,6 +32,8 @@ public class AllProductsPage extends Menu {
             return this.submenus.get(2);
         } catch (ProductWithThisIdNotExist e) {
             System.out.println(e.getMessage());
+            System.out.println("press enter to continue");
+            scanner.nextLine();
             return this;
         }
     }
