@@ -3,6 +3,7 @@ package view.productsPage;
 import controller.MainController;
 import exception.DontHaveEnoughNumberOfThisProduct;
 import exception.ProductWithThisIdNotExist;
+import view.LoginRegisterMenu;
 import view.Menu;
 
 public class ProductPage extends Menu {
@@ -86,7 +87,17 @@ public class ProductPage extends Menu {
     }
 
     private void addComment(){
-        //ToDo
+        if (MainController.getInstance().getCurrentPerson() == null){
+            Menu nextmenu=new LoginRegisterMenu(this);
+            nextmenu.help();
+            nextmenu.execute();
+        }else{
+            System.out.println("title:");
+            String title=scanner.nextLine();
+            System.out.println("content:");
+            String content=scanner.nextLine();
+            MainController.getInstance().getProductController().addComment(title,content);
+        }
     }
 
     @Override

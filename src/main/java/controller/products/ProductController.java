@@ -90,4 +90,8 @@ public class ProductController {
         }
         return output;
     }
+
+    public void addComment(String title,String content){
+
+    }
 }
