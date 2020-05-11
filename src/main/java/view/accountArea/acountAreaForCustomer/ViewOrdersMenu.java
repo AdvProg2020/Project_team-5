@@ -21,6 +21,7 @@ public class ViewOrdersMenu extends Menu {
 
     @Override
     public void execute() {
+        MainController.getInstance().getAccountAreaForCustomerController().getBriefSummeryOfOrders();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand <= submenus.size())

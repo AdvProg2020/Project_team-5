@@ -66,6 +66,11 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Shop.getInstance().addRate(((Customer) MainController.getInstance().getCurrentPerson()), productId, rate);
     }
 
+    public List<String> getBriefSummeryOfOrders(){
+        return ((Customer)MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().
+                map(order -> order.briefString()).collect(Collectors.toList());
+    }
+
     public boolean existOrderById(long orderId) {
         return !((Customer) MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().
                 filter(order -> order.getOrderId() == orderId).collect(Collectors.toList()).isEmpty();
