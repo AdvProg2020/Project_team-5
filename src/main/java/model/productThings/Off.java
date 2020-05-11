@@ -107,6 +107,7 @@ public class Off {
         offGoods.remove(good);
     }
 
+
     @Override
     public String toString() {
         return String.format("Off Id : %d\nStart Date : %s\n" +

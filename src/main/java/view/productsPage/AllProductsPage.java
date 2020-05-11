@@ -29,7 +29,6 @@ public class AllProductsPage extends Menu {
         long id = Long.parseLong(getValidInput("^(\\d{1}|\\d{14})$", "you must enter a number!"));
         try {
             MainController.getInstance().getAllProductsController().showAProduct(id);
-            MainController.getInstance().getProductController().setGood(Shop.getInstance().findGoodById(id));
             return this.submenus.get(2);
         } catch (ProductWithThisIdNotExist e) {
             System.out.println(e.getMessage());

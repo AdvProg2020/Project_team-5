@@ -271,4 +271,7 @@ public class Shop {
         this.cart.clear();
     }
 
+    public ArrayList<Off> getOffs() {
+        return offs;
+    }
 }
