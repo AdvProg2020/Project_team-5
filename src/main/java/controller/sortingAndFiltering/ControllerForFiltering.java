@@ -1,6 +1,7 @@
 package controller.sortingAndFiltering;
 
 import exception.CategoryNotFound;
+import exception.FilteredCategoryAlreadyChosen;
 import exception.HaveNotChosenCategoryFilter;
 import exception.SubcategoryNotFoundInThisCategory;
 import model.Shop;
@@ -25,7 +26,7 @@ public class ControllerForFiltering {
         this.goodList = new ArrayList<>();
     }
 
-    public List<Good> filterByCategory(String category, List<Good> allGoods){
+    public List<Good> filterByCategory(String category, List<Good> allGoods) {
         return allGoods.stream().filter(good -> good.getSubCategory().getParentCategory().getName().equals(category)).collect(Collectors.toList());
     }
 
@@ -42,7 +43,7 @@ public class ControllerForFiltering {
                 good.getMinimumPrice() <= Long.parseLong(priceRange.getEndValue())).collect(Collectors.toList());
     }
 
-    public void resetAll(){
+    public void resetAll() {
         unaryFilters.clear();
         binaryFilters.clear();
         goodList.clear();
@@ -55,15 +56,15 @@ public class ControllerForFiltering {
             goodList = Shop.getInstance().getOffGoods();
     }
 
-    public void addBinaryFilter(String filterName, String startValue, String endValue){
+    public void addBinaryFilter(String filterName, String startValue, String endValue) {
         binaryFilters.add(new BinaryFilters(filterName, startValue, endValue));
     }
 
-    public void addUnaryFilter(String filterName, String value){
-        unaryFilters.put(filterName,value);
+    public void addUnaryFilter(String filterName, String value) {
+        unaryFilters.put(filterName, value);
     }
 
-    public ArrayList<String> getCurrentFilters(){
+    public ArrayList<String> getCurrentFilters() {
         ArrayList<String> currentFilters = new ArrayList<>();
         for (String filterName : unaryFilters.keySet()) {
             currentFilters.add(filterName + ": " + unaryFilters.get(filterName));
@@ -74,7 +75,9 @@ public class ControllerForFiltering {
         return currentFilters;
     }
 
-    public void addCategoryFilter(String categoryName) throws CategoryNotFound {
+    public void addCategoryFilter(String categoryName) throws Exception {
+        if (filteredCategory != null)
+            throw new FilteredCategoryAlreadyChosen();
         Category category = Shop.getInstance().findCategoryByName(categoryName);
         if (category == null)
             throw new CategoryNotFound();
@@ -88,6 +91,23 @@ public class ControllerForFiltering {
         SubCategory subCategory = filteredCategory.findSubCategoryByName(subcategoryName);
         if (subCategory == null)
             throw new SubcategoryNotFoundInThisCategory();
+        if (unaryFilters.containsKey("subcategory"))
+            unaryFilters.remove("subcategory");
         addUnaryFilter("subcategory", subcategoryName);
+    }
+
+    public void addBrandFiltering(String brandName){
+        if (unaryFilters.containsKey("brand"))
+            unaryFilters.remove("brand");
+        addUnaryFilter("brand", brandName);
+    }
+
+    public void addPriceFiltering(String startValue, String endValue){
+        for (BinaryFilters filter : binaryFilters) {
+            filter.getFilterName().equals("price");
+            binaryFilters.remove(filter);
+            break;
+        }
+        addBinaryFilter("price", startValue, endValue);
     }
 }

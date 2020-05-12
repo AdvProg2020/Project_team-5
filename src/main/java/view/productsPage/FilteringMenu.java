@@ -42,7 +42,7 @@ public class FilteringMenu extends Menu {
         nextMenu.execute();
     }
 
-    private void setController(){
+    private void setController() {
         if (parentMenu instanceof AllProductsPage)
             MainController.getInstance().getControllerForFiltering().setGoodList(true);
         if (parentMenu instanceof OffsPage)
@@ -54,13 +54,39 @@ public class FilteringMenu extends Menu {
     }
 
     private void filterAnAvailableFilter() {
+        System.out.println("enter an  available filter: ");
         showAvailableFilters();
         String chosenFilter = scanner.nextLine().trim();
-        if (Pattern.matches("^[1-6]$", chosenFilter)){
-            int validFilter = Integer.parseInt(chosenFilter);
-        }else {
+        if (Pattern.matches("^[1-6]$", chosenFilter)) {
+            executeFilterAnAvailableFilter(Integer.parseInt(chosenFilter));
+        } else {
             System.out.println("not valid input");
         }
+    }
+
+    private void executeFilterAnAvailableFilter(int validFilter){
+        try {
+            if (validFilter == 1)
+                MainController.getInstance().getControllerForFiltering().addCategoryFilter(scanner.nextLine());
+            if (validFilter == 2)
+                MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(scanner.nextLine());
+            if (validFilter == 3)
+                //ToDo
+            if (validFilter == 4)
+                MainController.getInstance().getControllerForFiltering().addBrandFiltering(scanner.nextLine());
+            if (validFilter == 5)
+                getPriceFilter();
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private void getPriceFilter(){
+        System.out.println("enter minimum price:");
+        String startValue =  getValidInput("[\\d]+", "not valid amount");
+        System.out.println("enter maximum price:");
+        String  endValue = getValidInput("[\\d]+", "not valid amount");
+        MainController.getInstance().getControllerForFiltering().addPriceFiltering(startValue, endValue);
     }
 
     private void currentFilters() {
