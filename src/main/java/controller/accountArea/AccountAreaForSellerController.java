@@ -1,6 +1,7 @@
 package controller.accountArea;
 
 import controller.MainController;
+import exception.OffNotFoundException;
 import exception.ProductNotFoundExceptionForSeller;
 import model.Shop;
 import model.persons.Seller;
@@ -8,6 +9,7 @@ import model.productThings.Good;
 import model.productThings.Off;
 import model.requests.AddingGoodRequest;
 import model.requests.AddingOffRequest;
+import model.requests.EditingOffRequest;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -57,10 +59,12 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return ((Seller) MainController.getInstance().getCurrentPerson()).findProductOfSeller(productId).toString();
     }
 
-    public String viewOff(long offId) throws ProductNotFoundExceptionForSeller {
-        if (!((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(offId))
-            throw new ProductNotFoundExceptionForSeller();
-        return ((Seller) MainController.getInstance().getCurrentPerson()).findOffById(offId).toString();
+    public String viewOff(long offId) throws OffNotFoundException {
+        if (Shop.getInstance().findOffById(offId) == null)
+            throw new OffNotFoundException();
+        else{
+            return Shop.getInstance().findOffById(offId).toString();
+        }
     }
 
     public boolean isSubCategoryCorrect(String subCategory) {
@@ -85,9 +89,10 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return number <= ((Seller)MainController.getInstance().getCurrentPerson()).getActiveGoods().size();
     }
 
-    public boolean checkValidDate(String date){
+    public boolean checkValidDate(String date,int a,String startDate){
         Matcher matcher = getMatcher("(\\d\\d\\d\\d)-([\\d]{1,2})-([\\d]{1,2})", date);
-        return Integer.parseInt(matcher.group(2)) >= 1 && Integer.parseInt(matcher.group(2)) <= 12 && Integer.parseInt(matcher.group(3)) >= 1 && Integer.parseInt(matcher.group(3)) <= 30;
+        return (Integer.parseInt(matcher.group(2)) >= 1 && Integer.parseInt(matcher.group(2)) <= 12 && Integer.parseInt(matcher.group(3)) >= 1
+                && Integer.parseInt(matcher.group(3)) <= 30 && LocalDate.now().isBefore(LocalDate.parse(date)) && checkEndDateIsAFterStart(date,a,startDate)) ;
     }
 
     public boolean checkValidProductId(long productId){
@@ -109,5 +114,37 @@ public class AccountAreaForSellerController extends AccountAreaController {
 
     public List<Good> getProductsByIds(ArrayList<Long> productIds){
         return productIds.stream().map(productId -> Shop.getInstance().findGoodById(productId)).collect(Collectors.toList());
+    }
+
+    public boolean checkEndDateIsAFterStart(String endDate,int a,String startDate) {
+        if (a == 0)
+            return true;
+        else {
+            return LocalDate.parse(startDate).isBefore(LocalDate.parse(endDate));
+        }
+    }
+
+    public void editOff(String field,String key,long id){
+        HashMap<String,String> editedFields=new HashMap<>();
+        if (field.equals("start date"))
+            editedFields.put("start date",key);
+        else if (field.equals("end date"))
+            editedFields.put("end date",key);
+        else if (field.equals("max discount"))
+            editedFields.put("max discount",key);
+        else if (field.equals("discount percent"))
+            editedFields.put("discount percent",key);
+        else if (field.equals("add good"))
+            editedFields.put("add good",key);
+        else if (field.equals("remove good"))
+            editedFields.put("remove good",key);
+        Shop.getInstance().addRequest(new EditingOffRequest(id,editedFields));
+    }
+
+    public boolean doWeHaveThisOff(long id){
+        if (Shop.getInstance().findOffById(id) == null){
+            return false;
+        }
+        return true;
     }
 }

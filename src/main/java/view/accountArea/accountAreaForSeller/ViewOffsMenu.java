@@ -1,7 +1,9 @@
 package view.accountArea.accountAreaForSeller;
 
 import controller.MainController;
+import exception.OffNotFoundException;
 import exception.ProductNotFoundExceptionForSeller;
+import model.Shop;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -44,30 +46,45 @@ public class ViewOffsMenu extends Menu {
             String offDetails = MainController.getInstance().getAccountAreaForSellerController().
                     viewOff(Long.parseLong(getValidInput("[0-9]+", "Not valid off ID")));
             System.out.println(offDetails);
-        } catch (ProductNotFoundExceptionForSeller exception) {
+        } catch (OffNotFoundException exception) {
             System.out.println(exception);
         }
     }
 
     private void editOff() {
+        System.out.println("Enter off ID :");
+        String input;
+        while (true) {
+            input = getValidInput("[0-9]+", "Not valid off ID");
+            if (MainController.getInstance().getAccountAreaForSellerController().doWeHaveThisOff(Long.parseLong(input)))
+                break;
+        }
+        long id=Long.parseLong(input);
         System.out.println("choose one to edit");
         printEditableFields();
-        int chosen= Integer.parseInt(getValidInput("^[1-6]{1}$","not invalid input"));
-        if (chosen==1){
-            editStartDate();
+        int chosen = Integer.parseInt(getValidInput("^[1-6]{1}$", "not invalid input"));
+        if (chosen == 1) {
+            editStartDate(id);
+        } else if (chosen == 2) {
+            editEndDate(id);
+        } else if (chosen == 3){
+            editMaxDiscount(id);
         }
+        System.out.println("your request sent to manager");
+        System.out.println("press enter to continue");
+        scanner.nextLine();
     }
 
-    private void printEditableFields(){
+    private void printEditableFields() {
         System.out.println("1-start date\n2-end date\n3-max discount of off\n4-discount percent\n5-add a good to off\n6-remove a good from off");
     }
 
     private void addOff() {
         ArrayList<String> offDetails = new ArrayList<>();
         System.out.println("start date : \t enter in format[2020-4-27]");
-        offDetails.add(getDate());
+        offDetails.add(getDate(0, ""));
         System.out.println("end date : \t enter in format[2020-4-27]");
-        offDetails.add(getDate());
+        offDetails.add(getDate(1, offDetails.get(0)));
         System.out.println("maximum amount of purchase :");
         offDetails.add(getValidInput("\\d\\d\\d\\d+", "Not valid amount"));
         System.out.println("discount percent :");
@@ -96,19 +113,29 @@ public class ViewOffsMenu extends Menu {
         return productIds;
     }
 
-    private String getDate() {
+    private String getDate(int a, String startDate) {
         while (true) {
             String date = scanner.nextLine().trim();
             if (Pattern.matches("([\\d]{4})-([\\d]{2})-([\\d]{2})", date)) {
-                if (MainController.getInstance().getAccountAreaForSellerController().checkValidDate(date))
+                if (MainController.getInstance().getAccountAreaForSellerController().checkValidDate(date, a, startDate))
                     return date;
             }
             System.out.println("Not valid Date");
         }
     }
 
-    private void editStartDate(){
+    private void editStartDate(long id) {
         System.out.println("enter a date in fomrat [2020-4-27]");
-        getDate();
+        MainController.getInstance().getAccountAreaForSellerController().editOff("start date", getDate(0, ""),id);
+    }
+
+    private void editEndDate(long id) {
+        System.out.println("enter a date in fomrat [2020-4-27]");
+        MainController.getInstance().getAccountAreaForSellerController().editOff("end date", getDate(1,
+                Shop.getInstance().findOffById(id).getStartDate().toString()),id);
+    }
+
+    private void editMaxDiscount(long id){
+        
     }
 }

@@ -7,10 +7,10 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public class EditingOffRequest extends Request {
-    private int offId;
+    private long offId;
     private HashMap<String, String> editedFields;
 
-    public EditingOffRequest(int offId, HashMap<String, String> editedFields) {
+    public EditingOffRequest(long offId, HashMap<String, String> editedFields) {
         this.offId = offId;
         this.editedFields = editedFields;
     }
