@@ -51,6 +51,14 @@ public class Category {
         return null;
     }
 
+    public SubCategory findSubCategoryByName(String subcategoryName){
+        for (SubCategory subCategory : subCategories) {
+            if (subCategory.getName().equals(subcategoryName))
+                return subCategory;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         String categoryStr = "Name of Category = " + getName() + "\nSubcategories =";

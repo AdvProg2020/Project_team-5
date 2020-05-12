@@ -97,9 +97,9 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public long calculateFinalPrice(DiscountCode discountCode) {
-        if (finalPriceOfAList(Shop.getInstance().getCart()) <= discountCode.getMaxDiscountAmount())
-            return finalPriceOfAList(Shop.getInstance().getCart()) * (100 - discountCode.getDiscountPercent()) / 100;
-        return finalPriceOfAList(Shop.getInstance().getCart()) - (discountCode.getMaxDiscountAmount() * discountCode.getDiscountPercent() / 100);
+        if (finalPriceOfAList(Shop.getInstance().getCart()) * (discountCode.getDiscountPercent()/100) <= discountCode.getMaxDiscountAmount())
+            return finalPriceOfAList(Shop.getInstance().getCart()) - discountCode.getDiscountPercent()/100;
+        return finalPriceOfAList(Shop.getInstance().getCart()) - discountCode.getMaxDiscountAmount();
     }
 
     public void purchase(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws NotEnoughCredit {

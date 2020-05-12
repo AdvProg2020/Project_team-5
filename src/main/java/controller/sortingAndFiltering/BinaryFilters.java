@@ -30,4 +30,9 @@ public class BinaryFilters  {
     public void setEndValue(String endValue) {
         this.endValue = endValue;
     }
+
+    @Override
+    public String toString(){
+        return filterName + ": from " + startValue + " to " + endValue ;
+    }
 }

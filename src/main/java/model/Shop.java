@@ -12,9 +12,7 @@ import model.productThings.*;
 import model.requests.Request;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Shop {
@@ -273,5 +271,23 @@ public class Shop {
 
     public ArrayList<Off> getOffs() {
         return offs;
+    }
+
+    public List<Good> getAllGoods(){
+        List<Good> allGoods = new ArrayList<>();
+        for (Category category : allCategories) {
+            for (SubCategory subCategory : category.getSubCategories()) {
+                allGoods.addAll(subCategory.getGoods());
+            }
+        }
+        return allGoods;
+    }
+
+    public List<Good> getOffGoods(){
+        Set<Good> offGoods = new HashSet<>();
+        for (Off off : offs) {
+            offGoods.addAll(off.getOffGoods());
+        }
+        return new ArrayList<>(offGoods);
     }
 }
