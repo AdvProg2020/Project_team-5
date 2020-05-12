@@ -32,9 +32,9 @@ public class ManageProductsMenu extends Menu {
 
     @Override
     public void setCommandNames() {
-        commandNames.add("- view product");
-        commandNames.add("- view buyers");
-        commandNames.add("- edit product");
+        commandNames.add("view product");
+        commandNames.add("view buyers");
+        commandNames.add("edit product");
     }
 
     private void viewProduct(){

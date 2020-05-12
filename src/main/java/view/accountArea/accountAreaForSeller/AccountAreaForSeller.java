@@ -20,12 +20,12 @@ public class AccountAreaForSeller extends Menu {
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("-view company information");
-        this.commandNames.add("-view sales history");
-        this.commandNames.add("-add product");
-        this.commandNames.add("-remove product");
-        this.commandNames.add("-show categories");
-        this.commandNames.add("-view balance");
+        this.commandNames.add("view company information");
+        this.commandNames.add("view sales history");
+        this.commandNames.add("add product");
+        this.commandNames.add("remove product");
+        this.commandNames.add("show categories");
+        this.commandNames.add("view balance");
     }
 
     @Override

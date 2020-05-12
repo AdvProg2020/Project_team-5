@@ -33,9 +33,9 @@ public class ViewOffsMenu extends Menu {
 
     @Override
     public void setCommandNames() {
-        commandNames.add("- view off by ID");
-        commandNames.add("- edit off");
-        commandNames.add("- add off");
+        commandNames.add("view off by ID");
+        commandNames.add("edit off");
+        commandNames.add("add off");
     }
 
     private void viewOff() {
@@ -50,12 +50,16 @@ public class ViewOffsMenu extends Menu {
     }
 
     private void editOff() {
-
+        System.out.println("choose one to edit");
+        printEditableFields();
+        int chosen= Integer.parseInt(getValidInput("^[1-6]{1}$","not invalid input"));
+        if (chosen==1){
+            editStartDate();
+        }
     }
 
-    private void editOffHelp(){
-        System.out.println("edit end date [yyyy-mm-dd] or \nedit maximum discount [amount] or \nedit discount percent [1-99] or \n" +
-                "add produ");
+    private void printEditableFields(){
+        System.out.println("1-start date\n2-end date\n3-max discount of off\n4-discount percent\n5-add a good to off\n6-remove a good from off");
     }
 
     private void addOff() {
@@ -101,5 +105,10 @@ public class ViewOffsMenu extends Menu {
             }
             System.out.println("Not valid Date");
         }
+    }
+
+    private void editStartDate(){
+        System.out.println("enter a date in fomrat [2020-4-27]");
+        getDate();
     }
 }
