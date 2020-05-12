@@ -109,6 +109,11 @@ public class Off {
         offGoods.remove(good);
     }
 
+    public boolean doesHaveThisProduct(Good good){
+        if (good == null) return false;
+        return offGoods.contains(good);
+    }
+
 
     @Override
     public String toString() {

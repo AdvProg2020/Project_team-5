@@ -59,7 +59,7 @@ public class ViewOffsMenu extends Menu {
             if (MainController.getInstance().getAccountAreaForSellerController().doWeHaveThisOff(Long.parseLong(input)))
                 break;
         }
-        long id=Long.parseLong(input);
+        long id = Long.parseLong(input);
         System.out.println("choose one to edit");
         printEditableFields();
         int chosen = Integer.parseInt(getValidInput("^[1-6]{1}$", "not invalid input"));
@@ -67,16 +67,15 @@ public class ViewOffsMenu extends Menu {
             editStartDate(id);
         } else if (chosen == 2) {
             editEndDate(id);
-        } else if (chosen == 3){
+        } else if (chosen == 3) {
             editMaxDiscount(id);
-        } else if (chosen == 4){
+        } else if (chosen == 4) {
             editDiscountPercent(id);
-        } else if (chosen == 5){
+        } else if (chosen == 5) {
             addGoodToOff(id);
-        }else if (chosen == 6){
+        } else if (chosen == 6) {
             removeGoodFromOff(id);
         }
-        System.out.println("your request sent to manager");
         System.out.println("press enter to continue");
         scanner.nextLine();
     }
@@ -132,30 +131,56 @@ public class ViewOffsMenu extends Menu {
 
     private void editStartDate(long id) {
         System.out.println("enter a date in fomrat [2020-4-27]");
-        MainController.getInstance().getAccountAreaForSellerController().editOff("start date", getDate(0, ""),id);
+        MainController.getInstance().getAccountAreaForSellerController().editOff("start date", getDate(0, ""), id);
+        System.out.println("your request successfuly sent to manager");
     }
 
     private void editEndDate(long id) {
         System.out.println("enter a date in fomrat [2020-4-27]");
         MainController.getInstance().getAccountAreaForSellerController().editOff("end date", getDate(1,
-                Shop.getInstance().findOffById(id).getStartDate().toString()),id);
+                Shop.getInstance().findOffById(id).getStartDate().toString()), id);
+        System.out.println("your request successfuly sent to manager");
     }
 
-    private void editMaxDiscount(long id){
+    private void editMaxDiscount(long id) {
         System.out.println("enter maximum discount you want for you off");
         MainController.getInstance().getAccountAreaForSellerController().editOff("max discount",
-                getValidInput("\\d\\d\\d\\d+", "Not valid amount"),id);
+                getValidInput("\\d\\d\\d\\d+", "Not valid amount"), id);
+        System.out.println("your request successfuly sent to manager");
     }
 
-    private void editDiscountPercent(long id){
-        
+    private void editDiscountPercent(long id) {
+        System.out.println("enter discount percent you want for you off");
+        MainController.getInstance().getAccountAreaForSellerController().editOff("discount percent",
+                getValidInput("[\\d]{1,2}", "Not valid percent"), id);
+        System.out.println("your request successfuly sent to manager");
     }
 
-    private void addGoodToOff(long id){
-
+    private void addGoodToOff(long id) {
+        System.out.println("enter good id to add to your off");
+        long productId = Long.parseLong(getValidInput("[\\d]+", "Not valid id"));
+        if (Shop.getInstance().findGoodById(productId) == null) {
+            System.out.println("doesn't exist a product with this id");
+            return;
+        } else if (!MainController.getInstance().getAccountAreaForSellerController().checkValidProductId(productId)) {
+            System.out.println("This product does not exist your active goods");
+            return;
+        } else if (Shop.getInstance().findOffById(id).doesHaveThisProduct(Shop.getInstance().findGoodById(productId))) {
+            System.out.println("you have this product in your off already");
+            return;
+        }
+        MainController.getInstance().getAccountAreaForSellerController().editOff("add good", "" + productId, id);
+        System.out.println("your request successfuly sent to manager");
     }
 
-    private void removeGoodFromOff(long id){
-
+    private void removeGoodFromOff(long id) {
+        System.out.println("enter good id to add to your off");
+        long productId = Long.parseLong(getValidInput("[\\d]+", "Not valid id"));
+        if (!Shop.getInstance().findOffById(id).doesHaveThisProduct(Shop.getInstance().findGoodById(productId))) {
+            System.out.println("you don't have this product in your off");
+            return;
+        }
+        MainController.getInstance().getAccountAreaForSellerController().editOff("remove good", "" + productId, id);
+        System.out.println("your request successfuly sent to manager");
     }
 }
