@@ -69,6 +69,12 @@ public class ViewOffsMenu extends Menu {
             editEndDate(id);
         } else if (chosen == 3){
             editMaxDiscount(id);
+        } else if (chosen == 4){
+            editDiscountPercent(id);
+        } else if (chosen == 5){
+            addGoodToOff(id);
+        }else if (chosen == 6){
+            removeGoodFromOff(id);
         }
         System.out.println("your request sent to manager");
         System.out.println("press enter to continue");
@@ -136,6 +142,20 @@ public class ViewOffsMenu extends Menu {
     }
 
     private void editMaxDiscount(long id){
+        System.out.println("enter maximum discount you want for you off");
+        MainController.getInstance().getAccountAreaForSellerController().editOff("max discount",
+                getValidInput("\\d\\d\\d\\d+", "Not valid amount"),id);
+    }
+
+    private void editDiscountPercent(long id){
         
+    }
+
+    private void addGoodToOff(long id){
+
+    }
+
+    private void removeGoodFromOff(long id){
+
     }
 }
