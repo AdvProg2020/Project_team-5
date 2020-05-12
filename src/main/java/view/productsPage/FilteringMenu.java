@@ -44,7 +44,7 @@ public class FilteringMenu extends Menu {
     }
 
     private void currentFilters() {
-        
+
     }
 
     private void disableFilters() {
