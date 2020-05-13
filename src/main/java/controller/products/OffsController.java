@@ -6,15 +6,15 @@ import exception.ThisProductIsnotInAnyOff;
 import model.Shop;
 import model.persons.Seller;
 import model.productThings.Good;
-import model.productThings.Off;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 public class OffsController {
 
     public String showOffProducts() {
-        List<Good> goodList = MainController.getInstance().getControllerForFiltering().showProducts();
+        List<Good> goodList2 = MainController.getInstance().getControllerForFiltering().showProducts();
+        List<Good> goodList = MainController.getInstance().getControllerForSorting().showProducts(goodList2);
         String output = "";
         for (Good good : goodList) {
             if (goodList.get(goodList.size() - 1).equals(good))

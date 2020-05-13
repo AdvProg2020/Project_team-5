@@ -29,7 +29,8 @@ public class AllProductsController {
     }
 
     public String showProducts() {
-        List<Good> goodList = MainController.getInstance().getControllerForFiltering().showProducts();
+        List<Good> goodList2 = MainController.getInstance().getControllerForFiltering().showProducts();
+        List<Good> goodList = MainController.getInstance().getControllerForSorting().showProducts(goodList2);
         String output = "";
         for (Good good : goodList) {
             if (goodList.get(goodList.size() - 1).equals(good))

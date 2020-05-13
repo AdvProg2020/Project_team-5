@@ -8,7 +8,7 @@ import view.productsPage.FilteringMenu;
 import view.productsPage.ProductPage;
 import view.productsPage.SortingMenu;
 
-public class OffsPage extends Menu{
+public class OffsPage extends Menu {
 
     public OffsPage(Menu parentMenu) {
         super("Offs menu", parentMenu);
@@ -32,14 +32,14 @@ public class OffsPage extends Menu{
         } catch (ProductWithThisIdNotExist e) {
             System.out.println(e.getMessage());
             return this;
-        } catch (ThisProductIsnotInAnyOff e){
+        } catch (ThisProductIsnotInAnyOff e) {
             System.out.println(e.getMessage());
             return this;
         }
     }
 
-    private void showOffProducts(){
-
+    private void showOffProducts() {
+        System.out.println(MainController.getInstance().getOffsController().showOffProducts());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class OffsPage extends Menu{
             nextMenu = submenus.get(input - 1);
         } else if (input == 3) {
             nextMenu = showAProduct();
-        }else if (input == 5){
+        } else if (input == 5) {
             showOffProducts();
         } else if (input == 6) {
             MainController.getInstance().getControllerForFiltering().resetAll();
