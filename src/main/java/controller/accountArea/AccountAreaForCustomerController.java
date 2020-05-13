@@ -27,7 +27,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public List<String> viewDiscountCodes() {
         return ((Customer) MainController.getInstance().getCurrentPerson()).getDiscountCodes().stream().
-                map(discountCode -> discountCode.detailedToString()).collect(Collectors.toList());
+                map(DiscountCode::detailedToString).collect(Collectors.toList());
     }
 
     public boolean checkExistProductInCart(long productId) {
@@ -69,7 +69,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public List<String> getBriefSummeryOfOrders(){
         return ((Customer)MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().
-                map(order -> order.briefString()).collect(Collectors.toList());
+                map(OrderForCustomer::briefString).collect(Collectors.toList());
     }
 
     public boolean existOrderById(long orderId) {
@@ -138,7 +138,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public long finalPriceOfAList(List<GoodInCart> products) {
-        return products.stream().map(good -> good.getFinalPrice()).reduce(0L, (ans, i) -> ans + i);
+        return products.stream().map(GoodInCart::getFinalPrice).reduce(0L, (ans, i) -> ans + i);
     }
 
     public void reduceAvailableNumberOfGoodsAfterPurchase() {
