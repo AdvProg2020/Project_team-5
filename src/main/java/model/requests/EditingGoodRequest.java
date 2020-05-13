@@ -38,11 +38,7 @@ public class EditingGoodRequest extends Request {
     public void acceptRequest() {
         Good good = Shop.getInstance().findGoodById(goodId);
         for (String field : editedFields.keySet()) {
-            if (field.equalsIgnoreCase("name")) {
-                good.setName(editedFields.get("name"));
-            } else if (field.equalsIgnoreCase("brand")) {
-                good.setBrand(editedFields.get("brand"));
-            } else if (field.equalsIgnoreCase("details")) {
+            if (field.equalsIgnoreCase("details")) {
                 good.setDetails(editedFields.get("details"));
             } else if (field.equalsIgnoreCase("price")) {
                 SellerRelatedInfoAboutGood information = (SellerRelatedInfoAboutGood) good.getSellerRelatedInfoAboutGoods().stream().filter(info -> info.getSeller().equals(seller)).toArray()[0];

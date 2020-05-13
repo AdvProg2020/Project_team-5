@@ -24,7 +24,7 @@ public class AllProductsPage extends Menu {
     }
 
     private void showProducts() {
-        MainController.getInstance().getControllerForFiltering().showProducts();
+        System.out.println(MainController.getInstance().getAllProductsController().showProducts());
     }
 
     private Menu showAProduct() {

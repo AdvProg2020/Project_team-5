@@ -10,6 +10,7 @@ import model.productThings.Good;
 import model.productThings.Off;
 import model.requests.AddingGoodRequest;
 import model.requests.AddingOffRequest;
+import model.requests.EditingGoodRequest;
 import model.requests.EditingOffRequest;
 
 import java.time.LocalDate;
@@ -79,7 +80,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return details;
     }
 
-    public void addProduct(ArrayList<String> productInfo, HashMap<String, Object> subcategoryDetailsValue) {
+    public void addProduct(ArrayList<String> productInfo, HashMap<String, String> subcategoryDetailsValue) {
         Good good = new Good(productInfo.get(0), productInfo.get(1), Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
                 productInfo.get(4), subcategoryDetailsValue, ((Seller) MainController.getInstance().getCurrentPerson()),
                 Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)));
@@ -127,18 +128,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
 
     public void editOff(String field, String key, long id) {
         HashMap<String, String> editedFields = new HashMap<>();
-        if (field.equals("start date"))
-            editedFields.put("start date", key);
-        else if (field.equals("end date"))
-            editedFields.put("end date", key);
-        else if (field.equals("max discount"))
-            editedFields.put("max discount", key);
-        else if (field.equals("discount percent"))
-            editedFields.put("discount percent", key);
-        else if (field.equals("add good"))
-            editedFields.put("add good", key);
-        else if (field.equals("remove good"))
-            editedFields.put("remove good", key);
+        editedFields.put(field,key);
         Shop.getInstance().addRequest(new EditingOffRequest(id, editedFields));
     }
 
@@ -148,5 +138,11 @@ public class AccountAreaForSellerController extends AccountAreaController {
         }
         Off off = Shop.getInstance().findOffById(id);
         return off.getSeller().equals(MainController.getInstance().getCurrentPerson());
+    }
+
+    public void editProduct(String field, String key, long id) {
+        HashMap<String, String> editedFields = new HashMap<>();
+        editedFields.put(field, key);
+        Shop.getInstance().addRequest(new EditingGoodRequest(id, (Seller) MainController.getInstance().getCurrentPerson(), editedFields));
     }
 }
