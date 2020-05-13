@@ -1,7 +1,7 @@
 package view.accountArea.acountAreaForCustomer;
 
 import controller.MainController;
-import exception.ProductNotExistInCart;
+import exception.productExceptions.ProductNotExistInCart;
 import view.LoginRegisterMenu;
 import view.Menu;
 

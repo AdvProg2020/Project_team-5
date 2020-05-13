@@ -1,4 +1,4 @@
-package exception;
+package exception.productExceptions;
 
 public class ProductNotFoundExceptionForSeller extends Exception {
     public ProductNotFoundExceptionForSeller() {

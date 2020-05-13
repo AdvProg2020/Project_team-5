@@ -2,7 +2,7 @@ package controller.accountArea;
 
 import controller.MainController;
 import exception.OffNotFoundException;
-import exception.ProductNotFoundExceptionForSeller;
+import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import model.Shop;
 import model.orders.OrderForSeller;
 import model.persons.Seller;

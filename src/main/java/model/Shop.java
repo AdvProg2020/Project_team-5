@@ -1,9 +1,8 @@
 package model;
 
-import exception.NotEnoughAvailableProduct;
+import exception.productExceptions.NotEnoughAvailableProduct;
 import model.category.Category;
 import model.category.SubCategory;
-import model.orders.OrderForCustomer;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
@@ -13,7 +12,6 @@ import model.requests.Request;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Shop {
     private static Shop ourInstance = new Shop();

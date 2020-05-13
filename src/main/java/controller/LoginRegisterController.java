@@ -1,9 +1,9 @@
 package controller;
 
-import exception.MainManagerAlreadyRegistered;
-import exception.PasswordIncorrectException;
-import exception.UsernameIsTakenAlreadyException;
-import exception.UsernameNotFoundException;
+import exception.userExceptions.MainManagerAlreadyRegistered;
+import exception.userExceptions.PasswordIncorrectException;
+import exception.userExceptions.UsernameIsTakenAlreadyException;
+import exception.userExceptions.UsernameNotFoundException;
 import model.Shop;
 import model.persons.Customer;
 import model.persons.Manager;

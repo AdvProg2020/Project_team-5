@@ -1,7 +1,7 @@
 package controllerTest.controllerAccountAreaTest;
 
 import controller.MainController;
-import exception.UsernameNotFoundException;
+import exception.userExceptions.UsernameNotFoundException;
 import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;

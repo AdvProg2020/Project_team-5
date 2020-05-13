@@ -1,7 +1,7 @@
 package controller.accountArea;
 
 import controller.MainController;
-import exception.FieldCantBeEditedException;
+import exception.productExceptions.FieldCantBeEditedException;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;

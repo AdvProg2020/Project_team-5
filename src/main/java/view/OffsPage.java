@@ -1,9 +1,8 @@
 package view;
 
 import controller.MainController;
-import exception.ProductWithThisIdNotExist;
-import exception.ThisProductIsnotInAnyOff;
-import model.Shop;
+import exception.productExceptions.ProductWithThisIdNotExist;
+import exception.productExceptions.ThisProductIsnotInAnyOff;
 import view.productsPage.FilteringMenu;
 import view.productsPage.ProductPage;
 import view.productsPage.SortingMenu;

@@ -1,9 +1,15 @@
 package controller.accountArea;
 
 import exception.*;
+import exception.categoryExceptions.CategoryNotFoundException;
+import exception.categoryExceptions.SubCategoryNotFoundException;
 import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
+import exception.productExceptions.ProductWithThisIdNotExist;
+import exception.userExceptions.UserCantBeRemovedException;
+import exception.userExceptions.UsernameIsTakenAlreadyException;
+import exception.userExceptions.UsernameNotFoundException;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;

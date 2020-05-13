@@ -1,4 +1,4 @@
-package exception;
+package exception.productExceptions;
 
 public class ThisProductIsnotInAnyOff extends Exception {
     public ThisProductIsnotInAnyOff() {

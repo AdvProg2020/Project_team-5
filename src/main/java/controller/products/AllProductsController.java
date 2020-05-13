@@ -1,7 +1,7 @@
 package controller.products;
 
 import controller.MainController;
-import exception.ProductWithThisIdNotExist;
+import exception.productExceptions.ProductWithThisIdNotExist;
 import model.Shop;
 import model.category.Category;
 import model.productThings.Good;

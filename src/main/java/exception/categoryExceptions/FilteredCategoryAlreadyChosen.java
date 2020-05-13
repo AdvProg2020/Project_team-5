@@ -1,4 +1,4 @@
-package exception;
+package exception.categoryExceptions;
 
 public class FilteredCategoryAlreadyChosen extends Exception {
     public FilteredCategoryAlreadyChosen() {

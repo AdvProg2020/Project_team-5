@@ -1,4 +1,4 @@
-package exception;
+package exception.categoryExceptions;
 
 public class HaveNotChosenCategoryFilter extends Exception {
     public HaveNotChosenCategoryFilter() {

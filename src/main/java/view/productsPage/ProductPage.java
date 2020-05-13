@@ -1,8 +1,8 @@
 package view.productsPage;
 
 import controller.MainController;
-import exception.DontHaveEnoughNumberOfThisProduct;
-import exception.ProductWithThisIdNotExist;
+import exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
+import exception.productExceptions.ProductWithThisIdNotExist;
 import view.LoginRegisterMenu;
 import view.Menu;
 
