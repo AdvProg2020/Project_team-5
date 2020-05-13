@@ -19,7 +19,7 @@ public class OffsPage extends Menu{
 
     @Override
     protected void setCommandNames() {
-
+        commandNames.add("show off products");
     }
 
     private Menu showAProduct() {
@@ -34,8 +34,8 @@ public class OffsPage extends Menu{
         }
     }
 
-    private String showOffProducts(){
-        return MainController.getInstance().getOffsController().showOffProducts();
+    private void showOffProducts(){
+
     }
 
     @Override
@@ -43,14 +43,16 @@ public class OffsPage extends Menu{
         MainController.getInstance().getControllerForFiltering().setGoodList(false);
         System.out.println("--------------------------------------");
         System.out.println("off products :");
-        System.out.println(showOffProducts());
+      //  System.out.println(showOffProducts());
         Menu nextMenu = null;
         int input = getInput();
-        if (input == 1 || input == 2) {
+        if (input == 1 || input == 2 || input == 4) {
             nextMenu = submenus.get(input - 1);
         } else if (input == 3) {
             nextMenu = showAProduct();
-        } else if (input == 4) {
+        }else if (input == 5){
+            showOffProducts();
+        } else if (input == 6) {
             MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();
         }
