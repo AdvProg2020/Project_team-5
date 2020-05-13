@@ -2,6 +2,7 @@ package view.accountArea.accountAreaForSeller;
 
 import controller.MainController;
 import exception.ProductNotFoundExceptionForSeller;
+import model.Shop;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -66,7 +67,17 @@ public class ManageProductsMenu extends Menu {
             return;
         }
         System.out.println("choose one to edit");
-        printEditableFields();
+        printEditableFields(input);
+        while (true) {
+            int chosen = Integer.parseInt(getValidInput("^[1-10]{1}$", "not invalid input"));
+            if (chosen <= 3 + Shop.getInstance().findGoodById(input).getCategoryProperties().keySet().size())
+                break;
+            else
+                System.out.println("not invalid input");
+            System.out.println("if you want to return type back");
+            if (scanner.nextLine().equalsIgnoreCase("back"))
+                return;
+        }
         int chosen = Integer.parseInt(getValidInput("^[1-3]{1}$", "not invalid input"));
         if (chosen == 1) {
             editPriceOfProduct(input);
@@ -74,22 +85,49 @@ public class ManageProductsMenu extends Menu {
             editAvailableNumber(input);
         } else if (chosen == 3) {
             editDeatails(input);
+        } else {
+            editCategoryProperty(chosen - 4, input);
+        }
+        System.out.println("press enter to continue");
+        scanner.nextLine();
+    }
+
+    private void printEditableFields(long id) {
+        System.out.println("you can edit below fields of this product:\n1-price\n2-available number\n3-product details");
+        int i = 4;
+        for (String s : Shop.getInstance().findGoodById(id).getCategoryProperties().keySet()) {
+            System.out.println((i++) + "-" + Shop.getInstance().findGoodById(id).getCategoryProperties().get(s));
         }
     }
 
-    private void printEditableFields() {
-        System.out.println("you can edit below fields of this product:\n1-price\n2-available number\n3-details");
+    private void editPriceOfProduct(long id) {
+        System.out.println("enter new price");
+        MainController.getInstance().getAccountAreaForSellerController().
+                editProduct("price", getValidInput("\\d\\d\\d\\d+", "Not valid price"), id);
+        System.out.println("your request successfuly sent to manager");
     }
 
-    private void editPriceOfProduct(long id){
-
+    private void editAvailableNumber(long id) {
+        System.out.println("enter new available number");
+        MainController.getInstance().getAccountAreaForSellerController().
+                editProduct("availableNumber", getValidInput("\\d+", "Not valid number"), id);
+        System.out.println("your request successfuly sent to manager");
     }
 
-    private void editAvailableNumber(long id){
-
+    private void editDeatails(long id) {
+        System.out.println("enter new details");
+        MainController.getInstance().getAccountAreaForSellerController().
+                editProduct("details", getValidInput("\\w+", "Not valid detail"), id);
+        System.out.println("your request successfuly sent to manager");
     }
 
-    private void editDeatails(long id){}
+    private void editCategoryProperty(int number, long id) {
+        System.out.println("enter new property for " + Shop.getInstance().findGoodById(id).getCategoryProperties().keySet().toArray()[number]);
+        MainController.getInstance().getAccountAreaForSellerController().
+                editProduct((String) Shop.getInstance().findGoodById(id).getCategoryProperties().keySet().toArray()[number]
+                        , getValidInput("\\w+", "Not valid!"), id);
+        System.out.println("your request successfuly sent to manager");
+    }
 
     public long getProductId() {
         System.out.println("Enter product ID :");
