@@ -48,4 +48,8 @@ public class LoadingData {
     public void loadOrderForCustomer() {
 
     }
+
+    public void loadRequests() {
+
+    }
 }

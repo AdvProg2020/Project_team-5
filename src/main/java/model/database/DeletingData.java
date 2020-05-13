@@ -10,6 +10,7 @@ import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
 import model.productThings.*;
+import model.requests.Request;
 
 import java.io.File;
 
@@ -127,7 +128,10 @@ public class DeletingData {
             throw new FileCantBeDeletedException();
     }
 
-    public void deleteRequest() {
-
+    public void deleteRequest(Request request) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Requests\\request_" + request.getRequestId() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
     }
 }
