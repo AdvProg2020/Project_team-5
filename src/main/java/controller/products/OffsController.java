@@ -4,33 +4,32 @@ import controller.MainController;
 import exception.ProductWithThisIdNotExist;
 import exception.ThisProductIsnotInAnyOff;
 import model.Shop;
+import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.Off;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class OffsController {
 
     public String showOffProducts() {
+        List<Good> goodList = MainController.getInstance().getControllerForFiltering().showProducts();
         String output = "";
-        for (Off off : Shop.getInstance().getOffs()) {
-            if ((off.getEndDate().isBefore(LocalDate.now()) || off.getStartDate().isAfter(LocalDate.now())))
-                continue;
-            if (off.getOffStatus().equals(Off.OffStatus.ACCEPTED)) {
-                output += getOffDetail(off);
-            }
+        for (Good good : goodList) {
+            if (goodList.get(goodList.size() - 1).equals(good))
+                output += getGoodDetail(good);
+            else
+                output += (getGoodDetail(good) + "\n");
         }
         return output;
     }
 
-    private String getOffDetail(Off off) {
+    private String getGoodDetail(Good good) {
         String output = "";
-        output += ("offs by : " + off.getSeller().getUsername() + "\n");
-        int i = 1;
-        for (Good good : off.getOffGoods()) {
-            output += ((i++) + "-" + good.getName() + " :" + " id = " + good.getGoodId() + "\tprice before off : " + good.getPriceBySeller(off.getSeller())
-                    + "\tprice after off :" + off.getPriceAfterOff(good, off.getSeller()) + "\n");
-        }
+        Seller seller = good.getSellerThatPutsThisGoodOnOff();
+        output += (good.getName() + "\tgood id : " + good.getGoodId() + "\tprice before off : " + good.getPriceBySeller(seller)
+                + "\tprice after off : " + Shop.getInstance().getFinalPriceOfAGood(good, seller));
         return output;
     }
 

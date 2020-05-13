@@ -186,6 +186,16 @@ public class Good {
         }
     }
 
+    public Seller getSellerThatPutsThisGoodOnOff(){
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
+            for (Off off : relatedInfoAboutGood.getSeller().getActiveOffs()) {
+                if (off.getOffGoods().contains(this))
+                    return relatedInfoAboutGood.getSeller();
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         StringBuilder sellerRelatedInfo = new StringBuilder();
