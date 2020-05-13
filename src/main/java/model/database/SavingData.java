@@ -8,6 +8,7 @@ import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
 import model.productThings.*;
+import model.requests.Request;
 
 public class SavingData {
     public void saveManager(Manager manager) {
@@ -55,6 +56,10 @@ public class SavingData {
     }
 
     public void saveOrderForCustomer(OrderForCustomer orderForCustomer) {
+
+    }
+
+    public void saveRequest(Request request) {
 
     }
 }
