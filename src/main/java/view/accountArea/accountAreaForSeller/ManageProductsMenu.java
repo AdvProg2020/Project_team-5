@@ -37,46 +37,63 @@ public class ManageProductsMenu extends Menu {
         commandNames.add("edit product");
     }
 
-    private void viewProduct(){
+    private void viewProduct() {
         try {
             String product = MainController.getInstance().getAccountAreaForSellerController().viewProduct(getProductId());
             System.out.println(product);
-        }catch (ProductNotFoundExceptionForSeller exception){
+        } catch (ProductNotFoundExceptionForSeller exception) {
             System.out.println(exception.getMessage());
         }
     }
 
-    private void viewBuyers(){
+    private void viewBuyers() {
         try {
             ArrayList<String> buyers = MainController.getInstance().getAccountAreaForSellerController().buyersOfProduct(getProductId());
             for (String buyer : buyers) {
                 System.out.println(buyer);
             }
-        }catch (ProductNotFoundExceptionForSeller exception){
+        } catch (ProductNotFoundExceptionForSeller exception) {
             System.out.println(exception.getMessage());
         }
     }
 
-   private void editProduct(){
-       System.out.println("Enter product ID :");
-       String input;
-       while (true) {
-           input = getValidInput("[0-9]+", "Not valid off ID");
-         //  if (MainController.getInstance().getAccountAreaForSellerController().doesSellerHaveThisOff(Long.parseLong(input)))
-               break;
-       }
-      // long id = Long.parseLong(input);
-      // System.out.println("choose one to edit");
-      // printEditableFields();
-   }
+    private void editProduct() {
+        long input = getProductId();
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().viewProduct(input);
+        } catch (ProductNotFoundExceptionForSeller exception) {
+            System.out.println(exception.getMessage());
+            return;
+        }
+        System.out.println("choose one to edit");
+        printEditableFields();
+        int chosen = Integer.parseInt(getValidInput("^[1-3]{1}$", "not invalid input"));
+        if (chosen == 1) {
+            editPriceOfProduct(input);
+        } else if (chosen == 2) {
+            editAvailableNumber(input);
+        } else if (chosen == 3) {
+            editDeatails(input);
+        }
+    }
 
-   private void editingProductHelp(){
-       System.out.println("you can edit below fields of this product:\n" +
-       "");
-   }
+    private void printEditableFields() {
+        System.out.println("you can edit below fields of this product:\n1-price\n2-available number\n3-details");
+    }
 
+    private void editPriceOfProduct(long id){
 
-    public long getProductId(){
+    }
+
+    private void editAvailableNumber(long id){
+
+    }
+
+    private void editDeatails(long id){
+
+    }
+
+    public long getProductId() {
         System.out.println("Enter product ID :");
         return Long.parseLong(getValidInput("[0-9]+", "Not valid product ID"));
     }
