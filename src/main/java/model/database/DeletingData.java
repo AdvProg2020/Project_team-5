@@ -35,15 +35,12 @@ public class DeletingData {
     }
 
     public void deleteProduct(Good good) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Products\\product" + good.getGoodId() + ".json";
+        String filePath = "Resources\\Products\\product_" + good.getGoodId() + ".json";
         File file = new File(filePath);
         if (!file.delete())
             throw new FileCantBeDeletedException();
         for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
-            filePath = "Resources\\ProductsInfo\\productInfo" + good.getGoodId() + "_" + infoAboutGood.getSeller().getUsername() + ".json";
-            file = new File(filePath);
-            if (!file.delete())
-                throw new FileCantBeDeletedException();
+            deleteProductInfo(infoAboutGood, good.getGoodId());
         }
         for (Comment comment : good.getComments()) {
             deleteComment(comment);
@@ -51,20 +48,39 @@ public class DeletingData {
         //remove rates
     }
 
-    public void deleteDiscount(DiscountCode discountCode) {
-
+    public void deleteDiscount(DiscountCode discountCode) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Discounts\\dis_" + discountCode.getCode() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
     }
 
-    public void deleteComment(Comment comment) {
-
+    public void deleteProductInfo(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws FileCantBeDeletedException {
+        String filePath = "Resources\\ProductsInfo\\productInfo_" + goodId + "_" + infoAboutGood.getSeller().getUsername() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
     }
 
-    public void deleteOff(Off off) {
-
+    public void deleteComment(Comment comment) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Comments\\comment_" + comment.getGood().getGoodId() + "_" + comment.getPerson().getUsername() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
     }
 
-    public void deleteRate(Rate rate) {
+    public void deleteOff(Off off) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Offs\\off_" + off.getOffId() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
+    }
 
+    public void deleteRate(Rate rate) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Rates\\rate_" + rate.getGood().getGoodId() + "_" + rate.getCustomer().getUsername() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
     }
 
     public void deleteCategory(Category category) {
