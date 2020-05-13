@@ -4,6 +4,7 @@ import controller.MainController;
 import exception.OffNotFoundException;
 import exception.ProductNotFoundExceptionForSeller;
 import model.Shop;
+import model.orders.OrderForSeller;
 import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.Off;
@@ -40,7 +41,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
 
     public List<String> getSalesLog() {
         return ((Seller) MainController.getInstance().getCurrentPerson()).getPreviousSells().stream().
-                map(orderForSeller -> orderForSeller.toString()).collect(Collectors.toList());
+                map(OrderForSeller::toString).collect(Collectors.toList());
     }
 
     public long viewBalance() {
@@ -92,7 +93,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public boolean checkValidDate(String date, int a, String startDate) {
         Matcher matcher = getMatcher("(\\d\\d\\d\\d)-([\\d]{1,2})-([\\d]{1,2})", date);
         return (Integer.parseInt(matcher.group(2)) >= 1 && Integer.parseInt(matcher.group(2)) <= 12 && Integer.parseInt(matcher.group(3)) >= 1
-                && Integer.parseInt(matcher.group(3)) <= 30 && LocalDate.now().isBefore(LocalDate.parse(date)) && checkEndDateIsAFterStart(date, a, startDate));
+                && Integer.parseInt(matcher.group(3)) <= 30 && LocalDate.now().isBefore(LocalDate.parse(date)) && checkEndDateIsAfterStart(date, a, startDate));
     }
 
     public boolean checkValidProductId(long productId) {
@@ -116,7 +117,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return productIds.stream().map(productId -> Shop.getInstance().findGoodById(productId)).collect(Collectors.toList());
     }
 
-    public boolean checkEndDateIsAFterStart(String endDate, int a, String startDate) {
+    public boolean checkEndDateIsAfterStart(String endDate, int a, String startDate) {
         if (a == 0)
             return true;
         else {
@@ -146,8 +147,6 @@ public class AccountAreaForSellerController extends AccountAreaController {
             return false;
         }
         Off off = Shop.getInstance().findOffById(id);
-        if (!off.getSeller().equals( MainController.getInstance().getCurrentPerson()))
-            return false;
-        return true;
+        return off.getSeller().equals(MainController.getInstance().getCurrentPerson());
     }
 }
