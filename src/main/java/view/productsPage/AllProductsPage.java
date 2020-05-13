@@ -4,17 +4,17 @@ import controller.MainController;
 import controller.sortingAndFiltering.ControllerForFiltering;
 import exception.ProductWithThisIdNotExist;
 import model.Shop;
+import view.LoginRegisterMenu;
 import view.Menu;
 import view.ScreenClearing;
 
 public class AllProductsPage extends Menu {
-    private ControllerForFiltering filteringController;
     public AllProductsPage(Menu parentMenu) {
         super("All products Menu", parentMenu);
         submenus.add(new FilteringMenu(this));
         submenus.add(new SortingMenu(this));
         submenus.add(new ProductPage(this));
-        this.filteringController = new ControllerForFiltering();
+        submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -24,7 +24,7 @@ public class AllProductsPage extends Menu {
     }
 
     private void showProducts() {
-        //ToDo
+
     }
 
     private Menu showAProduct() {
@@ -50,6 +50,7 @@ public class AllProductsPage extends Menu {
 
     @Override
     public void execute() {
+        MainController.getInstance().getControllerForFiltering().setGoodList(true);
         Menu nextMenu = null;
         int input = getInput();
         if (input == 1 || input == 2) {
@@ -63,13 +64,10 @@ public class AllProductsPage extends Menu {
             showProducts();
             nextMenu = this;
         } else if (input == 6) {
+            MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();
         }
         nextMenu.help();
         nextMenu.execute();
-    }
-
-    public ControllerForFiltering getFilteringController() {
-        return filteringController;
     }
 }
