@@ -2,6 +2,7 @@ package view.productsPage;
 
 import controller.MainController;
 import controller.sortingAndFiltering.ControllerForFiltering;
+import exception.NotValidInput;
 import view.Menu;
 import view.OffsPage;
 
@@ -64,14 +65,14 @@ public class FilteringMenu extends Menu {
         }
     }
 
-    private void executeFilterAnAvailableFilter(int validFilter){
+    private void executeFilterAnAvailableFilter(int validFilter) {
         try {
             if (validFilter == 1)
                 MainController.getInstance().getControllerForFiltering().addCategoryFilter(scanner.nextLine());
             if (validFilter == 2)
                 MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(scanner.nextLine());
             if (validFilter == 3)
-                //ToDo
+                MainController.getInstance().getControllerForFiltering().addNameFiltering(scanner.nextLine());
             if (validFilter == 4)
                 MainController.getInstance().getControllerForFiltering().addBrandFiltering(scanner.nextLine());
             if (validFilter == 5)
@@ -81,21 +82,34 @@ public class FilteringMenu extends Menu {
         }
     }
 
-    private void getPriceFilter(){
+    private void getPriceFilter() {
         System.out.println("enter minimum price:");
-        String startValue =  getValidInput("[\\d]+", "not valid amount");
+        String startValue = getValidInput("[\\d]+", "not valid amount");
         System.out.println("enter maximum price:");
-        String  endValue = getValidInput("[\\d]+", "not valid amount");
+        String endValue = getValidInput("[\\d]+", "not valid amount");
         MainController.getInstance().getControllerForFiltering().addPriceFiltering(startValue, endValue);
     }
 
     private void currentFilters() {
+        int i = 1;
         for (String currentFilter : MainController.getInstance().getControllerForFiltering().getCurrentFilters()) {
-            System.out.println(currentFilter);
+            System.out.println("" + (i++) + "-" + currentFilter);
         }
     }
 
     private void disableFilters() {
+        currentFilters();
+        System.out.println("enter a current filter to disable the filter");
+        String chosenFilter = scanner.nextLine().trim();
+        try {
+            if (!Pattern.matches("^[\\d]$", chosenFilter))
+                throw new NotValidInput();
+            if (Integer.parseInt(chosenFilter) > MainController.getInstance().getControllerForFiltering().getCurrentFilters().size())
+                throw new NotValidInput();
+            MainController.getInstance().getControllerForFiltering().disableFilter(Integer.parseInt(chosenFilter));
+        }catch (Exception exception){
+            System.out.println(exception.getMessage());
+        }
 
     }
 }

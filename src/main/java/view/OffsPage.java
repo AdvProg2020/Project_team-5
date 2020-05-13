@@ -39,6 +39,7 @@ public class OffsPage extends Menu{
 
     @Override
     public void execute() {
+
         System.out.println("--------------------------------------");
         System.out.println("off products :");
         System.out.println(showOffProducts());

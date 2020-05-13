@@ -43,6 +43,10 @@ public class ControllerForFiltering {
                 good.getMinimumPrice() <= Long.parseLong(priceRange.getEndValue())).collect(Collectors.toList());
     }
 
+    private List<Good> filterByName(String name,List<Good> allGoods){
+        return allGoods.stream().filter(good -> good.getName().startsWith(name) || good.getName().endsWith(name)).collect(Collectors.toList());
+    }
+
     public void resetAll() {
         unaryFilters.clear();
         binaryFilters.clear();
@@ -109,5 +113,37 @@ public class ControllerForFiltering {
             break;
         }
         addBinaryFilter("price", startValue, endValue);
+    }
+
+    public void addNameFiltering(String name){
+        if (unaryFilters.containsKey("name"))
+            unaryFilters.remove("name");
+        unaryFilters.put("name" , name);
+    }
+
+    public void disableFilter(int chosenFilter){
+        if (chosenFilter <= unaryFilters.size())
+            disableUnaryFilter(chosenFilter);
+        else
+            binaryFilters.remove(chosenFilter - unaryFilters.size() - 1);
+    }
+
+    public void disableUnaryFilter(int chosenFilter){
+        int i = 1;
+        for (String filterName : unaryFilters.keySet()) {
+            if (i == chosenFilter){
+                if (filterName.equals("category"))
+                    disableCategoryFilter();
+                unaryFilters.remove(filterName);
+                break;
+            }
+            i++;
+        }
+    }
+
+    private void disableCategoryFilter(){
+        filteredCategory = null;
+        if (unaryFilters.containsKey("subcategory"))
+            unaryFilters.remove("subcategory");
     }
 }
