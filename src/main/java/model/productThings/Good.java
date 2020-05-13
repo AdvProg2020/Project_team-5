@@ -21,13 +21,13 @@ public class Good {
     private ArrayList<Comment> comments;
     private int seenNumber;
     private LocalDate modificationDate;
-    private HashMap<String, Object> categoryProperties;
+    private HashMap<String, String> categoryProperties;
 
     public enum GoodStatus {
         BUILTPROCESSING, EDITINGPROCESSING, CONFIRMED, NOTAVAILABLE
     }
 
-    public Good(String name, String brand, SubCategory subCategory, String details, HashMap<String, Object> categoryProperties, Seller seller, long price, int availableNumber) {
+    public Good(String name, String brand, SubCategory subCategory, String details, HashMap<String, String> categoryProperties, Seller seller, long price, int availableNumber) {
         this.goodId = goodsCount++;
         this.name = name;
         this.brand = brand;
@@ -114,7 +114,7 @@ public class Good {
         this.details = details;
     }
 
-    public HashMap<String, Object> getCategoryProperties() {
+    public HashMap<String, String> getCategoryProperties() {
         return categoryProperties;
     }
 

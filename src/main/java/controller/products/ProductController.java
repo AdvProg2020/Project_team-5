@@ -58,7 +58,7 @@ public class ProductController {
 
     public String attributes() {
         String output = good.getDetails();
-        HashMap<String, Object> categoryPropeties = good.getCategoryProperties();
+        HashMap<String, String> categoryPropeties = good.getCategoryProperties();
         for (String s : categoryPropeties.keySet()) {
             output += ("\n" + s + " : " + categoryPropeties.get(s).toString());
         }

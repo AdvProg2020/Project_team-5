@@ -89,9 +89,7 @@ public class ManageProductsMenu extends Menu {
 
     }
 
-    private void editDeatails(long id){
-
-    }
+    private void editDeatails(long id){}
 
     public long getProductId() {
         System.out.println("Enter product ID :");

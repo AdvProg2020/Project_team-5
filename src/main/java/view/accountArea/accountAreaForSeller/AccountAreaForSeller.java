@@ -91,8 +91,8 @@ public class AccountAreaForSeller extends Menu {
         return getCorrectSubCategory();
     }
 
-    private HashMap<String, Object> getDetails(String subcategory){
-        HashMap<String, Object> detailValues = new HashMap<>();
+    private HashMap<String, String> getDetails(String subcategory){
+        HashMap<String, String> detailValues = new HashMap<>();
         for (String detail : MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(subcategory)) {
             System.out.println(detail + " :");
             detailValues.put(detail,scanner.nextLine());

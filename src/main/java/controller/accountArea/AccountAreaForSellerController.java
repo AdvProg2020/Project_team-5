@@ -79,7 +79,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return details;
     }
 
-    public void addProduct(ArrayList<String> productInfo, HashMap<String, Object> subcategoryDetailsValue) {
+    public void addProduct(ArrayList<String> productInfo, HashMap<String, String> subcategoryDetailsValue) {
         Good good = new Good(productInfo.get(0), productInfo.get(1), Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
                 productInfo.get(4), subcategoryDetailsValue, ((Seller) MainController.getInstance().getCurrentPerson()),
                 Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)));
