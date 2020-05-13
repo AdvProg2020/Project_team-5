@@ -56,8 +56,12 @@ public class ViewOffsMenu extends Menu {
         String input;
         while (true) {
             input = getValidInput("[0-9]+", "Not valid off ID");
-            if (MainController.getInstance().getAccountAreaForSellerController().doWeHaveThisOff(Long.parseLong(input)))
+            if (MainController.getInstance().getAccountAreaForSellerController().doesSellerHaveThisOff(Long.parseLong(input)))
                 break;
+            else
+                System.out.println("this isn't valid off ID\nif you want to quit type back or press enter to continue");
+            if (scanner.nextLine().equalsIgnoreCase("break"))
+                return;
         }
         long id = Long.parseLong(input);
         System.out.println("choose one to edit");

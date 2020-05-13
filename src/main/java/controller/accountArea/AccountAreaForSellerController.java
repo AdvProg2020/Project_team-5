@@ -62,7 +62,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public String viewOff(long offId) throws OffNotFoundException {
         if (Shop.getInstance().findOffById(offId) == null)
             throw new OffNotFoundException();
-        else{
+        else {
             return Shop.getInstance().findOffById(offId).toString();
         }
     }
@@ -85,38 +85,38 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Shop.getInstance().addRequest(new AddingGoodRequest(good, ((Seller) MainController.getInstance().getCurrentPerson())));
     }
 
-    public boolean checkValidProductNumber(int number){
-        return number <= ((Seller)MainController.getInstance().getCurrentPerson()).getActiveGoods().size();
+    public boolean checkValidProductNumber(int number) {
+        return number <= ((Seller) MainController.getInstance().getCurrentPerson()).getActiveGoods().size();
     }
 
-    public boolean checkValidDate(String date,int a,String startDate){
+    public boolean checkValidDate(String date, int a, String startDate) {
         Matcher matcher = getMatcher("(\\d\\d\\d\\d)-([\\d]{1,2})-([\\d]{1,2})", date);
         return (Integer.parseInt(matcher.group(2)) >= 1 && Integer.parseInt(matcher.group(2)) <= 12 && Integer.parseInt(matcher.group(3)) >= 1
-                && Integer.parseInt(matcher.group(3)) <= 30 && LocalDate.now().isBefore(LocalDate.parse(date)) && checkEndDateIsAFterStart(date,a,startDate)) ;
+                && Integer.parseInt(matcher.group(3)) <= 30 && LocalDate.now().isBefore(LocalDate.parse(date)) && checkEndDateIsAFterStart(date, a, startDate));
     }
 
-    public boolean checkValidProductId(long productId){
-        return ((Seller)MainController.getInstance().getCurrentPerson()).hasThisProduct(productId);
+    public boolean checkValidProductId(long productId) {
+        return ((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(productId);
     }
 
-    private Matcher getMatcher(String regex, String mainString){
+    private Matcher getMatcher(String regex, String mainString) {
         Pattern datePattern = Pattern.compile(regex);
         Matcher matcher = datePattern.matcher(mainString);
         matcher.find();
         return matcher;
     }
 
-    public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts){
+    public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts) {
         Off newOff = new Off(getProductsByIds(offProducts), LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
-                Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)), ((Seller)MainController.getInstance().getCurrentPerson()));
+                Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)), ((Seller) MainController.getInstance().getCurrentPerson()));
         Shop.getInstance().addRequest(new AddingOffRequest(newOff));
     }
 
-    public List<Good> getProductsByIds(ArrayList<Long> productIds){
+    public List<Good> getProductsByIds(ArrayList<Long> productIds) {
         return productIds.stream().map(productId -> Shop.getInstance().findGoodById(productId)).collect(Collectors.toList());
     }
 
-    public boolean checkEndDateIsAFterStart(String endDate,int a,String startDate) {
+    public boolean checkEndDateIsAFterStart(String endDate, int a, String startDate) {
         if (a == 0)
             return true;
         else {
@@ -124,27 +124,30 @@ public class AccountAreaForSellerController extends AccountAreaController {
         }
     }
 
-    public void editOff(String field,String key,long id){
-        HashMap<String,String> editedFields=new HashMap<>();
+    public void editOff(String field, String key, long id) {
+        HashMap<String, String> editedFields = new HashMap<>();
         if (field.equals("start date"))
-            editedFields.put("start date",key);
+            editedFields.put("start date", key);
         else if (field.equals("end date"))
-            editedFields.put("end date",key);
+            editedFields.put("end date", key);
         else if (field.equals("max discount"))
-            editedFields.put("max discount",key);
+            editedFields.put("max discount", key);
         else if (field.equals("discount percent"))
-            editedFields.put("discount percent",key);
+            editedFields.put("discount percent", key);
         else if (field.equals("add good"))
-            editedFields.put("add good",key);
+            editedFields.put("add good", key);
         else if (field.equals("remove good"))
-            editedFields.put("remove good",key);
-        Shop.getInstance().addRequest(new EditingOffRequest(id,editedFields));
+            editedFields.put("remove good", key);
+        Shop.getInstance().addRequest(new EditingOffRequest(id, editedFields));
     }
 
-    public boolean doWeHaveThisOff(long id){
-        if (Shop.getInstance().findOffById(id) == null){
+    public boolean doesSellerHaveThisOff(long id) {
+        if (Shop.getInstance().findOffById(id) == null) {
             return false;
         }
+        Off off = Shop.getInstance().findOffById(id);
+        if (!off.getSeller().equals( MainController.getInstance().getCurrentPerson()))
+            return false;
         return true;
     }
 }

@@ -58,8 +58,16 @@ public class ManageProductsMenu extends Menu {
     }
 
    private void editProduct(){
-        editingProductHelp();
-
+       System.out.println("Enter product ID :");
+       String input;
+       while (true) {
+           input = getValidInput("[0-9]+", "Not valid off ID");
+         //  if (MainController.getInstance().getAccountAreaForSellerController().doesSellerHaveThisOff(Long.parseLong(input)))
+               break;
+       }
+      // long id = Long.parseLong(input);
+      // System.out.println("choose one to edit");
+      // printEditableFields();
    }
 
    private void editingProductHelp(){
