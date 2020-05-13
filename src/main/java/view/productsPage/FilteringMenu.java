@@ -3,6 +3,7 @@ package view.productsPage;
 import controller.MainController;
 import controller.sortingAndFiltering.ControllerForFiltering;
 import exception.NotValidInput;
+import view.LoginRegisterMenu;
 import view.Menu;
 import view.OffsPage;
 
@@ -12,6 +13,7 @@ public class FilteringMenu extends Menu {
 
     public FilteringMenu(Menu parentMenu) {
         super("filtering products Menu", parentMenu);
+        submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -26,15 +28,17 @@ public class FilteringMenu extends Menu {
     public void execute() {
         int chosenCommand = getInput();
         Menu nextMenu = this;
-        if (chosenCommand == 1)
-            showAvailableFilters();
+        if (chosenCommand==1)
+            nextMenu = submenus.get(0);
         if (chosenCommand == 2)
-            filterAnAvailableFilter();
+            showAvailableFilters();
         if (chosenCommand == 3)
-            currentFilters();
+            filterAnAvailableFilter();
         if (chosenCommand == 4)
+            currentFilters();
+        if (chosenCommand == 5)
             disableFilters();
-        if (chosenCommand == 5) {
+        if (chosenCommand == 6) {
             nextMenu = this.parentMenu;
         }
         nextMenu.help();
