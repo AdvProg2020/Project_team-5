@@ -146,4 +146,23 @@ public class ControllerForFiltering {
         if (unaryFilters.containsKey("subcategory"))
             unaryFilters.remove("subcategory");
     }
+
+    public List<Good> showProducts(){
+        List<Good> goods = new ArrayList<Good>(goodList);
+        for (String key : unaryFilters.keySet()) {
+            if (key.equals("category"))
+                goods = filterByCategory(unaryFilters.get("category"), goods);
+            else if (key.equals("subcategory"))
+                goods = filterBySubCategory(unaryFilters.get("subcategory"), goods);
+            else if (key.equals("name"))
+                goods = filterByName(unaryFilters.get("name"), goods);
+            else if (key.equals("brand"))
+                goods = filterByBrand(unaryFilters.get("brand"), goods);
+        }
+        for (BinaryFilters binaryFilter : binaryFilters) {
+            if (binaryFilter.getFilterName().equals("price"))
+                goods = filterByPrice(binaryFilter, goods);
+        }
+        return goods;
+    }
 }
