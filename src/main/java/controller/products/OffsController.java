@@ -1,5 +1,8 @@
 package controller.products;
 
+import controller.MainController;
+import exception.ProductWithThisIdNotExist;
+import exception.ThisProductIsnotInAnyOff;
 import model.Shop;
 import model.productThings.Good;
 import model.productThings.Off;
@@ -21,13 +24,23 @@ public class OffsController {
     }
 
     private String getOffDetail(Off off) {
-        String output="";
+        String output = "";
         output += ("offs by : " + off.getSeller().getUsername() + "\n");
-        int i=1;
+        int i = 1;
         for (Good good : off.getOffGoods()) {
-            output += ((i++) + "-" + good.getName() + " :" + " id = "+ good.getGoodId() + "\tprice before off : " +good.getPriceBySeller(off.getSeller())
-            + "\tprice after off :" + off.getPriceAfterOff(good,off.getSeller()) + "\n");
+            output += ((i++) + "-" + good.getName() + " :" + " id = " + good.getGoodId() + "\tprice before off : " + good.getPriceBySeller(off.getSeller())
+                    + "\tprice after off :" + off.getPriceAfterOff(good, off.getSeller()) + "\n");
         }
         return output;
+    }
+
+    public void showAProduct(long id) throws ProductWithThisIdNotExist, ThisProductIsnotInAnyOff {
+        if (Shop.getInstance().findGoodById(id) == null) {
+            throw new ProductWithThisIdNotExist();
+        } else if (!Shop.getInstance().getOffGoods().contains(Shop.getInstance().findGoodById(id))) {
+            throw new ThisProductIsnotInAnyOff();
+        } else {
+            MainController.getInstance().getProductController().setGood(Shop.getInstance().findGoodById(id));
+        }
     }
 }
