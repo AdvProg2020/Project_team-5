@@ -1,51 +1,60 @@
 package model.database;
 
+import model.category.Category;
+import model.category.SubCategory;
+import model.orders.OrderForCustomer;
+import model.orders.OrderForSeller;
+import model.persons.Customer;
+import model.persons.Manager;
+import model.persons.Seller;
+import model.productThings.*;
+
 public class SavingData {
-    public void saveManager() {
+    public void saveManager(Manager manager) {
 
     }
 
-    public void saveCustomer() {
+    public void saveCustomer(Customer customer) {
 
     }
 
-    public void saveSeller() {
+    public void saveSeller(Seller seller) {
 
     }
 
-    public void saveProduct() {
+    public void saveProduct(Good good) {
 
     }
 
-    public void saveDiscount() {
+    public void saveDiscount(DiscountCode discountCode) {
 
     }
 
-    public void saveComment() {
+    public void saveComment(Comment comment) {
 
     }
 
-    public void saveOff() {
+    public void saveOff(Off off) {
 
     }
 
-    public void saveRate() {
+    public void saveRate(Rate rate) {
 
     }
 
-    public void saveCategory() {
+    public void saveCategory(Category category) {
 
     }
 
-    public void saveSubCategory() {
+    public void saveSubCategory(SubCategory subCategory) {
 
     }
 
-    public void saveOrderForSeller() {
+    public void saveOrderForSeller(OrderForSeller orderForSeller) {
 
     }
 
-    public void saveOrderForCustomer() {
+    public void saveOrderForCustomer(OrderForCustomer orderForCustomer) {
 
     }
 }
