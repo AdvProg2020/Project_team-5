@@ -14,6 +14,7 @@ public class OffsPage extends Menu{
         submenus.add(new FilteringMenu(this));
         submenus.add(new SortingMenu(this));
         submenus.add(new ProductPage(this));
+        submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class OffsPage extends Menu{
 
     @Override
     public void execute() {
-
+        MainController.getInstance().getControllerForFiltering().setGoodList(false);
         System.out.println("--------------------------------------");
         System.out.println("off products :");
         System.out.println(showOffProducts());
@@ -50,6 +51,7 @@ public class OffsPage extends Menu{
         } else if (input == 3) {
             nextMenu = showAProduct();
         } else if (input == 4) {
+            MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();
         }
         nextMenu.help();

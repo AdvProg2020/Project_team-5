@@ -24,7 +24,6 @@ public class FilteringMenu extends Menu {
 
     @Override
     public void execute() {
-        setController();
         int chosenCommand = getInput();
         Menu nextMenu = this;
         if (chosenCommand == 1)
@@ -36,18 +35,10 @@ public class FilteringMenu extends Menu {
         if (chosenCommand == 4)
             disableFilters();
         if (chosenCommand == 5) {
-            MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.parentMenu;
         }
         nextMenu.help();
         nextMenu.execute();
-    }
-
-    private void setController() {
-        if (parentMenu instanceof AllProductsPage)
-            MainController.getInstance().getControllerForFiltering().setGoodList(true);
-        if (parentMenu instanceof OffsPage)
-            MainController.getInstance().getControllerForFiltering().setGoodList(false);
     }
 
     private void showAvailableFilters() {
