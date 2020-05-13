@@ -1,6 +1,7 @@
 package model.database;
 
 import exception.FileCantBeDeletedException;
+import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
@@ -25,6 +26,7 @@ public class DeletingData {
         File file = new File(filePath);
         if (!file.delete())
             throw new FileCantBeDeletedException();
+        //remove rates and comments of this customer???
     }
 
     public void deleteSeller(Seller seller) throws FileCantBeDeletedException {
@@ -32,6 +34,14 @@ public class DeletingData {
         File file = new File(filePath);
         if (!file.delete())
             throw new FileCantBeDeletedException();
+        for (Good good : seller.getActiveGoods()) {
+            for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+                if (infoAboutGood.getSeller().equals(seller)) {
+                    deleteProductInfo(infoAboutGood, good.getGoodId());
+                    break;
+                }
+            }
+        }
     }
 
     public void deleteProduct(Good good) throws FileCantBeDeletedException {
@@ -83,19 +93,41 @@ public class DeletingData {
             throw new FileCantBeDeletedException();
     }
 
-    public void deleteCategory(Category category) {
-
+    public void deleteCategory(Category category) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Categories\\" + category.getName() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
+        for (SubCategory subCategory : category.getSubCategories()) {
+            deleteSubCategory(subCategory);
+        }
     }
 
-    public void deleteSubCategory(SubCategory subCategory) {
-
+    public void deleteSubCategory(SubCategory subCategory) throws FileCantBeDeletedException {
+        String filePath = "Resources\\SubCategories\\" + subCategory.getParentCategory().getName() + "_" + subCategory.getName() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
+        for (Good good : subCategory.getGoods()) {
+            deleteProduct(good);
+        }
     }
 
-    public void deleteOrderForSeller(OrderForSeller orderForSeller) {
-
+    public void deleteOrderForSeller(OrderForSeller orderForSeller) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Orders\\OrderForSellers\\order_" + orderForSeller.getOrderId() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
     }
 
-    public void deleteOrderForCustomer(OrderForCustomer orderForCustomer) {
+    public void deleteOrderForCustomer(OrderForCustomer orderForCustomer) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Orders\\OrderForCustomers\\order_" + orderForCustomer.getOrderId() + ".json";
+        File file = new File(filePath);
+        if (!file.delete())
+            throw new FileCantBeDeletedException();
+    }
+
+    public void deleteRequest() {
 
     }
 }
