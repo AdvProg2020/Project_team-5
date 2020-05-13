@@ -53,17 +53,17 @@ public class AllProductsPage extends Menu {
         MainController.getInstance().getControllerForFiltering().setGoodList(true);
         Menu nextMenu = null;
         int input = getInput();
-        if (input == 1 || input == 2) {
+        if (input == 1 || input == 2 || input == 4) {
             nextMenu = submenus.get(input - 1);
         } else if (input == 3) {
             nextMenu = showAProduct();
-        } else if (input == 4) {
+        } else if (input == 5) {
             showCategories();
             nextMenu = this;
-        } else if (input == 5) {
+        } else if (input == 6) {
             showProducts();
             nextMenu = this;
-        } else if (input == 6) {
+        } else if (input == 7) {
             MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();
         }

@@ -2,6 +2,7 @@ package view;
 
 import controller.MainController;
 import exception.ProductWithThisIdNotExist;
+import exception.ThisProductIsnotInAnyOff;
 import model.Shop;
 import view.productsPage.FilteringMenu;
 import view.productsPage.ProductPage;
@@ -19,38 +20,40 @@ public class OffsPage extends Menu{
 
     @Override
     protected void setCommandNames() {
-
+        commandNames.add("show off products");
     }
 
     private Menu showAProduct() {
         System.out.println("enter product id");
         long id = Long.parseLong(getValidInput("^(\\d{1}|\\d{14})$", "you must enter a number!"));
         try {
-            MainController.getInstance().getAllProductsController().showAProduct(id);
+            MainController.getInstance().getOffsController().showAProduct(id);
             return this.submenus.get(2);
         } catch (ProductWithThisIdNotExist e) {
+            System.out.println(e.getMessage());
+            return this;
+        } catch (ThisProductIsnotInAnyOff e){
             System.out.println(e.getMessage());
             return this;
         }
     }
 
-    private String showOffProducts(){
-        return MainController.getInstance().getOffsController().showOffProducts();
+    private void showOffProducts(){
+
     }
 
     @Override
     public void execute() {
         MainController.getInstance().getControllerForFiltering().setGoodList(false);
-        System.out.println("--------------------------------------");
-        System.out.println("off products :");
-        System.out.println(showOffProducts());
         Menu nextMenu = null;
         int input = getInput();
-        if (input == 1 || input == 2) {
+        if (input == 1 || input == 2 || input == 4) {
             nextMenu = submenus.get(input - 1);
         } else if (input == 3) {
             nextMenu = showAProduct();
-        } else if (input == 4) {
+        }else if (input == 5){
+            showOffProducts();
+        } else if (input == 6) {
             MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();
         }

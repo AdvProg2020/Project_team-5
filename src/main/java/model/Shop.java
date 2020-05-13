@@ -286,7 +286,11 @@ public class Shop {
     public List<Good> getOffGoods(){
         Set<Good> offGoods = new HashSet<>();
         for (Off off : offs) {
-            offGoods.addAll(off.getOffGoods());
+            if ((off.getEndDate().isBefore(LocalDate.now()) || off.getStartDate().isAfter(LocalDate.now())))
+                continue;
+            if (off.getOffStatus().equals(Off.OffStatus.ACCEPTED)) {
+                offGoods.addAll(off.getOffGoods());
+            }
         }
         return new ArrayList<>(offGoods);
     }
