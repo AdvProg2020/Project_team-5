@@ -17,11 +17,11 @@ public class ViewCartMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-        commandNames.add("- show products");
-        commandNames.add("- view a product");
-        commandNames.add("- increase product");
-        commandNames.add("- decrease product");
-        commandNames.add("- show total price");
+        commandNames.add("show products");
+        commandNames.add("view a product");
+        commandNames.add("increase product");
+        commandNames.add("decrease product");
+        commandNames.add("show total price");
     }
 
     @Override

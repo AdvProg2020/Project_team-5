@@ -16,8 +16,8 @@ public class AccountAreaForCustomer extends Menu {
 
     @Override
     public void setCommandNames() {
-        commandNames.add("- view balance");
-        commandNames.add("- view discount codes");
+        commandNames.add("view balance");
+        commandNames.add("view discount codes");
     }
 
     @Override
@@ -53,6 +53,8 @@ public class AccountAreaForCustomer extends Menu {
         }
         System.out.println("you can sort this list by following items:\n1-discount percent\n2-end date\n3-maximum discount amount\n4-continue");
         int input=Integer.parseInt(getValidInput("^[1-4]$","not valid input"));
+        if(input == 4)
+            return;
         for (String discountCode : MainController.getInstance().getAccountAreaForCustomerController().getSortedDiscountCode(input)) {
             System.out.println(discountCode);
         }

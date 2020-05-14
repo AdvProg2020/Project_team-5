@@ -14,6 +14,7 @@ public class ManageProductsMenu extends Menu {
 
     @Override
     public void execute() {
+        viewSellerProduts();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 4)
@@ -36,6 +37,16 @@ public class ManageProductsMenu extends Menu {
         commandNames.add("view product");
         commandNames.add("view buyers");
         commandNames.add("edit product");
+    }
+
+    private void viewSellerProduts() {
+        System.out.println(MainController.getInstance().getAccountAreaForSellerController().viewSellersProducts(0));
+        System.out.println("you can sort this list by following items:\n1-visit number\n2-average rate\n" +
+                "3-modification date\n4-price\n5-available number\n6-continue");
+        int input = Integer.parseInt(getValidInput("^[1-6]$", "not valid input enter number between 1 and 6"));
+        if (input == 6)
+            return;
+        System.out.println(MainController.getInstance().getAccountAreaForSellerController().viewSellersProducts(input));
     }
 
     private void viewProduct() {
