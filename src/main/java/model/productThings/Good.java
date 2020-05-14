@@ -54,7 +54,7 @@ public class Good {
 
     public long getPriceBySeller(Seller seller) {
         for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
-            if (sellerInfo.getSeller() == seller)
+            if (sellerInfo.getSeller().equals(seller))
                 return sellerInfo.getPrice();
         }
         return 0L;

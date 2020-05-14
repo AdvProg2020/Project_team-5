@@ -183,9 +183,9 @@ public class AccountAreaForSellerController extends AccountAreaController {
         }else if (chosenSort == 3){
             goods=MainController.getInstance().getControllerForSorting().showSortByDate(seller.getActiveGoods());
         } else if (chosenSort == 4){
-
+            goods=MainController.getInstance().getSortController().sortProductsByPrice(seller.getActiveGoods());
         } else if (chosenSort == 5){
-
+            goods=MainController.getInstance().getSortController().sortProductsByAvailableNumber(seller.getActiveGoods());
         }
         for (Good good : goods) {
             output += ("\n" + good.toString());
