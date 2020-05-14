@@ -17,7 +17,7 @@ public class ViewOffsMenu extends Menu {
 
     @Override
     public void execute() {
-        MainController.getInstance().getAccountAreaForSellerController().getAllOffs();
+        viewAllOffs();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == submenus.size() + commandNames.size() + 1)
@@ -45,9 +45,19 @@ public class ViewOffsMenu extends Menu {
         commandNames.add("sort offs list");
     }
 
-    private void sortOffs(){
+    private void viewAllOffs() {
+        System.out.println("-----------------\nyour offs:\n");
+        for (String off : MainController.getInstance().getAccountAreaForSellerController().getAllOffs()) {
+            System.out.println(off);
+        }
+        sortOffs();
+    }
+
+    private void sortOffs() {
         System.out.println("you can sort list by following items:\n1-end date\n2-off percent\n3-maximum discount\n4-continue");
         int input = Integer.parseInt(getValidInput("^[1-4]$", "not valid input"));
+        if (input == 4)
+            return;
         for (String off : MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(input)) {
             System.out.println(off);
         }

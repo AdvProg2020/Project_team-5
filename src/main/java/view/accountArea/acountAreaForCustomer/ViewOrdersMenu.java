@@ -24,7 +24,7 @@ public class ViewOrdersMenu extends Menu {
 
     @Override
     public void execute() {
-        MainController.getInstance().getAccountAreaForCustomerController().getBriefSummeryOfOrders();
+        viewOrders();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand <= submenus.size())
@@ -46,9 +46,19 @@ public class ViewOrdersMenu extends Menu {
         nextMenu.execute();
     }
 
+    private void viewOrders(){
+        System.out.println("----------------------\nyour orders:\n");
+        for (String order : MainController.getInstance().getAccountAreaForCustomerController().getBriefSummeryOfOrders()) {
+            System.out.println(order);
+        }
+        sortOrders();
+    }
+
     private void sortOrders(){
         System.out.println("you can sort list by following items:\n1-date\n2-price\n3-continue");
         int input = Integer.parseInt(getValidInput("^[1-3]$", "not valid input"));
+        if(input==3)
+            return;
         for (String order : MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(input)) {
             System.out.println(order);
         }
