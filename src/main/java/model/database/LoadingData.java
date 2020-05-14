@@ -2,15 +2,16 @@ package model.database;
 
 import com.gilecode.yagson.YaGson;
 import model.Shop;
+import model.persons.Customer;
 import model.persons.Manager;
+import model.persons.Seller;
+import model.productThings.Good;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 
 public class LoadingData {
-    private FileReader fileReader;
     private YaGson yaGson;
 
     public LoadingData() {
@@ -24,16 +25,26 @@ public class LoadingData {
         }
     }
 
-    public void loadCustomer() {
-
+    public void loadCustomer() throws IOException {
+        File[] files = loadFolder("Resources\\Users\\Customers");
+        for (File file : files) {
+            Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Customer.class));
+        }
     }
 
-    public void loadSeller() {
-
+    public void loadSeller() throws IOException {
+        File[] files = loadFolder("Resources\\Users\\Sellers");
+        for (File file : files) {
+            Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Seller.class));
+        }
     }
 
-    public void loadProduct() {
-
+    public void loadProduct() throws IOException {
+        File[] files = loadFolder("Resources\\Products");
+        for (File file : files) {
+            Good good = yaGson.fromJson(readFile(file), Good.class);
+            good.getSubCategory().addGood(good);
+        }
     }
 
     public void loadDiscount() {
