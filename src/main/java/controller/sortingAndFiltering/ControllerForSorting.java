@@ -1,5 +1,6 @@
 package controller.sortingAndFiltering;
 
+import model.orders.Order;
 import model.productThings.Good;
 
 import java.util.Collections;
@@ -37,17 +38,19 @@ public class ControllerForSorting {
     }
 
     private List<Good> showSortByVisitNumber(List<Good> allGoods){
-        Collections.sort(allGoods,new SortByVisitNumber());
+        allGoods.sort((Good firstGood, Good secondGood) -> secondGood.getSeenNumber() - firstGood.getSeenNumber());
         return allGoods;
     }
 
     private List<Good> showSortByAverageRate(List<Good> allGoods){
-        Collections.sort(allGoods,new SortByAverageRate());
+        allGoods.sort(Comparator.comparingDouble(good -> good.getAverageRate()));
+        Collections.reverse(allGoods);
         return allGoods;
     }
 
     private List<Good> showSortByDate(List<Good> allGoods){
-        Collections.sort(allGoods,new SortByDate());
+        allGoods.sort((Good firstGood, Good secondGood) -> secondGood.getModificationDate().toString().
+                compareTo(firstGood.getModificationDate().toString()));
         return allGoods;
     }
 
@@ -65,9 +68,9 @@ public class ControllerForSorting {
         }
     }
 
-    class SortByDate implements Comparator<Good> {
+    class SortGoodByDate implements Comparator<Good> {
         public int compare(Good firstGood, Good secondGood) {
-            if (secondGood.getModificationDate().isAfter(secondGood.getModificationDate()))
+            if (secondGood.getModificationDate().isAfter(firstGood.getModificationDate()))
                 return 1;
             return (-1);
         }
