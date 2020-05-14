@@ -43,25 +43,30 @@ public class ViewOrdersMenu extends Menu {
         nextMenu.execute();
     }
 
-    private void showOrderById(){
+    private void showOrderById() {
         try {
             long orderId = getOrderId();
             System.out.println(MainController.getInstance().getAccountAreaForCustomerController().viewAnOrder(orderId));
-        }catch (Exception exception){
+            System.out.println("you can sort this list by following items:\n1-date\n2-price\n3-continue");
+            int input = Integer.parseInt(getValidInput("^[1-3]$", "not valid input"));
+            for (String order : MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(input)) {
+                System.out.println(order);
+            }
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
     }
 
-    private void rateProduct(){
+    private void rateProduct() {
         try {
             long productId = getProductId();
             getRate(productId);
-        }catch (Exception exception){
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
     }
 
-    private long getOrderId() throws Exception{
+    private long getOrderId() throws Exception {
         System.out.println("enter order ID :");
         String input = scanner.nextLine();
         if (!Pattern.matches("[\\d]+", input))
@@ -71,7 +76,7 @@ public class ViewOrdersMenu extends Menu {
         return Long.parseLong(input);
     }
 
-    private long getProductId() throws Exception{
+    private long getProductId() throws Exception {
         System.out.println("enter product ID :");
         String input = scanner.nextLine();
         if (!Pattern.matches("[\\d]+", input))
@@ -86,7 +91,7 @@ public class ViewOrdersMenu extends Menu {
     private void getRate(long productId) throws NotValidInput {
         System.out.println("enter a number between 1 to 10 :");
         String input = scanner.nextLine();
-        if (!Pattern.matches("[\\d]{1,2}",input))
+        if (!Pattern.matches("[\\d]{1,2}", input))
             throw new NotValidInput();
         if (Integer.parseInt(input) > 10)
             throw new NotValidInput();

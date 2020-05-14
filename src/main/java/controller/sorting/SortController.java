@@ -31,29 +31,29 @@ public class SortController {
         return allDiscountCodes;
     }
 
-    public ArrayList<Order> sortByPrice(ArrayList<Order> orders){
+    public List<Order> sortByPrice(List<Order> orders){
         orders.sort(Comparator.comparingLong(Order::getPrice));
         return orders;
     }
 
-    public ArrayList<Order> SortByDate(ArrayList<Order> orders){
+    public List<Order> sortByDate(List<Order> orders){
         orders.sort(Comparator.comparing(Order::getDate));
         Collections.reverse(orders);
         return orders;
     }
 
-    public ArrayList<Off> SortByEndDate(ArrayList<Off> offs){
+    public List<Off> sortByEndDateOffs(List<Off> offs){
         offs.sort(Comparator.comparing(Off::getEndDate));
         return offs;
     }
 
-    public ArrayList<Off> SortByOffPercent(ArrayList<Off> offs){
+    public List<Off> sortByOffPercent(List<Off> offs){
         offs.sort(Comparator.comparing(Off::getDiscountPercent));
         Collections.reverse(offs);
         return offs;
     }
 
-    public ArrayList<Off> SortByMaxDiscountAmount(ArrayList<Off> offs){
+    public List<Off> sortByMaxDiscountAmountOffs(List<Off> offs){
         offs.sort(Comparator.comparing(Off::getMaxDiscount));
         Collections.reverse(offs);
         return offs;

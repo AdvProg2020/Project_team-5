@@ -6,6 +6,7 @@ import exception.discountcodeExceptions.DiscountCodeExpired;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.NotEnoughCredit;
 import model.Shop;
+import model.orders.Order;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;
 import model.persons.Customer;
@@ -70,6 +71,16 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     public List<String> getBriefSummeryOfOrders(){
         return ((Customer)MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().
                 map(OrderForCustomer::briefString).collect(Collectors.toList());
+    }
+
+    public List<String> getSortedCustomerOrders(int chosenSort){
+        List<Order> orders = ((Customer)MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().map(order -> (Order)order).collect(Collectors.toList());
+        List<String> ordersString = new ArrayList<>();
+        if (chosenSort == 1 )
+            ordersString = MainController.getInstance().getSortController().sortByDate(orders).stream().map(order -> order.toString()).collect(Collectors.toList());
+        if (chosenSort == 2)
+            ordersString = MainController.getInstance().getSortController().sortByPrice(orders).stream().map(order -> order.toString()).collect(Collectors.toList());
+        return ordersString;
     }
 
     public boolean existOrderById(long orderId) {
