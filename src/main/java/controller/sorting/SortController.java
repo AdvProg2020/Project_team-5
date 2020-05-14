@@ -17,5 +17,16 @@ public class SortController {
         return allDiscountCodes;
     }
 
+    public ArrayList<DiscountCode> sortByMaxDiscountAmount(ArrayList<DiscountCode> allDiscountCodes){
+        allDiscountCodes.sort(Comparator.comparingLong(DiscountCode::getMaxDiscountAmount));
+        Collections.reverse(allDiscountCodes);
+        return allDiscountCodes;
+    }
+
+    public ArrayList<DiscountCode> sortByEndDate(ArrayList<DiscountCode> allDiscountCodes){
+        allDiscountCodes.sort((DiscountCode discountcode1,DiscountCode discountcode2) ->
+                discountcode2.getEndDate().toString().compareTo(discountcode1.getEndDate().toString()));
+        return allDiscountCodes;
+    }
 
 }

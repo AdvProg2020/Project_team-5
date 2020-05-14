@@ -67,13 +67,18 @@ public class AccountAreaForManagerController extends AccountAreaController {
     }
 
     public ArrayList<String> getAllDiscountCodeWithSort(int input) {
-        ArrayList<DiscountCode> discountCodes=new ArrayList<>();
-        if (input == 0){
+        ArrayList<DiscountCode> discountCodes = new ArrayList<>();
+        if (input == 0)
             discountCodes = Shop.getInstance().getAllDiscountCodes();
-        }
-        if (input == 1) {
-            discountCodes = MainController.getInstance().getSortController().sortByDiscountPercent(Shop.getInstance().getAllDiscountCodes());
-        }
+        if (input == 1)
+            discountCodes = MainController.getInstance().getSortController().
+                    sortByDiscountPercent(Shop.getInstance().getAllDiscountCodes());
+        if(input ==2)
+            discountCodes = MainController.getInstance().getSortController().
+                    sortByEndDate(Shop.getInstance().getAllDiscountCodes());
+        if (input == 3)
+            discountCodes = MainController.getInstance().getSortController().
+                    sortByMaxDiscountAmount(Shop.getInstance().getAllDiscountCodes());
         return getAllDiscountCodesInfo(discountCodes);
     }
 
