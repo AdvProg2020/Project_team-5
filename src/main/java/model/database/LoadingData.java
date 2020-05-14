@@ -2,10 +2,13 @@ package model.database;
 
 import com.gilecode.yagson.YaGson;
 import model.Shop;
+import model.category.Category;
+import model.category.SubCategory;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
 import model.productThings.*;
+import model.requests.Request;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +46,7 @@ public class LoadingData {
         File[] files = loadFolder("Resources\\Products");
         for (File file : files) {
             Good good = yaGson.fromJson(readFile(file), Good.class);
-            good.getSubCategory().addGood(good);
+            Shop.getInstance().addProduct(good);
         }
     }
 
@@ -76,12 +79,19 @@ public class LoadingData {
         }
     }
 
-    public void loadCategory() {
-
+    public void loadCategory() throws IOException {
+        File[] files = loadFolder("Resources\\Categories");
+        for (File file : files) {
+            Shop.getInstance().addCategory(yaGson.fromJson(readFile(file), Category.class));
+        }
     }
 
-    public void loadSubCategory() {
-
+    public void loadSubCategory() throws IOException {
+        File[] files = loadFolder("Resources\\SubCategories");
+        for (File file : files) {
+            SubCategory subCategory = yaGson.fromJson(readFile(file), SubCategory.class);
+            subCategory.getParentCategory().addSubCategory(subCategory);
+        }
     }
 
     public void loadOrderForSeller() {
@@ -92,8 +102,11 @@ public class LoadingData {
 
     }
 
-    public void loadRequests() {
-
+    public void loadRequests() throws IOException {
+        File[] files = loadFolder("Resources\\Requests");
+        for (File file : files) {
+            Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), Request.class));
+        }
     }
 
     private File[] loadFolder(String folderPath) throws IOException {
