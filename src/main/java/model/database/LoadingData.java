@@ -4,6 +4,8 @@ import com.gilecode.yagson.YaGson;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.orders.OrderForCustomer;
+import model.orders.OrderForSeller;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
@@ -41,6 +43,18 @@ public class LoadingData {
             Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Seller.class));
         }
     }
+
+    //TODO
+    /*
+    public void loadInfoAboutGood(Good good) throws IOException {
+        File[] files = loadFolder("Resources\\ProductsInfo");
+        for (File file : files) {
+            SellerRelatedInfoAboutGood infoAboutGood = yaGson.fromJson(readFile(file), SellerRelatedInfoAboutGood.class);
+            good.addSeller(infoAboutGood);
+        }
+    }
+    */
+
 
     public void loadProduct() throws IOException {
         File[] files = loadFolder("Resources\\Products");
@@ -94,12 +108,21 @@ public class LoadingData {
         }
     }
 
-    public void loadOrderForSeller() {
-
+    public void loadOrderForSeller() throws IOException {
+        File[] files = loadFolder("Resources\\Orders\\OrderForSellers");
+        for (File file : files) {
+            OrderForSeller orderForSeller = yaGson.fromJson(readFile(file), OrderForSeller.class);
+            orderForSeller.getSeller().addOrder(orderForSeller);
+        }
     }
 
-    public void loadOrderForCustomer() {
-
+    public void loadOrderForCustomer() throws IOException {
+        File[] files = loadFolder("Resources\\Orders\\OrderForCustomers");
+        for (File file : files) {
+            OrderForCustomer orderForCustomer = yaGson.fromJson(readFile(file), OrderForCustomer.class);
+            //TODO
+            //where we should add order for customer???
+        }
     }
 
     public void loadRequests() throws IOException {
