@@ -5,8 +5,12 @@ import exception.productExceptions.FieldCantBeEditedException;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.orders.Order;
+import model.persons.Customer;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountAreaController {
     public ArrayList<String> showCategories() {
@@ -48,5 +52,14 @@ public class AccountAreaController {
                 throw new FieldCantBeEditedException("password", "new password and old password are identical");
             MainController.getInstance().getCurrentPerson().setPassword(newValue);
         } else throw new Exception("no valid field selected.");
+    }
+
+    public List<String> getSortedOrders(int chosenSort,List<Order> orders){
+        List<String> ordersString = new ArrayList<>();
+        if (chosenSort == 1 )
+            ordersString = MainController.getInstance().getSortController().sortByDate(orders).stream().map(order -> order.toString()).collect(Collectors.toList());
+        if (chosenSort == 2)
+            ordersString = MainController.getInstance().getSortController().sortByPrice(orders).stream().map(order -> order.toString()).collect(Collectors.toList());
+        return ordersString;
     }
 }

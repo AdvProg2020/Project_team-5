@@ -114,6 +114,9 @@ public class Off {
         return offGoods.contains(good);
     }
 
+    public String getBriefSummery(){
+        return "off ID: " + offId +"\t off percent: " + discountPercent;
+    }
 
     @Override
     public String toString() {

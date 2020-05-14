@@ -17,8 +17,9 @@ public class ViewOrdersMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-        commandNames.add("- show all details of an order");
-        commandNames.add("- rate a product");
+        commandNames.add("show all details of an order");
+        commandNames.add("rate a product");
+        commandNames.add("sort orders");
     }
 
     @Override
@@ -35,6 +36,8 @@ public class ViewOrdersMenu extends Menu {
                 showOrderById();
             if (chosenCommand == submenus.size() + 2)
                 rateProduct();
+            if (chosenCommand == submenus.size() + 3)
+                sortOrders();
             nextMenu = this;
             System.out.println("press enter to continue");
             scanner.nextLine();
@@ -43,15 +46,18 @@ public class ViewOrdersMenu extends Menu {
         nextMenu.execute();
     }
 
+    private void sortOrders(){
+        System.out.println("you can sort list by following items:\n1-date\n2-price\n3-continue");
+        int input = Integer.parseInt(getValidInput("^[1-3]$", "not valid input"));
+        for (String order : MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(input)) {
+            System.out.println(order);
+        }
+    }
+
     private void showOrderById() {
         try {
             long orderId = getOrderId();
             System.out.println(MainController.getInstance().getAccountAreaForCustomerController().viewAnOrder(orderId));
-            System.out.println("you can sort this list by following items:\n1-date\n2-price\n3-continue");
-            int input = Integer.parseInt(getValidInput("^[1-3]$", "not valid input"));
-            for (String order : MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(input)) {
-                System.out.println(order);
-            }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }

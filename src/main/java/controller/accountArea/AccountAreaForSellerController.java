@@ -4,7 +4,9 @@ import controller.MainController;
 import exception.OffNotFoundException;
 import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import model.Shop;
+import model.orders.Order;
 import model.orders.OrderForSeller;
+import model.persons.Customer;
 import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.Off;
@@ -45,6 +47,11 @@ public class AccountAreaForSellerController extends AccountAreaController {
                 map(OrderForSeller::toString).collect(Collectors.toList());
     }
 
+    public List<String> getSortedLogs(int chosenSort){
+        List<Order> orders = ((Seller)MainController.getInstance().getCurrentPerson()).getPreviousSells().stream().map(order -> (Order)order).collect(Collectors.toList());
+        return getSortedOrders(chosenSort, orders);
+    }
+
     public long viewBalance() {
         return ((Seller) MainController.getInstance().getCurrentPerson()).balance();
     }
@@ -59,6 +66,22 @@ public class AccountAreaForSellerController extends AccountAreaController {
         if (!((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(productId))
             throw new ProductNotFoundExceptionForSeller();
         return ((Seller) MainController.getInstance().getCurrentPerson()).findProductOfSeller(productId).toString();
+    }
+
+    public List<String> getAllOffs(){
+        return ((Seller)MainController.getInstance().getCurrentPerson()).getActiveOffs().stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
+    }
+
+    public List<String> getSortedOffs(int chosenSort){
+        List<Off> offs = ((Seller)MainController.getInstance().getCurrentPerson()).getActiveOffs();
+        List<String> offsString = new ArrayList<>();
+        if (chosenSort == 1)
+            offsString = MainController.getInstance().getSortController().sortByEndDateOffs(offs).stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
+        if (chosenSort == 2)
+            offsString = MainController.getInstance().getSortController().sortByOffPercent(offs).stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
+        if (chosenSort == 3)
+            offsString = MainController.getInstance().getSortController().sortByMaxDiscountAmountOffs(offs).stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
+        return offsString;
     }
 
     public String viewOff(long offId) throws OffNotFoundException {

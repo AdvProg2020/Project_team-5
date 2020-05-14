@@ -75,12 +75,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public List<String> getSortedCustomerOrders(int chosenSort){
         List<Order> orders = ((Customer)MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().map(order -> (Order)order).collect(Collectors.toList());
-        List<String> ordersString = new ArrayList<>();
-        if (chosenSort == 1 )
-            ordersString = MainController.getInstance().getSortController().sortByDate(orders).stream().map(order -> order.toString()).collect(Collectors.toList());
-        if (chosenSort == 2)
-            ordersString = MainController.getInstance().getSortController().sortByPrice(orders).stream().map(order -> order.toString()).collect(Collectors.toList());
-        return ordersString;
+        return getSortedOrders(chosenSort, orders);
     }
 
     public List<String> getSortedDiscountCode(int chosenSort){

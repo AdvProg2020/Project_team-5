@@ -64,6 +64,11 @@ public class AccountAreaForSeller extends Menu {
         for (String log : salesLog) {
             System.out.println(log);
         }
+        System.out.println("you can sort list by following items:\n1-date\n2-price\n3-continue");
+        int input = Integer.parseInt(getValidInput("^[1-3]$", "not valid input"));
+        for (String log : MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(input)) {
+            System.out.println(log);
+        }
     }
 
     private void addProduct() {
