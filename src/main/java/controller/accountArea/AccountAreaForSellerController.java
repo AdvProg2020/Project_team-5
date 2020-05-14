@@ -14,6 +14,7 @@ import model.requests.AddingGoodRequest;
 import model.requests.AddingOffRequest;
 import model.requests.EditingGoodRequest;
 import model.requests.EditingOffRequest;
+import view.accountArea.accountAreaForManager.ManageAllProductsMenu;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -47,8 +48,8 @@ public class AccountAreaForSellerController extends AccountAreaController {
                 map(OrderForSeller::toString).collect(Collectors.toList());
     }
 
-    public List<String> getSortedLogs(int chosenSort){
-        List<Order> orders = ((Seller)MainController.getInstance().getCurrentPerson()).getPreviousSells().stream().map(order -> (Order)order).collect(Collectors.toList());
+    public List<String> getSortedLogs(int chosenSort) {
+        List<Order> orders = ((Seller) MainController.getInstance().getCurrentPerson()).getPreviousSells().stream().map(order -> (Order) order).collect(Collectors.toList());
         return getSortedOrders(chosenSort, orders);
     }
 
@@ -68,12 +69,12 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return ((Seller) MainController.getInstance().getCurrentPerson()).findProductOfSeller(productId).toString();
     }
 
-    public List<String> getAllOffs(){
-        return ((Seller)MainController.getInstance().getCurrentPerson()).getActiveOffs().stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
+    public List<String> getAllOffs() {
+        return ((Seller) MainController.getInstance().getCurrentPerson()).getActiveOffs().stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
     }
 
-    public List<String> getSortedOffs(int chosenSort){
-        List<Off> offs = ((Seller)MainController.getInstance().getCurrentPerson()).getActiveOffs();
+    public List<String> getSortedOffs(int chosenSort) {
+        List<Off> offs = ((Seller) MainController.getInstance().getCurrentPerson()).getActiveOffs();
         List<String> offsString = new ArrayList<>();
         if (chosenSort == 1)
             offsString = MainController.getInstance().getSortController().sortByEndDateOffs(offs).stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
@@ -151,7 +152,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
 
     public void editOff(String field, String key, long id) {
         HashMap<String, String> editedFields = new HashMap<>();
-        editedFields.put(field,key);
+        editedFields.put(field, key);
         Shop.getInstance().addRequest(new EditingOffRequest(id, editedFields));
     }
 
@@ -167,5 +168,28 @@ public class AccountAreaForSellerController extends AccountAreaController {
         HashMap<String, String> editedFields = new HashMap<>();
         editedFields.put(field, key);
         Shop.getInstance().addRequest(new EditingGoodRequest(id, (Seller) MainController.getInstance().getCurrentPerson(), editedFields));
+    }
+
+    public String viewSellersProducts(int chosenSort) {
+        String output = "-------------------------\nyour products:";
+        Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
+        List<Good> goods = null;
+        if (chosenSort == 0){
+            goods=seller.getActiveGoods();
+        }else if (chosenSort == 1){
+            goods=MainController.getInstance().getControllerForSorting().showSortByVisitNumber(seller.getActiveGoods());
+        }else if (chosenSort == 2){
+            goods=MainController.getInstance().getControllerForSorting().showSortByAverageRate(seller.getActiveGoods());
+        }else if (chosenSort == 3){
+            goods=MainController.getInstance().getControllerForSorting().showSortByDate(seller.getActiveGoods());
+        } else if (chosenSort == 4){
+
+        } else if (chosenSort == 5){
+
+        }
+        for (Good good : goods) {
+            output += ("\n" + good.toString());
+        }
+        return output;
     }
 }

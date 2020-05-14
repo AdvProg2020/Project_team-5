@@ -36,19 +36,19 @@ public class ControllerForSorting {
         return null;
     }
 
-    private List<Good> showSortByVisitNumber(List<Good> allGoods){
+    public List<Good> showSortByVisitNumber(List<Good> allGoods){
         allGoods.sort((Comparator.comparingInt(Good::getSeenNumber)));
         Collections.reverse(allGoods);
         return allGoods;
     }
 
-    private List<Good> showSortByAverageRate(List<Good> allGoods){
+    public List<Good> showSortByAverageRate(List<Good> allGoods){
         allGoods.sort(Comparator.comparingDouble(good -> good.getAverageRate()));
         Collections.reverse(allGoods);
         return allGoods;
     }
 
-    private List<Good> showSortByDate(List<Good> allGoods){
+    public List<Good> showSortByDate(List<Good> allGoods){
         allGoods.sort((Good firstGood, Good secondGood) -> secondGood.getModificationDate().toString().
                 compareTo(firstGood.getModificationDate().toString()));
         return allGoods;

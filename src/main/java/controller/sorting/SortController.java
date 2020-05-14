@@ -4,6 +4,7 @@ import controller.MainController;
 import model.orders.Order;
 import model.persons.Person;
 import model.productThings.DiscountCode;
+import model.productThings.Good;
 import model.productThings.Off;
 
 import java.util.ArrayList;
