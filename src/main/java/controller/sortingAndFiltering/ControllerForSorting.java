@@ -38,7 +38,8 @@ public class ControllerForSorting {
     }
 
     private List<Good> showSortByVisitNumber(List<Good> allGoods){
-        allGoods.sort((Good firstGood, Good secondGood) -> secondGood.getSeenNumber() - firstGood.getSeenNumber());
+        allGoods.sort((Comparator.comparingInt(Good::getSeenNumber)));
+        Collections.reverse(allGoods);
         return allGoods;
     }
 
