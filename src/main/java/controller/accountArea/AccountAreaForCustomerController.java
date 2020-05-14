@@ -83,6 +83,18 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return ordersString;
     }
 
+    public List<String> getSortedDiscountCode(int chosenSort){
+        ArrayList<DiscountCode> discountCodes = ((Customer)MainController.getInstance().getCurrentPerson()).getDiscountCodes();
+        List<String> discountCodeString = new ArrayList<>();
+        if (chosenSort == 1 )
+            discountCodeString = MainController.getInstance().getSortController().sortByDiscountPercent(discountCodes).stream().map(discountCode -> discountCode.toString()).collect(Collectors.toList());
+        if (chosenSort == 2 )
+            discountCodeString = MainController.getInstance().getSortController().sortByEndDate(discountCodes).stream().map(discountCode -> discountCode.toString()).collect(Collectors.toList());
+        if (chosenSort == 3 )
+            discountCodeString = MainController.getInstance().getSortController().sortByMaxDiscountAmount(discountCodes).stream().map(discountCode -> discountCode.toString()).collect(Collectors.toList());
+        return discountCodeString;
+    }
+
     public boolean existOrderById(long orderId) {
         return !((Customer) MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().
                 filter(order -> order.getOrderId() == orderId).collect(Collectors.toList()).isEmpty();
