@@ -9,6 +9,7 @@ import model.orders.Order;
 import model.persons.Customer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,7 @@ public class AccountAreaController {
             }
             categories.add(thisCategory);
         }
+        Collections.sort(categories);
         return categories;
     }
 

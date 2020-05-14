@@ -158,6 +158,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         for (Category category : Shop.getInstance().getAllCategories()) {
             categories.add(category.toString());
         }
+        Collections.sort(categories);
         return categories;
     }
 
