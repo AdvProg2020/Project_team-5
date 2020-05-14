@@ -5,7 +5,7 @@ import model.Shop;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
-import model.productThings.Good;
+import model.productThings.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,20 +47,33 @@ public class LoadingData {
         }
     }
 
-    public void loadDiscount() {
-
+    public void loadDiscount() throws IOException {
+        File[] files = loadFolder("Resources\\Discounts");
+        for (File file : files) {
+            Shop.getInstance().addDiscountCode(yaGson.fromJson(readFile(file), DiscountCode.class));
+        }
     }
 
-    public void loadComment() {
-
+    public void loadComment() throws IOException {
+        File[] files = loadFolder("Resources\\Comments");
+        for (File file : files) {
+            Comment comment = yaGson.fromJson(readFile(file), Comment.class);
+            comment.getGood().addComment(comment);
+        }
     }
 
-    public void loadOff() {
-
+    public void loadOff() throws IOException {
+        File[] files = loadFolder("Resources\\Offs");
+        for (File file : files) {
+            Shop.getInstance().addOff(yaGson.fromJson(readFile(file), Off.class));
+        }
     }
 
-    public void loadRate() {
-
+    public void loadRate() throws IOException {
+        File[] files = loadFolder("Resources\\Rates");
+        for (File file : files) {
+            Shop.getInstance().addRate(yaGson.fromJson(readFile(file), Rate.class));
+        }
     }
 
     public void loadCategory() {
