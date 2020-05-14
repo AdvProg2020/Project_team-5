@@ -1,6 +1,5 @@
 package controller.sortingAndFiltering;
 
-import model.orders.Order;
 import model.productThings.Good;
 
 import java.util.Collections;
@@ -55,25 +54,4 @@ public class ControllerForSorting {
         return allGoods;
     }
 
-    class SortByVisitNumber implements Comparator<Good> {
-        public int compare(Good firstGood, Good secondGood) {
-            return secondGood.getSeenNumber() - firstGood.getSeenNumber();
-        }
-    }
-
-    class SortByAverageRate implements Comparator<Good> {
-        public int compare(Good firstGood, Good secondGood) {
-            if (secondGood.getAverageRate() - firstGood.getAverageRate() > 0)
-                return 1;
-            return (-1);
-        }
-    }
-
-    class SortGoodByDate implements Comparator<Good> {
-        public int compare(Good firstGood, Good secondGood) {
-            if (secondGood.getModificationDate().isAfter(firstGood.getModificationDate()))
-                return 1;
-            return (-1);
-        }
-    }
 }
