@@ -1,4 +1,4 @@
-package controller.sortingAndFiltering;
+package controller.sortingAndFilteringForProducts;
 
 public class BinaryFilters  {
     private String filterName;

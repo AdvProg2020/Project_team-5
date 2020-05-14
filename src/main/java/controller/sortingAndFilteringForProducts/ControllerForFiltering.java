@@ -1,4 +1,4 @@
-package controller.sortingAndFiltering;
+package controller.sortingAndFilteringForProducts;
 
 import exception.categoryExceptions.CategoryNotFound;
 import exception.categoryExceptions.FilteredCategoryAlreadyChosen;

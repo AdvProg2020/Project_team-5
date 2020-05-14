@@ -1,5 +1,6 @@
 package controller.accountArea;
 
+import controller.MainController;
 import exception.*;
 import exception.categoryExceptions.CategoryNotFoundException;
 import exception.categoryExceptions.SubCategoryNotFoundException;
@@ -21,9 +22,7 @@ import model.productThings.Good;
 import model.requests.Request;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AccountAreaForManagerController extends AccountAreaController {
@@ -59,12 +58,23 @@ public class AccountAreaForManagerController extends AccountAreaController {
         discountCode.addCustomerToCode((Customer) person, number);
     }
 
-    public ArrayList<String> getAllDiscountCodesInfo() {
+    private ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
         ArrayList<String> allDiscountCodes = new ArrayList<>();
-        for (DiscountCode discountCode : Shop.getInstance().getAllDiscountCodes()) {
+        for (DiscountCode discountCode : discountCodes) {
             allDiscountCodes.add(discountCode.toString());
         }
         return allDiscountCodes;
+    }
+
+    public ArrayList<String> getAllDiscountCodeWithSort(int input) {
+        ArrayList<DiscountCode> discountCodes=new ArrayList<>();
+        if (input == 0){
+            discountCodes = Shop.getInstance().getAllDiscountCodes();
+        }
+        if (input == 1) {
+            discountCodes = MainController.getInstance().getSortController().sortByDiscountPercent(Shop.getInstance().getAllDiscountCodes());
+        }
+        return getAllDiscountCodesInfo(discountCodes);
     }
 
     public String viewDiscountCode(String code) throws DiscountCodeNotFoundException {
@@ -226,6 +236,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         for (Person person : Shop.getInstance().getAllPersons()) {
             allUsersList.add(person.getUsername());
         }
+        Collections.sort(allUsersList, String.CASE_INSENSITIVE_ORDER);
         return allUsersList;
     }
 

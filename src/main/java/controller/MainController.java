@@ -6,8 +6,9 @@ import controller.accountArea.AccountAreaForSellerController;
 import controller.products.AllProductsController;
 import controller.products.OffsController;
 import controller.products.ProductController;
-import controller.sortingAndFiltering.ControllerForFiltering;
-import controller.sortingAndFiltering.ControllerForSorting;
+import controller.sorting.SortController;
+import controller.sortingAndFilteringForProducts.ControllerForFiltering;
+import controller.sortingAndFilteringForProducts.ControllerForSorting;
 import model.Shop;
 import model.persons.Person;
 
@@ -26,6 +27,7 @@ public class MainController {
     private AllProductsController allProductsController;
     private OffsController offsController;
     private ProductController productController;
+    private SortController sortController;
 
     public static MainController getInstance() {
         return ourInstance;
@@ -43,6 +45,7 @@ public class MainController {
         this.allProductsController=new AllProductsController();
         this.offsController=new OffsController();
         this.productController = new ProductController();
+        this.sortController = new SortController();
     }
 
     public LoginRegisterController getLoginRegisterController() {
@@ -61,7 +64,9 @@ public class MainController {
         return accountAreaForSellerController;
     }
 
-
+    public SortController getSortController() {
+        return sortController;
+    }
 
     public ControllerForFiltering getControllerForFiltering() {
         return controllerForFiltering;

@@ -1,4 +1,4 @@
-package controller.sortingAndFiltering;
+package controller.sortingAndFilteringForProducts;
 
 import model.productThings.Good;
 
