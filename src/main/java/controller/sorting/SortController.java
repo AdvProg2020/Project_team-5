@@ -4,6 +4,7 @@ import controller.MainController;
 import model.orders.Order;
 import model.persons.Person;
 import model.productThings.DiscountCode;
+import model.productThings.Off;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +40,23 @@ public class SortController {
         orders.sort(Comparator.comparing(Order::getDate));
         Collections.reverse(orders);
         return orders;
+    }
+
+    public ArrayList<Off> SortByEndDate(ArrayList<Off> offs){
+        offs.sort(Comparator.comparing(Off::getEndDate));
+        return offs;
+    }
+
+    public ArrayList<Off> SortByOffPercent(ArrayList<Off> offs){
+        offs.sort(Comparator.comparing(Off::getDiscountPercent));
+        Collections.reverse(offs);
+        return offs;
+    }
+
+    public ArrayList<Off> SortByMaxDiscountAmount(ArrayList<Off> offs){
+        offs.sort(Comparator.comparing(Off::getMaxDiscount));
+        Collections.reverse(offs);
+        return offs;
     }
 
 }
