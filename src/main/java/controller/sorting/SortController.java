@@ -1,6 +1,7 @@
 package controller.sorting;
 
 import controller.MainController;
+import model.orders.Order;
 import model.persons.Person;
 import model.productThings.DiscountCode;
 
@@ -24,9 +25,20 @@ public class SortController {
     }
 
     public ArrayList<DiscountCode> sortByEndDate(ArrayList<DiscountCode> allDiscountCodes){
-        allDiscountCodes.sort((DiscountCode discountcode1,DiscountCode discountcode2) ->
-                discountcode2.getEndDate().toString().compareTo(discountcode1.getEndDate().toString()));
+        allDiscountCodes.sort((DiscountCode discountCode1,DiscountCode discountCode2) ->
+                discountCode2.getEndDate().toString().compareTo(discountCode1.getEndDate().toString()));
         return allDiscountCodes;
+    }
+
+    public ArrayList<Order> sortByPrice(ArrayList<Order> orders){
+        orders.sort(Comparator.comparingLong(Order::getPrice));
+        return orders;
+    }
+
+    public ArrayList<Order> SortByDate(ArrayList<Order> orders){
+        orders.sort(Comparator.comparing(Order::getDate));
+        Collections.reverse(orders);
+        return orders;
     }
 
 }
