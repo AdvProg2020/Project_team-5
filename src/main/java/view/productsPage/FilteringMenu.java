@@ -1,11 +1,9 @@
 package view.productsPage;
 
 import controller.MainController;
-import controller.sortingAndFiltering.ControllerForFiltering;
-import exception.NotValidInput;
+import exception.userExceptions.NotValidInput;
 import view.LoginRegisterMenu;
 import view.Menu;
-import view.OffsPage;
 
 import java.util.regex.Pattern;
 

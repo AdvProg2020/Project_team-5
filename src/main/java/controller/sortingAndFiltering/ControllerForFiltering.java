@@ -1,9 +1,9 @@
 package controller.sortingAndFiltering;
 
-import exception.CategoryNotFound;
-import exception.FilteredCategoryAlreadyChosen;
-import exception.HaveNotChosenCategoryFilter;
-import exception.SubcategoryNotFoundInThisCategory;
+import exception.categoryExceptions.CategoryNotFound;
+import exception.categoryExceptions.FilteredCategoryAlreadyChosen;
+import exception.categoryExceptions.HaveNotChosenCategoryFilter;
+import exception.categoryExceptions.SubcategoryNotFoundInThisCategory;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;

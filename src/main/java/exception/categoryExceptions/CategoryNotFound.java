@@ -1,4 +1,4 @@
-package exception;
+package exception.categoryExceptions;
 
 public class CategoryNotFound extends Exception {
     public CategoryNotFound() {

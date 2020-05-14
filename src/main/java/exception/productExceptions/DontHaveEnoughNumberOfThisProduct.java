@@ -1,4 +1,4 @@
-package exception;
+package exception.productExceptions;
 
 public class DontHaveEnoughNumberOfThisProduct extends Exception {
     public DontHaveEnoughNumberOfThisProduct() {

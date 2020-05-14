@@ -1,4 +1,4 @@
-package exception;
+package exception.userExceptions;
 
 public class UserCantBeRemovedException extends Exception {
     public UserCantBeRemovedException() {

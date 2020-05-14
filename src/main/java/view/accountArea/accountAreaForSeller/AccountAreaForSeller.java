@@ -1,7 +1,7 @@
 package view.accountArea.accountAreaForSeller;
 
 import controller.MainController;
-import exception.ProductNotFoundExceptionForSeller;
+import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import view.Menu;
 import view.accountArea.ViewingPersonalInfo;
 

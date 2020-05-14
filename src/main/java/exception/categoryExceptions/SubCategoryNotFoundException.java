@@ -1,4 +1,4 @@
-package exception;
+package exception.categoryExceptions;
 
 public class SubCategoryNotFoundException extends Exception {
     public SubCategoryNotFoundException() {

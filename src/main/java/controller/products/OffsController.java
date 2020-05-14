@@ -1,8 +1,8 @@
 package controller.products;
 
 import controller.MainController;
-import exception.ProductWithThisIdNotExist;
-import exception.ThisProductIsnotInAnyOff;
+import exception.productExceptions.ProductWithThisIdNotExist;
+import exception.productExceptions.ThisProductIsnotInAnyOff;
 import model.Shop;
 import model.persons.Seller;
 import model.productThings.Good;

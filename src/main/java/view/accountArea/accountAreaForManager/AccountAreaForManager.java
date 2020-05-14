@@ -3,7 +3,7 @@ package view.accountArea.accountAreaForManager;
 import controller.MainController;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
-import exception.UsernameNotFoundException;
+import exception.userExceptions.UsernameNotFoundException;
 import view.Menu;
 import view.accountArea.ViewingPersonalInfo;
 

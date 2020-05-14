@@ -1,4 +1,4 @@
-package exception;
+package exception.productExceptions;
 
 public class FieldCantBeEditedException extends Exception {
     public FieldCantBeEditedException(String field, String reason) {

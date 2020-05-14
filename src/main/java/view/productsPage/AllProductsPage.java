@@ -1,9 +1,7 @@
 package view.productsPage;
 
 import controller.MainController;
-import controller.sortingAndFiltering.ControllerForFiltering;
-import exception.ProductWithThisIdNotExist;
-import model.Shop;
+import exception.productExceptions.ProductWithThisIdNotExist;
 import view.LoginRegisterMenu;
 import view.Menu;
 import view.ScreenClearing;
