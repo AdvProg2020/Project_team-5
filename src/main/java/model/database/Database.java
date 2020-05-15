@@ -25,8 +25,20 @@ public class Database {
         this.loadingData = new LoadingData();
     }
 
-    public void initializeShop() {
-
+    public void initializeShop() throws IOException { //TODO : Kheili naghese bayad fekr konm
+        loadingData.loadManager();
+        loadingData.loadCustomer();
+        loadingData.loadSeller();
+        loadingData.loadCategory();
+        loadingData.loadSubCategory();
+        loadingData.loadProduct();
+        loadingData.loadComment();
+        loadingData.loadRate();
+        loadingData.loadDiscount();
+        loadingData.loadOff();
+        loadingData.loadOrderForSeller();
+        loadingData.loadOrderForCustomer();
+        loadingData.loadRequests();
     }
 
     public void deleteItem(Object item) throws FileCantBeDeletedException {
