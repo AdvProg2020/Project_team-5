@@ -125,7 +125,7 @@ public class LoginRegisterMenu extends Menu {
 
     private Menu getMainMenu(Menu menu){
         if (menu.getParentMenu() == null)
-            return this;
+            return menu;
         return getMainMenu(menu.getParentMenu());
     }
 
