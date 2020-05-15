@@ -1,7 +1,11 @@
 package model.requests;
 
+import exception.FileCantBeSavedException;
 import model.Shop;
+import model.database.Database;
 import model.persons.Seller;
+
+import java.io.IOException;
 
 public class RegisteringSellerRequest extends Request {
     private Seller seller;
@@ -22,7 +26,8 @@ public class RegisteringSellerRequest extends Request {
     }
 
     @Override
-    public void acceptRequest() {
+    public void acceptRequest() throws IOException, FileCantBeSavedException {
         Shop.getInstance().addPerson(seller);
+        Database.getInstance().saveItem(this.seller);
     }
 }

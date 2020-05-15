@@ -14,6 +14,7 @@ import exception.userExceptions.UsernameNotFoundException;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
@@ -21,6 +22,7 @@ import model.productThings.DiscountCode;
 import model.productThings.Good;
 import model.requests.Request;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -138,12 +140,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return request.toString();
     }
 
-    public void acceptRequest(String requestId) throws RequestNotFoundException {
+    public void acceptRequest(String requestId) throws RequestNotFoundException, IOException, FileCantBeSavedException, FileCantBeDeletedException {
         Request request;
         if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
             throw new RequestNotFoundException();
         request.acceptRequest();
         Shop.getInstance().removeRequest(request);
+        Database.getInstance().deleteItem(request);
     }
 
     public void declineRequest(String requestId) throws RequestNotFoundException {
