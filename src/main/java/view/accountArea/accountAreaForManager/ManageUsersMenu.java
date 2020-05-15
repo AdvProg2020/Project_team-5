@@ -84,7 +84,7 @@ public class ManageUsersMenu extends Menu {
                 "-must contains one digit from 0-9\n" +
                 "-must contains one lowercase characters\n" +
                 "-must contains one uppercase characters\n" +
-                "-length at least 4 characters and maximum of 16\n");
+                "-length at least 4 characters and maximum of 16");
         details.add(getValidInput("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})", "not valid format for password"));
         try {
             MainController.getInstance().getAccountAreaForManagerController().createManagerAccount(username, details);
