@@ -1,6 +1,7 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
+import view.LoginRegisterMenu;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 public class ManageUsersMenu extends Menu {
     public ManageUsersMenu(Menu parentMenu) {
         super("manage users", parentMenu);
+        this.submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -23,14 +25,16 @@ public class ManageUsersMenu extends Menu {
         showAllUsers();
         int chosenCommand = getInput();
         Menu nextMenu;
-        if (chosenCommand == 4)
+        if (chosenCommand == 1)
+            nextMenu = submenus.get(0);
+        else if (chosenCommand == 5)
             nextMenu = getParentMenu();
         else {
-            if (chosenCommand == 1)
-                viewUser();
             if (chosenCommand == 2)
-                deleteUser();
+                viewUser();
             if (chosenCommand == 3)
+                deleteUser();
+            if (chosenCommand == 4)
                 createManagerProfile();
             nextMenu = this;
         }

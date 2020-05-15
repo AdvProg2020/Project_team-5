@@ -1,12 +1,14 @@
 package view.accountArea;
 
 import controller.MainController;
+import view.LoginRegisterMenu;
 import view.Menu;
 
 public class ViewingPersonalInfo extends Menu {
 
     public ViewingPersonalInfo(Menu parentMenu) {
         super("view personal info", parentMenu);
+        this.submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -20,10 +22,12 @@ public class ViewingPersonalInfo extends Menu {
         showPersonalInfo();
         int chosenCommand = getInput();
         Menu nextMenu;
-        if (chosenCommand == 2)
+        if (chosenCommand == 1)
+            nextMenu = submenus.get(0);
+        else if (chosenCommand == 3)
             nextMenu = getParentMenu();
         else {
-            if (chosenCommand == 1)
+            if (chosenCommand == 2)
                 editField();
             nextMenu = this;
         }

@@ -2,6 +2,7 @@ package view.accountArea.accountAreaForSeller;
 
 import controller.MainController;
 import exception.productExceptions.ProductNotFoundExceptionForSeller;
+import view.LoginRegisterMenu;
 import view.Menu;
 import view.accountArea.ViewingPersonalInfo;
 
@@ -13,9 +14,10 @@ public class AccountAreaForSeller extends Menu {
 
     public AccountAreaForSeller(Menu parentMenu) {
         super("Account area for seller", parentMenu);
-        submenus.add(new ViewingPersonalInfo(this));
-        submenus.add(new ManageProductsMenu(this));
-        submenus.add(new ViewOffsMenu(this));
+        this.submenus.add(new ViewingPersonalInfo(this));
+        this.submenus.add(new ManageProductsMenu(this));
+        this.submenus.add(new ViewOffsMenu(this));
+        this.submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
