@@ -53,6 +53,7 @@ public class OffsPage extends Menu {
             nextMenu = showAProduct();
         } else if (input == 5) {
             showOffProducts();
+            nextMenu = this;
         } else if (input == 6) {
             MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();

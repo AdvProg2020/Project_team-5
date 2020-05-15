@@ -123,11 +123,14 @@ public class LoginRegisterMenu extends Menu {
         Menu mainMenu = getMainMenu(this);
         Menu nextMenu;
         mainMenu.setSubMenu(0, new LoginRegisterMenu("Account area", mainMenu));
-        if (this.getParentMenu().getParentMenu().getName().startsWith("Account area for ") ||
-                this.getParentMenu().getName().startsWith("Account area for ")) {
-            nextMenu = mainMenu;
-        } else
-            nextMenu = this.getParentMenu();
+        if (!this.getParentMenu().equals(mainMenu)) {
+            if (this.getParentMenu().getParentMenu().getName().startsWith("Account area for ") ||
+                    this.getParentMenu().getName().startsWith("Account area for ")) {
+                nextMenu = mainMenu;
+            } else
+                nextMenu = this.getParentMenu();
+        }else
+            nextMenu=mainMenu;
         MainController.getInstance().getLoginRegisterController().logoutUser();
         return nextMenu;
     }
