@@ -4,9 +4,12 @@ import exception.categoryExceptions.CategoryNotFound;
 import exception.categoryExceptions.FilteredCategoryAlreadyChosen;
 import exception.categoryExceptions.HaveNotChosenCategoryFilter;
 import exception.categoryExceptions.SubcategoryNotFoundInThisCategory;
+import exception.userExceptions.SellerNotFound;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.persons.Person;
+import model.persons.Seller;
 import model.productThings.Good;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class ControllerForFiltering {
     private ArrayList<BinaryFilters> binaryFilters;
     private List<Good> goodList;
     private Category filteredCategory;
+    private boolean availableProduct;
 
     public ControllerForFiltering() {
         this.unaryFilters = new HashMap<>();
@@ -43,12 +47,20 @@ public class ControllerForFiltering {
                 good.getMinimumPrice() <= Long.parseLong(priceRange.getEndValue())).collect(Collectors.toList());
     }
 
-    private List<Good> filterByName(String name,List<Good> allGoods){
+    private List<Good> filterByName(String name, List<Good> allGoods) {
         return allGoods.stream().filter(good -> good.getName().startsWith(name) || good.getName().endsWith(name)).collect(Collectors.toList());
     }
 
-    private List<Good> filterByProperty(String property, List<Good> allGoods){
+    private List<Good> filterByProperty(String property, List<Good> allGoods) {
         return allGoods.stream().filter(good -> good.getCategoryProperties().get(property).equals(unaryFilters.get(property))).collect(Collectors.toList());
+    }
+
+    private List<Good> filterAvailableProducts(List<Good> allGoods) {
+        return allGoods.stream().filter(good -> good.getGoodStatus() == Good.GoodStatus.CONFIRMED).collect(Collectors.toList());
+    }
+
+    private List<Good> filterBySeller(String sellerUserName, List<Good> allGoods){
+        return allGoods.stream().filter(good -> good.doesExistInSellerList((Seller)Shop.getInstance().findUser(sellerUserName))).collect(Collectors.toList());
     }
 
     public void resetAll() {
@@ -80,6 +92,8 @@ public class ControllerForFiltering {
         for (BinaryFilters filter : binaryFilters) {
             currentFilters.add(filter.toString());
         }
+        if (availableProduct)
+            currentFilters.add("availableFilters");
         return currentFilters;
     }
 
@@ -104,13 +118,13 @@ public class ControllerForFiltering {
         addUnaryFilter("subcategory", subcategoryName);
     }
 
-    public void addBrandFiltering(String brandName){
+    public void addBrandFiltering(String brandName) {
         if (unaryFilters.containsKey("brand"))
             unaryFilters.remove("brand");
         addUnaryFilter("brand", brandName);
     }
 
-    public void addPriceFiltering(String startValue, String endValue){
+    public void addPriceFiltering(String startValue, String endValue) {
         for (BinaryFilters filter : binaryFilters) {
             filter.getFilterName().equals("price");
             binaryFilters.remove(filter);
@@ -119,10 +133,23 @@ public class ControllerForFiltering {
         addBinaryFilter("price", startValue, endValue);
     }
 
-    public void addNameFiltering(String name){
+    public void addSellerFilter(String sellerUser) throws Exception{
+        Person seller = Shop.getInstance().findUser(sellerUser);
+        if (seller == null)
+            throw new SellerNotFound();
+        if (!(seller instanceof Seller))
+            throw new SellerNotFound();
+        unaryFilters.put("seller", sellerUser);
+    }
+
+    public void addNameFiltering(String name) {
         if (unaryFilters.containsKey("name"))
             unaryFilters.remove("name");
-        unaryFilters.put("name" , name);
+        unaryFilters.put("name", name);
+    }
+
+    public void addAvailableProduct() {
+        availableProduct = true;
     }
 
     public List<String> getProperties() throws Exception {
@@ -131,21 +158,23 @@ public class ControllerForFiltering {
         return Shop.getInstance().findCategoryByName(unaryFilters.get("category")).getDetails();
     }
 
-    public void addPropertiesFilter(String property, String value){
-        unaryFilters.put(property,value);
+    public void addPropertiesFilter(String property, String value) {
+        unaryFilters.put(property, value);
     }
 
-    public void disableFilter(int chosenFilter){
+    public void disableFilter(int chosenFilter) {
         if (chosenFilter <= unaryFilters.size())
             disableUnaryFilter(chosenFilter);
+        if (chosenFilter == unaryFilters.size() + binaryFilters.size() + 1)
+            availableProduct = false;
         else
             binaryFilters.remove(chosenFilter - unaryFilters.size() - 1);
     }
 
-    public void disableUnaryFilter(int chosenFilter){
+    public void disableUnaryFilter(int chosenFilter) {
         int i = 1;
         for (String filterName : unaryFilters.keySet()) {
-            if (i == chosenFilter){
+            if (i == chosenFilter) {
                 if (filterName.equals("category"))
                     disableCategoryFilter();
                 unaryFilters.remove(filterName);
@@ -155,7 +184,7 @@ public class ControllerForFiltering {
         }
     }
 
-    private void disableCategoryFilter(){
+    private void disableCategoryFilter() {
         filteredCategory = null;
         HashMap<String, String> tempFilters = new HashMap<>();
         for (String filterName : unaryFilters.keySet()) {
@@ -165,8 +194,10 @@ public class ControllerForFiltering {
         this.unaryFilters = tempFilters;
     }
 
-    public List<Good> showProducts(){
+    public List<Good> showProducts() {
         List<Good> goods = new ArrayList<Good>(goodList);
+        if (availableProduct)
+            goods = filterAvailableProducts(goods);
         for (String key : unaryFilters.keySet()) {
             if (key.equals("category"))
                 goods = filterByCategory(unaryFilters.get("category"), goods);
@@ -176,6 +207,8 @@ public class ControllerForFiltering {
                 goods = filterByName(unaryFilters.get("name"), goods);
             else if (key.equals("brand"))
                 goods = filterByBrand(unaryFilters.get("brand"), goods);
+            else if (key.equals("seller"))
+                goods = filterBySeller(unaryFilters.get("seller"), goods);
             else
                 goods = filterByProperty(key, goods);
         }

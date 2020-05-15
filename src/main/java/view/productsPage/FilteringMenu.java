@@ -30,13 +30,10 @@ public class FilteringMenu extends Menu {
         Menu nextMenu = this;
         if (chosenCommand == 1)
             showAvailableFilters();
-            nextMenu = submenus.get(0);
         if (chosenCommand == 2)
             filterAnAvailableFilter();
-            showAvailableFilters();
         if (chosenCommand == 3)
             currentFilters();
-            filterAnAvailableFilter();
         if (chosenCommand == 4)
             disableFilters();
         if (chosenCommand == 5) {
@@ -46,14 +43,14 @@ public class FilteringMenu extends Menu {
     }
 
     private void showAvailableFilters() {
-        System.out.println("1-category \n2-subcategory \n3-product name \n4-brand \n5-price \n6-category properties");
+        System.out.println("1-category \n2-subcategory \n3-product name \n4-brand \n5-price \n6-category properties \\n7-seller \n8-available products ");
     }
 
     private void filterAnAvailableFilter() {
         System.out.println("enter an  available filter: ");
         showAvailableFilters();
         String chosenFilter = scanner.nextLine().trim();
-        if (Pattern.matches("^[1-6]$", chosenFilter)) {
+        if (Pattern.matches("^[1-8]$", chosenFilter)) {
             executeFilterAnAvailableFilter(Integer.parseInt(chosenFilter));
         } else {
             System.out.println("not valid input");
@@ -74,13 +71,17 @@ public class FilteringMenu extends Menu {
                 getPriceFilter();
             if (validFilter == 6)
                 getPropertyFilter();
+            if (validFilter == 7)
+                MainController.getInstance().getControllerForFiltering().addSellerFilter(scanner.nextLine());
+            if (validFilter == 8)
+                MainController.getInstance().getControllerForFiltering().addAvailableProduct();
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
     }
 
-    private void getPropertyFilter(){
-        int i=1;
+    private void getPropertyFilter() {
+        int i = 1;
         try {
             List<String> properties = MainController.getInstance().getControllerForFiltering().getProperties();
             for (String property : properties) {
@@ -95,11 +96,11 @@ public class FilteringMenu extends Menu {
         }
     }
 
-    private int getProperties(int propertySize){
+    private int getProperties(int propertySize) {
         String input;
-        while (true){
+        while (true) {
             input = scanner.nextLine();
-            if (Pattern.matches("[0-9]{1,2}",input)){
+            if (Pattern.matches("[0-9]{1,2}", input)) {
                 if (Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= propertySize)
                     break;
             }
@@ -133,7 +134,7 @@ public class FilteringMenu extends Menu {
             if (Integer.parseInt(chosenFilter) > MainController.getInstance().getControllerForFiltering().getCurrentFilters().size())
                 throw new NotValidInput();
             MainController.getInstance().getControllerForFiltering().disableFilter(Integer.parseInt(chosenFilter));
-        }catch (Exception exception){
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
 

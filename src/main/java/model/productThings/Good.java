@@ -27,6 +27,10 @@ public class Good {
         BUILTPROCESSING, EDITINGPROCESSING, CONFIRMED, NOTAVAILABLE
     }
 
+    public GoodStatus getGoodStatus() {
+        return goodStatus;
+    }
+
     public Good(String name, String brand, SubCategory subCategory, String details, HashMap<String, String> categoryProperties, Seller seller, long price, int availableNumber) {
         this.goodId = goodsCount++;
         this.name = name;
@@ -169,6 +173,14 @@ public class Good {
                     goodStatus = GoodStatus.NOTAVAILABLE;
             }
         }
+    }
+
+    public boolean doesExistInSellerList(Seller seller){
+        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+            if (sellerInfo.getSeller() == seller)
+                return true;
+        }
+        return false;
     }
 
     public int getAvailableNumberBySeller(Seller seller) {
