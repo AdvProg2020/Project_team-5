@@ -27,8 +27,8 @@ public class ManageCategoriesMenu extends Menu {
 
     @Override
     public void execute() {
-        help();
         showAllCategories();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 1)

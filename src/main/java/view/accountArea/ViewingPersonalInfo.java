@@ -18,8 +18,8 @@ public class ViewingPersonalInfo extends Menu {
 
     @Override
     public void execute() {
-        help();
         showPersonalInfo();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 1)

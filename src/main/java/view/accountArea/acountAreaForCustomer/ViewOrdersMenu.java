@@ -24,8 +24,8 @@ public class ViewOrdersMenu extends Menu {
 
     @Override
     public void execute() {
-        help();
         viewOrders();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand <= submenus.size())

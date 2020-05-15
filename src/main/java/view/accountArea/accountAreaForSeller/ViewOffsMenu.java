@@ -17,8 +17,8 @@ public class ViewOffsMenu extends Menu {
 
     @Override
     public void execute() {
-        help();
         viewAllOffs();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand <= submenus.size())

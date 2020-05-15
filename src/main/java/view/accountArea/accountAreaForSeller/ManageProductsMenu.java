@@ -16,8 +16,8 @@ public class ManageProductsMenu extends Menu {
 
     @Override
     public void execute() {
-        help();
         viewSellerProduts();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 1)

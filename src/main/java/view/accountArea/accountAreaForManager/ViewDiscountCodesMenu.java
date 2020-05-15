@@ -25,8 +25,8 @@ public class ViewDiscountCodesMenu extends Menu {
 
     @Override
     public void execute() {
-        help();
         printAllDiscountCodes();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 1)

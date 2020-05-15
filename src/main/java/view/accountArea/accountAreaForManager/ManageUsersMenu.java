@@ -21,8 +21,8 @@ public class ManageUsersMenu extends Menu {
 
     @Override
     public void execute() {
-        help();
         showAllUsers();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 1)
