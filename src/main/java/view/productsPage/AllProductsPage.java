@@ -48,6 +48,7 @@ public class AllProductsPage extends Menu {
 
     @Override
     public void execute() {
+        help();
         MainController.getInstance().getControllerForFiltering().setGoodList(true);
         Menu nextMenu = null;
         int input = getInput();
@@ -65,7 +66,6 @@ public class AllProductsPage extends Menu {
             MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 }

@@ -23,6 +23,7 @@ public class PurchaseMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         backFlag = false;
         ArrayList<String> customerInfo = new ArrayList<>();
         long totalPrice = 0;

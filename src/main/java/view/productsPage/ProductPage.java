@@ -102,6 +102,7 @@ public class ProductPage extends Menu {
 
     @Override
     public void execute() {
+        help();
         Menu nextMenu = this;
         int input = getInput();
         if (input == 1) {
@@ -123,7 +124,6 @@ public class ProductPage extends Menu {
             System.out.println("press enter to continue");
             scanner.nextLine();
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 }
