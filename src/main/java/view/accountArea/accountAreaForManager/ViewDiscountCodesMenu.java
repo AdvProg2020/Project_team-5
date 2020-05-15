@@ -23,6 +23,7 @@ public class ViewDiscountCodesMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         printAllDiscountCodes();
         int chosenCommand = getInput();
         Menu nextMenu;
@@ -37,7 +38,6 @@ public class ViewDiscountCodesMenu extends Menu {
                 removeDiscountCode();
             nextMenu = this;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 

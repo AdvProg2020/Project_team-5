@@ -15,6 +15,7 @@ public class ManageAllProductsMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand == 2)
@@ -24,7 +25,6 @@ public class ManageAllProductsMenu extends Menu {
                 removeProduct();
             nextMenu = this;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 

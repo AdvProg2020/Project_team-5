@@ -14,6 +14,7 @@ public class ManageProductsMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         viewSellerProduts();
         int chosenCommand = getInput();
         Menu nextMenu;
@@ -28,7 +29,6 @@ public class ManageProductsMenu extends Menu {
                 editProduct();
             nextMenu = this;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 

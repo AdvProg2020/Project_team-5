@@ -17,6 +17,7 @@ public class ViewOffsMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         viewAllOffs();
         int chosenCommand = getInput();
         Menu nextMenu;
@@ -33,7 +34,6 @@ public class ViewOffsMenu extends Menu {
                 sortOffs();
             nextMenu = this;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 
