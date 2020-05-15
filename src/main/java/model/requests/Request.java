@@ -21,4 +21,8 @@ public abstract class Request {
     }
 
     public abstract void acceptRequest() throws FileCantBeSavedException, IOException;
+
+    public static void setRequestCount(long requestCount) {
+        Request.requestCount = requestCount;
+    }
 }

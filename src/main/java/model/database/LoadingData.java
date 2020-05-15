@@ -35,9 +35,9 @@ public class LoadingData {
     public void loadManager() throws IOException {
         File[] files = loadFolder("Resources\\Users\\Managers");
         if (files != null)
-             for (File file : files) {
+            for (File file : files) {
                 Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Manager.class));
-             }
+            }
     }
 
     public void loadCustomer() throws IOException {
@@ -149,10 +149,11 @@ public class LoadingData {
 
     public void loadRequests() throws IOException {
         File[] files = loadFolder("Resources\\Requests");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 loadRequestByType(file);
             }
+        }
     }
 
     private void loadRequestByType(File file) throws IOException {
