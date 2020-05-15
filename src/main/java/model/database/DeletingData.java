@@ -1,7 +1,6 @@
 package model.database;
 
 import exception.FileCantBeDeletedException;
-import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;

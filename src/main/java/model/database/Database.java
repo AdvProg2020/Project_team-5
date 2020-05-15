@@ -13,16 +13,24 @@ import model.productThings.*;
 import model.requests.Request;
 
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class Database {
     private DeletingData deletingData;
     private SavingData savingData;
     private LoadingData loadingData;
+    private static Database database;
 
-    public Database() {
+    private Database(){
         this.deletingData = new DeletingData();
         this.savingData = new SavingData();
         this.loadingData = new LoadingData();
+    }
+
+    public static Database getInstance() throws IOException {
+        if (database == null)
+            database = new Database();
+        return database;
     }
 
     public void initializeShop() throws IOException { //TODO : Kheili naghese bayad fekr konm
