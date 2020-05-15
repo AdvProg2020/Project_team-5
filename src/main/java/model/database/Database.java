@@ -1,6 +1,7 @@
 package model.database;
 
 import exception.FileCantBeDeletedException;
+import exception.FileCantBeSavedException;
 import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
@@ -10,6 +11,8 @@ import model.persons.Manager;
 import model.persons.Seller;
 import model.productThings.*;
 import model.requests.Request;
+
+import java.io.IOException;
 
 public class Database {
     private DeletingData deletingData;
@@ -55,10 +58,38 @@ public class Database {
             deletingData.deleteOrderForCustomer((OrderForCustomer) item);
         } else if (item instanceof Request) {
             deletingData.deleteRequest((Request) item);
-        }
+        } else throw new  FileCantBeDeletedException();
     }
 
-    public void saveItem(Object item) {
-
+    public void saveItem(Object item) throws IOException, FileCantBeSavedException {
+        if (item instanceof Manager) {
+            savingData.saveManager((Manager)item);
+        } else if (item instanceof Customer) {
+            savingData.saveCustomer((Customer)item);
+        } else if (item instanceof Seller) {
+            savingData.saveSeller((Seller)item);
+        } else if (item instanceof Good) {
+            savingData.saveProduct((Good)item);
+        } else if (item instanceof SellerRelatedInfoAboutGood) {
+            //savingData.saveInfoAboutGood()
+        } else if (item instanceof DiscountCode) {
+            savingData.saveDiscount((DiscountCode)item);
+        } else if (item instanceof Comment) {
+            savingData.saveComment((Comment)item);
+        } else if (item instanceof Off) {
+            savingData.saveOff((Off)item);
+        } else if (item instanceof Rate) {
+            savingData.saveRate((Rate)item);
+        } else if (item instanceof Category) {
+            savingData.saveCategory((Category)item);
+        } else if (item instanceof SubCategory) {
+            savingData.saveSubCategory((SubCategory)item);
+        } else if (item instanceof OrderForSeller) {
+            savingData.saveOrderForSeller((OrderForSeller)item);
+        } else if (item instanceof OrderForCustomer) {
+            savingData.saveOrderForCustomer((OrderForCustomer)item);
+        } else if (item instanceof Request) {
+            savingData.saveRequest((Request)item);
+        } throw new FileCantBeSavedException();
     }
 }
