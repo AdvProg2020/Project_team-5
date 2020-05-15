@@ -52,9 +52,11 @@ public class LoginRegisterMenu extends Menu {
                 "-must contains one uppercase characters\n" +
                 "-length at least 4 characters and maximum of 16");
         details.add(getValidInput("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})", "not valid format for password"));
-        System.out.println("enter your credit");
-        details.add(getValidInput("\\d\\d\\d\\d+", "not valid format"));
         matcher.find();
+        if (matcher.group(1).equals("customer")) {
+            System.out.println("enter your credit");
+            details.add(getValidInput("\\d\\d\\d\\d+", "not valid format"));
+        }
         if (matcher.group(1).equals("seller")) {
             System.out.println("now you must enter your company details");
             System.out.println("enter company name");
@@ -75,7 +77,8 @@ public class LoginRegisterMenu extends Menu {
                 System.out.println("your request sent to manager for being registered.");
             else
                 System.out.println("registered successful");
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             System.out.println(e.getMessage());
         }
         System.out.println("enter any key to continue");
@@ -129,8 +132,8 @@ public class LoginRegisterMenu extends Menu {
                 nextMenu = mainMenu;
             } else
                 nextMenu = this.getParentMenu();
-        }else
-            nextMenu=mainMenu;
+        } else
+            nextMenu = mainMenu;
         MainController.getInstance().getLoginRegisterController().logoutUser();
         return nextMenu;
     }
