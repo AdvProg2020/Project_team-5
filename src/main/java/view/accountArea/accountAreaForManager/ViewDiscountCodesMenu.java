@@ -3,6 +3,7 @@ package view.accountArea.accountAreaForManager;
 import controller.MainController;
 import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
+import view.LoginRegisterMenu;
 import view.Menu;
 
 import java.util.Scanner;
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 public class ViewDiscountCodesMenu extends Menu {
     public ViewDiscountCodesMenu(Menu parentMenu) {
         super("view discount codes", parentMenu);
+        this.submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -27,14 +29,16 @@ public class ViewDiscountCodesMenu extends Menu {
         printAllDiscountCodes();
         int chosenCommand = getInput();
         Menu nextMenu;
-        if (chosenCommand == 4)
+        if (chosenCommand == 1)
+            nextMenu = submenus.get(0);
+        else if (chosenCommand == 5)
             nextMenu = getParentMenu();
         else {
-            if (chosenCommand == 1)
-                viewDiscountCode();
             if (chosenCommand == 2)
-                editDiscountCode();
+                viewDiscountCode();
             if (chosenCommand == 3)
+                editDiscountCode();
+            if (chosenCommand == 4)
                 removeDiscountCode();
             nextMenu = this;
         }
@@ -47,7 +51,7 @@ public class ViewDiscountCodesMenu extends Menu {
             System.out.println(discountCode);
         }
         System.out.println("you can sort this list by following items:\n1-discount percent\n2-end date\n3-maximum discount amount\n4-continue");
-        int input=Integer.parseInt(getValidInput("^[1-4]$","not valid input"));
+        int input = Integer.parseInt(getValidInput("^[1-4]$", "not valid input"));
         if (input == 4)
             return;
         for (String discountCode : MainController.getInstance().getAccountAreaForManagerController().
