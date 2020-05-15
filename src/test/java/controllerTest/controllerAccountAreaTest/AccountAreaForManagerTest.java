@@ -17,6 +17,7 @@ import model.requests.RegisteringSellerRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -114,6 +115,23 @@ public class AccountAreaForManagerTest {
     public void viewRequestInfoTest() {
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails("5"));
+    }
+
+    @Test
+    public void acceptRequestTest() throws RequestNotFoundException {
+        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf")));
+        Assert.assertThrows(RequestNotFoundException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("10"));
+        MainController.getInstance().getAccountAreaForManagerController().acceptRequest("2");
+        Assert.assertNull(Shop.getInstance().findRequestById(2));
+    }
+
+    @Test
+    public void declineRequestTest() throws RequestNotFoundException {
+        Assert.assertThrows(RequestNotFoundException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().declineRequest("5"));
+        MainController.getInstance().getAccountAreaForManagerController().declineRequest("1");
+        Assert.assertNull(Shop.getInstance().findRequestById(1));
     }
 }
 
