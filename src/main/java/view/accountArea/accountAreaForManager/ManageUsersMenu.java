@@ -19,6 +19,7 @@ public class ManageUsersMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         showAllUsers();
         int chosenCommand = getInput();
         Menu nextMenu;
@@ -33,7 +34,6 @@ public class ManageUsersMenu extends Menu {
                 createManagerProfile();
             nextMenu = this;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 

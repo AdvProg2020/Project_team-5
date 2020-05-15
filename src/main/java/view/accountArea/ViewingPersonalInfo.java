@@ -16,6 +16,7 @@ public class ViewingPersonalInfo extends Menu {
 
     @Override
     public void execute() {
+        help();
         showPersonalInfo();
         int chosenCommand = getInput();
         Menu nextMenu;
@@ -26,7 +27,6 @@ public class ViewingPersonalInfo extends Menu {
                 editField();
             nextMenu = this;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 

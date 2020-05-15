@@ -38,7 +38,6 @@ public class PurchaseMenu extends Menu {
         if (!backFlag) {
             payment(customerInfo, totalPrice);
         }
-        parentMenu.help();
         parentMenu.execute();
     }
 

@@ -25,6 +25,7 @@ public class ManageCategoriesMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         showAllCategories();
         int chosenCommand = getInput();
         Menu nextMenu;
@@ -45,7 +46,6 @@ public class ManageCategoriesMenu extends Menu {
                 removeSubCategory();
             nextMenu = this;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 

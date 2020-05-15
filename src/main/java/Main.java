@@ -11,7 +11,6 @@ public class Main {
             e.printStackTrace();
         }
         MainMenu mainMenu = new MainMenu();
-        mainMenu.help();
         mainMenu.execute();
     }
 }

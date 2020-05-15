@@ -34,6 +34,7 @@ public class MainMenu extends Menu{
 
     @Override
     public void execute(){
+        help();
         Menu nextMenu = null;
         int chosenMenu =this.getInput();
         if (chosenMenu == submenus.size() + 1) {
@@ -43,7 +44,6 @@ public class MainMenu extends Menu{
                 nextMenu = this.parentMenu;
         } else
             nextMenu = submenus.get(chosenMenu-1);
-        nextMenu.help();
         nextMenu.execute();
     }
 }

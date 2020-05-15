@@ -24,6 +24,7 @@ public class ViewOrdersMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         viewOrders();
         int chosenCommand = getInput();
         Menu nextMenu;
@@ -42,7 +43,6 @@ public class ViewOrdersMenu extends Menu {
             System.out.println("press enter to continue");
             scanner.nextLine();
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 

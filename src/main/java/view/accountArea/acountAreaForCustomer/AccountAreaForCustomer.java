@@ -22,6 +22,7 @@ public class AccountAreaForCustomer extends Menu {
 
     @Override
     public void execute() {
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand <= submenus.size())
@@ -37,7 +38,6 @@ public class AccountAreaForCustomer extends Menu {
             System.out.println("press enter to continue");
             scanner.nextLine();
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 

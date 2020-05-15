@@ -23,6 +23,7 @@ public class LoginRegisterMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
+        commandNames.clear();
         if (MainController.getInstance().getCurrentPerson() == null) {
             this.commandNames.add("Register");
             this.commandNames.add("Login");
@@ -124,12 +125,14 @@ public class LoginRegisterMenu extends Menu {
 
     private Menu getMainMenu(Menu menu){
         if (menu.getParentMenu() == null)
-            return this;
+            return menu;
         return getMainMenu(menu.getParentMenu());
     }
 
     @Override
     public void execute() {
+        setCommandNames();
+        help();
         Menu nextMenu = null;
         int chosenMenu = getInput();
         if (MainController.getInstance().getCurrentPerson() == null) {
@@ -147,7 +150,6 @@ public class LoginRegisterMenu extends Menu {
                 nextMenu = this.parentMenu;
             }
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 }

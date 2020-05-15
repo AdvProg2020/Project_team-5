@@ -43,6 +43,7 @@ public class OffsPage extends Menu {
 
     @Override
     public void execute() {
+        help();
         MainController.getInstance().getControllerForFiltering().setGoodList(false);
         Menu nextMenu = null;
         int input = getInput();
@@ -56,7 +57,6 @@ public class OffsPage extends Menu {
             MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 }

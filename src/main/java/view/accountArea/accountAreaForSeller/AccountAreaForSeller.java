@@ -30,6 +30,7 @@ public class AccountAreaForSeller extends Menu {
 
     @Override
     public void execute() {
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
         if (chosenCommand <= submenus.size())
@@ -51,7 +52,6 @@ public class AccountAreaForSeller extends Menu {
                 viewBalance();
             nextMenu = this;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 
