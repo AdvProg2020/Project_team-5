@@ -117,8 +117,13 @@ public class LoginRegisterMenu extends Menu {
 
     private Menu logout(){
         Menu mainMenu=getMainMenu(this);
+        Menu nextMenu;
         mainMenu.setSubMenu(0,new LoginRegisterMenu("Account area",mainMenu));
-        Menu nextMenu=this.getParentMenu();
+        if (this.getParentMenu().getParentMenu().getName().startsWith("Account area for ") ||
+                this.getParentMenu().getName().startsWith("Account area for ")){
+            nextMenu = mainMenu;
+        }else
+            nextMenu=this.getParentMenu();
         MainController.getInstance().getLoginRegisterController().logoutUser();
         return nextMenu;
     }
