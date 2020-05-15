@@ -89,7 +89,7 @@ public class SavingData {
     }
 
     public void saveRequest(Request request) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources\\Requests\\request_" + request.getRequestId() + ".json";
+        String filePath = "Resources\\Requests\\request_" + request.getClass().getSimpleName() + "_" + request.getRequestId() + ".json";
         if (request instanceof AddingCommentRequest)
             saveFile(yaGson.toJson(request, AddingCommentRequest.class), filePath);
         else if (request instanceof AddingGoodRequest)

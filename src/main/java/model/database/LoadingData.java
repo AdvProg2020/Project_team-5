@@ -10,7 +10,7 @@ import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
 import model.productThings.*;
-import model.requests.Request;
+import model.requests.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -151,8 +151,25 @@ public class LoadingData {
         File[] files = loadFolder("Resources\\Requests");
         if (files != null)
             for (File file : files) {
-                Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), Request.class));
+                loadRequestByType(file);
             }
+    }
+
+    private void loadRequestByType(File file) throws IOException {
+        String name = file.getName();
+        if (name.startsWith("request_AddingCommentRequest")) {
+            Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), AddingCommentRequest.class));
+        } else if (name.startsWith("request_AddingGoodRequest")) {
+            Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), AddingGoodRequest.class));
+        } else if (name.startsWith("request_AddingOffRequest")) {
+            Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), AddingOffRequest.class));
+        } else if (name.startsWith("request_EditingGoodRequest")) {
+            Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), EditingGoodRequest.class));
+        } else if (name.startsWith("request_EditingOffRequest")) {
+            Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), EditingOffRequest.class));
+        } else if (name.startsWith("request_RegisteringSellerRequest")) {
+            Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), RegisteringSellerRequest.class));
+        } else throw new IOException();
     }
 
     private File[] loadFolder(String folderPath) {

@@ -102,7 +102,7 @@ public class DeletingData {
     }
 
     public void deleteRequest(Request request) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Requests\\request_" + request.getRequestId() + ".json";
+        String filePath = "Resources\\Requests\\request_" + request.getClass().getSimpleName() + "_" + request.getRequestId() + ".json";
         deleteFile(filePath);
     }
 
