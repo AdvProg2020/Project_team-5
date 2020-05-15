@@ -135,7 +135,7 @@ public class Shop {
         return ratesOfGood;
     }
 
-    public void addRate(Customer customer, long productId, int rate){
+    public void addRate(Customer customer, long productId, int rate) {
         allRates.add(new Rate(customer, findGoodById(productId), rate));
     }
 
@@ -151,7 +151,7 @@ public class Shop {
         return !cart.stream().filter(goodInCart -> goodInCart.getGood().getGoodId() == productId).findAny().isEmpty();
     }
 
-    public void addGoodToCart(Good good, Seller seller,int number) {
+    public void addGoodToCart(Good good, Seller seller, int number) {
         cart.add(new GoodInCart(good, seller, number));
     }
 
@@ -203,17 +203,19 @@ public class Shop {
     public void generatePeriodRandomDiscountCodes(LocalDate endDate) {
         String code = DiscountCode.generateRandomDiscountCode();
         DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
-        discountCode.addAllCustomers(randomCustomers(5, 1));
+        discountCode.addAllCustomers(randomCustomers(5, 1, discountCode));
         allDiscountCodes.add(discountCode);
+        this.lastRandomPeriodDiscountCodeCreatedDate = LocalDate.now();
     }
 
-    private HashMap<Customer, Integer> randomCustomers(int customerNumbers, int repeatingTimes) {
+    private HashMap<Customer, Integer> randomCustomers(int customerNumbers, int repeatingTimes,DiscountCode discountCode) {
         HashMap<Customer, Integer> randomCustomers = new HashMap<>();
         while (randomCustomers.size() < customerNumbers) {
             int randomNumber = ((int) (Math.random() * 1000000)) % allPersons.size();
             Person person = allPersons.get(randomNumber);
             if (person instanceof Customer) {
                 randomCustomers.put((Customer) person, repeatingTimes);
+                ((Customer) person).addDiscountCode(discountCode);
             }
         }
         return randomCustomers;
@@ -255,7 +257,7 @@ public class Shop {
         return null;
     }
 
-    public boolean didManagerRegistered(){
+    public boolean didManagerRegistered() {
         for (Person person : allPersons) {
             if (person instanceof Manager)
                 return true;
@@ -263,11 +265,11 @@ public class Shop {
         return false;
     }
 
-    public boolean checkExistDiscountCode(String code){
+    public boolean checkExistDiscountCode(String code) {
         return allDiscountCodes.stream().filter(discountCode -> discountCode.getCode().equals(code)).count() != 0;
     }
 
-    public void clearCart(){
+    public void clearCart() {
         this.cart.clear();
     }
 
@@ -275,7 +277,7 @@ public class Shop {
         return offs;
     }
 
-    public List<Good> getAllGoods(){
+    public List<Good> getAllGoods() {
         List<Good> allGoods = new ArrayList<>();
         for (Category category : allCategories) {
             for (SubCategory subCategory : category.getSubCategories()) {
@@ -285,7 +287,7 @@ public class Shop {
         return allGoods;
     }
 
-    public List<Good> getOffGoods(){
+    public List<Good> getOffGoods() {
         Set<Good> offGoods = new HashSet<>();
         for (Off off : offs) {
             if ((off.getEndDate().isBefore(LocalDate.now()) || off.getStartDate().isAfter(LocalDate.now())))

@@ -1,11 +1,13 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
+import view.LoginRegisterMenu;
 import view.Menu;
 
 public class ManageRequestsMenu extends Menu {
     public ManageRequestsMenu(Menu parentMenu) {
         super("manage requests", parentMenu);
+        this.submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -17,18 +19,20 @@ public class ManageRequestsMenu extends Menu {
 
     @Override
     public void execute() {
-        help();
         printAllRequests();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
-        if (chosenCommand == 4)
+        if (chosenCommand == 1)
+            nextMenu = submenus.get(0);
+        else if (chosenCommand == 5)
             nextMenu = getParentMenu();
         else {
-            if (chosenCommand == 1)
-                showDetails();
             if (chosenCommand == 2)
-                acceptRequest();
+                showDetails();
             if (chosenCommand == 3)
+                acceptRequest();
+            if (chosenCommand == 4)
                 declineRequest();
             nextMenu = this;
         }

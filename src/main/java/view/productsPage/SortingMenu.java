@@ -22,6 +22,7 @@ public class SortingMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         int chosenCommand = getInput();
         Menu nextMenu = this;
         if (chosenCommand == 1)
@@ -37,7 +38,6 @@ public class SortingMenu extends Menu {
         if (chosenCommand == 6) {
             nextMenu = this.parentMenu;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 

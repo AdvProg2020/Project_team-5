@@ -4,6 +4,7 @@ import controller.MainController;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.userExceptions.UsernameNotFoundException;
+import view.LoginRegisterMenu;
 import view.Menu;
 import view.accountArea.ViewingPersonalInfo;
 
@@ -21,6 +22,7 @@ public class AccountAreaForManager extends Menu {
         this.submenus.add(new ViewDiscountCodesMenu(this));
         this.submenus.add(new ManageRequestsMenu(this));
         this.submenus.add(new ManageCategoriesMenu(this));
+        this.submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override

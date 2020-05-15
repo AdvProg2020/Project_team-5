@@ -3,6 +3,7 @@ package view.accountArea.accountAreaForSeller;
 import controller.MainController;
 import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import model.Shop;
+import view.LoginRegisterMenu;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -10,22 +11,25 @@ import java.util.ArrayList;
 public class ManageProductsMenu extends Menu {
     public ManageProductsMenu(Menu parentMenu) {
         super("manage products", parentMenu);
+        this.submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
     public void execute() {
-        help();
         viewSellerProduts();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
-        if (chosenCommand == 4)
+        if (chosenCommand == 1)
+            nextMenu = submenus.get(0);
+        else if (chosenCommand == 5)
             nextMenu = parentMenu;
         else {
-            if (chosenCommand == 1)
-                viewProduct();
             if (chosenCommand == 2)
-                viewBuyers();
+                viewProduct();
             if (chosenCommand == 3)
+                viewBuyers();
+            if (chosenCommand == 4)
                 editProduct();
             nextMenu = this;
         }

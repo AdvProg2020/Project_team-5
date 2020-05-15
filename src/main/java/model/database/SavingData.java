@@ -24,7 +24,7 @@ public class SavingData {
     }
 
     public void saveManager(Manager manager) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources\\Users\\Managers\\" + manager.getUsername() + ".json";
+        String filePath = "Resources\\Users\\Managers\\"+ manager.getUsername() + ".json";
         saveFile(yaGson.toJson(manager, Manager.class), filePath);
     }
 

@@ -10,6 +10,7 @@ public class ProductPage extends Menu {
 
     public ProductPage(Menu parentMenu) {
         super("page of a special product", parentMenu);
+        submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -102,28 +103,31 @@ public class ProductPage extends Menu {
 
     @Override
     public void execute() {
+        help();
         Menu nextMenu = this;
         int input = getInput();
-        if (input == 1) {
+        if(input == 1){
+            nextMenu=submenus.get(0);
+        }
+        if (input == 2) {
             digest();
-        } else if (input == 2) {
-            addGoodToCart();
         } else if (input == 3) {
-            attributes();
+            addGoodToCart();
         } else if (input == 4) {
-            compareWithAnotherProduct();
+            attributes();
         } else if (input == 5) {
-            showComments();
+            compareWithAnotherProduct();
         } else if (input == 6) {
-            addComment();
+            showComments();
         } else if (input == 7) {
+            addComment();
+        } else if (input == 8) {
             nextMenu = this.getParentMenu();
         }
-        if (input != 7){
+        if (input != 8){
             System.out.println("press enter to continue");
             scanner.nextLine();
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 }

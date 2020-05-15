@@ -1,6 +1,7 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
+import view.LoginRegisterMenu;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
 public class ManageCategoriesMenu extends Menu {
     public ManageCategoriesMenu(Menu parentMenu) {
         super("manage categories", parentMenu);
+        this.submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -25,24 +27,26 @@ public class ManageCategoriesMenu extends Menu {
 
     @Override
     public void execute() {
-        help();
         showAllCategories();
+        help();
         int chosenCommand = getInput();
         Menu nextMenu;
-        if (chosenCommand == 7)
+        if (chosenCommand == 1)
+            nextMenu = submenus.get(0);
+        else if (chosenCommand == 8)
             nextMenu = getParentMenu();
         else {
-            if (chosenCommand == 1)
-                addCategory();
             if (chosenCommand == 2)
-                editCategory();
+                addCategory();
             if (chosenCommand == 3)
-                removeCategory();
+                editCategory();
             if (chosenCommand == 4)
-                addSubcategoryToCategory();
+                removeCategory();
             if (chosenCommand == 5)
-                editSubcategory();
+                addSubcategoryToCategory();
             if (chosenCommand == 6)
+                editSubcategory();
+            if (chosenCommand == 7)
                 removeSubCategory();
             nextMenu = this;
         }

@@ -25,6 +25,7 @@ public class FilteringMenu extends Menu {
 
     @Override
     public void execute() {
+        help();
         int chosenCommand = getInput();
         Menu nextMenu = this;
         if (chosenCommand == 1)
@@ -41,7 +42,6 @@ public class FilteringMenu extends Menu {
         if (chosenCommand == 5) {
             nextMenu = this.parentMenu;
         }
-        nextMenu.help();
         nextMenu.execute();
     }
 
