@@ -15,22 +15,21 @@ import model.requests.Request;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
 
 public class LoadingData {
     private YaGson yaGson;
 
-    public LoadingData() throws IOException {
+    public LoadingData() {
         yaGson = new YaGson();
         File file = new File("Resources");
         if (!file.exists())
-            file.createNewFile();
+            file.mkdir();
         file = new File("Resources"+ File.pathSeparator + "Users");
         if (!file.exists())
-            file.createNewFile();
+            file.mkdir();
         file = new File("Resources"+ File.pathSeparator + "Orders");
         if (!file.exists())
-            file.createNewFile();
+            file.mkdir();
     }
 
     public void loadManager() throws IOException {
@@ -156,10 +155,10 @@ public class LoadingData {
             }
     }
 
-    private File[] loadFolder(String folderPath) throws IOException {
+    private File[] loadFolder(String folderPath) {
         File file = new File(folderPath);
         if (!file.exists())
-            file.createNewFile();
+            file.mkdir();
         return file.listFiles();
     }
 

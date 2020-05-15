@@ -21,7 +21,7 @@ public class Database {
     private LoadingData loadingData;
     private static Database database;
 
-    private Database() throws IOException {
+    private Database(){
         this.deletingData = new DeletingData();
         this.savingData = new SavingData();
         this.loadingData = new LoadingData();
