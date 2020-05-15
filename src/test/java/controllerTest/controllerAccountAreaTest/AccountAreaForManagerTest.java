@@ -1,6 +1,7 @@
 package controllerTest.controllerAccountAreaTest;
 
 import controller.MainController;
+import exception.RequestNotFoundException;
 import exception.userExceptions.UsernameNotFoundException;
 import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
@@ -8,7 +9,11 @@ import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import model.Shop;
 import model.persons.Customer;
 import model.persons.Manager;
+import model.persons.Seller;
 import model.productThings.DiscountCode;
+import model.productThings.Off;
+import model.requests.AddingOffRequest;
+import model.requests.RegisteringSellerRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +35,7 @@ public class AccountAreaForManagerTest {
         fields.add("30");
         Shop.getInstance().getAllPersons().add(new Customer("sadegh", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Manager("XxXxXx", "aboots", "zzzzz", "aboot@gmail.com", "06065656060", "pass2"));
+        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf")));
     }
 
     @Test
@@ -96,6 +102,18 @@ public class AccountAreaForManagerTest {
         LocalDate newDate = Shop.getInstance().findDiscountCode("RandomDiscount").getStartDate();
         LocalDate expectedDate = LocalDate.parse("2020-07-10");
         Assert.assertEquals(newDate.toString(), expectedDate.toString());
+    }
+
+    @Test
+    public void viewDiscountCodeTest() {
+        Assert.assertThrows(DiscountCodeNotFoundException.class,
+                () ->MainController.getInstance().getAccountAreaForManagerController().viewDiscountCode("bullshitCode"));
+    }
+
+    @Test
+    public void viewRequestInfoTest() {
+        Assert.assertThrows(RequestNotFoundException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails("5"));
     }
 }
 

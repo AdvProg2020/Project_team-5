@@ -9,7 +9,7 @@ public abstract class Request {
     }
 
     public String getBriefInfo() {
-        return "request id: " + this.requestId + " " + this.getClass().getName();
+        return "request id: " + this.requestId + " " + this.getClass().getSimpleName();
     }
 
     public long getRequestId() {
