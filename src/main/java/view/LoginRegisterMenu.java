@@ -8,6 +8,7 @@ import view.accountArea.accountAreaForSeller.AccountAreaForSeller;
 import view.accountArea.accountAreaForManager.AccountAreaForManager;
 import view.accountArea.acountAreaForCustomer.AccountAreaForCustomer;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,7 +71,10 @@ public class LoginRegisterMenu extends Menu {
         }
         try {
             MainController.getInstance().getLoginRegisterController().createAccount(matcher.group(1), matcher.group(2), details);
-            System.out.println("registered successful");
+            if (matcher.group(1).equals("seller"))
+                System.out.println("your request sent to manager for being registered.");
+            else
+                System.out.println("registered successful");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -115,20 +119,20 @@ public class LoginRegisterMenu extends Menu {
         return nextMenu;
     }
 
-    private Menu logout(){
-        Menu mainMenu=getMainMenu(this);
+    private Menu logout() {
+        Menu mainMenu = getMainMenu(this);
         Menu nextMenu;
-        mainMenu.setSubMenu(0,new LoginRegisterMenu("Account area",mainMenu));
+        mainMenu.setSubMenu(0, new LoginRegisterMenu("Account area", mainMenu));
         if (this.getParentMenu().getParentMenu().getName().startsWith("Account area for ") ||
-                this.getParentMenu().getName().startsWith("Account area for ")){
+                this.getParentMenu().getName().startsWith("Account area for ")) {
             nextMenu = mainMenu;
-        }else
-            nextMenu=this.getParentMenu();
+        } else
+            nextMenu = this.getParentMenu();
         MainController.getInstance().getLoginRegisterController().logoutUser();
         return nextMenu;
     }
 
-    private Menu getMainMenu(Menu menu){
+    private Menu getMainMenu(Menu menu) {
         if (menu.getParentMenu() == null)
             return menu;
         return getMainMenu(menu.getParentMenu());
