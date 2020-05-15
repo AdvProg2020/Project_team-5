@@ -1,6 +1,8 @@
 package controllerTest.controllerAccountAreaTest;
 
 import controller.MainController;
+import exception.FileCantBeDeletedException;
+import exception.FileCantBeSavedException;
 import exception.RequestNotFoundException;
 import exception.userExceptions.UsernameNotFoundException;
 import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
@@ -16,6 +18,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -115,7 +118,7 @@ public class AccountAreaForManagerTest {
     }
 
     @Test
-    public void acceptRequestTest() throws RequestNotFoundException {
+    public void acceptRequestTest() throws RequestNotFoundException, FileCantBeSavedException, IOException, FileCantBeDeletedException {
         Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf")));
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("10"));
@@ -125,7 +128,7 @@ public class AccountAreaForManagerTest {
     }
 
     @Test
-    public void declineRequestTest() throws RequestNotFoundException {
+    public void declineRequestTest() throws RequestNotFoundException, IOException, FileCantBeDeletedException {
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().declineRequest("5"));
         MainController.getInstance().getAccountAreaForManagerController().declineRequest("1");
