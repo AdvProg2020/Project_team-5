@@ -1,5 +1,16 @@
 package model.database;
 
+import exception.FileCantBeDeletedException;
+import model.category.Category;
+import model.category.SubCategory;
+import model.orders.OrderForCustomer;
+import model.orders.OrderForSeller;
+import model.persons.Customer;
+import model.persons.Manager;
+import model.persons.Seller;
+import model.productThings.*;
+import model.requests.Request;
+
 public class Database {
     private DeletingData deletingData;
     private SavingData savingData;
@@ -15,8 +26,36 @@ public class Database {
 
     }
 
-    public void deleteItem(Object item) {
-
+    public void deleteItem(Object item) throws FileCantBeDeletedException {
+        if (item instanceof Manager) {
+            deletingData.deleteManager((Manager) item);
+        } else if (item instanceof Customer) {
+            deletingData.deleteCustomer((Customer) item);
+        } else if (item instanceof Seller) {
+            deletingData.deleteSeller((Seller) item);
+        } else if (item instanceof Good) {
+            deletingData.deleteProduct((Good) item);
+        } else if (item instanceof SellerRelatedInfoAboutGood) {
+            //deletingData.deleteProductInfo((SellerRelatedInfoAboutGood)item);
+        } else if (item instanceof DiscountCode) {
+            deletingData.deleteDiscount((DiscountCode) item);
+        } else if (item instanceof Comment) {
+            deletingData.deleteComment((Comment) item);
+        } else if (item instanceof Off) {
+            deletingData.deleteOff((Off) item);
+        } else if (item instanceof Rate) {
+            deletingData.deleteRate((Rate) item);
+        } else if (item instanceof Category) {
+            deletingData.deleteCategory((Category) item);
+        } else if (item instanceof SubCategory) {
+            deletingData.deleteSubCategory((SubCategory) item);
+        } else if (item instanceof OrderForSeller) {
+            deletingData.deleteOrderForSeller((OrderForSeller) item);
+        } else if (item instanceof OrderForCustomer) {
+            deletingData.deleteOrderForCustomer((OrderForCustomer) item);
+        } else if (item instanceof Request) {
+            deletingData.deleteRequest((Request) item);
+        }
     }
 
     public void saveItem(Object item) {
