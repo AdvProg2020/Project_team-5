@@ -110,6 +110,6 @@ public class Database {
             savingData.saveOrderForCustomer((OrderForCustomer)item);
         } else if (item instanceof Request) {
             savingData.saveRequest((Request)item);
-        } throw new FileCantBeSavedException();
+        } else throw new FileCantBeSavedException();
     }
 }

@@ -23,11 +23,15 @@ public class LoginRegisterController {
             throw new UsernameIsTakenAlreadyException();
         }
         if (role.equals("customer")) {
-            Shop.getInstance().addPerson(new Customer(username, details.get(0), details.get(1), details.get(2),
-                    details.get(3), details.get(4), Long.parseLong(details.get(5))));
+            Customer customer = new Customer(username, details.get(0), details.get(1), details.get(2),
+                    details.get(3), details.get(4), Long.parseLong(details.get(5)));
+            Shop.getInstance().addPerson(customer);
+            Database.getInstance().saveItem(customer);
         } else if (role.equals("seller")) {
-            Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller(username, details.get(0), details.get(1)
-                    , details.get(2), details.get(3), details.get(4))));
+            RegisteringSellerRequest seller = new RegisteringSellerRequest(new Seller(username, details.get(0), details.get(1)
+                    , details.get(2), details.get(3), details.get(4)));
+            Shop.getInstance().addRequest(seller);
+            Database.getInstance().saveItem(seller);
         } else {
             if (Shop.getInstance().didManagerRegistered())
                 throw new MainManagerAlreadyRegistered();
