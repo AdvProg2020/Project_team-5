@@ -36,7 +36,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public List<String> viewInCartProducts() {
-        return Shop.getInstance().getCart().stream().map(goodInCart -> goodInCart.toString()).collect(Collectors.toList());
+        return Shop.getInstance().getCart().stream().map(GoodInCart::toString).collect(Collectors.toList());
     }
 
     public String viewSpecialProduct(long productId) {
@@ -82,11 +82,11 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         ArrayList<DiscountCode> discountCodes = ((Customer)MainController.getInstance().getCurrentPerson()).getDiscountCodes();
         List<String> discountCodeString = new ArrayList<>();
         if (chosenSort == 1 )
-            discountCodeString = MainController.getInstance().getSortController().sortByDiscountPercent(discountCodes).stream().map(discountCode -> discountCode.toString()).collect(Collectors.toList());
+            discountCodeString = MainController.getInstance().getSortController().sortByDiscountPercent(discountCodes).stream().map(DiscountCode::toString).collect(Collectors.toList());
         if (chosenSort == 2 )
-            discountCodeString = MainController.getInstance().getSortController().sortByEndDate(discountCodes).stream().map(discountCode -> discountCode.toString()).collect(Collectors.toList());
+            discountCodeString = MainController.getInstance().getSortController().sortByEndDate(discountCodes).stream().map(DiscountCode::toString).collect(Collectors.toList());
         if (chosenSort == 3 )
-            discountCodeString = MainController.getInstance().getSortController().sortByMaxDiscountAmount(discountCodes).stream().map(discountCode -> discountCode.toString()).collect(Collectors.toList());
+            discountCodeString = MainController.getInstance().getSortController().sortByMaxDiscountAmount(discountCodes).stream().map(DiscountCode::toString).collect(Collectors.toList());
         return discountCodeString;
     }
 

@@ -70,18 +70,18 @@ public class AccountAreaForSellerController extends AccountAreaController {
     }
 
     public List<String> getAllOffs() {
-        return ((Seller) MainController.getInstance().getCurrentPerson()).getActiveOffs().stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
+        return ((Seller) MainController.getInstance().getCurrentPerson()).getActiveOffs().stream().map(Off::getBriefSummery).collect(Collectors.toList());
     }
 
     public List<String> getSortedOffs(int chosenSort) {
         List<Off> offs = ((Seller) MainController.getInstance().getCurrentPerson()).getActiveOffs();
         List<String> offsString = new ArrayList<>();
         if (chosenSort == 1)
-            offsString = MainController.getInstance().getSortController().sortByEndDateOffs(offs).stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
+            offsString = MainController.getInstance().getSortController().sortByEndDateOffs(offs).stream().map(Off::getBriefSummery).collect(Collectors.toList());
         if (chosenSort == 2)
-            offsString = MainController.getInstance().getSortController().sortByOffPercent(offs).stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
+            offsString = MainController.getInstance().getSortController().sortByOffPercent(offs).stream().map(Off::getBriefSummery).collect(Collectors.toList());
         if (chosenSort == 3)
-            offsString = MainController.getInstance().getSortController().sortByMaxDiscountAmountOffs(offs).stream().map(off -> off.getBriefSummery()).collect(Collectors.toList());
+            offsString = MainController.getInstance().getSortController().sortByMaxDiscountAmountOffs(offs).stream().map(Off::getBriefSummery).collect(Collectors.toList());
         return offsString;
     }
 
