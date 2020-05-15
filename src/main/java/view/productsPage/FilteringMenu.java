@@ -5,13 +5,14 @@ import exception.userExceptions.NotValidInput;
 import view.LoginRegisterMenu;
 import view.Menu;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class FilteringMenu extends Menu {
 
     public FilteringMenu(Menu parentMenu) {
         super("filtering products Menu", parentMenu);
-        submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
@@ -26,17 +27,18 @@ public class FilteringMenu extends Menu {
     public void execute() {
         int chosenCommand = getInput();
         Menu nextMenu = this;
-        if (chosenCommand==1)
+        if (chosenCommand == 1)
+            showAvailableFilters();
             nextMenu = submenus.get(0);
         if (chosenCommand == 2)
+            filterAnAvailableFilter();
             showAvailableFilters();
         if (chosenCommand == 3)
+            currentFilters();
             filterAnAvailableFilter();
         if (chosenCommand == 4)
-            currentFilters();
-        if (chosenCommand == 5)
             disableFilters();
-        if (chosenCommand == 6) {
+        if (chosenCommand == 5) {
             nextMenu = this.parentMenu;
         }
         nextMenu.help();
@@ -70,9 +72,40 @@ public class FilteringMenu extends Menu {
                 MainController.getInstance().getControllerForFiltering().addBrandFiltering(scanner.nextLine());
             if (validFilter == 5)
                 getPriceFilter();
+            if (validFilter == 6)
+                getPropertyFilter();
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
+    }
+
+    private void getPropertyFilter(){
+        int i=1;
+        try {
+            List<String> properties = MainController.getInstance().getControllerForFiltering().getProperties();
+            for (String property : properties) {
+                System.out.println((i++) + "-" + property);
+            }
+            System.out.println("enter wanted property");
+            int chosenProperty = getProperties(properties.size());
+            String value = scanner.nextLine();
+            MainController.getInstance().getControllerForFiltering().addPropertiesFilter(properties.get(chosenProperty), value);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private int getProperties(int propertySize){
+        String input;
+        while (true){
+            input = scanner.nextLine();
+            if (Pattern.matches("[0-9]{1,2}",input)){
+                if (Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= propertySize)
+                    break;
+            }
+            System.out.println("not valid input");
+        }
+        return Integer.parseInt(input);
     }
 
     private void getPriceFilter() {

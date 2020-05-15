@@ -47,6 +47,10 @@ public class ControllerForFiltering {
         return allGoods.stream().filter(good -> good.getName().startsWith(name) || good.getName().endsWith(name)).collect(Collectors.toList());
     }
 
+    private List<Good> filterByProperty(String property, List<Good> allGoods){
+        return allGoods.stream().filter(good -> good.getCategoryProperties().get(property).equals(unaryFilters.get(property))).collect(Collectors.toList());
+    }
+
     public void resetAll() {
         unaryFilters.clear();
         binaryFilters.clear();
@@ -121,6 +125,16 @@ public class ControllerForFiltering {
         unaryFilters.put("name" , name);
     }
 
+    public List<String> getProperties() throws Exception {
+        if (filteredCategory == null)
+            throw new HaveNotChosenCategoryFilter();
+        return Shop.getInstance().findCategoryByName(unaryFilters.get("category")).getDetails();
+    }
+
+    public void addPropertiesFilter(String property, String value){
+        unaryFilters.put(property,value);
+    }
+
     public void disableFilter(int chosenFilter){
         if (chosenFilter <= unaryFilters.size())
             disableUnaryFilter(chosenFilter);
@@ -143,8 +157,12 @@ public class ControllerForFiltering {
 
     private void disableCategoryFilter(){
         filteredCategory = null;
-        if (unaryFilters.containsKey("subcategory"))
-            unaryFilters.remove("subcategory");
+        HashMap<String, String> tempFilters = new HashMap<>();
+        for (String filterName : unaryFilters.keySet()) {
+            if (filterName.equals("name") || filterName.equals("brand"))
+                tempFilters.put(filterName, unaryFilters.get(filterName));
+        }
+        this.unaryFilters = tempFilters;
     }
 
     public List<Good> showProducts(){
@@ -158,6 +176,8 @@ public class ControllerForFiltering {
                 goods = filterByName(unaryFilters.get("name"), goods);
             else if (key.equals("brand"))
                 goods = filterByBrand(unaryFilters.get("brand"), goods);
+            else
+                goods = filterByProperty(key, goods);
         }
         for (BinaryFilters binaryFilter : binaryFilters) {
             if (binaryFilter.getFilterName().equals("price"))
