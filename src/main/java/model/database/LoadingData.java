@@ -15,121 +15,145 @@ import model.requests.Request;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 public class LoadingData {
     private YaGson yaGson;
 
-    public LoadingData() {
+    public LoadingData() throws IOException {
         yaGson = new YaGson();
+        File file = new File("Resources");
+        if (!file.exists())
+            file.createNewFile();
+        file = new File("Resources"+ File.pathSeparator + "Users");
+        if (!file.exists())
+            file.createNewFile();
+        file = new File("Resources"+ File.pathSeparator + "Orders");
+        if (!file.exists())
+            file.createNewFile();
     }
 
     public void loadManager() throws IOException {
-        File[] files = loadFolder("Resources\\Users\\Managers");
-        for (File file : files) {
-            Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Manager.class));
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Users"+ File.pathSeparator + "Managers");
+        if (files != null)
+             for (File file : files) {
+                Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Manager.class));
+             }
     }
 
     public void loadCustomer() throws IOException {
-        File[] files = loadFolder("Resources\\Users\\Customers");
-        for (File file : files) {
-            Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Customer.class));
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Users"+ File.pathSeparator + "Customers");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Customer.class));
+            }
     }
 
     public void loadSeller() throws IOException {
-        File[] files = loadFolder("Resources\\Users\\Sellers");
-        for (File file : files) {
-            Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Seller.class));
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Users"+ File.pathSeparator + "Sellers");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Seller.class));
+            }
     }
 
     //TODO
     /*
     public void loadInfoAboutGood(Good good) throws IOException {
-        File[] files = loadFolder("Resources\\ProductsInfo");
-        for (File file : files) {
-            SellerRelatedInfoAboutGood infoAboutGood = yaGson.fromJson(readFile(file), SellerRelatedInfoAboutGood.class);
-            good.addSeller(infoAboutGood);
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "ProductsInfo");
+        if (files != null)
+            for (File file : files) {
+                SellerRelatedInfoAboutGood infoAboutGood = yaGson.fromJson(readFile(file), SellerRelatedInfoAboutGood.class);
+                good.addSeller(infoAboutGood);
+            }
     }
     */
 
 
     public void loadProduct() throws IOException {
-        File[] files = loadFolder("Resources\\Products");
-        for (File file : files) {
-            Good good = yaGson.fromJson(readFile(file), Good.class);
-            Shop.getInstance().addProduct(good);
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Products");
+        if (files != null)
+            for (File file : files) {
+                Good good = yaGson.fromJson(readFile(file), Good.class);
+                Shop.getInstance().addProduct(good);
+            }
     }
 
     public void loadDiscount() throws IOException {
-        File[] files = loadFolder("Resources\\Discounts");
-        for (File file : files) {
-            Shop.getInstance().addDiscountCode(yaGson.fromJson(readFile(file), DiscountCode.class));
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Discounts");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addDiscountCode(yaGson.fromJson(readFile(file), DiscountCode.class));
+            }
     }
 
     public void loadComment() throws IOException {
-        File[] files = loadFolder("Resources\\Comments");
-        for (File file : files) {
-            Comment comment = yaGson.fromJson(readFile(file), Comment.class);
-            comment.getGood().addComment(comment);
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Comments");
+        if (files != null)
+            for (File file : files) {
+                Comment comment = yaGson.fromJson(readFile(file), Comment.class);
+                comment.getGood().addComment(comment);
+            }
     }
 
     public void loadOff() throws IOException {
-        File[] files = loadFolder("Resources\\Offs");
-        for (File file : files) {
-            Shop.getInstance().addOff(yaGson.fromJson(readFile(file), Off.class));
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Offs");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addOff(yaGson.fromJson(readFile(file), Off.class));
+            }
     }
 
     public void loadRate() throws IOException {
-        File[] files = loadFolder("Resources\\Rates");
-        for (File file : files) {
-            Shop.getInstance().addRate(yaGson.fromJson(readFile(file), Rate.class));
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Rates");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addRate(yaGson.fromJson(readFile(file), Rate.class));
+            }
     }
 
     public void loadCategory() throws IOException {
-        File[] files = loadFolder("Resources\\Categories");
-        for (File file : files) {
-            Shop.getInstance().addCategory(yaGson.fromJson(readFile(file), Category.class));
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Categories");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addCategory(yaGson.fromJson(readFile(file), Category.class));
+            }
     }
 
     public void loadSubCategory() throws IOException {
-        File[] files = loadFolder("Resources\\SubCategories");
-        for (File file : files) {
-            SubCategory subCategory = yaGson.fromJson(readFile(file), SubCategory.class);
-            subCategory.getParentCategory().addSubCategory(subCategory);
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "SubCategories");
+        if (files != null)
+            for (File file : files) {
+                SubCategory subCategory = yaGson.fromJson(readFile(file), SubCategory.class);
+                subCategory.getParentCategory().addSubCategory(subCategory);
+            }
     }
 
     public void loadOrderForSeller() throws IOException {
-        File[] files = loadFolder("Resources\\Orders\\OrderForSellers");
-        for (File file : files) {
-            OrderForSeller orderForSeller = yaGson.fromJson(readFile(file), OrderForSeller.class);
-            orderForSeller.getSeller().addOrder(orderForSeller);
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Orders"+ File.pathSeparator + "OrderForSellers");
+        if (files != null)
+            for (File file : files) {
+                OrderForSeller orderForSeller = yaGson.fromJson(readFile(file), OrderForSeller.class);
+                orderForSeller.getSeller().addOrder(orderForSeller);
+            }
     }
 
     public void loadOrderForCustomer() throws IOException {
-        File[] files = loadFolder("Resources\\Orders\\OrderForCustomers");
-        for (File file : files) {
-            OrderForCustomer orderForCustomer = yaGson.fromJson(readFile(file), OrderForCustomer.class);
-            //TODO
-            //where we should add order for customer???
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Orders"+ File.pathSeparator + "OrderForCustomers");
+        if (files != null)
+            for (File file : files) {
+                OrderForCustomer orderForCustomer = yaGson.fromJson(readFile(file), OrderForCustomer.class);
+                //TODO
+                //where we should add order for customer???
+            }
     }
 
     public void loadRequests() throws IOException {
-        File[] files = loadFolder("Resources\\Requests");
-        for (File file : files) {
-            Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), Request.class));
-        }
+        File[] files = loadFolder("Resources"+ File.pathSeparator + "Requests");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), Request.class));
+            }
     }
 
     private File[] loadFolder(String folderPath) throws IOException {

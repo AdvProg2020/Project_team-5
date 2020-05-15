@@ -16,18 +16,18 @@ import java.io.File;
 
 public class DeletingData {
     public void deleteManager(Manager manager) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Users\\Managers\\" + manager.getUsername() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Users"+ File.pathSeparator + "Managers"+ File.pathSeparator + manager.getUsername() + ".json";
         deleteFile(filePath);
     }
 
     public void deleteCustomer(Customer customer) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Users\\Customers\\" + customer.getUsername() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Users"+ File.pathSeparator + "Customers"+ File.pathSeparator + customer.getUsername() + ".json";
         deleteFile(filePath);
         //remove rates and comments of this customer???
     }
 
     public void deleteSeller(Seller seller) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Users\\Sellers\\" + seller.getUsername() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Users"+ File.pathSeparator + "Sellers"+ File.pathSeparator + seller.getUsername() + ".json";
         deleteFile(filePath);
         for (Good good : seller.getActiveGoods()) {
             for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
@@ -40,7 +40,7 @@ public class DeletingData {
     }
 
     public void deleteProduct(Good good) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Products\\product_" + good.getGoodId() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Products"+ File.pathSeparator + "product_" + good.getGoodId() + ".json";
         deleteFile(filePath);
         for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
             deleteProductInfo(infoAboutGood, good.getGoodId());
@@ -52,32 +52,32 @@ public class DeletingData {
     }
 
     public void deleteDiscount(DiscountCode discountCode) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Discounts\\dis_" + discountCode.getCode() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Discounts"+ File.pathSeparator + "dis_" + discountCode.getCode() + ".json";
         deleteFile(filePath);
     }
 
     public void deleteProductInfo(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws FileCantBeDeletedException {
-        String filePath = "Resources\\ProductsInfo\\productInfo_" + goodId + "_" + infoAboutGood.getSeller().getUsername() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "ProductsInfo"+ File.pathSeparator + "productInfo_" + goodId + "_" + infoAboutGood.getSeller().getUsername() + ".json";
         deleteFile(filePath);
     }
 
     public void deleteComment(Comment comment) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Comments\\comment_" + comment.getGood().getGoodId() + "_" + comment.getPerson().getUsername() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Comments"+ File.pathSeparator + "comment_" + comment.getGood().getGoodId() + "_" + comment.getPerson().getUsername() + ".json";
         deleteFile(filePath);
     }
 
     public void deleteOff(Off off) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Offs\\off_" + off.getOffId() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Offs"+ File.pathSeparator + "off_" + off.getOffId() + ".json";
         deleteFile(filePath);
     }
 
     public void deleteRate(Rate rate) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Rates\\rate_" + rate.getGood().getGoodId() + "_" + rate.getCustomer().getUsername() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Rates"+ File.pathSeparator + "rate_" + rate.getGood().getGoodId() + "_" + rate.getCustomer().getUsername() + ".json";
         deleteFile(filePath);
     }
 
     public void deleteCategory(Category category) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Categories\\" + category.getName() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Categories" + File.pathSeparator + category.getName() + ".json";
         deleteFile(filePath);
         for (SubCategory subCategory : category.getSubCategories()) {
             deleteSubCategory(subCategory);
@@ -85,7 +85,7 @@ public class DeletingData {
     }
 
     public void deleteSubCategory(SubCategory subCategory) throws FileCantBeDeletedException {
-        String filePath = "Resources\\SubCategories\\" + subCategory.getParentCategory().getName() + "_" + subCategory.getName() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "SubCategories"+ File.pathSeparator + subCategory.getParentCategory().getName() + "_" + subCategory.getName() + ".json";
         deleteFile(filePath);
         for (Good good : subCategory.getGoods()) {
             deleteProduct(good);
@@ -93,17 +93,17 @@ public class DeletingData {
     }
 
     public void deleteOrderForSeller(OrderForSeller orderForSeller) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Orders\\OrderForSellers\\order_" + orderForSeller.getOrderId() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Orders"+ File.pathSeparator + "OrderForSellers"+ File.pathSeparator + "order_" + orderForSeller.getOrderId() + ".json";
         deleteFile(filePath);
     }
 
     public void deleteOrderForCustomer(OrderForCustomer orderForCustomer) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Orders\\OrderForCustomers\\order_" + orderForCustomer.getOrderId() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Orders"+ File.pathSeparator + "OrderForCustomers"+ File.pathSeparator + "order_" + orderForCustomer.getOrderId() + ".json";
         deleteFile(filePath);
     }
 
     public void deleteRequest(Request request) throws FileCantBeDeletedException {
-        String filePath = "Resources\\Requests\\request_" + request.getRequestId() + ".json";
+        String filePath = "Resources"+ File.pathSeparator + "Requests"+ File.pathSeparator + "request_" + request.getRequestId() + ".json";
         deleteFile(filePath);
     }
 

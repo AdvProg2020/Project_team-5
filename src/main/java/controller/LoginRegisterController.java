@@ -1,21 +1,24 @@
 package controller;
 
+import exception.FileCantBeSavedException;
 import exception.userExceptions.MainManagerAlreadyRegistered;
 import exception.userExceptions.PasswordIncorrectException;
 import exception.userExceptions.UsernameIsTakenAlreadyException;
 import exception.userExceptions.UsernameNotFoundException;
 import model.Shop;
+import model.database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
 import model.persons.Seller;
 import model.requests.RegisteringSellerRequest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LoginRegisterController {
 
-    public void createAccount(String role, String username, ArrayList<String> details) throws UsernameIsTakenAlreadyException, MainManagerAlreadyRegistered {
+    public void createAccount(String role, String username, ArrayList<String> details) throws UsernameIsTakenAlreadyException, MainManagerAlreadyRegistered, IOException, FileCantBeSavedException {
         if (Shop.getInstance().findUser(username) != null) {
             throw new UsernameIsTakenAlreadyException();
         }
@@ -28,9 +31,12 @@ public class LoginRegisterController {
         } else {
             if (Shop.getInstance().didManagerRegistered())
                 throw new MainManagerAlreadyRegistered();
-            else
-                Shop.getInstance().addPerson(new Manager(username, details.get(0), details.get(1)
-                        , details.get(2), details.get(3), details.get(4)));
+            else {
+                Manager manager = new Manager(username, details.get(0), details.get(1)
+                        , details.get(2), details.get(3), details.get(4));
+                Shop.getInstance().addPerson(manager);
+                Database.getInstance().saveItem(manager);
+            }
         }
     }
 
