@@ -139,6 +139,8 @@ public class ControllerForFiltering {
             throw new SellerNotFound();
         if (!(seller instanceof Seller))
             throw new SellerNotFound();
+        if (unaryFilters.containsKey("seller"))
+            unaryFilters.remove("seller");
         unaryFilters.put("seller", sellerUser);
     }
 
@@ -188,7 +190,7 @@ public class ControllerForFiltering {
         filteredCategory = null;
         HashMap<String, String> tempFilters = new HashMap<>();
         for (String filterName : unaryFilters.keySet()) {
-            if (filterName.equals("name") || filterName.equals("brand"))
+            if (filterName.equals("name") || filterName.equals("brand") || filterName.equals("seller"))
                 tempFilters.put(filterName, unaryFilters.get(filterName));
         }
         this.unaryFilters = tempFilters;
