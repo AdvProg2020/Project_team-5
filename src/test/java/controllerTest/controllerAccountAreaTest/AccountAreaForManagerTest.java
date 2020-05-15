@@ -11,8 +11,6 @@ import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
 import model.productThings.DiscountCode;
-import model.productThings.Off;
-import model.requests.AddingOffRequest;
 import model.requests.RegisteringSellerRequest;
 import org.junit.Assert;
 import org.junit.Before;
@@ -114,6 +112,24 @@ public class AccountAreaForManagerTest {
     public void viewRequestInfoTest() {
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails("5"));
+    }
+
+    @Test
+    public void acceptRequestTest() throws RequestNotFoundException {
+        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf")));
+        Assert.assertThrows(RequestNotFoundException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("10"));
+        MainController.getInstance().getAccountAreaForManagerController().acceptRequest("2");
+        Assert.assertNull(Shop.getInstance().findRequestById(2));
+        Assert.assertNotNull(Shop.getInstance().findUser("fgf"));
+    }
+
+    @Test
+    public void declineRequestTest() throws RequestNotFoundException {
+        Assert.assertThrows(RequestNotFoundException.class,
+                () -> MainController.getInstance().getAccountAreaForManagerController().declineRequest("5"));
+        MainController.getInstance().getAccountAreaForManagerController().declineRequest("1");
+        Assert.assertNull(Shop.getInstance().findRequestById(1));
     }
 }
 
