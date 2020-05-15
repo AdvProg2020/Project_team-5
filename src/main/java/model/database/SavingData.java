@@ -24,72 +24,72 @@ public class SavingData {
     }
 
     public void saveManager(Manager manager) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Users"+ File.pathSeparator + "Managers"+ File.pathSeparator + manager.getUsername() + ".json";
+        String filePath = "Resources\\Users\\Managers\\"+ manager.getUsername() + ".json";
         saveFile(yaGson.toJson(manager, Manager.class), filePath);
     }
 
     public void saveCustomer(Customer customer) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Users"+ File.pathSeparator + "Customers"+ File.pathSeparator + customer.getUsername() + ".json";
+        String filePath = "Resources\\Users\\Customers\\" + customer.getUsername() + ".json";
         saveFile(yaGson.toJson(customer, Customer.class), filePath);
     }
 
     public void saveSeller(Seller seller) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Users"+ File.pathSeparator + "Sellers"+ File.pathSeparator + seller.getUsername() + ".json";
+        String filePath = "Resources\\Users\\Sellers\\" + seller.getUsername() + ".json";
         saveFile(yaGson.toJson(seller, Seller.class), filePath);
     }
 
     public void saveProduct(Good good) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Products"+ File.pathSeparator + "product_" + good.getGoodId() + ".json";
+        String filePath = "Resources\\Products\\product_" + good.getGoodId() + ".json";
         saveFile(yaGson.toJson(good, Good.class), filePath);
     }
 
     public void saveDiscount(DiscountCode discountCode) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Discounts"+ File.pathSeparator + "dis_" + discountCode.getCode() + ".json";
+        String filePath = "Resources\\Discounts\\dis_" + discountCode.getCode() + ".json";
         saveFile(yaGson.toJson(discountCode, DiscountCode.class), filePath);
     }
 
     public void saveInfoAboutGood(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "ProductsInfo"+ File.pathSeparator + "productInfo_" + goodId + "_" + infoAboutGood.getSeller().getUsername() + ".json";
+        String filePath = "Resources\\ProductsInfo\\productInfo_" + goodId + "_" + infoAboutGood.getSeller().getUsername() + ".json";
         saveFile(yaGson.toJson(infoAboutGood, SellerRelatedInfoAboutGood.class), filePath);
     }
 
     public void saveComment(Comment comment) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Comments"+ File.pathSeparator + "comment_" + comment.getGood().getGoodId() + "_" + comment.getPerson().getUsername() + ".json";
+        String filePath = "Resources\\Comments\\comment_" + comment.getGood().getGoodId() + "_" + comment.getPerson().getUsername() + ".json";
         saveFile(yaGson.toJson(comment, Comment.class), filePath);
     }
 
     public void saveOff(Off off) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Offs"+ File.pathSeparator + "off_" + off.getOffId() + ".json";
+        String filePath = "Resources\\Offs\\off_" + off.getOffId() + ".json";
         saveFile(yaGson.toJson(off, Off.class), filePath);
     }
 
     public void saveRate(Rate rate) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Rates"+ File.pathSeparator + "rate_" + rate.getGood().getGoodId() + "_" + rate.getCustomer().getUsername() + ".json";
+        String filePath = "Resources\\Rates\\rate_" + rate.getGood().getGoodId() + "_" + rate.getCustomer().getUsername() + ".json";
         saveFile(yaGson.toJson(rate, Rate.class), filePath);
     }
 
     public void saveCategory(Category category) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Categories"+ File.pathSeparator + category.getName() + ".json";
+        String filePath = "Resources\\Categories\\" + category.getName() + ".json";
         saveFile(yaGson.toJson(category, Category.class), filePath);
     }
 
     public void saveSubCategory(SubCategory subCategory) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "SubCategories"+ File.pathSeparator + subCategory.getParentCategory().getName() + "_" + subCategory.getName() + ".json";
+        String filePath = "Resources\\SubCategories\\" + subCategory.getParentCategory().getName() + "_" + subCategory.getName() + ".json";
         saveFile(yaGson.toJson(subCategory, SubCategory.class), filePath);
     }
 
     public void saveOrderForSeller(OrderForSeller orderForSeller) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Orders"+ File.pathSeparator + "OrderForSellers"+ File.pathSeparator + "order_" + orderForSeller.getOrderId() + ".json";
+        String filePath = "Resources\\Orders\\OrderForSellers\\order_" + orderForSeller.getOrderId() + ".json";
         saveFile(yaGson.toJson(orderForSeller, OrderForSeller.class), filePath);
     }
 
     public void saveOrderForCustomer(OrderForCustomer orderForCustomer) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Orders"+ File.pathSeparator + "OrderForCustomers"+ File.pathSeparator + "order_" + orderForCustomer.getOrderId() + ".json";
+        String filePath = "Resources\\Orders\\OrderForCustomers\\order_" + orderForCustomer.getOrderId() + ".json";
         saveFile(yaGson.toJson(orderForCustomer, OrderForCustomer.class), filePath);
     }
 
     public void saveRequest(Request request) throws IOException, FileCantBeSavedException {
-        String filePath = "Resources"+ File.pathSeparator + "Requests"+ File.pathSeparator + "request_" + request.getRequestId() + ".json";
+        String filePath = "Resources\\Requests\\request_" + request.getRequestId() + ".json";
         if (request instanceof AddingCommentRequest)
             saveFile(yaGson.toJson(request, AddingCommentRequest.class), filePath);
         else if (request instanceof AddingGoodRequest)
