@@ -63,7 +63,7 @@ public class OrderForCustomer extends Order {
                 "\nAddress : " + this.getAddress() +
                 "\nPhoneNumber : " + this.getPhoneNumber() +
                 "\nOrder status : " + this.getOrderStatus() +
-                "--------------------------------------------------------------------------------";
+                "\n--------------------------------------------------------------------------------";
 
         return customerLog;
     }
