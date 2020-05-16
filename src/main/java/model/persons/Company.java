@@ -63,6 +63,6 @@ public class Company {
                 "website = " + website + "\n" +
                 "phoneNumber = " + phoneNumber + "\n" +
                 "faxNumber = " + faxNumber + "\n" +
-                "address = " + address + "############";
+                "address = " + address + "\n############";
     }
 }

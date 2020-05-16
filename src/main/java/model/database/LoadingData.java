@@ -80,8 +80,6 @@ public class LoadingData {
                 Good good = yaGson.fromJson(readFile(file), Good.class);
                 Shop.getInstance().addProduct(good);
             }
-        if (Shop.getInstance().getAllGoods().size() != 0)
-            Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList())) + 1);
     }
 
     public void loadDiscount() throws IOException {
@@ -125,6 +123,8 @@ public class LoadingData {
             for (File file : files) {
                 Shop.getInstance().addCategory(yaGson.fromJson(readFile(file), Category.class));
             }
+        if (Shop.getInstance().getAllGoods().size() != 0)
+            Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList())) + 1);
     }
 
     public void loadSubCategory() throws IOException {
