@@ -42,6 +42,7 @@ public class ManageUsersMenu extends Menu {
     }
 
     private void showAllUsers() {
+        System.out.println("all users :");
         for (String person : MainController.getInstance().getAccountAreaForManagerController().getAllUsersList()) {
             System.out.println("# " + person);
         }

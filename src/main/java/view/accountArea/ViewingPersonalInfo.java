@@ -46,6 +46,7 @@ public class ViewingPersonalInfo extends Menu {
         String newValue = getValidInput(".+", "invalid input");
         try {
             MainController.getInstance().getAccountAreaForManagerController().editField(chosenField, newValue);
+            System.out.println("you cahnged it successfully");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
