@@ -1,0 +1,1 @@
+{"name":"smart phones","parentCategory":{"name":"electronic devices","details":["weight"],"subCategories":[{"name":"lap tabs","parentCategory":"@root.parentCategory","details":["CPU","RAM","GPU"],"goods":[]},"@root"]},"details":["RAM","memory"],"goods":[]}
