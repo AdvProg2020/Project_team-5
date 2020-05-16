@@ -61,8 +61,10 @@ public abstract class Menu {
             if (Pattern.matches("[0-9]+", input))
                 if (Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= commandNames.size() + submenus.size() + 1)
                     return Integer.parseInt(input);
+            System.out.println(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= commandNames.size() + submenus.size() + 1);
             System.out.println("not valid input. please try again");
         }
+
     }
 
     protected String getValidInput(String regex, String error) {
