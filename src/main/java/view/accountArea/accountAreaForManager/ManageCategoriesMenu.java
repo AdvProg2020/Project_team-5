@@ -26,7 +26,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     @Override
-    public void execute(){
+    public void execute() {
         showAllCategories();
         help();
         int chosenCommand = getInput();
@@ -95,7 +95,7 @@ public class ManageCategoriesMenu extends Menu {
         Scanner scanner = new Scanner(System.in);
         String name;
         do {
-            System.out.print("enter category name:");
+            System.out.print("enter category name: ");
             name = getValidInput("\\w+", "invalid name format");
         } while (!MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(name));
         System.out.println("category properties to edit:");
@@ -124,7 +124,7 @@ public class ManageCategoriesMenu extends Menu {
         String categoryName, subcategoryName;
         ArrayList<String> properties = new ArrayList<>();
         do {
-            System.out.print("enter category name that you want add subcategory to it:");
+            System.out.print("enter category name that you want add subcategory to it: ");
             categoryName = getValidInput("\\w+", "invalid name format");
         } while (!MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(categoryName));
         do {
@@ -163,7 +163,7 @@ public class ManageCategoriesMenu extends Menu {
     private void editSubcategory() {
         String categoryName, subcategoryName;
         do {
-            System.out.print("enter category name that you want edit its subcategories:");
+            System.out.print("enter category name that you want edit its subcategories: ");
             categoryName = getValidInput("\\w+", "invalid name format");
         } while (!MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(categoryName));
         System.out.println("list of subcategories of this category:");
@@ -171,7 +171,7 @@ public class ManageCategoriesMenu extends Menu {
             System.out.println("-" + subcategory);
         }
         do {
-            System.out.print("enter subcategory name:");
+            System.out.print("enter subcategory name: ");
             subcategoryName = getValidInput("\\w+", "invalid name format");
         } while (!MainController.getInstance().getAccountAreaForManagerController().isExistSubcategoryWithThisName(subcategoryName));
         for (String subCategoryProperty : MainController.getInstance().getAccountAreaForManagerController().getSubCategoryProperties(subcategoryName)) {

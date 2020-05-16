@@ -1,11 +1,13 @@
 package controller.accountArea;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
 import exception.discountcodeExceptions.DiscountCodeExpired;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.NotEnoughCredit;
 import model.Shop;
+import model.database.Database;
 import model.orders.Order;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;
@@ -14,6 +16,7 @@ import model.persons.Seller;
 import model.productThings.DiscountCode;
 import model.productThings.GoodInCart;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -63,9 +66,11 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return ((Customer) MainController.getInstance().getCurrentPerson()).hasBuyProduct(productId);
     }
 
-    public void rateProduct(long productId, int rate) {
+    public void rateProduct(long productId, int rate) throws IOException, FileCantBeSavedException {
         Shop.getInstance().addRate(((Customer) MainController.getInstance().getCurrentPerson()), productId, rate);
         Shop.getInstance().findGoodById(productId).updateRate();
+        Database.getInstance().saveItem(Shop.getInstance().findGoodById(productId).getSubCategory());
+        Database.getInstance().saveItem(Shop.getInstance().findGoodById(productId).getSubCategory().getParentCategory());
     }
 
     public List<String> getBriefSummeryOfOrders(){
@@ -120,7 +125,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return finalPriceOfAList(Shop.getInstance().getCart()) - discountCode.getMaxDiscountAmount();
     }
 
-    public void purchase(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws NotEnoughCredit {
+    public void purchase(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws NotEnoughCredit, IOException, FileCantBeSavedException {
         if (((Customer) MainController.getInstance().getCurrentPerson()).getCredit() < totalPrice)
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
@@ -128,12 +133,14 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         finalBuyProcess(totalPrice, customerInfo);
     }
 
-    public void reduceNumberOfDiscountCode(String discountCode){
+    public void reduceNumberOfDiscountCode(String discountCode) throws IOException, FileCantBeSavedException {
         Customer customer= (Customer) MainController.getInstance().getCurrentPerson();
         customer.findDiscountCode(discountCode).reduceNumberOfDiscountCodeForCostumer(customer);
+        Database.getInstance().saveItem(customer);
+        Database.getInstance().saveItem(customer.findDiscountCode(discountCode));
     }
 
-    public void finalBuyProcess(long price, ArrayList<String> customerInfo) {
+    public void finalBuyProcess(long price, ArrayList<String> customerInfo) throws IOException, FileCantBeSavedException {
         Customer currentUser = (Customer) MainController.getInstance().getCurrentPerson();
         currentUser.addOrder(new OrderForCustomer(Shop.getInstance().getCart(), price, customerInfo.get(0), customerInfo.get(1),
                 customerInfo.get(2), customerInfo.get(3)));
@@ -143,7 +150,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Shop.getInstance().clearCart();
     }
 
-    public void makeOrderForSeller(String customerName) {
+    public void makeOrderForSeller(String customerName) throws IOException, FileCantBeSavedException {
         Set<Seller> sellerSet = new HashSet<>();
         ArrayList<GoodInCart> cart = Shop.getInstance().getCart();
         for (GoodInCart good : cart) {
@@ -151,7 +158,10 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
         for (Seller seller : sellerSet) {
             List<GoodInCart> sellerProduct = cart.stream().filter(good -> good.getSeller() == seller).collect(Collectors.toList());
-            seller.addOrder(new OrderForSeller(finalPriceOfAList(sellerProduct), seller, customerName, sellerProduct));
+            OrderForSeller orderForSeller = new OrderForSeller(finalPriceOfAList(sellerProduct), seller, customerName, sellerProduct);
+            seller.addOrder(orderForSeller);
+            Database.getInstance().saveItem(orderForSeller);
+            Database.getInstance().saveItem(seller);
         }
     }
 
@@ -159,10 +169,13 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return products.stream().map(GoodInCart::getFinalPrice).reduce(0L, (ans, i) -> ans + i);
     }
 
-    public void reduceAvailableNumberOfGoodsAfterPurchase() {
+    public void reduceAvailableNumberOfGoodsAfterPurchase() throws IOException, FileCantBeSavedException {
         ArrayList<GoodInCart> cart = Shop.getInstance().getCart();
         for (GoodInCart good : cart) {
             good.getGood().reduceAvailableNumber(good.getSeller(), good.getNumber());
+            Database.getInstance().saveItem(good.getGood().getSubCategory());
+            Database.getInstance().saveItem(good.getGood().getSubCategory().getParentCategory());
+            Database.getInstance().saveItem(good.getSeller());
         }
     }
 }

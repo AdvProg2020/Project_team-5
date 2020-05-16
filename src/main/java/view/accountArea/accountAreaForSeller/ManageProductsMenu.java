@@ -1,11 +1,13 @@
 package view.accountArea.accountAreaForSeller;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import model.Shop;
 import view.LoginRegisterMenu;
 import view.Menu;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ManageProductsMenu extends Menu {
@@ -16,7 +18,7 @@ public class ManageProductsMenu extends Menu {
 
     @Override
     public void execute() {
-        viewSellerProduts();
+        viewSellerProducts();
         help();
         int chosenCommand = getInput();
         Menu nextMenu;
@@ -43,7 +45,7 @@ public class ManageProductsMenu extends Menu {
         commandNames.add("edit product");
     }
 
-    private void viewSellerProduts() {
+    private void viewSellerProducts() {
         System.out.println(MainController.getInstance().getAccountAreaForSellerController().viewSellersProducts(0));
         System.out.println("you can sort this list by following items:\n1-visit number\n2-average rate\n" +
                 "3-modification date\n4-price\n5-available number\n6-continue");
@@ -95,13 +97,29 @@ public class ManageProductsMenu extends Menu {
         }
         int chosen = Integer.parseInt(getValidInput("^[1-3]{1}$", "not invalid input"));
         if (chosen == 1) {
-            editPriceOfProduct(input);
+            try {
+                editPriceOfProduct(input);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (chosen == 2) {
-            editAvailableNumber(input);
+            try {
+                editAvailableNumber(input);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (chosen == 3) {
-            editDetails(input);
+            try {
+                editDetails(input);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
-            editCategoryProperty(chosen - 4, input);
+            try {
+                editCategoryProperty(chosen - 4, input);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         System.out.println("press enter to continue");
         scanner.nextLine();
@@ -115,33 +133,33 @@ public class ManageProductsMenu extends Menu {
         }
     }
 
-    private void editPriceOfProduct(long id) {
+    private void editPriceOfProduct(long id) throws IOException, FileCantBeSavedException {
         System.out.println("enter new price");
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct("price", getValidInput("\\d\\d\\d\\d+", "Not valid price"), id);
         System.out.println("your request successfully sent to manager");
     }
 
-    private void editAvailableNumber(long id) {
+    private void editAvailableNumber(long id) throws IOException, FileCantBeSavedException {
         System.out.println("enter new available number");
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct("availableNumber", getValidInput("\\d+", "Not valid number"), id);
         System.out.println("your request successfully sent to manager");
     }
 
-    private void editDetails(long id) {
+    private void editDetails(long id) throws IOException, FileCantBeSavedException {
         System.out.println("enter new details");
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct("details", getValidInput("\\w+", "Not valid detail"), id);
         System.out.println("your request successfully sent to manager");
     }
 
-    private void editCategoryProperty(int number, long id) {
+    private void editCategoryProperty(int number, long id) throws IOException, FileCantBeSavedException {
         System.out.println("enter new property for " + Shop.getInstance().findGoodById(id).getCategoryProperties().keySet().toArray()[number]);
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct((String) Shop.getInstance().findGoodById(id).getCategoryProperties().keySet().toArray()[number]
                         , getValidInput("\\w+", "Not valid!"), id);
-        System.out.println("your request successfuly sent to manager");
+        System.out.println("your request successfully sent to manager");
     }
 
     public long getProductId() {

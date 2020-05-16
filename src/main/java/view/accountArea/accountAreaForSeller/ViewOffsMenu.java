@@ -72,7 +72,8 @@ public class ViewOffsMenu extends Menu {
                     viewOff(Long.parseLong(getValidInput("[0-9]+", "Not valid off ID")));
             System.out.println(offDetails);
         } catch (OffNotFoundException exception) {
-            System.out.println(exception);
+            System.out.println(exception.getMessage());
+            exception.printStackTrace();
         }
     }
 
@@ -123,7 +124,11 @@ public class ViewOffsMenu extends Menu {
         offDetails.add(getValidInput("\\d\\d\\d\\d+", "Not valid amount"));
         System.out.println("discount percent :");
         offDetails.add(getValidInput("[\\d]{1,2}", "Not valid input"));
-        MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails, getProductIdsForAddingOff());
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails, getProductIdsForAddingOff());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private ArrayList<Long> getProductIdsForAddingOff() {
@@ -160,29 +165,45 @@ public class ViewOffsMenu extends Menu {
 
     private void editStartDate(long id) {
         System.out.println("enter a date in format [2020-4-27]");
-        MainController.getInstance().getAccountAreaForSellerController().editOff("start date", getDate(0, ""), id);
-        System.out.println("your request successfully sent to manager");
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().editOff("start date", getDate(0, ""), id);
+            System.out.println("your request successfully sent to manager");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void editEndDate(long id) {
         System.out.println("enter a date in format [2020-4-27]");
-        MainController.getInstance().getAccountAreaForSellerController().editOff("end date", getDate(1,
-                Shop.getInstance().findOffById(id).getStartDate().toString()), id);
-        System.out.println("your request successfully sent to manager");
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().editOff("end date", getDate(1,
+                    Shop.getInstance().findOffById(id).getStartDate().toString()), id);
+            System.out.println("your request successfully sent to manager");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void editMaxDiscount(long id) {
         System.out.println("enter maximum discount you want for you off");
-        MainController.getInstance().getAccountAreaForSellerController().editOff("max discount",
-                getValidInput("\\d\\d\\d\\d+", "Not valid amount"), id);
-        System.out.println("your request successfully sent to manager");
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().editOff("max discount",
+                    getValidInput("\\d\\d\\d\\d+", "Not valid amount"), id);
+            System.out.println("your request successfully sent to manager");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void editDiscountPercent(long id) {
         System.out.println("enter discount percent you want for you off");
-        MainController.getInstance().getAccountAreaForSellerController().editOff("discount percent",
-                getValidInput("[\\d]{1,2}", "Not valid percent"), id);
-        System.out.println("your request successfully sent to manager");
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().editOff("discount percent",
+                    getValidInput("[\\d]{1,2}", "Not valid percent"), id);
+            System.out.println("your request successfully sent to manager");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void addGoodToOff(long id) {
@@ -198,8 +219,12 @@ public class ViewOffsMenu extends Menu {
             System.out.println("you have this product in your off already");
             return;
         }
-        MainController.getInstance().getAccountAreaForSellerController().editOff("add good", "" + productId, id);
-        System.out.println("your request successfully sent to manager");
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().editOff("add good", "" + productId, id);
+            System.out.println("your request successfully sent to manager");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void removeGoodFromOff(long id) {
@@ -209,7 +234,11 @@ public class ViewOffsMenu extends Menu {
             System.out.println("you don't have this product in your off");
             return;
         }
-        MainController.getInstance().getAccountAreaForSellerController().editOff("remove good", "" + productId, id);
-        System.out.println("your request successfully sent to manager");
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().editOff("remove good", "" + productId, id);
+            System.out.println("your request successfully sent to manager");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

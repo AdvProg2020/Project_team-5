@@ -1,7 +1,11 @@
 package model.requests;
 
+import exception.FileCantBeSavedException;
 import model.Shop;
+import model.database.Database;
 import model.productThings.Off;
+
+import java.io.IOException;
 
 public class AddingOffRequest extends Request {
     private Off off;
@@ -11,10 +15,12 @@ public class AddingOffRequest extends Request {
     }
 
     @Override
-    public void acceptRequest() {
+    public void acceptRequest() throws IOException, FileCantBeSavedException {
         Shop.getInstance().addOff(off);
         off.getSeller().addOff(off);
         off.setOffStatus(Off.OffStatus.ACCEPTED);
+        Database.getInstance().saveItem(off);
+        Database.getInstance().saveItem(off.getSeller());
     }
 
     @Override
