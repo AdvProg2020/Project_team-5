@@ -26,7 +26,7 @@ public class Database {
         this.loadingData = new LoadingData();
     }
 
-    public static Database getInstance() throws IOException {
+    public static Database getInstance() {
         if (database == null)
             database = new Database();
         return database;

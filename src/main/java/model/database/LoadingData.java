@@ -15,6 +15,10 @@ import model.requests.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class LoadingData {
     private YaGson yaGson;
@@ -35,9 +39,9 @@ public class LoadingData {
     public void loadManager() throws IOException {
         File[] files = loadFolder("Resources\\Users\\Managers");
         if (files != null)
-             for (File file : files) {
+            for (File file : files) {
                 Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Manager.class));
-             }
+            }
     }
 
     public void loadCustomer() throws IOException {
@@ -76,6 +80,7 @@ public class LoadingData {
                 Good good = yaGson.fromJson(readFile(file), Good.class);
                 Shop.getInstance().addProduct(good);
             }
+        Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList())) + 1);
     }
 
     public void loadDiscount() throws IOException {
@@ -101,6 +106,7 @@ public class LoadingData {
             for (File file : files) {
                 Shop.getInstance().addOff(yaGson.fromJson(readFile(file), Off.class));
             }
+        Off.setOffsCount(getMaximumOfNumbers(Shop.getInstance().getOffs().stream().map(Off::getOffId).collect(Collectors.toList())) + 1);
     }
 
     public void loadRate() throws IOException {
@@ -145,14 +151,19 @@ public class LoadingData {
                 //TODO
                 //where we should add order for customer???
             }
+        //ToDo
+        //load orders count
     }
 
     public void loadRequests() throws IOException {
         File[] files = loadFolder("Resources\\Requests");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 loadRequestByType(file);
             }
+            Request.setRequestCount(getMaximumOfNumbers(Shop.getInstance()
+                    .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
+        }
     }
 
     private void loadRequestByType(File file) throws IOException {
@@ -182,4 +193,9 @@ public class LoadingData {
     private String readFile(File file) throws IOException {
         return Files.readString(file.toPath());
     }
+
+    private long getMaximumOfNumbers(List<Long> numbers) {
+        return  Collections.max(numbers);
+    }
+
 }
