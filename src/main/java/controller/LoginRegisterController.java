@@ -7,10 +7,7 @@ import exception.userExceptions.UsernameIsTakenAlreadyException;
 import exception.userExceptions.UsernameNotFoundException;
 import model.Shop;
 import model.database.Database;
-import model.persons.Customer;
-import model.persons.Manager;
-import model.persons.Person;
-import model.persons.Seller;
+import model.persons.*;
 import model.requests.RegisteringSellerRequest;
 
 import java.io.IOException;
@@ -18,7 +15,8 @@ import java.util.ArrayList;
 
 public class LoginRegisterController {
 
-    public void createAccount(String role, String username, ArrayList<String> details) throws UsernameIsTakenAlreadyException, MainManagerAlreadyRegistered, IOException, FileCantBeSavedException {
+    public void createAccount(String role, String username, ArrayList<String> details)
+            throws UsernameIsTakenAlreadyException, MainManagerAlreadyRegistered, IOException, FileCantBeSavedException {
         if (Shop.getInstance().findUser(username) != null) {
             throw new UsernameIsTakenAlreadyException();
         }
@@ -29,7 +27,8 @@ public class LoginRegisterController {
             Database.getInstance().saveItem(customer);
         } else if (role.equals("seller")) {
             RegisteringSellerRequest seller = new RegisteringSellerRequest(new Seller(username, details.get(0), details.get(1)
-                    , details.get(2), details.get(3), details.get(4)));
+                    , details.get(2), details.get(3), details.get(4),
+                    new Company(details.get(5),details.get(6),details.get(7),details.get(8),details.get(9))));
             Shop.getInstance().addRequest(seller);
             Database.getInstance().saveItem(seller);
         } else {

@@ -12,19 +12,16 @@ public class Seller extends Person {
     private ArrayList<Good> activeGoods;
     private ArrayList<Off> activeOffs;
 
-    public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
+    public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
         super(username, firstName, lastName, email, phoneNumber, password);
         this.previousSells = new ArrayList<>();
         this.activeGoods = new ArrayList<>();
         this.activeOffs = new ArrayList<>();
+        this.company = company;
     }
 
     public Company getCompany() {
         return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
     }
 
     public ArrayList<OrderForSeller> getPreviousSells() {
@@ -61,23 +58,23 @@ public class Seller extends Person {
         return buyers;
     }
 
-    public void addOrder(OrderForSeller order){
+    public void addOrder(OrderForSeller order) {
         previousSells.add(order);
     }
 
-   public Off findOffById(long offId){
-      return activeOffs.stream().filter(off -> off.getOffId() == offId).findAny().orElse(null);
-   }
+    public Off findOffById(long offId) {
+        return activeOffs.stream().filter(off -> off.getOffId() == offId).findAny().orElse(null);
+    }
 
-   public boolean hasThisOff(long offId){
-       return findOffById(offId) != null;
-   }
+    public boolean hasThisOff(long offId) {
+        return findOffById(offId) != null;
+    }
 
     public Good findProductOfSeller(long productId) {
         return this.activeGoods.stream().filter((good -> good.getGoodId() == productId)).findAny().orElse(null);
     }
 
-    public boolean hasThisProduct(long productId){
+    public boolean hasThisProduct(long productId) {
         return findProductOfSeller(productId) != null;
     }
 
