@@ -1,9 +1,11 @@
 package model.persons;
 
+import model.Shop;
 import model.orders.OrderForCustomer;
 import model.productThings.DiscountCode;
 import model.productThings.GoodInCart;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Customer extends Person {
@@ -42,11 +44,11 @@ public class Customer extends Person {
         this.credit = credit;
     }
 
-    public void addOrder(OrderForCustomer order){
+    public void addOrder(OrderForCustomer order) {
         previousOrders.add(order);
     }
 
-    public OrderForCustomer findOrderById(long orderId){
+    public OrderForCustomer findOrderById(long orderId) {
         for (OrderForCustomer order : previousOrders) {
             if (order.getOrderId() == orderId)
                 return order;
@@ -54,7 +56,7 @@ public class Customer extends Person {
         return null;
     }
 
-    public DiscountCode findDiscountCode(String code){
+    public DiscountCode findDiscountCode(String code) {
         for (DiscountCode discountCode : discountCodes) {
             if (discountCode.getCode().equals(code))
                 return discountCode;
@@ -62,7 +64,7 @@ public class Customer extends Person {
         return null;
     }
 
-    public boolean hasBuyProduct(long productId){
+    public boolean hasBuyProduct(long productId) {
         for (OrderForCustomer order : previousOrders) {
             for (GoodInCart goodInCart : order.getGoodsDetails()) {
                 if (goodInCart.getGood().getGoodId() == productId)
@@ -70,6 +72,22 @@ public class Customer extends Person {
             }
         }
         return false;
+    }
+
+    public void donateDiscountCodeTOBestCustomers() {
+        long allPricesOfOrdersWithOutLastOne = 0l;
+        for (OrderForCustomer order : this.getPreviousOrders()) {
+            if (!order.equals(this.getPreviousOrders().get(this.getPreviousOrders().size() - 1))) {
+                allPricesOfOrdersWithOutLastOne += order.getPrice();
+            }
+        }
+        if (((allPricesOfOrdersWithOutLastOne + this.getPreviousOrders().get(this.getPreviousOrders().size() - 1).getPrice()) / 1000000)
+                - (allPricesOfOrdersWithOutLastOne / 1000000) > 0){
+            DiscountCode discountCode=new DiscountCode(DiscountCode.generateRandomDiscountCode()
+                    , LocalDate.now(),LocalDate.now().plusMonths(1),10000l,30);
+            discountCode.addCustomerToCode(this,1);
+            Shop.getInstance().addDiscountCode(discountCode);
+        }
     }
 
     @Override

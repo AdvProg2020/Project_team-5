@@ -112,6 +112,12 @@ public class DiscountCode {
         throw new Exception("CustomerNotFoundException");
     }
 
+
+
+    public boolean isDiscountCodeExpired(){
+        return LocalDate.now().isAfter(this.endDate);
+    }
+
     public String getPrintableProperties() {
         return "code: " + code +
                 "\nstartDate: " + startDate +

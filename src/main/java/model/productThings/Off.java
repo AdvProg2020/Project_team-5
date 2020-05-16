@@ -122,6 +122,10 @@ public class Off {
         return "off ID: " + offId +"\t off percent: " + discountPercent;
     }
 
+    public boolean isOffExpired(){
+        return LocalDate.now().isAfter(this.endDate);
+    }
+
     @Override
     public String toString() {
         return String.format("Off Id : %d\nStart Date : %s\n" +

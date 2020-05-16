@@ -48,10 +48,12 @@ public class ViewDiscountCodesMenu extends Menu {
     }
 
     private void printAllDiscountCodes() {
+        System.out.println("-----------------------");
         for (String discountCode : MainController.getInstance().getAccountAreaForManagerController().
                 getAllDiscountCodeWithSort(0)) {
             System.out.println(discountCode);
         }
+        System.out.println("-----------------------");
         System.out.println("you can sort this list by following items:\n1-discount percent\n2-end date\n3-maximum discount amount\n4-continue");
         int input = Integer.parseInt(getValidInput("^[1-4]$", "not valid input"));
         if (input == 4)
@@ -89,6 +91,9 @@ public class ViewDiscountCodesMenu extends Menu {
                     newValue = matcher.group(2);
                     try {
                         MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(code, field, newValue);
+                        System.out.println("successfully edited!");
+                        System.out.println("press enter to conitnue");
+                        scanner.nextLine();
                     } catch (DiscountCodeCantBeEditedException| FileCantBeSavedException | IOException e) {
                         System.out.println(e.getMessage());
                     }

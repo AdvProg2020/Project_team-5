@@ -1,6 +1,7 @@
 package view;
 
 import controller.MainController;
+import model.Shop;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
@@ -135,6 +136,7 @@ public class LoginRegisterMenu extends Menu {
         } else
             nextMenu = mainMenu;
         MainController.getInstance().getLoginRegisterController().logoutUser();
+        Shop.getInstance().clearCart();
         return nextMenu;
     }
 
