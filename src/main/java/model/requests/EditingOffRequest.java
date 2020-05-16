@@ -1,8 +1,11 @@
 package model.requests;
 
+import exception.FileCantBeSavedException;
 import model.Shop;
+import model.database.Database;
 import model.productThings.Off;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 
@@ -16,7 +19,7 @@ public class EditingOffRequest extends Request {
     }
 
     @Override
-    public void acceptRequest() {
+    public void acceptRequest() throws IOException, FileCantBeSavedException {
         Off off = Shop.getInstance().findOffById(offId);
         for (String field : editedFields.keySet()) {
             if (field.equalsIgnoreCase("start date")) {
@@ -34,6 +37,8 @@ public class EditingOffRequest extends Request {
             }
         }
         off.setOffStatus(Off.OffStatus.ACCEPTED);
+        Database.getInstance().saveItem(off);
+        Database.getInstance().saveItem(off.getSeller());
     }
 
     @Override

@@ -1,10 +1,13 @@
 package model.requests;
 
+import exception.FileCantBeSavedException;
 import model.Shop;
+import model.database.Database;
 import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class EditingGoodRequest extends Request {
@@ -35,7 +38,7 @@ public class EditingGoodRequest extends Request {
     }
 
     @Override
-    public void acceptRequest() {
+    public void acceptRequest() throws IOException, FileCantBeSavedException {
         Good good = Shop.getInstance().findGoodById(goodId);
         for (String field : editedFields.keySet()) {
             if (field.equalsIgnoreCase("details")) {
@@ -54,5 +57,7 @@ public class EditingGoodRequest extends Request {
             }
         }
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Database.getInstance().saveItem(good.getSubCategory());
+        Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
     }
 }
