@@ -93,7 +93,6 @@ public class ManageCategoriesMenu extends Menu {
 
     private void editCategory() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("enter category name that you want edit:");
         String name;
         do {
             System.out.print("enter category name:");

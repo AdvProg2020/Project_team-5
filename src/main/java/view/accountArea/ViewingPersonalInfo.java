@@ -41,18 +41,19 @@ public class ViewingPersonalInfo extends Menu {
     private void editField() {
         System.out.println("choose one of these fields to edit: (enter number)");
         printEditableFields();
-        int chosenField = getInput();
+        int chosenField = Integer.parseInt(getValidInput("^[1-5]{1}$","not valid input"));
         System.out.print("enter new value: ");
         String newValue = getValidInput(".+", "invalid input");
         try {
             MainController.getInstance().getAccountAreaForManagerController().editField(chosenField, newValue);
+            System.out.println("you cahnged it successfully");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     private void printEditableFields() {
-        System.out.println("editable fields ->");
+        System.out.println("editable fields :");
         System.out.println("1-first name\n2-last name\n3-email\n4-phone number\n5-password");
     }
 }

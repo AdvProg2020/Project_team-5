@@ -72,6 +72,6 @@ public abstract class Person {
                 "firstName = " + firstName + "\n" +
                 "lastName = " + lastName + "\n" +
                 "email = " + email + "\n" +
-                "phoneNumber = " + phoneNumber;
+                "phoneNumber = " + phoneNumber ;
     }
 }

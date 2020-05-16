@@ -38,8 +38,8 @@ public class Database {
         loadingData.loadCustomer();
         loadingData.loadSeller();
         loadingData.loadCategory();
-        loadingData.loadSubCategory();
-        loadingData.loadProduct();
+       // loadingData.loadSubCategory();
+     //   loadingData.loadProduct();
         loadingData.loadComment();
         loadingData.loadRate();
         loadingData.loadDiscount();

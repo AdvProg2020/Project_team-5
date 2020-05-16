@@ -17,7 +17,7 @@ public class OffTest {
 
     @Before
     public void initializeNecessaryValuesForTest() {
-        seller = new Seller("amoo", "sadegh", "majid", "sadegh@gmail.com", "09360000000", "1234");
+        seller = new Seller("amoo", "sadegh", "majid", "sadegh@gmail.com", "09360000000", "1234",null);
         good = new Good("sosise", "gooshtiran", null, "vanak sosise", null, seller, 50000L, 4);
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
