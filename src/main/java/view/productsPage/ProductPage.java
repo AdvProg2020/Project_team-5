@@ -75,10 +75,10 @@ public class ProductPage extends Menu {
         try {
             System.out.println(MainController.getInstance().getProductController().compareWithAnotherProduct(id));
         } catch (ProductWithThisIdNotExist productWithThisIdNotExist) {
-            productWithThisIdNotExist.getMessage();
+            System.out.println(productWithThisIdNotExist.getMessage());
             System.out.println("press enter to continue");
             scanner.nextLine();
-            compareWithAnotherProduct();
+          //  compareWithAnotherProduct();
         }
     }
 
