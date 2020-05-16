@@ -80,7 +80,8 @@ public class LoadingData {
                 Good good = yaGson.fromJson(readFile(file), Good.class);
                 Shop.getInstance().addProduct(good);
             }
-        //Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList())) + 1);
+        if (Shop.getInstance().getAllGoods().size() != 0)
+            Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList())) + 1);
     }
 
     public void loadDiscount() throws IOException {
@@ -106,7 +107,8 @@ public class LoadingData {
             for (File file : files) {
                 Shop.getInstance().addOff(yaGson.fromJson(readFile(file), Off.class));
             }
-        //Off.setOffsCount(getMaximumOfNumbers(Shop.getInstance().getOffs().stream().map(Off::getOffId).collect(Collectors.toList())) + 1);
+        if (Shop.getInstance().getOffs().size() != 0)
+            Off.setOffsCount(getMaximumOfNumbers(Shop.getInstance().getOffs().stream().map(Off::getOffId).collect(Collectors.toList())) + 1);
     }
 
     public void loadRate() throws IOException {
@@ -161,8 +163,9 @@ public class LoadingData {
             for (File file : files) {
                 loadRequestByType(file);
             }
-            //Request.setRequestCount(getMaximumOfNumbers(Shop.getInstance()
-              //      .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
+            if (Shop.getInstance().getAllRequest().size() != 0)
+                Request.setRequestCount(getMaximumOfNumbers(Shop.getInstance()
+                    .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
         }
     }
 
@@ -195,7 +198,9 @@ public class LoadingData {
     }
 
     private long getMaximumOfNumbers(List<Long> numbers) {
-        return  Collections.max(numbers);
+        if (numbers != null)
+            return Collections.max(numbers);
+        return 0;
     }
 
 }
