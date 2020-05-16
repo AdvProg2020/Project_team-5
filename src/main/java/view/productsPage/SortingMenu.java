@@ -46,6 +46,7 @@ public class SortingMenu extends Menu {
     }
 
     private void sortAnAvailableSort(){
+        showAvailableSorts();
         System.out.println("choose an available sort:");
         String chosenSort = scanner.nextLine();
         if (Pattern.matches("^[1-3]$", chosenSort)){
