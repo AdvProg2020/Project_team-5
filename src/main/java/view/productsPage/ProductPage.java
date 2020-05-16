@@ -88,9 +88,8 @@ public class ProductPage extends Menu {
 
     private void addComment(){
         if (MainController.getInstance().getCurrentPerson() == null){
-            Menu nextmenu=new LoginRegisterMenu(this);
-            nextmenu.help();
-            nextmenu.execute();
+            Menu nextMenu=new LoginRegisterMenu(this);
+            nextMenu.execute();
         }else{
             System.out.println("title:");
             String title=scanner.nextLine();

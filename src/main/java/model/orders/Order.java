@@ -16,7 +16,7 @@ public abstract class Order {
     public Order(long price) {
         this.price = price;
         this.date = LocalDate.now();
-        this.orderStatus = OrderStatus.PROCESSING;
+        this.orderStatus = OrderStatus.READYTOSEND;
         orderId = ordersCount++;
     }
 

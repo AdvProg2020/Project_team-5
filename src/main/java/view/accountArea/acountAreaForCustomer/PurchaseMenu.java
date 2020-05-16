@@ -92,7 +92,7 @@ public class PurchaseMenu extends Menu {
 
     public void notValidDiscountCode() {
         System.out.println("1- next step \n2- use discountCode");
-        String choice = scanner.next();
+        String choice = scanner.nextLine();
         if (choice.equals("1"))
             return;
         if (choice.equals("2"))

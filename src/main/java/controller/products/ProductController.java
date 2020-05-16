@@ -1,15 +1,18 @@
 package controller.products;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
 import exception.productExceptions.ProductWithThisIdNotExist;
 import model.Shop;
+import model.database.Database;
 import model.persons.Customer;
 import model.productThings.Comment;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
 import model.requests.AddingCommentRequest;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class ProductController {
@@ -22,6 +25,11 @@ public class ProductController {
     public void setGood(Good good) {
         this.good = good;
         good.setSeenNumber(good.getSeenNumber() + 1);
+        try {
+            Database.getInstance().saveItem(good);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     public String digest() {
@@ -58,9 +66,9 @@ public class ProductController {
 
     public String attributes() {
         String output = good.getDetails();
-        HashMap<String, String> categoryPropeties = good.getCategoryProperties();
-        for (String s : categoryPropeties.keySet()) {
-            output += ("\n" + s + " : " + categoryPropeties.get(s).toString());
+        HashMap<String, String> categoryProperties = good.getCategoryProperties();
+        for (String s : categoryProperties.keySet()) {
+            output += ("\n" + s + " : " + categoryProperties.get(s).toString());
         }
         return output;
     }

@@ -31,7 +31,7 @@ public class OrderForSeller extends Order {
     private void calculateDeductAmount() {
         int primaryPrice = 0;
         for (Good good : numberPerGood.keySet()) {
-            primaryPrice += numberPerGood.get(good) * good.getPriceBySeller(seller);
+            primaryPrice += getPrice() * good.getPriceBySeller(seller);
         }
         offDeduct = primaryPrice - getPrice();
     }
@@ -70,7 +70,7 @@ public class OrderForSeller extends Order {
         sellerLog += ("\nPaid price : " + this.getPrice() +
                 "\nDiscount amount : " + this.getOffDeduct() +
                 "\nOrder status : " + this.getOrderStatus() +
-                "--------------------------------------------------------------------------------");
+                "\n--------------------------------------------------------------------------------");
         return sellerLog;
     }
 }

@@ -28,10 +28,11 @@ public class ViewCartMenu extends Menu {
     public void execute() {
         help();
         int chosenCommand = getInput();
-        Menu nextMenu;
-        if (chosenCommand <= submenus.size())
-            nextMenu = submenus.get(chosenCommand - 1);
-        else if (chosenCommand == submenus.size() + commandNames.size() + 1)
+        Menu nextMenu = this;
+        if (chosenCommand <= submenus.size()) {
+            if (MainController.getInstance().getAccountAreaForCustomerController().viewInCartProducts().size() != 0)
+                nextMenu = submenus.get(chosenCommand - 1);
+        } else if (chosenCommand == submenus.size() + commandNames.size() + 1)
             nextMenu = parentMenu;
         else {
             if (chosenCommand == submenus.size() + 1)
@@ -44,7 +45,6 @@ public class ViewCartMenu extends Menu {
                 decreaseProduct();
             if (chosenCommand == submenus.size() + 5)
                 showTotalPrice();
-            nextMenu = this;
             System.out.println("press enter to continue");
             scanner.nextLine();
         }
