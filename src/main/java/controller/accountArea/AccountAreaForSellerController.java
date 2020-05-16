@@ -1,9 +1,11 @@
 package controller.accountArea;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.OffNotFoundException;
 import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import model.Shop;
+import model.database.Database;
 import model.orders.Order;
 import model.orders.OrderForSeller;
 import model.persons.Customer;
@@ -16,6 +18,7 @@ import model.requests.EditingGoodRequest;
 import model.requests.EditingOffRequest;
 import view.accountArea.accountAreaForManager.ManageAllProductsMenu;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,11 +107,13 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return details;
     }
 
-    public void addProduct(ArrayList<String> productInfo, HashMap<String, String> subcategoryDetailsValue) {
+    public void addProduct(ArrayList<String> productInfo, HashMap<String, String> subcategoryDetailsValue) throws IOException, FileCantBeSavedException {
         Good good = new Good(productInfo.get(0), productInfo.get(1), Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
                 productInfo.get(4), subcategoryDetailsValue, ((Seller) MainController.getInstance().getCurrentPerson()),
                 Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)));
-        Shop.getInstance().addRequest(new AddingGoodRequest(good, ((Seller) MainController.getInstance().getCurrentPerson())));
+        AddingGoodRequest addingGoodRequest = new AddingGoodRequest(good, ((Seller) MainController.getInstance().getCurrentPerson()));
+        Shop.getInstance().addRequest(addingGoodRequest);
+        Database.getInstance().saveItem(addingGoodRequest);
     }
 
     public boolean checkValidProductNumber(int number) {

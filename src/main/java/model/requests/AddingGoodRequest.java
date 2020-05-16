@@ -1,8 +1,12 @@
 package model.requests;
 
+import exception.FileCantBeSavedException;
 import model.Shop;
+import model.database.Database;
 import model.persons.Seller;
 import model.productThings.Good;
+
+import java.io.IOException;
 
 
 public class AddingGoodRequest extends Request {
@@ -15,7 +19,7 @@ public class AddingGoodRequest extends Request {
     }
 
     @Override
-    public void acceptRequest() {
+    public void acceptRequest() throws IOException, FileCantBeSavedException {
         Good originalGood;
         if ((originalGood = Shop.getInstance().getGoodByNameAndBrandAndSubCategory(good.getName(), good.getBrand(), good.getSubCategory())) == null) {
             good.getSubCategory().addGood(good);
@@ -23,6 +27,10 @@ public class AddingGoodRequest extends Request {
             originalGood.addSeller(good.getSellerRelatedInfoAboutGoods().get(0));
         }
         seller.addToActiveGoods(good);
+        Database.getInstance().saveItem(good);
+        Database.getInstance().saveItem(good.getSubCategory());
+        Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
+        Database.getInstance().saveItem(seller);
     }
 
     @Override
