@@ -1,6 +1,7 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.userExceptions.UsernameNotFoundException;
@@ -8,6 +9,7 @@ import view.LoginRegisterMenu;
 import view.Menu;
 import view.accountArea.ViewingPersonalInfo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -69,7 +71,7 @@ public class AccountAreaForManager extends Menu {
     }
 
     private void getIncludedCustomers(String code)
-        throws UsernameNotFoundException, DiscountCodeNotFoundException, DiscountCodeCantCreatedException {
+            throws UsernameNotFoundException, DiscountCodeNotFoundException, DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
         Pattern pattern = Pattern.compile("(\\w+) (\\d+)");
         String input, username, numberOfUse;
         Scanner scanner = new Scanner(System.in);

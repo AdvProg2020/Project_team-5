@@ -274,28 +274,31 @@ public class AccountAreaForManagerController extends AccountAreaController {
     }
 
     public void removeUser(String username)
-            throws UsernameNotFoundException, UserCantBeRemovedException {
+            throws UsernameNotFoundException, UserCantBeRemovedException, FileCantBeDeletedException {
         Person person;
         if ((person = Shop.getInstance().findUser(username)) == null)
             throw new UsernameNotFoundException();
         if (person instanceof Manager)
             throw new UserCantBeRemovedException();
         Shop.getInstance().removePerson(person);
+        Database.getInstance().deleteItem(person);
     }
 
-    public void createManagerAccount(String username, ArrayList<String> details) throws UsernameIsTakenAlreadyException {
+    public void createManagerAccount(String username, ArrayList<String> details) throws UsernameIsTakenAlreadyException, IOException, FileCantBeSavedException {
         if (Shop.getInstance().findUser(username) != null) {
             throw new UsernameIsTakenAlreadyException();
         }
         Manager manager = new Manager(username, details.get(0), details.get(1), details.get(2), details.get(3), details.get(4));
         Shop.getInstance().addPerson(manager);
+        Database.getInstance().saveItem(manager);
     }
 
-    public void removeProduct(String productId) throws ProductWithThisIdNotExist {
+    public void removeProduct(String productId) throws ProductWithThisIdNotExist, FileCantBeDeletedException {
         Good good = Shop.getInstance().findGoodById(Long.parseLong(productId));
         if (good == null)
             throw new ProductWithThisIdNotExist();
         Shop.getInstance().removeProduct(good);
+        Database.getInstance().deleteItem(good);
     }
 
     public ArrayList<String> sortUsers() {

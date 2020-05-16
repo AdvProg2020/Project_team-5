@@ -1,9 +1,11 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import view.LoginRegisterMenu;
 import view.Menu;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -26,7 +28,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     @Override
-    public void execute() {
+    public void execute(){
         showAllCategories();
         help();
         int chosenCommand = getInput();
@@ -70,10 +72,14 @@ public class ManageCategoriesMenu extends Menu {
         String field;
         while (!(field = getValidInput("\\w+", "invalid name format")).equalsIgnoreCase("end"))
             properties.add(field);
-        MainController.getInstance().getAccountAreaForManagerController().addCategory(name, properties);
-        System.out.println("because every category must have at least one subcategory, you automatically transfer to add subcategory section ...");
-        addSubcategoryToCategory();
-        System.out.println("category added successfully.");
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().addCategory(name, properties);
+            System.out.println("because every category must have at least one subcategory, you automatically transfer to add subcategory section ...");
+            addSubcategoryToCategory();
+            System.out.println("category added successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void removeCategory() {
@@ -132,7 +138,11 @@ public class ManageCategoriesMenu extends Menu {
         String field;
         while (!(field = getValidInput("\\w+", "invalid name format")).equalsIgnoreCase("end"))
             properties.add(field);
-        MainController.getInstance().getAccountAreaForManagerController().addSubcategory(categoryName, subcategoryName, properties);
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().addSubcategory(categoryName, subcategoryName, properties);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("subcategory added successfully.");
     }
 
