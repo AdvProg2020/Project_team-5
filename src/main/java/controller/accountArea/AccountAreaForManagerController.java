@@ -28,7 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AccountAreaForManagerController extends AccountAreaController {
-    public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException {
+    public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
         if (fields.get(0).length() > 15)
             throw new DiscountCodeCantCreatedException("code length");
         if (LocalDate.parse(fields.get(1)).isBefore(LocalDate.now()))
@@ -37,12 +37,14 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeCantCreatedException("end date");
         if (Integer.parseInt(fields.get(4)) > 100 || Integer.parseInt(fields.get(4)) <= 0)
             throw new DiscountCodeCantCreatedException("discount percent");
-        Shop.getInstance().addDiscountCode(new DiscountCode(fields.get(0), LocalDate.parse(fields.get(1)), LocalDate.parse(fields.get(2)),
-                Long.parseLong(fields.get(3)), Integer.parseInt(fields.get(4))));
+        DiscountCode discountCode = new DiscountCode(fields.get(0), LocalDate.parse(fields.get(1)), LocalDate.parse(fields.get(2)),
+                Long.parseLong(fields.get(3)), Integer.parseInt(fields.get(4)));
+        Shop.getInstance().addDiscountCode(discountCode);
+        Database.getInstance().saveItem(discountCode);
     }
 
     public void addIncludedCustomerToDiscountCode(String code, String username, String numberOfUse)
-            throws DiscountCodeCantCreatedException, UsernameNotFoundException, DiscountCodeNotFoundException {
+            throws DiscountCodeCantCreatedException, UsernameNotFoundException, DiscountCodeNotFoundException, IOException, FileCantBeSavedException {
         Person person;
         int number;
         DiscountCode discountCode;
@@ -58,6 +60,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeCantCreatedException("number of use");
         }
         discountCode.addCustomerToCode((Customer) person, number);
+        Database.getInstance().saveItem(discountCode);
     }
 
     private ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
@@ -92,7 +95,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
     }
 
     public void editDiscountCode(String code, String field, String newValue)
-            throws DiscountCodeNotFoundException, DiscountCodeCantBeEditedException {
+            throws DiscountCodeNotFoundException, DiscountCodeCantBeEditedException, IOException, FileCantBeSavedException {
         DiscountCode discountCode;
         if ((discountCode = Shop.getInstance().findDiscountCode(code)) != null) {
             if (field.equalsIgnoreCase("startDate")) {
@@ -112,17 +115,18 @@ public class AccountAreaForManagerController extends AccountAreaController {
                     throw new DiscountCodeCantBeEditedException("new discount percent value");
                 discountCode.setDiscountPercent(Integer.parseInt(newValue));
             } else throw new DiscountCodeCantBeEditedException("field name for edit");
+            Database.getInstance().saveItem(discountCode);
         } else throw new DiscountCodeNotFoundException();
     }
 
-    public void removeDiscountCode(String code) throws DiscountCodeNotFoundException {
+    public void removeDiscountCode(String code) throws DiscountCodeNotFoundException, FileCantBeDeletedException {
         DiscountCode discountCode;
         if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
             throw new DiscountCodeNotFoundException();
         for (Customer customer : discountCode.getIncludedCustomers().keySet())
             customer.removeDiscountCode(discountCode);
         Shop.getInstance().removeDiscountCode(discountCode);
-        //Delete discount code from external files
+        Database.getInstance().deleteItem(discountCode);
     }
 
     public ArrayList<String> getAllRequestsInfo() {
