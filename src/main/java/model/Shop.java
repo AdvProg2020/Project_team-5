@@ -1,8 +1,12 @@
 package model;
 
+import exception.FileCantBeDeletedException;
+import exception.FileCantBeSavedException;
 import exception.productExceptions.NotEnoughAvailableProduct;
 import model.category.Category;
 import model.category.SubCategory;
+import model.database.Database;
+import model.orders.OrderForCustomer;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
@@ -10,6 +14,7 @@ import model.persons.Seller;
 import model.productThings.*;
 import model.requests.Request;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -215,7 +220,6 @@ public class Shop {
             Person person = allPersons.get(randomNumber);
             if (person instanceof Customer) {
                 randomCustomers.put((Customer) person, repeatingTimes);
-                ((Customer) person).addDiscountCode(discountCode);
             }
         }
         return randomCustomers;
@@ -297,5 +301,36 @@ public class Shop {
             }
         }
         return new ArrayList<>(offGoods);
+    }
+
+    public void donatePeriodRandomDiscountCodes() {
+        LocalDate localDate = LocalDate.now();
+        if (localDate.getDayOfMonth() == 1) {
+            if (!localDate.equals(lastRandomPeriodDiscountCodeCreatedDate)) {
+                generatePeriodRandomDiscountCodes(LocalDate.now().plusMonths(1));
+                lastRandomPeriodDiscountCodeCreatedDate = localDate;
+            }
+        }
+    }
+
+    public void expireItemsThatTheirTimeIsFinished() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
+        for (Off off : this.getOffs()) {
+            if (off.isOffExpired()){
+                this.removeOff(off);
+                off.getSeller().getActiveOffs().remove(off);
+                Database.getInstance().saveItem(off.getSeller());
+                Database.getInstance().deleteItem(off);
+            }
+        }
+        for (DiscountCode discountCode : this.getAllDiscountCodes()) {
+            if (discountCode.isDiscountCodeExpired()){
+                this.removeDiscountCode(discountCode);
+            }
+            for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
+                customer.removeDiscountCode(discountCode);
+                Database.getInstance().saveItem(customer);
+            }
+            Database.getInstance().deleteItem(discountCode);
+        }
     }
 }

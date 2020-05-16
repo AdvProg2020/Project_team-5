@@ -1,3 +1,5 @@
+import exception.FileCantBeDeletedException;
+import exception.FileCantBeSavedException;
 import model.database.Database;
 import view.MainMenu;
 
@@ -8,6 +10,10 @@ public class Main {
         try {
             Database.getInstance().initializeShop();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        } catch (FileCantBeDeletedException e) {
             e.printStackTrace();
         }
         MainMenu mainMenu = new MainMenu();
