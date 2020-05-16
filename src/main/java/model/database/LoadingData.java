@@ -162,7 +162,7 @@ public class LoadingData {
                 loadRequestByType(file);
             }
             //Request.setRequestCount(getMaximumOfNumbers(Shop.getInstance()
-                   // .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
+              //      .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
         }
     }
 
