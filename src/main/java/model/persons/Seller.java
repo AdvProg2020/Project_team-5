@@ -14,6 +14,9 @@ public class Seller extends Person {
 
     public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
         super(username, firstName, lastName, email, phoneNumber, password);
+        this.previousSells = new ArrayList<>();
+        this.activeGoods = new ArrayList<>();
+        this.activeOffs = new ArrayList<>();
     }
 
     public Company getCompany() {
