@@ -1,11 +1,13 @@
 package view.accountArea.acountAreaForCustomer;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.NotEnoughCredit;
 import model.Shop;
 import view.Menu;
 import view.ScreenClearing;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PurchaseMenu extends Menu {
@@ -109,6 +111,10 @@ public class PurchaseMenu extends Menu {
             MainController.getInstance().getAccountAreaForCustomerController().purchase(totalPrice, customerInfo, usedDiscountCode);
         } catch (NotEnoughCredit notEnoughCredit) {
             System.out.println(notEnoughCredit.getMessage());
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

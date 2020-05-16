@@ -7,6 +7,7 @@ import exception.userExceptions.NotValidInput;
 import view.LoginRegisterMenu;
 import view.Menu;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class ViewOrdersMenu extends Menu {
@@ -104,7 +105,7 @@ public class ViewOrdersMenu extends Menu {
         return Long.parseLong(input);
     }
 
-    private void getRate(long productId) throws NotValidInput {
+    private void getRate(long productId) throws NotValidInput, IOException, FileCantBeSavedException {
         System.out.println("enter a number between 1 to 10 :");
         String input = scanner.nextLine();
         if (!Pattern.matches("[\\d]{1,2}", input))

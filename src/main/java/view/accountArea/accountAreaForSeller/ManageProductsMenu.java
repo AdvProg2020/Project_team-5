@@ -1,11 +1,13 @@
 package view.accountArea.accountAreaForSeller;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import model.Shop;
 import view.LoginRegisterMenu;
 import view.Menu;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ManageProductsMenu extends Menu {
@@ -95,13 +97,37 @@ public class ManageProductsMenu extends Menu {
         }
         int chosen = Integer.parseInt(getValidInput("^[1-3]{1}$", "not invalid input"));
         if (chosen == 1) {
-            editPriceOfProduct(input);
+            try {
+                editPriceOfProduct(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
         } else if (chosen == 2) {
-            editAvailableNumber(input);
+            try {
+                editAvailableNumber(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
         } else if (chosen == 3) {
-            editDetails(input);
+            try {
+                editDetails(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
         } else {
-            editCategoryProperty(chosen - 4, input);
+            try {
+                editCategoryProperty(chosen - 4, input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
         }
         System.out.println("press enter to continue");
         scanner.nextLine();
@@ -115,28 +141,28 @@ public class ManageProductsMenu extends Menu {
         }
     }
 
-    private void editPriceOfProduct(long id) {
+    private void editPriceOfProduct(long id) throws IOException, FileCantBeSavedException {
         System.out.println("enter new price");
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct("price", getValidInput("\\d\\d\\d\\d+", "Not valid price"), id);
         System.out.println("your request successfully sent to manager");
     }
 
-    private void editAvailableNumber(long id) {
+    private void editAvailableNumber(long id) throws IOException, FileCantBeSavedException {
         System.out.println("enter new available number");
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct("availableNumber", getValidInput("\\d+", "Not valid number"), id);
         System.out.println("your request successfully sent to manager");
     }
 
-    private void editDetails(long id) {
+    private void editDetails(long id) throws IOException, FileCantBeSavedException {
         System.out.println("enter new details");
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct("details", getValidInput("\\w+", "Not valid detail"), id);
         System.out.println("your request successfully sent to manager");
     }
 
-    private void editCategoryProperty(int number, long id) {
+    private void editCategoryProperty(int number, long id) throws IOException, FileCantBeSavedException {
         System.out.println("enter new property for " + Shop.getInstance().findGoodById(id).getCategoryProperties().keySet().toArray()[number]);
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct((String) Shop.getInstance().findGoodById(id).getCategoryProperties().keySet().toArray()[number]
