@@ -77,18 +77,18 @@ public class ProductController {
         if (Shop.getInstance().findGoodById(id) == null)
             throw new ProductWithThisIdNotExist();
         Good good2 = Shop.getInstance().findGoodById(id);
-        String output = "+-----------------+-----------------+-----------------+\n";
-        output += "| property        | good 1          | good 2          |\n";
-        output += "+-----------------+-----------------+-----------------+\n";
-        output += String.format("| %-15s | %-15s | %-15s |%n", "name", good.getName(), good2.getName());
-        output += String.format("| %-15s | %-15s | %-15s |%n", "brand", good.getBrand(), good2.getBrand());
-        output += String.format("| %-15s | %-15s | %-15s |%n", "average rate", good.getAverageRate(), good2.getAverageRate());
-        output += String.format("| %-15s | %-15s | %-15s |%n", "subCategory", good.getSubCategory().getName(), good2.getSubCategory().getName());
-        output += String.format("| %-15s | %-15s | %-15s |%n", "modification date", good.getModificationDate(), good2.getModificationDate());
-        output += String.format("| %-15s | %-15s | %-15s |%n", "seen number", good.getSeenNumber(), good2.getSeenNumber());
-        output += String.format("| %-15s | %-15s | %-15s |%n", "number of sellers", numbersOfSellers(good), numbersOfSellers(good2));
-        output += String.format("| %-15s | %-15s | %-15s |%n", "minmum price of product", good.getMinimumPrice(), good2.getMinimumPrice());
-        output += "+-----------------+-----------------+-----------------+\n";
+        String output = "+---------------------------+---------------------------+---------------------------+\n";
+        output += "| property                  | good 1                    | good 2                    |\n";
+        output += "+---------------------------+---------------------------+---------------------------+\n";
+        output += String.format("| %-25s | %-25s | %-25s |%n", "name", good.getName(), good2.getName());
+        output += String.format("| %-25s | %-25s | %-25s |%n", "brand", good.getBrand(), good2.getBrand());
+        output += String.format("| %-25s | %-25s | %-25s |%n", "average rate", good.getAverageRate(), good2.getAverageRate());
+        output += String.format("| %-25s | %-25s | %-25s |%n", "subCategory", good.getSubCategory().getName(), good2.getSubCategory().getName());
+        output += String.format("| %-25s | %-25s | %-25s |%n", "modification date", good.getModificationDate(), good2.getModificationDate());
+        output += String.format("| %-25s | %-25s | %-25s |%n", "seen number", good.getSeenNumber(), good2.getSeenNumber());
+        output += String.format("| %-25s | %-25s | %-25s |%n", "number of sellers", numbersOfSellers(good), numbersOfSellers(good2));
+        output += String.format("| %-25s | %-25s | %-25s |%n", "minmum price of product", good.getMinimumPrice(), good2.getMinimumPrice());
+        output += "+---------------------------+---------------------------+---------------------------+\n";
         return output;
     }
 
