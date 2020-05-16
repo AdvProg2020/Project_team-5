@@ -28,7 +28,6 @@ public class Category {
     }
 
     public void addSubCategory(SubCategory subCategory) {
-        System.out.println(this);
         this.subCategories.add(subCategory);
         subCategory.setParentCategory(this);
     }
