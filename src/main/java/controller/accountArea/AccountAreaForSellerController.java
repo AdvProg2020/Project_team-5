@@ -141,18 +141,12 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return matcher;
     }
 
-    public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts) {
+    public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts) throws IOException, FileCantBeSavedException {
         Off newOff = new Off(getProductsByIds(offProducts), LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
                 Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)), ((Seller) MainController.getInstance().getCurrentPerson()));
         AddingOffRequest addingOffRequest = new AddingOffRequest(newOff);
         Shop.getInstance().addRequest(addingOffRequest);
-        try {
-            Database.getInstance().saveItem(addingOffRequest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
-        }
+        Database.getInstance().saveItem(addingOffRequest);
     }
 
     public List<Good> getProductsByIds(ArrayList<Long> productIds) {
@@ -167,18 +161,12 @@ public class AccountAreaForSellerController extends AccountAreaController {
         }
     }
 
-    public void editOff(String field, String key, long id)  {
+    public void editOff(String field, String key, long id) throws IOException, FileCantBeSavedException {
         HashMap<String, String> editedFields = new HashMap<>();
         editedFields.put(field, key);
         EditingOffRequest editingOffRequest = new EditingOffRequest(id, editedFields);
         Shop.getInstance().addRequest(editingOffRequest);
-        try {
-            Database.getInstance().saveItem(editingOffRequest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
-        }
+        Database.getInstance().saveItem(editingOffRequest);
     }
 
     public boolean doesSellerHaveThisOff(long id) {

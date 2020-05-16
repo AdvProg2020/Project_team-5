@@ -95,7 +95,7 @@ public class AccountAreaForSeller extends Menu {
         }
     }
 
-    private String getCorrectSubCategory(){
+    private String getCorrectSubCategory() {
         System.out.println("subcategory :");
         String subCategory = scanner.nextLine();
         if (MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(subCategory))
@@ -104,11 +104,11 @@ public class AccountAreaForSeller extends Menu {
         return getCorrectSubCategory();
     }
 
-    private HashMap<String, String> getDetails(String subcategory){
+    private HashMap<String, String> getDetails(String subcategory) {
         HashMap<String, String> detailValues = new HashMap<>();
         for (String detail : MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(subcategory)) {
             System.out.println(detail + " :");
-            detailValues.put(detail,scanner.nextLine());
+            detailValues.put(detail, scanner.nextLine());
         }
         return detailValues;
     }
@@ -121,9 +121,7 @@ public class AccountAreaForSeller extends Menu {
             System.out.println("product removed successfully");
         } catch (ProductNotFoundExceptionForSeller exception) {
             System.out.println(exception.getMessage());
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (FileCantBeSavedException | IOException e) {
             e.printStackTrace();
         }
     }

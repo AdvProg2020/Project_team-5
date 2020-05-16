@@ -18,7 +18,7 @@ public class ManageProductsMenu extends Menu {
 
     @Override
     public void execute() {
-        viewSellerProduts();
+        viewSellerProducts();
         help();
         int chosenCommand = getInput();
         Menu nextMenu;
@@ -45,7 +45,7 @@ public class ManageProductsMenu extends Menu {
         commandNames.add("edit product");
     }
 
-    private void viewSellerProduts() {
+    private void viewSellerProducts() {
         System.out.println(MainController.getInstance().getAccountAreaForSellerController().viewSellersProducts(0));
         System.out.println("you can sort this list by following items:\n1-visit number\n2-average rate\n" +
                 "3-modification date\n4-price\n5-available number\n6-continue");
@@ -99,33 +99,25 @@ public class ManageProductsMenu extends Menu {
         if (chosen == 1) {
             try {
                 editPriceOfProduct(input);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (FileCantBeSavedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (chosen == 2) {
             try {
                 editAvailableNumber(input);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (FileCantBeSavedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (chosen == 3) {
             try {
                 editDetails(input);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (FileCantBeSavedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             try {
                 editCategoryProperty(chosen - 4, input);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (FileCantBeSavedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -167,7 +159,7 @@ public class ManageProductsMenu extends Menu {
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct((String) Shop.getInstance().findGoodById(id).getCategoryProperties().keySet().toArray()[number]
                         , getValidInput("\\w+", "Not valid!"), id);
-        System.out.println("your request successfuly sent to manager");
+        System.out.println("your request successfully sent to manager");
     }
 
     public long getProductId() {
