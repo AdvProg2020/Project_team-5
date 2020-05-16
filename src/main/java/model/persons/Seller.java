@@ -84,6 +84,6 @@ public class Seller extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + "\n" + company.toString() + "active goods:\n" + activeGoods.toString() + "\n" + "-------------------";
+        return super.toString() + "\n" + company.toString() + "\nactive goods:\n" + activeGoods.toString() + "\n" + "-------------------";
     }
 }
