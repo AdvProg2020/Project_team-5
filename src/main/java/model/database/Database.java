@@ -6,6 +6,7 @@ import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;
+import model.persons.Company;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
@@ -20,7 +21,7 @@ public class Database {
     private LoadingData loadingData;
     private static Database database;
 
-    private Database(){
+    private Database() {
         this.deletingData = new DeletingData();
         this.savingData = new SavingData();
         this.loadingData = new LoadingData();
@@ -77,38 +78,40 @@ public class Database {
             deletingData.deleteOrderForCustomer((OrderForCustomer) item);
         } else if (item instanceof Request) {
             deletingData.deleteRequest((Request) item);
-        } else throw new  FileCantBeDeletedException();
+        } else throw new FileCantBeDeletedException();
     }
 
     public void saveItem(Object item) throws IOException, FileCantBeSavedException {
         if (item instanceof Manager) {
-            savingData.saveManager((Manager)item);
+            savingData.saveManager((Manager) item);
         } else if (item instanceof Customer) {
-            savingData.saveCustomer((Customer)item);
+            savingData.saveCustomer((Customer) item);
         } else if (item instanceof Seller) {
-            savingData.saveSeller((Seller)item);
+            savingData.saveSeller((Seller) item);
+        } else if (item instanceof Company) {
+            savingData.saveCompany((Company) item);
         } else if (item instanceof Good) {
-            savingData.saveProduct((Good)item);
+            savingData.saveProduct((Good) item);
         } else if (item instanceof SellerRelatedInfoAboutGood) {
             //savingData.saveInfoAboutGood()
         } else if (item instanceof DiscountCode) {
-            savingData.saveDiscount((DiscountCode)item);
+            savingData.saveDiscount((DiscountCode) item);
         } else if (item instanceof Comment) {
-            savingData.saveComment((Comment)item);
+            savingData.saveComment((Comment) item);
         } else if (item instanceof Off) {
-            savingData.saveOff((Off)item);
+            savingData.saveOff((Off) item);
         } else if (item instanceof Rate) {
-            savingData.saveRate((Rate)item);
+            savingData.saveRate((Rate) item);
         } else if (item instanceof Category) {
-            savingData.saveCategory((Category)item);
+            savingData.saveCategory((Category) item);
         } else if (item instanceof SubCategory) {
-            savingData.saveSubCategory((SubCategory)item);
+            savingData.saveSubCategory((SubCategory) item);
         } else if (item instanceof OrderForSeller) {
-            savingData.saveOrderForSeller((OrderForSeller)item);
+            savingData.saveOrderForSeller((OrderForSeller) item);
         } else if (item instanceof OrderForCustomer) {
-            savingData.saveOrderForCustomer((OrderForCustomer)item);
+            savingData.saveOrderForCustomer((OrderForCustomer) item);
         } else if (item instanceof Request) {
-            savingData.saveRequest((Request)item);
+            savingData.saveRequest((Request) item);
         } else throw new FileCantBeSavedException();
     }
 }

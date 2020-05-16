@@ -6,6 +6,7 @@ import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;
+import model.persons.Company;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
@@ -36,6 +37,11 @@ public class SavingData {
     public void saveSeller(Seller seller) throws IOException, FileCantBeSavedException {
         String filePath = "Resources\\Users\\Sellers\\" + seller.getUsername() + ".json";
         saveFile(yaGson.toJson(seller, Seller.class), filePath);
+    }
+
+    public void saveCompany(Company company) throws IOException, FileCantBeSavedException {
+        String filePath = "Resources\\Companies\\company_" + company.getName() + ".json";
+        saveFile(yaGson.toJson(company, Company.class), filePath);
     }
 
     public void saveProduct(Good good) throws IOException, FileCantBeSavedException {
