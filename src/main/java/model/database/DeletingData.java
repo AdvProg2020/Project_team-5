@@ -5,6 +5,7 @@ import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;
+import model.persons.Company;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
@@ -36,6 +37,11 @@ public class DeletingData {
                 }
             }
         }
+    }
+
+    public void deleteCompany(Company company) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Companies\\company_" + company.getName() + ".json";
+        deleteFile(filePath);
     }
 
     public void deleteProduct(Good good) throws FileCantBeDeletedException {

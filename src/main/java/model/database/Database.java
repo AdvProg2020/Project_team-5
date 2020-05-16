@@ -56,6 +56,8 @@ public class Database {
             deletingData.deleteCustomer((Customer) item);
         } else if (item instanceof Seller) {
             deletingData.deleteSeller((Seller) item);
+        } else if (item instanceof Company) {
+            deletingData.deleteCompany((Company)item);
         } else if (item instanceof Good) {
             deletingData.deleteProduct((Good) item);
         } else if (item instanceof SellerRelatedInfoAboutGood) {
