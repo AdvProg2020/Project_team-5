@@ -161,6 +161,10 @@ public class Good {
         return comments;
     }
 
+    public static void setGoodsCount(long goodsCount) {
+        Good.goodsCount = goodsCount;
+    }
+
     public void addComment(Comment comment) {
         this.comments.add(comment);
     }

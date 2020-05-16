@@ -114,6 +114,10 @@ public class Off {
         return offGoods.contains(good);
     }
 
+    public static void setOffsCount(long offsCount) {
+        Off.offsCount = offsCount;
+    }
+
     public String getBriefSummery(){
         return "off ID: " + offId +"\t off percent: " + discountPercent;
     }
