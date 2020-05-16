@@ -140,8 +140,10 @@ public class Shop {
         return ratesOfGood;
     }
 
-    public void addRate(Customer customer, long productId, int rate) {
-        allRates.add(new Rate(customer, findGoodById(productId), rate));
+    public void addRate(Customer customer, long productId, int rate) throws IOException, FileCantBeSavedException {
+        Rate rateToAdd = new Rate(customer, findGoodById(productId), rate);
+        allRates.add(rateToAdd);
+        Database.getInstance().saveItem(rateToAdd);
     }
 
     public void addRate(Rate rate) {
