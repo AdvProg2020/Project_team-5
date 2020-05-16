@@ -43,7 +43,7 @@ public class FilteringMenu extends Menu {
     }
 
     private void showAvailableFilters() {
-        System.out.println("1-category \n2-subcategory \n3-product name \n4-brand \n5-price \n6-category properties \\n7-seller \n8-available products ");
+        System.out.println("1-category \n2-subcategory \n3-product name \n4-brand \n5-price \n6-category properties \n7-seller \n8-available products ");
     }
 
     private void filterAnAvailableFilter() {

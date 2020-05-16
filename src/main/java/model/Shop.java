@@ -208,7 +208,7 @@ public class Shop {
         this.lastRandomPeriodDiscountCodeCreatedDate = LocalDate.now();
     }
 
-    private HashMap<Customer, Integer> randomCustomers(int customerNumbers, int repeatingTimes,DiscountCode discountCode) {
+    private HashMap<Customer, Integer> randomCustomers(int customerNumbers, int repeatingTimes, DiscountCode discountCode) {
         HashMap<Customer, Integer> randomCustomers = new HashMap<>();
         while (randomCustomers.size() < customerNumbers) {
             int randomNumber = ((int) (Math.random() * 1000000)) % allPersons.size();

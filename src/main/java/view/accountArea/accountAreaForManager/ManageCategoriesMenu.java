@@ -37,9 +37,9 @@ public class ManageCategoriesMenu extends Menu {
             nextMenu = getParentMenu();
         else {
             if (chosenCommand == 2)
-                addCategory();
-            if (chosenCommand == 3)
                 editCategory();
+            if (chosenCommand == 3)
+                addCategory();
             if (chosenCommand == 4)
                 removeCategory();
             if (chosenCommand == 5)

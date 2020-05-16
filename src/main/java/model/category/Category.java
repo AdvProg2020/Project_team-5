@@ -9,10 +9,10 @@ public class Category {
     private ArrayList<String> details;
     private ArrayList<SubCategory> subCategories;
 
-    public Category(String name, ArrayList<String> details, ArrayList<SubCategory> subCategories) {
+    public Category(String name, ArrayList<String> details) {
         this.name = name;
         this.details = details;
-        this.subCategories = subCategories;
+        this.subCategories = new ArrayList<>();
     }
 
     public String getName() {
@@ -28,6 +28,7 @@ public class Category {
     }
 
     public void addSubCategory(SubCategory subCategory) {
+        System.out.println(this);
         this.subCategories.add(subCategory);
         subCategory.setParentCategory(this);
     }

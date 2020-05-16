@@ -174,21 +174,23 @@ public class AccountAreaForSellerController extends AccountAreaController {
         String output = "-------------------------\nyour products:";
         Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
         List<Good> goods = null;
-        if (chosenSort == 0){
-            goods=seller.getActiveGoods();
-        }else if (chosenSort == 1){
-            goods=MainController.getInstance().getControllerForSorting().showSortByVisitNumber(seller.getActiveGoods());
-        }else if (chosenSort == 2){
-            goods=MainController.getInstance().getControllerForSorting().showSortByAverageRate(seller.getActiveGoods());
-        }else if (chosenSort == 3){
-            goods=MainController.getInstance().getControllerForSorting().showSortByDate(seller.getActiveGoods());
-        } else if (chosenSort == 4){
-            goods=MainController.getInstance().getSortController().sortProductsByPrice(seller.getActiveGoods());
-        } else if (chosenSort == 5){
-            goods=MainController.getInstance().getSortController().sortProductsByAvailableNumber(seller.getActiveGoods());
+        if (chosenSort == 0) {
+            goods = seller.getActiveGoods();
+        } else if (chosenSort == 1) {
+            goods = MainController.getInstance().getControllerForSorting().showSortByVisitNumber(seller.getActiveGoods());
+        } else if (chosenSort == 2) {
+            goods = MainController.getInstance().getControllerForSorting().showSortByAverageRate(seller.getActiveGoods());
+        } else if (chosenSort == 3) {
+            goods = MainController.getInstance().getControllerForSorting().showSortByDate(seller.getActiveGoods());
+        } else if (chosenSort == 4) {
+            goods = MainController.getInstance().getSortController().sortProductsByPrice(seller.getActiveGoods());
+        } else if (chosenSort == 5) {
+            goods = MainController.getInstance().getSortController().sortProductsByAvailableNumber(seller.getActiveGoods());
         }
-        for (Good good : goods) {
-            output += ("\n" + good.toString());
+        if (goods != null) {
+            for (Good good : goods) {
+                output += ("\n" + good.toString());
+            }
         }
         return output;
     }

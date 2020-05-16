@@ -27,7 +27,7 @@ public class AllProductsPage extends Menu {
 
     private Menu showAProduct() {
         System.out.println("enter product id");
-        long id = Long.parseLong(getValidInput("^(\\d{1}|\\d{14})$", "you must enter a number!"));
+        long id = Long.parseLong(getValidInput("^([\\d]{1,14})$", "you must enter a number!"));
         try {
             MainController.getInstance().getAllProductsController().showAProduct(id);
             return this.submenus.get(2);

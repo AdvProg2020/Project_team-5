@@ -198,7 +198,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
     }
 
     public void addCategory(String name, ArrayList<String> properties) {
-        Category category = new Category(name, properties, null);
+        Category category = new Category(name, properties);
         Shop.getInstance().addCategory(category);
     }
 
