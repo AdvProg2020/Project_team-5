@@ -2,6 +2,7 @@ package model.database;
 
 import exception.FileCantBeDeletedException;
 import exception.FileCantBeSavedException;
+import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
@@ -14,6 +15,7 @@ import model.productThings.*;
 import model.requests.Request;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class Database {
     private DeletingData deletingData;
@@ -34,6 +36,8 @@ public class Database {
     }
 
     public void initializeShop() throws IOException { //TODO : Kheili naghese bayad fekr konm
+        Shop.getInstance().donatePeriodRandomDiscountCodes();
+        Shop.getInstance().donateDiscountCodeTOBestCustomers();
         loadingData.loadManager();
         loadingData.loadCustomer();
         loadingData.loadSeller();

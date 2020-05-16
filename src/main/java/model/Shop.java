@@ -3,6 +3,7 @@ package model;
 import exception.productExceptions.NotEnoughAvailableProduct;
 import model.category.Category;
 import model.category.SubCategory;
+import model.orders.OrderForCustomer;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
@@ -215,7 +216,6 @@ public class Shop {
             Person person = allPersons.get(randomNumber);
             if (person instanceof Customer) {
                 randomCustomers.put((Customer) person, repeatingTimes);
-                ((Customer) person).addDiscountCode(discountCode);
             }
         }
         return randomCustomers;
@@ -298,4 +298,16 @@ public class Shop {
         }
         return new ArrayList<>(offGoods);
     }
+
+    public void donatePeriodRandomDiscountCodes() {
+        LocalDate localDate = LocalDate.now();
+        if (localDate.getDayOfMonth() == 1) {
+            if (!localDate.equals(lastRandomPeriodDiscountCodeCreatedDate)) {
+                generatePeriodRandomDiscountCodes(LocalDate.now().plusMonths(1));
+                lastRandomPeriodDiscountCodeCreatedDate = localDate;
+            }
+        }
+    }
+
+
 }

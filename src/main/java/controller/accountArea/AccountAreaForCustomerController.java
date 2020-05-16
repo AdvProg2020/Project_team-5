@@ -141,6 +141,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         makeOrderForSeller(customerInfo.get(0));
         reduceAvailableNumberOfGoodsAfterPurchase();
         Shop.getInstance().clearCart();
+        currentUser.donateDiscountCodeTOBestCustomers();
     }
 
     public void makeOrderForSeller(String customerName) {
