@@ -322,5 +322,15 @@ public class Shop {
                 Database.getInstance().deleteItem(off);
             }
         }
+        for (DiscountCode discountCode : this.getAllDiscountCodes()) {
+            if (discountCode.isDiscountCodeExpired()){
+                this.removeDiscountCode(discountCode);
+            }
+            for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
+                customer.removeDiscountCode(discountCode);
+                Database.getInstance().saveItem(customer);
+            }
+            Database.getInstance().deleteItem(discountCode);
+        }
     }
 }

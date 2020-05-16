@@ -35,8 +35,9 @@ public class Database {
         return database;
     }
 
-    public void initializeShop() throws IOException { //TODO : Kheili naghese bayad fekr konm
+    public void initializeShop() throws IOException, FileCantBeDeletedException, FileCantBeSavedException { //TODO : Kheili naghese bayad fekr konm
         Shop.getInstance().donatePeriodRandomDiscountCodes();
+        Shop.getInstance().expireItemsThatTheirTimeIsFinished();
         loadingData.loadManager();
         loadingData.loadCustomer();
         loadingData.loadSeller();
