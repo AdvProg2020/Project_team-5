@@ -1,11 +1,13 @@
 package view.accountArea.accountAreaForSeller;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import view.LoginRegisterMenu;
 import view.Menu;
 import view.accountArea.ViewingPersonalInfo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,7 +88,11 @@ public class AccountAreaForSeller extends Menu {
         System.out.println("Additional details");
         productDetails.add(scanner.nextLine());
         productDetails.add(getCorrectSubCategory());
-        MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, getDetails(productDetails.get(5)));
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, getDetails(productDetails.get(5)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String getCorrectSubCategory(){

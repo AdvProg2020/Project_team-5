@@ -1,11 +1,13 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import view.LoginRegisterMenu;
 import view.Menu;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -87,7 +89,7 @@ public class ViewDiscountCodesMenu extends Menu {
                     newValue = matcher.group(2);
                     try {
                         MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(code, field, newValue);
-                    } catch (DiscountCodeCantBeEditedException e) {
+                    } catch (DiscountCodeCantBeEditedException| FileCantBeSavedException | IOException e) {
                         System.out.println(e.getMessage());
                     }
                 } else

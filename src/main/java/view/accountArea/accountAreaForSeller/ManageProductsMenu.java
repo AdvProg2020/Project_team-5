@@ -99,7 +99,7 @@ public class ManageProductsMenu extends Menu {
         } else if (chosen == 2) {
             editAvailableNumber(input);
         } else if (chosen == 3) {
-            editDeatails(input);
+            editDetails(input);
         } else {
             editCategoryProperty(chosen - 4, input);
         }
@@ -119,21 +119,21 @@ public class ManageProductsMenu extends Menu {
         System.out.println("enter new price");
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct("price", getValidInput("\\d\\d\\d\\d+", "Not valid price"), id);
-        System.out.println("your request successfuly sent to manager");
+        System.out.println("your request successfully sent to manager");
     }
 
     private void editAvailableNumber(long id) {
         System.out.println("enter new available number");
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct("availableNumber", getValidInput("\\d+", "Not valid number"), id);
-        System.out.println("your request successfuly sent to manager");
+        System.out.println("your request successfully sent to manager");
     }
 
-    private void editDeatails(long id) {
+    private void editDetails(long id) {
         System.out.println("enter new details");
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct("details", getValidInput("\\w+", "Not valid detail"), id);
-        System.out.println("your request successfuly sent to manager");
+        System.out.println("your request successfully sent to manager");
     }
 
     private void editCategoryProperty(int number, long id) {

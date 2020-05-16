@@ -1,11 +1,9 @@
 package view.accountArea.accountAreaForManager;
 
 import controller.MainController;
-import exception.FileCantBeSavedException;
 import view.LoginRegisterMenu;
 import view.Menu;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -28,7 +26,7 @@ public class ManageCategoriesMenu extends Menu {
     }
 
     @Override
-    public void execute() {
+    public void execute(){
         showAllCategories();
         help();
         int chosenCommand = getInput();

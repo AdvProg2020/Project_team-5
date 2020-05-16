@@ -9,6 +9,7 @@ import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import model.Shop;
+import model.database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
@@ -18,13 +19,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class AccountAreaForManagerTest {
     ArrayList<String> fields;
-
 
     @Before
     public void initializeVariables() {
@@ -37,13 +38,16 @@ public class AccountAreaForManagerTest {
         Shop.getInstance().getAllPersons().add(new Customer("sadegh", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Manager("XxXxXx", "aboots", "zzzzz", "aboot@gmail.com", "06065656060", "pass2"));
         Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf")));
+
     }
 
     @Test
-    public void CreateDiscountCodeExceptionTest() throws DiscountCodeCantCreatedException {
+    public void CreateDiscountCodeExceptionTest()
+            throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
         MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
         DiscountCode discountCode = Shop.getInstance().findDiscountCode("RandomDiscount");
         Assert.assertNotNull(discountCode);
+        Assert.assertTrue(new File("Resources\\Discounts\\dis_RandomDiscount.json").exists());
         fields.add(0, "asdfghjklasdfghjk");
         Assert.assertThrows("can not create discount code because code length is incorrect.", DiscountCodeCantCreatedException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields));
@@ -62,7 +66,8 @@ public class AccountAreaForManagerTest {
     }
 
     @Test
-    public void addCustomerToDiscountCodeTest() throws DiscountCodeCantCreatedException {
+    public void addCustomerToDiscountCodeTest()
+            throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
         MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
         Assert.assertThrows("discount code not found.", DiscountCodeNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode("mdkedknkede", "sadegh", "4"));
@@ -75,7 +80,8 @@ public class AccountAreaForManagerTest {
     }
 
     @Test
-    public void removeDiscountCodeTest() throws DiscountCodeCantCreatedException, DiscountCodeNotFoundException {
+    public void removeDiscountCodeTest()
+            throws DiscountCodeCantCreatedException, DiscountCodeNotFoundException, IOException, FileCantBeSavedException, FileCantBeDeletedException {
         if(Shop.getInstance().findDiscountCode("RandomDiscount") == null)
             MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
         Assert.assertThrows("discount code not found.", DiscountCodeNotFoundException.class,
@@ -85,7 +91,8 @@ public class AccountAreaForManagerTest {
     }
 
     @Test
-    public void editDiscountRequest() throws DiscountCodeCantCreatedException, DiscountCodeNotFoundException, DiscountCodeCantBeEditedException {
+    public void editDiscountRequest()
+            throws DiscountCodeCantCreatedException, DiscountCodeNotFoundException, DiscountCodeCantBeEditedException, IOException, FileCantBeSavedException {
         MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
         Assert.assertThrows("discount code not found.", DiscountCodeNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("kfmkff", "startDate", "2020-07-03"));
@@ -120,6 +127,7 @@ public class AccountAreaForManagerTest {
     @Test
     public void acceptRequestTest() throws RequestNotFoundException, FileCantBeSavedException, IOException, FileCantBeDeletedException {
         Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf")));
+        Database.getInstance().saveItem(Shop.getInstance().findRequestById(2));
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("10"));
         MainController.getInstance().getAccountAreaForManagerController().acceptRequest("2");
@@ -128,7 +136,8 @@ public class AccountAreaForManagerTest {
     }
 
     @Test
-    public void declineRequestTest() throws RequestNotFoundException, IOException, FileCantBeDeletedException {
+    public void declineRequestTest() throws RequestNotFoundException, IOException, FileCantBeDeletedException, FileCantBeSavedException {
+        Database.getInstance().saveItem(Shop.getInstance().findRequestById(1));
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().declineRequest("5"));
         MainController.getInstance().getAccountAreaForManagerController().declineRequest("1");
