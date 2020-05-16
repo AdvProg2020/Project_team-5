@@ -22,6 +22,7 @@ public class AddingGoodRequest extends Request {
         } else {
             originalGood.addSeller(good.getSellerRelatedInfoAboutGoods().get(0));
         }
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         seller.addToActiveGoods(good);
     }
 
