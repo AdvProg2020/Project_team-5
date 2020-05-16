@@ -1,8 +1,11 @@
 package model;
 
+import exception.FileCantBeDeletedException;
+import exception.FileCantBeSavedException;
 import exception.productExceptions.NotEnoughAvailableProduct;
 import model.category.Category;
 import model.category.SubCategory;
+import model.database.Database;
 import model.orders.OrderForCustomer;
 import model.persons.Customer;
 import model.persons.Manager;
@@ -11,6 +14,7 @@ import model.persons.Seller;
 import model.productThings.*;
 import model.requests.Request;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -309,5 +313,14 @@ public class Shop {
         }
     }
 
-
+    public void expireItemsThatTheirTimeIsFinished() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
+        for (Off off : this.getOffs()) {
+            if (off.isOffExpired()){
+                this.removeOff(off);
+                off.getSeller().getActiveOffs().remove(off);
+                Database.getInstance().saveItem(off.getSeller());
+                Database.getInstance().deleteItem(off);
+            }
+        }
+    }
 }

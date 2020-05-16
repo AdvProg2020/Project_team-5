@@ -37,7 +37,6 @@ public class Database {
 
     public void initializeShop() throws IOException { //TODO : Kheili naghese bayad fekr konm
         Shop.getInstance().donatePeriodRandomDiscountCodes();
-        Shop.getInstance().donateDiscountCodeTOBestCustomers();
         loadingData.loadManager();
         loadingData.loadCustomer();
         loadingData.loadSeller();
