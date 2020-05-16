@@ -178,11 +178,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return Shop.getInstance().findCategoryByName(categoryName).getDetails();
     }
 
-    public void editCategory(String name, String property, String newValue) throws PropertyNotFoundException {
+    public void editCategory(String name, String property, String newValue)
+            throws PropertyNotFoundException, IOException, FileCantBeSavedException {
         Category category = Shop.getInstance().findCategoryByName(name);
         for (int i = 0; i < category.getDetails().size(); i++) {
             if (category.getDetails().get(i).equalsIgnoreCase(property)) {
                 category.getDetails().add(i, newValue);
+                Database.getInstance().saveItem(category);
                 return;
             }
         }
@@ -197,26 +199,32 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return Shop.getInstance().findSubCategoryByName(subcategoryName) != null;
     }
 
-    public void addCategory(String name, ArrayList<String> properties) {
+    public void addCategory(String name, ArrayList<String> properties) throws IOException, FileCantBeSavedException {
         Category category = new Category(name, properties);
         Shop.getInstance().addCategory(category);
+        Database.getInstance().saveItem(category);
     }
 
-    public void removeCategory(String categoryName) throws CategoryNotFoundException {
+    public void removeCategory(String categoryName)
+            throws CategoryNotFoundException, FileCantBeDeletedException {
         Category category;
         if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
             throw new CategoryNotFoundException();
         Shop.getInstance().removeCategory(category);
+        Database.getInstance().deleteItem(category);
     }
 
-    public void addSubcategory(String categoryName, String subcategoryName, ArrayList<String> properties) {
+    public void addSubcategory(String categoryName, String subcategoryName, ArrayList<String> properties)
+            throws IOException, FileCantBeSavedException {
         Category category = Shop.getInstance().findCategoryByName(categoryName);
         SubCategory subCategory = new SubCategory(subcategoryName, properties);
         category.addSubCategory(subCategory);
+        Database.getInstance().saveItem(category);
+        Database.getInstance().saveItem(subCategory);
     }
 
     public void removeSubCategory(String categoryName, String subCategoryName)
-            throws CategoryNotFoundException, SubCategoryNotFoundException {
+            throws CategoryNotFoundException, SubCategoryNotFoundException, IOException, FileCantBeSavedException, FileCantBeDeletedException {
         Category category;
         if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
             throw new CategoryNotFoundException();
@@ -224,17 +232,21 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if ((subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName)) == null)
             throw new SubCategoryNotFoundException();
         category.deleteSubCategory(subCategory);
+        Database.getInstance().saveItem(category);
+        Database.getInstance().deleteItem(subCategory);
     }
 
     public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
         return Shop.getInstance().findSubCategoryByName(subcategoryName).getDetails();
     }
 
-    public void editSubcategory(String subCategoryName, String property, String newValue) throws PropertyNotFoundException {
+    public void editSubcategory(String subCategoryName, String property, String newValue) throws PropertyNotFoundException, IOException, FileCantBeSavedException {
         SubCategory subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName);
         for (int i = 0; i < subCategory.getDetails().size(); i++) {
             if (subCategory.getDetails().get(i).equalsIgnoreCase(property)) {
                 subCategory.getDetails().add(i, newValue);
+                Database.getInstance().saveItem(subCategory.getParentCategory());
+                Database.getInstance().saveItem(subCategory);
                 return;
             }
         }
