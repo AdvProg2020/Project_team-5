@@ -153,7 +153,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().deleteItem(request);
     }
 
-    public void declineRequest(String requestId) throws RequestNotFoundException, IOException, FileCantBeDeletedException {
+    public void declineRequest(String requestId) throws RequestNotFoundException, FileCantBeDeletedException {
         Request request;
         if (requestId.length() > 15 || (request = Shop.getInstance().findRequestById(Long.parseLong(requestId))) == null)
             throw new RequestNotFoundException();
