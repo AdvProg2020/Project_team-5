@@ -61,6 +61,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         discountCode.addCustomerToCode((Customer) person, number);
         Database.getInstance().saveItem(discountCode);
+        Database.getInstance().saveItem((Customer)person);
     }
 
     private ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
