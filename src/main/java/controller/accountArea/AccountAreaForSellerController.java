@@ -125,7 +125,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
     }
 
     public boolean checkValidDate(String date, int a, String startDate) {
-        Matcher matcher = getMatcher("(\\d{4}-\\d{2}-\\d{2})", date);
+        Matcher matcher = getMatcher("(\\d{4})-(\\d{2})-(\\d{2})", date);
         return (Integer.parseInt(matcher.group(2)) >= 1 && Integer.parseInt(matcher.group(2)) <= 12 && Integer.parseInt(matcher.group(3)) >= 1
                 && Integer.parseInt(matcher.group(3)) <= 30 && LocalDate.now().isBefore(LocalDate.parse(date)) && checkEndDateIsAfterStart(date, a, startDate));
     }

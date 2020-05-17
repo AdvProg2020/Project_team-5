@@ -126,6 +126,9 @@ public class ViewOffsMenu extends Menu {
         offDetails.add(getValidInput("[\\d]{1,2}", "Not valid input"));
         try {
             MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails, getProductIdsForAddingOff());
+            System.out.println("your request successfully sent to manager");
+            System.out.println("press enter to continue");
+            scanner.nextLine();
         } catch (Exception e) {
             e.printStackTrace();
         }
