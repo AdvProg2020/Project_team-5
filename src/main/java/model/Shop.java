@@ -21,14 +21,13 @@ import java.util.*;
 public class Shop {
     private static Shop ourInstance = new Shop();
     private ArrayList<Category> allCategories;
-    private ArrayList<Off> offs;
+    private HashMap <Long,Off> offs;
     private ArrayList<Person> allPersons;
     private ArrayList<Request> allRequest;
     private ArrayList<DiscountCode> allDiscountCodes;
     private ArrayList<Rate> allRates;
     private ArrayList<GoodInCart> cart;
-    //private ArrayList<Good> allGoods;
-    private HashMap<Integer, Good> allGoods;
+    private HashMap<Long, Good> allGoods;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
@@ -41,7 +40,7 @@ public class Shop {
         this.allPersons = new ArrayList<>();
         this.allRates = new ArrayList<>();
         this.allRequest = new ArrayList<>();
-        this.offs = new ArrayList<>();
+        this.offs = new HashMap<>();
         this.cart = new ArrayList<>();
         this.allGoods = new HashMap<>();
     }
@@ -104,6 +103,10 @@ public class Shop {
                 return discountCode;
         }
         return null;
+    }
+
+    public HashMap<Long,Off> getHashMapOfOffs(){
+        return this.offs;
     }
 
     public void removeDiscountCode(DiscountCode discountCode) {
@@ -192,7 +195,7 @@ public class Shop {
     }
 
     public Off findOffById(long offId) {
-        for (Off off : offs) {
+        for (Off off : offs.values()) {
             if (off.getOffId() == offId)
                 return off;
         }
@@ -200,7 +203,7 @@ public class Shop {
     }
 
     public void addOff(Off off) {
-        offs.add(off);
+        offs.put(off.getOffId(),off);
     }
 
     public void removeOff(Off off) {
@@ -237,7 +240,7 @@ public class Shop {
     public long getFinalPriceOfAGood(Good good, Seller seller) {
         if (seller == null)
             seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
-        for (Off off : offs) {
+        for (Off off : offs.values()) {
             if (off.getPriceAfterOff(good, seller) != 0)
                 return off.getPriceAfterOff(good, seller);
         }
@@ -287,20 +290,20 @@ public class Shop {
     }
 
     public ArrayList<Off> getOffs() {
-        return offs;
+        return new ArrayList<>(offs.values());
     }
 
     public List<Good> getAllGoods() {
         return new ArrayList<>(this.allGoods.values());
     }
 
-    public HashMap<Integer, Good> getHashMapOfGoods() {
+    public HashMap<Long, Good> getHashMapOfGoods() {
         return this.allGoods;
     }
 
     public List<Good> getOffGoods() {
         Set<Good> offGoods = new HashSet<>();
-        for (Off off : offs) {
+        for (Off off : offs.values()) {
             if ((off.getEndDate().isBefore(LocalDate.now()) || off.getStartDate().isAfter(LocalDate.now())))
                 continue;
             if (off.getOffStatus().equals(Off.OffStatus.ACCEPTED)) {

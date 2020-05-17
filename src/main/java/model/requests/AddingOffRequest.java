@@ -17,7 +17,7 @@ public class AddingOffRequest extends Request {
     @Override
     public void acceptRequest() throws IOException, FileCantBeSavedException {
         Shop.getInstance().addOff(off);
-        off.getSeller().addOff(off);
+        off.getSeller().addOff(off.getOffId());
         off.setOffStatus(Off.OffStatus.ACCEPTED);
         //Database.getInstance().saveItem(off);
       //  Database.getInstance().saveItem(off.getSeller());

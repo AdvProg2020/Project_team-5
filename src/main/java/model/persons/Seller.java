@@ -11,13 +11,13 @@ public class Seller extends Person {
     private Company company;
     private ArrayList<OrderForSeller> previousSells;
     private ArrayList<Long> activeGoodsIds;
-    private ArrayList<Off> activeOffs;
+    private ArrayList<Long> activeOffsIds;
 
     public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
         super(username, firstName, lastName, email, phoneNumber, password);
         this.previousSells = new ArrayList<>();
         this.activeGoodsIds = new ArrayList<>();
-        this.activeOffs = new ArrayList<>();
+        this.activeOffsIds = new ArrayList<>();
         this.company = company;
     }
 
@@ -46,11 +46,15 @@ public class Seller extends Person {
     }
 
     public ArrayList<Off> getActiveOffs() {
-        return activeOffs;
+        ArrayList<Off> offs=new ArrayList<>();
+        for (Long offsId : this.activeOffsIds) {
+            offs.add(Shop.getInstance().getHashMapOfOffs().get(offsId));
+        }
+        return offs;
     }
 
-    public void addOff(Off off) {
-        this.activeOffs.add(off);
+    public void addOff(long id) {
+        this.activeOffsIds.add(id);
     }
 
     public ArrayList<String> buyersOfAGood(Good good) {
@@ -68,7 +72,7 @@ public class Seller extends Person {
     }
 
     public Off findOffById(long offId) {
-        return activeOffs.stream().filter(off -> off.getOffId() == offId).findAny().orElse(null);
+        return getActiveOffs().stream().filter(off -> off.getOffId() == offId).findAny().orElse(null);
     }
 
     public boolean hasThisOff(long offId) {
