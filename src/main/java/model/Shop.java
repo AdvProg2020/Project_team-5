@@ -47,6 +47,10 @@ public class Shop {
         return allCategories;
     }
 
+    public ArrayList<Rate> getAllRates() {
+        return allRates;
+    }
+
     public ArrayList<DiscountCode> getAllDiscountCodes() {
         return allDiscountCodes;
     }

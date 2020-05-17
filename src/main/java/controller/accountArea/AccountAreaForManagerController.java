@@ -193,6 +193,12 @@ public class AccountAreaForManagerController extends AccountAreaController {
         for (int i = 0; i < category.getDetails().size(); i++) {
             if (category.getDetails().get(i).equalsIgnoreCase(property)) {
                 category.getDetails().set(i, newValue);
+                for (SubCategory subCategory : category.getSubCategories()) {
+                    for (Good good : subCategory.getGoods()) {
+                        Database.getInstance().saveItem(good);
+                    }
+                    Database.getInstance().saveItem(subCategory);
+                }
                 Database.getInstance().saveItem(category);
                 return;
             }
