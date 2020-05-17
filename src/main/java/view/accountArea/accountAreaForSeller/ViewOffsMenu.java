@@ -135,12 +135,16 @@ public class ViewOffsMenu extends Menu {
     }
 
     private ArrayList<Long> getProductIdsForAddingOff() {
-        System.out.println("Enter number of product that will contain this off");
-        int productNumber = Integer.parseInt(getValidInput("[\\d]{1,4}", "Not valid input"));
-        if (!MainController.getInstance().getAccountAreaForSellerController().checkValidProductNumber(productNumber)) {
-            System.out.println("You does not have this amount of product");
-            getProductIdsForAddingOff();
-        }
+        int productNumber;
+        do {
+            System.out.println("Enter number of product that will contain this off");
+            productNumber = Integer.parseInt(getValidInput("[\\d]{1,4}", "Not valid input"));
+            if (!MainController.getInstance().getAccountAreaForSellerController().checkValidProductNumber(productNumber)){
+                System.out.println("You does not have this amount of product");
+            }else{
+                break;
+            }
+        }while (true);
         ArrayList<Long> productIds = new ArrayList<>();
         for (int i = 0; i < productNumber; ) {
             System.out.println("Enter product ID :");
