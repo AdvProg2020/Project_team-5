@@ -30,6 +30,7 @@ public class Shop {
     private ArrayList<GoodInCart> cart;
     private HashMap<Long, Good> allGoods;
     private HashMap<Long, Order> allOrders;
+    private HashMap<Long, GoodInCart> allGoodInCarts;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
@@ -46,10 +47,19 @@ public class Shop {
         this.cart = new ArrayList<>();
         this.allGoods = new HashMap<>();
         this.allOrders = new HashMap<>();
+        this.allGoodInCarts = new HashMap<>();
     }
 
     public ArrayList<Category> getAllCategories() {
         return allCategories;
+    }
+
+    public HashMap<Long, GoodInCart> getAllGoodInCarts() {
+        return allGoodInCarts;
+    }
+
+    public void addGoodInCart(GoodInCart goodInCart){
+        this.allGoodInCarts.put(goodInCart.getGoodInCartId(),goodInCart);
     }
 
     public ArrayList<Rate> getAllRates() {
