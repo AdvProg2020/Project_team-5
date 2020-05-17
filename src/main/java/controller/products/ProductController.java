@@ -27,11 +27,10 @@ public class ProductController {
         this.good = good;
         good.setSeenNumber(good.getSeenNumber() + 1);
         try {
-            Database.getInstance().saveItem(good);
             Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
             Database.getInstance().saveItem(good.getSubCategory());
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
