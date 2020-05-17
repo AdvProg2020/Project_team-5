@@ -174,7 +174,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getAllCategoriesTest() {
-        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllCategories().size());
+        Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getAllCategories().size());
     }
 
     @Test
@@ -246,7 +246,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getAllUsersTest() {
-        Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getAllUsersList().size());
+        Assert.assertEquals(3, MainController.getInstance().getAccountAreaForManagerController().getAllUsersList().size());
     }
 
     @Test
