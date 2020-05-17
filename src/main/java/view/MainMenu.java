@@ -1,6 +1,8 @@
 package view;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
+import model.database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
@@ -8,6 +10,8 @@ import view.accountArea.acountAreaForCustomer.AccountAreaForCustomer;
 import view.accountArea.accountAreaForSeller.AccountAreaForSeller;
 import view.accountArea.accountAreaForManager.AccountAreaForManager;
 import view.productsPage.AllProductsPage;
+
+import java.io.IOException;
 
 public class MainMenu extends Menu{
 
@@ -38,8 +42,16 @@ public class MainMenu extends Menu{
         Menu nextMenu = null;
         int chosenMenu =this.getInput();
         if (chosenMenu == submenus.size() + 1) {
-            if (this.parentMenu == null)
+            if (this.parentMenu == null) {
+                try {
+                    Database.getInstance().saveShop();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (FileCantBeSavedException e) {
+                    e.printStackTrace();
+                }
                 System.exit(1);
+            }
             else
                 nextMenu = this.parentMenu;
         } else
