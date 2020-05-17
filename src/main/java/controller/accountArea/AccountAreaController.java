@@ -55,7 +55,7 @@ public class AccountAreaController {
                 throw new FieldCantBeEditedException("password", "new password and old password are identical");
             MainController.getInstance().getCurrentPerson().setPassword(newValue);
         } else throw new Exception("no valid field selected.");
-        Database.getInstance().saveItem(MainController.getInstance().getCurrentPerson());
+      //  Database.getInstance().saveItem(MainController.getInstance().getCurrentPerson());
     }
 
     public List<String> getSortedOrders(int chosenSort,List<Order> orders){

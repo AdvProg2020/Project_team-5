@@ -28,6 +28,6 @@ public class RegisteringSellerRequest extends Request {
     @Override
     public void acceptRequest() throws IOException, FileCantBeSavedException {
         Shop.getInstance().addPerson(seller);
-        Database.getInstance().saveItem(this.seller);
+       // Database.getInstance().saveItem(this.seller);
     }
 }

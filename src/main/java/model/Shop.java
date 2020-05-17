@@ -147,7 +147,7 @@ public class Shop {
     public void addRate(Customer customer, long productId, int rate) throws IOException, FileCantBeSavedException {
         Rate rateToAdd = new Rate(customer, findGoodById(productId), rate);
         allRates.add(rateToAdd);
-        Database.getInstance().saveItem(rateToAdd);
+        //Database.getInstance().saveItem(rateToAdd);
     }
 
     public void addRate(Rate rate) {
@@ -324,7 +324,7 @@ public class Shop {
             if (off.isOffExpired()){
                 this.removeOff(off);
                 off.getSeller().getActiveOffs().remove(off);
-                Database.getInstance().saveItem(off.getSeller());
+               // Database.getInstance().saveItem(off.getSeller());
                 Database.getInstance().deleteItem(off);
             }
         }
@@ -334,7 +334,7 @@ public class Shop {
             }
             for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
                 customer.removeDiscountCode(discountCode);
-                Database.getInstance().saveItem(customer);
+              //  Database.getInstance().saveItem(customer);
             }
             Database.getInstance().deleteItem(discountCode);
         }
