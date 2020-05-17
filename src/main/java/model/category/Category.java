@@ -1,5 +1,6 @@
 package model.category;
 
+import model.Shop;
 import model.productThings.Good;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 public class Category {
     private String name;
     private ArrayList<String> details;
-    private ArrayList<SubCategory> subCategories;
+    private ArrayList<String> subCategories;
 
     public Category(String name, ArrayList<String> details) {
         this.name = name;
@@ -24,11 +25,15 @@ public class Category {
     }
 
     public ArrayList<SubCategory> getSubCategories() {
-        return subCategories;
+        ArrayList<SubCategory> subCategories2=new ArrayList<>();
+        for (String subCategory : this.subCategories) {
+            subCategories2.add(Shop.getInstance().findSubCategoryByName(subCategory));
+        }
+        return subCategories2;
     }
 
     public void addSubCategory(SubCategory subCategory) {
-        this.subCategories.add(subCategory);
+        this.getSubCategories().add(subCategory);
         subCategory.setParentCategory(this);
     }
 
@@ -44,7 +49,7 @@ public class Category {
     }
 
     public Good findGoodInSubCategories(long goodId) {
-        for (SubCategory subCategory : subCategories) {
+        for (SubCategory subCategory : this.getSubCategories()) {
             if (subCategory.findGoodById(goodId) != null)
                 return subCategory.findGoodById(goodId);
         }
@@ -52,7 +57,7 @@ public class Category {
     }
 
     public SubCategory findSubCategoryByName(String subcategoryName) {
-        for (SubCategory subCategory : subCategories) {
+        for (SubCategory subCategory : this.getSubCategories()) {
             if (subCategory.getName().equals(subcategoryName))
                 return subCategory;
         }
@@ -63,7 +68,7 @@ public class Category {
     public String toString() {
         String categoryStr = "Name of Category = " + getName() + "\nSubcategories =";
         for (int i = 0; i < subCategories.size(); i++) {
-            categoryStr += ("\n" + (i + 1) + "- " + subCategories.get(i).getName());
+            categoryStr += ("\n" + (i + 1) + "- " + subCategories.get(i));
         }
         categoryStr += "\nSpecial properties :";
         for (int i = 0; i < details.size(); i++) {

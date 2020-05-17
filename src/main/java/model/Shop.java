@@ -31,6 +31,7 @@ public class Shop {
     private HashMap<Long, Good> allGoods;
     private HashMap<Long, Order> allOrders;
     private HashMap<Long, GoodInCart> allGoodInCarts;
+    private HashMap<String,SubCategory> allSubCategories;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
@@ -42,6 +43,7 @@ public class Shop {
         this.allDiscountCodes = new HashMap<>();
         this.allPersons = new ArrayList<>();
         this.allRates = new ArrayList<>();
+        this.allSubCategories = new HashMap<>();
         this.allRequest = new ArrayList<>();
         this.offs = new HashMap<>();
         this.cart = new ArrayList<>();
@@ -56,6 +58,10 @@ public class Shop {
 
     public HashMap<Long, GoodInCart> getAllGoodInCarts() {
         return allGoodInCarts;
+    }
+
+    public HashMap<String, SubCategory> getAllSubCategories() {
+        return allSubCategories;
     }
 
     public void addGoodInCart(GoodInCart goodInCart){
@@ -80,6 +86,14 @@ public class Shop {
 
     public ArrayList<Person> getAllPersons() {
         return allPersons;
+    }
+
+    public void addSubCategory(SubCategory subCategory){
+        this.allSubCategories.put(subCategory.getName(),subCategory);
+    }
+
+    public void removeSubCategory(SubCategory subCategory){
+        this.allSubCategories.remove(subCategory.getName());
     }
 
     public HashMap<Long, Order> getHasMapOfOrders() {
