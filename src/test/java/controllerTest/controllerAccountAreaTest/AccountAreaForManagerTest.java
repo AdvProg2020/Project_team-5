@@ -5,6 +5,8 @@ import exception.FileCantBeDeletedException;
 import exception.FileCantBeSavedException;
 import exception.PropertyNotFoundException;
 import exception.RequestNotFoundException;
+import exception.categoryExceptions.CategoryNotFoundException;
+import exception.categoryExceptions.SubCategoryNotFoundException;
 import exception.productExceptions.FieldCantBeEditedException;
 import exception.userExceptions.UsernameNotFoundException;
 import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
@@ -39,7 +41,7 @@ public class AccountAreaForManagerTest {
         fields.add("30");
         Shop.getInstance().getAllPersons().add(new Customer("sadegh", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Manager("XxXxXx", "aboots", "zzzzz", "aboot@gmail.com", "06065656060", "pass2"));
-        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null)));
+        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf", null)));
         ArrayList<String> details = new ArrayList<>();
         details.add("hich1");
         details.add("hich2");
@@ -90,7 +92,7 @@ public class AccountAreaForManagerTest {
     @Test
     public void removeDiscountCodeTest()
             throws DiscountCodeCantCreatedException, DiscountCodeNotFoundException, IOException, FileCantBeSavedException, FileCantBeDeletedException {
-        if(Shop.getInstance().findDiscountCode("RandomDiscount") == null)
+        if (Shop.getInstance().findDiscountCode("RandomDiscount") == null)
             MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
         Assert.assertThrows("discount code not found.", DiscountCodeNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode("alalalalalal"));
@@ -99,8 +101,8 @@ public class AccountAreaForManagerTest {
     @Test
     public void editDiscountRequestTest()
             throws DiscountCodeCantCreatedException, DiscountCodeNotFoundException, DiscountCodeCantBeEditedException, IOException, FileCantBeSavedException {
-        fields.add(0,"RandomDiscount1");
-        fields.add(1,"2020-07-01");
+        fields.add(0, "RandomDiscount1");
+        fields.add(1, "2020-07-01");
         fields.add(2, "2020-08-01");
         fields.add(3, "9000000");
         fields.add(4, "30");
@@ -131,7 +133,7 @@ public class AccountAreaForManagerTest {
     @Test
     public void viewDiscountCodeTest() {
         Assert.assertThrows(DiscountCodeNotFoundException.class,
-                () ->MainController.getInstance().getAccountAreaForManagerController().viewDiscountCode("bullshitCode"));
+                () -> MainController.getInstance().getAccountAreaForManagerController().viewDiscountCode("bullshitCode"));
     }
 
     @Test
@@ -149,10 +151,10 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void acceptRequestTest() throws RequestNotFoundException, FileCantBeSavedException, IOException, FileCantBeDeletedException {
-        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null)));
+        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf", null)));
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("10"));
-        Assert.assertThrows(FileCantBeDeletedException.class , () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("2"));
+        Assert.assertThrows(FileCantBeDeletedException.class, () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("2"));
     }
 
     @Test
@@ -167,7 +169,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getAllCategoriesTest() {
-        Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getAllCategories().size());
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllCategories().size());
     }
 
     @Test
@@ -203,5 +205,49 @@ public class AccountAreaForManagerTest {
         Assert.assertNotNull(Shop.getInstance().findCategoryByName("ashghal-2"));
     }
 
+    @Test
+    public void removeCategoryTest() throws FileCantBeDeletedException, CategoryNotFoundException {
+        Assert.assertThrows(CategoryNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeCategory("chert"));
+        MainController.getInstance().getAccountAreaForManagerController().removeCategory("ashghal-2");
+        Assert.assertNull(Shop.getInstance().findCategoryByName("ashghal-2"));
+    }
+
+    @Test
+    public void removeSubCategoryTest() throws IOException, CategoryNotFoundException, FileCantBeDeletedException, FileCantBeSavedException, SubCategoryNotFoundException {
+        Assert.assertThrows(CategoryNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeSubCategory("sdede", "subAshghal-2"));
+        Assert.assertThrows(SubCategoryNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeSubCategory("ashghal", "deded"));
+        MainController.getInstance().getAccountAreaForManagerController().removeSubCategory("ashghal", "subAshghal");
+        Assert.assertNull(Shop.getInstance().findSubCategoryByName("subAshghal"));
+        MainController.getInstance().getAccountAreaForManagerController().addSubcategory("ashghal", "subAshghal", fields);
+    }
+
+    @Test
+    public void addSubCategoryTest() throws IOException, FileCantBeSavedException {
+        MainController.getInstance().getAccountAreaForManagerController().addSubcategory("ashghal", "subAshghal-2", fields);
+        Assert.assertNotNull(Shop.getInstance().findSubCategoryByName("subAshghal-2"));
+    }
+
+    @Test
+    public void getSubCategoryPropertiesTest() {
+        Assert.assertEquals(5, MainController.getInstance().getAccountAreaForManagerController().getSubCategoryProperties("subAshghal").size());
+    }
+
+    @Test
+    public void editSubCategoryTest() throws PropertyNotFoundException, IOException, FileCantBeSavedException {
+        Assert.assertThrows(PropertyNotFoundException.class, () ->MainController.getInstance().getAccountAreaForManagerController().editSubcategory("subAshghal", "fdfdf", "Dfdf"));
+        MainController.getInstance().getAccountAreaForManagerController().editSubcategory("subAshghal", "randomDiscount", "chert");
+        Assert.assertEquals("chert", Shop.getInstance().findSubCategoryByName("subAshghal").getDetails().get(0));
+    }
+
+    @Test
+    public void getAllUsersTest() {
+        Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getAllUsersList().size());
+    }
+
+    @Test
+    public void viewUserInfoTest() throws UsernameNotFoundException {
+        Assert.assertThrows(UsernameNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().viewUserInfo("alaki"));
+        Assert.assertNotNull(MainController.getInstance().getAccountAreaForManagerController().viewUserInfo("sadegh"));
+    }
 }
 
