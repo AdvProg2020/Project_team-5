@@ -11,6 +11,7 @@ import model.productThings.Comment;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
 import model.requests.AddingCommentRequest;
+import model.requests.Request;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -110,7 +111,15 @@ public class ProductController {
             if (((Customer) MainController.getInstance().getCurrentPerson()).hasBuyProduct(good.getGoodId()))
                 didCommenterBoughtThisProduct=true;
         }
-        Shop.getInstance().addRequest(new AddingCommentRequest(new Comment(MainController.getInstance().getCurrentPerson()
-                ,this.getGood(),title,content,didCommenterBoughtThisProduct)));
+        AddingCommentRequest request =new AddingCommentRequest(new Comment(MainController.getInstance().getCurrentPerson()
+                ,this.getGood(),title,content,didCommenterBoughtThisProduct));
+        Shop.getInstance().addRequest(request);
+        try {
+            Database.getInstance().saveItem(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
     }
 }
