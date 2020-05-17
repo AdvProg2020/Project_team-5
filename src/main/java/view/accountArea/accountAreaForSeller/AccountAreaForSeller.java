@@ -90,6 +90,9 @@ public class AccountAreaForSeller extends Menu {
         productDetails.add(getCorrectSubCategory());
         try {
             MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, getDetails(productDetails.get(5)));
+            System.out.println("adding good request successfully sent to manager!");
+            System.out.println("press enter to continue");
+            scanner.nextLine();
         } catch (Exception e) {
             e.printStackTrace();
         }
