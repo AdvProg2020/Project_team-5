@@ -7,15 +7,11 @@ import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;
-import model.persons.Company;
-import model.persons.Customer;
-import model.persons.Manager;
-import model.persons.Seller;
+import model.persons.*;
 import model.productThings.*;
 import model.requests.Request;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class Database {
     private DeletingData deletingData;
@@ -44,12 +40,12 @@ public class Database {
         loadingData.loadCategory();
        // loadingData.loadSubCategory();
      //   loadingData.loadProduct();
-        loadingData.loadComment();
+     //   loadingData.loadComment();
         loadingData.loadRate();
         loadingData.loadDiscount();
         loadingData.loadOff();
-        loadingData.loadOrderForSeller();
-        loadingData.loadOrderForCustomer();
+     //   loadingData.loadOrderForSeller();
+       // loadingData.loadOrderForCustomer();
         loadingData.loadRequests();
     }
 
@@ -119,5 +115,26 @@ public class Database {
         } else if (item instanceof Request) {
             savingData.saveRequest((Request) item);
         } else throw new FileCantBeSavedException();
+    }
+
+    public void saveShop() throws IOException, FileCantBeSavedException {
+        for (Person person : Shop.getInstance().getAllPersons()) {
+            saveItem(person);
+        }
+        for (Category category : Shop.getInstance().getAllCategories()) {
+            saveItem(category);
+        }
+        for (Off off : Shop.getInstance().getOffs()) {
+            saveItem(off);
+        }
+        for (Request request : Shop.getInstance().getAllRequest()) {
+            saveItem(request);
+        }
+        for (Rate rate : Shop.getInstance().getAllRates()) {
+            saveItem(rate);
+        }
+        for (DiscountCode discountCode : Shop.getInstance().getAllDiscountCodes()) {
+            saveItem(discountCode);
+        }
     }
 }
