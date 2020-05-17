@@ -1,10 +1,13 @@
 package view.productsPage;
 
 import controller.MainController;
+import exception.FileCantBeSavedException;
 import exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
 import exception.productExceptions.ProductWithThisIdNotExist;
 import view.LoginRegisterMenu;
 import view.Menu;
+
+import java.io.IOException;
 
 public class ProductPage extends Menu {
 
@@ -95,8 +98,12 @@ public class ProductPage extends Menu {
             String title=scanner.nextLine();
             System.out.println("content:");
             String content=scanner.nextLine();
-            MainController.getInstance().getProductController().addComment(title,content);
-            System.out.println("your comment will be added soon if managers accept it");
+            try {
+                MainController.getInstance().getProductController().addComment(title,content);
+                System.out.println("your comment will be added soon if managers accept it");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

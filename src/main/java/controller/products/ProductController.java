@@ -11,7 +11,7 @@ import model.productThings.Comment;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
 import model.requests.AddingCommentRequest;
-import model.requests.Request;
+import model.requests.AddingOffRequest;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,11 +27,10 @@ public class ProductController {
         this.good = good;
         good.setSeenNumber(good.getSeenNumber() + 1);
         try {
-            Database.getInstance().saveItem(good);
             Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
             Database.getInstance().saveItem(good.getSubCategory());
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -105,21 +104,15 @@ public class ProductController {
         return output;
     }
 
-    public void addComment(String title,String content){
+    public void addComment(String title,String content) throws IOException, FileCantBeSavedException {
         boolean didCommenterBoughtThisProduct=false;
         if (MainController.getInstance().getCurrentPerson() instanceof Customer){
             if (((Customer) MainController.getInstance().getCurrentPerson()).hasBuyProduct(good.getGoodId()))
                 didCommenterBoughtThisProduct=true;
         }
-        AddingCommentRequest request =new AddingCommentRequest(new Comment(MainController.getInstance().getCurrentPerson()
+        AddingCommentRequest addingCommentRequest = new AddingCommentRequest(new Comment(MainController.getInstance().getCurrentPerson()
                 ,this.getGood(),title,content,didCommenterBoughtThisProduct));
-        Shop.getInstance().addRequest(request);
-        try {
-            Database.getInstance().saveItem(request);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
-        }
+        Shop.getInstance().addRequest(addingCommentRequest);
+        Database.getInstance().saveItem(addingCommentRequest);
     }
 }

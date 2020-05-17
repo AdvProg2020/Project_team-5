@@ -38,7 +38,6 @@ public class AccountAreaForManagerTest {
         Shop.getInstance().getAllPersons().add(new Customer("sadegh", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Manager("XxXxXx", "aboots", "zzzzz", "aboot@gmail.com", "06065656060", "pass2"));
         Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null)));
-
     }
 
     @Test
@@ -126,6 +125,12 @@ public class AccountAreaForManagerTest {
     public void viewRequestInfoTest() {
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails("5"));
+    }
+
+    @Test
+    public void getAllRequestsInfoTest() {
+        System.out.println(MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo());
+        Assert.assertEquals(3, MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo().size());
     }
 
     @Test
