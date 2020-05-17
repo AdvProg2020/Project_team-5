@@ -60,6 +60,8 @@ public class Good {
         for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
             if (sellerInfo.getSeller().equals(seller))
                 return sellerInfo.getPrice();
+            if (sellerInfo.getSeller().getUsername().equals(seller.getUsername()))
+                return sellerInfo.getPrice();
         }
         return 0L;
     }
@@ -208,6 +210,10 @@ public class Good {
                 if (off.getOffGoods().contains(this))
                     return relatedInfoAboutGood.getSeller();
             }
+        }
+        for (Off off : Shop.getInstance().getOffs()) {
+            if (off.getOffGoods().contains(this))
+                return off.getSeller();
         }
         return null;
     }
