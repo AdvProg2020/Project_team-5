@@ -95,7 +95,7 @@ public class ProductController {
     }
 
     public String showComments() {
-        String output = "--------------------------------------------";
+        String output = "--------------------------------------------\n";
         output += ("average rate of this product is = " + good.getAverageRate());
         output += "--------------------------------------------";
         for (Comment comment : good.getComments()) {
