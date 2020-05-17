@@ -204,15 +204,11 @@ public class Good {
 
     public Seller getSellerThatPutsThisGoodOnOff(){
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
+            System.out.println(relatedInfoAboutGood.getSeller().getUsername());
             for (Off off : relatedInfoAboutGood.getSeller().getActiveOffs()) {
-                /*
+                System.out.println("off id " + off.getOffId());
                 if (off.getOffGoods().contains(this))
                     return relatedInfoAboutGood.getSeller();
-                    */
-                for (Good offGood : off.getOffGoods()) {
-                    if (offGood.getGoodId() == this.getGoodId())
-                        return relatedInfoAboutGood.getSeller();
-                }
             }
         }
         return null;
