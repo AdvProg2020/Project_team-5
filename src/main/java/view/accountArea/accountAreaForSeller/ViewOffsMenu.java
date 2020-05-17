@@ -48,7 +48,7 @@ public class ViewOffsMenu extends Menu {
     }
 
     private void viewAllOffs() {
-        System.out.println("-----------------\nyour offs:\n");
+        System.out.println("-----------------\nyour offs:");
         for (String off : MainController.getInstance().getAccountAreaForSellerController().getAllOffs()) {
             System.out.println(off);
         }
