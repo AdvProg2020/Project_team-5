@@ -39,5 +39,14 @@ public abstract class Order {
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Order){
+            Order order2= (Order) obj;
+            return (this.getOrderId() == order2.getOrderId());
+        }
+        return super.equals(obj);
+    }
 }
 
