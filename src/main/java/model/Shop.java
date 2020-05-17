@@ -27,6 +27,8 @@ public class Shop {
     private ArrayList<DiscountCode> allDiscountCodes;
     private ArrayList<Rate> allRates;
     private ArrayList<GoodInCart> cart;
+    //private ArrayList<Good> allGoods;
+    private HashMap<Integer, Good> allGoods;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
@@ -41,6 +43,7 @@ public class Shop {
         this.allRequest = new ArrayList<>();
         this.offs = new ArrayList<>();
         this.cart = new ArrayList<>();
+        this.allGoods = new HashMap<>();
     }
 
     public ArrayList<Category> getAllCategories() {
@@ -288,13 +291,11 @@ public class Shop {
     }
 
     public List<Good> getAllGoods() {
-        List<Good> allGoods = new ArrayList<>();
-        for (Category category : allCategories) {
-            for (SubCategory subCategory : category.getSubCategories()) {
-                allGoods.addAll(subCategory.getGoods());
-            }
-        }
-        return allGoods;
+        return new ArrayList<>(this.allGoods.values());
+    }
+
+    public HashMap<Integer, Good> getHashMapOfGoods() {
+        return this.allGoods;
     }
 
     public List<Good> getOffGoods() {
@@ -319,22 +320,23 @@ public class Shop {
         }
     }
 
+
     public void expireItemsThatTheirTimeIsFinished() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
         for (Off off : this.getOffs()) {
-            if (off.isOffExpired()){
+            if (off.isOffExpired()) {
                 this.removeOff(off);
                 off.getSeller().getActiveOffs().remove(off);
-               // Database.getInstance().saveItem(off.getSeller());
+                // Database.getInstance().saveItem(off.getSeller());
                 Database.getInstance().deleteItem(off);
             }
         }
         for (DiscountCode discountCode : this.getAllDiscountCodes()) {
-            if (discountCode.isDiscountCodeExpired()){
+            if (discountCode.isDiscountCodeExpired()) {
                 this.removeDiscountCode(discountCode);
             }
             for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
                 customer.removeDiscountCode(discountCode);
-              //  Database.getInstance().saveItem(customer);
+                //  Database.getInstance().saveItem(customer);
             }
             Database.getInstance().deleteItem(discountCode);
         }

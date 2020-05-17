@@ -39,7 +39,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
             good.getSubCategory().deleteGood(good);
         else {
             good.removeSeller(seller);
-            seller.removeFromActiveGoods(good);
+            seller.removeFromActiveGoods(good.getGoodId());
         }
       //  Database.getInstance().saveItem(seller);
       //  Database.getInstance().saveItem(good.getSubCategory());

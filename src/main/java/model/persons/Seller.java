@@ -1,5 +1,6 @@
 package model.persons;
 
+import model.Shop;
 import model.orders.OrderForSeller;
 import model.productThings.Good;
 import model.productThings.Off;
@@ -9,13 +10,13 @@ import java.util.ArrayList;
 public class Seller extends Person {
     private Company company;
     private ArrayList<OrderForSeller> previousSells;
-    private ArrayList<Good> activeGoods;
+    private ArrayList<Long> activeGoodsIds;
     private ArrayList<Off> activeOffs;
 
     public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
         super(username, firstName, lastName, email, phoneNumber, password);
         this.previousSells = new ArrayList<>();
-        this.activeGoods = new ArrayList<>();
+        this.activeGoodsIds = new ArrayList<>();
         this.activeOffs = new ArrayList<>();
         this.company = company;
     }
@@ -29,15 +30,19 @@ public class Seller extends Person {
     }
 
     public ArrayList<Good> getActiveGoods() {
+        ArrayList<Good> activeGoods= new ArrayList<>();
+        for (Long id : this.activeGoodsIds) {
+            activeGoods.add(Shop.getInstance().getHashMapOfGoods().get(id));
+        }
         return activeGoods;
     }
 
-    public void addToActiveGoods(Good good) {
-        this.activeGoods.add(good);
+    public void addToActiveGoods(long id) {
+        this.activeGoodsIds.add(id);
     }
 
-    public void removeFromActiveGoods(Good good) {
-        this.activeGoods.remove(good);
+    public void removeFromActiveGoods(long id) {
+        this.activeGoodsIds.remove(id);
     }
 
     public ArrayList<Off> getActiveOffs() {
@@ -71,7 +76,7 @@ public class Seller extends Person {
     }
 
     public Good findProductOfSeller(long productId) {
-        return this.activeGoods.stream().filter((good -> good.getGoodId() == productId)).findAny().orElse(null);
+        return this.getActiveGoods().stream().filter((good -> good.getGoodId() == productId)).findAny().orElse(null);
     }
 
     public boolean hasThisProduct(long productId) {
@@ -84,6 +89,6 @@ public class Seller extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + "\n" + company.toString() + "\nactive goods:\n" + activeGoods.toString() + "\n" + "-------------------";
+        return super.toString() + "\n" + company.toString() + "\nactive goods:\n" + getActiveGoods().toString() + "\n" + "-------------------";
     }
 }

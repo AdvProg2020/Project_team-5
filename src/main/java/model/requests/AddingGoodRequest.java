@@ -27,7 +27,7 @@ public class AddingGoodRequest extends Request {
             originalGood.addSeller(good.getSellerRelatedInfoAboutGoods().get(0));
         }
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
-        seller.addToActiveGoods(good);
+        seller.addToActiveGoods(good.getGoodId());
         //save subcategory or not ????
         //Database.getInstance().saveItem(good.getSubCategory());
       //  Database.getInstance().saveItem(good.getSubCategory().getParentCategory());

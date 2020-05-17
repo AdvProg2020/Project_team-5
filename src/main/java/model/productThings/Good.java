@@ -126,7 +126,7 @@ public class Good {
 
     public void deleteGoodFromSellerList() {
         for (SellerRelatedInfoAboutGood sellerRelatedInfo : getSellerRelatedInfoAboutGoods()) {
-            sellerRelatedInfo.getSeller().removeFromActiveGoods(this);
+            sellerRelatedInfo.getSeller().removeFromActiveGoods(this.getGoodId());
         }
     }
 
