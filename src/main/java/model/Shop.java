@@ -22,17 +22,18 @@ import java.util.*;
 public class Shop {
     private static Shop ourInstance = new Shop();
     private HashMap<String, Category> allCategories;
-    private HashMap <Long,Off> offs;
+    private HashMap<Long, Off> offs;
     private ArrayList<Person> allPersons;
     private ArrayList<Request> allRequest;
-    private HashMap<Long,DiscountCode> allDiscountCodes;
+    private HashMap<Long, DiscountCode> allDiscountCodes;
     private ArrayList<Rate> allRates;
     private ArrayList<GoodInCart> cart;
     private HashMap<Long, Good> allGoods;
     private HashMap<Long, Order> allOrders;
     private HashMap<Long, GoodInCart> allGoodInCarts;
-    private HashMap<String,SubCategory> allSubCategories;
-    private HashMap<Long,Comment> allComments;
+    private HashMap<String, SubCategory> allSubCategories;
+    private HashMap<Long, Comment> allComments;
+    private HashMap<Long, SellerRelatedInfoAboutGood> allSellerRelatedInfoAboutGood;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
@@ -51,10 +52,16 @@ public class Shop {
         this.allGoods = new HashMap<>();
         this.allOrders = new HashMap<>();
         this.allGoodInCarts = new HashMap<>();
+        this.allComments = new HashMap<>();
+        this.allSellerRelatedInfoAboutGood = new HashMap<>();
     }
 
     public ArrayList<Category> getAllCategories() {
         return new ArrayList<>(allCategories.values());
+    }
+
+    public HashMap<Long, SellerRelatedInfoAboutGood> getAllSellerRelatedInfoAboutGood() {
+        return allSellerRelatedInfoAboutGood;
     }
 
     public HashMap<Long, GoodInCart> getAllGoodInCarts() {
@@ -69,19 +76,23 @@ public class Shop {
         return allComments;
     }
 
-    public void addAComment(Comment comment){
-        this.allComments.put(comment.getId(),comment);
+    public void addAComment(Comment comment) {
+        this.allComments.put(comment.getId(), comment);
     }
 
-    public void addGoodInCart(GoodInCart goodInCart){
-        this.allGoodInCarts.put(goodInCart.getGoodInCartId(),goodInCart);
+    public void addGoodInCart(GoodInCart goodInCart) {
+        this.allGoodInCarts.put(goodInCart.getGoodInCartId(), goodInCart);
     }
 
     public ArrayList<Rate> getAllRates() {
         return allRates;
     }
 
-    public HashMap<String,Category> getHashMapOfCategories(){
+    public void addSellerRelatedInfoAboutGood(SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood){
+        this.allSellerRelatedInfoAboutGood.put(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId(),sellerRelatedInfoAboutGood);
+    }
+
+    public HashMap<String, Category> getHashMapOfCategories() {
         return this.allCategories;
     }
 
@@ -97,11 +108,11 @@ public class Shop {
         return allPersons;
     }
 
-    public void addSubCategory(SubCategory subCategory){
-        this.allSubCategories.put(subCategory.getName(),subCategory);
+    public void addSubCategory(SubCategory subCategory) {
+        this.allSubCategories.put(subCategory.getName(), subCategory);
     }
 
-    public void removeSubCategory(SubCategory subCategory){
+    public void removeSubCategory(SubCategory subCategory) {
         this.allSubCategories.remove(subCategory.getName());
     }
 
@@ -109,8 +120,8 @@ public class Shop {
         return allOrders;
     }
 
-    public void addOrder(Order order){
-        this.allOrders.put(order.getOrderId(),order);
+    public void addOrder(Order order) {
+        this.allOrders.put(order.getOrderId(), order);
     }
 
     public void removePerson(Person user) {
@@ -153,7 +164,7 @@ public class Shop {
         return null;
     }
 
-    public HashMap<Long,Off> getHashMapOfOffs(){
+    public HashMap<Long, Off> getHashMapOfOffs() {
         return this.offs;
     }
 
@@ -162,7 +173,7 @@ public class Shop {
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-        allDiscountCodes.put(discountCode.getId(),discountCode);
+        allDiscountCodes.put(discountCode.getId(), discountCode);
     }
 
     public Request findRequestById(long requestId) {
@@ -173,7 +184,7 @@ public class Shop {
         return null;
     }
 
-    public HashMap<Long,DiscountCode> getHashMapOfDiscountCodes(){
+    public HashMap<Long, DiscountCode> getHashMapOfDiscountCodes() {
         return this.allDiscountCodes;
     }
 
@@ -186,7 +197,7 @@ public class Shop {
     }
 
     public void addCategory(Category category) {
-        allCategories.put(category.getName(),category);
+        allCategories.put(category.getName(), category);
     }
 
     public void removeCategory(Category category) {
@@ -255,7 +266,7 @@ public class Shop {
     }
 
     public void addOff(Off off) {
-        offs.put(off.getOffId(),off);
+        offs.put(off.getOffId(), off);
     }
 
     public void removeOff(Off off) {
@@ -273,7 +284,7 @@ public class Shop {
         String code = DiscountCode.generateRandomDiscountCode();
         DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
         discountCode.addAllCustomers(randomCustomers(5, 1, discountCode));
-        allDiscountCodes.put(discountCode.getId(),discountCode);
+        allDiscountCodes.put(discountCode.getId(), discountCode);
         this.lastRandomPeriodDiscountCodeCreatedDate = LocalDate.now();
     }
 

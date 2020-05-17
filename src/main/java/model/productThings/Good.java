@@ -15,8 +15,8 @@ public class Good {
     private String name;
     private String brand;
     private double averageRate;
-    private SubCategory subCategory;
-    private ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods = new ArrayList<>();
+    private String subCategory;
+    private ArrayList<Long> sellerRelatedInfoAboutGoods = new ArrayList<>();
     private String details;
     private ArrayList<Comment> comments;
     private int seenNumber;
@@ -35,11 +35,13 @@ public class Good {
         this.goodId = goodsCount++;
         this.name = name;
         this.brand = brand;
-        this.subCategory = subCategory;
+        this.subCategory = subCategory.getName();
         this.details = details;
         this.categoryProperties = categoryProperties;
         this.goodStatus = GoodStatus.BUILTPROCESSING;
-        sellerRelatedInfoAboutGoods.add(new SellerRelatedInfoAboutGood(seller, price, availableNumber));
+        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = new SellerRelatedInfoAboutGood(seller, price, availableNumber);
+        Shop.getInstance().addSellerRelatedInfoAboutGood(sellerRelatedInfoAboutGood);
+        sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
         this.comments = new ArrayList<>();
         this.modificationDate = LocalDate.now();
     }
@@ -57,7 +59,7 @@ public class Good {
     }
 
     public long getPriceBySeller(Seller seller) {
-        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+        for (SellerRelatedInfoAboutGood sellerInfo : getSellerRelatedInfoAboutGoods()) {
             if (sellerInfo.getSeller().equals(seller))
                 return sellerInfo.getPrice();
             if (sellerInfo.getSeller().getUsername().equals(seller.getUsername()))
@@ -67,20 +69,24 @@ public class Good {
     }
 
     public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
-        return sellerRelatedInfoAboutGoods;
+        ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods1=new ArrayList<>();
+        for (Long infoAboutGoodId : this.sellerRelatedInfoAboutGoods) {
+            sellerRelatedInfoAboutGoods1.add(Shop.getInstance().getAllSellerRelatedInfoAboutGood().get(infoAboutGoodId));
+        }
+        return sellerRelatedInfoAboutGoods1;
     }
 
     public SubCategory getSubCategory() {
-        return subCategory;
+        return Shop.getInstance().getAllSubCategories().get(subCategory);
     }
 
     public void addSeller(SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood) {
-        this.sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
+        this.sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
     }
 
     public void removeSeller(Seller seller) {
         SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
-        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : getSellerRelatedInfoAboutGoods()) {
             if (relatedInfoAboutGood.getSeller().equals(seller))
                 sellerRelatedInfoAboutGood = relatedInfoAboutGood;
         }
@@ -113,7 +119,7 @@ public class Good {
     }
 
     public void setSubCategory(SubCategory subCategory) {
-        this.subCategory = subCategory;
+        this.subCategory = subCategory.getName();
     }
 
     public void setDetails(String details) {
@@ -172,7 +178,7 @@ public class Good {
     }
 
     public void reduceAvailableNumber(Seller seller, int reductionNumber) {
-        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+        for (SellerRelatedInfoAboutGood sellerInfo : getSellerRelatedInfoAboutGoods()) {
             if (sellerInfo.getSeller() == seller) {
                 sellerInfo.setAvailableNumber(sellerInfo.getAvailableNumber() - reductionNumber);
                 if (sellerInfo.getAvailableNumber() == 0)
@@ -181,8 +187,8 @@ public class Good {
         }
     }
 
-    public boolean doesExistInSellerList(Seller seller){
-        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+    public boolean doesExistInSellerList(Seller seller) {
+        for (SellerRelatedInfoAboutGood sellerInfo : getSellerRelatedInfoAboutGoods()) {
             if (sellerInfo.getSeller() == seller)
                 return true;
         }
@@ -190,7 +196,7 @@ public class Good {
     }
 
     public int getAvailableNumberBySeller(Seller seller) {
-        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+        for (SellerRelatedInfoAboutGood sellerInfo : getSellerRelatedInfoAboutGoods()) {
             if (sellerInfo.getSeller() == seller)
                 return sellerInfo.getAvailableNumber();
         }
@@ -198,14 +204,14 @@ public class Good {
     }
 
     public void increaseAvailableNumber(Seller seller, int increaseNumber) {
-        for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
+        for (SellerRelatedInfoAboutGood sellerInfo : getSellerRelatedInfoAboutGoods()) {
             if (sellerInfo.getSeller() == seller)
                 sellerInfo.setAvailableNumber(sellerInfo.getAvailableNumber() + increaseNumber);
         }
     }
 
-    public Seller getSellerThatPutsThisGoodOnOff(){
-        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
+    public Seller getSellerThatPutsThisGoodOnOff() {
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : getSellerRelatedInfoAboutGoods()) {
             for (Off off : relatedInfoAboutGood.getSeller().getActiveOffs()) {
                 if (off.getOffGoods().contains(this))
                     return relatedInfoAboutGood.getSeller();
@@ -222,7 +228,7 @@ public class Good {
     public String toString() {
         StringBuilder sellerRelatedInfo = new StringBuilder();
         int i = 1;
-        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : getSellerRelatedInfoAboutGoods()) {
             sellerRelatedInfo.append(i++).append("- ").append(relatedInfoAboutGood.toString()).append("\n");
         }
         return "------------------------------------\n"
@@ -231,8 +237,8 @@ public class Good {
                 + "\ngoodStatus = " + goodStatus
                 + "\nbrand = " + brand
                 + "\naverage rate = " + averageRate
-                + "\ncategory = " + subCategory.getParentCategory().getName()
-                + "\nsubcategory = " + subCategory.getName()
+                + "\ncategory = " + getSubCategory().getParentCategory().getName()
+                + "\nsubcategory = " + subCategory
                 + "\nsellers = " + sellerRelatedInfo.toString()
                 + "details =\n" + details
                 + "\nmodification date = " + modificationDate.toString()
@@ -242,8 +248,8 @@ public class Good {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Good){
-            Good good2= (Good) obj;
+        if (obj instanceof Good) {
+            Good good2 = (Good) obj;
             if (this.getGoodId() == (good2.getGoodId()))
                 return true;
             return false;

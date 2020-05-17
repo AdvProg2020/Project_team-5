@@ -4,11 +4,14 @@ import model.Shop;
 import model.persons.Seller;
 
 public class SellerRelatedInfoAboutGood {
+    private static long sellerRelatedInfoAboutGoodCount = 1;
+    private long sellerRelatedInfoAboutGoodId;
     private String seller;
     private long price;
     private int availableNumber;
 
     public SellerRelatedInfoAboutGood(Seller seller, long price, int availableNumber) {
+        this.sellerRelatedInfoAboutGoodId = sellerRelatedInfoAboutGoodCount++;
         this.seller = seller.getUsername();
         this.price = price;
         this.availableNumber = availableNumber;
@@ -16,6 +19,10 @@ public class SellerRelatedInfoAboutGood {
 
     public Seller getSeller() {
         return (Seller) Shop.getInstance().findUser(this.seller);
+    }
+
+    public long getSellerRelatedInfoAboutGoodId() {
+        return sellerRelatedInfoAboutGoodId;
     }
 
     public long getPrice() {
