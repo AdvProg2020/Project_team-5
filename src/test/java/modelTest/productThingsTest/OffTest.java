@@ -30,4 +30,19 @@ public class OffTest {
         long actualValue = off.getPriceAfterOff(good, seller);
         Assert.assertEquals(expectedPrice, actualValue);
     }
+
+    @Test
+    public void doesHaveThisProductTest(){
+        Good good2 = new Good("kalbas", "gooshtiran", null, "vanak sosise",
+                null, seller, 50000L, 4);
+        Assert.assertEquals(true,off.doesHaveThisProduct(good));
+        Assert.assertEquals(false,off.doesHaveThisProduct(null));
+        Assert.assertEquals(false,off.doesHaveThisProduct(good2));
+    }
+
+    @Test
+    public void isOffExpiredTest(){
+        Assert.assertEquals(false,off.isOffExpired());
+    }
+
 }

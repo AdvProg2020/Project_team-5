@@ -66,10 +66,6 @@ public class Off {
         return seller;
     }
 
-    public void setOffGoods(ArrayList<Good> offGoods) {
-        this.offGoods = offGoods;
-    }
-
     public void setOffStatus(OffStatus offStatus) {
         this.offStatus = offStatus;
     }
