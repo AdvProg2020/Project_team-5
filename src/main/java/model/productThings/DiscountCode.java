@@ -15,7 +15,7 @@ public class DiscountCode {
     private LocalDate endDate;
     private Long maxDiscountAmount;
     private int discountPercent;
-    private HashMap<Customer, Integer> includedCustomers;
+    private HashMap<String, Integer> includedCustomers;
 
     public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent) {
         this.id = discountCodeCount++;
@@ -28,7 +28,7 @@ public class DiscountCode {
     }
 
     public void addCustomerToCode(Customer customer, int numberOfUse) {
-        this.includedCustomers.put(customer, numberOfUse);
+        this.includedCustomers.put(customer.getUsername(), numberOfUse);
         customer.addDiscountCode(this);
     }
 
@@ -37,7 +37,9 @@ public class DiscountCode {
     }
 
     public void addAllCustomers(HashMap<Customer, Integer> allCustomers) {
-        this.includedCustomers.putAll(allCustomers);
+        for (Customer customer : allCustomers.keySet()) {
+            this.includedCustomers.put(customer.getUsername(), allCustomers.get(customer));
+        }
         for (Customer customer : allCustomers.keySet())
             customer.addDiscountCode(this);
     }
@@ -63,7 +65,12 @@ public class DiscountCode {
     }
 
     public HashMap<Customer, Integer> getIncludedCustomers() {
-        return includedCustomers;
+        HashMap<Customer, Integer> includedCustomers2 = new HashMap<>();
+        for (String customerUserName : this.includedCustomers.keySet()) {
+            includedCustomers2.put((Customer) Shop.getInstance().findUser(customerUserName),
+                    this.includedCustomers.get(customerUserName));
+        }
+        return includedCustomers2;
     }
 
     public void setDiscountPercent(int discountPercent) {
@@ -83,14 +90,14 @@ public class DiscountCode {
     }
 
     public void reduceNumberOfDiscountCodeForCostumer(Customer customer) {
-        for (Customer customers : includedCustomers.keySet()) {
+        for (Customer customers : this.getIncludedCustomers().keySet()) {
             if (customers.getUsername().equals(customer.getUsername())) {
-                includedCustomers.put(customers, includedCustomers.get(customers) - 1);
+                includedCustomers.put(customers.getUsername(), includedCustomers.get(customers) - 1);
                 if (includedCustomers.get(customers) == 0)
                     includedCustomers.remove(customers);
             }
         }
-        includedCustomers.put(customer, includedCustomers.get(customer) - 1);
+        includedCustomers.put(customer.getUsername(), includedCustomers.get(customer) - 1);
         if (includedCustomers.get(customer) == 0)
             includedCustomers.remove(customer);
     }
@@ -112,11 +119,11 @@ public class DiscountCode {
     }
 
     public void discountBeUsedForCustomer(Customer customer) throws Exception {
-        for (Customer includedCustomer : includedCustomers.keySet()) {
+        for (Customer includedCustomer : this.getIncludedCustomers().keySet()) {
             if (includedCustomer.equals(customer)) {
                 int remainedNumberOfUse = includedCustomers.get(includedCustomer);
                 if (remainedNumberOfUse > 1) {
-                    includedCustomers.replace(includedCustomer, remainedNumberOfUse - 1);
+                    includedCustomers.replace(includedCustomer.getUsername(), remainedNumberOfUse - 1);
                     //Database.getInstance().saveItem(this);
                     //Database.getInstance().saveItem(customer);
                 } else {
