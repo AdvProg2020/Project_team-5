@@ -205,8 +205,14 @@ public class Good {
     public Seller getSellerThatPutsThisGoodOnOff(){
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : sellerRelatedInfoAboutGoods) {
             for (Off off : relatedInfoAboutGood.getSeller().getActiveOffs()) {
+                /*
                 if (off.getOffGoods().contains(this))
                     return relatedInfoAboutGood.getSeller();
+                    */
+                for (Good offGood : off.getOffGoods()) {
+                    if (offGood.getGoodId() == this.getGoodId())
+                        return relatedInfoAboutGood.getSeller();
+                }
             }
         }
         return null;

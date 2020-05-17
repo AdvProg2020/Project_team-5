@@ -30,12 +30,7 @@ public class DeletingData {
         String filePath = "Resources\\Users\\Sellers\\" + seller.getUsername() + ".json";
         deleteFile(filePath);
         for (Good good : seller.getActiveGoods()) {
-            for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
-                if (infoAboutGood.getSeller().equals(seller)) {
-                    deleteProductInfo(infoAboutGood, good.getGoodId());
-                    break;
-                }
-            }
+
         }
     }
 

@@ -92,7 +92,7 @@ public class ViewDiscountCodesMenu extends Menu {
                     try {
                         MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(code, field, newValue);
                         System.out.println("successfully edited!");
-                        System.out.println("press enter to conitnue");
+                        System.out.println("press enter to continue");
                         scanner.nextLine();
                     } catch (DiscountCodeCantBeEditedException| FileCantBeSavedException | IOException e) {
                         System.out.println(e.getMessage());

@@ -15,11 +15,15 @@ import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
 import model.database.Database;
+import model.orders.OrderForCustomer;
+import model.orders.OrderForSeller;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
+import model.persons.Seller;
 import model.productThings.DiscountCode;
 import model.productThings.Good;
+import model.productThings.Off;
 import model.requests.Request;
 
 import java.io.IOException;
@@ -61,6 +65,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         discountCode.addCustomerToCode((Customer) person, number);
         Database.getInstance().saveItem(discountCode);
+        Database.getInstance().saveItem((Customer)person);
     }
 
     private ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
@@ -188,6 +193,12 @@ public class AccountAreaForManagerController extends AccountAreaController {
         for (int i = 0; i < category.getDetails().size(); i++) {
             if (category.getDetails().get(i).equalsIgnoreCase(property)) {
                 category.getDetails().set(i, newValue);
+                for (SubCategory subCategory : category.getSubCategories()) {
+                    for (Good good : subCategory.getGoods()) {
+                        Database.getInstance().saveItem(good);
+                    }
+                    Database.getInstance().saveItem(subCategory);
+                }
                 Database.getInstance().saveItem(category);
                 return;
             }
@@ -274,14 +285,44 @@ public class AccountAreaForManagerController extends AccountAreaController {
     }
 
     public void removeUser(String username)
-            throws UsernameNotFoundException, UserCantBeRemovedException, FileCantBeDeletedException {
+            throws UsernameNotFoundException, UserCantBeRemovedException, FileCantBeDeletedException, IOException, FileCantBeSavedException {
         Person person;
         if ((person = Shop.getInstance().findUser(username)) == null)
             throw new UsernameNotFoundException();
         if (person instanceof Manager)
             throw new UserCantBeRemovedException();
+        if (person instanceof Customer)
+            removePersonRelatedInfo((Customer)person);
+        if (person instanceof Seller)
+            removePersonRelatedInfo((Seller)person);
         Shop.getInstance().removePerson(person);
         Database.getInstance().deleteItem(person);
+    }
+
+    private void removePersonRelatedInfo(Seller seller) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
+        for (Off off : seller.getActiveOffs()) {
+            Shop.getInstance().removeOff(off);
+            Database.getInstance().deleteItem(off);
+        }
+        for (OrderForSeller previousSell : seller.getPreviousSells()) {
+            Database.getInstance().deleteItem(previousSell);
+        }
+        for (Good good : seller.getActiveGoods()) {
+            good.removeSeller(seller);
+            Database.getInstance().saveItem(good);
+            Database.getInstance().saveItem(good.getSubCategory());
+            Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
+        }
+    }
+
+    private void removePersonRelatedInfo(Customer customer) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
+        for (OrderForCustomer previousOrder : customer.getPreviousOrders()) {
+            Database.getInstance().deleteItem(previousOrder);
+        }
+        for (DiscountCode discountCode : customer.getDiscountCodes()) {
+            discountCode.getIncludedCustomers().remove(customer);
+            Database.getInstance().saveItem(discountCode);
+        }
     }
 
     public void createManagerAccount(String username, ArrayList<String> details) throws UsernameIsTakenAlreadyException, IOException, FileCantBeSavedException {
