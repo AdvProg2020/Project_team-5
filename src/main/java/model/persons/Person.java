@@ -72,6 +72,15 @@ public abstract class Person {
                 "firstName = " + firstName + "\n" +
                 "lastName = " + lastName + "\n" +
                 "email = " + email + "\n" +
-                "phoneNumber = " + phoneNumber ;
+                "phoneNumber = " + phoneNumber;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Person) {
+            Person person2 = (Person) obj;
+            return (this.getUsername().equals(person2.getUsername()));
+        }
+        return super.equals(obj);
     }
 }
