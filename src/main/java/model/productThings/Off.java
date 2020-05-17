@@ -1,5 +1,6 @@
 package model.productThings;
 
+import model.Shop;
 import model.persons.Seller;
 
 import java.time.LocalDate;
@@ -9,13 +10,13 @@ import java.util.List;
 public class Off {
     private static long offsCount = 1;
     private long offId;
-    private List<Good> offGoods;
+    private List<Long> offGoods;
     private OffStatus offStatus;
     private LocalDate startDate;
     private LocalDate endDate;
     private long maxDiscount;
     private int discountPercent;
-    private Seller seller;
+    private String seller;
 
     public enum OffStatus {
         VALIDATING,
@@ -25,13 +26,16 @@ public class Off {
 
     public Off(List<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
         this.offId = offsCount++;
-        this.offGoods = offGoods;
+        this.offGoods = new ArrayList<>();
+        for (Good offGood : offGoods) {
+            this.offGoods.add(offGood.getGoodId());
+        }
         this.offStatus = OffStatus.VALIDATING;
         this.startDate = startDate;
         this.endDate = endDate;
         this.maxDiscount = maxDiscount;
         this.discountPercent = discountPercent;
-        this.seller = seller;
+        this.seller = seller.getUsername();
     }
 
     public long getOffId() {
@@ -39,7 +43,11 @@ public class Off {
     }
 
     public List<Good> getOffGoods() {
-        return offGoods;
+        List<Good> activeGoods = new ArrayList<>();
+        for (Long offGood : this.offGoods) {
+            activeGoods.add(Shop.getInstance().findGoodById(offGood));
+        }
+        return activeGoods;
     }
 
     public OffStatus getOffStatus() {
@@ -63,7 +71,7 @@ public class Off {
     }
 
     public Seller getSeller() {
-        return seller;
+        return (Seller) Shop.getInstance().findUser(seller);
     }
 
     public void setOffStatus(OffStatus offStatus) {
@@ -89,23 +97,23 @@ public class Off {
     public long getPriceAfterOff(Good good, Seller productSeller) {
         if (!productSeller.equals(seller))
             return 0L;
-        long price = this.offGoods.stream().filter(offGood -> offGood.equals(good))
-                .map(offGood -> offGood.getPriceBySeller(seller)).findAny().orElse(0L);
-        if (price * (discountPercent/(double)100) > maxDiscount)
+        long price = this.getOffGoods().stream().filter(offGood -> offGood.equals(good))
+                .map(offGood -> offGood.getPriceBySeller(getSeller())).findAny().orElse(0L);
+        if (price * (discountPercent / (double) 100) > maxDiscount)
             return price - maxDiscount;
         else
-            return (long)(price * (1 - discountPercent/(double)100));
+            return (long) (price * (1 - discountPercent / (double) 100));
     }
 
     public void addGood(Good good) {
-        offGoods.add(good);
+        offGoods.add(good.getGoodId());
     }
 
     public void removeGood(Good good) {
         offGoods.remove(good);
     }
 
-    public boolean doesHaveThisProduct(Good good){
+    public boolean doesHaveThisProduct(Good good) {
         if (good == null) return false;
         return offGoods.contains(good);
     }
@@ -114,11 +122,11 @@ public class Off {
         Off.offsCount = offsCount;
     }
 
-    public String getBriefSummery(){
-        return "off ID: " + offId +"\t off percent: " + discountPercent;
+    public String getBriefSummery() {
+        return "off ID: " + offId + "\t off percent: " + discountPercent;
     }
 
-    public boolean isOffExpired(){
+    public boolean isOffExpired() {
         return LocalDate.now().isAfter(this.endDate);
     }
 
@@ -126,6 +134,6 @@ public class Off {
     public String toString() {
         return String.format("Off Id : %d\nStart Date : %s\n" +
                         "End Date : %s\nMax Discount : %d\nDiscount Percent : %s\nSeller : %s", this.offId,
-                this.startDate.toString(), this.endDate.toString(), this.maxDiscount, this.discountPercent, this.seller.getUsername());
+                this.startDate.toString(), this.endDate.toString(), this.maxDiscount, this.discountPercent, this.seller);
     }
 }
