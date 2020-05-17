@@ -76,6 +76,13 @@ public class DiscountCode {
     }
 
     public void reduceNumberOfDiscountCodeForCostumer(Customer customer){
+        for (Customer customers : includedCustomers.keySet()) {
+            if (customers.getUsername().equals(customer.getUsername())){
+                includedCustomers.put(customers, includedCustomers.get(customers) - 1);
+                if (includedCustomers.get(customers) == 0)
+                    includedCustomers.remove(customers);
+            }
+        }
         includedCustomers.put(customer, includedCustomers.get(customer) - 1);
         if (includedCustomers.get(customer) == 0)
             includedCustomers.remove(customer);
