@@ -143,8 +143,10 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     public void finalBuyProcess(long price, ArrayList<String> customerInfo) throws IOException, FileCantBeSavedException {
         ArrayList<GoodInCart> cart = new ArrayList<>(Shop.getInstance().getCart());
         Customer currentUser = (Customer) MainController.getInstance().getCurrentPerson();
-        currentUser.addOrder(new OrderForCustomer(cart, price, customerInfo.get(0), customerInfo.get(1),
-                customerInfo.get(2), customerInfo.get(3)));
+        OrderForCustomer orderForCustomer=new OrderForCustomer(cart, price, customerInfo.get(0), customerInfo.get(1),
+                customerInfo.get(2), customerInfo.get(3));
+        currentUser.addOrder(orderForCustomer);
+        orderForCustomer.setOrderStatus(Order.OrderStatus.RECEIVED);
         currentUser.setCredit(currentUser.getCredit() - price);
         Database.getInstance().saveItem(currentUser);
         makeOrderForSeller(customerInfo.get(0));
@@ -162,7 +164,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
             List<GoodInCart> sellerProduct = cart.stream().filter(good -> good.getSeller() == seller).collect(Collectors.toList());
             OrderForSeller orderForSeller = new OrderForSeller(finalPriceOfAList(sellerProduct), seller, customerName, sellerProduct);
             seller.addOrder(orderForSeller);
-            Database.getInstance().saveItem(orderForSeller);
+            orderForSeller.setOrderStatus(Order.OrderStatus.SENT);
+            //Database.getInstance().saveItem(orderForSeller);
             Database.getInstance().saveItem(seller);
         }
     }

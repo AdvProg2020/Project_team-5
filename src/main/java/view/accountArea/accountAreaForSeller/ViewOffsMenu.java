@@ -116,9 +116,9 @@ public class ViewOffsMenu extends Menu {
 
     private void addOff() {
         ArrayList<String> offDetails = new ArrayList<>();
-        System.out.println("start date : \t enter in format[2020-4-27]");
+        System.out.println("start date : \t enter in format[2020-04-27]");
         offDetails.add(getDate(0, ""));
-        System.out.println("end date : \t enter in format[2020-4-27]");
+        System.out.println("end date : \t enter in format[2020-04-27]");
         offDetails.add(getDate(1, offDetails.get(0)));
         System.out.println("maximum amount of purchase :");
         offDetails.add(getValidInput("\\d\\d\\d\\d+", "Not valid amount"));
@@ -155,7 +155,7 @@ public class ViewOffsMenu extends Menu {
     private String getDate(int a, String startDate) {
         while (true) {
             String date = scanner.nextLine().trim();
-            if (Pattern.matches("([\\d]{4})-([\\d]{1,2})-([\\d]{1,2})", date)) {
+            if (Pattern.matches("(\\d{4}-\\d{2}-\\d{2})", date)) {
                 if (MainController.getInstance().getAccountAreaForSellerController().checkValidDate(date, a, startDate))
                     return date;
             }
@@ -164,7 +164,7 @@ public class ViewOffsMenu extends Menu {
     }
 
     private void editStartDate(long id) {
-        System.out.println("enter a date in format [2020-4-27]");
+        System.out.println("enter a date in format [2020-04-27]");
         try {
             MainController.getInstance().getAccountAreaForSellerController().editOff("start date", getDate(0, ""), id);
             System.out.println("your request successfully sent to manager");
@@ -174,7 +174,7 @@ public class ViewOffsMenu extends Menu {
     }
 
     private void editEndDate(long id) {
-        System.out.println("enter a date in format [2020-4-27]");
+        System.out.println("enter a date in format [2020-04-27]");
         try {
             MainController.getInstance().getAccountAreaForSellerController().editOff("end date", getDate(1,
                     Shop.getInstance().findOffById(id).getStartDate().toString()), id);
