@@ -64,6 +64,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeCantCreatedException("number of use");
         }
         discountCode.addCustomerToCode((Customer) person, number);
+        Customer customer= (Customer) person;
+        customer.addDiscountCode(discountCode);
         //Database.getInstance().saveItem(discountCode);
        // Database.getInstance().saveItem((Customer)person);
     }
