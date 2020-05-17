@@ -21,7 +21,7 @@ import java.util.*;
 
 public class Shop {
     private static Shop ourInstance = new Shop();
-    private ArrayList<Category> allCategories;
+    private HashMap<String, Category> allCategories;
     private HashMap <Long,Off> offs;
     private ArrayList<Person> allPersons;
     private ArrayList<Request> allRequest;
@@ -38,7 +38,7 @@ public class Shop {
     }
 
     private Shop() {
-        this.allCategories = new ArrayList<>();
+        this.allCategories = new HashMap<>();
         this.allDiscountCodes = new HashMap<>();
         this.allPersons = new ArrayList<>();
         this.allRates = new ArrayList<>();
@@ -51,7 +51,7 @@ public class Shop {
     }
 
     public ArrayList<Category> getAllCategories() {
-        return allCategories;
+        return new ArrayList<>(allCategories.values());
     }
 
     public HashMap<Long, GoodInCart> getAllGoodInCarts() {
@@ -64,6 +64,10 @@ public class Shop {
 
     public ArrayList<Rate> getAllRates() {
         return allRates;
+    }
+
+    public HashMap<String,Category> getHashMapOfCategories(){
+        return this.allCategories;
     }
 
     public ArrayList<DiscountCode> getAllDiscountCodes() {
@@ -111,7 +115,7 @@ public class Shop {
     }
 
     public Good findGoodById(long goodId) {
-        for (Category category : allCategories) {
+        for (Category category : this.getAllCategories()) {
             if (category.findGoodInSubCategories(goodId) != null)
                 return category.findGoodInSubCategories(goodId);
         }
@@ -159,7 +163,7 @@ public class Shop {
     }
 
     public void addCategory(Category category) {
-        allCategories.add(category);
+        allCategories.put(category.getName(),category);
     }
 
     public void removeCategory(Category category) {
@@ -273,7 +277,7 @@ public class Shop {
     }
 
     public SubCategory findSubCategoryByName(String name) {
-        for (Category category : allCategories) {
+        for (Category category : this.getAllCategories()) {
             for (SubCategory subCategory : category.getSubCategories()) {
                 if (subCategory.getName().equalsIgnoreCase(name))
                     return subCategory;
@@ -283,7 +287,7 @@ public class Shop {
     }
 
     public Category findCategoryByName(String name) {
-        for (Category category : allCategories) {
+        for (Category category : this.getAllCategories()) {
             if (category.getName().equalsIgnoreCase(name))
                 return category;
         }
