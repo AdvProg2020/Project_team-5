@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public class DiscountCode {
+    private static long discountCodeCount = 1;
+    private long id;
     private String code;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -16,6 +18,7 @@ public class DiscountCode {
     private HashMap<Customer, Integer> includedCustomers;
 
     public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent) {
+        this.id = discountCodeCount++;
         this.code = code;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -29,7 +32,11 @@ public class DiscountCode {
         customer.addDiscountCode(this);
     }
 
-    public void addAllCustomers (HashMap<Customer,Integer> allCustomers) {
+    public long getId() {
+        return id;
+    }
+
+    public void addAllCustomers(HashMap<Customer, Integer> allCustomers) {
         this.includedCustomers.putAll(allCustomers);
         for (Customer customer : allCustomers.keySet())
             customer.addDiscountCode(this);
@@ -75,9 +82,9 @@ public class DiscountCode {
         this.startDate = startDate;
     }
 
-    public void reduceNumberOfDiscountCodeForCostumer(Customer customer){
+    public void reduceNumberOfDiscountCodeForCostumer(Customer customer) {
         for (Customer customers : includedCustomers.keySet()) {
-            if (customers.getUsername().equals(customer.getUsername())){
+            if (customers.getUsername().equals(customer.getUsername())) {
                 includedCustomers.put(customers, includedCustomers.get(customers) - 1);
                 if (includedCustomers.get(customers) == 0)
                     includedCustomers.remove(customers);
@@ -88,9 +95,9 @@ public class DiscountCode {
             includedCustomers.remove(customer);
     }
 
-    public String detailedToString(){
+    public String detailedToString() {
         return "discount code : " + code + "\nstart date : " + startDate + "\nend date : " + endDate + "\nmaximum supported amount : "
-                + maxDiscountAmount + "\ndiscount percent :" + discountPercent ;
+                + maxDiscountAmount + "\ndiscount percent :" + discountPercent;
     }
 
     public static String generateRandomDiscountCode() {
@@ -116,7 +123,7 @@ public class DiscountCode {
                     includedCustomers.remove(includedCustomer);
                     includedCustomer.removeDiscountCode(this);
                     Database.getInstance().deleteItem(this);
-                   // Database.getInstance().saveItem(customer);
+                    // Database.getInstance().saveItem(customer);
                 }
                 return;
             }
@@ -125,8 +132,7 @@ public class DiscountCode {
     }
 
 
-
-    public boolean isDiscountCodeExpired(){
+    public boolean isDiscountCodeExpired() {
         return LocalDate.now().isAfter(this.endDate);
     }
 

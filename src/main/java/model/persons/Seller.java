@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class Seller extends Person {
     private Company company;
-   // private ArrayList<OrderForSeller> previousSells;
     private ArrayList<Long> previousSellsIds;
     private ArrayList<Long> activeGoodsIds;
     private ArrayList<Long> activeOffsIds;

@@ -25,7 +25,7 @@ public class Shop {
     private HashMap <Long,Off> offs;
     private ArrayList<Person> allPersons;
     private ArrayList<Request> allRequest;
-    private ArrayList<DiscountCode> allDiscountCodes;
+    private HashMap<Long,DiscountCode> allDiscountCodes;
     private ArrayList<Rate> allRates;
     private ArrayList<GoodInCart> cart;
     private HashMap<Long, Good> allGoods;
@@ -38,7 +38,7 @@ public class Shop {
 
     private Shop() {
         this.allCategories = new ArrayList<>();
-        this.allDiscountCodes = new ArrayList<>();
+        this.allDiscountCodes = new HashMap<>();
         this.allPersons = new ArrayList<>();
         this.allRates = new ArrayList<>();
         this.allRequest = new ArrayList<>();
@@ -57,7 +57,7 @@ public class Shop {
     }
 
     public ArrayList<DiscountCode> getAllDiscountCodes() {
-        return allDiscountCodes;
+        return new ArrayList<>(allDiscountCodes.values());
     }
 
     public ArrayList<Request> getAllRequest() {
@@ -109,7 +109,7 @@ public class Shop {
     }
 
     public DiscountCode findDiscountCode(String code) {
-        for (DiscountCode discountCode : allDiscountCodes) {
+        for (DiscountCode discountCode : allDiscountCodes.values()) {
             if (discountCode.getCode().equals(code))
                 return discountCode;
         }
@@ -125,7 +125,7 @@ public class Shop {
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-        allDiscountCodes.add(discountCode);
+        allDiscountCodes.put(discountCode.getId(),discountCode);
     }
 
     public Request findRequestById(long requestId) {
@@ -134,6 +134,10 @@ public class Shop {
                 return request;
         }
         return null;
+    }
+
+    public HashMap<Long,DiscountCode> getHashMapOfDiscountCodes(){
+        return this.allDiscountCodes;
     }
 
     public void removeRequest(Request request) {
@@ -232,7 +236,7 @@ public class Shop {
         String code = DiscountCode.generateRandomDiscountCode();
         DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
         discountCode.addAllCustomers(randomCustomers(5, 1, discountCode));
-        allDiscountCodes.add(discountCode);
+        allDiscountCodes.put(discountCode.getId(),discountCode);
         this.lastRandomPeriodDiscountCodeCreatedDate = LocalDate.now();
     }
 
@@ -293,7 +297,7 @@ public class Shop {
     }
 
     public boolean checkExistDiscountCode(String code) {
-        return allDiscountCodes.stream().filter(discountCode -> discountCode.getCode().equals(code)).count() != 0;
+        return allDiscountCodes.values().stream().filter(discountCode -> discountCode.getCode().equals(code)).count() != 0;
     }
 
     public void clearCart() {

@@ -9,26 +9,30 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Customer extends Person {
-    private ArrayList<DiscountCode> discountCodes;
+    private ArrayList<Long> discountCodesIds;
     private ArrayList<OrderForCustomer> previousOrders;
     private long credit;
 
     public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password, long credit) {
         super(username, firstName, lastName, email, phoneNumber, password);
         this.credit = credit;
-        this.discountCodes = new ArrayList<>();
+        this.discountCodesIds = new ArrayList<>();
         this.previousOrders = new ArrayList<>();
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-        this.discountCodes.add(discountCode);
+        this.discountCodesIds.add(discountCode.getId());
     }
 
     public void removeDiscountCode(DiscountCode discountCode) {
-        this.discountCodes.remove(discountCode);
+        this.discountCodesIds.remove(discountCode.getId());
     }
 
     public ArrayList<DiscountCode> getDiscountCodes() {
+        ArrayList<DiscountCode> discountCodes=new ArrayList<>();
+        for (Long discountCodesId : this.discountCodesIds) {
+            discountCodes.add(Shop.getInstance().getHashMapOfDiscountCodes().get(discountCodesId));
+        }
         return discountCodes;
     }
 
@@ -57,7 +61,7 @@ public class Customer extends Person {
     }
 
     public DiscountCode findDiscountCode(String code) {
-        for (DiscountCode discountCode : discountCodes) {
+        for (DiscountCode discountCode : this.getDiscountCodes()) {
             if (discountCode.getCode().equals(code))
                 return discountCode;
         }
