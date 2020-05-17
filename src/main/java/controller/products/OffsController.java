@@ -28,7 +28,7 @@ public class OffsController {
     private String getGoodDetail(Good good) {
         String output = "";
         Seller seller = good.getSellerThatPutsThisGoodOnOff();
-       // System.out.println(seller.getUsername());
+       System.out.println(seller);
         output += (good.getName() + " =      " + "\tgood id : " + good.getGoodId() + "\t         price before off : "
                 + good.getPriceBySeller(seller)
                 + "              \t price after off : " + Shop.getInstance().getFinalPriceOfAGood(good, seller));
