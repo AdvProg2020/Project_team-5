@@ -44,7 +44,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         DiscountCode discountCode = new DiscountCode(fields.get(0), LocalDate.parse(fields.get(1)), LocalDate.parse(fields.get(2)),
                 Long.parseLong(fields.get(3)), Integer.parseInt(fields.get(4)));
         Shop.getInstance().addDiscountCode(discountCode);
-        Database.getInstance().saveItem(discountCode);
+        //Database.getInstance().saveItem(discountCode);
     }
 
     public void addIncludedCustomerToDiscountCode(String code, String username, String numberOfUse)
@@ -64,8 +64,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeCantCreatedException("number of use");
         }
         discountCode.addCustomerToCode((Customer) person, number);
-        Database.getInstance().saveItem(discountCode);
-        Database.getInstance().saveItem((Customer)person);
+        //Database.getInstance().saveItem(discountCode);
+       // Database.getInstance().saveItem((Customer)person);
     }
 
     private ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
@@ -120,7 +120,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
                     throw new DiscountCodeCantBeEditedException("new discount percent value");
                 discountCode.setDiscountPercent(Integer.parseInt(newValue));
             } else throw new DiscountCodeCantBeEditedException("field name for edit");
-            Database.getInstance().saveItem(discountCode);
+           // Database.getInstance().saveItem(discountCode);
         } else throw new DiscountCodeNotFoundException();
     }
 
@@ -195,11 +195,11 @@ public class AccountAreaForManagerController extends AccountAreaController {
                 category.getDetails().set(i, newValue);
                 for (SubCategory subCategory : category.getSubCategories()) {
                     for (Good good : subCategory.getGoods()) {
-                        Database.getInstance().saveItem(good);
+                     //   Database.getInstance().saveItem(good);
                     }
-                    Database.getInstance().saveItem(subCategory);
+                   // Database.getInstance().saveItem(subCategory);
                 }
-                Database.getInstance().saveItem(category);
+               // Database.getInstance().saveItem(category);
                 return;
             }
         }
@@ -217,7 +217,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
     public void addCategory(String name, ArrayList<String> properties) throws IOException, FileCantBeSavedException {
         Category category = new Category(name, properties);
         Shop.getInstance().addCategory(category);
-        Database.getInstance().saveItem(category);
+      //  Database.getInstance().saveItem(category);
     }
 
     public void removeCategory(String categoryName)
@@ -234,8 +234,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Category category = Shop.getInstance().findCategoryByName(categoryName);
         SubCategory subCategory = new SubCategory(subcategoryName, properties);
         category.addSubCategory(subCategory);
-        Database.getInstance().saveItem(category);
-        Database.getInstance().saveItem(subCategory);
+      //  Database.getInstance().saveItem(category);
+      //  Database.getInstance().saveItem(subCategory);
     }
 
     public void removeSubCategory(String categoryName, String subCategoryName)
@@ -247,8 +247,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if ((subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName)) == null)
             throw new SubCategoryNotFoundException();
         category.deleteSubCategory(subCategory);
-        Database.getInstance().saveItem(category);
-        Database.getInstance().deleteItem(subCategory);
+       // Database.getInstance().saveItem(category);
+       // Database.getInstance().deleteItem(subCategory);
     }
 
     public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
@@ -260,8 +260,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
         for (int i = 0; i < subCategory.getDetails().size(); i++) {
             if (subCategory.getDetails().get(i).equalsIgnoreCase(property)) {
                 subCategory.getDetails().add(i, newValue);
-                Database.getInstance().saveItem(subCategory.getParentCategory());
-                Database.getInstance().saveItem(subCategory);
+                //Database.getInstance().saveItem(subCategory.getParentCategory());
+                //Database.getInstance().saveItem(subCategory);
                 return;
             }
         }
@@ -309,9 +309,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         for (Good good : seller.getActiveGoods()) {
             good.removeSeller(seller);
-            Database.getInstance().saveItem(good);
-            Database.getInstance().saveItem(good.getSubCategory());
-            Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
+           // Database.getInstance().saveItem(good);
+           // Database.getInstance().saveItem(good.getSubCategory());
+           // Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
         }
     }
 
@@ -321,7 +321,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         for (DiscountCode discountCode : customer.getDiscountCodes()) {
             discountCode.getIncludedCustomers().remove(customer);
-            Database.getInstance().saveItem(discountCode);
+           // Database.getInstance().saveItem(discountCode);
         }
     }
 
@@ -331,7 +331,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         Manager manager = new Manager(username, details.get(0), details.get(1), details.get(2), details.get(3), details.get(4));
         Shop.getInstance().addPerson(manager);
-        Database.getInstance().saveItem(manager);
+       // Database.getInstance().saveItem(manager);
     }
 
     public void removeProduct(String productId) throws ProductWithThisIdNotExist, FileCantBeDeletedException {

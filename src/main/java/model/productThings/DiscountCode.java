@@ -103,13 +103,13 @@ public class DiscountCode {
                 int remainedNumberOfUse = includedCustomers.get(includedCustomer);
                 if (remainedNumberOfUse > 1) {
                     includedCustomers.replace(includedCustomer, remainedNumberOfUse - 1);
-                    Database.getInstance().saveItem(this);
-                    Database.getInstance().saveItem(customer);
+                    //Database.getInstance().saveItem(this);
+                    //Database.getInstance().saveItem(customer);
                 } else {
                     includedCustomers.remove(includedCustomer);
                     includedCustomer.removeDiscountCode(this);
                     Database.getInstance().deleteItem(this);
-                    Database.getInstance().saveItem(customer);
+                   // Database.getInstance().saveItem(customer);
                 }
                 return;
             }

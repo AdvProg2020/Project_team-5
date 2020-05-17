@@ -19,8 +19,8 @@ public class AddingOffRequest extends Request {
         Shop.getInstance().addOff(off);
         off.getSeller().addOff(off);
         off.setOffStatus(Off.OffStatus.ACCEPTED);
-        Database.getInstance().saveItem(off);
-        Database.getInstance().saveItem(off.getSeller());
+        //Database.getInstance().saveItem(off);
+      //  Database.getInstance().saveItem(off.getSeller());
     }
 
     @Override

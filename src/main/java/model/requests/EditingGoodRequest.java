@@ -57,7 +57,7 @@ public class EditingGoodRequest extends Request {
             }
         }
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
-        Database.getInstance().saveItem(good.getSubCategory());
-        Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
+     //   Database.getInstance().saveItem(good.getSubCategory());
+       // Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
     }
 }

@@ -17,8 +17,8 @@ public class AddingCommentRequest extends Request {
     public void acceptRequest() throws IOException, FileCantBeSavedException {
         this.comment.getGood().addComment(comment);
         comment.setCommentStatus(Comment.CommentStatus.ACCEPTED);
-        Database.getInstance().saveItem(comment);
-        Database.getInstance().saveItem(comment.getGood().getSubCategory());
-        Database.getInstance().saveItem(comment.getGood().getSubCategory().getParentCategory());
+       // Database.getInstance().saveItem(comment);
+        //Database.getInstance().saveItem(comment.getGood().getSubCategory());
+       // Database.getInstance().saveItem(comment.getGood().getSubCategory().getParentCategory());
     }
 }

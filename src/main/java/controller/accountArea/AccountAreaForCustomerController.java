@@ -69,8 +69,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     public void rateProduct(long productId, int rate) throws IOException, FileCantBeSavedException {
         Shop.getInstance().addRate(((Customer) MainController.getInstance().getCurrentPerson()), productId, rate);
         Shop.getInstance().findGoodById(productId).updateRate();
-        Database.getInstance().saveItem(Shop.getInstance().findGoodById(productId).getSubCategory());
-        Database.getInstance().saveItem(Shop.getInstance().findGoodById(productId).getSubCategory().getParentCategory());
+       // Database.getInstance().saveItem(Shop.getInstance().findGoodById(productId).getSubCategory());
+      //  Database.getInstance().saveItem(Shop.getInstance().findGoodById(productId).getSubCategory().getParentCategory());
     }
 
     public List<String> getBriefSummeryOfOrders(){
@@ -136,8 +136,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     public void reduceNumberOfDiscountCode(String discountCode) throws IOException, FileCantBeSavedException {
         Customer customer= (Customer) MainController.getInstance().getCurrentPerson();
         customer.findDiscountCode(discountCode).reduceNumberOfDiscountCodeForCostumer(customer);
-        Database.getInstance().saveItem(customer);
-        Database.getInstance().saveItem(customer.findDiscountCode(discountCode));
+       // Database.getInstance().saveItem(customer);
+        //Database.getInstance().saveItem(customer.findDiscountCode(discountCode));
     }
 
     public void finalBuyProcess(long price, ArrayList<String> customerInfo) throws IOException, FileCantBeSavedException {
@@ -148,7 +148,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         currentUser.addOrder(orderForCustomer);
         orderForCustomer.setOrderStatus(Order.OrderStatus.RECEIVED);
         currentUser.setCredit(currentUser.getCredit() - price);
-        Database.getInstance().saveItem(currentUser);
+       // Database.getInstance().saveItem(currentUser);
         makeOrderForSeller(customerInfo.get(0));
         reduceAvailableNumberOfGoodsAfterPurchase();
         Shop.getInstance().clearCart();
@@ -166,7 +166,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
             seller.addOrder(orderForSeller);
             orderForSeller.setOrderStatus(Order.OrderStatus.SENT);
             //Database.getInstance().saveItem(orderForSeller);
-            Database.getInstance().saveItem(seller);
+            //Database.getInstance().saveItem(seller);
         }
     }
 
@@ -178,9 +178,9 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         ArrayList<GoodInCart> cart = Shop.getInstance().getCart();
         for (GoodInCart good : cart) {
             good.getGood().reduceAvailableNumber(good.getSeller(), good.getNumber());
-            Database.getInstance().saveItem(good.getGood().getSubCategory());
-            Database.getInstance().saveItem(good.getGood().getSubCategory().getParentCategory());
-            Database.getInstance().saveItem(good.getSeller());
+            //Database.getInstance().saveItem(good.getGood().getSubCategory());
+           // Database.getInstance().saveItem(good.getGood().getSubCategory().getParentCategory());
+           // Database.getInstance().saveItem(good.getSeller());
         }
     }
 }
