@@ -291,14 +291,17 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new UsernameNotFoundException();
         if (person instanceof Manager)
             throw new UserCantBeRemovedException();
+        /*
         if (person instanceof Customer)
             removePersonRelatedInfo((Customer)person);
         if (person instanceof Seller)
             removePersonRelatedInfo((Seller)person);
+
+         */
         Shop.getInstance().removePerson(person);
         Database.getInstance().deleteItem(person);
     }
-
+    /*
     private void removePersonRelatedInfo(Seller seller) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         for (Off off : seller.getActiveOffs()) {
             Shop.getInstance().removeOff(off);
@@ -324,7 +327,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
            // Database.getInstance().saveItem(discountCode);
         }
     }
-
+    */
     public void createManagerAccount(String username, ArrayList<String> details) throws UsernameIsTakenAlreadyException, IOException, FileCantBeSavedException {
         if (Shop.getInstance().findUser(username) != null) {
             throw new UsernameIsTakenAlreadyException();
@@ -342,37 +345,4 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().deleteItem(good);
     }
 
-    public ArrayList<String> sortUsers() {
-        ArrayList<String> allUsers = getAllUsersList();
-        allUsers.sort(String::compareTo);
-        return allUsers;
-    }
-
-    public List<String> sortDiscountCodes(String field) throws Exception {
-        ArrayList<DiscountCode> discountCodes = Shop.getInstance().getAllDiscountCodes();
-        if (field.equalsIgnoreCase("startDate")) {
-            discountCodes.sort((discount1, discount2) -> {
-                if (discount1.getStartDate().isAfter(discount2.getStartDate()))
-                    return 1;
-                else if (discount1.getStartDate().isBefore(discount2.getStartDate()))
-                    return -1;
-                else
-                    return 0;
-            });
-        } else if (field.equalsIgnoreCase("endDate")) {
-            discountCodes.sort((discount1, discount2) -> {
-                if (discount1.getEndDate().isAfter(discount2.getEndDate()))
-                    return 1;
-                else if (discount1.getEndDate().isBefore(discount2.getEndDate()))
-                    return -1;
-                else
-                    return 0;
-            });
-        } else if (field.equalsIgnoreCase("maxDiscountAmount")) {
-            discountCodes.sort(Comparator.comparing(DiscountCode::getMaxDiscountAmount));
-        } else if (field.equalsIgnoreCase("discountPercent")) {
-            discountCodes.sort(Comparator.comparing(DiscountCode::getDiscountPercent));
-        } else throw new Exception("invalid field selected.");
-        return discountCodes.stream().map(DiscountCode::getCode).collect(Collectors.toList());
-    }
 }

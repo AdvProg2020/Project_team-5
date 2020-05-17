@@ -8,6 +8,9 @@ import exception.RequestNotFoundException;
 import exception.categoryExceptions.CategoryNotFoundException;
 import exception.categoryExceptions.SubCategoryNotFoundException;
 import exception.productExceptions.FieldCantBeEditedException;
+import exception.productExceptions.ProductWithThisIdNotExist;
+import exception.userExceptions.UserCantBeRemovedException;
+import exception.userExceptions.UsernameIsTakenAlreadyException;
 import exception.userExceptions.UsernameNotFoundException;
 import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
@@ -20,6 +23,7 @@ import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
 import model.productThings.DiscountCode;
+import model.productThings.Good;
 import model.requests.RegisteringSellerRequest;
 import org.junit.*;
 
@@ -40,6 +44,7 @@ public class AccountAreaForManagerTest {
         fields.add("9000000");
         fields.add("30");
         Shop.getInstance().getAllPersons().add(new Customer("sadegh", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
+        Shop.getInstance().getAllPersons().add(new Customer("yasaman", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Manager("XxXxXx", "aboots", "zzzzz", "aboot@gmail.com", "06065656060", "pass2"));
         Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf", null)));
         ArrayList<String> details = new ArrayList<>();
@@ -248,6 +253,46 @@ public class AccountAreaForManagerTest {
     public void viewUserInfoTest() throws UsernameNotFoundException {
         Assert.assertThrows(UsernameNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().viewUserInfo("alaki"));
         Assert.assertNotNull(MainController.getInstance().getAccountAreaForManagerController().viewUserInfo("sadegh"));
+    }
+
+    @Test
+    public void removeUserTest()
+            throws UserCantBeRemovedException, IOException, FileCantBeSavedException, FileCantBeDeletedException, UsernameNotFoundException {
+        Assert.assertThrows(UsernameNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeUser("jdfjddfd"));
+        Assert.assertThrows(UserCantBeRemovedException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeUser("XxXxXx"));
+        MainController.getInstance().getAccountAreaForManagerController().removeUser("yasaman");
+        Assert.assertNull(Shop.getInstance().findUser("yasaman"));
+    }
+
+    @Test
+    public void createManagerAccountTest() throws UsernameIsTakenAlreadyException, FileCantBeSavedException, IOException {
+        Assert.assertThrows(UsernameIsTakenAlreadyException.class, () -> MainController.getInstance().getAccountAreaForManagerController().createManagerAccount("sadegh", fields));
+        ArrayList<String> details = new ArrayList<>();
+        details.add("aboots");
+        details.add("kabir");
+        details.add("aboots@gmail.com");
+        details.add("93849384932");
+        details.add("Aboots1");
+        MainController.getInstance().getAccountAreaForManagerController().createManagerAccount("aboots", details);
+        Assert.assertNotNull(Shop.getInstance().findUser("aboots"));
+    }
+
+    @Test
+    public void getDiscountsWithSortTest() {
+        ArrayList<String> discounts;
+        discounts = MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodeWithSort(0);
+        discounts = MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodeWithSort(1);
+        discounts = MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodeWithSort(2);
+        discounts = MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodeWithSort(3);
+        Assert.assertEquals(0, discounts.size());
+    }
+
+    @Test
+    public void removeProductTest() throws FileCantBeDeletedException, ProductWithThisIdNotExist {
+        Shop.getInstance().findSubCategoryByName("subAshghal").addGood(new Good("temp", "dfdf", null, "fdf", null, null, 1000L, 4));
+        Assert.assertThrows(ProductWithThisIdNotExist.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeProduct("12"));
+        //MainController.getInstance().getAccountAreaForManagerController().removeProduct("0");
+        //Assert.assertNull(Shop.getInstance().findGoodById(5));
     }
 }
 
