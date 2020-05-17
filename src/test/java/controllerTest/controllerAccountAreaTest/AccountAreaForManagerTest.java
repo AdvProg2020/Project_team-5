@@ -9,6 +9,7 @@ import exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import model.Shop;
+import model.category.Category;
 import model.database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
@@ -23,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AccountAreaForManagerTest {
     ArrayList<String> fields;
@@ -38,6 +40,10 @@ public class AccountAreaForManagerTest {
         Shop.getInstance().getAllPersons().add(new Customer("sadegh", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Manager("XxXxXx", "aboots", "zzzzz", "aboot@gmail.com", "06065656060", "pass2"));
         Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null)));
+        ArrayList<String> details = new ArrayList<>();
+        details.add("hich1");
+        details.add("hich2");
+        Shop.getInstance().addCategory(new Category("ashghal", details));
     }
 
     @Test
@@ -116,28 +122,34 @@ public class AccountAreaForManagerTest {
     }
 
     @Test
+    public void getAllDiscountCodesInfoTest() {
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodesInfo(Shop.getInstance().getAllDiscountCodes()).size());
+    }
+
+    @Test
     public void viewDiscountCodeTest() {
         Assert.assertThrows(DiscountCodeNotFoundException.class,
                 () ->MainController.getInstance().getAccountAreaForManagerController().viewDiscountCode("bullshitCode"));
     }
 
     @Test
-    public void viewRequestInfoTest() {
+    public void viewRequestInfoTest() throws RequestNotFoundException {
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails("5"));
+        Assert.assertNotNull(MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails("1"));
     }
 
     @Test
     public void getAllRequestsInfoTest() {
         System.out.println(MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo());
-        Assert.assertEquals(3, MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo().size());
+        Assert.assertEquals(4, MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo().size());
     }
 
     @Test
     public void acceptRequestTest() throws RequestNotFoundException, FileCantBeSavedException, IOException, FileCantBeDeletedException {
         Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null)));
         Database.getInstance().saveItem(Shop.getInstance().findRequestById(2));
-        Assert.assertThrows(RequestNotFoundException.class,
+        Assert.assertThrows(FileCantBeDeletedException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("10"));
         MainController.getInstance().getAccountAreaForManagerController().acceptRequest("2");
         Assert.assertNull(Shop.getInstance().findRequestById(2));
@@ -153,6 +165,16 @@ public class AccountAreaForManagerTest {
         MainController.getInstance().getAccountAreaForManagerController().declineRequest("1");
         Assert.assertNull(Shop.getInstance().findRequestById(1));
         Assert.assertFalse(new File("Resources\\Requests\\request_RegisteringSellerRequest_1.json").exists());
+    }
+
+    @Test
+    public void getAllCategoriesTest() {
+        Assert.assertEquals(4, MainController.getInstance().getAccountAreaForManagerController().getAllCategories().size());
+    }
+
+    @Test
+    public void getCategoryPropertiesTest() {
+        Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getCategoryProperties("ashghal").size());
     }
 }
 
