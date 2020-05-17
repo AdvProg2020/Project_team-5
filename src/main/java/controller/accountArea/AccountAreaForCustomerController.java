@@ -146,6 +146,9 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         OrderForCustomer orderForCustomer=new OrderForCustomer(cart, price, customerInfo.get(0), customerInfo.get(1),
                 customerInfo.get(2), customerInfo.get(3));
         currentUser.addOrder(orderForCustomer);
+        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+            Shop.getInstance().getAllGoodInCarts().put(goodInCart.getGoodInCartId(),goodInCart);
+        }
         Shop.getInstance().addOrder(orderForCustomer);
         orderForCustomer.setOrderStatus(Order.OrderStatus.RECEIVED);
         currentUser.setCredit(currentUser.getCredit() - price);
