@@ -6,6 +6,7 @@ import exception.productExceptions.NotEnoughAvailableProduct;
 import model.category.Category;
 import model.category.SubCategory;
 import model.database.Database;
+import model.orders.Order;
 import model.orders.OrderForCustomer;
 import model.persons.Customer;
 import model.persons.Manager;
@@ -28,6 +29,7 @@ public class Shop {
     private ArrayList<Rate> allRates;
     private ArrayList<GoodInCart> cart;
     private HashMap<Long, Good> allGoods;
+    private HashMap<Long, Order> allOrders;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
@@ -43,6 +45,7 @@ public class Shop {
         this.offs = new HashMap<>();
         this.cart = new ArrayList<>();
         this.allGoods = new HashMap<>();
+        this.allOrders = new HashMap<>();
     }
 
     public ArrayList<Category> getAllCategories() {
@@ -63,6 +66,14 @@ public class Shop {
 
     public ArrayList<Person> getAllPersons() {
         return allPersons;
+    }
+
+    public HashMap<Long, Order> getHasMapOfOrders() {
+        return allOrders;
+    }
+
+    public void addOrder(Order order){
+        this.allOrders.put(order.getOrderId(),order);
     }
 
     public void removePerson(Person user) {

@@ -9,13 +9,14 @@ import java.util.ArrayList;
 
 public class Seller extends Person {
     private Company company;
-    private ArrayList<OrderForSeller> previousSells;
+   // private ArrayList<OrderForSeller> previousSells;
+    private ArrayList<Long> previousSellsIds;
     private ArrayList<Long> activeGoodsIds;
     private ArrayList<Long> activeOffsIds;
 
     public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
         super(username, firstName, lastName, email, phoneNumber, password);
-        this.previousSells = new ArrayList<>();
+        this.previousSellsIds = new ArrayList<>();
         this.activeGoodsIds = new ArrayList<>();
         this.activeOffsIds = new ArrayList<>();
         this.company = company;
@@ -26,7 +27,11 @@ public class Seller extends Person {
     }
 
     public ArrayList<OrderForSeller> getPreviousSells() {
-        return previousSells;
+        ArrayList<OrderForSeller> ordersForSeller= new ArrayList<>();
+        for (Long id : this.previousSellsIds) {
+            ordersForSeller.add((OrderForSeller) Shop.getInstance().getHasMapOfOrders().get(id));
+        }
+        return ordersForSeller;
     }
 
     public ArrayList<Good> getActiveGoods() {
@@ -59,7 +64,7 @@ public class Seller extends Person {
 
     public ArrayList<String> buyersOfAGood(Good good) {
         ArrayList<String> buyers = new ArrayList<>();
-        for (OrderForSeller order : previousSells) {
+        for (OrderForSeller order : getPreviousSells()) {
             if (order.getNumberPerGood().containsKey(good)) {
                 buyers.add(order.getCustomerName());
             }
@@ -68,7 +73,7 @@ public class Seller extends Person {
     }
 
     public void addOrder(OrderForSeller order) {
-        previousSells.add(order);
+        previousSellsIds.add(order.getOrderId());
     }
 
     public Off findOffById(long offId) {
@@ -88,7 +93,7 @@ public class Seller extends Person {
     }
 
     public long balance() {
-        return this.previousSells.stream().mapToLong(OrderForSeller::getPrice).sum();
+        return this.getPreviousSells().stream().mapToLong(OrderForSeller::getPrice).sum();
     }
 
     @Override
