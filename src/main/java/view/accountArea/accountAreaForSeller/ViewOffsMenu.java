@@ -155,7 +155,7 @@ public class ViewOffsMenu extends Menu {
     private String getDate(int a, String startDate) {
         while (true) {
             String date = scanner.nextLine().trim();
-            if (Pattern.matches("([\\d]{4})-([\\d]{2})-([\\d]{2})", date)) {
+            if (Pattern.matches("([\\d]{4})-([\\d]{1,2})-([\\d]{1,2})", date)) {
                 if (MainController.getInstance().getAccountAreaForSellerController().checkValidDate(date, a, startDate))
                     return date;
             }
