@@ -18,7 +18,7 @@ public class Good {
     private String subCategory;
     private ArrayList<Long> sellerRelatedInfoAboutGoods = new ArrayList<>();
     private String details;
-    private ArrayList<Comment> comments;
+    private ArrayList<Long> comments;
     private int seenNumber;
     private LocalDate modificationDate;
     private HashMap<String, String> categoryProperties;
@@ -166,7 +166,11 @@ public class Good {
     }
 
     public ArrayList<Comment> getComments() {
-        return comments;
+        ArrayList<Comment> allComments=new ArrayList<>();
+        for (Long commentId : comments) {
+            allComments.add(Shop.getInstance().getAllComments().get(commentId));
+        }
+        return allComments;
     }
 
     public static void setGoodsCount(long goodsCount) {
@@ -174,7 +178,7 @@ public class Good {
     }
 
     public void addComment(Comment comment) {
-        this.comments.add(comment);
+        this.comments.add(comment.getId());
     }
 
     public void reduceAvailableNumber(Seller seller, int reductionNumber) {
