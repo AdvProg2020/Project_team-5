@@ -4,20 +4,20 @@ import model.Shop;
 import model.persons.Seller;
 
 public class GoodInCart {
-    private Good good;
-    private Seller seller;
+    private long goodId;
+    private String seller;
     private int number;
 
     public GoodInCart(Good good, Seller seller, int number) {
         if (seller == null)
             seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
-        this.good = good;
-        this.seller = seller;
+        this.goodId = good.getGoodId();
+        this.seller = seller.getUsername();
         this.number = number;
     }
 
     public long getFinalPrice(){
-        return Shop.getInstance().getFinalPriceOfAGood(good, seller) * number;
+        return Shop.getInstance().getFinalPriceOfAGood(getGood(), getSeller()) * number;
     }
 
     public void setNumber(int number) {
@@ -25,11 +25,11 @@ public class GoodInCart {
     }
 
     public Good getGood() {
-        return good;
+        return Shop.getInstance().findGoodById(goodId);
     }
 
     public Seller getSeller() {
-        return seller;
+        return (Seller) Shop.getInstance().findUser(seller);
     }
 
     public int getNumber() {
@@ -39,9 +39,9 @@ public class GoodInCart {
     @Override
     public String toString() {
         String toString = "name : " + getGood().getName() + "\tbrand : " + getGood().getBrand();
-        if (Shop.getInstance().getFinalPriceOfAGood(good, seller) != good.getPriceBySeller(seller))
+        if (Shop.getInstance().getFinalPriceOfAGood(getGood(), getSeller()) != getGood().getPriceBySeller(getSeller()))
             toString += ("\tprice before off : " + getGood().getPriceBySeller(getSeller())
-                    + "\tprice after off : " + Shop.getInstance().getFinalPriceOfAGood(good, seller));
+                    + "\tprice after off : " + Shop.getInstance().getFinalPriceOfAGood(getGood(), getSeller()));
         else
             toString += (("\tprice : " + getGood().getPriceBySeller(getSeller())));
         toString += ("\tnumber :" + getNumber() + "\tseller : " + getSeller().getFirstName() + " " + getSeller().getLastName());
