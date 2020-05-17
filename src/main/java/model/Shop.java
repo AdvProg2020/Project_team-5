@@ -32,6 +32,7 @@ public class Shop {
     private HashMap<Long, Order> allOrders;
     private HashMap<Long, GoodInCart> allGoodInCarts;
     private HashMap<String,SubCategory> allSubCategories;
+    private HashMap<Long,Comment> allComments;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
@@ -62,6 +63,14 @@ public class Shop {
 
     public HashMap<String, SubCategory> getAllSubCategories() {
         return allSubCategories;
+    }
+
+    public HashMap<Long, Comment> getAllComments() {
+        return allComments;
+    }
+
+    public void addAComment(Comment comment){
+        this.allComments.put(comment.getId(),comment);
     }
 
     public void addGoodInCart(GoodInCart goodInCart){
