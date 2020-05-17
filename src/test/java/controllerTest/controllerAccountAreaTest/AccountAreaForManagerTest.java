@@ -10,12 +10,14 @@ import exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import model.Shop;
 import model.category.Category;
+import model.category.SubCategory;
 import model.database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
 import model.productThings.DiscountCode;
 import model.requests.RegisteringSellerRequest;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AccountAreaForManagerTest {
     ArrayList<String> fields;
@@ -43,7 +44,10 @@ public class AccountAreaForManagerTest {
         ArrayList<String> details = new ArrayList<>();
         details.add("hich1");
         details.add("hich2");
-        Shop.getInstance().addCategory(new Category("ashghal", details));
+        Category category = new Category("ashghal", details);
+        SubCategory subCategory = new SubCategory("subAshghal", details);
+        category.addSubCategory(subCategory);
+        Shop.getInstance().addCategory(category);
     }
 
     @Test
@@ -123,7 +127,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getAllDiscountCodesInfoTest() {
-        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodesInfo(Shop.getInstance().getAllDiscountCodes()).size());
+        Assert.assertEquals(0, MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodesInfo(Shop.getInstance().getAllDiscountCodes()).size());
     }
 
     @Test
@@ -142,19 +146,19 @@ public class AccountAreaForManagerTest {
     @Test
     public void getAllRequestsInfoTest() {
         System.out.println(MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo());
-        Assert.assertEquals(4, MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo().size());
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllRequestsInfo().size());
     }
 
     @Test
     public void acceptRequestTest() throws RequestNotFoundException, FileCantBeSavedException, IOException, FileCantBeDeletedException {
         Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null)));
-        Database.getInstance().saveItem(Shop.getInstance().findRequestById(2));
+        Database.getInstance().saveItem(Shop.getInstance().findRequestById(1));
         Assert.assertThrows(FileCantBeDeletedException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("10"));
-        MainController.getInstance().getAccountAreaForManagerController().acceptRequest("2");
-        Assert.assertNull(Shop.getInstance().findRequestById(2));
+        MainController.getInstance().getAccountAreaForManagerController().acceptRequest("1");
+        Assert.assertNull(Shop.getInstance().findRequestById(1));
         Assert.assertNotNull(Shop.getInstance().findUser("fgf"));
-        Assert.assertFalse(new File("Resources\\Requests\\request_RegisteringSellerRequest_2.json").exists());
+        Assert.assertFalse(new File("Resources\\Requests\\request_RegisteringSellerRequest_1.json").exists());
     }
 
     @Test
@@ -169,12 +173,24 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getAllCategoriesTest() {
-        Assert.assertEquals(4, MainController.getInstance().getAccountAreaForManagerController().getAllCategories().size());
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllCategories().size());
     }
 
     @Test
     public void getCategoryPropertiesTest() {
         Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getCategoryProperties("ashghal").size());
+    }
+
+    @Test
+    public void getCategorySubCatsNamesTest() {
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames("ashghal").size());
+    }
+
+    @After
+    public void AfterTest() {
+        Shop.getInstance().getAllDiscountCodes().clear();
+        Shop.getInstance().getAllRequest().clear();
+        Shop.getInstance().getAllCategories().clear();
     }
 }
 
