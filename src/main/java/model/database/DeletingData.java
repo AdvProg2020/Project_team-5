@@ -1,7 +1,10 @@
 package model.database;
 
+import controller.MainController;
 import exception.FileCantBeDeletedException;
 import exception.FileCantBeSavedException;
+import exception.categoryExceptions.CategoryNotFoundException;
+import exception.categoryExceptions.SubCategoryNotFoundException;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
@@ -14,8 +17,12 @@ import model.persons.Seller;
 import model.productThings.*;
 import model.requests.Request;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DeletingData {
     public void deleteManager(Manager manager) throws FileCantBeDeletedException {
@@ -67,7 +74,7 @@ public class DeletingData {
     public void deleteProduct(Good good) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Products\\product_" + good.getGoodId() + ".json";
         deleteFile(filePath);
-        Shop.getInstance().removeProduct(good);
+
         Database.getInstance().saveItem(good.getSubCategory());
         for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
             deleteProductInfo(infoAboutGood, good.getGoodId());
@@ -75,8 +82,10 @@ public class DeletingData {
             Database.getInstance().saveItem(infoAboutGood.getSeller());
         }
         for (Comment comment : good.getComments()) {
+            comment.getId();
             deleteComment(comment);
         }
+        Shop.getInstance().removeProduct(good);
         //remove rates
     }
 
@@ -116,8 +125,24 @@ public class DeletingData {
 
     public void deleteCategory(Category category) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Categories\\" + category.getName() + ".json";
+        //List<String> subCategoryNames = category.getSubCategories().stream().map(SubCategory::getName).collect(Collectors.toList());
+        /*
+        category.getSubCategories().forEach((s) -> {
+            try {
+                deleteSubCategory(s);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+         */
+
         for (SubCategory subCategory : category.getSubCategories()) {
-            deleteSubCategory(subCategory);
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeSubCategory(category.getName(), subCategory.getName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         deleteFile(filePath);
     }

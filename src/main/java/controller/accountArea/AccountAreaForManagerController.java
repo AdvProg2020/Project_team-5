@@ -221,8 +221,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Category category;
         if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
             throw new CategoryNotFoundException();
-        Shop.getInstance().removeCategory(category);
         Database.getInstance().deleteItem(category);
+        Shop.getInstance().removeCategory(category);
     }
 
     public void addSubcategory(String categoryName, String subcategoryName, ArrayList<String> properties)
@@ -243,9 +243,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         SubCategory subCategory;
         if ((subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName)) == null)
             throw new SubCategoryNotFoundException();
+        Database.getInstance().deleteItem(subCategory);
         category.deleteSubCategory(subCategory);
         Shop.getInstance().removeSubCategory(subCategory);
-        Database.getInstance().deleteItem(subCategory);
         Database.getInstance().saveItem(category);
     }
 
