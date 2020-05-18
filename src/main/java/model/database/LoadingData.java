@@ -4,6 +4,7 @@ import com.gilecode.yagson.YaGson;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.orders.Order;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;
 import model.persons.Company;
@@ -63,18 +64,28 @@ public class LoadingData {
 
     public void loadCompany() throws IOException {
         File[] files = loadFolder("Resources\\Companies");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 Shop.getInstance().addCompany(yaGson.fromJson(readFile(file), Company.class));
             }
+            if (Shop.getInstance().getAllCompanies().size() != 0) {
+                List<Long> ids = new ArrayList<>(Shop.getInstance().getAllCompanies().keySet());
+                Company.setCompanyIdCounter(getMaximumOfNumbers(ids) + 1);
+            }
+        }
     }
 
     public void loadInfoAboutGood() throws IOException {
         File[] files = loadFolder("Resources\\ProductsInfo");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 Shop.getInstance().addSellerRelatedInfoAboutGood(yaGson.fromJson(readFile(file), SellerRelatedInfoAboutGood.class));
             }
+            if (Shop.getInstance().getAllSellerRelatedInfoAboutGood().size() != 0) {
+                List<Long> ids = new ArrayList<>(Shop.getInstance().getAllSellerRelatedInfoAboutGood().keySet());
+                SellerRelatedInfoAboutGood.setSellerRelatedInfoAboutGoodCount(getMaximumOfNumbers(ids) + 1);
+            }
+        }
     }
 
     public void loadProduct() throws IOException {
@@ -83,33 +94,49 @@ public class LoadingData {
             for (File file : files) {
                 Shop.getInstance().addGoodToAllGoods(yaGson.fromJson(readFile(file), Good.class));
             }
-            if (Shop.getInstance().getAllGoods().size() != 0)
-                Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList())) + 1);
+            if (Shop.getInstance().getAllGoods().size() != 0) {
+                Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
+                        .collect(Collectors.toList())) + 1);
+            }
         }
     }
 
     public void loadDiscount() throws IOException {
         File[] files = loadFolder("Resources\\Discounts");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 Shop.getInstance().addDiscountCode(yaGson.fromJson(readFile(file), DiscountCode.class));
             }
+            if (Shop.getInstance().getAllDiscountCodes().size() != 0)
+                DiscountCode.setDiscountCodeCount(getMaximumOfNumbers(Shop.getInstance().getAllDiscountCodes()
+                        .stream().map(DiscountCode::getId).collect(Collectors.toList())) + 1);
+        }
     }
 
     public void loadGoodsInCarts() throws IOException {
         File[] files = loadFolder("Resources\\GoodsInCarts");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 Shop.getInstance().addGoodInCart(yaGson.fromJson(readFile(file), GoodInCart.class));
             }
+            if (Shop.getInstance().getAllGoodInCarts().size() != 0) {
+                List<Long> ids = new ArrayList<>(Shop.getInstance().getAllGoodInCarts().keySet());
+                GoodInCart.setGoodInCartCounter(getMaximumOfNumbers(ids) + 1);
+            }
+        }
     }
 
     public void loadComment() throws IOException {
         File[] files = loadFolder("Resources\\Comments");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 Shop.getInstance().addAComment(yaGson.fromJson(readFile(file), Comment.class));
             }
+            if (Shop.getInstance().getAllComments().size() != 0) {
+                List<Long> ids = new ArrayList<>(Shop.getInstance().getAllComments().keySet());
+                Comment.setCommentIdCounter(getMaximumOfNumbers(ids) + 1);
+            }
+        }
     }
 
     public void loadOff() throws IOException {
@@ -119,16 +146,18 @@ public class LoadingData {
                 Shop.getInstance().addOff(yaGson.fromJson(readFile(file), Off.class));
             }
             if (Shop.getInstance().getOffs().size() != 0)
-                Off.setOffsCount(getMaximumOfNumbers(Shop.getInstance().getOffs().stream().map(Off::getOffId).collect(Collectors.toList())) + 1);
+                Off.setOffsCount(getMaximumOfNumbers(Shop.getInstance().getOffs().stream().map(Off::getOffId)
+                        .collect(Collectors.toList())) + 1);
         }
     }
 
     public void loadRate() throws IOException {
         File[] files = loadFolder("Resources\\Rates");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 Shop.getInstance().addRate(yaGson.fromJson(readFile(file), Rate.class));
             }
+        }
     }
 
     public void loadCategory() throws IOException {
@@ -149,20 +178,24 @@ public class LoadingData {
 
     public void loadOrderForSeller() throws IOException {
         File[] files = loadFolder("Resources\\Orders\\OrderForSellers");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 Shop.getInstance().addOrder(yaGson.fromJson(readFile(file), OrderForSeller.class));
             }
+        }
     }
 
     public void loadOrderForCustomer() throws IOException {
         File[] files = loadFolder("Resources\\Orders\\OrderForCustomers");
-        if (files != null)
+        if (files != null) {
             for (File file : files) {
                 Shop.getInstance().addOrder(yaGson.fromJson(readFile(file), OrderForCustomer.class));
             }
-        //ToDo
-        //load orders count
+            if (Shop.getInstance().getHasMapOfOrders().size() != 0) {
+                List<Long> ids = new ArrayList<>(Shop.getInstance().getHasMapOfOrders().keySet());
+                Order.setOrdersCount(getMaximumOfNumbers(ids) + 1);
+            }
+        }
     }
 
     public void loadRequests() throws IOException {
@@ -173,7 +206,7 @@ public class LoadingData {
             }
             if (Shop.getInstance().getAllRequest().size() != 0)
                 Request.setRequestCount(getMaximumOfNumbers(Shop.getInstance()
-                    .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
+                        .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
         }
     }
 
