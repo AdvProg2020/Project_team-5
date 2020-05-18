@@ -1,4 +1,4 @@
-package model.database;
+package database;
 
 import exception.FileCantBeDeletedException;
 import exception.FileCantBeSavedException;

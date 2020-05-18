@@ -6,7 +6,6 @@ import exception.userExceptions.PasswordIncorrectException;
 import exception.userExceptions.UsernameIsTakenAlreadyException;
 import exception.userExceptions.UsernameNotFoundException;
 import model.Shop;
-import model.database.Database;
 import model.persons.*;
 import model.requests.RegisteringSellerRequest;
 

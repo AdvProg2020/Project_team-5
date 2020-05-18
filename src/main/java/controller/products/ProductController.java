@@ -5,13 +5,11 @@ import exception.FileCantBeSavedException;
 import exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
 import exception.productExceptions.ProductWithThisIdNotExist;
 import model.Shop;
-import model.database.Database;
 import model.persons.Customer;
 import model.productThings.Comment;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
 import model.requests.AddingCommentRequest;
-import model.requests.AddingOffRequest;
 
 import java.io.IOException;
 import java.util.HashMap;

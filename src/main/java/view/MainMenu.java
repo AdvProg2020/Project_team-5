@@ -2,7 +2,7 @@ package view;
 
 import controller.MainController;
 import exception.FileCantBeSavedException;
-import model.database.Database;
+import database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;

@@ -7,7 +7,6 @@ import exception.discountcodeExceptions.DiscountCodeExpired;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.NotEnoughCredit;
 import model.Shop;
-import model.database.Database;
 import model.orders.Order;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;

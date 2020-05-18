@@ -1,4 +1,4 @@
-package model.database;
+package database;
 
 import com.gilecode.yagson.YaGson;
 import exception.FileCantBeSavedException;

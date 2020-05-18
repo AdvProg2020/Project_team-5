@@ -14,22 +14,17 @@ import exception.userExceptions.UsernameNotFoundException;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
-import model.database.Database;
-import model.orders.OrderForCustomer;
-import model.orders.OrderForSeller;
+import database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
-import model.persons.Seller;
 import model.productThings.DiscountCode;
 import model.productThings.Good;
-import model.productThings.Off;
 import model.requests.Request;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class AccountAreaForManagerController extends AccountAreaController {
     public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {

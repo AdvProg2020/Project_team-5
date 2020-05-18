@@ -5,8 +5,7 @@ import exception.FileCantBeSavedException;
 import exception.productExceptions.NotEnoughAvailableProduct;
 import model.category.Category;
 import model.category.SubCategory;
-import model.database.Database;
-import model.orders.OrderForCustomer;
+import database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Person;
@@ -202,13 +201,6 @@ public class Shop {
 
     public void removeOff(Off off) {
         offs.remove(off);
-    }
-
-    public void deleteCategory(Category category) {
-        for (int i = 0; i < category.getSubCategories().size(); i++) {
-            category.deleteSubCategory(category.getSubCategories().get(0));
-        }
-        removeCategory(category);
     }
 
     public void generatePeriodRandomDiscountCodes(LocalDate endDate) {

@@ -2,7 +2,6 @@ package model.requests;
 
 import exception.FileCantBeSavedException;
 import model.Shop;
-import model.database.Database;
 import model.persons.Seller;
 import model.productThings.Good;
 

@@ -1,6 +1,6 @@
 import exception.FileCantBeDeletedException;
 import exception.FileCantBeSavedException;
-import model.database.Database;
+import database.Database;
 import view.MainMenu;
 
 import java.io.IOException;

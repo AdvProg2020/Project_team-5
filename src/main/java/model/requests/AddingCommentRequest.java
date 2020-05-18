@@ -1,7 +1,6 @@
 package model.requests;
 
 import exception.FileCantBeSavedException;
-import model.database.Database;
 import model.productThings.Comment;
 
 import java.io.IOException;

@@ -5,9 +5,7 @@ import exception.productExceptions.FieldCantBeEditedException;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
-import model.database.Database;
 import model.orders.Order;
-import model.persons.Customer;
 
 import java.util.ArrayList;
 import java.util.Collections;

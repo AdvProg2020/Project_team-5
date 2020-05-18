@@ -1,7 +1,6 @@
 package model.productThings;
 
-import model.Shop;
-import model.database.Database;
+import database.Database;
 import model.persons.Customer;
 
 import java.time.LocalDate;

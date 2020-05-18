@@ -154,7 +154,7 @@ public class AccountAreaForSellerTest {
         }
         Shop.getInstance().removeRequest(requestTemp);
         assertTrue(controller.getAllOffs().size() != 0);
-
+        assertTrue(Shop.getInstance().findOffById(1) != null);
     }
 
     public ArrayList<String> makeArrayListForOff(){
