@@ -8,6 +8,7 @@ import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.orders.OrderForCustomer;
 import model.persons.Customer;
 import model.persons.Seller;
 import model.productThings.DiscountCode;
@@ -32,7 +33,6 @@ public class AccountAreaForCustomerTest {
     SubCategory subCategory = new SubCategory("sub", new ArrayList<>());
     DiscountCode discountCode = new DiscountCode("1111", LocalDate.parse("2020-03-15"), LocalDate.parse("2020-07-17"), 2000L, 20);
     Good good = new Good("phone", "samsung", subCategory, "", new HashMap<>(), seller, 9000L, 3);
-
 
     @Before
     public void initializing() {
@@ -153,5 +153,4 @@ public class AccountAreaForCustomerTest {
         Shop.getInstance().clearCart();
         Shop.getInstance().removeDiscountCode(discountCode);
     }
-
 }
