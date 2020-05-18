@@ -33,6 +33,19 @@ public class CategoryTest {
         Assert.assertEquals(category.findSubCategoryByName("sub"),subCategory);
     }
 
+
+    @Test
+    public void toStringSubCateogry(){
+        SubCategory subCategory=Shop.getInstance().findSubCategoryByName("sub");
+        String output="sub of abootsZ category\n" +
+                "properties =\n" +
+                "1- p1\n" +
+                "2- p2\n" +
+                "3- hi1\n" +
+                "4- hi2\n" +
+                "Products =\n";
+        Assert.assertEquals(output,subCategory.toString());
+    }
     @AfterClass
     public static void delete(){
         Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("abootsZ"));
