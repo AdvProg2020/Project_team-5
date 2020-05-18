@@ -1,11 +1,17 @@
 package modelTest.productThingsTest;
 
+import model.Shop;
+import model.category.Category;
+import model.category.SubCategory;
+import model.persons.Customer;
 import model.persons.Seller;
+import model.productThings.DiscountCode;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,6 +19,11 @@ public class GoodTest {
     Seller seller = new Seller("hi","seller","seller","","","aa",null);
     Good good = new Good("phone", "samsung", null,"",new HashMap<>(),seller,9000L,3);
     Seller seller2 = new Seller("a","aa","","","","bb",null);
+    Customer customer = new Customer("customer","","","","","aa",90000L);
+    Category category = new Category("cat", new ArrayList<>());
+    SubCategory subCategory = new SubCategory("sub", new ArrayList<>());
+    DiscountCode discountCode = new DiscountCode("1111", LocalDate.parse("2020-03-15"), LocalDate.parse("2020-07-17"),200L, 22);
+    Good good2 = new Good("phone", "samsung", subCategory,"",new HashMap<>(),seller,9000L,3);
     @Test
     public void GoodStatusTest(){
         assertEquals(Good.GoodStatus.BUILTPROCESSING,good.getGoodStatus());
@@ -59,5 +70,19 @@ public class GoodTest {
         good.removeSeller(seller2);
         assertEquals(1, good.getSellerRelatedInfoAboutGoods().size());
     }
+
+    @Test
+    public void findGoodTest(){
+        Shop.getInstance().addCategory(category);
+        category.addSubCategory(subCategory);
+        subCategory.addGood(good2);
+        long goodId = good2.getGoodId();
+        assertEquals(good2,Shop.getInstance().findGoodById(goodId));
+        assertEquals(good2,Shop.getInstance().getGoodByNameAndBrandAndSubCategory("phone","samsung", subCategory));
+        subCategory.removeGood(good2);
+        assertEquals(null,Shop.getInstance().findGoodById(goodId));
+        assertEquals(null,Shop.getInstance().getGoodByNameAndBrandAndSubCategory("phone","samsung", subCategory));
+    }
+
 
 }
