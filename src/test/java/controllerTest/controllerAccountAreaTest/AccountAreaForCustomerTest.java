@@ -51,33 +51,34 @@ public class AccountAreaForCustomerTest {
         assertEquals(discountCode.detailedToString(), discountCodeString);
     }
 
-    @Test
-    public void buyProcessTest() {
+    public void initializing(){
         MainController.getInstance().setCurrentPerson(customer);
         Shop.getInstance().addCategory(category);
         category.addSubCategory(subCategory);
         subCategory.addGood(good);
         Shop.getInstance().addDiscountCode(discountCode);
         Shop.getInstance().addGoodToCart(good, seller, 1);
+        discountCode.addCustomerToCode(customer, 2);
+    }
+
+    @Test
+    public void buyProcessTest() {
+        initializing();
         assertEquals(9000L, controller.getTotalPriceOfCart());
         assertEquals((new GoodInCart(good, seller, 1).toString()), controller.viewInCartProducts().get(0));
-        discountCode.addCustomerToCode(customer, 2);
         assertTrue(controller.checkExistProductInCart(good.getGoodId()));
         assertEquals(good.toString(), controller.viewSpecialProduct(good.getGoodId()));
         try {
             controller.increaseInCartProduct(good.getGoodId());
-            assertTrue(true);
+            assertEquals(2,Shop.getInstance().getCart().get(0).getNumber());
         } catch (Exception e) {
             e.printStackTrace();
         }
         controller.decreaseInCartProduct(good.getGoodId());
         assertEquals(1, Shop.getInstance().getCart().get(0).getNumber());
-        if (controller.checkExistProduct(good.getGoodId()))
-            assertTrue(true);
-
         try {
             if (controller.checkValidDiscountCode("1111"))
-                assertEquals(7200L, controller.useDiscountCode("1111"));
+                assertEquals(7200L , controller.useDiscountCode("1111"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,9 +97,18 @@ public class AccountAreaForCustomerTest {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            double av = 8;
-//            assertEquals(av,good.getAverageRate());
+            assertTrue(good.getAverageRate() != 0);
         }
+
+        if (controller.existOrderById(1)){
+            assertEquals(customer.getPreviousOrders().get(0).toString(), controller.viewAnOrder(1));
+        }
+    }
+
+    @Test
+    public void CheckExistGoodTest(){
+        if (controller.checkExistProduct(good.getGoodId()))
+            assertTrue(true);
     }
 
     public ArrayList<String > makeArrayListForOrder(){
@@ -126,11 +136,6 @@ public class AccountAreaForCustomerTest {
         } catch (Exception exception) {
             assertEquals((new DiscountCodeCannotBeUsed()).getMessage(), exception.getMessage());
         }
-    }
-
-    @Test
-    public void purchaseTest() {
-
     }
 
 }
