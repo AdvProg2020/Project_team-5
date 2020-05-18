@@ -13,11 +13,11 @@ import java.util.HashMap;
 public class EditingGoodRequest extends Request {
     private long goodId;
     private HashMap<String, String> editedFields;
-    private Seller seller;
+    private String seller;
 
     public EditingGoodRequest(long goodId, Seller seller, HashMap<String, String> editedFields) {
         this.goodId = goodId;
-        this.seller = seller;
+        this.seller = seller.getUsername();
         this.editedFields = editedFields;
     }
 
@@ -26,7 +26,7 @@ public class EditingGoodRequest extends Request {
     }
 
     public Seller getSeller() {
-        return seller;
+        return (Seller) Shop.getInstance().findUser(seller);
     }
 
     @Override
@@ -44,10 +44,10 @@ public class EditingGoodRequest extends Request {
             if (field.equalsIgnoreCase("details")) {
                 good.setDetails(editedFields.get("details"));
             } else if (field.equalsIgnoreCase("price")) {
-                SellerRelatedInfoAboutGood information = (SellerRelatedInfoAboutGood) good.getSellerRelatedInfoAboutGoods().stream().filter(info -> info.getSeller().equals(seller)).toArray()[0];
+                SellerRelatedInfoAboutGood information = (SellerRelatedInfoAboutGood) good.getSellerRelatedInfoAboutGoods().stream().filter(info -> info.getSeller().equals(getSeller())).toArray()[0];
                 information.setPrice(Long.parseLong(editedFields.get("price")));
             } else if (field.equalsIgnoreCase("availableNumber")) {
-                SellerRelatedInfoAboutGood information = (SellerRelatedInfoAboutGood) good.getSellerRelatedInfoAboutGoods().stream().filter(info -> info.getSeller().equals(seller)).toArray()[0];
+                SellerRelatedInfoAboutGood information = (SellerRelatedInfoAboutGood) good.getSellerRelatedInfoAboutGoods().stream().filter(info -> info.getSeller().equals(getSeller())).toArray()[0];
                 information.setAvailableNumber(Integer.parseInt(editedFields.get("availableNumber")));
             }
             for (String subCategoryProperty : good.getCategoryProperties().keySet()) {
