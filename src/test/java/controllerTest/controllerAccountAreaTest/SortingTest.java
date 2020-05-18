@@ -1,9 +1,12 @@
 package controllerTest.controllerAccountAreaTest;
 
+import controller.sorting.SortController;
 import controller.sortingAndFilteringForProducts.ControllerForSorting;
 import model.productThings.Good;
+import model.productThings.Off;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,6 +33,17 @@ public class SortingTest {
         return goods;
     }
 
+    public ArrayList<Off> getArrayOffs(){
+        ArrayList<Off> offs = new ArrayList<>();
+        Off off1 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-08-15"),8000L, 15, null);
+        Off off2 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-07-15"),9000L, 20, null);
+        Off off3 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-08-27"),6000L, 30, null);
+        offs.add(off1);
+        offs.add(off2);
+        offs.add(off3);
+        return offs;
+    }
+
     @Test
     public void SortAverageRate(){
         ControllerForSorting controller = new ControllerForSorting();
@@ -38,5 +52,13 @@ public class SortingTest {
         assertEquals(4, controller.showProducts(getArrayOfGoods()).get(0).getSeenNumber());
         controller.sortASort(3);
         assertEquals(2,controller.showProducts(getArrayOfGoods()).get(0).getSeenNumber());
+    }
+
+    @Test
+    public void SortOffs(){
+        SortController controller = new SortController();
+        assertEquals(20, controller.sortByEndDateOffs(getArrayOffs()).get(0).getDiscountPercent());
+        assertEquals(30,controller.sortByOffPercent(getArrayOffs()).get(0).getDiscountPercent());
+        assertEquals(8000L,controller.sortByMaxDiscountAmountOffs(getArrayOffs()).get(1).getMaxDiscount());
     }
 }
