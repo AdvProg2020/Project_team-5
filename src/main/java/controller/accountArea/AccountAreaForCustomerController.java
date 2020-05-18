@@ -71,6 +71,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     public void rateProduct(long productId, int rate) throws IOException, FileCantBeSavedException {
         Shop.getInstance().addRate(((Customer) MainController.getInstance().getCurrentPerson()), productId, rate);
         Shop.getInstance().findGoodById(productId).updateRate();
+        Database.getInstance().saveItem(Shop.getInstance().findGoodById(productId));
     }
 
     public List<String> getBriefSummeryOfOrders(){
@@ -148,6 +149,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         currentUser.addOrder(orderForCustomer);
         for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
             Shop.getInstance().getAllGoodInCarts().put(goodInCart.getGoodInCartId(),goodInCart);
+            Database.getInstance().saveItem(goodInCart);
         }
         Shop.getInstance().addOrder(orderForCustomer);
         orderForCustomer.setOrderStatus(Order.OrderStatus.RECEIVED);
@@ -186,7 +188,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
             good.getGood().reduceAvailableNumber(good.getSeller(), good.getNumber());
             for (SellerRelatedInfoAboutGood infoAboutGood : good.getGood().getSellerRelatedInfoAboutGoods()) {
                 if (infoAboutGood.getSeller().equals(good.getSeller())) {
-                    Database.getInstance().saveItem(infoAboutGood);
+                    Database.getInstance().saveItem(infoAboutGood, good.getGood().getGoodId());
                     break;
                 }
             }
