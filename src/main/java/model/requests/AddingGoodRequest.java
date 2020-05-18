@@ -38,17 +38,22 @@ public class AddingGoodRequest extends Request {
         Good good = new Good(nameOfGood, brandOfGood, Shop.getInstance().findSubCategoryByName(subCategoryOfGood), detailsOfGood,
                 categoryPropertiesOfGood, (Seller) Shop.getInstance().findUser(seller), priceOfGood, availableNumberOfGood);
         Good originalGood;
+        Seller seller1 = (Seller) Shop.getInstance().findUser(seller);
         if ((originalGood = Shop.getInstance().getGoodByNameAndBrandAndSubCategory(good.getName(), good.getBrand(), good.getSubCategory())) == null) {
             good.getSubCategory().addGood(good);
+            good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+            seller1.addToActiveGoods(good.getGoodId());
+            Database.getInstance().saveItem(good.getSubCategory());
+            Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), good.getGoodId());
+            Shop.getInstance().getHashMapOfGoods().put(good.getGoodId(), good);
+            Database.getInstance().saveItem(good);
         } else {
             originalGood.addSeller(good.getSellerRelatedInfoAboutGoods().get(0));
+            seller1.addToActiveGoods(originalGood.getGoodId());
+            Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), originalGood.getGoodId());
+            Database.getInstance().saveItem(originalGood);
         }
-        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
-        Seller seller1 = (Seller) Shop.getInstance().findUser(seller);
-        seller1.addToActiveGoods(good.getGoodId());
-        Shop.getInstance().getHashMapOfGoods().put(good.getGoodId(), good);
-        Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), good.getGoodId());
-        Database.getInstance().saveItem(good);
+        Shop.getInstance().addSellerRelatedInfoAboutGood(good.getSellerRelatedInfoAboutGoods().get(0));
         Database.getInstance().saveItem(seller1);
     }
 
