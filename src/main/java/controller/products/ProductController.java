@@ -110,10 +110,8 @@ public class ProductController {
             if (((Customer) MainController.getInstance().getCurrentPerson()).hasBuyProduct(good.getGoodId()))
                 didCommenterBoughtThisProduct=true;
         }
-        Comment comment=new Comment(MainController.getInstance().getCurrentPerson()
+        AddingCommentRequest addingCommentRequest = new AddingCommentRequest(MainController.getInstance().getCurrentPerson()
                 ,this.getGood(),title,content,didCommenterBoughtThisProduct);
-        AddingCommentRequest addingCommentRequest = new AddingCommentRequest(comment);
-        Shop.getInstance().addAComment(comment);
         Shop.getInstance().addRequest(addingCommentRequest);
        // Database.getInstance().saveItem(addingCommentRequest);
     }
