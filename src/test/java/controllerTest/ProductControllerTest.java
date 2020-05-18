@@ -5,6 +5,7 @@ import exception.productExceptions.ProductWithThisIdNotExist;
 import model.category.Category;
 import model.category.SubCategory;
 import model.persons.Seller;
+import model.productThings.Comment;
 import model.productThings.Good;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -34,8 +35,8 @@ public class ProductControllerTest {
         Good good=new Good("phone", "samsung", subCategory, "details", categoryProperty,
                 seller, 9000L, 3);
         MainController.getInstance().getProductController().setGood(good);
-        Good good2=new Good("laptop", "apple", subCategory, "details 2", categoryProperty,
-                seller, 122000L, 20);
+        Comment comment=new Comment(seller,good,"title","content",false);
+        good.addComment(comment);
     }
 
     @Test
@@ -78,13 +79,26 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void compareWithAnotherProduct(){
-        String actual="";
+    public void compareWithAnotherProductTest(){
         try {
-            actual=MainController.getInstance().getProductController().compareWithAnotherProduct(10000);
+            MainController.getInstance().getProductController().compareWithAnotherProduct(10000);
         } catch (ProductWithThisIdNotExist productWithThisIdNotExist) {
             Assert.assertTrue(true);
         }
+    }
+
+    @Test
+    public void showComment(){
+        String output="--------------------------------------------\n" +
+                "average rate of this product is = 0.0\n" +
+                "--------------------------------------------\n" +
+                "Commenter Username : hi\n" +
+                "Product Id : 1\n" +
+                "Product Name : phone\n" +
+                "Title : title\n" +
+                "Content : content\n" +
+                "--------------------------------------------";
+        Assert.assertEquals(output,MainController.getInstance().getProductController().showComments());
     }
 
     @AfterClass

@@ -33,30 +33,6 @@ public class Comment {
         return good;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public CommentStatus getCommentStatus() {
-        return commentStatus;
-    }
-
-    public boolean isDidCommenterBoughtThisProduct() {
-        return didCommenterBoughtThisProduct;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public void setCommentStatus(CommentStatus commentStatus) {
         this.commentStatus = commentStatus;
     }
