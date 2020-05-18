@@ -216,12 +216,10 @@ public class Shop {
 
 
     public void removeCategory(Category category) {
-        allCategories.remove(category);
+        allCategories.remove(category.getName());
         for (SubCategory subCategory : category.getSubCategories()) {
-            for (Good good : subCategory.getGoods()) {
-                allGoods.remove(good.getGoodId());
-            }
-            allSubCategories.remove(subCategory);
+            category.deleteSubCategory(subCategory);
+            allSubCategories.remove(subCategory.getName());
         }
     }
 

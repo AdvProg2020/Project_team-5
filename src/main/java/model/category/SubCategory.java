@@ -46,13 +46,8 @@ public class SubCategory {
         this.goods.add(good.getGoodId());
     }
 
-    public void removeGood(Good good) {
-        this.goods.remove(good);
-    }
-
     public void deleteGood(Good good) {
-        good.deleteGoodFromSellerList();
-        this.removeGood(good);
+        this.goods.remove(good.getGoodId());
     }
 
     public Good findGoodById(long goodId) {

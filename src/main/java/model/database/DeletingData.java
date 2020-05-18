@@ -86,11 +86,11 @@ public class DeletingData {
 
     public void deleteDiscount(DiscountCode discountCode) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Discounts\\dis_" + discountCode.getCode() + ".json";
-        deleteFile(filePath);
         for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
             customer.removeDiscountCode(discountCode);
             Database.getInstance().saveItem(customer);
         }
+        deleteFile(filePath);
     }
 
     public void deleteProductInfo(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws FileCantBeDeletedException {
@@ -115,18 +115,18 @@ public class DeletingData {
 
     public void deleteCategory(Category category) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Categories\\" + category.getName() + ".json";
-        deleteFile(filePath);
         for (SubCategory subCategory : category.getSubCategories()) {
             deleteSubCategory(subCategory);
         }
+        deleteFile(filePath);
     }
 
     public void deleteSubCategory(SubCategory subCategory) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\SubCategories\\" + subCategory.getParentCategory().getName() + "_" + subCategory.getName() + ".json";
-        deleteFile(filePath);
         for (Good good : subCategory.getGoods()) {
             deleteProduct(good);
         }
+        deleteFile(filePath);
     }
 
     public void deleteOrderForSeller(OrderForSeller orderForSeller) throws FileCantBeDeletedException {

@@ -245,8 +245,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new SubCategoryNotFoundException();
         category.deleteSubCategory(subCategory);
         Shop.getInstance().removeSubCategory(subCategory);
-        Database.getInstance().saveItem(category);
         Database.getInstance().deleteItem(subCategory);
+        Database.getInstance().saveItem(category);
     }
 
     public ArrayList<String> getSubCategoryProperties(String subcategoryName) {

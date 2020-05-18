@@ -33,19 +33,16 @@ public class Category {
     }
 
     public void addSubCategory(SubCategory subCategory) {
-        this.getSubCategories().add(subCategory);
+        this.subCategories.add(subCategory.getName());
         subCategory.setParentCategory(this);
     }
 
     public void deleteSubCategory(SubCategory subCategory) {
-        for (int i = 0; i < subCategory.getGoods().size(); ) {
-            subCategory.deleteGood(subCategory.getGoods().get(0));
-        }
         removeSubCategoryFromList(subCategory);
     }
 
     public void removeSubCategoryFromList(SubCategory subCategory) {
-        this.subCategories.remove(subCategory);
+        this.subCategories.remove(subCategory.getName());
     }
 
     public Good findGoodInSubCategories(long goodId) {

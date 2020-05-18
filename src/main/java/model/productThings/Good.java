@@ -158,7 +158,7 @@ public class Good {
     }
 
     public long getMinimumPrice() {
-        long min = 10000000000000l;
+        long min = 10000000000000L;
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : this.getSellerRelatedInfoAboutGoods()) {
             if (relatedInfoAboutGood.getPrice() < min)
                 min = relatedInfoAboutGood.getPrice();
