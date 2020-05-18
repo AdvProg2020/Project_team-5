@@ -121,6 +121,9 @@ public class Shop {
 
     public void removeSubCategory(SubCategory subCategory) {
         this.allSubCategories.remove(subCategory.getName());
+        for (Good good : subCategory.getGoods()) {
+            allGoods.remove(good.getGoodId());
+        }
     }
 
     public HashMap<Long, Order> getHasMapOfOrders() {
@@ -210,6 +213,12 @@ public class Shop {
 
     public void removeCategory(Category category) {
         allCategories.remove(category);
+        for (SubCategory subCategory : category.getSubCategories()) {
+            for (Good good : subCategory.getGoods()) {
+                allGoods.remove(good.getGoodId());
+            }
+            allSubCategories.remove(subCategory);
+        }
     }
 
     public ArrayList<Rate> getRatesOfAGood(Good good) {

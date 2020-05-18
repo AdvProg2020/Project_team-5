@@ -310,7 +310,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         for (OrderForSeller previousSell : seller.getPreviousSells()) {
             Database.getInstance().deleteItem(previousSell);
+            Shop.getInstance().getHasMapOfOrders().remove(previousSell.getOrderId());
         }
+        Shop.getInstance().getAllCompanies().remove(seller.getCompany().getId());
         for (Good good : seller.getActiveGoods()) {
             good.removeSeller(seller);
            // Database.getInstance().saveItem(good);
@@ -322,6 +324,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
     private void removePersonRelatedInfo(Customer customer) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         for (OrderForCustomer previousOrder : customer.getPreviousOrders()) {
             Database.getInstance().deleteItem(previousOrder);
+            Shop.getInstance().getHasMapOfOrders().remove(previousOrder.getOrderId());
         }
         for (DiscountCode discountCode : customer.getDiscountCodes()) {
             discountCode.getIncludedCustomers().remove(customer);
@@ -343,6 +346,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if (good == null)
             throw new ProductWithThisIdNotExist();
         Shop.getInstance().removeProduct(good);
+        Shop.getInstance().getAllGoods().remove(good); //i think it has bug!
         Database.getInstance().deleteItem(good);
     }
 

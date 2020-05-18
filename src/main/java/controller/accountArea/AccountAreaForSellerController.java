@@ -35,9 +35,10 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Good good = seller.findProductOfSeller(productId);
         if (seller.hasThisProduct(productId))
             throw new ProductNotFoundExceptionForSeller();
-        if (good.getSellerRelatedInfoAboutGoods().size() == 1)
+        if (good.getSellerRelatedInfoAboutGoods().size() == 1) {
             good.getSubCategory().deleteGood(good);
-        else {
+            Shop.getInstance().getAllGoods().remove(good);
+        } else {
             good.removeSeller(seller);
             seller.removeFromActiveGoods(good.getGoodId());
         }

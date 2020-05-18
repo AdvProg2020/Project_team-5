@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddingOffRequest extends Request {
-    //private Off off;
     private List<Long> offGoods;
     private LocalDate startDate;
     private LocalDate endDate;
