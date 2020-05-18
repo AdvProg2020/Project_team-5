@@ -38,6 +38,10 @@ public class Off {
         return offId;
     }
 
+    public static long getOffsCount() {
+        return offsCount;
+    }
+
     public List<Good> getOffGoods() {
         return offGoods;
     }

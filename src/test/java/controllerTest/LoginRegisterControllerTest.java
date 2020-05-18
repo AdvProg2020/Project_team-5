@@ -11,7 +11,6 @@ import model.persons.Manager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-import view.accountArea.accountAreaForManager.ManageAllProductsMenu;
 
 import java.io.IOException;
 import java.util.ArrayList;

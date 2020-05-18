@@ -23,6 +23,7 @@ public class OrderForSeller extends Order {
     }
 
     private void setNumberPerGood(List<GoodInCart> goods) {
+        if (goods == null) return;
         for (GoodInCart good : goods) {
             numberPerGood.put(good.getGood(), good.getNumber());
         }
