@@ -49,7 +49,7 @@ public class Database {
         loadingData.loadRequests();
     }
 
-    public void deleteItem(Object item) throws FileCantBeDeletedException {
+    public void deleteItem(Object item) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         if (item instanceof Manager) {
             deletingData.deleteManager((Manager) item);
         } else if (item instanceof Customer) {
@@ -60,8 +60,6 @@ public class Database {
             deletingData.deleteCompany((Company)item);
         } else if (item instanceof Good) {
             deletingData.deleteProduct((Good) item);
-        } else if (item instanceof SellerRelatedInfoAboutGood) {
-            deletingData.deleteProductInfo((SellerRelatedInfoAboutGood)item);
         } else if (item instanceof DiscountCode) {
             deletingData.deleteDiscount((DiscountCode) item);
         } else if (item instanceof Comment) {
@@ -83,6 +81,10 @@ public class Database {
         } else throw new FileCantBeDeletedException();
     }
 
+    public void deleteItem(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws FileCantBeDeletedException {
+        deletingData.deleteProductInfo(infoAboutGood, goodId);
+    }
+
     public void saveItem(Object item) throws IOException, FileCantBeSavedException {
         if (item instanceof Manager) {
             savingData.saveManager((Manager) item);
@@ -94,8 +96,6 @@ public class Database {
             savingData.saveCompany((Company) item);
         } else if (item instanceof Good) {
             savingData.saveProduct((Good) item);
-        } else if (item instanceof SellerRelatedInfoAboutGood) {
-            savingData.saveInfoAboutGood()
         } else if (item instanceof DiscountCode) {
             savingData.saveDiscount((DiscountCode) item);
         } else if (item instanceof Comment) {
@@ -117,24 +117,8 @@ public class Database {
         } else throw new FileCantBeSavedException();
     }
 
-    public void saveShop() throws IOException, FileCantBeSavedException {
-        for (Person person : Shop.getInstance().getAllPersons()) {
-            saveItem(person);
-        }
-        for (Category category : Shop.getInstance().getAllCategories()) {
-            saveItem(category);
-        }
-        for (Off off : Shop.getInstance().getOffs()) {
-            saveItem(off);
-        }
-        for (Request request : Shop.getInstance().getAllRequest()) {
-            saveItem(request);
-        }
-        for (Rate rate : Shop.getInstance().getAllRates()) {
-            saveItem(rate);
-        }
-        for (DiscountCode discountCode : Shop.getInstance().getAllDiscountCodes()) {
-            saveItem(discountCode);
-        }
+    public void saveItem(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws IOException, FileCantBeSavedException {
+        savingData.saveInfoAboutGood(infoAboutGood, goodId);
     }
+
 }

@@ -1,6 +1,7 @@
 package model.database;
 
 import exception.FileCantBeDeletedException;
+import exception.FileCantBeSavedException;
 import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
@@ -12,7 +13,9 @@ import model.persons.Seller;
 import model.productThings.*;
 import model.requests.Request;
 
+import javax.xml.crypto.Data;
 import java.io.File;
+import java.io.IOException;
 
 public class DeletingData {
     public void deleteManager(Manager manager) throws FileCantBeDeletedException {
@@ -25,11 +28,21 @@ public class DeletingData {
         deleteFile(filePath);
     }
 
-    public void deleteSeller(Seller seller) throws FileCantBeDeletedException {
+    public void deleteSeller(Seller seller) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Users\\Sellers\\" + seller.getUsername() + ".json";
         deleteFile(filePath);
         for (Good good : seller.getActiveGoods()) {
-
+            for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+                if (infoAboutGood.getSeller().equals(seller)) {
+                    good.removeSeller(seller);
+                    Database.getInstance().deleteItem(infoAboutGood);
+                    break;
+                }
+            }
+            if (good.getSellerRelatedInfoAboutGoods().size() > 0)
+                Database.getInstance().saveItem(good);
+            else
+                Database.getInstance().deleteItem(good);
         }
     }
 
@@ -38,11 +51,13 @@ public class DeletingData {
         deleteFile(filePath);
     }
 
-    public void deleteProduct(Good good) throws FileCantBeDeletedException {
+    public void deleteProduct(Good good) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Products\\product_" + good.getGoodId() + ".json";
         deleteFile(filePath);
         for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
             deleteProductInfo(infoAboutGood, good.getGoodId());
+            infoAboutGood.getSeller().removeFromActiveGoods(good.getGoodId());
+            Database.getInstance().saveItem(infoAboutGood.getSeller());
         }
         for (Comment comment : good.getComments()) {
             deleteComment(comment);
@@ -50,9 +65,13 @@ public class DeletingData {
         //remove rates
     }
 
-    public void deleteDiscount(DiscountCode discountCode) throws FileCantBeDeletedException {
+    public void deleteDiscount(DiscountCode discountCode) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Discounts\\dis_" + discountCode.getCode() + ".json";
         deleteFile(filePath);
+        for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
+            customer.removeDiscountCode(discountCode);
+            Database.getInstance().saveItem(customer);
+        }
     }
 
     public void deleteProductInfo(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws FileCantBeDeletedException {
@@ -75,7 +94,7 @@ public class DeletingData {
         deleteFile(filePath);
     }
 
-    public void deleteCategory(Category category) throws FileCantBeDeletedException {
+    public void deleteCategory(Category category) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Categories\\" + category.getName() + ".json";
         deleteFile(filePath);
         for (SubCategory subCategory : category.getSubCategories()) {
@@ -83,7 +102,7 @@ public class DeletingData {
         }
     }
 
-    public void deleteSubCategory(SubCategory subCategory) throws FileCantBeDeletedException {
+    public void deleteSubCategory(SubCategory subCategory) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\SubCategories\\" + subCategory.getParentCategory().getName() + "_" + subCategory.getName() + ".json";
         deleteFile(filePath);
         for (Good good : subCategory.getGoods()) {
