@@ -23,7 +23,6 @@ public class DeletingData {
     public void deleteCustomer(Customer customer) throws FileCantBeDeletedException {
         String filePath = "Resources\\Users\\Customers\\" + customer.getUsername() + ".json";
         deleteFile(filePath);
-        //remove rates and comments of this customer???
     }
 
     public void deleteSeller(Seller seller) throws FileCantBeDeletedException {

@@ -37,14 +37,15 @@ public class Database {
         loadingData.loadCustomer();
         loadingData.loadSeller();
         loadingData.loadCategory();
-       // loadingData.loadSubCategory();
-     //   loadingData.loadProduct();
-     //   loadingData.loadComment();
+        loadingData.loadSubCategory();
+        loadingData.loadProduct();
+        loadingData.loadInfoAboutGood();
+        loadingData.loadComment();
         loadingData.loadRate();
         loadingData.loadDiscount();
         loadingData.loadOff();
-     //   loadingData.loadOrderForSeller();
-       // loadingData.loadOrderForCustomer();
+        loadingData.loadOrderForSeller();
+        loadingData.loadOrderForCustomer();
         loadingData.loadRequests();
     }
 
@@ -60,7 +61,7 @@ public class Database {
         } else if (item instanceof Good) {
             deletingData.deleteProduct((Good) item);
         } else if (item instanceof SellerRelatedInfoAboutGood) {
-            //deletingData.deleteProductInfo((SellerRelatedInfoAboutGood)item);
+            deletingData.deleteProductInfo((SellerRelatedInfoAboutGood)item);
         } else if (item instanceof DiscountCode) {
             deletingData.deleteDiscount((DiscountCode) item);
         } else if (item instanceof Comment) {
@@ -94,7 +95,7 @@ public class Database {
         } else if (item instanceof Good) {
             savingData.saveProduct((Good) item);
         } else if (item instanceof SellerRelatedInfoAboutGood) {
-            //savingData.saveInfoAboutGood()
+            savingData.saveInfoAboutGood()
         } else if (item instanceof DiscountCode) {
             savingData.saveDiscount((DiscountCode) item);
         } else if (item instanceof Comment) {
