@@ -187,7 +187,7 @@ public class ControllerForFiltering {
     public void disableFilter(int chosenFilter) {
         if (chosenFilter <= unaryFilters.size())
             disableUnaryFilter(chosenFilter);
-        if (chosenFilter == unaryFilters.size() + binaryFilters.size() + 1)
+        else if (chosenFilter == unaryFilters.size() + binaryFilters.size() + 1)
             availableProduct = false;
         else
             binaryFilters.remove(chosenFilter - unaryFilters.size() - 1);
