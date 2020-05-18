@@ -1,17 +1,23 @@
 package controllerTest;
 
 import controller.MainController;
+import exception.productExceptions.ProductWithThisIdNotExist;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.persons.Seller;
+import model.productThings.Good;
 import org.junit.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AllProductsControllerTest {
 
-    @BeforeClass
-    public static void load(){
+
+
+    @Before
+    public  void load(){
         ArrayList<String> details=new ArrayList<>();
         details.add("p1");
         details.add("p2");
@@ -20,7 +26,11 @@ public class AllProductsControllerTest {
         ArrayList<String> details2=new ArrayList<>();
         details2.add("hi1");
         details2.add("hi2");
-        category.addSubCategory(new SubCategory("sub kabir",details2));
+        SubCategory subCategory=new SubCategory("sub kabir",details2);
+        category.addSubCategory(subCategory);
+        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", null);
+        Good good=new Good("phone", "samsung", subCategory, "", new HashMap<>(), seller, 9000L, 3);
+        subCategory.addGood(good);
     }
 
     @Test
@@ -34,8 +44,24 @@ public class AllProductsControllerTest {
         Assert.assertEquals(MainController.getInstance().getAllProductsController().showCategories(),output);
     }
 
-    @AfterClass
-    public static void delete(){
+    @Test
+    public void showAProductTest(){
+        try {
+            MainController.getInstance().getAllProductsController().showAProduct(2);
+            Assert.assertFalse(false);
+        } catch (ProductWithThisIdNotExist productWithThisIdNotExist) {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void showProducts(){
+        String output="";
+        Assert.assertEquals(output,MainController.getInstance().getAllProductsController().showProducts());
+    }
+
+    @After
+    public  void delete(){
         Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("aboots"));
     }
 }
