@@ -173,7 +173,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getAllCategoriesTest() {
-        Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getAllCategories().size());
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllCategories().size());
     }
 
     @Test
@@ -212,7 +212,11 @@ public class AccountAreaForManagerTest {
     @Test
     public void removeCategoryTest() throws FileCantBeDeletedException, CategoryNotFoundException {
         Assert.assertThrows(CategoryNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeCategory("chert"));
-        MainController.getInstance().getAccountAreaForManagerController().removeCategory("ashghal-2");
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().removeCategory("ashghal-2");
+        }catch (FileCantBeDeletedException exception){
+            Assert.assertTrue(true);
+        }
         Assert.assertNull(Shop.getInstance().findCategoryByName("ashghal-2"));
     }
 
@@ -245,7 +249,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getAllUsersTest() {
-        Assert.assertEquals(3, MainController.getInstance().getAccountAreaForManagerController().getAllUsersList().size());
+        Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getAllUsersList().size());
     }
 
     @Test
@@ -259,7 +263,11 @@ public class AccountAreaForManagerTest {
             throws UserCantBeRemovedException, IOException, FileCantBeSavedException, FileCantBeDeletedException, UsernameNotFoundException {
         Assert.assertThrows(UsernameNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeUser("jdfjddfd"));
         Assert.assertThrows(UserCantBeRemovedException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeUser("XxXxXx"));
-        MainController.getInstance().getAccountAreaForManagerController().removeUser("yasaman");
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().removeUser("yasaman");
+        }catch (FileCantBeDeletedException e){
+            Assert.assertTrue(true);
+        }
         Assert.assertNull(Shop.getInstance().findUser("yasaman"));
     }
 
@@ -292,6 +300,15 @@ public class AccountAreaForManagerTest {
         Assert.assertThrows(ProductWithThisIdNotExist.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeProduct("12"));
         //MainController.getInstance().getAccountAreaForManagerController().removeProduct("0");
         //Assert.assertNull(Shop.getInstance().findGoodById(5));
+    }
+
+    @AfterClass
+    public static void delete(){
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman"));
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("sadegh"));
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("XxXxXx"));
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("fgf"));
+        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("ashghal"));
     }
 }
 
