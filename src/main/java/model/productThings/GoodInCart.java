@@ -23,6 +23,10 @@ public class GoodInCart {
         return Shop.getInstance().getFinalPriceOfAGood(getGood(), getSeller()) * number;
     }
 
+    public static void setGoodInCartCounter(long goodInCartCounter) {
+        GoodInCart.goodInCartCounter = goodInCartCounter;
+    }
+
     public void setNumber(int number) {
         this.number = number;
     }

@@ -22,6 +22,10 @@ public class Company {
         return name;
     }
 
+    public static void setCompanyIdCounter(long companyIdCounter) {
+        Company.companyIdCounter = companyIdCounter;
+    }
+
     public long getId() {
         return id;
     }

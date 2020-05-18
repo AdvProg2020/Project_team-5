@@ -60,6 +60,10 @@ public class DiscountCode {
         return maxDiscountAmount;
     }
 
+    public static void setDiscountCodeCount(long discountCodeCount) {
+        DiscountCode.discountCodeCount = discountCodeCount;
+    }
+
     public int getDiscountPercent() {
         return discountPercent;
     }

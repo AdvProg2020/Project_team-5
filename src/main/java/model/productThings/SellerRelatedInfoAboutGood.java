@@ -21,6 +21,10 @@ public class SellerRelatedInfoAboutGood {
         return (Seller) Shop.getInstance().findUser(this.seller);
     }
 
+    public static void setSellerRelatedInfoAboutGoodCount(long sellerRelatedInfoAboutGoodCount) {
+        SellerRelatedInfoAboutGood.sellerRelatedInfoAboutGoodCount = sellerRelatedInfoAboutGoodCount;
+    }
+
     public long getSellerRelatedInfoAboutGoodId() {
         return sellerRelatedInfoAboutGoodId;
     }

@@ -33,6 +33,10 @@ public class Comment {
         return Shop.getInstance().findUser(person);
     }
 
+    public static void setCommentIdCounter(long commentIdCounter) {
+        Comment.commentIdCounter = commentIdCounter;
+    }
+
     public long getId() {
         return id;
     }

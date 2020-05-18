@@ -38,6 +38,8 @@ public class Rate {
         this.rate = rate;
     }
 
+
+
     @Override
     public String toString() {
         return String.format("################\nCustomer Username: %s\n" +

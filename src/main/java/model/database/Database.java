@@ -24,7 +24,6 @@ public class Database {
         this.savingData = new SavingData();
         this.loadingData = new LoadingData();
     }
-
     public static Database getInstance() {
         if (database == null)
             database = new Database();
