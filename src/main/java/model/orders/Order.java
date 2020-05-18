@@ -40,6 +40,10 @@ public abstract class Order {
         this.orderStatus = orderStatus;
     }
 
+    public static long getOrdersCount() {
+        return ordersCount;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Order){
