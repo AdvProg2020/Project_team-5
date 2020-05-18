@@ -1,6 +1,7 @@
 package controllerTest;
 
 import controller.MainController;
+import exception.productExceptions.ProductWithThisIdNotExist;
 import model.category.Category;
 import model.category.SubCategory;
 import model.persons.Seller;
@@ -33,6 +34,8 @@ public class ProductControllerTest {
         Good good=new Good("phone", "samsung", subCategory, "details", categoryProperty,
                 seller, 9000L, 3);
         MainController.getInstance().getProductController().setGood(good);
+        Good good2=new Good("laptop", "apple", subCategory, "details 2", categoryProperty,
+                seller, 122000L, 20);
     }
 
     @Test
@@ -72,6 +75,16 @@ public class ProductControllerTest {
                 "p1 : salam1\n" +
                 "p2 : salam2";
         Assert.assertEquals(output,MainController.getInstance().getProductController().attributes());
+    }
+
+    @Test
+    public void compareWithAnotherProduct(){
+        String actual="";
+        try {
+            actual=MainController.getInstance().getProductController().compareWithAnotherProduct(10000);
+        } catch (ProductWithThisIdNotExist productWithThisIdNotExist) {
+            Assert.assertTrue(true);
+        }
     }
 
     @AfterClass

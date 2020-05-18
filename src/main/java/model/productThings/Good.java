@@ -31,6 +31,10 @@ public class Good {
         return goodStatus;
     }
 
+    public static long getGoodsCount() {
+        return goodsCount;
+    }
+
     public Good(String name, String brand, SubCategory subCategory, String details, HashMap<String, String> categoryProperties, Seller seller, long price, int availableNumber) {
         this.goodId = goodsCount++;
         this.name = name;
