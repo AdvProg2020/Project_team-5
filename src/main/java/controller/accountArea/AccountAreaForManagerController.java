@@ -65,7 +65,6 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         discountCode.addCustomerToCode((Customer) person, number);
         Customer customer= (Customer) person;
-        customer.addDiscountCode(discountCode);
         Database.getInstance().saveItem(discountCode);
         Database.getInstance().saveItem(customer);
     }
@@ -132,8 +131,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeNotFoundException();
         for (Customer customer : discountCode.getIncludedCustomers().keySet())
             customer.removeDiscountCode(discountCode);
-        Shop.getInstance().removeDiscountCode(discountCode);
         Database.getInstance().deleteItem(discountCode);
+        Shop.getInstance().removeDiscountCode(discountCode);
     }
 
     public ArrayList<String> getAllRequestsInfo() {

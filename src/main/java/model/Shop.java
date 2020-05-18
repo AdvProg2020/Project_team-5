@@ -187,7 +187,7 @@ public class Shop {
     }
 
     public void removeDiscountCode(DiscountCode discountCode) {
-        allDiscountCodes.remove(discountCode);
+        allDiscountCodes.remove(discountCode.getId());
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
@@ -293,7 +293,7 @@ public class Shop {
     }
 
     public void removeOff(Off off) {
-        offs.remove(off);
+        offs.remove(off.getOffId());
     }
 
     public void deleteCategory(Category category) {
