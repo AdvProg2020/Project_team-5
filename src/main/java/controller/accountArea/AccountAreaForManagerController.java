@@ -257,7 +257,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         SubCategory subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName);
         for (int i = 0; i < subCategory.getDetails().size(); i++) {
             if (subCategory.getDetails().get(i).equalsIgnoreCase(property)) {
-                subCategory.getDetails().add(i, newValue);
+                subCategory.getDetails().set(i, newValue);
                 Database.getInstance().saveItem(subCategory);
                 return;
             }
