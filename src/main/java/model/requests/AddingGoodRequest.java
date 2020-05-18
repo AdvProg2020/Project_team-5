@@ -47,10 +47,9 @@ public class AddingGoodRequest extends Request {
         Seller seller1 = (Seller) Shop.getInstance().findUser(seller);
         seller1.addToActiveGoods(good.getGoodId());
         Shop.getInstance().getHashMapOfGoods().put(good.getGoodId(), good);
-        //save subcategory or not ????
-        //Database.getInstance().saveItem(good.getSubCategory());
-        //  Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
-        // Database.getInstance().saveItem(seller);
+        Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0));
+        Database.getInstance().saveItem(good);
+        Database.getInstance().saveItem(seller);
     }
 
     @Override

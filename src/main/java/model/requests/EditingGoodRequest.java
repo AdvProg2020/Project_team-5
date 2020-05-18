@@ -46,9 +46,11 @@ public class EditingGoodRequest extends Request {
             } else if (field.equalsIgnoreCase("price")) {
                 SellerRelatedInfoAboutGood information = (SellerRelatedInfoAboutGood) good.getSellerRelatedInfoAboutGoods().stream().filter(info -> info.getSeller().equals(getSeller())).toArray()[0];
                 information.setPrice(Long.parseLong(editedFields.get("price")));
+                Database.getInstance().saveItem(information, goodId);
             } else if (field.equalsIgnoreCase("availableNumber")) {
                 SellerRelatedInfoAboutGood information = (SellerRelatedInfoAboutGood) good.getSellerRelatedInfoAboutGoods().stream().filter(info -> info.getSeller().equals(getSeller())).toArray()[0];
                 information.setAvailableNumber(Integer.parseInt(editedFields.get("availableNumber")));
+                Database.getInstance().saveItem(information, goodId);
             }
             for (String subCategoryProperty : good.getCategoryProperties().keySet()) {
                 if (field.equalsIgnoreCase(subCategoryProperty)) {
@@ -57,7 +59,6 @@ public class EditingGoodRequest extends Request {
             }
         }
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
-     //   Database.getInstance().saveItem(good.getSubCategory());
-       // Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
+        Database.getInstance().saveItem(good);
     }
 }

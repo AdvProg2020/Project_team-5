@@ -48,10 +48,11 @@ public class RegisteringSellerRequest extends Request {
 
     @Override
     public void acceptRequest() throws IOException, FileCantBeSavedException {
-        Company company=new Company(companyName,companyWebsite,companyPhoneNumber,companyFaxNumber,companyAddress);
-        Seller seller=new Seller(username,firstName,lastName,email,phoneNumber,password,company);
+        Company company = new Company(companyName, companyWebsite, companyPhoneNumber, companyFaxNumber, companyAddress);
+        Seller seller = new Seller(username, firstName, lastName, email, phoneNumber, password, company);
         Shop.getInstance().addPerson(seller);
         Shop.getInstance().addCompany(company);
-       // Database.getInstance().saveItem(this.seller);
+        Database.getInstance().saveItem(seller);
+        Database.getInstance().saveItem(company);
     }
 }
