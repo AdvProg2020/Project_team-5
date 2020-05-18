@@ -151,6 +151,7 @@ public class AccountAreaForSellerTest {
 
     @Test
     public void AddingOff(){
+        Off off;
         try {
             controller.addOff(makeArrayListForOff(),makeListOfGood());
         } catch (Exception e) {
@@ -170,10 +171,10 @@ public class AccountAreaForSellerTest {
         }
         Shop.getInstance().removeRequest(requestTemp);
         assertTrue(controller.getAllOffs().size() != 0);
-        assertTrue(Shop.getInstance().findOffById(1) != null);
-        assertTrue(controller.doesSellerHaveThisOff(1));
+        assertTrue(Shop.getInstance().findOffById(Off.getOffsCount()-1) != null);
+        assertTrue(controller.doesSellerHaveThisOff(Off.getOffsCount()-1));
         try {
-            controller.editOff("max discount","150", 1);
+            controller.editOff("max discount","150", Off.getOffsCount()-1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -190,7 +191,7 @@ public class AccountAreaForSellerTest {
         }
         Shop.getInstance().removeRequest(requestTemp);
         try {
-            assertTrue(controller.viewOff(1) != null);
+            assertTrue(controller.viewOff(Off.getOffsCount()-1) != null);
         } catch (OffNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -214,7 +215,7 @@ public class AccountAreaForSellerTest {
     @Test
     public void offException(){
         try {
-            controller.viewOff(5);
+            controller.viewOff(Off.getOffsCount()+10);
         } catch (OffNotFoundException e) {
             assertTrue(true);
         }

@@ -8,6 +8,7 @@ import model.category.SubCategory;
 import model.orders.Order;
 import model.orders.OrderForSeller;
 import model.persons.Manager;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -78,5 +79,12 @@ public class AccountAreaTest {
                 "Order status : READYTOSEND\n" +
                 "--------------------------------------------------------------------------------]";
         Assert.assertEquals(output, list.toString());
+    }
+
+
+    @AfterClass
+    public static void delete(){
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("aboot"));
+        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("laptop"));
     }
 }

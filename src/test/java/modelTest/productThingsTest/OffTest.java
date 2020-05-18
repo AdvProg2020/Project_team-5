@@ -3,6 +3,7 @@ package modelTest.productThingsTest;
 import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.Off;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,5 +45,7 @@ public class OffTest {
     public void isOffExpiredTest(){
         Assert.assertEquals(false,off.isOffExpired());
     }
+
+
 
 }
