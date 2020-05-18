@@ -64,6 +64,11 @@ public class SavingData {
         saveFile(yaGson.toJson(comment, Comment.class), filePath);
     }
 
+    public void saveGoodsInCarts(GoodInCart goodInCart) throws IOException, FileCantBeSavedException {
+        String filePath = "Resources\\GoodsInCarts\\goodCart_" + goodInCart.getGoodInCartId() + ".json";
+        saveFile(yaGson.toJson(goodInCart, GoodInCart.class), filePath);
+    }
+
     public void saveOff(Off off) throws IOException, FileCantBeSavedException {
         String filePath = "Resources\\Offs\\off_" + off.getOffId() + ".json";
         saveFile(yaGson.toJson(off, Off.class), filePath);

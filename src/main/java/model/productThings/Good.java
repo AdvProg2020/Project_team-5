@@ -255,9 +255,7 @@ public class Good {
     public boolean equals(Object obj) {
         if (obj instanceof Good) {
             Good good2 = (Good) obj;
-            if (this.getGoodId() == (good2.getGoodId()))
-                return true;
-            return false;
+            return this.getGoodId() == (good2.getGoodId());
         }
         return super.equals(obj);
     }

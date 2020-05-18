@@ -172,6 +172,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public void editOff(String field, String key, long id) throws IOException, FileCantBeSavedException {
         HashMap<String, String> editedFields = new HashMap<>();
         editedFields.put(field, key);
+        Shop.getInstance().findOffById(id).setOffStatus(Off.OffStatus.EDITING);
         EditingOffRequest editingOffRequest = new EditingOffRequest(id, editedFields);
         Shop.getInstance().addRequest(editingOffRequest);
         Database.getInstance().saveItem(editingOffRequest);
@@ -188,6 +189,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public void editProduct(String field, String key, long id) throws IOException, FileCantBeSavedException {
         HashMap<String, String> editedFields = new HashMap<>();
         editedFields.put(field, key);
+        Shop.getInstance().findGoodById(id).setGoodStatus(Good.GoodStatus.EDITINGPROCESSING);
         EditingGoodRequest editingGoodRequest = new EditingGoodRequest(id, (Seller) MainController.getInstance().getCurrentPerson(), editedFields);
         Shop.getInstance().addRequest(editingGoodRequest);
         Database.getInstance().saveItem(editingGoodRequest);

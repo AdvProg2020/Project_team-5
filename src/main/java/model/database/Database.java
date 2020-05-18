@@ -44,6 +44,7 @@ public class Database {
         loadingData.loadRate();
         loadingData.loadDiscount();
         loadingData.loadOff();
+        loadingData.loadGoodsInCarts();
         loadingData.loadOrderForSeller();
         loadingData.loadOrderForCustomer();
         loadingData.loadRequests();
@@ -62,6 +63,8 @@ public class Database {
             deletingData.deleteProduct((Good) item);
         } else if (item instanceof DiscountCode) {
             deletingData.deleteDiscount((DiscountCode) item);
+        } else if (item instanceof GoodInCart) {
+            deletingData.deleteGoodsInCarts((GoodInCart) item);
         } else if (item instanceof Comment) {
             deletingData.deleteComment((Comment) item);
         } else if (item instanceof Off) {
@@ -98,6 +101,8 @@ public class Database {
             savingData.saveProduct((Good) item);
         } else if (item instanceof DiscountCode) {
             savingData.saveDiscount((DiscountCode) item);
+        } else if (item instanceof GoodInCart) {
+            savingData.saveGoodsInCarts((GoodInCart) item);
         } else if (item instanceof Comment) {
             savingData.saveComment((Comment) item);
         } else if (item instanceof Off) {

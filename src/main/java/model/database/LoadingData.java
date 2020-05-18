@@ -87,6 +87,14 @@ public class LoadingData {
             }
     }
 
+    public void loadGoodsInCarts() throws IOException {
+        File[] files = loadFolder("Resources\\GoodsInCarts");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addGoodInCart(yaGson.fromJson(readFile(file), GoodInCart.class));
+            }
+    }
+
     public void loadComment() throws IOException {
         File[] files = loadFolder("Resources\\Comments");
         if (files != null)

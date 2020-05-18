@@ -84,7 +84,7 @@ public class Customer extends Person {
     }
 
     public void donateDiscountCodeTOBestCustomers() {
-        long allPricesOfOrdersWithOutLastOne = 0l;
+        long allPricesOfOrdersWithOutLastOne = 0L;
         for (OrderForCustomer order : this.getPreviousOrders()) {
             if (!order.equals(this.getPreviousOrders().get(this.getPreviousOrders().size() - 1))) {
                 allPricesOfOrdersWithOutLastOne += order.getPrice();
@@ -93,7 +93,7 @@ public class Customer extends Person {
         if (((allPricesOfOrdersWithOutLastOne + this.getPreviousOrders().get(this.getPreviousOrders().size() - 1).getPrice()) / 1000000)
                 - (allPricesOfOrdersWithOutLastOne / 1000000) > 0){
             DiscountCode discountCode=new DiscountCode(DiscountCode.generateRandomDiscountCode()
-                    , LocalDate.now(),LocalDate.now().plusMonths(1),10000l,30);
+                    , LocalDate.now(),LocalDate.now().plusMonths(1), 10000L,30);
             discountCode.addCustomerToCode(this,1);
             Shop.getInstance().addDiscountCode(discountCode);
         }

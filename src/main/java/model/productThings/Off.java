@@ -95,7 +95,7 @@ public class Off {
     }
 
     public long getPriceAfterOff(Good good, Seller productSeller) {
-        if (!productSeller.equals(seller))
+        if (!productSeller.getUsername().equals(seller))
             return 0L;
         long price = this.getOffGoods().stream().filter(offGood -> offGood.equals(good))
                 .map(offGood -> offGood.getPriceBySeller(getSeller())).findAny().orElse(0L);
@@ -110,12 +110,12 @@ public class Off {
     }
 
     public void removeGood(Good good) {
-        offGoods.remove(good);
+        offGoods.remove(good.getGoodId());
     }
 
     public boolean doesHaveThisProduct(Good good) {
         if (good == null) return false;
-        return offGoods.contains(good);
+        return offGoods.contains(good.getGoodId());
     }
 
     public static void setOffsCount(long offsCount) {

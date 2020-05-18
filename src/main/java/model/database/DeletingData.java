@@ -103,6 +103,11 @@ public class DeletingData {
         deleteFile(filePath);
     }
 
+    public void deleteGoodsInCarts(GoodInCart goodInCart) throws FileCantBeDeletedException {
+        String filePath = "Resources\\GoodsInCarts\\goodCart_" + goodInCart.getGoodInCartId() + ".json";
+        deleteFile(filePath);
+    }
+
     public void deleteOff(Off off) throws FileCantBeDeletedException {
         String filePath = "Resources\\Offs\\off_" + off.getOffId() + ".json";
         deleteFile(filePath);
@@ -136,6 +141,9 @@ public class DeletingData {
 
     public void deleteOrderForCustomer(OrderForCustomer orderForCustomer) throws FileCantBeDeletedException {
         String filePath = "Resources\\Orders\\OrderForCustomers\\order_" + orderForCustomer.getOrderId() + ".json";
+        for (GoodInCart goodsDetail : orderForCustomer.getGoodsDetails()) {
+            deleteGoodsInCarts(goodsDetail);
+        }
         deleteFile(filePath);
     }
 
