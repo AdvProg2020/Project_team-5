@@ -237,7 +237,7 @@ public class Shop {
     public void addRate(Customer customer, long productId, int rate) throws IOException, FileCantBeSavedException {
         Rate rateToAdd = new Rate(customer, findGoodById(productId), rate);
         allRates.add(rateToAdd);
-        //Database.getInstance().saveItem(rateToAdd);
+        Database.getInstance().saveItem(rateToAdd);
     }
 
     public void addRate(Rate rate) {
