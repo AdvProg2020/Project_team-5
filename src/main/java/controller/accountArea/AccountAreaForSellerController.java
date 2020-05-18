@@ -33,7 +33,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public void removeProduct(long productId) throws ProductNotFoundExceptionForSeller, IOException, FileCantBeSavedException {
         Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
         Good good = seller.findProductOfSeller(productId);
-        if (seller.hasThisProduct(productId))
+        if (!seller.hasThisProduct(productId))
             throw new ProductNotFoundExceptionForSeller();
         if (good.getSellerRelatedInfoAboutGoods().size() == 1)
             good.getSubCategory().deleteGood(good);
