@@ -145,9 +145,10 @@ public class AccountAreaForSellerController extends AccountAreaController {
     }
 
     public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts) throws IOException, FileCantBeSavedException {
-        Off newOff = new Off(getProductsByIds(offProducts), LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
-                Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)), ((Seller) MainController.getInstance().getCurrentPerson()));
-        AddingOffRequest addingOffRequest = new AddingOffRequest(newOff);
+        AddingOffRequest addingOffRequest = new AddingOffRequest(getProductsByIds(offProducts),
+                LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
+                Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)),
+                ((Seller) MainController.getInstance().getCurrentPerson()));
         Shop.getInstance().addRequest(addingOffRequest);
         // Database.getInstance().saveItem(addingOffRequest);
     }
