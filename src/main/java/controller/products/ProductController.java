@@ -23,10 +23,11 @@ public class ProductController {
 
     public void setGood(Good good) {
         this.good = good;
-        good.setSeenNumber(good.getSeenNumber() + 1);
+        if (good != null)
+            good.setSeenNumber(good.getSeenNumber() + 1);
         try {
-           // Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
-           // Database.getInstance().saveItem(good.getSubCategory());
+            // Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
+            // Database.getInstance().saveItem(good.getSubCategory());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,15 +103,15 @@ public class ProductController {
         return output;
     }
 
-    public void addComment(String title,String content) throws IOException, FileCantBeSavedException {
-        boolean didCommenterBoughtThisProduct=false;
-        if (MainController.getInstance().getCurrentPerson() instanceof Customer){
+    public void addComment(String title, String content) throws IOException, FileCantBeSavedException {
+        boolean didCommenterBoughtThisProduct = false;
+        if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
             if (((Customer) MainController.getInstance().getCurrentPerson()).hasBuyProduct(good.getGoodId()))
-                didCommenterBoughtThisProduct=true;
+                didCommenterBoughtThisProduct = true;
         }
         AddingCommentRequest addingCommentRequest = new AddingCommentRequest(new Comment(MainController.getInstance().getCurrentPerson()
-                ,this.getGood(),title,content,didCommenterBoughtThisProduct));
+                , this.getGood(), title, content, didCommenterBoughtThisProduct));
         Shop.getInstance().addRequest(addingCommentRequest);
-       // Database.getInstance().saveItem(addingCommentRequest);
+        // Database.getInstance().saveItem(addingCommentRequest);
     }
 }
