@@ -2,11 +2,9 @@ package controllerTest.controllerAccountAreaTest;
 
 import controller.MainController;
 import controller.accountArea.AccountAreaForCustomerController;
-import exception.FileCantBeSavedException;
-import exception.NotEnoughCredit;
 import exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
-import mockit.*;
+
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
@@ -16,10 +14,10 @@ import model.productThings.DiscountCode;
 import model.productThings.Good;
 import model.productThings.GoodInCart;
 import model.productThings.Rate;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import view.accountArea.acountAreaForCustomer.AccountAreaForCustomer;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +34,17 @@ public class AccountAreaForCustomerTest {
     Good good = new Good("phone", "samsung", subCategory, "", new HashMap<>(), seller, 9000L, 3);
     Rate rate = new Rate(customer, good, 8);
 
+    @Before
+    public void initializing() {
+        MainController.getInstance().setCurrentPerson(customer);
+        Shop.getInstance().addCategory(category);
+        category.addSubCategory(subCategory);
+        subCategory.addGood(good);
+        Shop.getInstance().addDiscountCode(discountCode);
+        Shop.getInstance().addGoodToCart(good, seller, 1);
+        discountCode.addCustomerToCode(customer, 2);
+    }
+
     @Test
     public void getBalanceTest() {
         Shop.getInstance().addPerson(customer);
@@ -51,68 +60,54 @@ public class AccountAreaForCustomerTest {
         assertEquals(discountCode.detailedToString(), discountCodeString);
     }
 
-    public void initializing(){
-        MainController.getInstance().setCurrentPerson(customer);
-        Shop.getInstance().addCategory(category);
-        category.addSubCategory(subCategory);
-        subCategory.addGood(good);
-        Shop.getInstance().addDiscountCode(discountCode);
-        Shop.getInstance().addGoodToCart(good, seller, 1);
-        discountCode.addCustomerToCode(customer, 2);
-    }
-
     @Test
     public void buyProcessTest() {
-        initializing();
         assertEquals(9000L, controller.getTotalPriceOfCart());
         assertEquals((new GoodInCart(good, seller, 1).toString()), controller.viewInCartProducts().get(0));
         assertTrue(controller.checkExistProductInCart(good.getGoodId()));
         assertEquals(good.toString(), controller.viewSpecialProduct(good.getGoodId()));
         try {
-            controller.increaseInCartProduct(good.getGoodId());
-            assertEquals(2,Shop.getInstance().getCart().get(0).getNumber());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        controller.decreaseInCartProduct(good.getGoodId());
-        assertEquals(1, Shop.getInstance().getCart().get(0).getNumber());
-        try {
-            if (controller.checkValidDiscountCode("1111"))
-                assertEquals(7200L , controller.useDiscountCode("1111"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
             controller.purchase(7200L, makeArrayListForOrder(), "1111");
         } catch (Exception e) {
             assertFalse(false);
         }
-       assertEquals(1,customer.getPreviousOrders().size());
+        assertEquals(1, customer.getPreviousOrders().size());
         assertEquals(2, good.getAvailableNumberBySeller(seller));
         assertTrue(customer.getCredit() != 90000L);
         if (controller.hasBuyProduct(good.getGoodId())) {
             try {
-                controller.rateProduct(good.getGoodId(),8);
+                controller.rateProduct(good.getGoodId(), 8);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             assertTrue(good.getAverageRate() != 0);
         }
 
-        if (controller.existOrderById(1)){
+        if (controller.existOrderById(1)) {
             assertEquals(customer.getPreviousOrders().get(0).toString(), controller.viewAnOrder(1));
         }
     }
 
     @Test
-    public void CheckExistGoodTest(){
+    public void CheckExistGoodTest() {
         if (controller.checkExistProduct(good.getGoodId()))
             assertTrue(true);
     }
 
-    public ArrayList<String > makeArrayListForOrder(){
-        ArrayList<String > info = new ArrayList<>();
+    @Test
+    public void increaseAndDecreaseGoodInCart() {
+        try {
+            controller.increaseInCartProduct(good.getGoodId());
+            assertEquals(2, Shop.getInstance().getCart().get(0).getNumber());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        controller.decreaseInCartProduct(good.getGoodId());
+        assertEquals(1, Shop.getInstance().getCart().get(0).getNumber());
+    }
+
+    public ArrayList<String> makeArrayListForOrder() {
+        ArrayList<String> info = new ArrayList<>();
         info.add("a");
         info.add("686");
         info.add("hfhf");
@@ -136,6 +131,27 @@ public class AccountAreaForCustomerTest {
         } catch (Exception exception) {
             assertEquals((new DiscountCodeCannotBeUsed()).getMessage(), exception.getMessage());
         }
+    }
+
+    @Test
+    public void DiscountCodeFindingTest() {
+        try {
+            if (controller.checkValidDiscountCode("1111"))
+                assertEquals(7200L, controller.useDiscountCode("1111"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @After
+    public void terminating() {
+        MainController.getInstance().setCurrentPerson(null);
+        subCategory.removeGood(good);
+        category.removeSubCategoryFromList(subCategory);
+        Shop.getInstance().removeCategory(category);
+        Shop.getInstance().clearCart();
+        Shop.getInstance().removeDiscountCode(discountCode);
     }
 
 }
