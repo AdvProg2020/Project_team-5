@@ -39,20 +39,20 @@ public class Shop {
     }
 
     private Shop() {
-        this.allCategories = new HashMap<>(); //
-        this.allDiscountCodes = new HashMap<>(); // //
-        this.allPersons = new ArrayList<>(); // //
-        this.allRates = new ArrayList<>(); // //
-        this.allSubCategories = new HashMap<>(); //
-        this.allRequest = new ArrayList<>(); // //
-        this.offs = new HashMap<>(); // //
+        this.allCategories = new HashMap<>();
+        this.allDiscountCodes = new HashMap<>();
+        this.allPersons = new ArrayList<>();
+        this.allRates = new ArrayList<>();
+        this.allSubCategories = new HashMap<>();
+        this.allRequest = new ArrayList<>();
+        this.offs = new HashMap<>();
         this.cart = new ArrayList<>();
-        this.allGoods = new HashMap<>(); //
+        this.allGoods = new HashMap<>();
         this.allOrders = new HashMap<>();
         this.allGoodInCarts = new HashMap<>();
-        this.allComments = new HashMap<>(); // //
-        this.allSellerRelatedInfoAboutGood = new HashMap<>(); // //
-        this.allCompanies = new HashMap<>(); //
+        this.allComments = new HashMap<>();
+        this.allSellerRelatedInfoAboutGood = new HashMap<>();
+        this.allCompanies = new HashMap<>();
     }
 
     public HashMap<Long, Company> getAllCompanies() {

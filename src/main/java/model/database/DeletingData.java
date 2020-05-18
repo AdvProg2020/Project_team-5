@@ -2,6 +2,7 @@ package model.database;
 
 import exception.FileCantBeDeletedException;
 import exception.FileCantBeSavedException;
+import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
@@ -13,7 +14,6 @@ import model.persons.Seller;
 import model.productThings.*;
 import model.requests.Request;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,9 +23,17 @@ public class DeletingData {
         deleteFile(filePath);
     }
 
-    public void deleteCustomer(Customer customer) throws FileCantBeDeletedException {
+    public void deleteCustomer(Customer customer) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Users\\Customers\\" + customer.getUsername() + ".json";
         deleteFile(filePath);
+        for (OrderForCustomer previousOrder : customer.getPreviousOrders()) {
+            Database.getInstance().deleteItem(previousOrder);
+            Shop.getInstance().getHasMapOfOrders().remove(previousOrder.getOrderId());
+        }
+        for (DiscountCode discountCode : customer.getDiscountCodes()) {
+            discountCode.getIncludedCustomers().remove(customer);
+            Database.getInstance().saveItem(discountCode);
+        }
     }
 
     public void deleteSeller(Seller seller) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
@@ -43,6 +51,14 @@ public class DeletingData {
                 Database.getInstance().saveItem(good);
             else
                 Database.getInstance().deleteItem(good);
+        }
+        for (Off off : seller.getActiveOffs()) {
+            Shop.getInstance().removeOff(off);
+            Database.getInstance().deleteItem(off);
+        }
+        for (OrderForSeller previousSell : seller.getPreviousSells()) {
+            Database.getInstance().deleteItem(previousSell);
+            Shop.getInstance().getHasMapOfOrders().remove(previousSell.getOrderId());
         }
     }
 
