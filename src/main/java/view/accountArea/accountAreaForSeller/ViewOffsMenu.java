@@ -130,7 +130,7 @@ public class ViewOffsMenu extends Menu {
             System.out.println("press enter to continue");
             scanner.nextLine();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 

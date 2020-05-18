@@ -8,11 +8,14 @@ import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.persons.Company;
 import model.persons.Customer;
 import model.persons.Seller;
 import model.productThings.DiscountCode;
 import model.productThings.Good;
 import model.productThings.Rate;
+import model.requests.AddingOffRequest;
+import model.requests.Request;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -107,12 +110,74 @@ public class AccountAreaForSellerTest {
         }
     }
 
+    @Test
+    public void testCompany(){
+        Company company = new Company("A-Z", "AtoZ.com", "09876543241","80898","shiraz");
+        Seller seller1 = new Seller("abc","","","", "", "aa",company);
+        MainController.getInstance().setCurrentPerson(seller1);
+        assertEquals(company.toString(),controller.getCompanyInfo());
+    }
+
+    @Test
+    public void getBalanceTest(){
+        assertEquals(0L,controller.viewBalance());
+    }
+
+    @Test
+    public void checkValidProductNumber(){
+        ArrayList<String> details = new ArrayList<>(category.getDetails());
+        details.addAll(subCategory.getDetails());
+        if (controller.isSubCategoryCorrect("sub"));
+        assertEquals(details,controller.getSubcategoryDetails("sub"));
+        if (controller.checkValidProductNumber(1))
+            assertTrue(true);
+    }
+
+    @Test
+    public void AddingOff(){
+        try {
+            controller.addOff(makeArrayListForOff(),makeListOfGood());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        Request requestTemp = null;
+        for (Request request : Shop.getInstance().getAllRequest()) {
+            if (request instanceof AddingOffRequest){
+                assertTrue(true);
+                try {
+                    request.acceptRequest();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                requestTemp =request;
+            }
+        }
+        Shop.getInstance().removeRequest(requestTemp);
+        assertTrue(controller.getAllOffs().size() != 0);
+
+    }
+
+    public ArrayList<String> makeArrayListForOff(){
+        ArrayList<String> info = new ArrayList<>();
+        info.add("2020-05-08");
+        info.add("2020-06-18");
+        info.add("20000");
+        info.add("20");
+        return info;
+    }
+
+    public ArrayList<Long> makeListOfGood(){
+        ArrayList<Long> product = new ArrayList<>();
+        product.add(good.getGoodId());
+        return product;
+    }
+
     @After
     public void terminating() {
-
         MainController.getInstance().setCurrentPerson(null);
         subCategory.removeGood(good);
         category.removeSubCategoryFromList(subCategory);
         Shop.getInstance().removeCategory(category);
+        seller.removeFromActiveGoods(good);
     }
 }

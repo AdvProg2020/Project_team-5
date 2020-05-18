@@ -32,7 +32,7 @@ public class AccountAreaForCustomerTest {
     SubCategory subCategory = new SubCategory("sub", new ArrayList<>());
     DiscountCode discountCode = new DiscountCode("1111", LocalDate.parse("2020-03-15"), LocalDate.parse("2020-07-17"), 2000L, 20);
     Good good = new Good("phone", "samsung", subCategory, "", new HashMap<>(), seller, 9000L, 3);
-    Rate rate = new Rate(customer, good, 8);
+
 
     @Before
     public void initializing() {
