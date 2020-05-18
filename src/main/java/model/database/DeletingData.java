@@ -70,10 +70,13 @@ public class DeletingData {
     public void deleteProduct(Good good) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
         String filePath = "Resources\\Products\\product_" + good.getGoodId() + ".json";
         deleteFile(filePath);
+        Shop.getInstance().removeProduct(good);
+        Database.getInstance().saveItem(good.getSubCategory());
         for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
             deleteProductInfo(infoAboutGood, good.getGoodId());
             infoAboutGood.getSeller().removeFromActiveGoods(good.getGoodId());
             Database.getInstance().saveItem(infoAboutGood.getSeller());
+            Database.getInstance().deleteItem(infoAboutGood, good.getGoodId());
         }
         for (Comment comment : good.getComments()) {
             deleteComment(comment);

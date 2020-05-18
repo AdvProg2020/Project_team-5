@@ -305,10 +305,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Good good = Shop.getInstance().findGoodById(Long.parseLong(productId));
         if (good == null)
             throw new ProductWithThisIdNotExist();
-        Shop.getInstance().removeProduct(good);
         Shop.getInstance().getAllGoods().remove(good); //i think it has bug!
         Database.getInstance().deleteItem(good);
-        Database.getInstance().saveItem(good.getSubCategory());
     }
 
     public ArrayList<String> sortUsers() {
