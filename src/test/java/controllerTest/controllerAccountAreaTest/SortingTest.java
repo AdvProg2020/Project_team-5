@@ -1,9 +1,13 @@
 package controllerTest.controllerAccountAreaTest;
 
+import controller.sortingAndFilteringForProducts.ControllerForSorting;
 import model.productThings.Good;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static org.junit.Assert.*;
 
 public class SortingTest {
     public ArrayList<Good> getArrayOfGoods(){
@@ -24,5 +28,15 @@ public class SortingTest {
         goods.add(good3);
         goods.add(good4);
         return goods;
+    }
+
+    @Test
+    public void SortAverageRate(){
+        ControllerForSorting controller = new ControllerForSorting();
+        controller.sortASort(1);
+        controller.sortASort(2);
+        assertEquals(4, controller.showProducts(getArrayOfGoods()).get(0).getSeenNumber());
+        controller.sortASort(3);
+        assertEquals(2,controller.showProducts(getArrayOfGoods()).get(0).getSeenNumber());
     }
 }
