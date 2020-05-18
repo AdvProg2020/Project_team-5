@@ -13,7 +13,6 @@ public class Comment {
     public enum CommentStatus {
         ACCEPTED,
         INPROGRESS,
-        REJECTED
     }
 
     public Comment(Person person, Good good, String title, String comment, boolean didCommenterBoughtThisProduct) {

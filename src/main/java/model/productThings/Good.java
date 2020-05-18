@@ -24,15 +24,11 @@ public class Good {
     private HashMap<String, String> categoryProperties;
 
     public enum GoodStatus {
-        BUILTPROCESSING, EDITINGPROCESSING, CONFIRMED, NOTAVAILABLE
+        BUILTPROCESSING, CONFIRMED, NOTAVAILABLE
     }
 
     public GoodStatus getGoodStatus() {
         return goodStatus;
-    }
-
-    public static long getGoodsCount() {
-        return goodsCount;
     }
 
     public Good(String name, String brand, SubCategory subCategory, String details, HashMap<String, String> categoryProperties, Seller seller, long price, int availableNumber) {

@@ -66,10 +66,6 @@ public class Seller extends Person {
         return activeOffs.stream().filter(off -> off.getOffId() == offId).findAny().orElse(null);
     }
 
-    public boolean hasThisOff(long offId) {
-        return findOffById(offId) != null;
-    }
-
     public Good findProductOfSeller(long productId) {
         return this.activeGoods.stream().filter((good -> good.getGoodId() == productId)).findAny().orElse(null);
     }
