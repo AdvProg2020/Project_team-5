@@ -3,6 +3,7 @@ package controllerTest.controllerAccountAreaTest;
 import controller.sortingAndFilteringForProducts.BinaryFilters;
 import controller.sortingAndFilteringForProducts.ControllerForFiltering;
 import exception.categoryExceptions.CategoryNotFound;
+import exception.userExceptions.SellerNotFound;
 import model.category.SubCategory;
 import model.productThings.Good;
 import org.junit.Test;
@@ -136,9 +137,13 @@ public class FilteringTest {
         ControllerForFiltering controller = new ControllerForFiltering();
         try {
             controller.addSubCategoryFilter("aa");
+            controller.addSellerFilter("exxx");
         } catch (CategoryNotFound e) {
             assertTrue(true);
-        } catch (Exception e) {
+        } catch (SellerNotFound e) {
+            assertTrue(true);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
