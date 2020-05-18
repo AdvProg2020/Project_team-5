@@ -4,6 +4,7 @@ import controller.MainController;
 import controller.accountArea.AccountAreaForCustomerController;
 import controller.accountArea.AccountAreaForSellerController;
 import exception.FileCantBeSavedException;
+import exception.OffNotFoundException;
 import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import model.Shop;
 import model.category.Category;
@@ -13,8 +14,10 @@ import model.persons.Customer;
 import model.persons.Seller;
 import model.productThings.DiscountCode;
 import model.productThings.Good;
+import model.productThings.Off;
 import model.productThings.Rate;
 import model.requests.AddingOffRequest;
+import model.requests.EditingOffRequest;
 import model.requests.Request;
 import org.junit.After;
 import org.junit.Assert;
@@ -155,6 +158,29 @@ public class AccountAreaForSellerTest {
         Shop.getInstance().removeRequest(requestTemp);
         assertTrue(controller.getAllOffs().size() != 0);
         assertTrue(Shop.getInstance().findOffById(1) != null);
+        assertTrue(controller.doesSellerHaveThisOff(1));
+        try {
+            controller.editOff("max discount","150", 1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        for (Request request : Shop.getInstance().getAllRequest()) {
+            if (request instanceof EditingOffRequest){
+                try {
+                    request.acceptRequest();
+                    assertTrue(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                requestTemp = request;
+            }
+        }
+        Shop.getInstance().removeRequest(requestTemp);
+        try {
+            assertTrue(controller.viewOff(1) != null);
+        } catch (OffNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public ArrayList<String> makeArrayListForOff(){
@@ -170,6 +196,15 @@ public class AccountAreaForSellerTest {
         ArrayList<Long> product = new ArrayList<>();
         product.add(good.getGoodId());
         return product;
+    }
+
+    @Test
+    public void offException(){
+        try {
+            controller.viewOff(5);
+        } catch (OffNotFoundException e) {
+            assertTrue(true);
+        }
     }
 
     @After
