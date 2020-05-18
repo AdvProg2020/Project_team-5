@@ -21,6 +21,7 @@ public class GoodTest {
     @Test
     public void getPriceBySeller1(){
         assertEquals(9000L,good.getPriceBySeller(seller));
+        assertEquals(9000L, good.getPriceBySeller(new Seller("hi", " ","","","","aaa",null)));
         //assertEquals(0L, good.getPriceBySeller(new Seller("aa","","","","","bb",null)));
     }
     @Test
@@ -50,4 +51,13 @@ public class GoodTest {
         good.reduceAvailableNumber(seller,1);
         assertEquals(2, good.getAvailableNumberBySeller(seller));
     }
+
+    @Test
+    public void removeSellerTest(){
+        SellerRelatedInfoAboutGood sellerInfo= new SellerRelatedInfoAboutGood(seller2, 200L,3);
+        good.addSeller(sellerInfo);
+        good.removeSeller(seller2);
+        assertEquals(1, good.getSellerRelatedInfoAboutGoods().size());
+    }
+
 }
