@@ -41,7 +41,7 @@ public class AllProductsPage extends Menu {
 
     private void showCategories() {
         ScreenClearing.clearScreen();
-        System.out.println(MainController.getInstance().getAllProductsController().showCategories());
+        System.out.print(MainController.getInstance().getAllProductsController().showCategories());
         System.out.println("press any key to continue");
         scanner.nextLine();
     }
