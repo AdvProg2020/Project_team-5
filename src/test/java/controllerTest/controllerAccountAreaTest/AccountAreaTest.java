@@ -64,14 +64,14 @@ public class AccountAreaTest {
         orders.add(new OrderForSeller(4323, null, "dfddf", null));
         list = MainController.getInstance().getAccountAreaForManagerController().getSortedOrders(2, orders);
         String output="[--------------------------------------------------------------------------------\n" +
-                "OrderId : 1\n" +
+                "OrderId : "+(Order.getOrdersCount()-2) + "\n" +
                 "Date : 2020-05-19\n" +
                 "GoodsList :\n" +
                 "Paid price : 2000\n" +
                 "Discount amount : -2000\n" +
                 "Order status : READYTOSEND\n" +
                 "--------------------------------------------------------------------------------, --------------------------------------------------------------------------------\n" +
-                "OrderId : 2\n" +
+                "OrderId : "+(Order.getOrdersCount()-1)+"\n" +
                 "Date : 2020-05-19\n" +
                 "GoodsList :\n" +
                 "Paid price : 4323\n" +
