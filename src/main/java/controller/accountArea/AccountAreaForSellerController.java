@@ -41,9 +41,9 @@ public class AccountAreaForSellerController extends AccountAreaController {
             good.removeSeller(seller);
             seller.removeFromActiveGoods(good.getGoodId());
         }
-      //  Database.getInstance().saveItem(seller);
-      //  Database.getInstance().saveItem(good.getSubCategory());
-      //  Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
+        //  Database.getInstance().saveItem(seller);
+        //  Database.getInstance().saveItem(good.getSubCategory());
+        //  Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
     }
 
     public String getCompanyInfo() {
@@ -115,9 +115,12 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Good good = new Good(productInfo.get(0), productInfo.get(1), Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
                 productInfo.get(4), subcategoryDetailsValue, ((Seller) MainController.getInstance().getCurrentPerson()),
                 Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)));
-        AddingGoodRequest addingGoodRequest = new AddingGoodRequest(good, ((Seller) MainController.getInstance().getCurrentPerson()));
+        AddingGoodRequest addingGoodRequest = new AddingGoodRequest(productInfo.get(0), productInfo.get(1),
+                Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
+                productInfo.get(4), subcategoryDetailsValue, Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)),
+                MainController.getInstance().getCurrentPerson().getUsername());
         Shop.getInstance().addRequest(addingGoodRequest);
-      //  Database.getInstance().saveItem(addingGoodRequest);
+        //  Database.getInstance().saveItem(addingGoodRequest);
     }
 
     public boolean checkValidProductNumber(int number) {
@@ -146,7 +149,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
                 Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)), ((Seller) MainController.getInstance().getCurrentPerson()));
         AddingOffRequest addingOffRequest = new AddingOffRequest(newOff);
         Shop.getInstance().addRequest(addingOffRequest);
-       // Database.getInstance().saveItem(addingOffRequest);
+        // Database.getInstance().saveItem(addingOffRequest);
     }
 
     public List<Good> getProductsByIds(ArrayList<Long> productIds) {
@@ -166,7 +169,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         editedFields.put(field, key);
         EditingOffRequest editingOffRequest = new EditingOffRequest(id, editedFields);
         Shop.getInstance().addRequest(editingOffRequest);
-       // Database.getInstance().saveItem(editingOffRequest);
+        // Database.getInstance().saveItem(editingOffRequest);
     }
 
     public boolean doesSellerHaveThisOff(long id) {
@@ -182,7 +185,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         editedFields.put(field, key);
         EditingGoodRequest editingGoodRequest = new EditingGoodRequest(id, (Seller) MainController.getInstance().getCurrentPerson(), editedFields);
         Shop.getInstance().addRequest(editingGoodRequest);
-       // Database.getInstance().saveItem(editingGoodRequest);
+        // Database.getInstance().saveItem(editingGoodRequest);
     }
 
     public String viewSellersProducts(int chosenSort) {
