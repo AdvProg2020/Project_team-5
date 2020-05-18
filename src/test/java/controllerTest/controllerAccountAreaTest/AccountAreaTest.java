@@ -59,9 +59,24 @@ public class AccountAreaTest {
     public void getSortedOrderTest() {
         List<String> list;
         List<Order> orders = new ArrayList<>();
-        //orders.add(new OrderForSeller(2323, null, "dfddf", null));
-        list = MainController.getInstance().getAccountAreaForManagerController().getSortedOrders(1, null);
-        list = MainController.getInstance().getAccountAreaForManagerController().getSortedOrders(2, null);
-        Assert.assertEquals(0, list.size());
+        orders.add(new OrderForSeller(2000, null, "dfddf", null));
+        orders.add(new OrderForSeller(4323, null, "dfddf", null));
+        list = MainController.getInstance().getAccountAreaForManagerController().getSortedOrders(2, orders);
+        String output="[--------------------------------------------------------------------------------\n" +
+                "OrderId : 1\n" +
+                "Date : 2020-05-19\n" +
+                "GoodsList :\n" +
+                "Paid price : 2000\n" +
+                "Discount amount : -2000\n" +
+                "Order status : READYTOSEND\n" +
+                "--------------------------------------------------------------------------------, --------------------------------------------------------------------------------\n" +
+                "OrderId : 2\n" +
+                "Date : 2020-05-19\n" +
+                "GoodsList :\n" +
+                "Paid price : 4323\n" +
+                "Discount amount : -4323\n" +
+                "Order status : READYTOSEND\n" +
+                "--------------------------------------------------------------------------------]";
+        Assert.assertEquals(output, list.toString());
     }
 }
