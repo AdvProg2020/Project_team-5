@@ -199,7 +199,7 @@ public class Shop {
     public void addCategory(Category category) {
         allCategories.put(category.getName(), category);
     }
-    
+
 
     public void removeCategory(Category category) {
         allCategories.remove(category);

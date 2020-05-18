@@ -8,17 +8,18 @@ import model.productThings.Comment;
 import java.io.IOException;
 
 public class AddingCommentRequest extends Request {
-    private Comment comment;
+    private long comment;
+
 
     public AddingCommentRequest(Comment comment) {
-        this.comment = comment;
+        this.comment = comment.getId();
     }
 
     @Override
     public void acceptRequest() throws IOException, FileCantBeSavedException {
-        this.comment.getGood().addComment(comment);
-        comment.setCommentStatus(Comment.CommentStatus.ACCEPTED);
-        Shop.getInstance().addAComment(comment);
+        Comment comment2=Shop.getInstance().getAllComments().get(this.comment);
+        comment2.getGood().addComment(comment2);
+        comment2.setCommentStatus(Comment.CommentStatus.ACCEPTED);
        // Database.getInstance().saveItem(comment);
         //Database.getInstance().saveItem(comment.getGood().getSubCategory());
        // Database.getInstance().saveItem(comment.getGood().getSubCategory().getParentCategory());
