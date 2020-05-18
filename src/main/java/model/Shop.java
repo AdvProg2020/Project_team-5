@@ -8,10 +8,7 @@ import model.category.SubCategory;
 import model.database.Database;
 import model.orders.Order;
 import model.orders.OrderForCustomer;
-import model.persons.Customer;
-import model.persons.Manager;
-import model.persons.Person;
-import model.persons.Seller;
+import model.persons.*;
 import model.productThings.*;
 import model.requests.Request;
 
@@ -34,6 +31,7 @@ public class Shop {
     private HashMap<String, SubCategory> allSubCategories;
     private HashMap<Long, Comment> allComments;
     private HashMap<Long, SellerRelatedInfoAboutGood> allSellerRelatedInfoAboutGood;
+    private HashMap<Long, Company> allCompanies;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
@@ -54,6 +52,15 @@ public class Shop {
         this.allGoodInCarts = new HashMap<>();
         this.allComments = new HashMap<>();
         this.allSellerRelatedInfoAboutGood = new HashMap<>();
+        this.allCompanies = new HashMap<>();
+    }
+
+    public HashMap<Long, Company> getAllCompanies() {
+        return allCompanies;
+    }
+
+    public void addCompany(Company company){
+        allCompanies.put(company.getId(),company);
     }
 
     public ArrayList<Category> getAllCategories() {

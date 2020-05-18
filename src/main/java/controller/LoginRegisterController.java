@@ -24,13 +24,13 @@ public class LoginRegisterController {
             Customer customer = new Customer(username, details.get(0), details.get(1), details.get(2),
                     details.get(3), details.get(4), Long.parseLong(details.get(5)));
             Shop.getInstance().addPerson(customer);
-          //  Database.getInstance().saveItem(customer);
+            //  Database.getInstance().saveItem(customer);
         } else if (role.equals("seller")) {
-            RegisteringSellerRequest seller = new RegisteringSellerRequest(new Seller(username, details.get(0), details.get(1)
+            RegisteringSellerRequest seller = new RegisteringSellerRequest(username, details.get(0), details.get(1)
                     , details.get(2), details.get(3), details.get(4),
-                    new Company(details.get(5),details.get(6),details.get(7),details.get(8),details.get(9))));
+                    details.get(5), details.get(6), details.get(7), details.get(8), details.get(9));
             Shop.getInstance().addRequest(seller);
-          //  Database.getInstance().saveItem(seller);
+            //  Database.getInstance().saveItem(seller);
         } else {
             if (Shop.getInstance().didManagerRegistered())
                 throw new MainManagerAlreadyRegistered();
@@ -38,7 +38,7 @@ public class LoginRegisterController {
                 Manager manager = new Manager(username, details.get(0), details.get(1)
                         , details.get(2), details.get(3), details.get(4));
                 Shop.getInstance().addPerson(manager);
-              //  Database.getInstance().saveItem(manager);
+                //  Database.getInstance().saveItem(manager);
             }
         }
     }
@@ -52,7 +52,7 @@ public class LoginRegisterController {
         MainController.getInstance().setCurrentPerson(person);
     }
 
-    public void logoutUser(){
+    public void logoutUser() {
         MainController.getInstance().setCurrentPerson(null);
     }
 }

@@ -10,7 +10,7 @@ public class SubCategory {
     private String name;
     private String parentCategory;
     private ArrayList<String> details;
-    private ArrayList<Good> goods;
+    private ArrayList<Long> goods;
 
     public SubCategory(String name, ArrayList<String> details) {
         this.name = name;
@@ -35,11 +35,15 @@ public class SubCategory {
     }
 
     public ArrayList<Good> getGoods() {
-        return goods;
+        ArrayList<Good> goods1=new ArrayList<>();
+        for (Long id : goods) {
+            goods1.add(Shop.getInstance().findGoodById(id));
+        }
+        return goods1;
     }
 
     public void addGood(Good good) {
-        this.goods.add(good);
+        this.goods.add(good.getGoodId());
     }
 
     public void removeGood(Good good) {
@@ -52,7 +56,7 @@ public class SubCategory {
     }
 
     public Good findGoodById(long goodId) {
-        for (Good good : goods) {
+        for (Good good : getGoods()) {
             if (good.getGoodId() == goodId)
                 return good;
         }
@@ -71,7 +75,7 @@ public class SubCategory {
                 subCategoryStr += details.get(i - getParentCategory().getDetails().size());
         }
         subCategoryStr += "\nProducts =\n";
-        for (Good good : goods) {
+        for (Good good : getGoods()) {
             subCategoryStr += (good.toString());
         }
         return subCategoryStr;

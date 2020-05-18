@@ -8,7 +8,7 @@ import model.productThings.Off;
 import java.util.ArrayList;
 
 public class Seller extends Person {
-    private Company company;
+    private long company;
     private ArrayList<Long> previousSellsIds;
     private ArrayList<Long> activeGoodsIds;
     private ArrayList<Long> activeOffsIds;
@@ -18,11 +18,11 @@ public class Seller extends Person {
         this.previousSellsIds = new ArrayList<>();
         this.activeGoodsIds = new ArrayList<>();
         this.activeOffsIds = new ArrayList<>();
-        this.company = company;
+        this.company = company.getId();
     }
 
     public Company getCompany() {
-        return company;
+        return Shop.getInstance().getAllCompanies().get(company);
     }
 
     public ArrayList<OrderForSeller> getPreviousSells() {
@@ -97,6 +97,6 @@ public class Seller extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + "\n" + company.toString() + "\nactive goods:\n" + getActiveGoods().toString() + "\n" + "-------------------";
+        return super.toString() + "\n" + getCompany().toString() + "\nactive goods:\n" + getActiveGoods().toString() + "\n" + "-------------------";
     }
 }

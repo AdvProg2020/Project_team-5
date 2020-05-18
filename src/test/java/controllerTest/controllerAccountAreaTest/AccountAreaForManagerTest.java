@@ -40,7 +40,7 @@ public class AccountAreaForManagerTest {
         fields.add("30");
         Shop.getInstance().getAllPersons().add(new Customer("sadegh", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Manager("XxXxXx", "aboots", "zzzzz", "aboot@gmail.com", "06065656060", "pass2"));
-        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null)));
+        Shop.getInstance().addRequest(new RegisteringSellerRequest("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null,null,null,null,null));
         ArrayList<String> details = new ArrayList<>();
         details.add("hich1");
         details.add("hich2");
@@ -151,7 +151,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void acceptRequestTest() throws RequestNotFoundException, FileCantBeSavedException, IOException, FileCantBeDeletedException {
-        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null)));
+        Shop.getInstance().addRequest(new RegisteringSellerRequest("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null,null,null,null,null));
         Database.getInstance().saveItem(Shop.getInstance().findRequestById(1));
         Assert.assertThrows(FileCantBeDeletedException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("10"));
