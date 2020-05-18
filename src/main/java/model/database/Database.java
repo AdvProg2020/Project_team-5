@@ -36,6 +36,7 @@ public class Database {
         loadingData.loadManager();
         loadingData.loadCustomer();
         loadingData.loadSeller();
+        loadingData.loadCompany();
         loadingData.loadCategory();
         loadingData.loadSubCategory();
         loadingData.loadProduct();

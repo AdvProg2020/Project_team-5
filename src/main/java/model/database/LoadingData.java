@@ -6,6 +6,7 @@ import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;
+import model.persons.Company;
 import model.persons.Customer;
 import model.persons.Manager;
 import model.persons.Seller;
@@ -57,6 +58,14 @@ public class LoadingData {
         if (files != null)
             for (File file : files) {
                 Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Seller.class));
+            }
+    }
+
+    public void loadCompany() throws IOException {
+        File[] files = loadFolder("Resources\\Companies");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addCompany(yaGson.fromJson(readFile(file), Company.class));
             }
     }
 
