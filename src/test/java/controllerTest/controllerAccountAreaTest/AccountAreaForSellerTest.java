@@ -9,13 +9,11 @@ import exception.productExceptions.ProductNotFoundExceptionForSeller;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.orders.OrderForCustomer;
 import model.persons.Company;
 import model.persons.Customer;
 import model.persons.Seller;
-import model.productThings.DiscountCode;
-import model.productThings.Good;
-import model.productThings.Off;
-import model.productThings.Rate;
+import model.productThings.*;
 import model.requests.AddingOffRequest;
 import model.requests.EditingGoodRequest;
 import model.requests.EditingOffRequest;
@@ -230,4 +228,6 @@ public class AccountAreaForSellerTest {
         Shop.getInstance().removeCategory(category);
         seller.removeFromActiveGoods(good);
     }
+
+
 }

@@ -30,6 +30,26 @@ public class ControllerForFiltering {
         this.goodList = new ArrayList<>();
     }
 
+    public List<Good> getGoodList() {
+        return goodList;
+    }
+
+    public HashMap<String, String> getUnaryFilters() {
+        return unaryFilters;
+    }
+
+    public ArrayList<BinaryFilters> getBinaryFilters() {
+        return binaryFilters;
+    }
+
+    public Category getFilteredCategory() {
+        return filteredCategory;
+    }
+
+    public boolean isAvailableProduct() {
+        return availableProduct;
+    }
+
     public List<Good> filterByCategory(String category, List<Good> allGoods) {
         return allGoods.stream().filter(good -> good.getSubCategory().getParentCategory().getName().equals(category)).collect(Collectors.toList());
     }
@@ -197,24 +217,24 @@ public class ControllerForFiltering {
     }
 
     public List<Good> showProducts() {
-        List<Good> goods = new ArrayList<Good>(goodList);
-        if (availableProduct)
+        List<Good> goods = new ArrayList<>(getGoodList());
+        if (isAvailableProduct())
             goods = filterAvailableProducts(goods);
-        for (String key : unaryFilters.keySet()) {
+        for (String key : getUnaryFilters().keySet()) {
             if (key.equals("category"))
-                goods = filterByCategory(unaryFilters.get("category"), goods);
+                goods = filterByCategory(getUnaryFilters().get("category"), goods);
             else if (key.equals("subcategory"))
-                goods = filterBySubCategory(unaryFilters.get("subcategory"), goods);
+                goods = filterBySubCategory(getUnaryFilters().get("subcategory"), goods);
             else if (key.equals("name"))
-                goods = filterByName(unaryFilters.get("name"), goods);
+                goods = filterByName(getUnaryFilters().get("name"), goods);
             else if (key.equals("brand"))
-                goods = filterByBrand(unaryFilters.get("brand"), goods);
+                goods = filterByBrand(getUnaryFilters().get("brand"), goods);
             else if (key.equals("seller"))
-                goods = filterBySeller(unaryFilters.get("seller"), goods);
+                goods = filterBySeller(getUnaryFilters().get("seller"), goods);
             else
                 goods = filterByProperty(key, goods);
         }
-        for (BinaryFilters binaryFilter : binaryFilters) {
+        for (BinaryFilters binaryFilter : getBinaryFilters()) {
             if (binaryFilter.getFilterName().equals("price"))
                 goods = filterByPrice(binaryFilter, goods);
         }
