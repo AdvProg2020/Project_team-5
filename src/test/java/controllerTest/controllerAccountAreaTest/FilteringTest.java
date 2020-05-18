@@ -1,4 +1,4 @@
-package modelTest;
+package controllerTest.controllerAccountAreaTest;
 
 import controller.sortingAndFilteringForProducts.BinaryFilters;
 import controller.sortingAndFilteringForProducts.ControllerForFiltering;
@@ -105,7 +105,7 @@ public class FilteringTest {
     }
 
     @Test
-    public void filterAFilter() {
+    public void filterAFilterAndDisableFilter() {
         ControllerForFiltering controller = new ControllerForFiltering();
         controller.addBrandFiltering("app");
         controller.addNameFiltering("laptop");
@@ -113,9 +113,11 @@ public class FilteringTest {
         assertTrue(controller.getUnaryFilters().containsKey("brand") && controller.getUnaryFilters().containsKey("name"));
         assertTrue(controller.getBinaryFilters().get(0).getFilterName().equals("price"));
         assertEquals(3,controller.getCurrentFilters().size());
-        controller.disableFilter(1);
+        controller.disableFilter(2);
         controller.disableFilter(1);
         assertEquals(1,controller.getCurrentFilters().size());
+        controller.disableFilter(1);
+        assertTrue(controller.getCurrentFilters().size() == 0);
     }
 
     @Test
