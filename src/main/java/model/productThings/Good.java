@@ -91,7 +91,7 @@ public class Good {
             if (relatedInfoAboutGood.getSeller().equals(seller))
                 sellerRelatedInfoAboutGood = relatedInfoAboutGood;
         }
-        if (sellerRelatedInfoAboutGood != null) this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfoAboutGood);
+        if (sellerRelatedInfoAboutGood != null) this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
     }
 
     public void setAverageRate(double averageRate) {

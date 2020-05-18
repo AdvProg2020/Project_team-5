@@ -31,7 +31,7 @@ public class AddingCommentRequest extends Request {
         comment2.getGood().addComment(comment2);
         comment2.setCommentStatus(Comment.CommentStatus.ACCEPTED);
         Shop.getInstance().addAComment(comment2);
-        Database.getInstance().saveItem(comment);
+        Database.getInstance().saveItem(comment2);
         Database.getInstance().saveItem(comment2.getGood());
     }
 }

@@ -43,14 +43,11 @@ public class DeletingData {
             for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
                 if (infoAboutGood.getSeller().equals(seller)) {
                     good.removeSeller(seller);
-                    Database.getInstance().deleteItem(infoAboutGood);
+                    deleteProductInfo(infoAboutGood, good.getGoodId());
                     break;
                 }
             }
-            if (good.getSellerRelatedInfoAboutGoods().size() > 0)
-                Database.getInstance().saveItem(good);
-            else
-                Database.getInstance().deleteItem(good);
+            Database.getInstance().saveItem(good);
         }
         for (Off off : seller.getActiveOffs()) {
             Shop.getInstance().removeOff(off);
@@ -76,7 +73,6 @@ public class DeletingData {
             deleteProductInfo(infoAboutGood, good.getGoodId());
             infoAboutGood.getSeller().removeFromActiveGoods(good.getGoodId());
             Database.getInstance().saveItem(infoAboutGood.getSeller());
-            Database.getInstance().deleteItem(infoAboutGood, good.getGoodId());
         }
         for (Comment comment : good.getComments()) {
             deleteComment(comment);

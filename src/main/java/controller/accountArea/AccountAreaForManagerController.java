@@ -288,8 +288,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new UsernameNotFoundException();
         if (person instanceof Manager)
             throw new UserCantBeRemovedException();
-        Shop.getInstance().removePerson(person);
         Database.getInstance().deleteItem(person);
+        Shop.getInstance().removePerson(person);
     }
 
     public void createManagerAccount(String username, ArrayList<String> details) throws UsernameIsTakenAlreadyException, IOException, FileCantBeSavedException {
@@ -299,6 +299,14 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Manager manager = new Manager(username, details.get(0), details.get(1), details.get(2), details.get(3), details.get(4));
         Shop.getInstance().addPerson(manager);
         Database.getInstance().saveItem(manager);
+    }
+
+    public ArrayList<String> getAllGoodsInfo() {
+        ArrayList<String> info = new ArrayList<>();
+        for (Good good : Shop.getInstance().getAllGoods()) {
+            info.add("- good id: " + good.getGoodId() + " name: " + good.getName());
+        }
+        return info;
     }
 
     public void removeProduct(String productId) throws ProductWithThisIdNotExist, FileCantBeDeletedException, IOException, FileCantBeSavedException {
