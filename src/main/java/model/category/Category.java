@@ -27,7 +27,7 @@ public class Category {
     public ArrayList<SubCategory> getSubCategories() {
         ArrayList<SubCategory> subCategories2=new ArrayList<>();
         for (String subCategory : this.subCategories) {
-            subCategories2.add(Shop.getInstance().findSubCategoryByName(subCategory));
+            subCategories2.add(Shop.getInstance().getSubCategory(subCategory));
         }
         return subCategories2;
     }

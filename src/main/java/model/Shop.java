@@ -329,6 +329,10 @@ public class Shop {
         return good.getPriceBySeller(seller);
     }
 
+    public SubCategory getSubCategory(String name) {
+        return allSubCategories.get(name);
+    }
+
     public SubCategory findSubCategoryByName(String name) {
         for (Category category : this.getAllCategories()) {
             for (SubCategory subCategory : category.getSubCategories()) {
