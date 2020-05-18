@@ -1,9 +1,11 @@
 package model.productThings;
 
+import exception.FileCantBeSavedException;
 import model.Shop;
 import model.database.Database;
 import model.persons.Customer;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 
@@ -36,12 +38,15 @@ public class DiscountCode {
         return id;
     }
 
-    public void addAllCustomers(HashMap<Customer, Integer> allCustomers) {
+    public void addAllCustomers(HashMap<Customer, Integer> allCustomers) throws IOException, FileCantBeSavedException {
         for (Customer customer : allCustomers.keySet()) {
             this.includedCustomers.put(customer.getUsername(), allCustomers.get(customer));
+            Database.getInstance().saveItem(this);
         }
-        for (Customer customer : allCustomers.keySet())
+        for (Customer customer : allCustomers.keySet()) {
             customer.addDiscountCode(this);
+            Database.getInstance().saveItem(customer);
+        }
     }
 
     public String getCode() {
@@ -93,17 +98,16 @@ public class DiscountCode {
         this.startDate = startDate;
     }
 
-    public void reduceNumberOfDiscountCodeForCostumer(Customer customer) {
+    public void reduceNumberOfDiscountCodeForCostumer(Customer customer) throws IOException, FileCantBeSavedException {
         for (Customer customers : this.getIncludedCustomers().keySet()) {
             if (customers.getUsername().equals(customer.getUsername())) {
-                includedCustomers.put(customers.getUsername(), includedCustomers.get(customers) - 1);
-                if (includedCustomers.get(customers) == 0)
-                    includedCustomers.remove(customers);
+                includedCustomers.put(customers.getUsername(), includedCustomers.get(customers.getUsername()) - 1);
+                if (includedCustomers.get(customers.getUsername()) == 0)
+                    includedCustomers.remove(customers.getUsername());
+                Database.getInstance().saveItem(this);
+                Database.getInstance().saveItem(customer);
             }
         }
-        includedCustomers.put(customer.getUsername(), includedCustomers.get(customer) - 1);
-        if (includedCustomers.get(customer) == 0)
-            includedCustomers.remove(customer);
     }
 
     public String detailedToString() {
@@ -125,17 +129,15 @@ public class DiscountCode {
     public void discountBeUsedForCustomer(Customer customer) throws Exception {
         for (Customer includedCustomer : this.getIncludedCustomers().keySet()) {
             if (includedCustomer.equals(customer)) {
-                int remainedNumberOfUse = includedCustomers.get(includedCustomer);
+                int remainedNumberOfUse = includedCustomers.get(includedCustomer.getUsername());
                 if (remainedNumberOfUse > 1) {
                     includedCustomers.replace(includedCustomer.getUsername(), remainedNumberOfUse - 1);
-                    //Database.getInstance().saveItem(this);
-                    //Database.getInstance().saveItem(customer);
                 } else {
-                    includedCustomers.remove(includedCustomer);
+                    includedCustomers.remove(includedCustomer.getUsername());
                     includedCustomer.removeDiscountCode(this);
-                    Database.getInstance().deleteItem(this);
-                    // Database.getInstance().saveItem(customer);
                 }
+                Database.getInstance().saveItem(this);
+                Database.getInstance().saveItem(customer);
                 return;
             }
         }

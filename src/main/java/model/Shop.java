@@ -301,7 +301,7 @@ public class Shop {
         removeCategory(category);
     }
 
-    public void generatePeriodRandomDiscountCodes(LocalDate endDate) {
+    public void generatePeriodRandomDiscountCodes(LocalDate endDate) throws IOException, FileCantBeSavedException {
         String code = DiscountCode.generateRandomDiscountCode();
         DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
         discountCode.addAllCustomers(randomCustomers(5, 1, discountCode));
@@ -397,7 +397,7 @@ public class Shop {
         return new ArrayList<>(offGoods);
     }
 
-    public void donatePeriodRandomDiscountCodes() {
+    public void donatePeriodRandomDiscountCodes() throws IOException, FileCantBeSavedException {
         LocalDate localDate = LocalDate.now();
         if (localDate.getDayOfMonth() == 1) {
             if (!localDate.equals(lastRandomPeriodDiscountCodeCreatedDate)) {

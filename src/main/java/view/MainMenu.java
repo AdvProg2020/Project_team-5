@@ -43,13 +43,6 @@ public class MainMenu extends Menu{
         int chosenMenu =this.getInput();
         if (chosenMenu == submenus.size() + 1) {
             if (this.parentMenu == null) {
-                try {
-                    Database.getInstance().saveShop();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (FileCantBeSavedException e) {
-                    e.printStackTrace();
-                }
                 System.exit(1);
             }
             else
