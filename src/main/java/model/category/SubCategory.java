@@ -37,7 +37,7 @@ public class SubCategory {
     public ArrayList<Good> getGoods() {
         ArrayList<Good> goods1=new ArrayList<>();
         for (Long id : goods) {
-            goods1.add(Shop.getInstance().findGoodById(id));
+            goods1.add(Shop.getInstance().getAvailableGood(id));
         }
         return goods1;
     }
