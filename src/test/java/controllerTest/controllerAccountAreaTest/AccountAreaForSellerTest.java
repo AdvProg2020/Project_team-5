@@ -17,6 +17,7 @@ import model.productThings.Good;
 import model.productThings.Off;
 import model.productThings.Rate;
 import model.requests.AddingOffRequest;
+import model.requests.EditingGoodRequest;
 import model.requests.EditingOffRequest;
 import model.requests.Request;
 import org.junit.After;
@@ -77,6 +78,20 @@ public class AccountAreaForSellerTest {
             e.printStackTrace();
             assertTrue(false);
         }
+        try {
+            controller.editProduct("price","1000",seller.getActiveGoods().get(0).getGoodId());
+            Request editReq = null;
+            for (Request request : Shop.getInstance().getAllRequest()) {
+                if (request instanceof EditingGoodRequest){
+                    request.acceptRequest();
+                    editReq = request;
+                }
+            }
+            Shop.getInstance().removeRequest(editReq);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        assertEquals(1000,seller.getActiveGoods().get(0).getPriceBySeller(seller));
         assertEquals(2, seller.getActiveGoods().size());
         if (controller.checkValidProductId(seller.getActiveGoods().get(0).getGoodId())) {
             try {
