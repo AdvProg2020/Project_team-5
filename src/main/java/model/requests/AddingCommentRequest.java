@@ -34,4 +34,10 @@ public class AddingCommentRequest extends Request {
         Database.getInstance().saveItem(comment2);
         Database.getInstance().saveItem(comment2.getGood());
     }
+
+    @Override
+    public String toString() {
+        return "AddingCommentRequest:\n" + "Commenter: " + username + "\ngood id: " + goodId
+                + "\ntitle: " + title + "\ncontent: " + comment;
+    }
 }

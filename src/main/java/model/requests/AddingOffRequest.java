@@ -53,6 +53,6 @@ public class AddingOffRequest extends Request {
                 + "id of off goods : " +offGoods + "\nstart date : "+ startDate
                 + "\nend date :" +endDate + "\nmax discount amount :" + maxDiscount
                 + "\n discount percent :" + discountPercent + "\nseller : "
-                + seller + "---------------------------\n";
+                + seller + "\n---------------------------\n";
     }
 }
