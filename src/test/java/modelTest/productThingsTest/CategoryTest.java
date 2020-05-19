@@ -23,6 +23,7 @@ public class CategoryTest {
         details2.add("hi2");
         SubCategory subCategory=new SubCategory("sub",details2);
         Shop.getInstance().addCategory(category);
+        Shop.getInstance().addSubCategory(subCategory);
         category.addSubCategory(subCategory);
     }
 
@@ -49,5 +50,6 @@ public class CategoryTest {
     @AfterClass
     public static void delete(){
         Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("abootsZ"));
+        Shop.getInstance().getAllSubCategories().remove("sub");
     }
 }
