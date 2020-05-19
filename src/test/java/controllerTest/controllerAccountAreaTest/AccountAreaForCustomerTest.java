@@ -9,6 +9,7 @@ import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
 import model.orders.OrderForCustomer;
+import model.persons.Company;
 import model.persons.Customer;
 import model.persons.Seller;
 import model.productThings.DiscountCode;
@@ -27,7 +28,8 @@ import static org.junit.Assert.*;
 
 public class AccountAreaForCustomerTest {
     AccountAreaForCustomerController controller = new AccountAreaForCustomerController();
-    Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", null);
+    Company company=new Company("salam","asfs","asdasd","addasd","999");
+    Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", company);
     Customer customer = new Customer("customer", "", "", "", "", "aa", 90000L);
     Category category = new Category("cat", new ArrayList<>());
     SubCategory subCategory = new SubCategory("sub", new ArrayList<>());

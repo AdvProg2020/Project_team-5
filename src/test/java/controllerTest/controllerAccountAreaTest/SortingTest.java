@@ -2,6 +2,10 @@ package controllerTest.controllerAccountAreaTest;
 
 import controller.sorting.SortController;
 import controller.sortingAndFilteringForProducts.ControllerForSorting;
+import model.category.Category;
+import model.category.SubCategory;
+import model.persons.Company;
+import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.Off;
 import org.junit.Test;
@@ -15,16 +19,27 @@ import static org.junit.Assert.*;
 public class SortingTest {
     public ArrayList<Good> getArrayOfGoods(){
         ArrayList<Good> goods = new ArrayList<>();
-        Good good1 = new Good("laptop", "app", null, "", new HashMap<>(), null, 100, 2);
+        ArrayList<String> details = new ArrayList<>();
+        details.add("p1");
+        details.add("p2");
+        Category category = new Category("AB", details);
+        ArrayList<String> details2 = new ArrayList<>();
+        details2.add("hi1");
+        Company company=new Company("salam","asfs","asdasd","addasd","999");
+        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
+        details2.add("hi2");
+        SubCategory subCategory = new SubCategory("subb", details2);
+        category.addSubCategory(subCategory);
+        Good good1 = new Good("laptop", "app", subCategory, "", new HashMap<>(), seller, 100, 2);
         good1.setAverageRate(4.7);
         good1.setSeenNumber(2);
-        Good good2 = new Good("phone", "app", null, "", new HashMap<>(), null, 400, 2);
+        Good good2 = new Good("phone", "app", subCategory, "", new HashMap<>(), seller, 400, 2);
         good2.setAverageRate(8.1);
         good2.setSeenNumber(4);
-        Good good3 = new Good("headphone", "sam", null, "", new HashMap<>(), null, 500, 4);
+        Good good3 = new Good("headphone", "sam", subCategory, "", new HashMap<>(), seller, 500, 4);
         good3.setAverageRate(5.7);
         good3.setSeenNumber(1);
-        Good good4 = new Good("laptop", "app", null, "", new HashMap<>(), null, 200, 3);
+        Good good4 = new Good("laptop", "app", subCategory, "", new HashMap<>(), seller, 200, 3);
         good4.setAverageRate(2.6);
         goods.add(good1);
         goods.add(good2);
@@ -35,9 +50,11 @@ public class SortingTest {
 
     public ArrayList<Off> getArrayOffs(){
         ArrayList<Off> offs = new ArrayList<>();
-        Off off1 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-08-15"),8000L, 15, null);
-        Off off2 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-07-15"),9000L, 20, null);
-        Off off3 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-08-27"),6000L, 30, null);
+        Company company=new Company("salam","asfs","asdasd","addasd","999");
+        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
+        Off off1 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-08-15"),8000L, 15, seller);
+        Off off2 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-07-15"),9000L, 20, seller);
+        Off off3 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-08-27"),6000L, 30, seller);
         offs.add(off1);
         offs.add(off2);
         offs.add(off3);

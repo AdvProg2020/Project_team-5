@@ -8,7 +8,6 @@ import model.category.Category;
 import model.category.SubCategory;
 import model.persons.Company;
 import model.persons.Seller;
-import model.productThings.Comment;
 import model.productThings.Good;
 import model.productThings.Off;
 import org.junit.AfterClass;

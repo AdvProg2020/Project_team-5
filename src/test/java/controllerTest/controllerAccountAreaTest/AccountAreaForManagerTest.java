@@ -20,7 +20,6 @@ import model.category.SubCategory;
 import database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
-import model.persons.Seller;
 import model.productThings.DiscountCode;
 import model.productThings.Good;
 import model.requests.RegisteringSellerRequest;

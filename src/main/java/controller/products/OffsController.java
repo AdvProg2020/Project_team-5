@@ -17,6 +17,8 @@ public class OffsController {
         List<Good> goodList = MainController.getInstance().getControllerForSorting().showProducts(goodList2);
         String output = "";
         for (Good good : goodList) {
+            if(good == null)
+                continue;
             if (goodList.get(goodList.size() - 1).equals(good))
                 output += getGoodDetail(good);
             else

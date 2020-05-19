@@ -31,7 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AccountAreaForSellerTest {
-    Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", null);
+    Company company=new Company("salam","asfs","asdasd","addasd","999");
+    Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
     Customer customer = new Customer("customer", "", "", "", "", "aa", 90000L);
     Category category = new Category("cat", new ArrayList<>());
     SubCategory subCategory = new SubCategory("sub", new ArrayList<>());
