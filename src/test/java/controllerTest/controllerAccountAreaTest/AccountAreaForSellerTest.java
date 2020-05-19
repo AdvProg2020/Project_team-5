@@ -230,5 +230,48 @@ public class AccountAreaForSellerTest {
         seller.removeFromActiveGoods(good);
     }
 
+    @Test
+    public void showProductsTest(){
+       SellerTest seller = new SellerTest("aa","","","","","bb",null);
+       AccountAreaForSellerController controller =new AccountAreaForSellerController();
+       MainController.getInstance().setCurrentPerson(seller);
+       assertTrue(controller.sort(1).get(0).getSeenNumber() == 4);
+       assertTrue(controller.sort(2).get(0).getSeenNumber() == 1);
+       assertTrue(controller.sort(3).get(0).getSeenNumber() == 2);
+       assertTrue(controller.sort(4).get(0).getPriceBySeller(seller) == 500);
+       assertTrue(controller.sort(5).get(0).getAvailableNumberBySeller(seller) == 4);
+       assertTrue(controller.sort(0).get(0).getSeenNumber() == 2);
+    }
+}
 
+class SellerTest extends Seller{
+    public SellerTest(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
+        super(username, firstName, lastName, email, phoneNumber, password, company);
+    }
+
+    @Override
+    public ArrayList<Good> getActiveGoods(){
+        ArrayList<Good> goods =new ArrayList<>();
+        Category category = new Category("aa",new ArrayList<>());
+        SubCategory subCategory2 = new SubCategory("b", new ArrayList<>());
+        SubCategory subCategory = new SubCategory("a", new ArrayList<>());
+        category.addSubCategory(subCategory);
+        category.addSubCategory(subCategory2);
+        Good good1 = new Good("laptop", "app", subCategory, "", new HashMap<>(), this, 100, 2);
+        good1.setAverageRate(4.7);
+        good1.setSeenNumber(2);
+        Good good2 = new Good("phone", "app", subCategory, "", new HashMap<>(), this, 400, 2);
+        good2.setAverageRate(5.1);
+        good2.setSeenNumber(4);
+        Good good3 = new Good("headphone", "sam", subCategory2, "", new HashMap<>(), this, 500, 4);
+        good3.setAverageRate(5.7);
+        good3.setSeenNumber(1);
+        Good good4 = new Good("laptop", "app", subCategory2, "", new HashMap<>(), this, 200, 3);
+        good4.setAverageRate(2.6);
+        goods.add(good1);
+        goods.add(good2);
+        goods.add(good3);
+        goods.add(good4);
+        return goods;
+    }
 }

@@ -181,8 +181,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
        // Database.getInstance().saveItem(editingGoodRequest);
     }
 
-    public String viewSellersProducts(int chosenSort) {
-        String output = "-------------------------\nyour products:";
+    public List<Good> sort(int chosenSort){
         Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
         List<Good> goods = null;
         if (chosenSort == 0) {
@@ -198,6 +197,12 @@ public class AccountAreaForSellerController extends AccountAreaController {
         } else if (chosenSort == 5) {
             goods = MainController.getInstance().getSortController().sortProductsByAvailableNumber(seller.getActiveGoods());
         }
+        return goods;
+    }
+
+    public String viewSellersProducts(int chosenSort) {
+        String output = "-------------------------\nyour products:";
+        List<Good> goods = sort(chosenSort);
         if (goods != null) {
             for (Good good : goods) {
                 output += ("\n" + good.toString());
