@@ -147,7 +147,7 @@ public class AccountAreaForCustomerTest {
     @After
     public void terminating() {
         MainController.getInstance().setCurrentPerson(null);
-        subCategory.removeGood(good);
+        //subCategory.removeGood(good);
         category.removeSubCategoryFromList(subCategory);
         Shop.getInstance().removeCategory(category);
         Shop.getInstance().clearCart();

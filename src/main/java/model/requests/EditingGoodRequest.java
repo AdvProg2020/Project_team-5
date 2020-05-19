@@ -1,5 +1,6 @@
 package model.requests;
 
+import database.Database;
 import exception.FileCantBeSavedException;
 import model.Shop;
 import model.persons.Seller;

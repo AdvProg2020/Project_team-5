@@ -24,7 +24,8 @@ public class Good {
     private HashMap<String, String> categoryProperties;
 
     public enum GoodStatus {
-        BUILTPROCESSING, CONFIRMED, NOTAVAILABLE
+        BUILTPROCESSING, CONFIRMED, NOTAVAILABLE,
+         EDITINGPROCESSING
     }
 
     public GoodStatus getGoodStatus() {

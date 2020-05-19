@@ -62,7 +62,7 @@ public class AccountAreaForSellerTest {
         Shop.getInstance().addCategory(category);
         category.addSubCategory(subCategory);
         subCategory.addGood(good);
-        seller.addToActiveGoods(good);
+        //seller.addToActiveGoods(good);
     }
 
 
@@ -224,10 +224,10 @@ public class AccountAreaForSellerTest {
     @After
     public void terminating() {
         MainController.getInstance().setCurrentPerson(null);
-        subCategory.removeGood(good);
+        //subCategory.removeGood(good);
         category.removeSubCategoryFromList(subCategory);
         Shop.getInstance().removeCategory(category);
-        seller.removeFromActiveGoods(good);
+        //seller.removeFromActiveGoods(good);
     }
 
     @Test

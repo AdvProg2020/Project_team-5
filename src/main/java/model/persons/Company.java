@@ -18,6 +18,14 @@ public class Company {
         this.address = address;
     }
 
+    public static void setCompanyIdCounter(long companyIdCounter) {
+        Company.companyIdCounter = companyIdCounter;
+    }
+
+    public long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

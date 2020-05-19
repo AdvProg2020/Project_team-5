@@ -79,7 +79,7 @@ public class GoodTest {
         long goodId = good2.getGoodId();
         assertEquals(good2,Shop.getInstance().findGoodById(goodId));
         assertEquals(good2,Shop.getInstance().getGoodByNameAndBrandAndSubCategory("phone","samsung", subCategory));
-        subCategory.removeGood(good2);
+        //subCategory.removeGood(good2);
         assertEquals(null,Shop.getInstance().findGoodById(goodId));
         assertEquals(null,Shop.getInstance().getGoodByNameAndBrandAndSubCategory("phone","samsung", subCategory));
     }

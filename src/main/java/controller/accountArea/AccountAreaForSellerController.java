@@ -1,6 +1,7 @@
 package controller.accountArea;
 
 import controller.MainController;
+import database.Database;
 import exception.FileCantBeDeletedException;
 import exception.FileCantBeSavedException;
 import exception.OffNotFoundException;

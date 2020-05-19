@@ -1,11 +1,11 @@
 package controller.products;
 
 import controller.MainController;
+import database.Database;
 import exception.FileCantBeSavedException;
 import exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
 import exception.productExceptions.ProductWithThisIdNotExist;
 import model.Shop;
-import model.database.Database;
 import model.persons.Customer;
 import model.productThings.Comment;
 import model.productThings.Good;

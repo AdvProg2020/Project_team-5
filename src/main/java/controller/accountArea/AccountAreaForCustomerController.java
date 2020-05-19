@@ -1,13 +1,13 @@
 package controller.accountArea;
 
 import controller.MainController;
+import database.Database;
 import exception.FileCantBeSavedException;
 import exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
 import exception.discountcodeExceptions.DiscountCodeExpired;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import exception.NotEnoughCredit;
 import model.Shop;
-import model.database.Database;
 import model.orders.Order;
 import model.orders.OrderForCustomer;
 import model.orders.OrderForSeller;

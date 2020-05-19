@@ -3,7 +3,6 @@ package model.productThings;
 import database.Database;
 import exception.FileCantBeSavedException;
 import model.Shop;
-import model.database.Database;
 import model.persons.Customer;
 
 import java.io.IOException;

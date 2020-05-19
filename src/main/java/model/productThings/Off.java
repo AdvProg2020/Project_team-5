@@ -20,7 +20,8 @@ public class Off {
 
     public enum OffStatus {
         VALIDATING,
-        ACCEPTED
+        ACCEPTED,
+        EDITING
     }
 
     public Off(List<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {

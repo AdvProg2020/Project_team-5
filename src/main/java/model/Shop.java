@@ -1,11 +1,11 @@
 package model;
 
+import database.Database;
 import exception.FileCantBeDeletedException;
 import exception.FileCantBeSavedException;
 import exception.productExceptions.NotEnoughAvailableProduct;
 import model.category.Category;
 import model.category.SubCategory;
-import model.database.Database;
 import model.orders.Order;
 import model.orders.OrderForCustomer;
 import model.persons.*;

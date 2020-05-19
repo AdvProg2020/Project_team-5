@@ -1,5 +1,6 @@
 package modelTest;
 
+import exception.FileCantBeSavedException;
 import model.Shop;
 import model.persons.Customer;
 import org.junit.AfterClass;
@@ -7,6 +8,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class ShopTest {
@@ -21,7 +23,7 @@ public class ShopTest {
 
 
     @Test
-    public void generateRandomDiscountCodeTest(){
+    public void generateRandomDiscountCodeTest() throws IOException, FileCantBeSavedException {
         Shop.getInstance().generatePeriodRandomDiscountCodes(LocalDate.now().plusMonths(2));
         Customer customer= (Customer) Shop.getInstance().findUser("yasaman1");
         Assert.assertTrue(customer.getDiscountCodes() != null);
