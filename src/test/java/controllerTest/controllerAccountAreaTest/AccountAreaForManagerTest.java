@@ -20,6 +20,7 @@ import model.category.SubCategory;
 import database.Database;
 import model.persons.Customer;
 import model.persons.Manager;
+import model.persons.Seller;
 import model.productThings.DiscountCode;
 import model.productThings.Good;
 import model.requests.RegisteringSellerRequest;
@@ -135,7 +136,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getAllDiscountCodesInfoTest() {
-        Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodesInfo(Shop.getInstance().getAllDiscountCodes()).size());
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllDiscountCodesInfo(Shop.getInstance().getAllDiscountCodes()).size());
     }
 
     @Test
@@ -159,7 +160,8 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void acceptRequestTest() throws RequestNotFoundException, FileCantBeSavedException, IOException, FileCantBeDeletedException {
-        //Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf", null)));
+        Shop.getInstance().addRequest(new RegisteringSellerRequest("random", "x", "y", "wewe@dsds.dfd",
+                "09120000000", "Mnop13", "x", "xyz.com", "09360000000", "13232323", "sdsdsdsdsd"));
         Assert.assertThrows(RequestNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("10"));
         Assert.assertThrows(FileCantBeDeletedException.class, () -> MainController.getInstance().getAccountAreaForManagerController().acceptRequest("2"));
@@ -187,7 +189,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getCategorySubCatsNamesTest() {
-        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames("ashghal").size());
+        Assert.assertEquals(3, MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames("ashghal").size());
     }
 
     @Test
