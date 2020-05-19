@@ -1,10 +1,13 @@
 package model.productThings;
 
+import model.Shop;
 import model.persons.Person;
 
 public class Comment {
-    private Person person;
-    private Good good;
+    private static long commentIdCounter = 1;
+    private long id;
+    private String person;
+    private long good;
     private String title;
     private String comment;
     private CommentStatus commentStatus;
@@ -16,8 +19,9 @@ public class Comment {
     }
 
     public Comment(Person person, Good good, String title, String comment, boolean didCommenterBoughtThisProduct) {
-        this.person = person;
-        this.good = good;
+        this.id = commentIdCounter++;
+        this.person = person.getUsername();
+        this.good = good.getGoodId();
         this.title = title;
         this.comment = comment;
         this.didCommenterBoughtThisProduct = didCommenterBoughtThisProduct;
@@ -25,11 +29,19 @@ public class Comment {
     }
 
     public Person getPerson() {
-        return person;
+        return Shop.getInstance().findUser(person);
+    }
+
+    public static void setCommentIdCounter(long commentIdCounter) {
+        Comment.commentIdCounter = commentIdCounter;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public Good getGood() {
-        return good;
+        return Shop.getInstance().findGoodById(this.good);
     }
 
     public void setCommentStatus(CommentStatus commentStatus) {
@@ -39,7 +51,7 @@ public class Comment {
     @Override
     public String toString() {
         return String.format("Commenter Username : %s\nProduct Id : %d\n" +
-                        "Product Name : %s\nTitle : %s\nContent : %s\n", this.person.getUsername(),
-                this.good.getGoodId(), this.good.getName(), this.title, this.comment);
+                        "Product Name : %s\nTitle : %s\nContent : %s\n", this.person,
+                this.good, this.getGood().getName(), this.title, this.comment);
     }
 }

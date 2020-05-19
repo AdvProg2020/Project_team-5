@@ -5,9 +5,10 @@ import model.Shop;
 import model.productThings.GoodInCart;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class OrderForCustomer extends Order {
-    private ArrayList<GoodInCart> goodsDetails;
+    private ArrayList<Long> goodsDetails;
     private long discountAmount;
     private String address;
     private String phoneNumber;
@@ -16,7 +17,10 @@ public class OrderForCustomer extends Order {
 
     public OrderForCustomer(ArrayList<GoodInCart> goodsDetails, long price, String name, String postCode, String address, String phoneNumber) {
         super(price);
-        this.goodsDetails = goodsDetails;
+        this.goodsDetails=new ArrayList<>();
+        for (GoodInCart goodInCart : goodsDetails) {
+            this.goodsDetails.add(goodInCart.getGoodInCartId());
+        }
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.postCode = postCode;
@@ -26,7 +30,11 @@ public class OrderForCustomer extends Order {
     }
 
     public ArrayList<GoodInCart> getGoodsDetails() {
-        return goodsDetails;
+        ArrayList<GoodInCart> goodInCarts=new ArrayList<>();
+        for (Long id : goodsDetails) {
+            goodInCarts.add(Shop.getInstance().getAllGoodInCarts().get(id));
+        }
+        return goodInCarts;
     }
 
     public long getDiscountAmount() {

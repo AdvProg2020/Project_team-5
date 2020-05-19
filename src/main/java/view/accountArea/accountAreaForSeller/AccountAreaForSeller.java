@@ -124,7 +124,7 @@ public class AccountAreaForSeller extends Menu {
             System.out.println("product removed successfully");
         } catch (ProductNotFoundExceptionForSeller exception) {
             System.out.println(exception.getMessage());
-        } catch (FileCantBeSavedException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

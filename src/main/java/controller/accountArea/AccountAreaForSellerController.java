@@ -1,6 +1,7 @@
 package controller.accountArea;
 
 import controller.MainController;
+import exception.FileCantBeDeletedException;
 import exception.FileCantBeSavedException;
 import exception.OffNotFoundException;
 import exception.productExceptions.ProductNotFoundExceptionForSeller;
@@ -10,6 +11,7 @@ import model.orders.OrderForSeller;
 import model.persons.Seller;
 import model.productThings.Good;
 import model.productThings.Off;
+import model.productThings.SellerRelatedInfoAboutGood;
 import model.requests.AddingGoodRequest;
 import model.requests.AddingOffRequest;
 import model.requests.EditingGoodRequest;
@@ -26,20 +28,25 @@ import java.util.stream.Collectors;
 
 public class AccountAreaForSellerController extends AccountAreaController {
 
-    public void removeProduct(long productId) throws ProductNotFoundExceptionForSeller, IOException, FileCantBeSavedException {
+    public void removeProduct(long productId) throws ProductNotFoundExceptionForSeller, IOException, FileCantBeSavedException, FileCantBeDeletedException {
         Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
         Good good = seller.findProductOfSeller(productId);
         if (!seller.hasThisProduct(productId))
             throw new ProductNotFoundExceptionForSeller();
-        if (good.getSellerRelatedInfoAboutGoods().size() == 1)
-            good.getSubCategory().deleteGood(good);
-        else {
+        if (good.getSellerRelatedInfoAboutGoods().size() == 1) {
+            Database.getInstance().deleteItem(good);
+        } else {
+            for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+                if (infoAboutGood.getSeller().equals(seller)) {
+                    Database.getInstance().deleteItem(infoAboutGood, good.getGoodId());
+                    break;
+                }
+            }
             good.removeSeller(seller);
-            seller.removeFromActiveGoods(good);
+            seller.removeFromActiveGoods(good.getGoodId());
+            Database.getInstance().saveItem(seller);
+            Database.getInstance().saveItem(good);
         }
-      //  Database.getInstance().saveItem(seller);
-      //  Database.getInstance().saveItem(good.getSubCategory());
-      //  Database.getInstance().saveItem(good.getSubCategory().getParentCategory());
     }
 
     public String getCompanyInfo() {
@@ -108,12 +115,12 @@ public class AccountAreaForSellerController extends AccountAreaController {
     }
 
     public void addProduct(ArrayList<String> productInfo, HashMap<String, String> subcategoryDetailsValue) throws IOException, FileCantBeSavedException {
-        Good good = new Good(productInfo.get(0), productInfo.get(1), Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
-                productInfo.get(4), subcategoryDetailsValue, ((Seller) MainController.getInstance().getCurrentPerson()),
-                Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)));
-        AddingGoodRequest addingGoodRequest = new AddingGoodRequest(good, ((Seller) MainController.getInstance().getCurrentPerson()));
+        AddingGoodRequest addingGoodRequest = new AddingGoodRequest(productInfo.get(0), productInfo.get(1),
+                Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
+                productInfo.get(4), subcategoryDetailsValue, Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)),
+                MainController.getInstance().getCurrentPerson().getUsername());
         Shop.getInstance().addRequest(addingGoodRequest);
-      //  Database.getInstance().saveItem(addingGoodRequest);
+        Database.getInstance().saveItem(addingGoodRequest);
     }
 
     public boolean checkValidProductNumber(int number) {
@@ -138,11 +145,12 @@ public class AccountAreaForSellerController extends AccountAreaController {
     }
 
     public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts) throws IOException, FileCantBeSavedException {
-        Off newOff = new Off(getProductsByIds(offProducts), LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
-                Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)), ((Seller) MainController.getInstance().getCurrentPerson()));
-        AddingOffRequest addingOffRequest = new AddingOffRequest(newOff);
+        AddingOffRequest addingOffRequest = new AddingOffRequest(getProductsByIds(offProducts),
+                LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
+                Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)),
+                ((Seller) MainController.getInstance().getCurrentPerson()));
         Shop.getInstance().addRequest(addingOffRequest);
-       // Database.getInstance().saveItem(addingOffRequest);
+        Database.getInstance().saveItem(addingOffRequest);
     }
 
     public List<Good> getProductsByIds(ArrayList<Long> productIds) {
@@ -160,9 +168,10 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public void editOff(String field, String key, long id) throws IOException, FileCantBeSavedException {
         HashMap<String, String> editedFields = new HashMap<>();
         editedFields.put(field, key);
+        Shop.getInstance().findOffById(id).setOffStatus(Off.OffStatus.EDITING);
         EditingOffRequest editingOffRequest = new EditingOffRequest(id, editedFields);
         Shop.getInstance().addRequest(editingOffRequest);
-       // Database.getInstance().saveItem(editingOffRequest);
+        Database.getInstance().saveItem(editingOffRequest);
     }
 
     public boolean doesSellerHaveThisOff(long id) {
@@ -176,9 +185,10 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public void editProduct(String field, String key, long id) throws IOException, FileCantBeSavedException {
         HashMap<String, String> editedFields = new HashMap<>();
         editedFields.put(field, key);
+        Shop.getInstance().findGoodById(id).setGoodStatus(Good.GoodStatus.EDITINGPROCESSING);
         EditingGoodRequest editingGoodRequest = new EditingGoodRequest(id, (Seller) MainController.getInstance().getCurrentPerson(), editedFields);
         Shop.getInstance().addRequest(editingGoodRequest);
-       // Database.getInstance().saveItem(editingGoodRequest);
+        Database.getInstance().saveItem(editingGoodRequest);
     }
 
     public List<Good> sort(int chosenSort){

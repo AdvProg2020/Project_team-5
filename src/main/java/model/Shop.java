@@ -5,11 +5,10 @@ import exception.FileCantBeSavedException;
 import exception.productExceptions.NotEnoughAvailableProduct;
 import model.category.Category;
 import model.category.SubCategory;
-import database.Database;
-import model.persons.Customer;
-import model.persons.Manager;
-import model.persons.Person;
-import model.persons.Seller;
+import model.database.Database;
+import model.orders.Order;
+import model.orders.OrderForCustomer;
+import model.persons.*;
 import model.productThings.*;
 import model.requests.Request;
 
@@ -19,13 +18,20 @@ import java.util.*;
 
 public class Shop {
     private static Shop ourInstance = new Shop();
-    private ArrayList<Category> allCategories;
-    private ArrayList<Off> offs;
+    private HashMap<String, Category> allCategories;
+    private HashMap<Long, Off> offs;
     private ArrayList<Person> allPersons;
     private ArrayList<Request> allRequest;
-    private ArrayList<DiscountCode> allDiscountCodes;
+    private HashMap<Long, DiscountCode> allDiscountCodes;
     private ArrayList<Rate> allRates;
     private ArrayList<GoodInCart> cart;
+    private HashMap<Long, Good> allGoods;
+    private HashMap<Long, Order> allOrders;
+    private HashMap<Long, GoodInCart> allGoodInCarts;
+    private HashMap<String, SubCategory> allSubCategories;
+    private HashMap<Long, Comment> allComments;
+    private HashMap<Long, SellerRelatedInfoAboutGood> allSellerRelatedInfoAboutGood;
+    private HashMap<Long, Company> allCompanies;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
 
     public static Shop getInstance() {
@@ -33,25 +39,72 @@ public class Shop {
     }
 
     private Shop() {
-        this.allCategories = new ArrayList<>();
-        this.allDiscountCodes = new ArrayList<>();
+        this.allCategories = new HashMap<>();
+        this.allDiscountCodes = new HashMap<>();
         this.allPersons = new ArrayList<>();
         this.allRates = new ArrayList<>();
+        this.allSubCategories = new HashMap<>();
         this.allRequest = new ArrayList<>();
-        this.offs = new ArrayList<>();
+        this.offs = new HashMap<>();
         this.cart = new ArrayList<>();
+        this.allGoods = new HashMap<>();
+        this.allOrders = new HashMap<>();
+        this.allGoodInCarts = new HashMap<>();
+        this.allComments = new HashMap<>();
+        this.allSellerRelatedInfoAboutGood = new HashMap<>();
+        this.allCompanies = new HashMap<>();
+    }
+
+    public HashMap<Long, Company> getAllCompanies() {
+        return allCompanies;
+    }
+
+    public void addCompany(Company company){
+        allCompanies.put(company.getId(),company);
     }
 
     public ArrayList<Category> getAllCategories() {
-        return allCategories;
+        return new ArrayList<>(allCategories.values());
+    }
+
+    public HashMap<Long, SellerRelatedInfoAboutGood> getAllSellerRelatedInfoAboutGood() {
+        return allSellerRelatedInfoAboutGood;
+    }
+
+    public HashMap<Long, GoodInCart> getAllGoodInCarts() {
+        return allGoodInCarts;
+    }
+
+    public HashMap<String, SubCategory> getAllSubCategories() {
+        return allSubCategories;
+    }
+
+    public HashMap<Long, Comment> getAllComments() {
+        return allComments;
+    }
+
+    public void addAComment(Comment comment) {
+        this.allComments.put(comment.getId(), comment);
+    }
+
+    public void addGoodInCart(GoodInCart goodInCart) {
+        this.allGoodInCarts.put(goodInCart.getGoodInCartId(), goodInCart);
     }
 
     public ArrayList<Rate> getAllRates() {
         return allRates;
     }
 
+    public void addSellerRelatedInfoAboutGood(SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood){
+        this.allSellerRelatedInfoAboutGood.put(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId(),sellerRelatedInfoAboutGood);
+    }
+
+    public HashMap<String, Category> getHashMapOfCategories() {
+        return this.allCategories;
+    }
+
     public ArrayList<DiscountCode> getAllDiscountCodes() {
-        return allDiscountCodes;
+        return new ArrayList<>(allDiscountCodes.values());
     }
 
     public ArrayList<Request> getAllRequest() {
@@ -62,6 +115,25 @@ public class Shop {
         return allPersons;
     }
 
+    public void addSubCategory(SubCategory subCategory) {
+        this.allSubCategories.put(subCategory.getName(), subCategory);
+    }
+
+    public void removeSubCategory(SubCategory subCategory) {
+        this.allSubCategories.remove(subCategory.getName());
+        for (Good good : subCategory.getGoods()) {
+            allGoods.remove(good.getGoodId());
+        }
+    }
+
+    public HashMap<Long, Order> getHasMapOfOrders() {
+        return allOrders;
+    }
+
+    public void addOrder(Order order) {
+        this.allOrders.put(order.getOrderId(), order);
+    }
+
     public void removePerson(Person user) {
         allPersons.remove(user);
     }
@@ -69,6 +141,10 @@ public class Shop {
     public void addPerson(Person user) {
         allPersons.add(user);
     }
+
+    public void addGoodToAllGoods(Good good) { allGoods.put(good.getGoodId(), good); }
+
+    public void removeGoodFromAllGoods(Good good) { allGoods.remove(good.getGoodId()); }
 
     public void removeProduct(Good good) {
         good.getSubCategory().deleteGood(good);
@@ -86,8 +162,12 @@ public class Shop {
         return null;
     }
 
+    public Good getAvailableGood(long id) {
+        return allGoods.get(id);
+    }
+
     public Good findGoodById(long goodId) {
-        for (Category category : allCategories) {
+        for (Category category : this.getAllCategories()) {
             if (category.findGoodInSubCategories(goodId) != null)
                 return category.findGoodInSubCategories(goodId);
         }
@@ -95,19 +175,23 @@ public class Shop {
     }
 
     public DiscountCode findDiscountCode(String code) {
-        for (DiscountCode discountCode : allDiscountCodes) {
+        for (DiscountCode discountCode : allDiscountCodes.values()) {
             if (discountCode.getCode().equals(code))
                 return discountCode;
         }
         return null;
     }
 
+    public HashMap<Long, Off> getHashMapOfOffs() {
+        return this.offs;
+    }
+
     public void removeDiscountCode(DiscountCode discountCode) {
-        allDiscountCodes.remove(discountCode);
+        allDiscountCodes.remove(discountCode.getId());
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-        allDiscountCodes.add(discountCode);
+        allDiscountCodes.put(discountCode.getId(), discountCode);
     }
 
     public Request findRequestById(long requestId) {
@@ -116,6 +200,10 @@ public class Shop {
                 return request;
         }
         return null;
+    }
+
+    public HashMap<Long, DiscountCode> getHashMapOfDiscountCodes() {
+        return this.allDiscountCodes;
     }
 
     public void removeRequest(Request request) {
@@ -127,11 +215,16 @@ public class Shop {
     }
 
     public void addCategory(Category category) {
-        allCategories.add(category);
+        allCategories.put(category.getName(), category);
     }
 
+
     public void removeCategory(Category category) {
-        allCategories.remove(category);
+        allCategories.remove(category.getName());
+        for (SubCategory subCategory : category.getSubCategories()) {
+            category.deleteSubCategory(subCategory);
+            allSubCategories.remove(subCategory.getName());
+        }
     }
 
     public ArrayList<Rate> getRatesOfAGood(Good good) {
@@ -146,7 +239,7 @@ public class Shop {
     public void addRate(Customer customer, long productId, int rate) throws IOException, FileCantBeSavedException {
         Rate rateToAdd = new Rate(customer, findGoodById(productId), rate);
         allRates.add(rateToAdd);
-        //Database.getInstance().saveItem(rateToAdd);
+        Database.getInstance().saveItem(rateToAdd);
     }
 
     public void addRate(Rate rate) {
@@ -188,7 +281,7 @@ public class Shop {
     }
 
     public Off findOffById(long offId) {
-        for (Off off : offs) {
+        for (Off off : offs.values()) {
             if (off.getOffId() == offId)
                 return off;
         }
@@ -196,18 +289,25 @@ public class Shop {
     }
 
     public void addOff(Off off) {
-        offs.add(off);
+        offs.put(off.getOffId(), off);
     }
 
     public void removeOff(Off off) {
-        offs.remove(off);
+        offs.remove(off.getOffId());
     }
 
-    public void generatePeriodRandomDiscountCodes(LocalDate endDate) {
+    public void deleteCategory(Category category) {
+        for (int i = 0; i < category.getSubCategories().size(); i++) {
+            category.deleteSubCategory(category.getSubCategories().get(0));
+        }
+        removeCategory(category);
+    }
+
+    public void generatePeriodRandomDiscountCodes(LocalDate endDate) throws IOException, FileCantBeSavedException {
         String code = DiscountCode.generateRandomDiscountCode();
         DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
         discountCode.addAllCustomers(randomCustomers(5, 1, discountCode));
-        allDiscountCodes.add(discountCode);
+        allDiscountCodes.put(discountCode.getId(), discountCode);
         this.lastRandomPeriodDiscountCodeCreatedDate = LocalDate.now();
     }
 
@@ -226,15 +326,19 @@ public class Shop {
     public long getFinalPriceOfAGood(Good good, Seller seller) {
         if (seller == null)
             seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
-        for (Off off : offs) {
+        for (Off off : offs.values()) {
             if (off.getPriceAfterOff(good, seller) != 0)
                 return off.getPriceAfterOff(good, seller);
         }
         return good.getPriceBySeller(seller);
     }
 
+    public SubCategory getSubCategory(String name) {
+        return allSubCategories.get(name);
+    }
+
     public SubCategory findSubCategoryByName(String name) {
-        for (Category category : allCategories) {
+        for (Category category : this.getAllCategories()) {
             for (SubCategory subCategory : category.getSubCategories()) {
                 if (subCategory.getName().equalsIgnoreCase(name))
                     return subCategory;
@@ -244,7 +348,7 @@ public class Shop {
     }
 
     public Category findCategoryByName(String name) {
-        for (Category category : allCategories) {
+        for (Category category : this.getAllCategories()) {
             if (category.getName().equalsIgnoreCase(name))
                 return category;
         }
@@ -268,7 +372,7 @@ public class Shop {
     }
 
     public boolean checkExistDiscountCode(String code) {
-        return allDiscountCodes.stream().filter(discountCode -> discountCode.getCode().equals(code)).count() != 0;
+        return allDiscountCodes.values().stream().filter(discountCode -> discountCode.getCode().equals(code)).count() != 0;
     }
 
     public void clearCart() {
@@ -276,22 +380,20 @@ public class Shop {
     }
 
     public ArrayList<Off> getOffs() {
-        return offs;
+        return new ArrayList<>(offs.values());
     }
 
     public List<Good> getAllGoods() {
-        List<Good> allGoods = new ArrayList<>();
-        for (Category category : allCategories) {
-            for (SubCategory subCategory : category.getSubCategories()) {
-                allGoods.addAll(subCategory.getGoods());
-            }
-        }
-        return allGoods;
+        return new ArrayList<>(this.allGoods.values());
+    }
+
+    public HashMap<Long, Good> getHashMapOfGoods() {
+        return this.allGoods;
     }
 
     public List<Good> getOffGoods() {
         Set<Good> offGoods = new HashSet<>();
-        for (Off off : offs) {
+        for (Off off : offs.values()) {
             if ((off.getEndDate().isBefore(LocalDate.now()) || off.getStartDate().isAfter(LocalDate.now())))
                 continue;
             if (off.getOffStatus().equals(Off.OffStatus.ACCEPTED)) {
@@ -301,7 +403,7 @@ public class Shop {
         return new ArrayList<>(offGoods);
     }
 
-    public void donatePeriodRandomDiscountCodes() {
+    public void donatePeriodRandomDiscountCodes() throws IOException, FileCantBeSavedException {
         LocalDate localDate = LocalDate.now();
         if (localDate.getDayOfMonth() == 1) {
             if (!localDate.equals(lastRandomPeriodDiscountCodeCreatedDate)) {
@@ -311,22 +413,23 @@ public class Shop {
         }
     }
 
+
     public void expireItemsThatTheirTimeIsFinished() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
         for (Off off : this.getOffs()) {
-            if (off.isOffExpired()){
+            if (off.isOffExpired()) {
                 this.removeOff(off);
                 off.getSeller().getActiveOffs().remove(off);
-               // Database.getInstance().saveItem(off.getSeller());
+                // Database.getInstance().saveItem(off.getSeller());
                 Database.getInstance().deleteItem(off);
             }
         }
         for (DiscountCode discountCode : this.getAllDiscountCodes()) {
-            if (discountCode.isDiscountCodeExpired()){
+            if (discountCode.isDiscountCodeExpired()) {
                 this.removeDiscountCode(discountCode);
             }
             for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
                 customer.removeDiscountCode(discountCode);
-              //  Database.getInstance().saveItem(customer);
+                //  Database.getInstance().saveItem(customer);
             }
             Database.getInstance().deleteItem(discountCode);
         }

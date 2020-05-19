@@ -81,7 +81,7 @@ public class ViewDiscountCodesMenu extends Menu {
             System.out.println("fields for edit :\n-startDate\n-endDate\n-maxDiscountAmount\n-discountPercent");
             System.out.println("enter field for edit and its value: (fieldName newValue)");
             System.out.println("after edit fields, enter [end] to return.");
-            Pattern pattern = Pattern.compile("(\\w+) (\\w+)");
+            Pattern pattern = Pattern.compile("(\\S+) (\\S+)");
             String input, field, newValue;
             Scanner scanner = new Scanner(System.in);
             while (!(input = scanner.nextLine()).equalsIgnoreCase("end")) {
@@ -94,6 +94,7 @@ public class ViewDiscountCodesMenu extends Menu {
                         System.out.println("successfully edited!");
                         System.out.println("press enter to continue");
                         scanner.nextLine();
+                        break;
                     } catch (DiscountCodeCantBeEditedException| FileCantBeSavedException | IOException e) {
                         System.out.println(e.getMessage());
                     }

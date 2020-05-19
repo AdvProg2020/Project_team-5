@@ -142,9 +142,10 @@ public class ControllerForFiltering {
 
     public void addPriceFiltering(String startValue, String endValue) {
         for (BinaryFilters filter : binaryFilters) {
-            filter.getFilterName().equals("price");
-            binaryFilters.remove(filter);
-            break;
+            if (filter.getFilterName().equals("price")) {
+                binaryFilters.remove(filter);
+                break;
+            }
         }
         addBinaryFilter("price", startValue, endValue);
     }

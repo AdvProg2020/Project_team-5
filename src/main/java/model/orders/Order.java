@@ -40,6 +40,10 @@ public abstract class Order {
         this.orderStatus = orderStatus;
     }
 
+    public static void setOrdersCount(long ordersCount) {
+        Order.ordersCount = ordersCount;
+    }
+
     public static long getOrdersCount() {
         return ordersCount;
     }

@@ -45,7 +45,7 @@ public class AccountAreaForManagerTest {
         Shop.getInstance().getAllPersons().add(new Customer("sadegh", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Customer("yasaman", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Manager("XxXxXx", "aboots", "zzzzz", "aboot@gmail.com", "06065656060", "pass2"));
-        Shop.getInstance().addRequest(new RegisteringSellerRequest(new Seller("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf", null)));
+        Shop.getInstance().addRequest(new RegisteringSellerRequest("fgf", "fgfg", "fgfg", "gfgg", "fgfg", "fgfgf",null,null,null,null,null));
         ArrayList<String> details = new ArrayList<>();
         details.add("hich1");
         details.add("hich2");
@@ -91,6 +91,7 @@ public class AccountAreaForManagerTest {
         Assert.assertThrows("can not create discount code because number of use is incorrect.", DiscountCodeCantCreatedException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode("RandomDiscount", "sadegh", "44444444444444444444444444444444"));
         MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode("RandomDiscount", "sadegh", "4");
+        Assert.assertTrue(new File("Resources\\Discounts\\dis_RandomDiscount.json").exists());
     }
 
     @Test
@@ -100,6 +101,9 @@ public class AccountAreaForManagerTest {
             MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(fields);
         Assert.assertThrows("discount code not found.", DiscountCodeNotFoundException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode("alalalalalal"));
+        MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode("RandomDiscount");
+        Assert.assertNull(Shop.getInstance().findDiscountCode("RandomDiscount"));
+        Assert.assertFalse(new File("Resources\\Discounts\\dis_RandomDiscount.json").exists());
     }
 
     @Test
@@ -127,6 +131,7 @@ public class AccountAreaForManagerTest {
         LocalDate newDate = Shop.getInstance().findDiscountCode("RandomDiscount").getStartDate();
         LocalDate expectedDate = LocalDate.parse("2020-07-10");
         Assert.assertEquals(newDate.toString(), expectedDate.toString());
+        Assert.assertTrue(new File("Resources\\Discounts\\dis_RandomDiscount.json").exists());
     }
 
     @Test

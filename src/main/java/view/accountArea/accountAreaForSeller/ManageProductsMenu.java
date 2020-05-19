@@ -85,8 +85,9 @@ public class ManageProductsMenu extends Menu {
         }
         System.out.println("choose one to edit");
         printEditableFields(input);
+        int chosen;
         while (true) {
-            int chosen = Integer.parseInt(getValidInput("^[1-10]{1}$", "not invalid input"));
+            chosen = Integer.parseInt(getValidInput("^\\d+$", "not invalid input"));
             if (chosen <= 3 + Shop.getInstance().findGoodById(input).getCategoryProperties().keySet().size())
                 break;
             else
@@ -95,7 +96,6 @@ public class ManageProductsMenu extends Menu {
             if (scanner.nextLine().equalsIgnoreCase("back"))
                 return;
         }
-        int chosen = Integer.parseInt(getValidInput("^[1-3]{1}$", "not invalid input"));
         if (chosen == 1) {
             try {
                 editPriceOfProduct(input);
@@ -129,7 +129,7 @@ public class ManageProductsMenu extends Menu {
         System.out.println("you can edit below fields of this product:\n1-price\n2-available number\n3-product details");
         int i = 4;
         for (String s : Shop.getInstance().findGoodById(id).getCategoryProperties().keySet()) {
-            System.out.println((i++) + "-" + Shop.getInstance().findGoodById(id).getCategoryProperties().get(s));
+            System.out.println((i++) + "- " + s + " (" + Shop.getInstance().findGoodById(id).getCategoryProperties().get(s)+ ")");
         }
     }
 
@@ -150,7 +150,7 @@ public class ManageProductsMenu extends Menu {
     private void editDetails(long id) throws IOException, FileCantBeSavedException {
         System.out.println("enter new details");
         MainController.getInstance().getAccountAreaForSellerController().
-                editProduct("details", getValidInput("\\w+", "Not valid detail"), id);
+                editProduct("details", getValidInput(".+", "Not valid detail"), id);
         System.out.println("your request successfully sent to manager");
     }
 
@@ -158,7 +158,7 @@ public class ManageProductsMenu extends Menu {
         System.out.println("enter new property for " + Shop.getInstance().findGoodById(id).getCategoryProperties().keySet().toArray()[number]);
         MainController.getInstance().getAccountAreaForSellerController().
                 editProduct((String) Shop.getInstance().findGoodById(id).getCategoryProperties().keySet().toArray()[number]
-                        , getValidInput("\\w+", "Not valid!"), id);
+                        , getValidInput(".+", "Not valid!"), id);
         System.out.println("your request successfully sent to manager");
     }
 

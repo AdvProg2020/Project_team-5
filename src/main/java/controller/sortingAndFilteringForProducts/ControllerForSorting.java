@@ -43,7 +43,7 @@ public class ControllerForSorting {
     }
 
     public List<Good> showSortByAverageRate(List<Good> allGoods){
-        allGoods.sort(Comparator.comparingDouble(good -> good.getAverageRate()));
+        allGoods.sort(Comparator.comparingDouble(Good::getAverageRate));
         Collections.reverse(allGoods);
         return allGoods;
     }

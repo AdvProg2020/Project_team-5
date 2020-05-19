@@ -5,34 +5,43 @@ import model.orders.OrderForCustomer;
 import model.productThings.DiscountCode;
 import model.productThings.GoodInCart;
 
+import javax.swing.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Customer extends Person {
-    private ArrayList<DiscountCode> discountCodes;
-    private ArrayList<OrderForCustomer> previousOrders;
+    private ArrayList<Long> discountCodesIds;
+    private ArrayList<Long> previousOrders;
     private long credit;
 
     public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password, long credit) {
         super(username, firstName, lastName, email, phoneNumber, password);
         this.credit = credit;
-        this.discountCodes = new ArrayList<>();
+        this.discountCodesIds = new ArrayList<>();
         this.previousOrders = new ArrayList<>();
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-        this.discountCodes.add(discountCode);
+        this.discountCodesIds.add(discountCode.getId());
     }
 
     public void removeDiscountCode(DiscountCode discountCode) {
-        this.discountCodes.remove(discountCode);
+        this.discountCodesIds.remove(discountCode.getId());
     }
 
     public ArrayList<DiscountCode> getDiscountCodes() {
+        ArrayList<DiscountCode> discountCodes=new ArrayList<>();
+        for (Long discountCodesId : this.discountCodesIds) {
+            discountCodes.add(Shop.getInstance().getHashMapOfDiscountCodes().get(discountCodesId));
+        }
         return discountCodes;
     }
 
     public ArrayList<OrderForCustomer> getPreviousOrders() {
+        ArrayList<OrderForCustomer> previousOrders=new ArrayList<>();
+        for (Long id : this.previousOrders) {
+            previousOrders.add((OrderForCustomer) Shop.getInstance().getHasMapOfOrders().get(id));
+        }
         return previousOrders;
     }
 
@@ -45,11 +54,11 @@ public class Customer extends Person {
     }
 
     public void addOrder(OrderForCustomer order) {
-        previousOrders.add(order);
+        previousOrders.add(order.getOrderId());
     }
 
     public OrderForCustomer findOrderById(long orderId) {
-        for (OrderForCustomer order : previousOrders) {
+        for (OrderForCustomer order : this.getPreviousOrders()) {
             if (order.getOrderId() == orderId)
                 return order;
         }
@@ -57,7 +66,7 @@ public class Customer extends Person {
     }
 
     public DiscountCode findDiscountCode(String code) {
-        for (DiscountCode discountCode : discountCodes) {
+        for (DiscountCode discountCode : this.getDiscountCodes()) {
             if (discountCode.getCode().equals(code))
                 return discountCode;
         }
@@ -65,7 +74,7 @@ public class Customer extends Person {
     }
 
     public boolean hasBuyProduct(long productId) {
-        for (OrderForCustomer order : previousOrders) {
+        for (OrderForCustomer order : this.getPreviousOrders()) {
             for (GoodInCart goodInCart : order.getGoodsDetails()) {
                 if (goodInCart.getGood().getGoodId() == productId)
                     return true;
@@ -75,7 +84,7 @@ public class Customer extends Person {
     }
 
     public void donateDiscountCodeTOBestCustomers() {
-        long allPricesOfOrdersWithOutLastOne = 0l;
+        long allPricesOfOrdersWithOutLastOne = 0L;
         for (OrderForCustomer order : this.getPreviousOrders()) {
             if (!order.equals(this.getPreviousOrders().get(this.getPreviousOrders().size() - 1))) {
                 allPricesOfOrdersWithOutLastOne += order.getPrice();
@@ -84,7 +93,7 @@ public class Customer extends Person {
         if (((allPricesOfOrdersWithOutLastOne + this.getPreviousOrders().get(this.getPreviousOrders().size() - 1).getPrice()) / 1000000)
                 - (allPricesOfOrdersWithOutLastOne / 1000000) > 0){
             DiscountCode discountCode=new DiscountCode(DiscountCode.generateRandomDiscountCode()
-                    , LocalDate.now(),LocalDate.now().plusMonths(1),10000l,30);
+                    , LocalDate.now(),LocalDate.now().plusMonths(1), 10000L,30);
             discountCode.addCustomerToCode(this,1);
             Shop.getInstance().addDiscountCode(discountCode);
         }

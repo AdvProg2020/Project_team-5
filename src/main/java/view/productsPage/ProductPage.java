@@ -38,7 +38,7 @@ public class ProductPage extends Menu {
         int sellerNumber = getInputForSellers();
         try {
             MainController.getInstance().getProductController().addGoodToCart(number, sellerNumber);
-            System.out.println("succesfully added!");
+            System.out.println("successfully added!");
         } catch (DontHaveEnoughNumberOfThisProduct dontHaveEnoughNumberOfThisProduct) {
             dontHaveEnoughNumberOfThisProduct.getMessage();
             System.out.println("this seller just have " +

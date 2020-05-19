@@ -17,18 +17,26 @@ public class ManageAllProductsMenu extends Menu {
 
     @Override
     public void execute() {
+        printAllProducts();
         help();
         int chosenCommand = getInput();
-        Menu nextMenu = null;
+        Menu nextMenu = this;
         if (chosenCommand == 1)
             nextMenu = submenus.get(0);
-        if (chosenCommand == 3)
+        else if (chosenCommand == 3)
             nextMenu = getParentMenu();
         else if (chosenCommand == 2) {
             removeProduct();
             nextMenu = this;
         }
         nextMenu.execute();
+    }
+
+    private void printAllProducts() {
+        for (String good : MainController.getInstance().getAccountAreaForManagerController().getAllGoodsInfo()) {
+            System.out.println(good);
+        }
+        System.out.println();
     }
 
     private void removeProduct() {

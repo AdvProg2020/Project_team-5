@@ -1,5 +1,6 @@
 package model.category;
 
+import model.Shop;
 import model.productThings.Good;
 import model.productThings.SellerRelatedInfoAboutGood;
 
@@ -7,9 +8,9 @@ import java.util.ArrayList;
 
 public class SubCategory {
     private String name;
-    private Category parentCategory;
+    private String parentCategory;
     private ArrayList<String> details;
-    private ArrayList<Good> goods;
+    private ArrayList<Long> goods;
 
     public SubCategory(String name, ArrayList<String> details) {
         this.name = name;
@@ -18,7 +19,7 @@ public class SubCategory {
     }
 
     public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
+        this.parentCategory= parentCategory.getName();
     }
 
     public String getName() {
@@ -26,7 +27,7 @@ public class SubCategory {
     }
 
     public Category getParentCategory() {
-        return parentCategory;
+        return Shop.getInstance().getHashMapOfCategories().get(this.parentCategory);
     }
 
     public ArrayList<String> getDetails() {
@@ -34,24 +35,23 @@ public class SubCategory {
     }
 
     public ArrayList<Good> getGoods() {
-        return goods;
+        ArrayList<Good> goods1=new ArrayList<>();
+        for (Long id : goods) {
+            goods1.add(Shop.getInstance().getAvailableGood(id));
+        }
+        return goods1;
     }
 
     public void addGood(Good good) {
-        this.goods.add(good);
-    }
-
-    public void removeGood(Good good) {
-        this.goods.remove(good);
+        this.goods.add(good.getGoodId());
     }
 
     public void deleteGood(Good good) {
-        good.deleteGoodFromSellerList();
-        this.removeGood(good);
+        this.goods.remove(good.getGoodId());
     }
 
     public Good findGoodById(long goodId) {
-        for (Good good : goods) {
+        for (Good good : getGoods()) {
             if (good.getGoodId() == goodId)
                 return good;
         }
@@ -60,17 +60,17 @@ public class SubCategory {
 
     @Override
     public String toString() {
-        String subCategoryStr = getName() + " of " + parentCategory.getName() + " category";
+        String subCategoryStr = getName() + " of " + parentCategory + " category";
         subCategoryStr += "\nproperties =";
-        for (int i = 0; i < details.size() + parentCategory.getDetails().size(); i++) {
+        for (int i = 0; i < details.size() + getParentCategory().getDetails().size(); i++) {
             subCategoryStr += ("\n" + (i + 1) + "- ");
-            if (i < parentCategory.getDetails().size())
-                subCategoryStr += parentCategory.getDetails().get(i);
+            if (i < getParentCategory().getDetails().size())
+                subCategoryStr += getParentCategory().getDetails().get(i);
             else
-                subCategoryStr += details.get(i - parentCategory.getDetails().size());
+                subCategoryStr += details.get(i - getParentCategory().getDetails().size());
         }
         subCategoryStr += "\nProducts =\n";
-        for (Good good : goods) {
+        for (Good good : getGoods()) {
             subCategoryStr += (good.toString());
         }
         return subCategoryStr;
