@@ -33,7 +33,7 @@ public class ControllerForSorting {
             return showSortByAverageRate(allGoods);
         if (currentSort.equals("date"))
             return showSortByDate(allGoods);
-        return null;
+        return allGoods;
     }
 
     public List<Good> showSortByVisitNumber(List<Good> allGoods){
