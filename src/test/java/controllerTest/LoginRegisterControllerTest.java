@@ -38,9 +38,9 @@ public class LoginRegisterControllerTest {
     }
 
     @Test
-    public void createAcoountTest2(){
-        Shop.getInstance().addPerson(new Manager("managertest","dadad","adasd","adasd"
-                ,"adasd","adasdas"));
+    public void createAcoountTest2() {
+        Shop.getInstance().addPerson(new Manager("managertest", "dadad", "adasd", "adasd"
+                , "adasd", "adasdas"));
         ArrayList<String> details = new ArrayList<>();
         for (int i = 1; i < 10; i++)
             details.add("hi");
@@ -58,7 +58,7 @@ public class LoginRegisterControllerTest {
     }
 
     @Test
-    public void createAccount3(){
+    public void createAccount3() {
         ArrayList<String> details = new ArrayList<>();
         for (int i = 1; i < 10; i++)
             details.add("999");
@@ -77,12 +77,12 @@ public class LoginRegisterControllerTest {
     }
 
     @Test
-    public void loginUser(){
-        Shop.getInstance().addPerson(new Manager("managertest","dadad","adasd","adasd"
-                ,"adasd","adasdas"));
+    public void loginUser() {
+        Shop.getInstance().addPerson(new Manager("managertest", "dadad", "adasd", "adasd"
+                , "adasd", "adasdas"));
         try {
-            MainController.getInstance().getLoginRegisterController().loginUser("managertest","adasdas");
-            Assert.assertEquals(MainController.getInstance().getCurrentPerson().getUsername(),"managertest");
+            MainController.getInstance().getLoginRegisterController().loginUser("managertest", "adasdas");
+            Assert.assertEquals(MainController.getInstance().getCurrentPerson().getUsername(), "managertest");
         } catch (UsernameNotFoundException e) {
             e.printStackTrace();
         } catch (PasswordIncorrectException e) {
@@ -91,11 +91,11 @@ public class LoginRegisterControllerTest {
     }
 
     @Test
-    public void loginUser2(){
-        Shop.getInstance().addPerson(new Manager("managertest","dadad","adasd","adasd"
-                ,"adasd","adasdas"));
+    public void loginUser2() {
+        Shop.getInstance().addPerson(new Manager("managertest", "dadad", "adasd", "adasd"
+                , "adasd", "adasdas"));
         try {
-            MainController.getInstance().getLoginRegisterController().loginUser("managertest","wrong");
+            MainController.getInstance().getLoginRegisterController().loginUser("managertest", "wrong");
             Assert.assertTrue(false);
         } catch (UsernameNotFoundException e) {
             e.printStackTrace();
@@ -105,14 +105,34 @@ public class LoginRegisterControllerTest {
     }
 
     @Test
-    public void logoutUser(){
+    public void logoutUser() {
         MainController.getInstance().getLoginRegisterController().logoutUser();
-        Assert.assertEquals(MainController.getInstance().getCurrentPerson(),null);
+        Assert.assertEquals(MainController.getInstance().getCurrentPerson(), null);
+    }
+
+    @Test
+    public void CreateAccountTest4() {
+        ArrayList<String> details = new ArrayList<>();
+        for (int i = 1; i < 12; i++)
+            details.add("999");
+        try {
+            MainController.getInstance().getLoginRegisterController().createAccount("seller", "seller22", details);
+            Assert.assertTrue(!Shop.getInstance().getAllRequest().isEmpty());
+        } catch (UsernameIsTakenAlreadyException e) {
+            e.printStackTrace();
+        } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
+            mainManagerAlreadyRegistered.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @After
     public void delete() {
         Shop.getInstance().removePerson(Shop.getInstance().findUser("test!!!!"));
         Shop.getInstance().removePerson(Shop.getInstance().findUser("managertest"));
+        MainController.getInstance().setCurrentPerson(null);
     }
 }

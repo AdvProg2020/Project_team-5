@@ -56,6 +56,10 @@ public class Good {
         return goodId;
     }
 
+    public static long getGoodsCount() {
+        return goodsCount;
+    }
+
     public long getPriceBySeller(Seller seller) {
         for (SellerRelatedInfoAboutGood sellerInfo : sellerRelatedInfoAboutGoods) {
             if (sellerInfo.getSeller().equals(seller))

@@ -50,7 +50,7 @@ public class OffsControllerTest {
 
     @Test
     public void getGoodDetailTest() {
-        String output = "phoness =      \tgood id : 1\t         price before off : 9000              \t price after off : 7200";
+        String output = "phoness =      \tgood id : " + (Good.getGoodsCount() - 1) + "\t         price before off : 9000              \t price after off : 7200";
         Assert.assertEquals(output, MainController.getInstance().getOffsController().showOffProducts());
     }
 
