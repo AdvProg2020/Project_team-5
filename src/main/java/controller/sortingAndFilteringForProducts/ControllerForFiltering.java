@@ -42,10 +42,6 @@ public class ControllerForFiltering {
         return binaryFilters;
     }
 
-    public Category getFilteredCategory() {
-        return filteredCategory;
-    }
-
     public boolean isAvailableProduct() {
         return availableProduct;
     }

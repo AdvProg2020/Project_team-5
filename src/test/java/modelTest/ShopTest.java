@@ -2,6 +2,7 @@ package modelTest;
 
 import model.Shop;
 import model.persons.Customer;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,6 +25,15 @@ public class ShopTest {
         Shop.getInstance().generatePeriodRandomDiscountCodes(LocalDate.now().plusMonths(2));
         Customer customer= (Customer) Shop.getInstance().findUser("yasaman1");
         Assert.assertTrue(customer.getDiscountCodes() != null);
+    }
+
+    @AfterClass
+    public static void delete(){
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman1"));
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman2"));
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman3"));
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman4"));
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman5"));
     }
 
 }
