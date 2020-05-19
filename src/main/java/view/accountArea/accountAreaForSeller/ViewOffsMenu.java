@@ -235,7 +235,7 @@ public class ViewOffsMenu extends Menu {
     }
 
     private void removeGoodFromOff(long id) {
-        System.out.println("enter good id to add to your off");
+        System.out.println("enter good id to remove from your off");
         long productId = Long.parseLong(getValidInput("[\\d]+", "Not valid id"));
         if (!Shop.getInstance().findOffById(id).doesHaveThisProduct(Shop.getInstance().findGoodById(productId))) {
             System.out.println("you don't have this product in your off");
