@@ -7,7 +7,9 @@ import model.category.Category;
 import model.category.SubCategory;
 import model.orders.Order;
 import model.orders.OrderForSeller;
+import model.persons.Company;
 import model.persons.Manager;
+import model.persons.Seller;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -27,6 +29,7 @@ public class AccountAreaTest {
         SubCategory subCategory = new SubCategory("lenovo", details);
         category.addSubCategory(subCategory);
         Shop.getInstance().addCategory(category);
+        category.addSubCategory(subCategory);
         Manager manager = new Manager("aboot", "aboot", "aboot", "dfdf@dfdf.sd", "23232323232", "Mdf2");
         Shop.getInstance().addPerson(manager);
         MainController.getInstance().setCurrentPerson(manager);
@@ -60,8 +63,10 @@ public class AccountAreaTest {
     public void getSortedOrderTest() {
         List<String> list;
         List<Order> orders = new ArrayList<>();
-        orders.add(new OrderForSeller(2000, null, "dfddf", null));
-        orders.add(new OrderForSeller(4323, null, "dfddf", null));
+        Company company=new Company("salam","asfs","asdasd","addasd","999");
+        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
+        orders.add(new OrderForSeller(2000, seller, "dfddf", null));
+        orders.add(new OrderForSeller(4323, seller, "dfddf", null));
         list = MainController.getInstance().getAccountAreaForManagerController().getSortedOrders(2, orders);
         String output="[--------------------------------------------------------------------------------\n" +
                 "OrderId : "+(Order.getOrdersCount()-2) + "\n" +
@@ -85,6 +90,8 @@ public class AccountAreaTest {
     @AfterClass
     public static void delete(){
         Shop.getInstance().removePerson(Shop.getInstance().findUser("aboot"));
-        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("laptop"));
+        Shop.getInstance().getHashMapOfCategories().remove("laptop");
+        Shop.getInstance().getAllSubCategories().remove("lenovo");
+        MainController.getInstance().setCurrentPerson(null);
     }
 }
