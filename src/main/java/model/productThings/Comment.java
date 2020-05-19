@@ -28,6 +28,10 @@ public class Comment {
         this.commentStatus = CommentStatus.INPROGRESS;
     }
 
+    public static long getCommentIdCounter() {
+        return commentIdCounter;
+    }
+
     public Person getPerson() {
         return Shop.getInstance().findUser(person);
     }
@@ -52,6 +56,6 @@ public class Comment {
     public String toString() {
         return String.format("Commenter Username : %s\nProduct Id : %d\n" +
                         "Product Name : %s\nTitle : %s\nContent : %s\n", this.person,
-                this.good, this.getGood().getName(), this.title, this.comment);
+                this.getGood().getGoodId(), this.getGood().getName(), this.title, this.comment);
     }
 }

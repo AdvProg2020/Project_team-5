@@ -5,6 +5,7 @@ import exception.productExceptions.ProductWithThisIdNotExist;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.persons.Company;
 import model.persons.Seller;
 import model.productThings.Good;
 import org.junit.*;
@@ -28,7 +29,8 @@ public class AllProductsControllerTest {
         details2.add("hi2");
         SubCategory subCategory=new SubCategory("sub kabir",details2);
         category.addSubCategory(subCategory);
-        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", null);
+        Company company=new Company("salam","asfs","asdasd","addasd","999");
+        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
         Good good=new Good("phone", "samsung", subCategory, "", new HashMap<>(), seller, 9000L, 3);
         subCategory.addGood(good);
     }
@@ -47,7 +49,7 @@ public class AllProductsControllerTest {
     @Test
     public void showAProductTest(){
         try {
-            MainController.getInstance().getAllProductsController().showAProduct(2);
+            MainController.getInstance().getAllProductsController().showAProduct(Good.getGoodsCount()-1);
             Assert.assertFalse(false);
         } catch (ProductWithThisIdNotExist productWithThisIdNotExist) {
             Assert.assertTrue(true);
@@ -62,6 +64,6 @@ public class AllProductsControllerTest {
 
     @After
     public  void delete(){
-        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("aboots"));
+        Shop.getInstance().getHashMapOfCategories().remove("aboots");
     }
 }

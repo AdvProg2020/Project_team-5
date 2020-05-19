@@ -25,12 +25,13 @@ public class ProductController {
 
     public void setGood(Good good) {
         this.good = good;
-        if (good != null)
+        if (good != null) {
             good.setSeenNumber(good.getSeenNumber() + 1);
-        try {
-           Database.getInstance().saveItem(good);
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                Database.getInstance().saveItem(good);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -111,7 +112,7 @@ public class ProductController {
                 didCommenterBoughtThisProduct = true;
         }
         AddingCommentRequest addingCommentRequest = new AddingCommentRequest(MainController.getInstance().getCurrentPerson()
-                ,this.getGood(),title,content,didCommenterBoughtThisProduct);
+                , this.getGood(), title, content, didCommenterBoughtThisProduct);
         Shop.getInstance().addRequest(addingCommentRequest);
         Database.getInstance().saveItem(addingCommentRequest);
     }

@@ -6,6 +6,7 @@ import exception.productExceptions.ThisProductIsnotInAnyOff;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.persons.Company;
 import model.persons.Seller;
 import model.productThings.Comment;
 import model.productThings.Good;
@@ -36,7 +37,8 @@ public class OffsControllerTest {
         HashMap<String, String> categoryProperty = new HashMap<>();
         categoryProperty.put("p1", "salam1");
         categoryProperty.put("p2", "salam2");
-        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", null);
+        Company company=new Company("salam","asfs","asdasd","addasd","999");
+        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", company);
         Good good = new Good("phoness", "samsung", subCategory, "details", categoryProperty,
                 seller, 9000L, 3);
         List<Good> goods = new ArrayList<>();

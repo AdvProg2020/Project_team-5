@@ -2,8 +2,10 @@ package controllerTest;
 
 import controller.MainController;
 import exception.productExceptions.ProductWithThisIdNotExist;
+import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
+import model.persons.Company;
 import model.persons.Seller;
 import model.productThings.Comment;
 import model.productThings.Good;
@@ -27,16 +29,24 @@ public class ProductControllerTest {
         details2.add("hi1");
         details2.add("hi2");
         SubCategory subCategory=new SubCategory("sub kabir",details2);
+        subCategory.setParentCategory(category);
         category.addSubCategory(subCategory);
         HashMap<String,String> categoryProperty=new HashMap<>();
         categoryProperty.put("p1","salam1");
         categoryProperty.put("p2","salam2");
-        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", null);
+        Shop.getInstance().addCategory(category);
+        Shop.getInstance().addSubCategory(subCategory);
+        Company company=new Company("salam","asfs","asdasd","addasd","999");
+        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", company);
         Good good=new Good("phone", "samsung", subCategory, "details", categoryProperty,
                 seller, 9000L, 3);
         MainController.getInstance().getProductController().setGood(good);
         Comment comment=new Comment(seller,good,"title","content",false);
         good.addComment(comment);
+        subCategory.addGood(good);
+        Shop.getInstance().addPerson(seller);
+        Shop.getInstance().addAComment(comment);
+        Shop.getInstance().addGoodToAllGoods(good);
     }
 
     @Test
@@ -104,5 +114,10 @@ public class ProductControllerTest {
     @AfterClass
     public static void delete(){
         MainController.getInstance().getProductController().setGood(null);
+        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("aboots"));
+        Shop.getInstance().getAllSubCategories().remove("sub kabir");
+        Shop.getInstance().getHashMapOfGoods().remove("phone");
+        Shop.getInstance().getAllComments().remove(Comment.getCommentIdCounter()-1);
+        Shop.getInstance().removePerson(Shop.getInstance().findUser("hi"));
     }
 }
