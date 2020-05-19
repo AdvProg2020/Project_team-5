@@ -150,10 +150,6 @@ public class Shop {
         good.getSubCategory().deleteGood(good);
     }
 
-    public void addProduct(Good good) {
-        good.getSubCategory().addGood(good);
-    }
-
     public Person findUser(String userName) {
         for (Person person : allPersons) {
             if (person.getUsername().equals(userName))
@@ -294,13 +290,6 @@ public class Shop {
 
     public void removeOff(Off off) {
         offs.remove(off.getOffId());
-    }
-
-    public void deleteCategory(Category category) {
-        for (int i = 0; i < category.getSubCategories().size(); i++) {
-            category.deleteSubCategory(category.getSubCategories().get(0));
-        }
-        removeCategory(category);
     }
 
     public void generatePeriodRandomDiscountCodes(LocalDate endDate) throws IOException, FileCantBeSavedException {

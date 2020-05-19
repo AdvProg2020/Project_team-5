@@ -23,13 +23,6 @@ public class BinaryFilters  {
         return endValue;
     }
 
-    public void setStartValue(String startValue) {
-        this.startValue = startValue;
-    }
-
-    public void setEndValue(String endValue) {
-        this.endValue = endValue;
-    }
 
     @Override
     public String toString(){

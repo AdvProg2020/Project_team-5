@@ -156,7 +156,6 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Database.getInstance().saveItem(orderForCustomer);
         currentUser.setCredit(currentUser.getCredit() - price);
         currentUser.donateDiscountCodeTOBestCustomers();
-       // Database.getInstance().saveItem(currentUser);
         Database.getInstance().saveItem(currentUser);
         makeOrderForSeller(customerInfo.get(0));
         reduceAvailableNumberOfGoodsAfterPurchase();
