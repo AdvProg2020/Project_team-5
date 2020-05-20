@@ -64,7 +64,7 @@ public class CustomerTest {
 
     @Test
     public void findOrderByIdTest() {
-        Assert.assertNull(customer.findOrderById(Order.getOrdersCount()-1));
+        Assert.assertNull(customer.findOrderById(Order.getOrdersCount()-2));
     }
 
     @AfterEach
