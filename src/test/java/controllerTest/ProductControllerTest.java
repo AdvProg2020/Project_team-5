@@ -59,7 +59,7 @@ public class ProductControllerTest {
     @Test
     public void digestTest(){
         String output="------------------------------------\n" +
-                "GoodId = 1\n" +
+                "GoodId = "+ MainController.getInstance().getProductController().getGood().getGoodId()+"\n" +
                 "name = phone\n" +
                 "goodStatus = BUILTPROCESSING\n" +
                 "brand = samsung\n" +
@@ -104,7 +104,7 @@ public class ProductControllerTest {
                 "average rate of this product is = 0.0\n" +
                 "--------------------------------------------\n" +
                 "Commenter Username : hi\n" +
-                "Product Id : 1\n" +
+                "Product Id : "+ MainController.getInstance().getProductController().getGood().getGoodId()+"\n" +
                 "Product Name : phone\n" +
                 "Title : title\n" +
                 "Content : content\n" +
