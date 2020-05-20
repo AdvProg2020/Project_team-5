@@ -67,15 +67,15 @@ public class AccountAreaTest {
         List<Order> orders = new ArrayList<>();
         Company company = new Company("salam", "asfs", "asdasd", "addasd", "999");
         Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", company);
-        orders.add(new OrderForSeller(2000, seller, "dfddf", null));
+        orders.add(new OrderForSeller(3000, seller, "dfddf", null));
         orders.add(new OrderForSeller(4323, seller, "dfddf", null));
         list = MainController.getInstance().getAccountAreaForManagerController().getSortedOrders(2, orders);
         String output = "[--------------------------------------------------------------------------------\n" +
                 "OrderId : " + (Order.getOrdersCount() - 2) + "\n" +
                 "Date : " + LocalDate.now() + "\n" +
                 "GoodsList :\n" +
-                "Paid price : 2000\n" +
-                "Discount amount : -2000\n" +
+                "Paid price : 3000\n" +
+                "Discount amount : -3000\n" +
                 "Order status : READYTOSEND\n" +
                 "--------------------------------------------------------------------------------, --------------------------------------------------------------------------------\n" +
                 "OrderId : " + (Order.getOrdersCount() - 1) + "\n" +
