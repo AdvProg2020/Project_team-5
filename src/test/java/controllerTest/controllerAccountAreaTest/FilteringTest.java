@@ -59,10 +59,10 @@ public class FilteringTest {
                 ArrayList<Good> goods = new ArrayList<>();
                 Company company=new Company("salam","asfs","asdasd","addasd","999");
                 Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
-                Good good1 = new Good("laptop", "app", subCategory, "", new HashMap<>(), seller, 100, 2);
-                Good good2 = new Good("phone", "app", subCategory, "", new HashMap<>(), seller, 400, 2);
-                Good good3 = new Good("headphone", "sam", subCategory, "", new HashMap<>(), seller, 500, 4);
-                Good good4 = new Good("laptop", "app", subCategory2, "", new HashMap<>(), seller, 200, 3);
+                Good good1 = new GoodTest("laptop", "app", subCategory, "", new HashMap<>(), seller, 100, 2);
+                Good good2 = new GoodTest("phone", "app", subCategory, "", new HashMap<>(), seller, 400, 2);
+                Good good3 = new GoodTest("headphone", "sam", subCategory, "", new HashMap<>(), seller, 500, 4);
+                Good good4 = new GoodTest("laptop", "app", subCategory2, "", new HashMap<>(), seller, 200, 3);
                 goods.add(good1);
                 goods.add(good2);
                 goods.add(good3);
@@ -155,4 +155,16 @@ public class FilteringTest {
         }
     }
 
+}
+
+class GoodTest extends Good{
+    private SubCategory subCategory;
+    public GoodTest(String name, String brand, SubCategory subCategory, String details, HashMap<String, String> categoryProperties, Seller seller, long price, int availableNumber) {
+        super(name, brand, subCategory, details, categoryProperties, seller, price, availableNumber);
+        this.subCategory = subCategory;
+    }
+    @Override
+    public SubCategory getSubCategory(){
+        return subCategory;
+    }
 }

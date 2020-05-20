@@ -30,7 +30,7 @@ public class ControllerForFiltering {
         this.goodList = new ArrayList<>();
     }
 
-    public List<Good> getGoodList() {
+    public List<Good>  getGoodList() {
         return goodList;
     }
 

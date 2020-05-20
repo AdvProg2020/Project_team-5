@@ -18,6 +18,7 @@ import model.requests.AddingOffRequest;
 import model.requests.EditingGoodRequest;
 import model.requests.EditingOffRequest;
 import model.requests.Request;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -59,11 +60,16 @@ public class AccountAreaForSellerTest {
 
     @Before
     public void initializing() {
+        Shop.getInstance().addPerson(seller);
         MainController.getInstance().setCurrentPerson(seller);
         Shop.getInstance().addCategory(category);
         category.addSubCategory(subCategory);
         subCategory.addGood(good);
-        //seller.addToActiveGoods(good);
+        Shop.getInstance().addPerson(seller);
+        Shop.getInstance().addGoodToAllGoods(good);
+        Shop.getInstance().addCategory(category);
+        Shop.getInstance().addSubCategory(subCategory);
+        seller.addToActiveGoods(good.getGoodId());
     }
 
 
@@ -102,6 +108,7 @@ public class AccountAreaForSellerTest {
         }
     }
 
+
     public ArrayList<String> makeArrayListForGoodCreation() {
         ArrayList<String> info = new ArrayList<>();
         info.add("name");
@@ -131,6 +138,8 @@ public class AccountAreaForSellerTest {
     public void testCompany(){
         Company company = new Company("A-Z", "AtoZ.com", "09876543241","80898","shiraz");
         Seller seller1 = new Seller("abc","","","", "", "aa",company);
+        Shop.getInstance().addCompany(company);
+        Shop.getInstance().addPerson(seller1);
         MainController.getInstance().setCurrentPerson(seller1);
         assertEquals(company.toString(),controller.getCompanyInfo());
     }
@@ -152,7 +161,6 @@ public class AccountAreaForSellerTest {
 
     @Test
     public void AddingOff(){
-        Off off;
         try {
             controller.addOff(makeArrayListForOff(),makeListOfGood());
         } catch (Exception e) {
@@ -224,30 +232,36 @@ public class AccountAreaForSellerTest {
 
     @After
     public void terminating() {
+        Shop.getInstance().removePerson(seller);
         MainController.getInstance().setCurrentPerson(null);
-        //subCategory.removeGood(good);
+        Shop.getInstance().getAllSubCategories().clear();
+        Shop.getInstance().getAllGoods().clear();
+        Shop.getInstance().getAllCategories().clear();
+        Shop.getInstance().getAllPersons().clear();
         category.removeSubCategoryFromList(subCategory);
         Shop.getInstance().removeCategory(category);
-        //seller.removeFromActiveGoods(good);
+
     }
 
     @Test
     public void showProductsTest(){
-       SellerTest seller = new SellerTest("aa","","","","","bb",null);
+       SellerTest seller = new SellerTest("aa","","","","","bb",new CompanyTest());
        AccountAreaForSellerController controller =new AccountAreaForSellerController();
        MainController.getInstance().setCurrentPerson(seller);
        assertTrue(controller.sort(1).get(0).getSeenNumber() == 4);
        assertTrue(controller.sort(2).get(0).getSeenNumber() == 1);
        assertTrue(controller.sort(3).get(0).getSeenNumber() == 2);
        assertTrue(controller.sort(4).get(0).getPriceBySeller(seller) == 500);
-       assertTrue(controller.sort(5).get(0).getAvailableNumberBySeller(seller) == 4);
+       assertEquals("sam",controller.sort(5).get(0).getBrand());
        assertTrue(controller.sort(0).get(0).getSeenNumber() == 2);
+       Shop.getInstance().removePerson(seller);
     }
 }
 
 class SellerTest extends Seller{
     public SellerTest(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
         super(username, firstName, lastName, email, phoneNumber, password, company);
+        Shop.getInstance().addPerson(this);
     }
 
     @Override
@@ -274,5 +288,16 @@ class SellerTest extends Seller{
         goods.add(good3);
         goods.add(good4);
         return goods;
+    }
+}
+
+class  CompanyTest extends Company {
+    public CompanyTest() {
+        super("", "website", "phoneNumber", "faxNumber", "address");
+    }
+
+    @Override
+    public long getId(){
+        return 1;
     }
 }

@@ -68,7 +68,7 @@ public class ProductControllerTest {
                 "sellers = 1- seller = hi\tprice = 9000\tavailableNumber = 3\n" +
                 "details =\n" +
                 "details\n" +
-                "modification date = 2020-05-19\n" +
+                "modification date = 2020-05-20\n" +
                 "seen number = 1\n" +
                 "------------------------------------";
         Assert.assertEquals(output,MainController.getInstance().getProductController().digest());

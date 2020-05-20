@@ -6,7 +6,9 @@ import controllerTest.ProductControllerTest;
 import exception.FileCantBeSavedException;
 import model.Shop;
 import model.category.SubCategory;
+import model.persons.Company;
 import model.persons.Customer;
+import model.persons.Seller;
 import model.productThings.Good;
 import model.requests.AddingCommentRequest;
 import model.requests.Request;
@@ -20,8 +22,9 @@ import static org.junit.Assert.*;
 
 public class CommentTest {
     SubCategory subCategory = new SubCategory("a", new ArrayList<>());
-    Good good = new Good("laptop", "app", subCategory, "", new HashMap<>(), null, 200, 3);
-    Customer customer = new Customer("aa","","","", "", "dd", 890L);
+    Seller seller = new Seller("aa","","", "", "","",null);
+    Good good = new Good("laptop", "app", subCategory, "", new HashMap<>(), seller, 200, 3);
+    Customer customer = new CustomerTest("aa","","","", "", "dd", 890L);
 
     @Test
     public void commentTesting(){
@@ -45,5 +48,13 @@ public class CommentTest {
                 break;
             }
         }
+        Shop.getInstance().removePerson(customer);
+    }
+}
+
+class CustomerTest extends Customer{
+    public CustomerTest(String username, String firstName, String lastName, String email, String phoneNumber, String password, long credit) {
+        super(username, firstName, lastName, email, phoneNumber, password, credit);
+        Shop.getInstance().addPerson(this);
     }
 }

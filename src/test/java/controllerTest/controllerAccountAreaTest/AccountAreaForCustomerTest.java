@@ -41,6 +41,10 @@ public class AccountAreaForCustomerTest {
         MainController.getInstance().setCurrentPerson(customer);
         Shop.getInstance().addCategory(category);
         category.addSubCategory(subCategory);
+        Shop.getInstance().addPerson(seller);
+        Shop.getInstance().addSubCategory(subCategory);
+        Shop.getInstance().addCategory(category);
+        Shop.getInstance().addGoodToAllGoods(good);
         subCategory.addGood(good);
         Shop.getInstance().addDiscountCode(discountCode);
         Shop.getInstance().addGoodToCart(good, seller, 1);
@@ -149,10 +153,12 @@ public class AccountAreaForCustomerTest {
     @After
     public void terminating() {
         MainController.getInstance().setCurrentPerson(null);
-        //subCategory.removeGood(good);
         category.removeSubCategoryFromList(subCategory);
         Shop.getInstance().removeCategory(category);
         Shop.getInstance().clearCart();
         Shop.getInstance().removeDiscountCode(discountCode);
+        Shop.getInstance().getAllPersons().clear();
+        Shop.getInstance().getAllCategories().clear();
+        Shop.getInstance().getAllGoods().clear();
     }
 }
