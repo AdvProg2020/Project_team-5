@@ -11,6 +11,7 @@ import model.persons.Manager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import testThings.TestShop;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -131,8 +132,7 @@ public class LoginRegisterControllerTest {
 
     @After
     public void delete() {
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("test!!!!"));
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("managertest"));
+        TestShop.clearShop();
         MainController.getInstance().setCurrentPerson(null);
     }
 }

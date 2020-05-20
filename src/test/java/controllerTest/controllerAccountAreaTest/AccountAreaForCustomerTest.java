@@ -19,6 +19,7 @@ import model.productThings.Rate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import testThings.TestShop;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -154,11 +155,6 @@ public class AccountAreaForCustomerTest {
     public void terminating() {
         MainController.getInstance().setCurrentPerson(null);
         category.removeSubCategoryFromList(subCategory);
-        Shop.getInstance().removeCategory(category);
-        Shop.getInstance().clearCart();
-        Shop.getInstance().removeDiscountCode(discountCode);
-        Shop.getInstance().getAllPersons().clear();
-        Shop.getInstance().getAllCategories().clear();
-        Shop.getInstance().getAllGoods().clear();
+        TestShop.clearShop();
     }
 }

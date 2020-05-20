@@ -25,6 +25,7 @@ import model.productThings.DiscountCode;
 import model.productThings.Good;
 import model.requests.RegisteringSellerRequest;
 import org.junit.*;
+import testThings.TestShop;
 
 import java.io.File;
 import java.io.IOException;
@@ -310,11 +311,7 @@ public class AccountAreaForManagerTest {
 
     @AfterClass
     public static void delete(){
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman"));
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("sadegh"));
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("XxXxXx"));
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("fgf"));
-        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("ashghal"));
+        TestShop.clearShop();
     }
 }
 

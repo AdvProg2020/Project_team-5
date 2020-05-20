@@ -9,6 +9,7 @@ import model.persons.Company;
 import model.persons.Seller;
 import model.productThings.Good;
 import org.junit.*;
+import testThings.TestShop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +65,6 @@ public class AllProductsControllerTest {
 
     @After
     public  void delete(){
-        Shop.getInstance().getHashMapOfCategories().remove("aboots");
+        TestShop.clearShop();
     }
 }

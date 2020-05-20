@@ -14,6 +14,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import testThings.TestShop;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -74,11 +75,7 @@ public class OffsControllerTest {
 
     @AfterClass
     public static void delete() {
-        Shop.getInstance().removeOff(Shop.getInstance().findOffById(Off.getOffsCount() - 1));
-        Shop.getInstance().getAllPersons().clear();
-        Shop.getInstance().getAllCategories().clear();
-        Shop.getInstance().getAllGoods().clear();
-        Shop.getInstance().getAllSubCategories().clear();
+        TestShop.clearShop();
     }
 
 }

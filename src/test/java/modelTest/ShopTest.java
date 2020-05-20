@@ -7,6 +7,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import testThings.TestShop;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -31,11 +32,7 @@ public class ShopTest {
 
     @AfterClass
     public static void delete(){
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman1"));
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman2"));
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman3"));
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman4"));
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("yasaman5"));
+        TestShop.clearShop();
     }
 
 }

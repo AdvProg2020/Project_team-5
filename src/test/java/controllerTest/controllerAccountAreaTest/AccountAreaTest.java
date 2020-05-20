@@ -14,6 +14,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import testThings.TestShop;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,9 +90,7 @@ public class AccountAreaTest {
 
     @AfterClass
     public static void delete(){
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("aboot"));
-        Shop.getInstance().getHashMapOfCategories().remove("laptop");
-        Shop.getInstance().getAllSubCategories().remove("lenovo");
         MainController.getInstance().setCurrentPerson(null);
+        TestShop.clearShop();
     }
 }

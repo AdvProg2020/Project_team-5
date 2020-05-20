@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import testThings.TestShop;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -78,9 +79,6 @@ public class OffTest {
 
     @After
     public void delete(){
-        Shop.getInstance().removePerson(seller);
-        Shop.getInstance().removeOff(off);
-        Shop.getInstance().removeGoodFromAllGoods(good);
-        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("aboots"));
+        TestShop.clearShop();
     }
 }

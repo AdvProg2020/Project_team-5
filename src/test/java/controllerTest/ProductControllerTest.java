@@ -13,6 +13,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import testThings.TestShop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,10 +115,6 @@ public class ProductControllerTest {
     @AfterClass
     public static void delete(){
         MainController.getInstance().getProductController().setGood(null);
-        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("aboots"));
-        Shop.getInstance().getAllSubCategories().remove("sub kabir");
-        Shop.getInstance().getHashMapOfGoods().remove("phone");
-        Shop.getInstance().getAllComments().remove(Comment.getCommentIdCounter()-1);
-        Shop.getInstance().removePerson(Shop.getInstance().findUser("hi"));
+        TestShop.clearShop();
     }
 }

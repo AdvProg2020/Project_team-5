@@ -1,3 +1,5 @@
+package testThings;
+
 import model.Shop;
 
 public class TestShop {

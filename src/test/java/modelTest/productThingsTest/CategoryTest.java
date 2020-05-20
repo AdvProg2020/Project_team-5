@@ -7,6 +7,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import testThings.TestShop;
 
 import java.util.ArrayList;
 
@@ -49,7 +50,6 @@ public class CategoryTest {
     }
     @AfterClass
     public static void delete(){
-        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("abootsZ"));
-        Shop.getInstance().getAllSubCategories().remove("sub");
+        TestShop.clearShop();
     }
 }

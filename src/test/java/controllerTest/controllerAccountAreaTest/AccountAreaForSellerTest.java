@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import testThings.TestShop;
 
 import static org.junit.Assert.*;
 
@@ -232,15 +233,9 @@ public class AccountAreaForSellerTest {
 
     @After
     public void terminating() {
-        Shop.getInstance().removePerson(seller);
         MainController.getInstance().setCurrentPerson(null);
-        Shop.getInstance().getAllSubCategories().clear();
-        Shop.getInstance().getAllGoods().clear();
-        Shop.getInstance().getAllCategories().clear();
-        Shop.getInstance().getAllPersons().clear();
         category.removeSubCategoryFromList(subCategory);
-        Shop.getInstance().removeCategory(category);
-
+        TestShop.clearShop();
     }
 
     @Test
