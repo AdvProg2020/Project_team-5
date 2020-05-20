@@ -22,7 +22,8 @@ import static org.junit.Assert.*;
 
 public class CommentTest {
     SubCategory subCategory = new SubCategory("a", new ArrayList<>());
-    Seller seller = new Seller("aa","","", "", "","",null);
+    Company company=new Company("salam","asfs","asdasd","addasd","999");
+    Seller seller = new Seller("aa","","", "", "","",company);
     Good good = new Good("laptop", "app", subCategory, "", new HashMap<>(), seller, 200, 3);
     Customer customer = new CustomerTest("aa","","","", "", "dd", 890L);
 
