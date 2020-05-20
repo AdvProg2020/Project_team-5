@@ -64,21 +64,23 @@ public class AccountAreaTest {
     public void getSortedOrderTest() {
         List<String> list;
         List<Order> orders = new ArrayList<>();
-        Company company=new Company("salam","asfs","asdasd","addasd","999");
-        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
-        orders.add(new OrderForSeller(2000, seller, "dfddf", null));
-        orders.add(new OrderForSeller(4323, seller, "dfddf", null));
+        Company company = new Company("salam", "asfs", "asdasd", "addasd", "999");
+        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", company);
+        Order order1 = new OrderForSeller(2000, seller, "dfddf", null);
+        Order order2 = new OrderForSeller(4323, seller, "dfddf", null);
+        orders.add(order1);
+        orders.add(order2);
         list = MainController.getInstance().getAccountAreaForManagerController().getSortedOrders(2, orders);
-        String output="[--------------------------------------------------------------------------------\n" +
-                "OrderId : "+(Order.getOrdersCount()-2) + "\n" +
-                "Date : 2020-05-19\n" +
+        String output = "[--------------------------------------------------------------------------------\n" +
+                "OrderId : " + (Order.getOrdersCount() - 2) + "\n" +
+                "Date : " + order1.getDate() + "\n" +
                 "GoodsList :\n" +
                 "Paid price : 2000\n" +
                 "Discount amount : -2000\n" +
                 "Order status : READYTOSEND\n" +
                 "--------------------------------------------------------------------------------, --------------------------------------------------------------------------------\n" +
-                "OrderId : "+(Order.getOrdersCount()-1)+"\n" +
-                "Date : 2020-05-19\n" +
+                "OrderId : " + (Order.getOrdersCount() - 1) + "\n" +
+                "Date : " + order2.getDate() + "\n" +
                 "GoodsList :\n" +
                 "Paid price : 4323\n" +
                 "Discount amount : -4323\n" +
@@ -89,7 +91,7 @@ public class AccountAreaTest {
 
 
     @AfterClass
-    public static void delete(){
+    public static void delete() {
         MainController.getInstance().setCurrentPerson(null);
         TestShop.clearShop();
     }
