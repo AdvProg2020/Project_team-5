@@ -5,6 +5,7 @@ import controller.accountArea.AccountAreaForCustomerController;
 import exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
 import exception.discountcodeExceptions.DiscountCodeNotFoundException;
 
+import exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
 import model.Shop;
 import model.category.Category;
 import model.category.SubCategory;
@@ -69,6 +70,7 @@ public class AccountAreaForCustomerTest {
 
     @Test
     public void buyProcessTest() {
+        
         assertEquals(9000L, controller.getTotalPriceOfCart());
         assertEquals((new GoodInCart(good, seller, 1).toString()), controller.viewInCartProducts().get(0));
         assertTrue(controller.checkExistProductInCart(good.getGoodId()));
@@ -103,6 +105,13 @@ public class AccountAreaForCustomerTest {
 
     @Test
     public void increaseAndDecreaseGoodInCart() {
+        Shop.getInstance().clearCart();
+        MainController.getInstance().getProductController().setGood(good);
+        try {
+            MainController.getInstance().getProductController().addGoodToCart(1,1);
+        } catch (DontHaveEnoughNumberOfThisProduct dontHaveEnoughNumberOfThisProduct) {
+            dontHaveEnoughNumberOfThisProduct.printStackTrace();
+        }
         try {
             controller.increaseInCartProduct(good.getGoodId());
             assertEquals(2, Shop.getInstance().getCart().get(0).getNumber());
