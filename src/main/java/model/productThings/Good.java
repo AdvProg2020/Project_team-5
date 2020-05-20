@@ -136,12 +136,6 @@ public class Good {
         return categoryProperties;
     }
 
-    public void deleteGoodFromSellerList() {
-        for (SellerRelatedInfoAboutGood sellerRelatedInfo : getSellerRelatedInfoAboutGoods()) {
-            sellerRelatedInfo.getSeller().removeFromActiveGoods(this.getGoodId());
-        }
-    }
-
     public int getSeenNumber() {
         return seenNumber;
     }
