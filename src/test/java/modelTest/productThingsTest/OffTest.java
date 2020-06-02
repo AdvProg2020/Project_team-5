@@ -1,17 +1,17 @@
 package modelTest.productThingsTest;
 
-import model.Shop;
-import model.category.Category;
-import model.category.SubCategory;
-import model.persons.Company;
-import model.persons.Seller;
-import model.productThings.Good;
-import model.productThings.Off;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.Off;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import testThings.TestShop;
+import ApProject_OnlineShop.testThings.TestShop;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,13 +1,13 @@
 package controllerTest.controllerAccountAreaTest;
 
-import controller.sorting.SortController;
-import controller.sortingAndFilteringForProducts.ControllerForSorting;
-import model.category.Category;
-import model.category.SubCategory;
-import model.persons.Company;
-import model.persons.Seller;
-import model.productThings.Good;
-import model.productThings.Off;
+import ApProject_OnlineShop.controller.sorting.SortController;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.Off;
 import org.junit.Test;
 
 import java.time.LocalDate;

@@ -1,13 +1,13 @@
 package controllerTest.controllerAccountAreaTest;
 
-import controller.sortingAndFilteringForProducts.BinaryFilters;
-import controller.sortingAndFilteringForProducts.ControllerForFiltering;
-import exception.categoryExceptions.CategoryNotFound;
-import exception.userExceptions.SellerNotFound;
-import model.category.SubCategory;
-import model.persons.Company;
-import model.persons.Seller;
-import model.productThings.Good;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.BinaryFilters;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
+import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFound;
+import ApProject_OnlineShop.exception.userExceptions.SellerNotFound;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.Good;
 import org.junit.Test;
 
 import java.util.ArrayList;

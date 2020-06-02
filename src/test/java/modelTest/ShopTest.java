@@ -1,13 +1,13 @@
 package modelTest;
 
-import exception.FileCantBeSavedException;
-import model.Shop;
-import model.persons.Customer;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Customer;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import testThings.TestShop;
+import ApProject_OnlineShop.testThings.TestShop;
 
 import java.io.IOException;
 import java.time.LocalDate;

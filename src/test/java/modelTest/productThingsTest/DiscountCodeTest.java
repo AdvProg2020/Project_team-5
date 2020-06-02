@@ -1,14 +1,12 @@
 package modelTest.productThingsTest;
 
-import model.persons.Customer;
-import model.productThings.DiscountCode;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.productThings.DiscountCode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 
 public class DiscountCodeTest {
     private static Customer customer;

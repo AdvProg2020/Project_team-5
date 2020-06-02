@@ -1,20 +1,17 @@
 package modelTest.productThingsTest;
 
-import controller.MainController;
-import controller.products.ProductController;
-import controllerTest.ProductControllerTest;
-import exception.FileCantBeSavedException;
-import model.Shop;
-import model.category.SubCategory;
-import model.persons.Company;
-import model.persons.Customer;
-import model.persons.Seller;
-import model.productThings.Good;
-import model.requests.AddingCommentRequest;
-import model.requests.Request;
+import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.controller.products.ProductController;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.requests.AddingCommentRequest;
+import ApProject_OnlineShop.model.requests.Request;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 

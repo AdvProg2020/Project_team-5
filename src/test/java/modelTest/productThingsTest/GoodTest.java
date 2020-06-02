@@ -1,13 +1,13 @@
 package modelTest.productThingsTest;
 
-import model.Shop;
-import model.category.Category;
-import model.category.SubCategory;
-import model.persons.Customer;
-import model.persons.Seller;
-import model.productThings.DiscountCode;
-import model.productThings.Good;
-import model.productThings.SellerRelatedInfoAboutGood;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.DiscountCode;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

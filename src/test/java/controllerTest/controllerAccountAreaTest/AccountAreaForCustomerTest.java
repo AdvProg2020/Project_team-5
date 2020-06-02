@@ -1,26 +1,24 @@
 package controllerTest.controllerAccountAreaTest;
 
-import controller.MainController;
-import controller.accountArea.AccountAreaForCustomerController;
-import exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
-import exception.discountcodeExceptions.DiscountCodeNotFoundException;
+import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.controller.accountArea.AccountAreaForCustomerController;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 
-import exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
-import model.Shop;
-import model.category.Category;
-import model.category.SubCategory;
-import model.orders.OrderForCustomer;
-import model.persons.Company;
-import model.persons.Customer;
-import model.persons.Seller;
-import model.productThings.DiscountCode;
-import model.productThings.Good;
-import model.productThings.GoodInCart;
-import model.productThings.Rate;
+import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.DiscountCode;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.GoodInCart;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import testThings.TestShop;
+import ApProject_OnlineShop.testThings.TestShop;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

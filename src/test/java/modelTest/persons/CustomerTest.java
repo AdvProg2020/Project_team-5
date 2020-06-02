@@ -1,20 +1,17 @@
 package modelTest.persons;
 
-import model.Shop;
-import model.category.Category;
-import model.category.SubCategory;
-import model.orders.Order;
-import model.orders.OrderForCustomer;
-import model.persons.Company;
-import model.persons.Customer;
-import model.persons.Seller;
-import model.productThings.Good;
-import model.productThings.GoodInCart;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.orders.OrderForCustomer;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.GoodInCart;
 import org.junit.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import testThings.TestShop;
+import ApProject_OnlineShop.testThings.TestShop;
 
 import java.util.ArrayList;
 import java.util.HashMap;

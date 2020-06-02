@@ -1,17 +1,17 @@
 package controllerTest;
 
-import controller.MainController;
-import exception.FileCantBeSavedException;
-import exception.userExceptions.MainManagerAlreadyRegistered;
-import exception.userExceptions.PasswordIncorrectException;
-import exception.userExceptions.UsernameIsTakenAlreadyException;
-import exception.userExceptions.UsernameNotFoundException;
-import model.Shop;
-import model.persons.Manager;
+import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
+import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
+import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
+import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Manager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-import testThings.TestShop;
+import ApProject_OnlineShop.testThings.TestShop;
 
 import java.io.IOException;
 import java.util.ArrayList;

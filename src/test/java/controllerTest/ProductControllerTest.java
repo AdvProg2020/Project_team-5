@@ -1,19 +1,19 @@
 package controllerTest;
 
-import controller.MainController;
-import exception.productExceptions.ProductWithThisIdNotExist;
-import model.Shop;
-import model.category.Category;
-import model.category.SubCategory;
-import model.persons.Company;
-import model.persons.Seller;
-import model.productThings.Comment;
-import model.productThings.Good;
+import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.Comment;
+import ApProject_OnlineShop.model.productThings.Good;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import testThings.TestShop;
+import ApProject_OnlineShop.testThings.TestShop;
 
 import java.util.ArrayList;
 import java.util.HashMap;

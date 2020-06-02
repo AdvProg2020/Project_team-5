@@ -1,6 +1,6 @@
 package controllerTest;
 
-import controller.MainController;
+import ApProject_OnlineShop.controller.MainController;
 import org.junit.Assert;
 import org.junit.Test;
 

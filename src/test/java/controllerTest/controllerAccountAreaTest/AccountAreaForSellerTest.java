@@ -1,33 +1,29 @@
 package controllerTest.controllerAccountAreaTest;
 
-import controller.MainController;
-import controller.accountArea.AccountAreaForCustomerController;
-import controller.accountArea.AccountAreaForSellerController;
-import exception.FileCantBeSavedException;
-import exception.OffNotFoundException;
-import exception.productExceptions.ProductNotFoundExceptionForSeller;
-import model.Shop;
-import model.category.Category;
-import model.category.SubCategory;
-import model.orders.OrderForCustomer;
-import model.persons.Company;
-import model.persons.Customer;
-import model.persons.Seller;
-import model.productThings.*;
-import model.requests.AddingOffRequest;
-import model.requests.EditingGoodRequest;
-import model.requests.EditingOffRequest;
-import model.requests.Request;
+import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.controller.accountArea.AccountAreaForSellerController;
+import ApProject_OnlineShop.exception.OffNotFoundException;
+import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.*;
+import ApProject_OnlineShop.model.requests.AddingOffRequest;
+import ApProject_OnlineShop.model.requests.EditingGoodRequest;
+import ApProject_OnlineShop.model.requests.EditingOffRequest;
+import ApProject_OnlineShop.model.requests.Request;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import testThings.TestShop;
+import ApProject_OnlineShop.testThings.TestShop;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;

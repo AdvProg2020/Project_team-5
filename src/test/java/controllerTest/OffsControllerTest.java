@@ -1,20 +1,20 @@
 package controllerTest;
 
-import controller.MainController;
-import exception.productExceptions.ProductWithThisIdNotExist;
-import exception.productExceptions.ThisProductIsnotInAnyOff;
-import model.Shop;
-import model.category.Category;
-import model.category.SubCategory;
-import model.persons.Company;
-import model.persons.Seller;
-import model.productThings.Good;
-import model.productThings.Off;
+import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
+import ApProject_OnlineShop.exception.productExceptions.ThisProductIsnotInAnyOff;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.Off;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import testThings.TestShop;
+import ApProject_OnlineShop.testThings.TestShop;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

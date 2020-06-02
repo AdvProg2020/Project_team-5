@@ -1,13 +1,13 @@
 package modelTest.productThingsTest;
 
-import model.Shop;
-import model.category.Category;
-import model.category.SubCategory;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import testThings.TestShop;
+import ApProject_OnlineShop.testThings.TestShop;
 
 import java.util.ArrayList;
 
