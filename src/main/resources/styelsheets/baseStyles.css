@@ -1,5 +1,5 @@
 .mainLayout {
-    -fx-background-color: linear-gradient(to bottom right, #faeaee, #f598ae);
+    -fx-background-color: linear-gradient(to bottom right, #ffe6ff, #ffffff);
 }
 
 /*
@@ -17,7 +17,7 @@
     100% {-fx-pref-width: 220px;}
 }
 */
-
+/*
 .buttonsStyle {
     -fx-background:    #b096f1;
     -fx-background-radius: 1000px;
@@ -31,13 +31,38 @@
 }
 
 .buttonsStyle:hover {
-    /*
     -fx-animation-name: buttonHover;
     -fx-animation-duration: 0.5s;
-
-     */
     -fx-background:    #120206;
     -fx-color:         #000000;
     -fx-border-color: #120206;
     -fx-pref-width: 250px;
+}
+*/
+.buttonsStyle {
+
+  -fx-padding: 12px 28px;
+  -fx-background-color: #dab3ff;
+  -fx-background-radius: 8px;
+  -fx-color: black;
+  -fx-text-fill: black;
+  -fx-margin: 4px 2px;
+  -fx-border-radius: 8px;
+  -fx-border-color:black;
+  -fx-border-width: 2 2 2 2;
+  -fx-width: 100%;
+  -fx-font-size:15;
+}
+.buttonsStyle {
+  -fx-transition-duration: 0.4s;
+}
+
+.buttonsStyle: hover {
+  -fx-background-color: white;
+  -fx-text-fill: #9933ff;
+  -fx-color: #9933ff;
+  -fx-border-color:#9933ff;
+  -fx-border-width: 2 2 2 2;
+  -fx-background-radius: 8px;
+  -fx-cursor: hand;
 }
