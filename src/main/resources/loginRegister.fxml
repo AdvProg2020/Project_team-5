@@ -18,7 +18,7 @@
         <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox alignment="CENTER" prefHeight="246.0" prefWidth="355.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <VBox alignment="CENTER" prefHeight="246.0" prefWidth="355.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginBackground.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
             <Label prefHeight="18.0" prefWidth="196.0" text="username:" />
             <TextField alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="username">
