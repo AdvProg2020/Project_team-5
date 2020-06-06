@@ -1,5 +1,7 @@
 package ApProject_OnlineShop;
 
+import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.StageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,9 +28,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("mainMenuLayout.fxml"));
-        primaryStage.setTitle("Project");
-        primaryStage.setScene(new Scene(root, 500, 500));
-        primaryStage.show();
+        new StageController();
     }
 }
