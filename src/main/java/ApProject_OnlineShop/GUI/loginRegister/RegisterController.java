@@ -54,23 +54,6 @@ public class RegisterController extends FxmlController {
         }
     }
 
-    public boolean checkBaseInfos() {
-        if (!username.getText().matches("\\w+")) {
-            return false;
-        } else if (!firstName.getText().matches("[a-zA-Z]{2,}")) {
-            return false;
-        } else if (!lastName.getText().matches("[a-zA-Z]{2,}")) {
-            return false;
-        } else if (!email.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,6}$")) {
-            return false;
-        } else if (!phoneNumber.getText().matches("^\\d{11}$")) {
-            return false;
-        } else if (!password.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")) {
-            return false;
-        }
-        return true;
-    }
-
     public void RegisterForManagerPressed(ActionEvent actionEvent) {
         if (checkBaseInfos()) {
             ArrayList<String> details = new ArrayList<>();
@@ -93,6 +76,27 @@ public class RegisterController extends FxmlController {
         }
     }
 
+    public void RegisterForSellerPressed(ActionEvent actionEvent) {
+    }
+
+
+    public boolean checkBaseInfos() {
+        if (!username.getText().matches("\\w+")) {
+            return false;
+        } else if (!firstName.getText().matches("[a-zA-Z]{2,}")) {
+            return false;
+        } else if (!lastName.getText().matches("[a-zA-Z]{2,}")) {
+            return false;
+        } else if (!email.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,6}$")) {
+            return false;
+        } else if (!phoneNumber.getText().matches("^\\d{11}$")) {
+            return false;
+        } else if (!password.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")) {
+            return false;
+        }
+        return true;
+    }
+
     public void PasswordHint(MouseEvent mouseEvent) {
         passwordLabel.setTooltip(new Tooltip("enter password\n" +
                 "-must contains one digit from 0-9\n" +
@@ -100,4 +104,5 @@ public class RegisterController extends FxmlController {
                 "-must contains one uppercase characters\n" +
                 "-length at least 4 characters and maximum of 16"));
     }
+
 }

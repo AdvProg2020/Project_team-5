@@ -86,18 +86,8 @@
                         <Font size="14.0"/>
                     </font>
                 </TextField>
-                <Label prefHeight="31.0" prefWidth="197.0" text="credit :"/>
-                <TextField fx:id="credit" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                           minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="credit">
-                    <padding>
-                        <Insets bottom="5.0" top="5.0"/>
-                    </padding>
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </TextField>
-                <Label prefHeight="31.0" prefWidth="197.0" text="password :" onMouseEntered="#PasswordHint"
-                       fx:id="passwordLabel">
+                <Label prefHeight="31.0" prefWidth="197.0" text="password :" fx:id="passwordLabel"
+                       onMouseEntered="#PasswordHint">
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
@@ -115,7 +105,57 @@
                         <Insets/>
                     </VBox.margin>
                 </PasswordField>
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#RegisterForCustomerPressed"
+                <Label prefHeight="31.0" prefWidth="197.0" text="Company name :"/>
+                <TextField fx:id="company name" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="email">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0"/>
+                    </padding>
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextField>
+                <Label prefHeight="31.0" prefWidth="197.0" text="Company website :"/>
+                <TextField fx:id="company website" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="email">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0"/>
+                    </padding>
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextField>
+                <Label prefHeight="31.0" prefWidth="197.0" text="Company phone number :"/>
+                <TextField fx:id="company phone number" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="email">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0"/>
+                    </padding>
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextField>
+                <Label prefHeight="31.0" prefWidth="197.0" text="Company fax number :"/>
+                <TextField fx:id="company fax number" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="email">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0"/>
+                    </padding>
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextField>
+                <Label prefHeight="31.0" prefWidth="197.0" text="Company address :"/>
+                <TextField fx:id="company address" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="email">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0"/>
+                    </padding>
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextField>
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#RegisterForSellerPressed"
                         prefHeight="40.0" prefWidth="113.0" styleClass="buttonsStyle"
                         stylesheets="@../styelsheets/baseStyles.css" text="register">
                     <VBox.margin>
