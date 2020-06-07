@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="700.0" prefWidth="505.0" styleClass="mainLayout" stylesheets="@../styelsheets/baseStyles.css"
+          prefHeight="700.0" prefWidth="505.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css"
           xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="ApProject_OnlineShop.GUI.loginRegister.RegisterController">
     <columnConstraints>
@@ -23,7 +23,7 @@
     </rowConstraints>
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="390.0" styleClass="backgroundStyle"
-              stylesheets="@../styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
                 <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="11.0" prefWidth="204.0" text="username :"
                        textAlignment="JUSTIFY" textOverrun="CLIP">
@@ -157,7 +157,7 @@
                 </TextField>
                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#RegisterForSellerPressed"
                         prefHeight="40.0" prefWidth="113.0" styleClass="buttonsStyle"
-                        stylesheets="@../styelsheets/baseStyles.css" text="register">
+                        stylesheets="@styelsheets/baseStyles.css" text="register">
                     <VBox.margin>
                         <Insets top="50.0"/>
                     </VBox.margin>
@@ -177,7 +177,7 @@
                 styleClass="roundButton" GridPane.columnIndex="0">
             <graphic>
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../icons8-back-to-48.png"/>
+                    <Image url="@icons8-back-to-48.png"/>
                 </ImageView>
             </graphic>
         </Button>
