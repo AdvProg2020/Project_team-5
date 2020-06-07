@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.AccountAreaForCustomerController">
    <columnConstraints>
       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0" prefWidth="369.79999999999995" />
@@ -153,15 +154,21 @@
          <Font name="Times New Roman" size="26.0" />
       </font>
    </Label>
-   <Hyperlink alignment="TOP_CENTER" prefHeight="20.0" prefWidth="84.0" text="edit fields" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+   <Hyperlink prefHeight="30.0" prefWidth="142.0" text="edit fields" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
       <opaqueInsets>
          <Insets left="15.0" />
       </opaqueInsets>
       <font>
          <Font size="15.0" />
       </font>
+      <padding>
+         <Insets top="10.0" />
+      </padding>
    </Hyperlink>
    <padding>
       <Insets left="10.0" />
    </padding>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </GridPane>
