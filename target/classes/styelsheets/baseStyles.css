@@ -2,6 +2,18 @@
     -fx-background-color: linear-gradient(to bottom right, #ffe6ff, #ffffff);
 }
 
+.errorLayout {
+  -fx-background-color: linear-gradient(to bottom, #2c0469, #350bde);
+}
+
+#errorSide {
+  -fx-background-color: #0c032e;
+}
+
+#errorContent {
+  -fx-background-color: white;
+}
+
 /*
 @keyframes buttonHover {
     0% {-fx-pref-width: 120px;}
@@ -62,6 +74,31 @@
   -fx-text-fill: #9933ff;
   -fx-color: #9933ff;
   -fx-border-color:#9933ff;
+  -fx-border-width: 2 2 2 2;
+  -fx-background-radius: 8px;
+  -fx-cursor: hand;
+}
+
+#errorButton {
+  -fx-padding: 12px 28px;
+  -fx-background-color: #99033a;
+  -fx-background-radius: 8px;
+  -fx-color: white;
+  -fx-text-fill: white;
+  -fx-margin: 4px 2px;
+  -fx-border-radius: 8px;
+  -fx-border-color:black;
+  -fx-border-width: 2 2 2 2;
+  -fx-width: 100%;
+  -fx-font-size:15;
+  -fx-transition-duration: 0.4s;
+}
+
+#errorButton:hover {
+  -fx-background-color: white;
+  -fx-text-fill: #99033a;
+  -fx-color: #99033a;
+  -fx-border-color:#99033a;
   -fx-border-width: 2 2 2 2;
   -fx-background-radius: 8px;
   -fx-cursor: hand;
