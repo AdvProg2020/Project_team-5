@@ -26,7 +26,7 @@
          <children>
             <Label text="Error" />
             <Label alignment="TOP_LEFT" prefHeight="110.0" prefWidth="237.0" text="Error content" />
-            <Button id="errorButton" mnemonicParsing="false" stylesheets="@styelsheets/baseStyles.css" text="Button" />
+            <Button id="errorButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="216.0" stylesheets="@styelsheets/baseStyles.css" text="Button" />
          </children>
       </VBox>
    </children>

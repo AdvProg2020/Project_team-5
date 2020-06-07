@@ -14,7 +14,7 @@ public class FxmlController {
         Stage stage = StageController.getStage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource(addres));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource(addres));
         } catch (IOException e) {
             e.printStackTrace();
         }
