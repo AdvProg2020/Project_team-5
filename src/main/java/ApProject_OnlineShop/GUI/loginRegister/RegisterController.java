@@ -17,43 +17,52 @@ public class RegisterController extends FxmlController {
     @FXML
     PasswordField password;
     @FXML
-    TextField username, email, phoneNumber, credit, firstName, lastName;
+    TextField username, email, phoneNumber, firstName, lastName;
+    @FXML
+    TextField credit;
 
 
-    public void RegisterPressed(ActionEvent actionEvent) {
-        if (!username.getText().matches("\\w+")) {
+    public void RegisterForCustomerPressed(ActionEvent actionEvent) {
+        if (checkBaseInfos()) {
+            if (!credit.getText().matches("\\d\\d\\d\\d+")) {
 
-        } else if (!firstName.getText().matches("[a-zA-Z]{2,}")) {
+            } else {
+                ArrayList<String> details = new ArrayList<>();
+                details.add(firstName.getText());
+                details.add(lastName.getText());
+                details.add(email.getText());
+                details.add(phoneNumber.getText());
+                details.add(password.getText());
+                details.add(credit.getText());
+                try {
+                    MainController.getInstance().getLoginRegisterController().createAccount("customer", username.getText(), details);
+                } catch (UsernameIsTakenAlreadyException e) {
 
-        } else if (!lastName.getText().matches("[a-zA-Z]{2,}")) {
+                } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
 
-        } else if (!email.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,6}$")) {
-
-        } else if (!phoneNumber.getText().matches("^\\d{11}$")) {
-
-        } else if (!password.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")) {
-
-        } else if (!credit.getText().matches("\\d\\d\\d\\d+")) {
-
-        } else {
-            ArrayList<String> details = new ArrayList<>();
-            details.add(firstName.getText());
-            details.add(lastName.getText());
-            details.add(email.getText());
-            details.add(phoneNumber.getText());
-            details.add(password.getText());
-            details.add(credit.getText());
-            try {
-                MainController.getInstance().getLoginRegisterController().createAccount("customer", username.getText(), details);
-            } catch (UsernameIsTakenAlreadyException e) {
-
-            } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (FileCantBeSavedException e) {
-                e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (FileCantBeSavedException e) {
+                    e.printStackTrace();
+                }
             }
         }
+    }
+
+    public boolean checkBaseInfos() {
+        if (!username.getText().matches("\\w+")) {
+            return false;
+        } else if (!firstName.getText().matches("[a-zA-Z]{2,}")) {
+            return false;
+        } else if (!lastName.getText().matches("[a-zA-Z]{2,}")) {
+            return false;
+        } else if (!email.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,6}$")) {
+            return false;
+        } else if (!phoneNumber.getText().matches("^\\d{11}$")) {
+            return false;
+        } else if (!password.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")) {
+            return false;
+        }
+        return true;
     }
 }
