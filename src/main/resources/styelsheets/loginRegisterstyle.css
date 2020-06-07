@@ -1,5 +1,6 @@
 .backgroundStyle{
--fx-border-color:black;
+-fx-border-color:#8600b3;
 -fx-border-width: 1;
 -fx-border-style: solid;
+-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);
 }

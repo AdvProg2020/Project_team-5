@@ -19,8 +19,8 @@ public class FxmlController {
             e.printStackTrace();
         }
         stage.setTitle(title);
-        stage.setScene(new Scene(root, 1000, 1000));
-        stage.setMaximized(true);
+        stage.setScene(new Scene(root, 1000, 800));
+       // stage.setMaximized(true);
         stage.show();
     }
 

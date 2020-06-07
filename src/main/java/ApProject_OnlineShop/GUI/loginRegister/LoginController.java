@@ -19,7 +19,7 @@ public class LoginController extends FxmlController {
 
     public void loginButtonPressed(ActionEvent actionEvent) {
         try {
-            MainController.getInstance().getLoginRegisterController().loginUser(username.getText(),password.getText());
+            MainController.getInstance().getLoginRegisterController().loginUser(username.getText(), password.getText());
         } catch (UsernameNotFoundException | PasswordIncorrectException e) {
             e.printStackTrace();
         }
@@ -33,11 +33,15 @@ public class LoginController extends FxmlController {
         dialog.setContentText("choice your role that you want to register!");
         dialog.showAndWait();
         if (dialog.getSelectedItem().equals("Manager")) {
-            setScene("loginRegister/registerCustomer.fxml","Register");
+            setScene("registerManager.fxml", "Register");
         } else if (dialog.getSelectedItem().equals("Seller")) {
-            setScene("loginRegister/registerCustomer.fxml","Register");
-        } else if (dialog.getSelectedItem().equals("Customer")) {
-            setScene("loginRegister/registerCustomer.fxml","Register");
+            setScene("registerSeller.fxml", "Register");
+        } else if (dialog.getSelectedItem().equals("Customer") && (!dialog.resultProperty().getValue().equals(null))) {
+            setScene("registerCustomer.fxml", "Register");
         }
+    }
+
+    public void backButtonAction(ActionEvent actionEvent) {
+        setScene("mainMenuLayout.fxml","Main menu");
     }
 }

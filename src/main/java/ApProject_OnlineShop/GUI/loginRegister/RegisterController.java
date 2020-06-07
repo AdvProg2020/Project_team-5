@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class RegisterController extends FxmlController {
     TextField username, email, phoneNumber, firstName, lastName;
     @FXML
     TextField credit;
+    @FXML
+    TextField companyName, companyAddress, companyWebsite, companyPhoneNumber, companyFaxNumber;
 
 
     public void RegisterForCustomerPressed(ActionEvent actionEvent) {
@@ -32,15 +35,50 @@ public class RegisterController extends FxmlController {
             if (!credit.getText().matches("\\d\\d\\d\\d+")) {
 
             } else {
-                ArrayList<String> details = new ArrayList<>();
-                details.add(firstName.getText());
-                details.add(lastName.getText());
-                details.add(email.getText());
-                details.add(phoneNumber.getText());
-                details.add(password.getText());
-                details.add(credit.getText());
                 try {
-                    MainController.getInstance().getLoginRegisterController().createAccount("customer", username.getText(), details);
+                    MainController.getInstance().getLoginRegisterController().createAccount("customer", username.getText(), addDeatails("customer"));
+                } catch (UsernameIsTakenAlreadyException e) {
+
+                } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (FileCantBeSavedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void RegisterForManagerPressed(ActionEvent actionEvent) {
+        if (checkBaseInfos()) {
+            try {
+                MainController.getInstance().getLoginRegisterController().createAccount("manager", username.getText(), addDeatails("manager"));
+            } catch (UsernameIsTakenAlreadyException e) {
+
+            } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void RegisterForSellerPressed(ActionEvent actionEvent) {
+        if (checkBaseInfos()) {
+            if (!companyName.getText().matches("[a-zA-Z]{1,}")) {
+
+            } else if (!companyWebsite.getText().matches("^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\\.)+[\\w]{2,}(\\/\\S*)?$")) {
+
+            } else if (!companyPhoneNumber.getText().matches("^\\d{11}$")) {
+
+            } else if (!companyFaxNumber.getText().matches("^(\\d+){6,}$")) {
+
+            } else {
+                try {
+                    MainController.getInstance().getLoginRegisterController().createAccount("seller", username.getText(), addDeatails("seller"));
                 } catch (UsernameIsTakenAlreadyException e) {
 
                 } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
@@ -71,33 +109,36 @@ public class RegisterController extends FxmlController {
         return true;
     }
 
-    public void RegisterForManagerPressed(ActionEvent actionEvent) {
-        if (checkBaseInfos()) {
-            ArrayList<String> details = new ArrayList<>();
-            details.add(firstName.getText());
-            details.add(lastName.getText());
-            details.add(email.getText());
-            details.add(phoneNumber.getText());
-            details.add(password.getText());
-            try {
-                MainController.getInstance().getLoginRegisterController().createAccount("manager", username.getText(), details);
-            } catch (UsernameIsTakenAlreadyException e) {
-
-            } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (FileCantBeSavedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void PasswordHint(MouseEvent mouseEvent) {
-        passwordLabel.setTooltip(new Tooltip("enter password\n" +
-                "-must contains one digit from 0-9\n" +
+        Tooltip tooltip = new Tooltip("-must contains one digit from 0-9\n" +
                 "-must contains one lowercase characters\n" +
                 "-must contains one uppercase characters\n" +
-                "-length at least 4 characters and maximum of 16"));
+                "-length at least 4 characters and maximum of 16");
+        tooltip.setFont(Font.font(13));
+        passwordLabel.setTooltip(tooltip);
+    }
+
+    public ArrayList<String> addDeatails(String role) {
+        ArrayList<String> details = new ArrayList<>();
+        details.add(firstName.getText());
+        details.add(lastName.getText());
+        details.add(email.getText());
+        details.add(phoneNumber.getText());
+        details.add(password.getText());
+        if (role.equals("customer")) {
+            details.add(credit.getText());
+
+        } else if (role.equals("seller")) {
+            details.add(companyName.getText());
+            details.add(companyWebsite.getText());
+            details.add(companyPhoneNumber.getText());
+            details.add(companyFaxNumber.getText());
+            details.add(companyAddress.getText());
+        }
+        return details;
+    }
+
+    public void backButtonAction(ActionEvent actionEvent) {
+        setScene("login.fxml", "Login");
     }
 }
