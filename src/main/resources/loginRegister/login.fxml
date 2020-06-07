@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.loginRegister.LoginController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="mainLayout" stylesheets="@../styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.loginRegister.LoginController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="96.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="378.0" />
@@ -19,7 +19,7 @@
         <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox alignment="CENTER" prefHeight="246.0" prefWidth="355.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <VBox alignment="CENTER" prefHeight="246.0" prefWidth="355.0" styleClass="backgroundStyle" stylesheets="@../styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
             <Label prefHeight="18.0" prefWidth="196.0" text="username:" />
             <TextField fx:id="username" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="username">
@@ -36,7 +36,7 @@
                   <Font size="14.0" />
                </font>
             </PasswordField>
-            <Button  onAction="#loginButtonPressed" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="login">
+            <Button onAction="#loginButtonPressed" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" styleClass="buttonsStyle" stylesheets="@../styelsheets/baseStyles.css" text="login">
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin></Button>
@@ -57,7 +57,7 @@
         <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
             <graphic>
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@icons8-back-to-48.png" />
+                    <Image url="@../icons8-back-to-48.png" />
                 </ImageView>
             </graphic>
         </Button>

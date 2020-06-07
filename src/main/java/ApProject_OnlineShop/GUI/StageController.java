@@ -14,7 +14,7 @@ public class StageController {
         this.stage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("mainMenuLayout.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("/loginRegister/login.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

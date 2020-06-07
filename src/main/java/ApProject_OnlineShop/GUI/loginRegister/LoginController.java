@@ -6,6 +6,7 @@ import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -28,6 +29,17 @@ public class LoginController extends FxmlController {
     }
 
     public void goToRegisterMenu(ActionEvent actionEvent) {
-        setScene("register.fxml","Register");
+        String choices[] = {"Manager", "Seller", "Customer"};
+        ChoiceDialog dialog = new ChoiceDialog(choices[2], choices);
+        dialog.setHeaderText("choice role");
+        dialog.setContentText("choice your role that you want to register!");
+        dialog.showAndWait();
+        if (dialog.getSelectedItem().equals("Manager")) {
+            setScene("loginRegister/registerCustomer.fxml","Register");
+        } else if (dialog.getSelectedItem().equals("Seller")) {
+            setScene("loginRegister/registerCustomer.fxml","Register");
+        } else if (dialog.getSelectedItem().equals("Customer")) {
+            setScene("loginRegister/registerCustomer.fxml","Register");
+        }
     }
 }
