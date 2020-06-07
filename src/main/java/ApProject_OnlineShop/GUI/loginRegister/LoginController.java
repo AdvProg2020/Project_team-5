@@ -33,11 +33,11 @@ public class LoginController extends FxmlController {
         dialog.setContentText("choice your role that you want to register!");
         dialog.showAndWait();
         if (dialog.getSelectedItem().equals("Manager")) {
-            setScene("loginRegister/registerCustomer.fxml","Register");
+            setScene("registerCustomer.fxml","Register");
         } else if (dialog.getSelectedItem().equals("Seller")) {
-            setScene("loginRegister/registerCustomer.fxml","Register");
+            setScene("registerCustomer.fxml","Register");
         } else if (dialog.getSelectedItem().equals("Customer")) {
-            setScene("loginRegister/registerCustomer.fxml","Register");
+            setScene("registerCustomer.fxml","Register");
         }
     }
 }

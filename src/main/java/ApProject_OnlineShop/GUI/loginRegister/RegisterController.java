@@ -79,7 +79,6 @@ public class RegisterController extends FxmlController {
     public void RegisterForSellerPressed(ActionEvent actionEvent) {
     }
 
-
     public boolean checkBaseInfos() {
         if (!username.getText().matches("\\w+")) {
             return false;
@@ -98,8 +97,7 @@ public class RegisterController extends FxmlController {
     }
 
     public void PasswordHint(MouseEvent mouseEvent) {
-        passwordLabel.setTooltip(new Tooltip("enter password\n" +
-                "-must contains one digit from 0-9\n" +
+        passwordLabel.setTooltip(new Tooltip("-must contains one digit from 0-9\n" +
                 "-must contains one lowercase characters\n" +
                 "-must contains one uppercase characters\n" +
                 "-length at least 4 characters and maximum of 16"));
