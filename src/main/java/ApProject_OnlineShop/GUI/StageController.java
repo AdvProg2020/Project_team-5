@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class StageController {
     private static Stage stage;
@@ -14,7 +15,7 @@ public class StageController {
         this.stage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("accountAreaForCustomer.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("registerCustomer.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }

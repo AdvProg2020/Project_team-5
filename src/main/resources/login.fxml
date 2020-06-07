@@ -21,38 +21,38 @@
     <children>
         <VBox alignment="CENTER" prefHeight="246.0" prefWidth="355.0" styleClass="backgroundStyle" stylesheets="@./styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Label prefHeight="18.0" prefWidth="196.0" text="username:" />
-                <TextField fx:id="username" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="username">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </TextField>
-                <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="password:">
-                    <VBox.margin>
-                        <Insets top="20.0" />
-                    </VBox.margin></Label>
-                <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="password">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </PasswordField>
-                <Button onAction="#loginButtonPressed" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" styleClass="buttonsStyle" stylesheets="@./styelsheets/baseStyles.css" text="login">
-                    <VBox.margin>
-                        <Insets top="12.0" />
-                    </VBox.margin></Button>
-                <Label text="if you have not registered">
-                    <padding>
-                        <Insets top="10.0" />
-                    </padding>
-                </Label>
-                <Hyperlink onAction="#goToRegisterMenu" prefHeight="26.0" prefWidth="52.0" text="register" underline="true" />
+            <Label prefHeight="18.0" prefWidth="196.0" text="username:" />
+            <TextField fx:id="username" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="username">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="password:">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin></Label>
+            <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </PasswordField>
+            <Button onAction="#loginButtonPressed" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" styleClass="buttonsStyle" stylesheets="@./styelsheets/baseStyles.css" text="login">
+               <VBox.margin>
+                  <Insets top="12.0" />
+               </VBox.margin></Button>
+            <Label text="if you have not registered">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </Label>
+            <Hyperlink onAction="#goToRegisterMenu" prefHeight="26.0" prefWidth="52.0" text="register" underline="true" />
             </children>
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-            <opaqueInsets>
-                <Insets top="1.0" />
-            </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <opaqueInsets>
+            <Insets top="1.0" />
+         </opaqueInsets>
         </VBox>
         <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
             <graphic>
