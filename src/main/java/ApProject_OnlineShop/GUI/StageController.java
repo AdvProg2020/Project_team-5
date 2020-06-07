@@ -21,7 +21,7 @@ public class StageController {
         }
         stage.setTitle("Shop");
         stage.setScene(new Scene(root, 500, 500));
-//        stage.setMaximized(true);
+        stage.setMaximized(true);
         stage.show();
     }
 
