@@ -103,3 +103,13 @@
   -fx-background-radius: 8px;
   -fx-cursor: hand;
 }
+
+.roundButton{
+-fx-background-color: #dab3ff;
+-fx-background-radius: 70%;
+-fx-padding:       20px 30px;
+-fx-color:         #ffffff;
+-fx-display:       inline-block;
+-fx-font:          normal bold 23px/1 "Open Sans", sans-serif;
+-fx-text-align:    center;
+}
