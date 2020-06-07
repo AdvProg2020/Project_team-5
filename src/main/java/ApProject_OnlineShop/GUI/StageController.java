@@ -15,12 +15,12 @@ public class StageController {
         this.stage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("registerManager.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("registerSeller.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
         stage.setTitle("Shop");
-        stage.setScene(new Scene(root, 1000, 900));
+        stage.setScene(new Scene(root, 1000, 950));
         stage.setMaximized(true);
         stage.show();
     }
