@@ -142,3 +142,7 @@
   -fx-background-radius: 8px;
   -fx-cursor: hand;
 }
+
+.roundButton{
+-fx-background-radius: 100%;
+}
