@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -18,9 +17,6 @@
       <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="368.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
       <opaqueInsets>
          <Insets top="1.0" />
       </opaqueInsets>
@@ -157,7 +153,7 @@
          <Font name="Times New Roman" size="26.0" />
       </font>
    </Label>
-   <Hyperlink alignment="TOP_CENTER" prefHeight="64.0" prefWidth="373.0" text="edit fields" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+   <Hyperlink alignment="TOP_CENTER" prefHeight="20.0" prefWidth="84.0" text="edit fields" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <opaqueInsets>
          <Insets left="15.0" />
       </opaqueInsets>
