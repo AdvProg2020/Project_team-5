@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -97,10 +98,12 @@ public class RegisterController extends FxmlController {
     }
 
     public void PasswordHint(MouseEvent mouseEvent) {
-        passwordLabel.setTooltip(new Tooltip("-must contains one digit from 0-9\n" +
+        Tooltip tooltip = new Tooltip("-must contains one digit from 0-9\n" +
                 "-must contains one lowercase characters\n" +
                 "-must contains one uppercase characters\n" +
-                "-length at least 4 characters and maximum of 16"));
+                "-length at least 4 characters and maximum of 16");
+        tooltip.setFont(Font.font(13));
+        passwordLabel.setTooltip(tooltip);
     }
 
 }
