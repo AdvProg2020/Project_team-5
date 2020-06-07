@@ -35,9 +35,9 @@ public class LoginController extends FxmlController {
         if (dialog.getSelectedItem().equals("Manager")) {
             setScene("registerCustomer.fxml","Register");
         } else if (dialog.getSelectedItem().equals("Seller")) {
-            setScene("registerCustomer.fxml","Register");
+            setScene("registerSeller.fxml","Register");
         } else if (dialog.getSelectedItem().equals("Customer")) {
-            setScene("registerCustomer.fxml","Register");
+            setScene("registerManager.fxml","Register");
         }
     }
 }
