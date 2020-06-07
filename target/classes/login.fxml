@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER_LEFT" prefHeight="494.0" prefWidth="638.0" styleClass="mainLayout"
+<GridPane alignment="CENTER" prefHeight="494.0" prefWidth="638.0" styleClass="mainLayout"
           stylesheets="@./styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.loginRegister.LoginController">
     <columnConstraints>
@@ -23,7 +23,7 @@
     </rowConstraints>
     <children>
         <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="450.0" prefWidth="355.0" styleClass="backgroundStyle"
-              stylesheets="@./styelsheets/loginRegisterstyle.css" GridPane.columnIndex="2" GridPane.halignment="CENTER"
+              stylesheets="@./styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER"
               GridPane.rowIndex="1">
             <children>
                 <Label alignment="CENTER" prefHeight="84.0" prefWidth="99.0" text="login">
@@ -88,8 +88,8 @@
                 <Insets bottom="25.0"/>
             </padding>
         </VBox>
-        <Button  minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0"
-                styleClass="roundButton" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+        <Button  onAction="#backButtonAction" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0"
+                styleClass="roundButton" GridPane.columnIndex="0" GridPane.halignment="RIGHT">
             <graphic>
                 <ImageView  fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@./icons8-back-to-48.png"/>

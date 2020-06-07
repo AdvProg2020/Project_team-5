@@ -138,4 +138,7 @@ public class RegisterController extends FxmlController {
         return details;
     }
 
+    public void backButtonAction(ActionEvent actionEvent) {
+        setScene("login.fxml", "Login");
+    }
 }
