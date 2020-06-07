@@ -20,9 +20,7 @@ public class LoginController extends FxmlController {
     public void loginButtonPressed(ActionEvent actionEvent) {
         try {
             MainController.getInstance().getLoginRegisterController().loginUser(username.getText(),password.getText());
-        } catch (UsernameNotFoundException e) {
-            e.printStackTrace();
-        } catch (PasswordIncorrectException e) {
+        } catch (UsernameNotFoundException | PasswordIncorrectException e) {
             e.printStackTrace();
         }
         //setScene();             go to account area page
