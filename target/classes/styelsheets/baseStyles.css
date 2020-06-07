@@ -26,43 +26,6 @@
   -fx-background-color: white;
 }
 
-/*
-@keyframes buttonHover {
-    0% {-fx-pref-width: 120px;}
-    10% {-fx-pref-width: 130px;}
-    20% {-fx-pref-width: 140px;}
-    30% {-fx-pref-width: 150px;}
-    40% {-fx-pref-width: 160px;}
-    50% {-fx-pref-width: 170px;}
-    60% {-fx-pref-width: 180px;}
-    70% {-fx-pref-width: 190px;}
-    80% {-fx-pref-width: 200px;}
-    90% {-fx-pref-width: 210px;}
-    100% {-fx-pref-width: 220px;}
-}
-*/
-/*
-.buttonsStyle {
-    -fx-background:    #b096f1;
-    -fx-background-radius: 1000px;
-    -fx-border:        3px solid #9b75c9;
-    -fx-border-radius: 1000px;
-
-    -fx-color:         #ffffff;
-    -fx-display:       inline-block;
-    -fx-font:          normal bold 13px/1 "Ubuntu", sans-serif;
-    -fx-text-align:    center;
-}
-
-.buttonsStyle:hover {
-    -fx-animation-name: buttonHover;
-    -fx-animation-duration: 0.5s;
-    -fx-background:    #120206;
-    -fx-color:         #000000;
-    -fx-border-color: #120206;
-    -fx-pref-width: 250px;
-}
-*/
 .buttonsStyle {
 
   -fx-padding: 12px 28px;
