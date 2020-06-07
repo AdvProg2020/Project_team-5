@@ -7,13 +7,18 @@ import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistere
 import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class RegisterController extends FxmlController {
+    @FXML
+    Label passwordLabel;
     @FXML
     PasswordField password;
     @FXML
@@ -64,5 +69,35 @@ public class RegisterController extends FxmlController {
             return false;
         }
         return true;
+    }
+
+    public void RegisterForManagerPressed(ActionEvent actionEvent) {
+        if (checkBaseInfos()) {
+            ArrayList<String> details = new ArrayList<>();
+            details.add(firstName.getText());
+            details.add(lastName.getText());
+            details.add(email.getText());
+            details.add(phoneNumber.getText());
+            details.add(password.getText());
+            try {
+                MainController.getInstance().getLoginRegisterController().createAccount("manager", username.getText(), details);
+            } catch (UsernameIsTakenAlreadyException e) {
+
+            } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void PasswordHint(MouseEvent mouseEvent) {
+        passwordLabel.setTooltip(new Tooltip("enter password\n" +
+                "-must contains one digit from 0-9\n" +
+                "-must contains one lowercase characters\n" +
+                "-must contains one uppercase characters\n" +
+                "-length at least 4 characters and maximum of 16"));
     }
 }
