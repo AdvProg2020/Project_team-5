@@ -132,3 +132,6 @@
 .roundButton{
 -fx-background-radius: 100%;
 }
+.roundButton:hover{
+  -fx-cursor: hand;
+}
