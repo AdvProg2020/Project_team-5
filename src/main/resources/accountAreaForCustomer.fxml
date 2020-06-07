@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.AccountAreaForCustomerController">
+   <columnConstraints>
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0" prefWidth="34.60000000000002" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="412.6" minWidth="10.0" prefWidth="412.6" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="245.0" minHeight="10.0" prefHeight="245.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+      <opaqueInsets>
+         <Insets top="1.0" />
+      </opaqueInsets>
+      <Label prefHeight="18.0" prefWidth="196.0" text="username:">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <Label fx:id="userName" prefHeight="18.0" prefWidth="196.0" text=" ">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="name:">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label fx:id="name" prefHeight="18.0" prefWidth="193.0">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <Label alignment="BOTTOM_LEFT" prefHeight="18.0" prefWidth="200.0" text="lastname:">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label fx:id="lastName" prefHeight="18.0" prefWidth="190.0">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <Label text="email:">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label fx:id="email" prefHeight="18.0" prefWidth="252.0">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <Label text="phone number:">
+         <opaqueInsets>
+            <Insets top="10.0" />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label prefHeight="18.0" prefWidth="181.0">
+         <padding>
+            <Insets left="10.0" />
+         </padding></Label>
+      <Label text="credit:">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label prefHeight="18.0" prefWidth="228.0">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <padding>
+         <Insets bottom="10.0" top="20.0" />
+      </padding>
+   </VBox>
+   <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
+   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@icons8-back-to-48.png" />
+   </ImageView>
+   <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
+      <MenuButton alignment="TOP_CENTER" mnemonicParsing="false" popupSide="TOP" prefHeight="26.0" prefWidth="176.0" text="MenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="edit fields" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+            <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+        </items>
+      </MenuButton>
+   </VBox>
+</GridPane>
