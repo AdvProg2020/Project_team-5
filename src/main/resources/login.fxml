@@ -7,17 +7,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="728.0" styleClass="mainLayout" stylesheets="@./styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.loginRegister.LoginController">
+<GridPane alignment="CENTER_RIGHT" prefHeight="494.0" prefWidth="638.0" styleClass="mainLayout" stylesheets="@./styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.loginRegister.LoginController">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="96.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="378.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="153.2" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="511.4" minWidth="10.0" prefWidth="436.80000000000007" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="511.4" minWidth="10.0" prefWidth="190.80000000000007" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="46.8" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="424.3999961853027" minHeight="10.0" prefHeight="405.4" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="93.2" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="470.80000000000007" minHeight="10.0" prefHeight="423.2" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="424.3999961853027" minHeight="10.0" prefHeight="14.799999999999955" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox alignment="CENTER" prefHeight="450.0" prefWidth="355.0" styleClass="backgroundStyle" stylesheets="@./styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="450.0" prefWidth="355.0" styleClass="backgroundStyle" stylesheets="@./styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <children>
             <Label alignment="CENTER" prefHeight="84.0" prefWidth="99.0" text="login">
                <font>
@@ -71,15 +73,13 @@
             <Insets bottom="25.0" />
          </padding>
         </VBox>
-        <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
+        <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" GridPane.halignment="CENTER">
             <graphic>
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@./icons8-back-to-48.png" />
                 </ImageView>
             </graphic>
         </Button>
+      <Label text="         " prefWidth="100" GridPane.columnIndex="2" GridPane.rowIndex="1" />
     </children>
-   <padding>
-      <Insets top="25.0" />
-   </padding>
 </GridPane>
