@@ -148,7 +148,8 @@
       <children>
          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" styleClass="menuButtons" text="Button" />
          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="Button" />
-         <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="179.0" text="MenuButton" textFill="#0e000e">
+         <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" text="MenuButton" textFill="#0e000e" style="-fx-background-color: #dab3ff;
+  -fx-background-radius: 8px;  -fx-color: black;  -fx-text-fill: black;  -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;">
            <items>
              <MenuItem mnemonicParsing="false" text="show orders" />
              <MenuItem mnemonicParsing="false" text="rate products" />
@@ -158,9 +159,6 @@
                  </items>
                </Menu>
            </items>
-            <effect>
-               <Blend />
-            </effect>
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
