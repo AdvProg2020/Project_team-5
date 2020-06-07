@@ -20,7 +20,7 @@ public class StageController {
             e.printStackTrace();
         }
         stage.setTitle("Shop");
-        stage.setScene(new Scene(root, 1000, 1000));
+        stage.setScene(new Scene(root, 1000, 800));
  //       stage.setMaximized(true);
         stage.show();
     }
