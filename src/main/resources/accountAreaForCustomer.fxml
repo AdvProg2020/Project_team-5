@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -28,12 +29,12 @@
          <font>
             <Font name="Times New Roman" size="18.0" />
          </font></Label>
-      <Label fx:id="userName" prefHeight="18.0" prefWidth="196.0" text=" ">
+      <Label fx:id="userName" alignment="CENTER" prefHeight="18.0" prefWidth="196.0" text=" ">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
-            <Font name="Times New Roman" size="17.0" />
+            <Font name="Times New Roman" size="14.0" />
          </font></Label>
       <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="name:">
          <VBox.margin>
@@ -46,12 +47,12 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="name" prefHeight="18.0" prefWidth="193.0">
+      <Label fx:id="name" alignment="CENTER" prefHeight="18.0" prefWidth="193.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
-            <Font size="17.0" />
+            <Font size="14.0" />
          </font></Label>
       <Label alignment="BOTTOM_LEFT" prefHeight="18.0" prefWidth="200.0" text="lastname:">
          <VBox.margin>
@@ -64,12 +65,12 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="lastName" prefHeight="18.0" prefWidth="190.0">
+      <Label fx:id="lastName" alignment="CENTER" prefHeight="18.0" prefWidth="190.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
-            <Font size="17.0" />
+            <Font size="14.0" />
          </font></Label>
       <Label text="email:">
          <VBox.margin>
@@ -82,12 +83,12 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="email" prefHeight="18.0" prefWidth="252.0">
+      <Label fx:id="email" alignment="CENTER" prefHeight="18.0" prefWidth="252.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
-            <Font size="17.0" />
+            <Font size="14.0" />
          </font></Label>
       <Label text="phone number:">
          <opaqueInsets>
@@ -103,12 +104,12 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label prefHeight="18.0" prefWidth="181.0">
+      <Label fx:id="phoneNumber" alignment="CENTER" prefHeight="18.0" prefWidth="181.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
-            <Font size="17.0" />
+            <Font size="14.0" />
          </font></Label>
       <Label text="credit:">
          <VBox.margin>
@@ -121,12 +122,12 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label prefHeight="18.0" prefWidth="228.0">
+      <Label fx:id="credit" alignment="CENTER" prefHeight="18.0" prefWidth="228.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
-            <Font name="Times New Roman" size="17.0" />
+            <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
       <padding>
@@ -139,22 +140,39 @@
    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@icons8-back-to-48.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </ImageView>
    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
-      <MenuButton alignment="TOP_CENTER" mnemonicParsing="false" popupSide="TOP" prefHeight="26.0" prefWidth="176.0" text="MenuButton">
-        <items>
-          <MenuItem mnemonicParsing="false" text="edit fields" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-            <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-        </items>
-      </MenuButton>
+      <children>
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" styleClass="menuButtons" text="Button" />
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="Button" />
+         <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="179.0" text="MenuButton" textFill="#0e000e">
+           <items>
+             <MenuItem mnemonicParsing="false" text="show orders" />
+             <MenuItem mnemonicParsing="false" text="rate products" />
+               <Menu mnemonicParsing="false" text="Unspecified Menu">
+                 <items>
+                   <MenuItem mnemonicParsing="false" text="Action 1" />
+                 </items>
+               </Menu>
+           </items>
+            <effect>
+               <Blend />
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </MenuButton>
+      </children>
    </VBox>
    <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="Personal Information" GridPane.columnIndex="1">
       <font>
          <Font name="Times New Roman" size="26.0" />
       </font>
    </Label>
-   <Hyperlink prefHeight="30.0" prefWidth="142.0" text="edit fields" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+   <Hyperlink prefHeight="22.0" prefWidth="71.0" text="edit fields" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
       <opaqueInsets>
          <Insets left="15.0" />
       </opaqueInsets>
@@ -168,7 +186,4 @@
    <padding>
       <Insets left="10.0" />
    </padding>
-   <cursor>
-      <Cursor fx:constant="HAND" />
-   </cursor>
 </GridPane>

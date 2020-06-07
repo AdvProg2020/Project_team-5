@@ -7,6 +7,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
+import ApProject_OnlineShop.model.persons.Customer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,8 +29,16 @@ public class AccountAreaController {
         return categories;
     }
 
-    public String getUserPersonalInfo() {
-        return MainController.getInstance().getCurrentPerson().toString();
+    public ArrayList<String> getUserPersonalInfo() {
+        Customer customer = (Customer) MainController.getInstance().getCurrentPerson();
+        ArrayList<String> personalInfo = new ArrayList<>();
+        personalInfo.add(customer.getUsername());
+        personalInfo.add(customer.getFirstName());
+        personalInfo.add(customer.getLastName());
+        personalInfo.add(customer.getEmail());
+        personalInfo.add(customer.getPhoneNumber());
+        personalInfo.add(""+customer.getCredit());
+        return personalInfo;
     }
 
     public void editField(int chosenField, String newValue) throws FieldCantBeEditedException, Exception {

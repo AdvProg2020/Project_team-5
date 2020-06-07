@@ -44,6 +44,17 @@
   -fx-transition-duration: 0.4s;
 }
 
+.menuButtons{
+  -fx-background-color: #dab3ff;
+  -fx-background-radius: 8px;
+  -fx-color: black;
+  -fx-text-fill: black;
+  -fx-margin: 4px 2px;
+  -fx-border-radius: 8px;
+  -fx-border-color: #600080;
+  -fx-border-width: 2 2 2 2;
+}
+
 .buttonEditFields{
 
   -fx-background-color: #dab3ff;
