@@ -1,5 +1,6 @@
 package ApProject_OnlineShop;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import javafx.application.Application;

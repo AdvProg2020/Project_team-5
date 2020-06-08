@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="errorLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="errorLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.ErrorPageFxController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="88.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.0" minWidth="10.0" prefWidth="166.0" />
@@ -34,12 +34,12 @@
          </children></Pane>
       <VBox id="errorContent" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styelsheets/baseStyles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
-            <Label fx:id="errorTitleLable" alignment="CENTER" prefHeight="35.0" prefWidth="218.0" text="Error title">
+            <Label fx:id="errorTitleLabel" alignment="CENTER" prefHeight="35.0" prefWidth="218.0" text="Error title">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin></Label>
-            <Label fx:id="errorContentLable" alignment="TOP_LEFT" prefHeight="110.0" prefWidth="237.0" text="Error content" />
-            <Button id="errorButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="216.0" stylesheets="@styelsheets/baseStyles.css" text="Button">
+            <Label fx:id="errorContentLabel" alignment="TOP_LEFT" prefHeight="110.0" prefWidth="237.0" text="Error content" />
+            <Button id="errorButton" mnemonicParsing="false" onAction="#onOkButtonPressed" prefHeight="31.0" prefWidth="216.0" stylesheets="@styelsheets/baseStyles.css" text="OK">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Button>
