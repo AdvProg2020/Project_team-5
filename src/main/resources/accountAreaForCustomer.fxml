@@ -148,11 +148,17 @@
          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" styleClass="menuButtons" text="view balance">
             <font>
                <Font size="14.0" />
-            </font></Button>
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="view discount codes">
             <font>
                <Font size="14.0" />
-            </font></Button>
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
          <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;" text="orders" textFill="#0e000e">
            <items>
              <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="show orders" />
@@ -172,7 +178,7 @@
          <Font name="Times New Roman" size="26.0" />
       </font>
    </Label>
-   <Hyperlink prefHeight="22.0" prefWidth="71.0" text="edit fields" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+   <Hyperlink prefHeight="4.0" prefWidth="71.0" text="edit fields" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
       <opaqueInsets>
          <Insets left="15.0" />
       </opaqueInsets>
