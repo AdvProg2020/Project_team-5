@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="successLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.FxmlController.SuccessPageFxController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="successLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.SuccessPageFxController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="75.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="338.0" minWidth="10.0" prefWidth="144.0" />
@@ -26,12 +26,12 @@
    <children>
       <VBox id="successContent" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@styelsheets/baseStyles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
-            <Label alignment="CENTER" prefHeight="34.0" prefWidth="291.0" text="successfull">
+            <Label fx:id="successTitleLabel" alignment="CENTER" prefHeight="34.0" prefWidth="291.0" text="successfull">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin></Label>
-            <Label alignment="TOP_LEFT" prefHeight="151.0" prefWidth="276.0" text="content" />
-            <Button id="successButton" mnemonicParsing="false" prefHeight="19.0" prefWidth="219.0" stylesheets="@styelsheets/baseStyles.css" text="Button">
+            <Label fx:id="successContentLabel" alignment="TOP_LEFT" prefHeight="151.0" prefWidth="276.0" text="content" />
+            <Button id="successButton" mnemonicParsing="false" onAction="#onOkButtonPressed" prefHeight="19.0" prefWidth="219.0" stylesheets="@styelsheets/baseStyles.css" text="OK">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Button>

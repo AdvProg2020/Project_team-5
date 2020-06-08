@@ -3,6 +3,7 @@ package ApProject_OnlineShop;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,5 +31,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         new StageController();
+        SuccessPageFxController.showPage("new successful", "hey there this is a success page");
     }
 }
