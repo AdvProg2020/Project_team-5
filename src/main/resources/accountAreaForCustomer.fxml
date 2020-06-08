@@ -17,7 +17,7 @@
       <RowConstraints maxHeight="345.5999923706055" minHeight="10.0" prefHeight="345.5999923706055" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
    </rowConstraints>
-   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="368.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <opaqueInsets>
          <Insets top="1.0" />
       </opaqueInsets>
@@ -71,7 +71,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Label text="email:">
+      <Label prefHeight="20.0" prefWidth="195.0" text="email:">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
@@ -82,14 +82,14 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="email" alignment="CENTER" prefHeight="18.0" prefWidth="252.0">
+      <Label fx:id="email" prefHeight="18.0" prefWidth="252.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Label text="phone number:">
+      <Label prefHeight="20.0" prefWidth="207.0" text="phone number:">
          <opaqueInsets>
             <Insets top="10.0" />
          </opaqueInsets>
@@ -110,7 +110,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Label text="credit:">
+      <Label prefHeight="20.0" prefWidth="208.0" text="credit:">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
@@ -145,14 +145,7 @@
    </ImageView>
    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
       <children>
-         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" styleClass="menuButtons" text="view balance">
-            <font>
-               <Font size="14.0" />
-            </font>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor></Button>
-         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="view discount codes">
+         <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="view discount codes">
             <font>
                <Font size="14.0" />
             </font>
@@ -161,8 +154,8 @@
             </cursor></Button>
          <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;" text="orders" textFill="#0e000e">
            <items>
-             <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="show orders" />
-             <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="rate products" />
+             <MenuItem mnemonicParsing="false" onAction="#showOrders" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="show orders" />
+             <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="rate products" onAction="#rateProducts"/>
            </items>
             <cursor>
                <Cursor fx:constant="HAND" />

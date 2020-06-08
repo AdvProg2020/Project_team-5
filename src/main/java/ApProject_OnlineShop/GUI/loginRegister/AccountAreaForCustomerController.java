@@ -1,9 +1,21 @@
 package ApProject_OnlineShop.GUI.loginRegister;
 
+import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.controller.MainController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,4 +40,61 @@ public class AccountAreaForCustomerController implements Initializable {
 //        phoneNumber.setText(personalInfo.get(4));
 //        credit.setText(personalInfo.get(5));
     }
+
+    public void viewDiscountCode(MouseEvent mouseEvent) {
+        GridPane root = makeGridPane();
+        VBox vBox = new VBox();
+        setVBoxStyle(vBox);
+        root.add(vBox,1,1);
+        
+        StageController.setSceneJavaFx(root);
+    }
+
+    public GridPane makeGridPane(){
+        GridPane root = new GridPane();
+        setGridPaneStyle(root);
+        Image backImage = new Image(getClass().getClassLoader().getResource("icons8-back-to-48.png").toString());
+        ImageView imageView = new ImageView(backImage);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        Button back = new Button("",imageView);
+        setBackButton(back);
+        GridPane.setHalignment(back, HPos.LEFT);
+        GridPane.setValignment(back, VPos.TOP);
+        root.add(back, 0 , 0);
+        return root;
+    }
+
+    public void showOrders(ActionEvent actionEvent) {
+        System.out.println("hello");
+    }
+
+    public void rateProducts(ActionEvent actionEvent) {
+
+    }
+
+    public void setGridPaneStyle(GridPane root){
+        root.setStyle("-fx-background-color: linear-gradient(to bottom right, #ffe6ff, #ffffff);");
+        root.setAlignment(Pos.CENTER);
+        root.setHgap(15);
+        root.setHgap(15);
+    }
+
+    public void setBackButton(Button backButton){
+        backButton.setStyle("-fx-background-radius: 100%;");
+        backButton.setPrefHeight(30);
+        backButton.setPrefWidth(30);
+        backButton.setMinSize(0,0);
+        backButton.setMaxSize(30,30);
+        backButton.setCursor(Cursor.HAND);
+    }
+
+    public void setVBoxStyle(VBox vBox){
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setStyle("-fx-border-color:#8600b3;" +
+                "-fx-border-width: 1;" +
+                "-fx-border-style: solid;" +
+                "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
+    }
+
 }
