@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="730.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="730.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="ApProject_OnlineShop.GUI.PurchasePageController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="95.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="587.0" minWidth="10.0" prefWidth="537.0" />
@@ -27,9 +27,9 @@
       <HBox alignment="CENTER" stylesheets="@styelsheets/baseStyles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <Label prefHeight="28.0" prefWidth="115.0" stylesheets="@styelsheets/baseStyles.css" text="enter discount code:" />
-            <TextField prefHeight="25.0" prefWidth="190.0" promptText="discount code" stylesheets="@styelsheets/baseStyles.css" />
+            <TextField fx:id="discountCodeField" prefHeight="25.0" prefWidth="190.0" promptText="discount code" stylesheets="@styelsheets/baseStyles.css" />
             <Region prefHeight="101.0" prefWidth="137.0" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="89.0" stylesheets="@styelsheets/baseStyles.css" text="Apply" />
+            <Button fx:id="applyDiscountButton" mnemonicParsing="false" prefHeight="44.0" prefWidth="89.0" stylesheets="@styelsheets/baseStyles.css" text="Apply" />
          </children>
       </HBox>
       <GridPane stylesheets="@styelsheets/baseStyles.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -56,15 +56,15 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label prefHeight="43.0" prefWidth="221.0" text="1000000" />
+                  <Label fx:id="totalPriceLabel" prefHeight="43.0" prefWidth="221.0" text="1000000" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Label prefHeight="43.0" prefWidth="221.0" text="1000000" />
+                  <Label fx:id="shouldPayLabel" prefHeight="43.0" prefWidth="221.0" text="1000000" />
                </children>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="165.0" text="Purchase" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="purchaseButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="165.0" text="Purchase" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
@@ -102,18 +102,18 @@
                         <Label text="receiver phone number :" />
                      </children>
                   </VBox>
-                  <TextField promptText="name" GridPane.columnIndex="1" />
-                  <TextField promptText="postal code" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextArea prefHeight="200.0" prefWidth="200.0" promptText="address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField promptText="phone number" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="nameField" promptText="name" GridPane.columnIndex="1" />
+                  <TextField fx:id="postalCodeField" promptText="postal code" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextArea fx:id="addressField" prefHeight="200.0" prefWidth="200.0" promptText="address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="phoneNumberField" promptText="phone number" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="141.0" text="Submit" />
+            <Button fx:id="submitPropertiesButton" mnemonicParsing="false" prefHeight="44.0" prefWidth="141.0" text="Submit" />
          </children>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="53.0" text="back">
+            <Button fx:id="backButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="53.0" text="back">
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />
                </VBox.margin>
