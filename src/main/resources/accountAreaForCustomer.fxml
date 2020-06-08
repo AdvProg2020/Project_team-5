@@ -3,7 +3,6 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -146,22 +145,25 @@
    </ImageView>
    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
       <children>
-         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" styleClass="menuButtons" text="Button" />
-         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="Button" />
-         <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" text="MenuButton" textFill="#0e000e" style="-fx-background-color: #dab3ff;
-  -fx-background-radius: 8px;  -fx-color: black;  -fx-text-fill: black;  -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;">
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" styleClass="menuButtons" text="view balance">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="view discount codes">
+            <font>
+               <Font size="14.0" />
+            </font></Button>
+         <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;" text="orders" textFill="#0e000e">
            <items>
-             <MenuItem mnemonicParsing="false" text="show orders" />
-             <MenuItem mnemonicParsing="false" text="rate products" />
-               <Menu mnemonicParsing="false" text="Unspecified Menu">
-                 <items>
-                   <MenuItem mnemonicParsing="false" text="Action 1" />
-                 </items>
-               </Menu>
+             <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="show orders" />
+             <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="rate products" />
            </items>
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor>
+            <font>
+               <Font size="14.0" />
+            </font>
          </MenuButton>
       </children>
    </VBox>
