@@ -15,24 +15,24 @@ public class StageController {
 
     public StageController() {
         this.stage = new Stage();
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("accountAreaForCustomer.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        stage.setTitle("Shop");
-        stage.setScene(new Scene(root, 1000, 800));
-        stage.setMaximized(true);
-        stage.show();
-
+//        Parent root = null;
+//        try {
+//            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("accountAreaForCustomer.fxml")));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        stage.setTitle("Shop");
+//        stage.setScene(new Scene(root, 1000, 800));
+//        stage.setMaximized(true);
+//        stage.show();
+        new AccountAreaForCustomerController().viewDiscountCode(null);
 
     }
 
-    public static void setSceneJavaFx(GridPane root){
-      stage.setScene(new Scene(root, 1000, 800));
-      stage.show();
+    public static void setSceneJavaFx(GridPane root) {
+        stage.setScene(new Scene(root, 1000, 800));
+        stage.show();
     }
 
     public static Stage getStage() {

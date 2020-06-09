@@ -1,15 +1,18 @@
 package ApProject_OnlineShop.GUI.loginRegister;
 
 import ApProject_OnlineShop.GUI.StageController;
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,6 +22,8 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AccountAreaForCustomerController implements Initializable {
@@ -46,8 +51,19 @@ public class AccountAreaForCustomerController implements Initializable {
         VBox vBox = new VBox();
         setVBoxStyle(vBox);
         root.add(vBox,1,1);
-        
+//        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes();
+//        for (String discountCode : discountCodes) {
+//            Hyperlink discountLink = new Hyperlink(discountCode);
+//            discountLink.setOnMouseClicked(e -> viewSingleDiscountCode(discountCode));
+//            discountLink.setStyle("-fx-color: ##9900ff;");
+//        }
+        Hyperlink name = new Hyperlink("yasaman");
+        name.setStyle("-fx-color: ##9900ff;");
         StageController.setSceneJavaFx(root);
+    }
+
+    public void viewSingleDiscountCode(String discountCode){
+
     }
 
     public GridPane makeGridPane(){
@@ -87,6 +103,7 @@ public class AccountAreaForCustomerController implements Initializable {
         backButton.setMinSize(0,0);
         backButton.setMaxSize(30,30);
         backButton.setCursor(Cursor.HAND);
+        backButton.setPadding(new Insets(30));
     }
 
     public void setVBoxStyle(VBox vBox){
@@ -95,6 +112,10 @@ public class AccountAreaForCustomerController implements Initializable {
                 "-fx-border-width: 1;" +
                 "-fx-border-style: solid;" +
                 "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
+        vBox.setMinHeight(600);
+        vBox.setMinWidth(400);
+        vBox.setMaxSize(500,700);
+        vBox.setSpacing(30);
     }
 
 }
