@@ -1,21 +1,30 @@
 package ApProject_OnlineShop.GUI.mainMenu;
 
+import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Seller;
 import javafx.event.ActionEvent;
 
-public class MainMenuController {
+public class MainMenuController extends FxmlController {
 
-    public void handleRegisterButtonAction(ActionEvent actionEvent) {
+
+    public void accountAreaButtonPressed(ActionEvent actionEvent) {
+        if (MainController.getInstance().getCurrentPerson() == null) {
+            setScene("login.fxml","Login or Reigster");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager){
+
+        }
     }
 
-    public void handleLoginButtonAction(ActionEvent actionEvent) {
+    public void productsPageButtonPressed(ActionEvent actionEvent) {
     }
 
-    public void handleChangePasswordButtonAction(ActionEvent actionEvent) {
-    }
-
-    public void handleRemoveButtonAction(ActionEvent actionEvent) {
-    }
-
-    public void handleExitButtonAction(ActionEvent actionEvent) {
+    public void offsPageButtonPressed(ActionEvent actionEvent) {
     }
 }

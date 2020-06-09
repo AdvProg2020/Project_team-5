@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.GUI.loginRegister;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
@@ -20,8 +22,9 @@ public class LoginController extends FxmlController {
     public void loginButtonPressed(ActionEvent actionEvent) {
         try {
             MainController.getInstance().getLoginRegisterController().loginUser(username.getText(), password.getText());
+            SuccessPageFxController.showPage("Login successful", "you logined successful");
         } catch (UsernameNotFoundException | PasswordIncorrectException e) {
-            e.printStackTrace();
+            ErrorPageFxController.showPage("Error happened", e.getMessage());
         }
         //setScene();             go to account area page
     }
@@ -42,6 +45,6 @@ public class LoginController extends FxmlController {
     }
 
     public void backButtonAction(ActionEvent actionEvent) {
-        setScene("mainMenuLayout.fxml","Main menu");
+        setScene("mainMenuLayout.fxml", "Main menu");
     }
 }

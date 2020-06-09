@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.GUI.loginRegister;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
@@ -33,18 +35,21 @@ public class RegisterController extends FxmlController {
     public void RegisterForCustomerPressed(ActionEvent actionEvent) {
         if (checkBaseInfos()) {
             if (!credit.getText().matches("\\d\\d\\d\\d+")) {
-
+                ErrorPageFxController.showPage("Error for registering", "credit is invalid!");
             } else {
                 try {
-                    MainController.getInstance().getLoginRegisterController().createAccount("customer", username.getText(), addDeatails("customer"));
+                    MainController.getInstance().getLoginRegisterController().createAccount
+                            ("customer", username.getText(), addDeatails("customer"));
+                    SuccessPageFxController.showPage("Register was successful",
+                            "you registered successfully");
                 } catch (UsernameIsTakenAlreadyException e) {
-
-                } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
-
+                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
+                } catch (MainManagerAlreadyRegistered e) {
+                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
                 } catch (FileCantBeSavedException e) {
-                    e.printStackTrace();
+                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
                 }
             }
         }
@@ -53,15 +58,18 @@ public class RegisterController extends FxmlController {
     public void RegisterForManagerPressed(ActionEvent actionEvent) {
         if (checkBaseInfos()) {
             try {
-                MainController.getInstance().getLoginRegisterController().createAccount("manager", username.getText(), addDeatails("manager"));
+                MainController.getInstance().getLoginRegisterController()
+                        .createAccount("manager", username.getText(), addDeatails("manager"));
+                SuccessPageFxController.showPage
+                        ("Register was successful", "you registered successfully");
             } catch (UsernameIsTakenAlreadyException e) {
-
-            } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
-
+                ErrorPageFxController.showPage("Error for registering", e.getMessage());
+            } catch (MainManagerAlreadyRegistered e) {
+                ErrorPageFxController.showPage("Error for registering", e.getMessage());
             } catch (IOException e) {
-                e.printStackTrace();
+                ErrorPageFxController.showPage("Error for registering", e.getMessage());
             } catch (FileCantBeSavedException e) {
-                e.printStackTrace();
+                ErrorPageFxController.showPage("Error for registering", e.getMessage());
             }
         }
     }
@@ -69,24 +77,28 @@ public class RegisterController extends FxmlController {
     public void RegisterForSellerPressed(ActionEvent actionEvent) {
         if (checkBaseInfos()) {
             if (!companyName.getText().matches("[a-zA-Z]{1,}")) {
-
-            } else if (!companyWebsite.getText().matches("^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\\.)+[\\w]{2,}(\\/\\S*)?$")) {
-
+                ErrorPageFxController.showPage("Error for registering", "company name is invalid!");
+            } else if (!companyWebsite.getText()
+                    .matches("^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\\.)+[\\w]{2,}(\\/\\S*)?$")) {
+                ErrorPageFxController.showPage("Error for registering", "website is invalid!");
             } else if (!companyPhoneNumber.getText().matches("^\\d{11}$")) {
-
+                ErrorPageFxController.showPage("Error for registering", "company phone number is invalid!");
             } else if (!companyFaxNumber.getText().matches("^(\\d+){6,}$")) {
-
+                ErrorPageFxController.showPage("Error for registering", "company fax number is invalid!");
             } else {
                 try {
-                    MainController.getInstance().getLoginRegisterController().createAccount("seller", username.getText(), addDeatails("seller"));
+                    MainController.getInstance().getLoginRegisterController()
+                            .createAccount("seller", username.getText(), addDeatails("seller"));
+                    SuccessPageFxController
+                            .showPage("Register was successful", "you registered successfully");
                 } catch (UsernameIsTakenAlreadyException e) {
-
-                } catch (MainManagerAlreadyRegistered mainManagerAlreadyRegistered) {
-
+                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
+                } catch (MainManagerAlreadyRegistered e) {
+                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
                 } catch (FileCantBeSavedException e) {
-                    e.printStackTrace();
+                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
                 }
             }
         }
@@ -94,16 +106,22 @@ public class RegisterController extends FxmlController {
 
     public boolean checkBaseInfos() {
         if (!username.getText().matches("\\w+")) {
+            ErrorPageFxController.showPage("Error for registering", "username is invalid!");
             return false;
         } else if (!firstName.getText().matches("[a-zA-Z]{2,}")) {
+            ErrorPageFxController.showPage("Error for registering", "first name is invalid!");
             return false;
         } else if (!lastName.getText().matches("[a-zA-Z]{2,}")) {
+            ErrorPageFxController.showPage("Error for registering", "last name is invalid!");
             return false;
-        } else if (!email.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,6}$")) {
+        } else if (!email.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+            ErrorPageFxController.showPage("Error for registering", "email is invalid!");
             return false;
         } else if (!phoneNumber.getText().matches("^\\d{11}$")) {
+            ErrorPageFxController.showPage("Error for registering", "phone number is invalid!");
             return false;
         } else if (!password.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")) {
+            ErrorPageFxController.showPage("Error for registering", "password is invalid!");
             return false;
         }
         return true;
@@ -141,4 +159,5 @@ public class RegisterController extends FxmlController {
     public void backButtonAction(ActionEvent actionEvent) {
         setScene("login.fxml", "Login");
     }
+
 }
