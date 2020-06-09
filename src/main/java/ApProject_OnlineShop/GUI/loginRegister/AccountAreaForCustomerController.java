@@ -37,13 +37,13 @@ public class AccountAreaForCustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForCustomerController().getUserPersonalInfo();
-//        userName.setText(personalInfo.get(0));
-//        name.setText(personalInfo.get(1));
-//        lastName.setText(personalInfo.get(2));
-//        email.setText(personalInfo.get(3));
-//        phoneNumber.setText(personalInfo.get(4));
-//        credit.setText(personalInfo.get(5));
+        ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForCustomerController().getUserPersonalInfo();
+        userName.setText(personalInfo.get(0));
+        name.setText(personalInfo.get(1));
+        lastName.setText(personalInfo.get(2));
+        email.setText(personalInfo.get(3));
+        phoneNumber.setText(personalInfo.get(4));
+        credit.setText(personalInfo.get(5));
     }
 
     public void viewDiscountCode(MouseEvent mouseEvent) {
@@ -51,25 +51,25 @@ public class AccountAreaForCustomerController implements Initializable {
         VBox vBox = new VBox();
         setVBoxStyle(vBox);
         root.add(vBox, 1, 1);
-//        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes();
-//        for (String discountCode : discountCodes) {
-//            Hyperlink discountLink = new Hyperlink(discountCode);
-//            discountLink.setOnMouseClicked(e -> viewSingleDiscountCode(discountCode));
-//            discountLink.setStyle("-fx-color-fill: ##250033;");
-//            discountLink.setAlignment(Pos.BOTTOM_LEFT);
-//            discountLink.setPadding(new Insets(15));
-//            vBox.getChildren().add(discountLink);
-//        }
-        Hyperlink name = new Hyperlink("yasaman");
-        name.setStyle("-fx-text-fill: #600080;");
-        name.setAlignment(Pos.BOTTOM_LEFT);
-        name.setPadding(new Insets(8));
-        Hyperlink lastName = new Hyperlink("yasaman");
-        lastName.setStyle("-fx-text-fill: #250033;");
-        name.setAlignment(Pos.BOTTOM_LEFT);
-        lastName.setPadding(new Insets(8));
-        vBox.getChildren().add(name);
-        vBox.getChildren().add(lastName);
+        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes();
+        for (String discountCode : discountCodes) {
+            Hyperlink discountLink = new Hyperlink(discountCode);
+            discountLink.setOnMouseClicked(e -> viewSingleDiscountCode(discountCode));
+            discountLink.setStyle("-fx-color-fill: ##250033;");
+            discountLink.setAlignment(Pos.BOTTOM_LEFT);
+            discountLink.setPadding(new Insets(15));
+            vBox.getChildren().add(discountLink);
+        }
+//        Hyperlink name = new Hyperlink("yasaman");
+//        name.setStyle("-fx-text-fill: #600080;");
+//        name.setAlignment(Pos.BOTTOM_LEFT);
+//        name.setPadding(new Insets(8));
+//        Hyperlink lastName = new Hyperlink("yasaman");
+//        lastName.setStyle("-fx-text-fill: #250033;");
+//        name.setAlignment(Pos.BOTTOM_LEFT);
+//        lastName.setPadding(new Insets(8));
+//        vBox.getChildren().add(name);
+//        vBox.getChildren().add(lastName);
         StageController.setSceneJavaFx(root);
     }
 
