@@ -51,6 +51,7 @@ public class AccountAreaForCustomerController implements Initializable {
         GridPane root = makeGridPane();
         Label topic = new Label("Discount codes");
         topic.setFont(Font.font("Times New Roman",26));
+        topic.setPadding(new Insets(10));
         GridPane.setHalignment(topic,HPos.CENTER);
         VBox vBox = new VBox();
         setVBoxStyle(vBox);
@@ -65,16 +66,6 @@ public class AccountAreaForCustomerController implements Initializable {
             vBox.getChildren().add(discountLink);
         }
         root.add(topic,1,1);
-//        Hyperlink name = new Hyperlink("yasaman");
-//        name.setStyle("-fx-text-fill: #600080;");
-//        name.setAlignment(Pos.BOTTOM_LEFT);
-//        name.setPadding(new Insets(8));
-//        Hyperlink lastName = new Hyperlink("yasaman");
-//        lastName.setStyle("-fx-text-fill: #250033;");
-//        name.setAlignment(Pos.BOTTOM_LEFT);
-//        lastName.setPadding(new Insets(8));
-//        vBox.getChildren().add(name);
-//        vBox.getChildren().add(lastName);
         StageController.setSceneJavaFx(root);
     }
 
