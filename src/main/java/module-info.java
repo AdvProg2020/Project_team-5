@@ -15,5 +15,6 @@ module ApProject.OnlineShop {
     opens ApProject_OnlineShop.model;
     opens ApProject_OnlineShop.model.orders;
     opens ApProject_OnlineShop.model.category;
+    opens ApProject_OnlineShop.GUI.accountArea;
     exports ApProject_OnlineShop;
 }

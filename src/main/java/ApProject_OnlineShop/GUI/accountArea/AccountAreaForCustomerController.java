@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.GUI.loginRegister;
+package ApProject_OnlineShop.GUI.accountArea;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
