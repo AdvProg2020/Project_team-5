@@ -13,6 +13,7 @@ import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.*;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,10 +24,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LoadingData {
-    private YaGson yaGson;
+    private Gson yaGson;
 
     public LoadingData() {
-        yaGson = new YaGson();
+        yaGson = new Gson();
         File file = new File("Resources");
         if (!file.exists())
             file.mkdir();
