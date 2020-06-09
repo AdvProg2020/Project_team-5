@@ -5,48 +5,49 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" prefHeight="573.0" prefWidth="728.0" styleClass="mainLayout"
-          stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.mainMenu.MainMenuController">
+<GridPane alignment="CENTER" prefHeight="573.0" prefWidth="728.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.mainMenu.MainMenuController">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="230.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="507.0" minWidth="10.0" prefWidth="391.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="230.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="230.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="507.0" minWidth="10.0" prefWidth="391.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="230.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="127.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="372.0" minHeight="10.0" prefHeight="372.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="232.0" minHeight="0.0" prefHeight="201.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="372.0" minHeight="10.0" prefHeight="296.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <ImageView fitHeight="83.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="exitImage"
-                   onMouseClicked="#exitButtonPressed">
+        <ImageView fitHeight="83.0" fitWidth="90.0" onMouseClicked="#exitButtonPressed" pickOnBounds="true" preserveRatio="true" styleClass="exitImage">
             <image>
-                <Image url="@exitIcon.png"/>
+                <Image url="@exitIcon.png" />
             </image>
             <GridPane.margin>
-                <Insets left="140.0" top="10.0"/>
+                <Insets left="140.0" top="10.0" />
             </GridPane.margin>
         </ImageView>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <ImageView fitHeight="200.0" fitWidth="307.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+         <image>
+            <Image url="@shopLogo.png" />
+         </image>
+         <GridPane.margin>
+            <Insets left="60.0" />
+         </GridPane.margin>
+      </ImageView>
+        <VBox alignment="CENTER" prefHeight="367.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Button mnemonicParsing="false" onAction="#accountAreaButtonPressed" prefHeight="56.0" prefWidth="301.0"
-                        styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Account Area">
+                <Button mnemonicParsing="false" onAction="#accountAreaButtonPressed" prefHeight="56.0" prefWidth="301.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Account Area">
                     <VBox.margin>
-                        <Insets bottom="30.0"/>
+                        <Insets bottom="30.0" />
                     </VBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#productsPageButtonPressed" prefHeight="54.0"
-                        prefWidth="300.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css"
-                        text="Products Page">
+                <Button mnemonicParsing="false" onAction="#productsPageButtonPressed" prefHeight="54.0" prefWidth="300.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Products Page">
                     <VBox.margin>
-                        <Insets bottom="30.0" top="30.0"/>
+                        <Insets bottom="30.0" top="30.0" />
                     </VBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#offsPageButtonPressed" prefHeight="51.0" prefWidth="300.0"
-                        styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Offs Page">
+                <Button mnemonicParsing="false" onAction="#offsPageButtonPressed" prefHeight="51.0" prefWidth="300.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Offs Page">
                     <VBox.margin>
-                        <Insets top="30.0"/>
+                        <Insets top="30.0" />
                     </VBox.margin>
                 </Button>
             </children>
