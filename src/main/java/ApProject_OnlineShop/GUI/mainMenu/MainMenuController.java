@@ -5,7 +5,9 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 
 public class MainMenuController extends FxmlController {
 
@@ -26,5 +28,10 @@ public class MainMenuController extends FxmlController {
     }
 
     public void offsPageButtonPressed(ActionEvent actionEvent) {
+    }
+
+
+    public void exitButtonPressed(MouseEvent mouseEvent) {
+        Platform.exit();
     }
 }
