@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,7 +22,12 @@ public class StageController {
         }
         stage.setTitle("Shop");
         stage.setScene(new Scene(root, 1000, 800));
- //       stage.setMaximized(true);
+        //       stage.setMaximized(true);
+        stage.show();
+    }
+
+    public static void setSceneJavaFx(GridPane root) {
+        stage.setScene(new Scene(root, 1000, 800));
         stage.show();
     }
 

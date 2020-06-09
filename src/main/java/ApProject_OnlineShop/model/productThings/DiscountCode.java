@@ -111,8 +111,7 @@ public class DiscountCode {
     }
 
     public String detailedToString() {
-        return "discount code : " + code + "\nstart date : " + startDate + "\nend date : " + endDate + "\nmaximum supported amount : "
-                + maxDiscountAmount + "\ndiscount percent :" + discountPercent;
+        return "discount code:" + code + "\tend date: " + endDate ;
     }
 
     public static String generateRandomDiscountCode() {
