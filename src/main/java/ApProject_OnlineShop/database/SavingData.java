@@ -12,16 +12,17 @@ import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.*;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class SavingData {
-    private YaGson yaGson;
+    private Gson yaGson;
 
     public SavingData() {
-        yaGson = new YaGson();
+        yaGson = new Gson();
     }
 
     public void saveManager(Manager manager) throws IOException, FileCantBeSavedException {
