@@ -169,7 +169,13 @@
             </font>
             <cursor>
                <Cursor fx:constant="HAND" />
-            </cursor></Button>
+            </cursor>
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding></Button>
          <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;" text="orders" textFill="#0e000e">
            <items>
              <MenuItem mnemonicParsing="false" onAction="#showOrders" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="show orders" />
@@ -181,6 +187,9 @@
             <font>
                <Font size="14.0" />
             </font>
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
          </MenuButton>
       </children>
    </VBox>

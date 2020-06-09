@@ -147,7 +147,7 @@
     </ImageView>
     <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
         <children>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="company information">
+            <Button mnemonicParsing="false" onMouseClicked="#viewCompanyInformation" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="company information">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -157,7 +157,7 @@
             <VBox.margin>
                <Insets top="15.0" />
             </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="sale history">
+            <Button mnemonicParsing="false" onMouseClicked="#viewSaleHistory" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="sale history">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -167,7 +167,7 @@
                 <VBox.margin>
                     <Insets top="15.0" />
                 </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="manage products">
+            <Button mnemonicParsing="false" onMouseClicked="#manageProducts" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="manage products">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -177,7 +177,7 @@
                 <VBox.margin>
                     <Insets top="15.0" />
                 </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="show categories">
+            <Button mnemonicParsing="false" onMouseClicked="#showCategories" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="show categories">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -187,7 +187,7 @@
                 <VBox.margin>
                     <Insets top="15.0" />
                 </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="Offs">
+            <Button mnemonicParsing="false" onMouseClicked="#viewOffs" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="Offs">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -197,7 +197,7 @@
                 <VBox.margin>
                     <Insets top="15.0" />
                 </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="balance">
+            <Button mnemonicParsing="false" onMouseClicked="#viewBalance" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="balance">
                 <font>
                     <Font size="14.0" />
                 </font>
