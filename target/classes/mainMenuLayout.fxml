@@ -21,17 +21,17 @@
     <children>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <Button mnemonicParsing="false" prefHeight="56.0" prefWidth="301.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Account Area">
+                <Button onAction="#accountAreaButtonPressed" mnemonicParsing="false" prefHeight="56.0" prefWidth="301.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Account Area">
                     <VBox.margin>
                         <Insets bottom="30.0" />
                     </VBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="300.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Product Page">
+                <Button onAction="#productsPageButtonPressed" mnemonicParsing="false" prefHeight="54.0" prefWidth="300.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Products Page">
                     <VBox.margin>
                         <Insets bottom="30.0" top="30.0" />
                     </VBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="300.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Off Page">
+                <Button onAction="#offsPageButtonPressed" mnemonicParsing="false" prefHeight="51.0" prefWidth="300.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="Offs Page">
                     <VBox.margin>
                         <Insets top="30.0" />
                     </VBox.margin>
