@@ -29,9 +29,9 @@ public class LoginController extends FxmlController {
             if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
                 setScene("accountAreaForCustomer.fxml", "Account area for custmoer");
             } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
-
+                setScene("accountAreaForManager.fxml", "Account area for manager");
             } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
-
+                setScene("accountAreaForSeller.fxml", "Account area for seller");
             }
         } catch (UsernameNotFoundException | PasswordIncorrectException e) {
             ErrorPageFxController.showPage("Error happened", e.getMessage());

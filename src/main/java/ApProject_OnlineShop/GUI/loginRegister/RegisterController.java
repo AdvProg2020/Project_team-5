@@ -42,6 +42,7 @@ public class RegisterController extends FxmlController {
                             ("customer", username.getText(), addDeatails("customer"));
                     SuccessPageFxController.showPage("Register was successful",
                             "you registered successfully");
+                    setScene("login.fxml","Login");
                 } catch (UsernameIsTakenAlreadyException e) {
                     ErrorPageFxController.showPage("Error for registering", e.getMessage());
                 } catch (MainManagerAlreadyRegistered e) {
