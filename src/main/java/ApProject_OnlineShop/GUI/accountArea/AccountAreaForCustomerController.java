@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.GUI.loginRegister;
+package ApProject_OnlineShop.GUI.accountArea;
 
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.Main;
