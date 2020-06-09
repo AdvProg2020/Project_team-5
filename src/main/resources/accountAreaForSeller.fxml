@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.AccountAreaForCustomerController">
+<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.AccountAreaForSellerController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0" prefWidth="369.79999999999995" />
@@ -41,7 +41,7 @@
             <opaqueInsets>
                 <Insets left="20.0" />
             </opaqueInsets></Label>
-        <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="name:">
+        <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="first name:">
             <VBox.margin>
                 <Insets top="4.0" />
             </VBox.margin>
@@ -147,7 +147,7 @@
     </ImageView>
     <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
         <children>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="company information">
+            <Button mnemonicParsing="false" onMouseClicked="#viewCompanyInformation" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="company information">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -157,7 +157,7 @@
             <VBox.margin>
                <Insets top="15.0" />
             </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="sale history">
+            <Button mnemonicParsing="false" onMouseClicked="#viewSaleHistory" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="sale history">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -167,7 +167,7 @@
                 <VBox.margin>
                     <Insets top="15.0" />
                 </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="manage products">
+            <Button mnemonicParsing="false" onMouseClicked="#manageProducts" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="manage products">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -177,7 +177,7 @@
                 <VBox.margin>
                     <Insets top="15.0" />
                 </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="show categories">
+            <Button mnemonicParsing="false" onMouseClicked="#showCategories" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="show categories">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -187,7 +187,7 @@
                 <VBox.margin>
                     <Insets top="15.0" />
                 </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="Offs">
+            <Button mnemonicParsing="false" onMouseClicked="#viewOffs" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="Offs">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -197,7 +197,7 @@
                 <VBox.margin>
                     <Insets top="15.0" />
                 </VBox.margin></Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="balance">
+            <Button mnemonicParsing="false" onMouseClicked="#viewBalance" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="balance">
                 <font>
                     <Font size="14.0" />
                 </font>

@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.controller.accountArea;
 
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.productExceptions.FieldCantBeEditedException;
@@ -8,6 +9,9 @@ import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Person;
+import ApProject_OnlineShop.model.persons.Seller;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,14 +34,17 @@ public class AccountAreaController {
     }
 
     public ArrayList<String> getUserPersonalInfo() {
-        Customer customer = (Customer) MainController.getInstance().getCurrentPerson();
         ArrayList<String> personalInfo = new ArrayList<>();
-        personalInfo.add(customer.getUsername());
-        personalInfo.add(customer.getFirstName());
-        personalInfo.add(customer.getLastName());
-        personalInfo.add(customer.getEmail());
-        personalInfo.add(customer.getPhoneNumber());
-        personalInfo.add(""+customer.getCredit());
+            Person person = MainController.getInstance().getCurrentPerson();
+            personalInfo.add(person.getUsername());
+            personalInfo.add(person.getFirstName());
+            personalInfo.add(person.getLastName());
+            personalInfo.add(person.getEmail());
+            personalInfo.add(person.getPhoneNumber());
+        if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            Customer customer = (Customer) MainController.getInstance().getCurrentPerson();
+            personalInfo.add("" + customer.getCredit());
+        }
         return personalInfo;
     }
 
@@ -66,9 +73,9 @@ public class AccountAreaController {
         Database.getInstance().saveItem(MainController.getInstance().getCurrentPerson());
     }
 
-    public List<String> getSortedOrders(int chosenSort,List<Order> orders){
+    public List<String> getSortedOrders(int chosenSort, List<Order> orders) {
         List<String> ordersString = new ArrayList<>();
-        if (chosenSort == 1 )
+        if (chosenSort == 1)
             ordersString = MainController.getInstance().getSortController().sortByDate(orders).stream().map(order -> order.toString()).collect(Collectors.toList());
         if (chosenSort == 2)
             ordersString = MainController.getInstance().getSortController().sortByPrice(orders).stream().map(order -> order.toString()).collect(Collectors.toList());

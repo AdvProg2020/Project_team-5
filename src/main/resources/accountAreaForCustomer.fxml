@@ -38,7 +38,7 @@
          <opaqueInsets>
             <Insets left="20.0" />
          </opaqueInsets></Label>
-      <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="name:">
+      <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="first name:">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
