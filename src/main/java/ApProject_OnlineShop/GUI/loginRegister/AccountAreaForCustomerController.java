@@ -50,34 +50,45 @@ public class AccountAreaForCustomerController implements Initializable {
         GridPane root = makeGridPane();
         VBox vBox = new VBox();
         setVBoxStyle(vBox);
-        root.add(vBox,1,1);
+        root.add(vBox, 1, 1);
 //        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes();
 //        for (String discountCode : discountCodes) {
 //            Hyperlink discountLink = new Hyperlink(discountCode);
 //            discountLink.setOnMouseClicked(e -> viewSingleDiscountCode(discountCode));
-//            discountLink.setStyle("-fx-color: ##9900ff;");
+//            discountLink.setStyle("-fx-color-fill: ##250033;");
+//            discountLink.setAlignment(Pos.BOTTOM_LEFT);
+//            discountLink.setPadding(new Insets(15));
+//            vBox.getChildren().add(discountLink);
 //        }
         Hyperlink name = new Hyperlink("yasaman");
-        name.setStyle("-fx-color: ##9900ff;");
+        name.setStyle("-fx-text-fill: #600080;");
+        name.setAlignment(Pos.BOTTOM_LEFT);
+        name.setPadding(new Insets(8));
+        Hyperlink lastName = new Hyperlink("yasaman");
+        lastName.setStyle("-fx-text-fill: #250033;");
+        name.setAlignment(Pos.BOTTOM_LEFT);
+        lastName.setPadding(new Insets(8));
+        vBox.getChildren().add(name);
+        vBox.getChildren().add(lastName);
         StageController.setSceneJavaFx(root);
     }
 
-    public void viewSingleDiscountCode(String discountCode){
+    public void viewSingleDiscountCode(String discountCode) {
 
     }
 
-    public GridPane makeGridPane(){
+    public GridPane makeGridPane() {
         GridPane root = new GridPane();
         setGridPaneStyle(root);
         Image backImage = new Image(getClass().getClassLoader().getResource("icons8-back-to-48.png").toString());
         ImageView imageView = new ImageView(backImage);
         imageView.setFitWidth(50);
         imageView.setFitHeight(50);
-        Button back = new Button("",imageView);
+        Button back = new Button("", imageView);
         setBackButton(back);
         GridPane.setHalignment(back, HPos.LEFT);
         GridPane.setValignment(back, VPos.TOP);
-        root.add(back, 0 , 0);
+        root.add(back, 0, 0);
         return root;
     }
 
@@ -89,32 +100,32 @@ public class AccountAreaForCustomerController implements Initializable {
 
     }
 
-    public void setGridPaneStyle(GridPane root){
+    public void setGridPaneStyle(GridPane root) {
         root.setStyle("-fx-background-color: linear-gradient(to bottom right, #ffe6ff, #ffffff);");
         root.setAlignment(Pos.CENTER);
         root.setHgap(15);
         root.setHgap(15);
     }
 
-    public void setBackButton(Button backButton){
+    public void setBackButton(Button backButton) {
         backButton.setStyle("-fx-background-radius: 100%;");
         backButton.setPrefHeight(30);
         backButton.setPrefWidth(30);
-        backButton.setMinSize(0,0);
-        backButton.setMaxSize(30,30);
+        backButton.setMinSize(0, 0);
+        backButton.setMaxSize(30, 30);
         backButton.setCursor(Cursor.HAND);
-        backButton.setPadding(new Insets(30));
+        backButton.setPadding(new Insets(50));
     }
 
-    public void setVBoxStyle(VBox vBox){
-        vBox.setAlignment(Pos.CENTER);
+    public void setVBoxStyle(VBox vBox) {
+        vBox.setAlignment(Pos.TOP_LEFT);
         vBox.setStyle("-fx-border-color:#8600b3;" +
                 "-fx-border-width: 1;" +
                 "-fx-border-style: solid;" +
                 "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
         vBox.setMinHeight(600);
         vBox.setMinWidth(400);
-        vBox.setMaxSize(500,700);
+        vBox.setMaxSize(500, 700);
         vBox.setSpacing(30);
     }
 
