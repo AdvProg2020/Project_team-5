@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -48,18 +49,22 @@ public class AccountAreaForCustomerController implements Initializable {
 
     public void viewDiscountCode(MouseEvent mouseEvent) {
         GridPane root = makeGridPane();
+        Label topic = new Label("Discount codes");
+        topic.setFont(Font.font("Times New Roman",26));
+        GridPane.setHalignment(topic,HPos.CENTER);
         VBox vBox = new VBox();
         setVBoxStyle(vBox);
-        root.add(vBox, 1, 1);
+        root.add(vBox, 1, 2);
         List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes();
         for (String discountCode : discountCodes) {
             Hyperlink discountLink = new Hyperlink(discountCode);
             discountLink.setOnMouseClicked(e -> viewSingleDiscountCode(discountCode));
-            discountLink.setStyle("-fx-color-fill: ##250033;");
+            discountLink.setStyle("-fx-color-fill: #250033;");
             discountLink.setAlignment(Pos.BOTTOM_LEFT);
             discountLink.setPadding(new Insets(15));
             vBox.getChildren().add(discountLink);
         }
+        root.add(topic,1,1);
 //        Hyperlink name = new Hyperlink("yasaman");
 //        name.setStyle("-fx-text-fill: #600080;");
 //        name.setAlignment(Pos.BOTTOM_LEFT);
@@ -125,7 +130,7 @@ public class AccountAreaForCustomerController implements Initializable {
                 "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
         vBox.setMinHeight(600);
         vBox.setMinWidth(400);
-        vBox.setMaxSize(500, 700);
+//        vBox.setMaxSize(500, 700);
         vBox.setSpacing(30);
     }
 

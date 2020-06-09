@@ -28,13 +28,16 @@
          <font>
             <Font name="Times New Roman" size="18.0" />
          </font></Label>
-      <Label fx:id="userName" alignment="CENTER" prefHeight="18.0" prefWidth="196.0" text=" ">
+      <Label fx:id="userName" prefHeight="18.0" prefWidth="196.0" text=" ">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
             <Font name="Times New Roman" size="14.0" />
-         </font></Label>
+         </font>
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets></Label>
       <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="name:">
          <VBox.margin>
             <Insets top="10.0" />
@@ -46,13 +49,16 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="name" alignment="CENTER" prefHeight="18.0" prefWidth="193.0">
+      <Label fx:id="name" prefHeight="18.0" prefWidth="193.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
             <Font size="14.0" />
-         </font></Label>
+         </font>
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets></Label>
       <Label alignment="BOTTOM_LEFT" prefHeight="18.0" prefWidth="200.0" text="lastname:">
          <VBox.margin>
             <Insets top="10.0" />
@@ -64,13 +70,16 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="lastName" alignment="CENTER" prefHeight="18.0" prefWidth="190.0">
+      <Label fx:id="lastName" prefHeight="18.0" prefWidth="190.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
             <Font size="14.0" />
-         </font></Label>
+         </font>
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets></Label>
       <Label prefHeight="20.0" prefWidth="195.0" text="email:">
          <VBox.margin>
             <Insets top="10.0" />
@@ -88,7 +97,10 @@
          </padding>
          <font>
             <Font size="14.0" />
-         </font></Label>
+         </font>
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets></Label>
       <Label prefHeight="20.0" prefWidth="207.0" text="phone number:">
          <opaqueInsets>
             <Insets top="10.0" />
@@ -103,13 +115,16 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="phoneNumber" alignment="CENTER" prefHeight="18.0" prefWidth="181.0">
+      <Label fx:id="phoneNumber" prefHeight="18.0" prefWidth="181.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
             <Font size="14.0" />
-         </font></Label>
+         </font>
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets></Label>
       <Label prefHeight="20.0" prefWidth="208.0" text="credit:">
          <VBox.margin>
             <Insets top="10.0" />
@@ -121,13 +136,16 @@
             <Font name="Times New Roman" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="credit" alignment="CENTER" prefHeight="18.0" prefWidth="228.0">
+      <Label fx:id="credit" prefHeight="18.0" prefWidth="228.0">
          <padding>
             <Insets left="10.0" />
          </padding>
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
+         <opaqueInsets>
+            <Insets left="20.0" />
+         </opaqueInsets>
       </Label>
       <padding>
          <Insets bottom="10.0" top="20.0" />
