@@ -209,6 +209,15 @@
          <Insets top="10.0" />
       </padding>
    </Hyperlink>
+   <ImageView fitHeight="61.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
+              styleClass="exitImage" onMouseClicked="#logout">
+      <image>
+         <Image url="@logout.png"/>
+      </image>
+      <GridPane.margin>
+         <Insets left="400.0"/>
+      </GridPane.margin>
+   </ImageView>
    <padding>
       <Insets left="10.0" />
    </padding>

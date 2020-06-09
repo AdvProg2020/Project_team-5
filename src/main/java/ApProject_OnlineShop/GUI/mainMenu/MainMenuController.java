@@ -2,24 +2,29 @@ package ApProject_OnlineShop.GUI.mainMenu;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
+
+import java.util.Optional;
 
 public class MainMenuController extends FxmlController {
 
 
     public void accountAreaButtonPressed(ActionEvent actionEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
-            setScene("login.fxml","Login or Reigster");
+            setScene("login.fxml", "Login or Reigster");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
 
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
 
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager){
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
 
         }
     }
@@ -32,6 +37,10 @@ public class MainMenuController extends FxmlController {
 
 
     public void exitButtonPressed(MouseEvent mouseEvent) {
-        Platform.exit();
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
+        if (result.get() == ButtonType.OK) {
+            Platform.exit();
+        }
     }
 }
