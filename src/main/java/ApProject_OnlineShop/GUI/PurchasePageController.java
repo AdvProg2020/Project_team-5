@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PurchasePageController implements Initializable {
+public class PurchasePageController extends FxmlController implements Initializable {
     @FXML
     private Label shouldPayLabel;
     @FXML
