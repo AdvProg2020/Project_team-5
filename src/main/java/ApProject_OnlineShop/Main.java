@@ -31,6 +31,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         new StageController();
-        SuccessPageFxController.showPage("new successful", "hey there this is a success page");
+       // SuccessPageFxController.showPage("new successful", "hey there this is a success page");
     }
 }
