@@ -124,3 +124,7 @@
 .roundButton:hover{
   -fx-cursor: hand;
 }
+
+.exitImage{
+  -fx-cursor: hand;
+}
