@@ -6,6 +6,9 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Seller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceDialog;
@@ -26,7 +29,13 @@ public class LoginController extends FxmlController {
         } catch (UsernameNotFoundException | PasswordIncorrectException e) {
             ErrorPageFxController.showPage("Error happened", e.getMessage());
         }
-        //setScene();             go to account area page
+        if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            setScene("accountAreaForCustomer.fxml", "Account area for custmoer");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+
+        }
     }
 
     public void goToRegisterMenu(ActionEvent actionEvent) {
