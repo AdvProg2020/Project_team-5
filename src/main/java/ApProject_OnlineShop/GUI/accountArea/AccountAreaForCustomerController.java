@@ -48,7 +48,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         GridPane root = makeGridPane();
         Label topic = new Label("Discount codes");
         topic.setFont(Font.font("Times New Roman", 26));
-        topic.setPadding(new Insets(10));
+        topic.setPadding(new Insets(20));
         GridPane.setHalignment(topic, HPos.CENTER);
         VBox vBox = new VBox();
         setVBoxStyle(vBox);
@@ -57,9 +57,10 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         for (String discountCode : discountCodes) {
             Hyperlink discountLink = new Hyperlink(discountCode);
             discountLink.setOnMouseClicked(e -> viewSingleDiscountCode(discountCode));
-            discountLink.setStyle("-fx-color-fill: #250033;");
+            discountLink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
             discountLink.setAlignment(Pos.BOTTOM_LEFT);
-            discountLink.setPadding(new Insets(15));
+            discountLink.setPadding(new Insets(8));
+            discountLink.setUnderline(false);
             vBox.getChildren().add(discountLink);
         }
         root.add(topic, 1, 1);
@@ -119,7 +120,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         vBox.setMinHeight(600);
         vBox.setMinWidth(400);
 //        vBox.setMaxSize(500, 700);
-        vBox.setSpacing(30);
+        vBox.setSpacing(20);
     }
 
     public void logout(MouseEvent mouseEvent) {
