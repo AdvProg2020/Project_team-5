@@ -132,4 +132,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
+
+    public void backButton(ActionEvent actionEvent) {
+        setScene("mainMenuLayout.fxml","main menu");
+    }
 }

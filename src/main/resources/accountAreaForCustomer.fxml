@@ -154,7 +154,7 @@
          <Insets />
       </GridPane.margin>
    </VBox>
-   <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
+   <Button onAction="#backButton"  minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@icons8-back-to-48.png" />
       <cursor>
