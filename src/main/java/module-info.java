@@ -12,7 +12,7 @@ module ApProject.OnlineShop {
     opens ApProject_OnlineShop.GUI.loginRegister;
     opens ApProject_OnlineShop.model.persons to com.google.gson;
     opens ApProject_OnlineShop.model.requests to com.google.gson;
-    opens ApProject_OnlineShop.model;
+    opens ApProject_OnlineShop.model to com.google.gson;
     opens ApProject_OnlineShop.model.orders;
     opens ApProject_OnlineShop.model.category;
     opens ApProject_OnlineShop.GUI.accountArea;

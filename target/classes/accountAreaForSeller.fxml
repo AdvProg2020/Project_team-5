@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.AccountAreaForSellerController">
+<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0" prefWidth="369.79999999999995" />
@@ -144,7 +144,7 @@
             <Insets />
         </GridPane.margin>
     </VBox>
-    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
+    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@icons8-back-to-48.png" />
         <cursor>
