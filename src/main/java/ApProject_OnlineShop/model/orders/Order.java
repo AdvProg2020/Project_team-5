@@ -48,6 +48,10 @@ public abstract class Order {
         return ordersCount;
     }
 
+    public String briefString(){
+        return "order ID: " + getOrderId() +"   \t date : " + getDate();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Order){
