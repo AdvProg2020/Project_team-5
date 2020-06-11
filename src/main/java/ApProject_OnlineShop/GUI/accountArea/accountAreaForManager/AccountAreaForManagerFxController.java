@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.GUI.accountArea;
+package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
