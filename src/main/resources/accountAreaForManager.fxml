@@ -1,39 +1,284 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="710.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="155.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="555.0" minWidth="10.0" prefWidth="555.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="105.0" minHeight="10.0" prefHeight="63.0" />
-    <RowConstraints maxHeight="334.0" minHeight="10.0" prefHeight="334.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="155.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-         <children>
-            <Label alignment="CENTER" prefHeight="61.0" prefWidth="354.0" text="Label" />
-         </children>
-      </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <HBox alignment="CENTER" prefHeight="61.0" prefWidth="89.0">
-         <children>
-            <ImageView fitHeight="54.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </HBox>
-   </children>
-   <cursor>
-      <Cursor fx:constant="HAND" />
-   </cursor>
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="734.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.AccountAreaForManagerFxController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0" prefWidth="369.79999999999995" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="27.20000762939455" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="345.5999923706055" minHeight="10.0" prefHeight="345.5999923706055" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <opaqueInsets>
+            <Insets top="1.0" />
+        </opaqueInsets>
+        <Label prefHeight="18.0" prefWidth="196.0" text="username:">
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font name="Times New Roman" size="18.0" />
+            </font></Label>
+        <Label fx:id="userName" prefHeight="18.0" prefWidth="196.0" text=" ">
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font name="Times New Roman" size="14.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="20.0" />
+            </opaqueInsets></Label>
+        <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="first name:">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font name="Times New Roman" size="17.0" />
+            </font>
+        </Label>
+        <Label fx:id="name" prefHeight="18.0" prefWidth="193.0">
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font size="14.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="20.0" />
+            </opaqueInsets></Label>
+        <Label alignment="BOTTOM_LEFT" prefHeight="18.0" prefWidth="200.0" text="lastname:">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font name="Times New Roman" size="17.0" />
+            </font>
+        </Label>
+        <Label fx:id="lastName" prefHeight="18.0" prefWidth="190.0">
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font size="14.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="20.0" />
+            </opaqueInsets></Label>
+        <Label prefHeight="20.0" prefWidth="195.0" text="email:">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font name="Times New Roman" size="17.0" />
+            </font>
+        </Label>
+        <Label fx:id="email" prefHeight="18.0" prefWidth="252.0">
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font size="14.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="20.0" />
+            </opaqueInsets></Label>
+        <Label prefHeight="20.0" prefWidth="207.0" text="phone number:">
+            <opaqueInsets>
+                <Insets top="10.0" />
+            </opaqueInsets>
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font name="Times New Roman" size="17.0" />
+            </font>
+        </Label>
+        <Label fx:id="phoneNumber" prefHeight="18.0" prefWidth="181.0">
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font size="14.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="20.0" />
+            </opaqueInsets></Label>
+        <Label prefHeight="20.0" prefWidth="208.0" text="credit:">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font name="Times New Roman" size="17.0" />
+            </font>
+        </Label>
+        <Label fx:id="credit" prefHeight="18.0" prefWidth="228.0">
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+            <font>
+                <Font name="Times New Roman" size="14.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="20.0" />
+            </opaqueInsets>
+        </Label>
+        <padding>
+            <Insets bottom="10.0" top="20.0" />
+        </padding>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+    </VBox>
+    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
+    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@icons8-back-to-48.png" />
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </ImageView>
+    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
+        <children>
+            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="view discount codes">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+                <VBox.margin>
+                    <Insets top="15.0" />
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding></Button>
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage users">
+             <font>
+                 <Font size="14.0" />
+             </font>
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage requests">
+             <font>
+                 <Font size="14.0" />
+             </font>
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manageAllProducts">
+             <font>
+                 <Font size="14.0" />
+             </font>
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manageCategories">
+             <font>
+                 <Font size="14.0" />
+             </font>
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="create new discount">
+             <font>
+                 <Font size="14.0" />
+             </font>
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+        </children>
+    </VBox>
+    <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="Personal Information" GridPane.columnIndex="1">
+        <font>
+            <Font name="Times New Roman" size="26.0" />
+        </font>
+    </Label>
+    <Hyperlink prefHeight="4.0" prefWidth="71.0" text="edit fields" textFill="#470549" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+        <opaqueInsets>
+            <Insets left="15.0" />
+        </opaqueInsets>
+        <font>
+            <Font size="15.0" />
+        </font>
+        <padding>
+            <Insets top="10.0" />
+        </padding>
+    </Hyperlink>
+    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#onLogoutClicked" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
+        <image>
+            <Image url="@logout.png" />
+        </image>
+        <GridPane.margin>
+            <Insets left="400.0" />
+        </GridPane.margin>
+    </ImageView>
+    <padding>
+        <Insets left="10.0" />
+    </padding>
 </GridPane>
