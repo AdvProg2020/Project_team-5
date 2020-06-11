@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.GUI.accountArea;
+package ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
@@ -26,7 +26,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     public Label email;
     public Label phoneNumber;
     public Label credit;
-
+    private ViewOrders viewOrders = new ViewOrders(this);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,7 +39,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         credit.setText(personalInfo.get(5));
     }
 
-    public void viewDiscountCode(){
+    public void viewDiscountCode() {
         viewSortedDiscountCode(0);
     }
 
@@ -47,7 +47,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         GridPane root = makeGridPane();
         Label topic = new Label("Discount codes");
         topic.setFont(Font.font("Times New Roman", 26));
-        topic.setPadding(new Insets(20));
+        topic.setPadding(new Insets(5));
         GridPane.setHalignment(topic, HPos.CENTER);
         VBox vBox = new VBox();
         setVBoxStyle(vBox);
@@ -88,9 +88,9 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
         discountCodeInfo.setPadding(new Insets(20));
         GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
-        root.add(discountCodeInfo,1,1);
+        root.add(discountCodeInfo, 1, 1);
         VBox vBox = new VBox();
-       addDiscountDetailsToVBox(discountCodeDetails,vBox);
+        addDiscountDetailsToVBox(discountCodeDetails, vBox);
         setVBoxStyle(vBox);
         root.add(vBox, 1, 2);
         vBox.setMinHeight(400);
@@ -120,15 +120,15 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         GridPane.setHalignment(logoutImage, HPos.LEFT);
         GridPane.setValignment(logoutImage, VPos.TOP);
         root.add(back, 0, 0);
-        root.add(logoutImage,2,0);
+        root.add(logoutImage, 2, 0);
         return root;
     }
 
-    public void showOrders(ActionEvent actionEvent) {
-        System.out.println("hello");
+    public void showOrders() {
+        viewOrders.viewSortedOrders(0);
     }
 
-    public void rateProducts(ActionEvent actionEvent) {
+    public void rateProducts() {
 
     }
 
@@ -170,14 +170,14 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         }
     }
 
-    public void setMenuItems(MenuItem menuItem){
+    public void setMenuItems(MenuItem menuItem) {
         menuItem.setStyle("-fx-background-color:  #dab3ff; -fx-font-size: 15;");
     }
 
     public void setMenuButtonStyle(MenuButton menuButton) {
         menuButton.setStyle("-fx-background-color:  #dab3ff; -fx-background-radius:  8px; -fx-margin:  10px 2px; -fx-border-radius:  8px;" +
                 "-fx-border-color:  #600080; -fx-border-width:  2 2 2 2;");
-        menuButton.setMinSize(150,30);
+        menuButton.setMinSize(150, 30);
         GridPane.setValignment(menuButton, VPos.TOP);
         GridPane.setHalignment(menuButton, HPos.CENTER);
         menuButton.setFont(Font.font("Times New Roman", 18));
@@ -190,11 +190,11 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         setScene("mainMenuLayout.fxml", "main menu");
     }
 
-    public void backToAccountAreaCustomer(){
+    public void backToAccountAreaCustomer() {
         setScene("accountAreaForCustomer.fxml", "main menu");
     }
 
-    public void addDiscountDetailsToVBox(List<String> discountCodeDetails, VBox vBox){
+    public void addDiscountDetailsToVBox(List<String> discountCodeDetails, VBox vBox) {
         Label codeLabel = new Label("discount code:     " + discountCodeDetails.get(0));
         Label startDate = new Label("start date:     " + discountCodeDetails.get(1));
         Label endDate = new Label("end date:     " + discountCodeDetails.get(2));
@@ -212,7 +212,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         vBox.getChildren().add(maxDiscountAmount);
     }
 
-    public void setTextFont(Label text){
+    public void setTextFont(Label text) {
         text.setFont(Font.font("Times New Roman", 16));
         text.setPadding(new Insets(20));
         GridPane.setHalignment(text, HPos.CENTER);

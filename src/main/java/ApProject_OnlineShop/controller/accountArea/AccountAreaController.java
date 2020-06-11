@@ -75,10 +75,12 @@ public class AccountAreaController {
 
     public List<String> getSortedOrders(int chosenSort, List<Order> orders) {
         List<String> ordersString = new ArrayList<>();
+        if (chosenSort == 0)
+            ordersString = orders.stream().map(order -> order.briefString()).collect(Collectors.toList());
         if (chosenSort == 1)
-            ordersString = MainController.getInstance().getSortController().sortByDate(orders).stream().map(order -> order.toString()).collect(Collectors.toList());
+            ordersString = MainController.getInstance().getSortController().sortByDate(orders).stream().map(order -> order.briefString()).collect(Collectors.toList());
         if (chosenSort == 2)
-            ordersString = MainController.getInstance().getSortController().sortByPrice(orders).stream().map(order -> order.toString()).collect(Collectors.toList());
+            ordersString = MainController.getInstance().getSortController().sortByPrice(orders).stream().map(order -> order.briefString()).collect(Collectors.toList());
         return ordersString;
     }
 }
