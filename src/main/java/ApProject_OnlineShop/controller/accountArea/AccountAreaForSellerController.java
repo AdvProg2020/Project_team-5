@@ -9,6 +9,7 @@ import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundException
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
+import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
@@ -50,8 +51,15 @@ public class AccountAreaForSellerController extends AccountAreaController {
         }
     }
 
-    public String getCompanyInfo() {
-        return ((Seller) MainController.getInstance().getCurrentPerson()).getCompany().toString();
+    public ArrayList<String> getCompanyInfo() {
+        ArrayList<String> companyInfo = new ArrayList<>();
+        Company company = ((Seller) MainController.getInstance().getCurrentPerson()).getCompany();
+        companyInfo.add(company.getName());
+        companyInfo.add(company.getWebsite());
+        companyInfo.add(company.getPhoneNumber());
+        companyInfo.add(company.getFaxNumber());
+        companyInfo.add(company.getAddress());
+        return getCompanyInfo();
     }
 
     public List<String> getSalesLog() {
@@ -192,7 +200,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Database.getInstance().saveItem(editingGoodRequest);
     }
 
-    public List<Good> sort(int chosenSort){
+    public List<Good> sort(int chosenSort) {
         Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
         List<Good> goods = null;
         if (chosenSort == 0) {

@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController">
+<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.CompanyInformationController">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0" prefWidth="369.79999999999995" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="95.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="550.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="27.20000762939455" vgrow="SOMETIMES" />
@@ -21,7 +21,7 @@
         <opaqueInsets>
             <Insets top="1.0" />
         </opaqueInsets>
-        <Label prefHeight="18.0" prefWidth="196.0" text="username:">
+        <Label prefHeight="18.0" prefWidth="196.0" text="name:">
             <padding>
                 <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
             </padding>
@@ -32,7 +32,7 @@
                 <Insets />
             </VBox.margin>
         </Label>
-        <Label fx:id="userName" prefHeight="18.0" prefWidth="196.0" text=" ">
+        <Label fx:id="name" prefHeight="18.0" prefWidth="196.0" text=" ">
             <padding>
                 <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
             </padding>
@@ -43,7 +43,7 @@
                 <Insets left="20.0" />
             </opaqueInsets>
         </Label>
-        <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="first name:">
+        <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="website:">
             <VBox.margin>
                 <Insets top="4.0" />
             </VBox.margin>
@@ -54,7 +54,7 @@
                 <Font name="Times New Roman" size="17.0" />
             </font>
         </Label>
-        <Label fx:id="name" prefHeight="18.0" prefWidth="193.0">
+        <Label fx:id="website" prefHeight="18.0" prefWidth="193.0">
             <padding>
                 <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
             </padding>
@@ -65,7 +65,7 @@
                 <Insets left="20.0" />
             </opaqueInsets>
         </Label>
-        <Label alignment="BOTTOM_LEFT" prefHeight="18.0" prefWidth="200.0" text="lastname:">
+        <Label alignment="BOTTOM_LEFT" prefHeight="18.0" prefWidth="200.0" text="phone number:">
             <VBox.margin>
                 <Insets top="4.0" />
             </VBox.margin>
@@ -76,7 +76,7 @@
                 <Font name="Times New Roman" size="17.0" />
             </font>
         </Label>
-        <Label fx:id="lastName" prefHeight="18.0" prefWidth="190.0">
+        <Label fx:id="phoneNumber" prefHeight="18.0" prefWidth="190.0">
             <padding>
                 <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
             </padding>
@@ -90,7 +90,7 @@
                 <Insets />
             </VBox.margin>
         </Label>
-        <Label prefHeight="20.0" prefWidth="195.0" text="email:">
+        <Label prefHeight="20.0" prefWidth="195.0" text="fax number:">
             <VBox.margin>
                 <Insets top="4.0" />
             </VBox.margin>
@@ -101,7 +101,7 @@
                 <Font name="Times New Roman" size="17.0" />
             </font>
         </Label>
-        <Label fx:id="email" prefHeight="18.0" prefWidth="252.0">
+        <Label fx:id="faxNumber" prefHeight="18.0" prefWidth="252.0">
             <padding>
                 <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
             </padding>
@@ -112,7 +112,7 @@
                 <Insets left="20.0" />
             </opaqueInsets>
         </Label>
-        <Label prefHeight="20.0" prefWidth="207.0" text="phone number:">
+        <Label prefHeight="20.0" prefWidth="207.0" text="address:">
             <opaqueInsets>
                 <Insets top="10.0" />
             </opaqueInsets>
@@ -126,7 +126,7 @@
                 <Font name="Times New Roman" size="17.0" />
             </font>
         </Label>
-        <Label fx:id="phoneNumber" prefHeight="18.0" prefWidth="181.0">
+        <Label fx:id="address" prefHeight="18.0" prefWidth="181.0">
             <padding>
                 <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
             </padding>
@@ -144,99 +144,19 @@
             <Insets />
         </GridPane.margin>
     </VBox>
-    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
+    <Button  onAction="#backButton"  minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@icons8-back-to-48.png" />
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
     </ImageView>
-    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
-        <children>
-            <Button mnemonicParsing="false" onMouseClicked="#viewCompanyInformation" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="company information">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-                <VBox.margin>
-                    <Insets top="15.0" />
-                </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewSaleHistory" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="sale history">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-                <VBox.margin>
-                    <Insets top="15.0" />
-                </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#manageProducts" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="manage products">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-                <VBox.margin>
-                    <Insets top="15.0" />
-                </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#showCategories" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="show categories">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-                <VBox.margin>
-                    <Insets top="15.0" />
-                </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewOffs" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="Offs">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-                <VBox.margin>
-                    <Insets top="15.0" />
-                </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#viewBalance" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="balance">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-                <VBox.margin>
-                    <Insets top="15.0" />
-                </VBox.margin>
-            </Button>
-        </children>
-    </VBox>
-    <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="Personal Information" GridPane.columnIndex="1">
+    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1" />
+    <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="company information" GridPane.columnIndex="1">
         <font>
             <Font name="Times New Roman" size="26.0" />
         </font>
     </Label>
-    <Hyperlink prefHeight="4.0" prefWidth="71.0" text="edit fields" textFill="#470549" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-        <opaqueInsets>
-            <Insets left="15.0" />
-        </opaqueInsets>
-        <font>
-            <Font size="15.0" />
-        </font>
-        <padding>
-            <Insets top="10.0" />
-        </padding>
-    </Hyperlink>
     <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
         <image>
             <Image url="@logout.png" />

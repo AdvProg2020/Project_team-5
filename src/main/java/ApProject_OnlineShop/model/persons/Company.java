@@ -42,14 +42,26 @@ public class Company {
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public String toString() {
-        return "############\n" +
-                "Company" + "\n" +
-                "name = " + name + "\n" +
-                "website = " + website + "\n" +
-                "phoneNumber = " + phoneNumber + "\n" +
-                "faxNumber = " + faxNumber + "\n" +
-                "address = " + address + "\n############";
+    public String getWebsite() {
+        return website;
     }
+
+    public String getFaxNumber() {
+        return faxNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+//    @Override
+//    public String toString() {
+//        return "############\n" +
+//                "Company" + "\n" +
+//                "name = " + name + "\n" +
+//                "website = " + website + "\n" +
+//                "phoneNumber = " + phoneNumber + "\n" +
+//                "faxNumber = " + faxNumber + "\n" +
+//                "address = " + address + "\n############";
+//    }
 }

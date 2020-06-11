@@ -1,8 +1,9 @@
-package ApProject_OnlineShop.GUI.accountArea;
+package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -32,6 +33,7 @@ public class AccountAreaForSellerController extends FxmlController implements In
     }
 
     public void viewCompanyInformation(MouseEvent mouseEvent) {
+        setScene("showCompanyInformation.fxml","Copmany Information");
     }
 
     public void viewSaleHistory(MouseEvent mouseEvent) {
@@ -59,4 +61,7 @@ public class AccountAreaForSellerController extends FxmlController implements In
         }
     }
 
+    public void backButton(ActionEvent actionEvent) {
+        setScene("mainMenuLayout.fxml","main menu");
+    }
 }
