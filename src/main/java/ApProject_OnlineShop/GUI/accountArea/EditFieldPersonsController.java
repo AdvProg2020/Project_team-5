@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.GUI.accountArea;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.event.ActionEvent;
@@ -52,5 +53,40 @@ public class EditFieldPersonsController extends FxmlController implements Initia
     }
 
     public void editPressed(ActionEvent actionEvent) {
+        if (!firstName.getText().equals("")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editField(1, firstName.getText());
+            } catch (Exception exception) {
+                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+            }
+        }
+        if (!lastName.getText().equals("")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editField(2, lastName.getText());
+            } catch (Exception exception) {
+                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+            }
+        }
+        if (!email.getText().equals("")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editField(3, email.getText());
+            } catch (Exception exception) {
+                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+            }
+        }
+        if (!phoneNumber.getText().equals("")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editField(4, phoneNumber.getText());
+            } catch (Exception exception) {
+                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+            }
+        }
+        if (!password.getText().equals("")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editField(5, password.getText());
+            } catch (Exception exception) {
+                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+            }
+        }
     }
 }
