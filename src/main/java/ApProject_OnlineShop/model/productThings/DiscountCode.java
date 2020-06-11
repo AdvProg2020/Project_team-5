@@ -112,7 +112,8 @@ public class DiscountCode {
         }
     }
 
-    public String detailedToString() {
+    @Override
+    public String toString() {
         return "discount code:" + code + "  \tend date: " + endDate ;
     }
 

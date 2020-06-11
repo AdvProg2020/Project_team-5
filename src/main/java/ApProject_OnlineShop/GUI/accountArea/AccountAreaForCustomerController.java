@@ -2,16 +2,11 @@ package ApProject_OnlineShop.GUI.accountArea;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
-import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
+import javafx.geometry.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -44,7 +39,11 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         credit.setText(personalInfo.get(5));
     }
 
-    public void viewDiscountCode(MouseEvent mouseEvent) {
+    public void viewDiscountCode(){
+        viewSortedDiscountCode(0);
+    }
+
+    public void viewSortedDiscountCode(int sort) {
         GridPane root = makeGridPane();
         Label topic = new Label("Discount codes");
         topic.setFont(Font.font("Times New Roman", 26));
@@ -53,7 +52,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         VBox vBox = new VBox();
         setVBoxStyle(vBox);
         root.add(vBox, 1, 2);
-        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes();
+        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(sort);
         for (String discountCode : discountCodes) {
             Hyperlink discountLink = new Hyperlink(discountCode);
             discountLink.setOnMouseClicked(e -> viewSingleDiscountCode(discountCode));
@@ -64,12 +63,24 @@ public class AccountAreaForCustomerController extends FxmlController implements 
             vBox.getChildren().add(discountLink);
         }
         root.add(topic, 1, 1);
+        MenuItem sortByDiscountPercent = new MenuItem("sort by discount percent");
+        MenuItem sortByEndDate = new MenuItem("sort by end date");
+        MenuItem sortByMaxDiscount = new MenuItem("sort by maximum discount amount");
+        sortByDiscountPercent.setOnAction(e -> viewSortedDiscountCode(1));
+        sortByEndDate.setOnAction(e -> viewSortedDiscountCode(2));
+        sortByMaxDiscount.setOnAction(e -> viewSortedDiscountCode(3));
+        setMenuItems(sortByDiscountPercent);
+        setMenuItems(sortByEndDate);
+        setMenuItems(sortByMaxDiscount);
+        MenuButton sorts = new MenuButton("sorts", null, sortByDiscountPercent, sortByEndDate, sortByMaxDiscount);
+        setMenuButtonStyle(sorts);
+        root.add(sorts, 0, 2);
         StageController.setSceneJavaFx(root);
     }
 
     public void viewSingleDiscountCode(String summeryOfDiscountCode) {
         int index = summeryOfDiscountCode.indexOf("  ");
-        String code = summeryOfDiscountCode.substring("discount code:".length(),index);
+        String code = summeryOfDiscountCode.substring("discount code:".length(), index);
 
     }
 
@@ -121,7 +132,6 @@ public class AccountAreaForCustomerController extends FxmlController implements 
                 "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
         vBox.setMinHeight(600);
         vBox.setMinWidth(400);
-//        vBox.setMaxSize(500, 700);
         vBox.setSpacing(20);
     }
 
@@ -135,7 +145,23 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         }
     }
 
+    public void setMenuItems(MenuItem menuItem){
+        menuItem.setStyle("-fx-background-color:  #dab3ff; -fx-font: Times new Roman; -fx-font-size: 15;");
+    }
+
+    public void setMenuButtonStyle(MenuButton menuButton) {
+        menuButton.setStyle("-fx-background-color:  #dab3ff; -fx-background-radius:  8px; -fx-margin:  10px 2px; -fx-border-radius:  8px;" +
+                "-fx-border-color:  #600080; -fx-border-width:  2 2 2 2;");
+        menuButton.setMinSize(150,30);
+        GridPane.setValignment(menuButton, VPos.TOP);
+        GridPane.setHalignment(menuButton, HPos.CENTER);
+        menuButton.setFont(Font.font("Times New Roman", 18));
+        menuButton.setAlignment(Pos.CENTER);
+        menuButton.setCursor(Cursor.HAND);
+        menuButton.setPopupSide(Side.BOTTOM);
+    }
+
     public void backButton(ActionEvent actionEvent) {
-        setScene("mainMenuLayout.fxml","main menu");
+        setScene("mainMenuLayout.fxml", "main menu");
     }
 }

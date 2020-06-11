@@ -48,7 +48,7 @@ public class AccountAreaForCustomer extends Menu {
 
     private void viewDiscountCodes() {
         int i = 1;
-        for (String discountCode : MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes()) {
+        for (String discountCode : MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(0)) {
             System.out.println((i++) + "- " + discountCode);
         }
         System.out.println("you can sort this list by following items:\n1-discount percent\n2-end date\n3-maximum discount amount\n4-continue");

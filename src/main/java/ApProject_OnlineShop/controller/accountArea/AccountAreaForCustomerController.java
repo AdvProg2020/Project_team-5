@@ -30,9 +30,11 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return ((Customer) MainController.getInstance().getCurrentPerson()).getCredit();
     }
 
-    public List<String> viewDiscountCodes() {
+    public List<String> viewDiscountCodes(int sort) {
+        if (sort == 0)
         return ((Customer) MainController.getInstance().getCurrentPerson()).getDiscountCodes().stream().
-                map(DiscountCode::detailedToString).collect(Collectors.toList());
+                map(DiscountCode::toString).collect(Collectors.toList());
+        else return getSortedDiscountCode(sort);
     }
 
     public boolean checkExistProductInCart(long productId) {
