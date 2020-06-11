@@ -74,6 +74,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         setMenuItems(sortByMaxDiscount);
         MenuButton sorts = new MenuButton("sorts", null, sortByDiscountPercent, sortByEndDate, sortByMaxDiscount);
         setMenuButtonStyle(sorts);
+        root.getChildren().get(0).setOnMouseClicked(e -> backToAccountAreaCustomer());
         root.add(sorts, 0, 2);
         StageController.setSceneJavaFx(root);
     }
@@ -100,7 +101,13 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public GridPane makeGridPane() {
+        Image logout = new Image(getClass().getClassLoader().getResource("logout.png").toString());
+        ImageView logoutImage = new ImageView(logout);
+        logoutImage.setFitWidth(55);
+        logoutImage.setFitHeight(61);
+        logoutImage.setCursor(Cursor.HAND);
         GridPane root = new GridPane();
+        logoutImage.setOnMouseClicked(e -> logout());
         setGridPaneStyle(root);
         Image backImage = new Image(getClass().getClassLoader().getResource("icons8-back-to-48.png").toString());
         ImageView imageView = new ImageView(backImage);
@@ -111,6 +118,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         GridPane.setHalignment(back, HPos.LEFT);
         GridPane.setValignment(back, VPos.TOP);
         root.add(back, 0, 0);
+        root.add(logoutImage,2,0);
         return root;
     }
 
@@ -150,7 +158,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         vBox.setSpacing(20);
     }
 
-    public void logout(MouseEvent mouseEvent) {
+    public void logout() {
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
@@ -176,8 +184,12 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         menuButton.setPopupSide(Side.BOTTOM);
     }
 
-    public void backButton(ActionEvent actionEvent) {
+    public void backToMain(ActionEvent actionEvent) {
         setScene("mainMenuLayout.fxml", "main menu");
+    }
+
+    public void backToAccountAreaCustomer(){
+        setScene("accountAreaForCustomer.fxml", "main menu");
     }
 
     public void addDiscountDetailsToVBox(List<String> discountCodeDetails, VBox vBox){

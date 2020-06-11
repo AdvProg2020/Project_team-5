@@ -167,7 +167,7 @@
             <Insets/>
         </GridPane.margin>
     </VBox>
-    <Button onAction="#backButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0"
+    <Button onAction="#backToMain" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0"
             prefWidth="40.0"
             styleClass="roundButton" GridPane.columnIndex="0" >
         <graphic>
