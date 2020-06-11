@@ -61,7 +61,7 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     }
 
     public void onCreateNewDiscountPressed() {
-
+        setScene("CreatingDiscountCodePage.fxml", "creating discount code");
     }
 
     @Override
