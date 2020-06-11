@@ -125,7 +125,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void showOrders() {
-
+        viewOrders.viewSortedOrders(0);
     }
 
     public void rateProducts() {

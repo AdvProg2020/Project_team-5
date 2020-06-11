@@ -49,10 +49,6 @@ public class OrderForCustomer extends Order {
     }
 
 
-    public String briefString(){
-        return "order ID : " + getOrderId() +"\t date : " + getDate();
-    }
-
     @Override
     public String toString() {
 

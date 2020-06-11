@@ -15,7 +15,7 @@ module ApProject.OnlineShop {
     opens ApProject_OnlineShop.model to com.google.gson;
     opens ApProject_OnlineShop.model.orders;
     opens ApProject_OnlineShop.model.category;
-    opens ApProject_OnlineShop.GUI.accountArea;
+    opens ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
     opens ApProject_OnlineShop.model.productThings;
     opens ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
     opens ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;

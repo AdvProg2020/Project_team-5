@@ -10,7 +10,7 @@
 <GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout"
           stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ApProject_OnlineShop.GUI.accountArea.AccountAreaForCustomerController">
+          fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0"/>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0"
@@ -167,7 +167,7 @@
             <Insets/>
         </GridPane.margin>
     </VBox>
-    <Button onAction="#backButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0"
+    <Button onAction="#backToMain" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0"
             prefWidth="40.0"
             styleClass="roundButton" GridPane.columnIndex="0" >
         <graphic>
