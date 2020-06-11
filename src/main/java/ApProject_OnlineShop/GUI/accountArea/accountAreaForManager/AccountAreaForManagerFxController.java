@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -72,5 +73,10 @@ public class AccountAreaForManagerFxController extends FxmlController implements
         lastName.setText(personalInfo.get(2));
         email.setText(personalInfo.get(3));
         phoneNumber.setText(personalInfo.get(4));
+    }
+
+
+    public void editField(ActionEvent actionEvent) {
+        setScene("editFieldPersons.fxml", "edit field");
     }
 }
