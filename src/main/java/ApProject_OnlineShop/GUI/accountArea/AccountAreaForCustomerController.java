@@ -67,7 +67,9 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         StageController.setSceneJavaFx(root);
     }
 
-    public void viewSingleDiscountCode(String discountCode) {
+    public void viewSingleDiscountCode(String summeryOfDiscountCode) {
+        int index = summeryOfDiscountCode.indexOf("  ");
+        String code = summeryOfDiscountCode.substring("discount code:".length(),index);
 
     }
 

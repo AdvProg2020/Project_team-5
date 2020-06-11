@@ -7,7 +7,9 @@ import ApProject_OnlineShop.model.persons.Customer;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class DiscountCode {
     private static long discountCodeCount = 1;
@@ -111,7 +113,7 @@ public class DiscountCode {
     }
 
     public String detailedToString() {
-        return "discount code:" + code + "\tend date: " + endDate ;
+        return "discount code:" + code + "  \tend date: " + endDate ;
     }
 
     public static String generateRandomDiscountCode() {
@@ -156,8 +158,8 @@ public class DiscountCode {
                 "\n##################";
     }
 
-    @Override
-    public String toString() {
-        return "code: " + code;
+    public List<String> getAllDetails(){
+        ArrayList<String> details = new ArrayList<>();
+        return details;
     }
 }
