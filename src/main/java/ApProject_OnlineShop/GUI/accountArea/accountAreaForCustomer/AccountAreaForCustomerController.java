@@ -86,7 +86,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         GridPane root = makeGridPane();
         Label discountCodeInfo = new Label("Discount Code Information");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
-        discountCodeInfo.setPadding(new Insets(20));
+        discountCodeInfo.setPadding(new Insets(7));
         GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
         root.add(discountCodeInfo, 1, 1);
         VBox vBox = new VBox();
@@ -157,7 +157,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
                 "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
         vBox.setMinHeight(600);
         vBox.setMinWidth(400);
-        vBox.setSpacing(20);
+        vBox.setSpacing(10);
     }
 
     public void logout() {

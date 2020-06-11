@@ -62,6 +62,48 @@ public class ViewOrders extends FxmlController {
         String code = orderString.substring("order ID: ".length(), index);
         long orderId = Long.parseLong(code);
         List<String> orderDetails = ((Customer)MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
-        
+        GridPane root = GUIAccountAreaCustomer.makeGridPane();
+        Label discountCodeInfo = new Label("Customer Order");
+        discountCodeInfo.setFont(Font.font("Times New Roman", 26));
+        discountCodeInfo.setPadding(new Insets(7));
+        GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
+        root.add(discountCodeInfo, 1, 1);
+        VBox vBox = new VBox();
+        addDetailsToVBox(orderDetails, vBox);
+        GUIAccountAreaCustomer.setVBoxStyle(vBox);
+        root.add(vBox, 1, 2);
+        vBox.setMinHeight(400);
+        vBox.setMinWidth(600);
+        vBox.setSpacing(20);
+        root.getChildren().get(0).setOnMouseClicked(e -> viewSortedOrders(0));
+        StageController.setSceneJavaFx(root);
+    }
+
+    public void addDetailsToVBox(List<String> orderDetails, VBox vBox){
+        Label id = new Label("order ID:     " + orderDetails.get(0));
+        Label date = new Label("date:     " + orderDetails.get(1));
+        Label goodsList = new Label("goods list:\n" + orderDetails.get(2));
+        Label discountAmount = new Label("discount amount:     " + orderDetails.get(3));
+        Label postCode = new Label("post code:     " + orderDetails.get(4));
+        Label address = new Label("address:     " + orderDetails.get(5));
+        Label phoneNumber = new Label("phone number:     " + orderDetails.get(6));
+        Label orderStatus = new Label("order status:     " + orderDetails.get(7));
+        goodsList.setPadding(new Insets(7));
+        GUIAccountAreaCustomer.setTextFont(id);
+        GUIAccountAreaCustomer.setTextFont(date);
+        GUIAccountAreaCustomer.setTextFont(goodsList);
+        GUIAccountAreaCustomer.setTextFont(discountAmount);
+        GUIAccountAreaCustomer.setTextFont(postCode);
+        GUIAccountAreaCustomer.setTextFont(address);
+        GUIAccountAreaCustomer.setTextFont(phoneNumber);
+        GUIAccountAreaCustomer.setTextFont(orderStatus);
+        vBox.getChildren().add(id);
+        vBox.getChildren().add(date);
+        vBox.getChildren().add(goodsList);
+        vBox.getChildren().add(discountAmount);
+        vBox.getChildren().add(postCode);
+        vBox.getChildren().add(address);
+        vBox.getChildren().add(phoneNumber);
+        vBox.getChildren().add(orderStatus);
     }
 }
