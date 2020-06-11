@@ -27,7 +27,7 @@ public class ViewOrders extends FxmlController {
         GridPane root = GUIAccountAreaCustomer.makeGridPane();
         Label topic = new Label("All Orders");
         topic.setFont(Font.font("Times New Roman", 26));
-        topic.setPadding(new Insets(20));
+        topic.setPadding(new Insets(5));
         GridPane.setHalignment(topic, HPos.CENTER);
         root.add(topic, 1, 1);
         VBox vBox = new VBox();
@@ -56,6 +56,8 @@ public class ViewOrders extends FxmlController {
     }
 
     public void viewSingleOrder(String orderString){
-
+        int index = orderString.indexOf("  ");
+        String code = orderString.substring("order ID: ".length(), index);
+        long orderId = Long.parseLong(code);
     }
 }

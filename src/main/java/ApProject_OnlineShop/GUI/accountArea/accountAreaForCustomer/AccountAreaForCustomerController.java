@@ -47,7 +47,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         GridPane root = makeGridPane();
         Label topic = new Label("Discount codes");
         topic.setFont(Font.font("Times New Roman", 26));
-        topic.setPadding(new Insets(20));
+        topic.setPadding(new Insets(5));
         GridPane.setHalignment(topic, HPos.CENTER);
         VBox vBox = new VBox();
         setVBoxStyle(vBox);

@@ -49,7 +49,7 @@ public abstract class Order {
     }
 
     public String briefString(){
-        return "order ID : " + getOrderId() +"\t date : " + getDate();
+        return "order ID: " + getOrderId() +"   \t date : " + getDate();
     }
 
     @Override
