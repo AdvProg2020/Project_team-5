@@ -59,7 +59,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         companyInfo.add(company.getPhoneNumber());
         companyInfo.add(company.getFaxNumber());
         companyInfo.add(company.getAddress());
-        return getCompanyInfo();
+        return companyInfo;
     }
 
     public List<String> getSalesLog() {
