@@ -53,6 +53,7 @@ public class ViewOrders extends FxmlController {
         GUIAccountAreaCustomer.setMenuItems(sortByEndDate);
         MenuButton sorts = new MenuButton("sorts", null, sortByDiscountPercent, sortByEndDate);
         GUIAccountAreaCustomer.setMenuButtonStyle(sorts);
+        root.getChildren().get(0).setOnMouseClicked(e -> GUIAccountAreaCustomer.backToAccountAreaCustomer());
         root.add(sorts, 0, 2);
         StageController.setSceneJavaFx(root);
     }
@@ -72,9 +73,6 @@ public class ViewOrders extends FxmlController {
         addDetailsToVBox(orderDetails, vBox);
         GUIAccountAreaCustomer.setVBoxStyle(vBox);
         root.add(vBox, 1, 2);
-        vBox.setMinHeight(400);
-        vBox.setMinWidth(600);
-        vBox.setSpacing(20);
         root.getChildren().get(0).setOnMouseClicked(e -> viewSortedOrders(0));
         StageController.setSceneJavaFx(root);
     }
@@ -82,7 +80,7 @@ public class ViewOrders extends FxmlController {
     public void addDetailsToVBox(List<String> orderDetails, VBox vBox){
         Label id = new Label("order ID:     " + orderDetails.get(0));
         Label date = new Label("date:     " + orderDetails.get(1));
-        Label goodsList = new Label("goods list:\n" + orderDetails.get(2));
+        Label goodsList = new Label("goods list:\n\n" + orderDetails.get(2));
         Label discountAmount = new Label("discount amount:     " + orderDetails.get(3));
         Label postCode = new Label("post code:     " + orderDetails.get(4));
         Label address = new Label("address:     " + orderDetails.get(5));

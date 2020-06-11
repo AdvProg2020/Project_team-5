@@ -60,6 +60,6 @@ public class GoodInCart {
     }
 
     public String getBriefString(){
-        return  "name:  " + getGood().getName() + "number:  " + getNumber() + "final price:  " + getFinalPrice();
+        return  "name:  " + getGood().getName() + "     number:  " + getNumber() + "    final price:  " + getFinalPrice();
     }
 }
