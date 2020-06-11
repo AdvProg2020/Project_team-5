@@ -114,7 +114,7 @@ public class DiscountCode {
 
     @Override
     public String toString() {
-        return "discount code:" + code + "  \tend date: " + endDate ;
+        return "discount code:" + code + "  \tend date: " + endDate;
     }
 
     public static String generateRandomDiscountCode() {
@@ -159,8 +159,13 @@ public class DiscountCode {
                 "\n##################";
     }
 
-    public List<String> getAllDetails(){
+    public List<String> getAllDetails() {
         ArrayList<String> details = new ArrayList<>();
+        details.add(getCode());
+        details.add(getStartDate().toString());
+        details.add(getEndDate().toString());
+        details.add("" + getDiscountPercent());
+        details.add(getMaxDiscountAmount().toString());
         return details;
     }
 }

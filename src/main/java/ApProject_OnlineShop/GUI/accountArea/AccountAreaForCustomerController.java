@@ -81,7 +81,22 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     public void viewSingleDiscountCode(String summeryOfDiscountCode) {
         int index = summeryOfDiscountCode.indexOf("  ");
         String code = summeryOfDiscountCode.substring("discount code:".length(), index);
-
+        List<String> discountCodeDetails = Shop.getInstance().findDiscountCode(code).getAllDetails();
+        GridPane root = makeGridPane();
+        Label discountCodeInfo = new Label("Discount Code Information");
+        discountCodeInfo.setFont(Font.font("Times New Roman", 26));
+        discountCodeInfo.setPadding(new Insets(20));
+        GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
+        root.add(discountCodeInfo,1,1);
+        VBox vBox = new VBox();
+       addDiscountDetailsToVBox(discountCodeDetails,vBox);
+        setVBoxStyle(vBox);
+        root.add(vBox, 1, 2);
+        vBox.setMinHeight(400);
+        vBox.setMinWidth(600);
+        vBox.setSpacing(20);
+        root.getChildren().get(0).setOnMouseClicked(e -> viewDiscountCode());
+        StageController.setSceneJavaFx(root);
     }
 
     public GridPane makeGridPane() {
@@ -146,7 +161,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void setMenuItems(MenuItem menuItem){
-        menuItem.setStyle("-fx-background-color:  #dab3ff; -fx-font: Times new Roman; -fx-font-size: 15;");
+        menuItem.setStyle("-fx-background-color:  #dab3ff; -fx-font-size: 15;");
     }
 
     public void setMenuButtonStyle(MenuButton menuButton) {
@@ -163,5 +178,29 @@ public class AccountAreaForCustomerController extends FxmlController implements 
 
     public void backButton(ActionEvent actionEvent) {
         setScene("mainMenuLayout.fxml", "main menu");
+    }
+
+    public void addDiscountDetailsToVBox(List<String> discountCodeDetails, VBox vBox){
+        Label codeLabel = new Label("discount code:     " + discountCodeDetails.get(0));
+        Label startDate = new Label("start date:     " + discountCodeDetails.get(1));
+        Label endDate = new Label("end date:     " + discountCodeDetails.get(2));
+        Label discountPercent = new Label("discount percent:     " + discountCodeDetails.get(3));
+        Label maxDiscountAmount = new Label("maximum discount amount:     " + discountCodeDetails.get(4));
+        setTextFont(codeLabel);
+        setTextFont(startDate);
+        setTextFont(endDate);
+        setTextFont(discountPercent);
+        setTextFont(maxDiscountAmount);
+        vBox.getChildren().add(codeLabel);
+        vBox.getChildren().add(startDate);
+        vBox.getChildren().add(endDate);
+        vBox.getChildren().add(discountPercent);
+        vBox.getChildren().add(maxDiscountAmount);
+    }
+
+    public void setTextFont(Label text){
+        text.setFont(Font.font("Times New Roman", 16));
+        text.setPadding(new Insets(20));
+        GridPane.setHalignment(text, HPos.CENTER);
     }
 }
