@@ -21,6 +21,7 @@ public class AccountAreaForSellerController extends FxmlController implements In
     public Label lastName;
     public Label email;
     public Label phoneNumber;
+    public Label balance;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -30,10 +31,11 @@ public class AccountAreaForSellerController extends FxmlController implements In
         lastName.setText(personalInfo.get(2));
         email.setText(personalInfo.get(3));
         phoneNumber.setText(personalInfo.get(4));
+        balance.setText(MainController.getInstance().getAccountAreaForSellerController().viewBalance() + "");
     }
 
     public void viewCompanyInformation(MouseEvent mouseEvent) {
-        setScene("showCompanyInformation.fxml","Copmany Information");
+        setScene("showCompanyInformation.fxml", "Copmany Information");
     }
 
     public void viewSaleHistory(MouseEvent mouseEvent) {

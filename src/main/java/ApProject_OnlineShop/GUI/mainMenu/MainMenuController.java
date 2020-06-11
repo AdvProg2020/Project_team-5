@@ -21,11 +21,11 @@ public class MainMenuController extends FxmlController {
         if (MainController.getInstance().getCurrentPerson() == null) {
             setScene("login.fxml", "Login or Reigster");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-            setScene("accountAreaForCustomer.fxml","account area");
+            setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
-            setScene("accountAreaForSeller.fxml","account area");
+            setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
-            setScene("accountAreaForManager.fxml","account area");
+            setScene("accountAreaForManager.fxml", "account area");
         }
     }
 
@@ -34,7 +34,6 @@ public class MainMenuController extends FxmlController {
 
     public void offsPageButtonPressed(ActionEvent actionEvent) {
     }
-
 
     public void exitButtonPressed(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
