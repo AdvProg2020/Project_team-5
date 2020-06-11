@@ -154,7 +154,7 @@
          <Insets />
       </GridPane.margin>
    </VBox>
-   <Button onAction="#backButton"  minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
+   <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@icons8-back-to-48.png" />
       <cursor>
@@ -176,7 +176,7 @@
             <padding>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding></Button>
-         <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;" text="orders" textFill="#0e000e">
+         <MenuButton alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;" text="orders" textFill="#0e000e">
            <items>
              <MenuItem mnemonicParsing="false" onAction="#showOrders" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="show orders" />
              <MenuItem mnemonicParsing="false" onAction="#rateProducts" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="rate products" />
@@ -209,13 +209,12 @@
          <Insets top="10.0" />
       </padding>
    </Hyperlink>
-   <ImageView fitHeight="61.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
-              styleClass="exitImage" onMouseClicked="#logout">
+   <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
       <image>
-         <Image url="@logout.png"/>
+         <Image url="@logout.png" />
       </image>
       <GridPane.margin>
-         <Insets left="400.0"/>
+         <Insets left="400.0" />
       </GridPane.margin>
    </ImageView>
    <padding>
