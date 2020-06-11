@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="724.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.CreatingDiscountCodePageController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.CreatingDiscountCodePageController">
   <columnConstraints>
-    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="117.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="517.0" minWidth="10.0" prefWidth="476.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="127.0" />
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="68.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="528.0" minWidth="10.0" prefWidth="494.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="185.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="128.0" minHeight="6.0" prefHeight="101.0" vgrow="SOMETIMES" />
@@ -49,8 +49,8 @@
       <children>
          <GridPane prefHeight="364.0" prefWidth="475.0">
            <columnConstraints>
-             <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="183.0" />
-             <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="292.0" />
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="141.0" />
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.0" minWidth="10.0" prefWidth="334.0" />
            </columnConstraints>
            <rowConstraints>
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -114,13 +114,46 @@
          </GridPane>
       </children>
    </VBox>
-   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <children>
-         <Button mnemonicParsing="false" onAction="#onCreateDiscountCodePressed" prefHeight="49.0" prefWidth="168.0" styleClass="buttonsStyle" text="Create Discount">
-            <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-         </Button>
+         <HBox alignment="CENTER" prefHeight="92.0" prefWidth="137.0">
+            <children>
+               <Button mnemonicParsing="false" onAction="#onAddCustomerButtonPressed" prefHeight="33.0" prefWidth="117.0" text="Add Customer" />
+            </children>
+         </HBox>
+         <HBox alignment="CENTER" prefHeight="92.0" prefWidth="365.0">
+            <children>
+               <Label text="username :" />
+               <TextField fx:id="customerToAddField" prefHeight="25.0" prefWidth="135.0" promptText="username to add">
+                  <HBox.margin>
+                     <Insets left="5.0" />
+                  </HBox.margin>
+               </TextField>
+               <Label text="number of use :">
+                  <HBox.margin>
+                     <Insets left="10.0" />
+                  </HBox.margin>
+               </Label>
+               <TextField fx:id="numberOfUseField" prefHeight="25.0" prefWidth="29.0" promptText="00">
+                  <HBox.margin>
+                     <Insets left="5.0" />
+                  </HBox.margin>
+               </TextField>
+            </children>
+         </HBox>
+      </children>
+   </HBox>
+   <Button mnemonicParsing="false" onAction="#onCreateDiscountCodePressed" prefHeight="49.0" prefWidth="168.0" styleClass="buttonsStyle" text="Create Discount" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding>
+      <GridPane.margin>
+         <Insets left="10.0" />
+      </GridPane.margin>
+   </Button>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <children>
+         <Button mnemonicParsing="false" onAction="#onFinishButtonPressed" prefHeight="40.0" prefWidth="150.0" text="Finish" />
       </children>
    </HBox>
 </GridPane>

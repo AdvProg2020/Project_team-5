@@ -3,9 +3,12 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
+import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -32,6 +35,13 @@ public class CreatingDiscountCodePageController extends FxmlController implement
     private DatePicker startDateChooser;
     @FXML
     private DatePicker endDateChooser;
+    @FXML
+    private TextField customerToAddField;
+    @FXML
+    private TextField numberOfUseField;
+
+    private boolean isDiscountCreated = false;
+    private String code;
 
     public void onBackButtonPressed() {
         setScene("accountAreaForManager.fxml", "account area");
@@ -53,7 +63,7 @@ public class CreatingDiscountCodePageController extends FxmlController implement
         try {
             MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(discountCodeFields);
             SuccessPageFxController.showPage("successful discount creation", "discount code created successfully");
-            setScene("accountAreaForManager.fxml", "account area");
+            this.isDiscountCreated = true;
         } catch (Exception e) {
             ErrorPageFxController.showPage("error", e.getMessage());
             clearFields();
@@ -92,7 +102,50 @@ public class CreatingDiscountCodePageController extends FxmlController implement
             clearFields();
             return null;
         }
+        this.code = code;
         return new ArrayList<>(Arrays.asList(code, startDate.toString(), endDate.toString(), amount, percent));
+    }
+
+    public void onAddCustomerButtonPressed() {
+        String username = customerToAddField.getText();
+        String numberOfUse = numberOfUseField.getText();
+        if (!isDiscountCreated) {
+            ErrorPageFxController.showPage("add customer error", "please create discount first and then add customers to discount");
+            clearAddCustomerFields();
+            return;
+        }
+        if (username.isEmpty() || numberOfUse.isEmpty()) {
+            ErrorPageFxController.showPage("add customer error", "please fill both fields for add a customer to discount");
+            clearAddCustomerFields();
+            return;
+        }
+        if (!username.matches("\\w+") || !numberOfUse.matches("\\d+")) {
+            ErrorPageFxController.showPage("add customer error", "invalid input format");
+            clearAddCustomerFields();
+            return;
+        }
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode(this.code, username, numberOfUse);
+            SuccessPageFxController.showPage("successful adding customer", "customer added to code successfully");
+        } catch (Exception e) {
+            ErrorPageFxController.showPage("error", e.getMessage());
+        } finally {
+            clearAddCustomerFields();
+        }
+    }
+
+    private void clearAddCustomerFields() {
+        customerToAddField.clear();
+        numberOfUseField.clear();
+    }
+
+    public void onFinishButtonPressed() {
+        if (!isDiscountCreated) {
+            ErrorPageFxController.showPage("error", "please create discount first and then click finish");
+            clearAddCustomerFields();
+            return;
+        }
+        setScene("accountAreaForManager.fxml", "account area");
     }
 
     @Override
