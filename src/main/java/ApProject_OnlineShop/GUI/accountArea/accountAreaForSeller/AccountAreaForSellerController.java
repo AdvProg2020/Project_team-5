@@ -66,4 +66,8 @@ public class AccountAreaForSellerController extends FxmlController implements In
     public void backButton(ActionEvent actionEvent) {
         setScene("mainMenuLayout.fxml", "Main menu");
     }
+
+    public void editField(ActionEvent actionEvent) {
+        setScene("editFieldPersons.fxml", "edit field");
+    }
 }
