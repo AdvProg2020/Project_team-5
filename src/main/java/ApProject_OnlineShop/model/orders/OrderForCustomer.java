@@ -5,6 +5,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrderForCustomer extends Order {
     private ArrayList<Long> goodsDetails;
@@ -16,7 +17,7 @@ public class OrderForCustomer extends Order {
 
     public OrderForCustomer(ArrayList<GoodInCart> goodsDetails, long price, String name, String postCode, String address, String phoneNumber) {
         super(price);
-        this.goodsDetails=new ArrayList<>();
+        this.goodsDetails = new ArrayList<>();
         for (GoodInCart goodInCart : goodsDetails) {
             this.goodsDetails.add(goodInCart.getGoodInCartId());
         }
@@ -29,7 +30,7 @@ public class OrderForCustomer extends Order {
     }
 
     public ArrayList<GoodInCart> getGoodsDetails() {
-        ArrayList<GoodInCart> goodInCarts=new ArrayList<>();
+        ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
         for (Long id : goodsDetails) {
             goodInCarts.add(Shop.getInstance().getAllGoodInCarts().get(id));
         }
@@ -69,5 +70,22 @@ public class OrderForCustomer extends Order {
                 "\n--------------------------------------------------------------------------------";
 
         return customerLog;
+    }
+
+    public List<String> getDetails() {
+        ArrayList<String> orderDetails = new ArrayList<>();
+        orderDetails.add("" + getOrderId());
+        orderDetails.add(getDate().toString());
+        String goods = "";
+        for (GoodInCart goodInCart : getGoodsDetails()) {
+            goods += goodInCart.getBriefString();
+        }
+        orderDetails.add(goods);
+        orderDetails.add("" + getDiscountAmount());
+        orderDetails.add(postCode);
+        orderDetails.add(getAddress());
+        orderDetails.add(getPhoneNumber());
+        orderDetails.add(getOrderStatus().toString());
+        return orderDetails;
     }
 }

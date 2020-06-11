@@ -58,4 +58,8 @@ public class GoodInCart {
         toString += ("\tnumber :" + getNumber() + "\tseller : " + getSeller().getFirstName() + " " + getSeller().getLastName());
         return toString;
     }
+
+    public String getBriefString(){
+        return  "name:  " + getGood().getName() + "number:  " + getNumber() + "final price:  " + getFinalPrice();
+    }
 }
