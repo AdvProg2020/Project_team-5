@@ -35,6 +35,8 @@ public class LoginController extends FxmlController {
             }
         } catch (UsernameNotFoundException | PasswordIncorrectException e) {
             ErrorPageFxController.showPage("Error happened", e.getMessage());
+            username.clear();
+            password.clear();
         }
     }
 

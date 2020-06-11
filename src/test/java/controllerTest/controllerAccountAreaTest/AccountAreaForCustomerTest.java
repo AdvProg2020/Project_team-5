@@ -62,8 +62,8 @@ public class AccountAreaForCustomerTest {
     public void viewDiscountCodeTest() {
         discountCode.addCustomerToCode(customer, 2);
         MainController.getInstance().setCurrentPerson(customer);
-        String discountCodeString = controller.viewDiscountCodes().get(0);
-        assertEquals(discountCode.detailedToString(), discountCodeString);
+        String discountCodeString = controller.viewDiscountCodes(0).get(0);
+        assertEquals(discountCode.toString(), discountCodeString);
     }
 
     @Test

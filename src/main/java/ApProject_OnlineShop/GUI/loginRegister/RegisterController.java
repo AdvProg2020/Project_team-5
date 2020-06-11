@@ -43,13 +43,7 @@ public class RegisterController extends FxmlController {
                     SuccessPageFxController.showPage("Register was successful",
                             "you registered successfully");
                     setScene("login.fxml","Login");
-                } catch (UsernameIsTakenAlreadyException e) {
-                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
-                } catch (MainManagerAlreadyRegistered e) {
-                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
-                } catch (IOException e) {
-                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
-                } catch (FileCantBeSavedException e) {
+                } catch (UsernameIsTakenAlreadyException | FileCantBeSavedException | MainManagerAlreadyRegistered | IOException e) {
                     ErrorPageFxController.showPage("Error for registering", e.getMessage());
                 }
             }
@@ -63,13 +57,7 @@ public class RegisterController extends FxmlController {
                         .createAccount("manager", username.getText(), addDeatails("manager"));
                 SuccessPageFxController.showPage
                         ("Register was successful", "you registered successfully");
-            } catch (UsernameIsTakenAlreadyException e) {
-                ErrorPageFxController.showPage("Error for registering", e.getMessage());
-            } catch (MainManagerAlreadyRegistered e) {
-                ErrorPageFxController.showPage("Error for registering", e.getMessage());
-            } catch (IOException e) {
-                ErrorPageFxController.showPage("Error for registering", e.getMessage());
-            } catch (FileCantBeSavedException e) {
+            } catch (UsernameIsTakenAlreadyException | MainManagerAlreadyRegistered | IOException | FileCantBeSavedException e) {
                 ErrorPageFxController.showPage("Error for registering", e.getMessage());
             }
         }
@@ -92,13 +80,7 @@ public class RegisterController extends FxmlController {
                             .createAccount("seller", username.getText(), addDeatails("seller"));
                     SuccessPageFxController
                             .showPage("Register was successful", "you registered successfully");
-                } catch (UsernameIsTakenAlreadyException e) {
-                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
-                } catch (MainManagerAlreadyRegistered e) {
-                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
-                } catch (IOException e) {
-                    ErrorPageFxController.showPage("Error for registering", e.getMessage());
-                } catch (FileCantBeSavedException e) {
+                } catch (UsernameIsTakenAlreadyException | MainManagerAlreadyRegistered | IOException | FileCantBeSavedException e) {
                     ErrorPageFxController.showPage("Error for registering", e.getMessage());
                 }
             }
