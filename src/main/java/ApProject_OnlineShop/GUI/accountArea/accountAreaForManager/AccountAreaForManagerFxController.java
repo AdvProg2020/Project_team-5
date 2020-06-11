@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.GUI.accountArea;
+package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
@@ -61,7 +61,7 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     }
 
     public void onCreateNewDiscountPressed() {
-
+        setScene("CreatingDiscountCodePage.fxml", "creating discount code");
     }
 
     @Override

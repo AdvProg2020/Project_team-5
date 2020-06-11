@@ -144,13 +144,14 @@
             <Insets />
         </GridPane.margin>
     </VBox>
-    <Button  onAction="#backButton"  minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" />
-    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@icons8-back-to-48.png" />
-        <cursor>
-            <Cursor fx:constant="HAND" />
-        </cursor>
-    </ImageView>
+    <Button  onAction="#backButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0"
+             styleClass="roundButton" GridPane.columnIndex="0" >
+        <graphic>
+            <ImageView  fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@./icons8-back-to-48.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
     <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1" />
     <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="company information" GridPane.columnIndex="1">
         <font>
