@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.accountArea;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,40 +54,77 @@ public class EditFieldPersonsController extends FxmlController implements Initia
     }
 
     public void editPressed(ActionEvent actionEvent) {
-        if (!firstName.getText().equals("")) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().editField(1, firstName.getText());
-            } catch (Exception exception) {
-                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+        boolean edited = false;
+        if (checkBaseInfos()) {
+            if (!firstName.getText().equals("")) {
+                try {
+                    MainController.getInstance().getAccountAreaForManagerController().editField(1, firstName.getText());
+                    edited = true;
+                } catch (Exception exception) {
+                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                    edited = false;
+                }
             }
-        }
-        if (!lastName.getText().equals("")) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().editField(2, lastName.getText());
-            } catch (Exception exception) {
-                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+            if (!lastName.getText().equals("")) {
+                try {
+                    MainController.getInstance().getAccountAreaForManagerController().editField(2, lastName.getText());
+                    edited = true;
+                } catch (Exception exception) {
+                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                    edited = false;
+                }
             }
-        }
-        if (!email.getText().equals("")) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().editField(3, email.getText());
-            } catch (Exception exception) {
-                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+            if (!email.getText().equals("")) {
+                try {
+                    MainController.getInstance().getAccountAreaForManagerController().editField(3, email.getText());
+                    edited = true;
+                } catch (Exception exception) {
+                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                    edited = false;
+                }
             }
-        }
-        if (!phoneNumber.getText().equals("")) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().editField(4, phoneNumber.getText());
-            } catch (Exception exception) {
-                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+            if (!phoneNumber.getText().equals("")) {
+                try {
+                    MainController.getInstance().getAccountAreaForManagerController().editField(4, phoneNumber.getText());
+                    edited = true;
+                } catch (Exception exception) {
+                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                    edited = false;
+                }
             }
-        }
-        if (!password.getText().equals("")) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().editField(5, password.getText());
-            } catch (Exception exception) {
-                ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+            if (!password.getText().equals("")) {
+                try {
+                    MainController.getInstance().getAccountAreaForManagerController().editField(5, password.getText());
+                    edited = true;
+                } catch (Exception exception) {
+                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                    edited = false;
+                }
+            }
+            if (edited) {
+                SuccessPageFxController.showPage("field edited", "fields edited succesfully!");
             }
         }
     }
+
+    public boolean checkBaseInfos() {
+        if (!firstName.getText().matches("[a-zA-Z]{2,}") && !firstName.getText().equals("")) {
+            ErrorPageFxController.showPage("Error for registering", "first name is invalid!");
+            return false;
+        } else if (!lastName.getText().matches("[a-zA-Z]{2,}") && !lastName.getText().equals("")) {
+            ErrorPageFxController.showPage("Error for registering", "last name is invalid!");
+            return false;
+        } else if (!email.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$") && !email.getText().equals("")) {
+            ErrorPageFxController.showPage("Error for registering", "email is invalid!");
+            return false;
+        } else if (!phoneNumber.getText().matches("^\\d{11}$") && !phoneNumber.getText().equals("")) {
+            ErrorPageFxController.showPage("Error for registering", "phone number is invalid!");
+            return false;
+        } else if (!password.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})") && !password.getText().equals("")) {
+            ErrorPageFxController.showPage("Error for registering", "password is invalid!");
+            return false;
+        }
+        return true;
+    }
+
 }
