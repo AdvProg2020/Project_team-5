@@ -104,7 +104,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         Image logout = new Image(getClass().getClassLoader().getResource("logout.png").toString());
         ImageView logoutImage = new ImageView(logout);
         logoutImage.setFitWidth(55);
-        logoutImage.setFitHeight(61);
+        logoutImage.setFitHeight(55);
         logoutImage.setCursor(Cursor.HAND);
         GridPane root = new GridPane();
         logoutImage.setOnMouseClicked(e -> logout());
@@ -117,6 +117,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         setBackButton(back);
         GridPane.setHalignment(back, HPos.LEFT);
         GridPane.setValignment(back, VPos.TOP);
+        GridPane.setHalignment(logoutImage, HPos.LEFT);
+        GridPane.setValignment(logoutImage, VPos.TOP);
         root.add(back, 0, 0);
         root.add(logoutImage,2,0);
         return root;
