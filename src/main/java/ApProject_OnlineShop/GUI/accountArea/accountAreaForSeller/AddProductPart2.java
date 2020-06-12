@@ -113,6 +113,7 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         try {
 //            java.nio.file.Files.copy(selectedFile.toPath(), Paths.get("src/"));
             path = "./resources/productImages/" + Good.getGoodsCount() + ".png";
+            System.out.println(selectedFile.toPath());
             Files.copy(selectedFile.toPath(),
                     (new File(path)).toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
