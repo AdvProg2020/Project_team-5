@@ -71,6 +71,15 @@ public class Seller extends Person {
         return buyers;
     }
 
+    public OrderForSeller findOrderById(long id){
+        for (OrderForSeller order : getPreviousSells()) {
+            if (order.getOrderId() == id){
+                return order;
+            }
+        }
+        return null;
+    }
+
     public void addOrder(OrderForSeller order) {
         previousSellsIds.add(order.getOrderId());
     }
