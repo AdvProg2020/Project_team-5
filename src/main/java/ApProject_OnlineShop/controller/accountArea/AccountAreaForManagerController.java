@@ -124,8 +124,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         DiscountCode discountCode;
         if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
             throw new DiscountCodeNotFoundException();
-        for (Customer customer : discountCode.getIncludedCustomers().keySet())
+        for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
             customer.removeDiscountCode(discountCode);
+        }
         Database.getInstance().deleteItem(discountCode);
         Shop.getInstance().removeDiscountCode(discountCode);
     }
