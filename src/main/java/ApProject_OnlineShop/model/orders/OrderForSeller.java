@@ -5,6 +5,7 @@ import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class OrderForSeller extends Order {
     private void calculateDeductAmount() {
         int primaryPrice = 0;
         for (Good good : getNumberPerGood().keySet()) {
-            primaryPrice += getPrice() * good.getPriceBySeller((Seller) Shop.getInstance().findUser(seller));
+            primaryPrice += getNumberPerGood().get(good) * good.getPriceBySeller((Seller) Shop.getInstance().findUser(seller));
         }
         offDeduct = primaryPrice - getPrice();
     }
@@ -50,9 +51,9 @@ public class OrderForSeller extends Order {
     }
 
     public HashMap<Good, Integer> getNumberPerGood() {
-        HashMap<Good,Integer> numberPerGood1=new HashMap<>();
+        HashMap<Good, Integer> numberPerGood1 = new HashMap<>();
         for (Long id : this.numberPerGood.keySet()) {
-            numberPerGood1.put(Shop.getInstance().findGoodById(id),this.numberPerGood.get(id));
+            numberPerGood1.put(Shop.getInstance().findGoodById(id), this.numberPerGood.get(id));
         }
         return numberPerGood1;
     }
@@ -77,5 +78,19 @@ public class OrderForSeller extends Order {
                 "\nOrder status : " + this.getOrderStatus() +
                 "\n--------------------------------------------------------------------------------");
         return sellerLog;
+    }
+
+    public List<String> getDetails() {
+        ArrayList<String> orderDetails = new ArrayList<>();
+        orderDetails.add("" + getOrderId());
+        orderDetails.add(getDate().toString());
+        String goods = "";
+        for (Long id : numberPerGood.keySet()) {
+            goods += "- " + "name: " + Shop.getInstance().findGoodById(id).getName() + "   \t brand: " + Shop.getInstance().findGoodById(id).getBrand() + "   \t number: " + numberPerGood.get(id);
+        }
+        orderDetails.add(goods);
+        orderDetails.add("" + getOffDeduct());
+        orderDetails.add(getOrderStatus().toString());
+        return orderDetails;
     }
 }
