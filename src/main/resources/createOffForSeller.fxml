@@ -103,7 +103,7 @@
         <children>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="187.0">
                 <children>
-                    <Button mnemonicParsing="false" onAction="#onAddProductPressed" prefHeight="31.0" prefWidth="144.0" styleClass="buttonsStyle" text="add product" />
+                    <Button mnemonicParsing="false" onAction="#onAddProductPressed" prefHeight="43.0" prefWidth="138.0" styleClass="menuButtons" text="add product" />
                 </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="92.0" prefWidth="365.0">
@@ -115,7 +115,7 @@
                   <font>
                      <Font size="14.0" />
                   </font></Label>
-                    <TextField fx:id="prdouctToAdd" prefHeight="25.0" prefWidth="135.0" promptText="product id to add">
+                    <TextField fx:id="productToAdd" prefHeight="25.0" prefWidth="135.0" promptText="product id to add">
                         <HBox.margin>
                             <Insets left="10.0" />
                         </HBox.margin>
@@ -127,7 +127,7 @@
             </HBox>
         </children>
     </HBox>
-    <Button mnemonicParsing="false" onAction="#onCreateDiscountCodePressed" prefHeight="49.0" prefWidth="168.0" styleClass="buttonsStyle" text="Create Discount" GridPane.columnIndex="2" GridPane.rowIndex="1">
+    <Button mnemonicParsing="false" onAction="#onCreateDiscountCodePressed" prefHeight="49.0" prefWidth="168.0" styleClass="menuButtons" text="Create Discount" GridPane.columnIndex="2" GridPane.rowIndex="1">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
@@ -137,12 +137,12 @@
     </Button>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
         <children>
-            <Button mnemonicParsing="false" onAction="#onFinishButtonPressed" prefHeight="40.0" prefWidth="135.0" styleClass="buttonsStyle" text="Finish" />
+            <Button mnemonicParsing="false" onAction="#onFinishButtonPressed" prefHeight="40.0" prefWidth="135.0" styleClass="menuButtons" text="Finish" />
         </children>
     </HBox>
     <Label alignment="CENTER" contentDisplay="CENTER" text="create off" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
         <font>
-            <Font name="Consolas" size="36.0" />
+            <Font name="Times New Roman" size="36.0" />
         </font>
         <GridPane.margin>
             <Insets />
