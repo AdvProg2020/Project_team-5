@@ -10,7 +10,7 @@
 <GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.4" minWidth="10.0" prefWidth="403.4" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="433.6" minWidth="10.0" prefWidth="431.6" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="27.20000762939455" vgrow="SOMETIMES" />
@@ -224,7 +224,12 @@
             <Insets left="400.0" />
         </GridPane.margin>
     </ImageView>
-    <padding>
-        <Insets left="10.0" />
-    </padding>
+    <ImageView fitHeight="85.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+        <GridPane.margin>
+            <Insets left="400.0" />
+        </GridPane.margin>
+      <image>
+         <Image url="@pictures/shoppingBag.png" />
+      </image>
+    </ImageView>
 </GridPane>
