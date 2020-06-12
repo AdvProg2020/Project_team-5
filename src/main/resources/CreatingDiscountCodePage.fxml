@@ -118,7 +118,7 @@
       <children>
          <HBox alignment="CENTER" prefHeight="92.0" prefWidth="137.0">
             <children>
-               <Button mnemonicParsing="false" onAction="#onAddCustomerButtonPressed" prefHeight="33.0" prefWidth="117.0" text="Add Customer" />
+               <Button mnemonicParsing="false" onAction="#onAddCustomerButtonPressed" prefHeight="49.0" prefWidth="127.0" style="-fx-padding: 1px;" styleClass="buttonsStyle" text="Add Customer" />
             </children>
          </HBox>
          <HBox alignment="CENTER" prefHeight="92.0" prefWidth="365.0">
@@ -153,7 +153,7 @@
    </Button>
    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
       <children>
-         <Button mnemonicParsing="false" onAction="#onFinishButtonPressed" prefHeight="40.0" prefWidth="150.0" text="Finish" />
+         <Button mnemonicParsing="false" onAction="#onFinishButtonPressed" prefHeight="40.0" prefWidth="150.0" styleClass="buttonsStyle" text="Finish" />
       </children>
    </HBox>
 </GridPane>
