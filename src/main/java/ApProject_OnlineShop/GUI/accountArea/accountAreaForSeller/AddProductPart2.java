@@ -22,8 +22,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -73,7 +79,7 @@ public class AddProductPart2 extends FxmlController implements Initializable {
                 return;
             }
         }
-        if(selectedFile == null){
+        if (selectedFile == null) {
             ErrorPageFxController.showPage("can not add good", "you should chose a photo");
             return;
         }
@@ -109,13 +115,19 @@ public class AddProductPart2 extends FxmlController implements Initializable {
 
     public void selectPhoto(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
+        selectedFile = fileChooser.showOpenDialog(StageController.getStage());
+        path = "./Resources/productImages/" + Good.getGoodsCount() + ".png";
+        BufferedImage bi = null;
         try {
-//            java.nio.file.Files.copy(selectedFile.toPath(), Paths.get("src/"));
-            path = "./resources/productImages/" + Good.getGoodsCount() + ".png";
-            System.out.println(selectedFile.toPath());
-            Files.copy(selectedFile.toPath(),
-                    (new File(path)).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            bi = ImageIO.read(selectedFile.toURL());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ImageIO.write(bi, "jpg", new File(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
