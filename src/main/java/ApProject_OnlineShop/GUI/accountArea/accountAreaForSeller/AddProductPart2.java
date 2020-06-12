@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -42,16 +43,18 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         HashMap<String, String> detailValues = new HashMap<>();
         int row = 1;
         for (String detail : MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(productDetails.get(5))) {
-            Label text = new Label(detail);
+            Label text = new Label(detail + " :");
             text.setFont(Font.font("Times New Roman", 16));
             text.setPadding(new Insets(20));
-            GridPane.setHalignment(text, HPos.CENTER);
+            GridPane.setHalignment(text, HPos.LEFT);
             gridpane.add(text, 0, row);
             TextField textField = new TextField();
             textField.setPromptText(detail);
+            textField.setAlignment(Pos.CENTER);
             textField.setPrefSize(167, 28);
+            textField.setMaxSize(167, 28);
             GridPane.setHalignment(textField, HPos.CENTER);
-            gridpane.add(text, 1, row);
+            gridpane.add(textField, 1, row);
             row++;
         }
     }
@@ -86,7 +89,7 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(StageController.getStage());
         try {
-            java.nio.file.Files.copy(selectedFile.toPath(), Paths.get("src/"));
+//            java.nio.file.Files.copy(selectedFile.toPath(), Paths.get("src/"));
             path = "./resources/productImages/" + Good.getGoodsCount() + ".png";
             Files.copy(selectedFile.toPath(),
                     (new File(path)).toPath(), StandardCopyOption.REPLACE_EXISTING);
