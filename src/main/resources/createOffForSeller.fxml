@@ -6,21 +6,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.CreatingOffForSellerController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css"
+          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.CreatingOffForSellerController">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="68.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="528.0" minWidth="10.0" prefWidth="494.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="185.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="68.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="528.0" minWidth="10.0" prefWidth="494.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="185.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="128.0" minHeight="6.0" prefHeight="101.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="393.0" minHeight="10.0" prefHeight="344.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="128.0" minHeight="6.0" prefHeight="101.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="393.0" minHeight="10.0" prefHeight="344.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
         <children>
 
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed"
+                    prefHeight="40.0" prefWidth="40.0" styleClass="roundButton">
                 <graphic>
                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@pictures/icons8-back-to-48.png" />
@@ -31,121 +35,136 @@
     </HBox>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
         <children>
-            <ImageView fitHeight="60.0" fitWidth="55.0" onMouseClicked="#onLogoutIconClicked" pickOnBounds="true" preserveRatio="true" styleClass="exitImage">
+            <ImageView fitHeight="60.0" fitWidth="55.0" onMouseClicked="#onLogoutIconClicked" pickOnBounds="true"
+                       preserveRatio="true" styleClass="exitImage">
                 <image>
                     <Image url="@pictures/logout.png" />
                 </image>
             </ImageView>
         </children>
     </HBox>
-    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle"
+          stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <children>
             <GridPane prefHeight="364.0" prefWidth="475.0">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="141.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.0" minWidth="10.0" prefWidth="334.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="141.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.0" minWidth="10.0" prefWidth="334.0"/>
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints maxHeight="65.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="65.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES"/>
                 </rowConstraints>
                 <children>
-                    <HBox alignment="CENTER" prefHeight="53.0" prefWidth="334.0" GridPane.columnIndex="1" />
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+                    <HBox alignment="CENTER" prefHeight="53.0" prefWidth="334.0" GridPane.columnIndex="1"/>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"/>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                         <children>
-                            <Label text="Start Date :" />
+                            <Label text="Start Date :"/>
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                         <children>
-                            <Label text="End Date :" />
+                            <Label text="End Date :"/>
                         </children>
                     </HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
+                          GridPane.rowIndex="2">
                         <children>
-                            <DatePicker fx:id="endDateChooser" prefHeight="30.0" prefWidth="180.0" promptText="end date" />
+                            <DatePicker fx:id="endDateChooser" prefHeight="30.0" prefWidth="180.0"
+                                        promptText="end date"/>
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                         <children>
-                            <Label text="Max Discount Amount :" />
+                            <Label text="Max Discount Amount :"/>
                         </children>
                     </HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
+                          GridPane.rowIndex="3">
                         <children>
-                            <TextField fx:id="maxAmount" prefHeight="30.0" prefWidth="180.0" promptText="amount" />
+                            <TextField fx:id="maxAmount" prefHeight="30.0" prefWidth="180.0" promptText="amount"/>
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
                         <children>
-                            <Label text="Discount Percent :" />
+                            <Label text="Discount Percent :"/>
                         </children>
                     </HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
+                          GridPane.rowIndex="4">
                         <children>
-                            <TextField fx:id="discountPercentTextField" prefHeight="30.0" prefWidth="70.0" promptText="percent" />
+                            <TextField fx:id="discountPercentTextField" prefHeight="30.0" prefWidth="70.0"
+                                       promptText="percent"/>
                         </children>
                     </HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1"
+                          GridPane.rowIndex="1">
                         <children>
-                            <DatePicker fx:id="startDateChooser" prefHeight="30.0" prefWidth="180.0" promptText="start date" />
+                            <DatePicker fx:id="startDateChooser" prefHeight="30.0" prefWidth="180.0"
+                                        promptText="start date"/>
                         </children>
                     </HBox>
                 </children>
             </GridPane>
         </children>
     </VBox>
-    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="backgroundStyle"
+          stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <children>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="187.0">
                 <children>
-                    <Button mnemonicParsing="false" onAction="#onAddProductPressed" prefHeight="43.0" prefWidth="138.0" styleClass="menuButtons" text="add product" />
+                    <Button mnemonicParsing="false" onAction="#onAddProductPressed" prefHeight="43.0" prefWidth="138.0"
+                            styleClass="menuButtons" text="add product"/>
                 </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="92.0" prefWidth="365.0">
                 <children>
                     <Label text="product id:">
-                  <HBox.margin>
-                     <Insets right="5.0" />
-                  </HBox.margin>
-                  <font>
-                     <Font size="14.0" />
-                  </font></Label>
+                        <HBox.margin>
+                            <Insets right="5.0"/>
+                        </HBox.margin>
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
                     <TextField fx:id="productToAdd" prefHeight="25.0" prefWidth="135.0" promptText="product id to add">
                         <HBox.margin>
-                            <Insets left="10.0" />
+                            <Insets left="10.0"/>
                         </HBox.margin>
-                  <opaqueInsets>
-                     <Insets />
-                  </opaqueInsets>
+                        <opaqueInsets>
+                            <Insets/>
+                        </opaqueInsets>
                     </TextField>
                 </children>
             </HBox>
         </children>
     </HBox>
-    <Button mnemonicParsing="false" onAction="#onCreateDiscountCodePressed" prefHeight="49.0" prefWidth="168.0" styleClass="menuButtons" text="Create Discount" GridPane.columnIndex="2" GridPane.rowIndex="1">
+    <Button mnemonicParsing="false" onAction="#onCreateDiscountCodePressed" prefHeight="49.0" prefWidth="168.0"
+            styleClass="menuButtons" text="Create Off" GridPane.columnIndex="2" GridPane.rowIndex="1">
         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </padding>
         <GridPane.margin>
-            <Insets left="10.0" />
+            <Insets left="10.0"/>
         </GridPane.margin>
     </Button>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
         <children>
-            <Button mnemonicParsing="false" onAction="#onFinishButtonPressed" prefHeight="40.0" prefWidth="135.0" styleClass="menuButtons" text="Finish" />
+            <Button mnemonicParsing="false" onAction="#onFinishButtonPressed" prefHeight="40.0" prefWidth="135.0"
+                    styleClass="menuButtons" text="Finish"/>
         </children>
     </HBox>
-    <Label alignment="CENTER" contentDisplay="CENTER" text="create off" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+    <Label alignment="CENTER" contentDisplay="CENTER" text="create off" textAlignment="CENTER" GridPane.columnIndex="1"
+           GridPane.halignment="CENTER">
         <font>
-            <Font name="Times New Roman" size="36.0" />
+            <Font name="Times New Roman" size="36.0"/>
         </font>
         <GridPane.margin>
-            <Insets />
+            <Insets/>
         </GridPane.margin>
     </Label>
 </GridPane>
