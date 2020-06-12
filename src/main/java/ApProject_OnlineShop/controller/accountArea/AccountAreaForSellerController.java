@@ -116,6 +116,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Off off = Shop.getInstance().findOffById(offId);
         ArrayList<String> details = new ArrayList<>();
         details.add(off.getOffId() + "");
+        details.add(off.getStartDate() + "");
         details.add(off.getEndDate() + "");
         details.add(off.getMaxDiscount() + "");
         details.add(off.getDiscountPercent() + "");

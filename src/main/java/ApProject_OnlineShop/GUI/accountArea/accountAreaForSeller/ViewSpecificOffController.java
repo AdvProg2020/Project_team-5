@@ -34,8 +34,6 @@ public class ViewSpecificOffController extends FxmlController implements Initial
         ViewSpecificOffController.offId = offId;
     }
 
-    public void removeOff(MouseEvent mouseEvent) {
-    }
 
     public void logout(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
@@ -48,5 +46,6 @@ public class ViewSpecificOffController extends FxmlController implements Initial
     }
 
     public void backButton(ActionEvent actionEvent) {
+        setScene("viewOffsForSeller.fxml", "offs");
     }
 }
