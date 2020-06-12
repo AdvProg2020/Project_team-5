@@ -48,4 +48,8 @@ public class ViewSpecificOffController extends FxmlController implements Initial
     public void backButton(ActionEvent actionEvent) {
         setScene("viewOffsForSeller.fxml", "offs");
     }
+
+    public void editOff(ActionEvent actionEvent) {
+        setScene("editOffForSeller.fxml","edit off");
+    }
 }
