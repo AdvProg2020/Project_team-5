@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -34,6 +35,7 @@ public class StageController {
         }
         stage.setTitle("Shop");
         stage.setScene(new Scene(root, 1000, 800));
+        stage.getIcons().add(new Image(getClass().getClassLoader().getResource("pictures/icon.jpg").toString()));
         //       stage.setMaximized(true);
         stage.show();
     }
