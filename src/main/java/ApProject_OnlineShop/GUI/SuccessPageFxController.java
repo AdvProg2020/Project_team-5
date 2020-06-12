@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.GUI;
 
-import ApProject_OnlineShop.GUI.FxmlController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,7 +40,7 @@ public class SuccessPageFxController extends FxmlController implements Initializ
         SuccessPageFxController.successContent = successContent;
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.getIcons().add(new Image(SuccessPageFxController.class.getClassLoader().getResource("success1.png").toString()));
+        window.getIcons().add(new Image(SuccessPageFxController.class.getClassLoader().getResource("pictures/success1.png").toString()));
         window.setResizable(false);
         window.setTitle("success");
         Parent root = null;

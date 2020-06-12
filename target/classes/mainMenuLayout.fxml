@@ -28,7 +28,7 @@
         </ImageView>
       <ImageView fitHeight="200.0" fitWidth="307.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
          <image>
-            <Image url="@shopLogo.png" />
+            <Image url="@pictures/shopLogo.png" />
          </image>
          <GridPane.margin>
             <Insets left="60.0" />
@@ -53,9 +53,9 @@
                 </Button>
             </children>
         </VBox>
-      <ImageView fitHeight="100.0" fitWidth="75.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT">
+      <ImageView fitHeight="100.0" fitWidth="75.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
          <image>
-            <Image url="@shoppingBag.png" />
+            <Image url="@pictures/shoppingBag.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />

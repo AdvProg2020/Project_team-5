@@ -155,7 +155,7 @@
     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@./icons8-back-to-48.png" />
+                <Image url="@pictures/icons8-back-to-48.png" />
             </ImageView>
         </graphic>
     </Button>
@@ -166,7 +166,7 @@
     </Label>
     <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
         <image>
-            <Image url="@logout.png" />
+            <Image url="@pictures/logout.png" />
         </image>
         <GridPane.margin>
             <Insets left="400.0" />
