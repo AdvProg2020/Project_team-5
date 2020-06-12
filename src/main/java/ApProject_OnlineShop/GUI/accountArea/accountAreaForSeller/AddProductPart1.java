@@ -15,10 +15,10 @@ import java.util.Optional;
 
 public class AddProductPart1 extends FxmlController {
     @FXML
-    public TextField name,brand,price,additionalDetails,availableNumber,subCategory;
+    public TextField name, brand, price, additionalDetails, availableNumber, subCategory;
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
-        setScene("manageProducts.fxml","manage products");
+        setScene("manageProducts.fxml", "manage products");
     }
 
     public void onLogoutIconClicked(MouseEvent mouseEvent) {
@@ -32,28 +32,25 @@ public class AddProductPart1 extends FxmlController {
     }
 
     public void onAddProduct(ActionEvent actionEvent) {
-        if(checkBaseInfos()){
-
+        if (checkBaseInfos()) {
+            setScene("addProductForSellerPart2.fxml","sub category properties :");
         }
     }
 
     private boolean checkBaseInfos() {
         if (!name.getText().matches("\\w+")) {
-            ErrorPageFxController.showPage("Error for registering", "username is invalid!");
+            ErrorPageFxController.showPage("Error for adding product", "name is invalid!");
             return false;
-        } else if (!firstName.getText().matches("[a-zA-Z]{2,}")) {
-            ErrorPageFxController.showPage("Error for registering", "first name is invalid!");
+        } else if (!brand.getText().matches("\\w+")) {
+            ErrorPageFxController.showPage("Error for adding product", "brand is invalid!");
             return false;
-        } else if (!lastName.getText().matches("[a-zA-Z]{2,}")) {
-            ErrorPageFxController.showPage("Error for registering", "last name is invalid!");
+        } else if (!price.getText().matches("\\d\\d\\d\\d+")) {
+            ErrorPageFxController.showPage("Error for adding product", "price is invalid!");
             return false;
-        } else if (!email.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
-            ErrorPageFxController.showPage("Error for registering", "email is invalid!");
+        } else if (!availableNumber.getText().matches("[0-9]{1,3}")) {
+            ErrorPageFxController.showPage("Error for adding product", "available number is invalid!,should be a number");
             return false;
-        } else if (!phoneNumber.getText().matches("^\\d{11}$")) {
-            ErrorPageFxController.showPage("Error for registering", "phone number is invalid!");
-            return false;
-        } else if (!password.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")) {
+        } else if (!MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(subCategory.getText())) {
             ErrorPageFxController.showPage("Error for registering", "password is invalid!");
             return false;
         }
