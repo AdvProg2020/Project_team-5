@@ -100,11 +100,11 @@ public class AccountAreaForManagerController extends AccountAreaController {
         DiscountCode discountCode;
         if ((discountCode = Shop.getInstance().findDiscountCode(code)) != null) {
             if (field.equalsIgnoreCase("startDate")) {
-                if (!newValue.matches("\\d{4}-\\d{2}-\\d{2}") || LocalDate.parse(newValue).isBefore(LocalDate.now()) || LocalDate.parse(newValue).isAfter(discountCode.getEndDate()))
+                if (!newValue.matches("\\d{4}.\\d{2}.\\d{2}") || LocalDate.parse(newValue).isBefore(LocalDate.now()) || LocalDate.parse(newValue).isAfter(discountCode.getEndDate()))
                     throw new DiscountCodeCantBeEditedException("new start date value");
                 discountCode.setStartDate(LocalDate.parse(newValue));
             } else if (field.equalsIgnoreCase("endDate")) {
-                if (!newValue.matches("\\d{4}-\\d{2}-\\d{2}") || LocalDate.parse(newValue).isBefore(discountCode.getStartDate()))
+                if (!newValue.matches("\\d{4}.\\d{2}.\\d{2}") || LocalDate.parse(newValue).isBefore(discountCode.getStartDate()))
                     throw new DiscountCodeCantBeEditedException("new end date value");
                 discountCode.setEndDate(LocalDate.parse(newValue));
             } else if (field.equalsIgnoreCase("maxDiscountAmount")) {
@@ -118,6 +118,25 @@ public class AccountAreaForManagerController extends AccountAreaController {
             } else throw new DiscountCodeCantBeEditedException("field name for edit");
             Database.getInstance().saveItem(discountCode);
         } else throw new DiscountCodeNotFoundException();
+    }
+
+    public void removeCustomerFromDiscount(String code, String username) throws Exception {
+        DiscountCode discountCode = Shop.getInstance().findDiscountCode(code);
+        Customer customerToRemove = null;
+        for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
+            if (customer.getUsername().equals(username)) {
+                customerToRemove = customer;
+                break;
+            }
+        }
+        if (customerToRemove != null) {
+            customerToRemove.removeDiscountCode(discountCode);
+            discountCode.removeCustomer(customerToRemove.getUsername());
+            Database.getInstance().saveItem(discountCode);
+            Database.getInstance().saveItem(customerToRemove);
+        } else {
+            throw new Exception("discount code does not include customer with this username");
+        }
     }
 
     public void removeDiscountCode(String code) throws DiscountCodeNotFoundException, FileCantBeDeletedException, IOException, FileCantBeSavedException {

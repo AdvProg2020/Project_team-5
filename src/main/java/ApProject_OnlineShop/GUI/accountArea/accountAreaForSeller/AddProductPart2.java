@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
@@ -116,7 +117,7 @@ public class AddProductPart2 extends FxmlController implements Initializable {
     public void selectPhoto(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
-        path = "./Resources/productImages/" + Good.getGoodsCount() + ".png";
+        path = "./Resources/productImages/" + Good.getGoodsCount() + ".jpg";
         BufferedImage bi = null;
         try {
             bi = ImageIO.read(selectedFile.toURL());
