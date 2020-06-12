@@ -8,11 +8,7 @@ import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
-import javafx.scene.Cursor;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -57,6 +53,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(sort);
         for (String discountCode : discountCodes) {
             Hyperlink discountLink = new Hyperlink(discountCode);
+            discountLink.setFont(new Font("Times New Roman",16));
             discountLink.setOnMouseClicked(e -> viewSingleDiscountCode(discountCode));
             discountLink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
             discountLink.setAlignment(Pos.BOTTOM_LEFT);
