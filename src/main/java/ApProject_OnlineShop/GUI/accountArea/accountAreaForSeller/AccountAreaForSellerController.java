@@ -39,6 +39,7 @@ public class AccountAreaForSellerController extends FxmlController implements In
     }
 
     public void viewSaleHistory(MouseEvent mouseEvent) {
+        (new ViewOrdersForSeller()).viewSortedOrders(0);
     }
 
     public void manageProducts(MouseEvent mouseEvent) {
