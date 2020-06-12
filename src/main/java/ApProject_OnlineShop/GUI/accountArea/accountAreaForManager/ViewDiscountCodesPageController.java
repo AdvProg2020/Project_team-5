@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
@@ -91,7 +92,9 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
                 editButton.setDisable(true);
                 removeButton.setDisable(true);
                 clearLabels();
+                SuccessPageFxController.showPage("delete discount", "discount code deleted successfully");
             } catch (Exception ex) {
+                ex.printStackTrace();
                 ErrorPageFxController.showPage("error", ex.getMessage());
             }
         } else
