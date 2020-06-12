@@ -222,7 +222,7 @@
             <Font name="Times New Roman" size="26.0"/>
         </font>
     </Label>
-    <Hyperlink prefHeight="4.0" prefWidth="71.0" text="edit fields" textFill="#470549" underline="true"
+    <Hyperlink onAction="#editField" prefHeight="4.0" prefWidth="71.0" text="edit fields" textFill="#470549" underline="true"
                GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
         <opaqueInsets>
             <Insets left="15.0"/>

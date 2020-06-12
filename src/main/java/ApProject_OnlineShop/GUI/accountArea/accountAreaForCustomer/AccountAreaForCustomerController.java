@@ -217,4 +217,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         text.setPadding(new Insets(20));
         GridPane.setHalignment(text, HPos.CENTER);
     }
+
+    public void editField(ActionEvent actionEvent) {
+        setScene("editFieldPersons.fxml", "edit field");
+    }
 }
