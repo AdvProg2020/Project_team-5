@@ -13,11 +13,11 @@ import java.util.Optional;
 
 public class FxmlController {
 
-    public void setScene(String addres, String title) {
+    public void setScene(String address, String title) {
         Stage stage = StageController.getStage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource(addres));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource(address));
         } catch (IOException e) {
             e.printStackTrace();
         }
