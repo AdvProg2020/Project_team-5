@@ -47,7 +47,7 @@ public class AddProductPart1 extends FxmlController {
     }
 
     private boolean checkBaseInfos() {
-        if (!name.getText().matches("\\w+")) {
+        if (!name.getText().matches("[A-Za-z0-9\\s]+")) {
             ErrorPageFxController.showPage("Error for adding product", "name is invalid!");
             return false;
         } else if (!brand.getText().matches("\\w+")) {
@@ -56,7 +56,7 @@ public class AddProductPart1 extends FxmlController {
         } else if (!price.getText().matches("\\d\\d\\d\\d+")) {
             ErrorPageFxController.showPage("Error for adding product", "price is invalid!");
             return false;
-        } else if (!availableNumber.getText().matches("[0-9]{1,3}")) {
+        } else if (!availableNumber.getText().matches("[0-9]{1,5}")) {
             ErrorPageFxController.showPage("Error for adding product", "available number is invalid!,should be a number");
             return false;
         } else if (!MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(subCategory.getText())) {

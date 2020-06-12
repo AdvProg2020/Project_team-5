@@ -8,14 +8,15 @@ import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.util.Optional;
 
 public class MainMenuController extends FxmlController {
-
 
     public void accountAreaButtonPressed(ActionEvent actionEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
@@ -27,6 +28,7 @@ public class MainMenuController extends FxmlController {
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
             setScene("accountAreaForManager.fxml", "account area");
         }
+
     }
 
     public void productsPageButtonPressed(ActionEvent actionEvent) {

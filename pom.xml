@@ -57,6 +57,9 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+
+
         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
 
 

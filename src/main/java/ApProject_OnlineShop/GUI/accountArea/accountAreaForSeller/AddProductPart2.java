@@ -1,8 +1,10 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.Main;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
@@ -21,8 +23,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -37,7 +45,9 @@ public class AddProductPart2 extends FxmlController implements Initializable {
     public GridPane gridpane;
 
     private static ArrayList<String> productDetails;
+    private File selectedFile;
     private String path;
+    private HashMap<String, TextField> textFields = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -56,12 +66,30 @@ public class AddProductPart2 extends FxmlController implements Initializable {
             textField.setMaxSize(167, 28);
             GridPane.setHalignment(textField, HPos.CENTER);
             gridpane.add(textField, 1, row);
+            textFields.put(detail, textField);
             row++;
         }
     }
 
     public void onAddProduct(ActionEvent actionEvent) {
         HashMap<String, String> detailValues = new HashMap<>();
+        for (String details : textFields.keySet()) {
+            detailValues.put(details, textFields.get(details).getText());
+            if (textFields.get(details).getText().equals("")) {
+                ErrorPageFxController.showPage("can not add good", "fields should be filled!");
+                return;
+            }
+        }
+        if (selectedFile == null) {
+            ErrorPageFxController.showPage("can not add good", "you should chose a photo");
+            return;
+        }
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, detailValues);
+            SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
+        } catch (Exception e) {
+            ErrorPageFxController.showPage("can not add good", e.getMessage());
+        }
     }
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
@@ -88,12 +116,19 @@ public class AddProductPart2 extends FxmlController implements Initializable {
 
     public void selectPhoto(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(StageController.getStage());
+        selectedFile = fileChooser.showOpenDialog(StageController.getStage());
+        path = "./Resources/productImages/" + Good.getGoodsCount() + ".png";
+        BufferedImage bi = null;
         try {
-//            java.nio.file.Files.copy(selectedFile.toPath(), Paths.get("src/"));
-            path = "./resources/productImages/" + Good.getGoodsCount() + ".png";
-            Files.copy(selectedFile.toPath(),
-                    (new File(path)).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            bi = ImageIO.read(selectedFile.toURL());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ImageIO.write(bi, "jpg", new File(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
