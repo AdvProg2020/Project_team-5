@@ -36,7 +36,7 @@ public class ViewOrders extends FxmlController {
         GridPane root = style.makeGridPane();
         Label topic = new Label("All Orders");
         topic.setFont(Font.font("Times New Roman", 26));
-        topic.setPadding(new Insets(5));
+        topic.setPadding(new Insets(13));
         GridPane.setHalignment(topic, HPos.CENTER);
         root.add(topic, 1, 1);
         Image shoppingBag = new Image(getClass().getClassLoader().getResource("shoppingBag.png").toString());
@@ -80,7 +80,14 @@ public class ViewOrders extends FxmlController {
         GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Customer Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
-        discountCodeInfo.setPadding(new Insets(7));
+        discountCodeInfo.setPadding(new Insets(13));
+        Image shoppingBag = new Image(getClass().getClassLoader().getResource("shoppingBag.png").toString());
+        ImageView shoppingBagImageView = new ImageView(shoppingBag);
+        shoppingBagImageView.setFitHeight(80);
+        shoppingBagImageView.setFitWidth(60);
+        shoppingBagImageView.setCursor(Cursor.HAND);
+        root.add(shoppingBagImageView,2,2);
+        GridPane.setValignment(shoppingBagImageView,VPos.TOP);
         GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
         root.add(discountCodeInfo, 1, 1);
         VBox vBox = new VBox();
