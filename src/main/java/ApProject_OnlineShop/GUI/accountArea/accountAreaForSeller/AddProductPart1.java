@@ -42,7 +42,7 @@ public class AddProductPart1 extends FxmlController {
             productDetails.add(additionalDetails.getText());
             productDetails.add(subCategory.getText());
             AddProductPart2.setProductDetails(productDetails);
-            setScene("addProductForSellerPart2.fxml", "sub category properties :");
+            setScene("addProductForSellerPart2.fxml", "enter sub category properties");
         }
     }
 
