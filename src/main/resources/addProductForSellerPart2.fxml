@@ -56,51 +56,22 @@
                 <children>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                         <children>
-                            <Label text="Name :" />
+                            <Label text="image :" />
                         </children>
                     </HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                        <children>
-                            <Label text="Brand :" />
-                        </children>
-                    </HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                        <children>
-                            <TextField fx:id="brand" alignment="CENTER" prefHeight="28.0" prefWidth="167.0" promptText="brand" />
-                        </children></HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                        <children>
-                            <Label text="Price :" />
-                        </children>
-                    </HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                        <children>
-                            <TextField fx:id="price" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="167.0" promptText="price" />
-                        </children>
-                    </HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-                        <children>
-                            <Label text="Available number :" />
-                        </children>
-                    </HBox>
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                        <children>
-                            <TextField fx:id="availableNumber" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="167.0" promptText="available numbers" />
-                        </children>
-                    </HBox>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3" />
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                        <children>
-                            <TextField fx:id="name" alignment="CENTER" prefHeight="28.0" prefWidth="167.0" promptText="name" />
-                        </children></HBox>
-                    <Label prefHeight="27.0" prefWidth="110.0" text="Additional details :" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                    <TextField fx:id="additionalDetails" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="167.0" promptText="additional details" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                    <Label text="Sub category :" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                    <TextField fx:id="sybCategory" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="167.0" promptText="sub category" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                  <children>
+                     <Button alignment="CENTER" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" styleClass="menuButtons" text="select" />
+                  </children></HBox>
                 </children>
             </GridPane>
         </children>
     </VBox>
-    <Button mnemonicParsing="false" onAction="#onAddProduct" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="next" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+    <Button mnemonicParsing="false" onAction="#onAddProduct" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="add prdouct" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>

@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class AddProductPart1 extends FxmlController {
@@ -33,7 +34,15 @@ public class AddProductPart1 extends FxmlController {
 
     public void onAddProduct(ActionEvent actionEvent) {
         if (checkBaseInfos()) {
-            setScene("addProductForSellerPart2.fxml","sub category properties :");
+            ArrayList<String> productDetails = new ArrayList<>();
+            productDetails.add(name.getText());
+            productDetails.add(brand.getText());
+            productDetails.add(price.getText());
+            productDetails.add(availableNumber.getText());
+            productDetails.add(additionalDetails.getText());
+            productDetails.add(subCategory.getText());
+            AddProductPart2.setProductDetails(productDetails);
+            setScene("addProductForSellerPart2.fxml", "sub category properties :");
         }
     }
 
