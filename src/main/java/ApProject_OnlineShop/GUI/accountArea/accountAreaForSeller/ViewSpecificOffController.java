@@ -34,7 +34,6 @@ public class ViewSpecificOffController extends FxmlController implements Initial
         ViewSpecificOffController.offId = offId;
     }
 
-
     public void logout(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
@@ -50,6 +49,10 @@ public class ViewSpecificOffController extends FxmlController implements Initial
     }
 
     public void editOff(ActionEvent actionEvent) {
-        setScene("editOffForSeller.fxml","edit off");
+        setScene("editOffForSeller.fxml", "edit off");
+    }
+
+    public static Long getOffId() {
+        return offId;
     }
 }

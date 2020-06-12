@@ -6,174 +6,191 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ViewSpecificOffController">
+<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout"
+          stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ViewSpecificOffController">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="153.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="492.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="153.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="492.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="436.0" minHeight="10.0" prefHeight="364.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="133.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="436.0" minHeight="10.0" prefHeight="364.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="133.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES"/>
     </rowConstraints>
-    <VBox fx:id="vBox" maxWidth="-Infinity" minHeight="367.0" minWidth="348.0" prefHeight="393.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <VBox fx:id="vBox" maxWidth="-Infinity" minHeight="367.0" minWidth="348.0" prefHeight="393.0" prefWidth="367.0"
+          styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1"
+          GridPane.rowIndex="1">
         <opaqueInsets>
-            <Insets top="1.0" />
+            <Insets top="1.0"/>
         </opaqueInsets>
         <padding>
-            <Insets bottom="10.0" top="20.0" />
+            <Insets bottom="10.0" top="20.0"/>
         </padding>
         <GridPane.margin>
-            <Insets />
+            <Insets/>
         </GridPane.margin>
         <opaqueInsets>
-            <Insets top="1.0" />
+            <Insets top="1.0"/>
         </opaqueInsets>
         <Label prefHeight="18.0" prefWidth="196.0" text="id :">
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font name="Times New Roman" size="18.0" />
+                <Font name="Times New Roman" size="18.0"/>
             </font>
             <VBox.margin>
-                <Insets />
+                <Insets/>
             </VBox.margin>
         </Label>
         <Label fx:id="id" prefHeight="18.0" prefWidth="196.0" text=" ">
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font name="Times New Roman" size="14.0" />
+                <Font name="Times New Roman" size="14.0"/>
             </font>
             <opaqueInsets>
-                <Insets left="20.0" />
+                <Insets left="20.0"/>
             </opaqueInsets>
         </Label>
         <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="15.0" prefWidth="195.0" text="start date:">
             <VBox.margin>
-                <Insets top="4.0" />
+                <Insets top="4.0"/>
             </VBox.margin>
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font name="Times New Roman" size="17.0" />
+                <Font name="Times New Roman" size="17.0"/>
             </font>
         </Label>
         <Label fx:id="startDate" prefHeight="18.0" prefWidth="193.0">
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font size="14.0" />
+                <Font size="14.0"/>
             </font>
             <opaqueInsets>
-                <Insets left="20.0" />
+                <Insets left="20.0"/>
             </opaqueInsets>
         </Label>
         <Label alignment="BOTTOM_LEFT" prefHeight="18.0" prefWidth="200.0" text="end date:">
             <VBox.margin>
-                <Insets top="4.0" />
+                <Insets top="4.0"/>
             </VBox.margin>
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font name="Times New Roman" size="17.0" />
+                <Font name="Times New Roman" size="17.0"/>
             </font>
         </Label>
         <Label fx:id="endDate" prefHeight="18.0" prefWidth="190.0">
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font size="14.0" />
+                <Font size="14.0"/>
             </font>
             <opaqueInsets>
-                <Insets left="20.0" />
+                <Insets left="20.0"/>
             </opaqueInsets>
             <VBox.margin>
-                <Insets />
+                <Insets/>
             </VBox.margin>
         </Label>
         <Label prefHeight="20.0" prefWidth="195.0" text="max discount:">
             <VBox.margin>
-                <Insets top="4.0" />
+                <Insets top="4.0"/>
             </VBox.margin>
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font name="Times New Roman" size="17.0" />
+                <Font name="Times New Roman" size="17.0"/>
             </font>
         </Label>
         <Label fx:id="maxDiscount" prefHeight="18.0" prefWidth="252.0">
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font size="14.0" />
+                <Font size="14.0"/>
             </font>
             <opaqueInsets>
-                <Insets left="20.0" />
+                <Insets left="20.0"/>
             </opaqueInsets>
         </Label>
         <Label prefHeight="20.0" prefWidth="207.0" text="discount percent:">
             <opaqueInsets>
-                <Insets top="10.0" />
+                <Insets top="10.0"/>
             </opaqueInsets>
             <VBox.margin>
-                <Insets top="4.0" />
+                <Insets top="4.0"/>
             </VBox.margin>
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font name="Times New Roman" size="17.0" />
+                <Font name="Times New Roman" size="17.0"/>
             </font>
         </Label>
         <Label fx:id="discountPercent" prefHeight="18.0" prefWidth="181.0">
             <padding>
-                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0"/>
             </padding>
             <font>
-                <Font size="14.0" />
+                <Font size="14.0"/>
             </font>
             <opaqueInsets>
-                <Insets left="20.0" />
+                <Insets left="20.0"/>
             </opaqueInsets>
         </Label>
         <padding>
-            <Insets bottom="10.0" top="20.0" />
+            <Insets bottom="10.0" top="20.0"/>
         </padding>
         <GridPane.margin>
-            <Insets />
+            <Insets/>
         </GridPane.margin>
     </VBox>
-    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
+    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0"
+            prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@./icons8-back-to-48.png" />
+                <Image url="@./icons8-back-to-48.png"/>
             </ImageView>
         </graphic>
     </Button>
     <Label alignment="CENTER" prefHeight="80.0" prefWidth="369.0" text="Off information" GridPane.columnIndex="1">
         <font>
-            <Font name="Times New Roman" size="26.0" />
+            <Font name="Times New Roman" size="26.0"/>
         </font>
     </Label>
-    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
+    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true"
+               styleClass="exitImage" GridPane.columnIndex="1">
         <image>
-            <Image url="@logout.png" />
+            <Image url="@logout.png"/>
         </image>
         <GridPane.margin>
-            <Insets left="400.0" />
+            <Insets left="400.0"/>
         </GridPane.margin>
     </ImageView>
-    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1" />
+    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1"/>
+    <Hyperlink alignment="CENTER" contentDisplay="TOP" onAction="#editOff" text="edit off" textAlignment="CENTER"
+               textFill="#462990" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               GridPane.rowIndex="2" GridPane.valignment="TOP">
+        <font>
+            <Font size="14.0"/>
+        </font>
+        <GridPane.margin>
+            <Insets right="100.0"/>
+        </GridPane.margin>
+    </Hyperlink>
     <padding>
-        <Insets left="10.0" />
+        <Insets left="10.0"/>
     </padding>
 </GridPane>

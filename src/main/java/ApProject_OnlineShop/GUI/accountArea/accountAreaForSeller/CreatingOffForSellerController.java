@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class CreatingOffForSellerController extends FxmlController {
+    @FXML
     public TextField maxAmount, discountPercentTextField;
     @FXML
     public DatePicker startDateChooser;
