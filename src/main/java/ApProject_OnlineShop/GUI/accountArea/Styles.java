@@ -38,7 +38,7 @@ public class Styles extends FxmlController{
     }
 
     public GridPane makeGridPane() {
-        Image logout = new Image(getClass().getClassLoader().getResource("logout.png").toString());
+        Image logout = new Image(getClass().getClassLoader().getResource("pictures/logout.png").toString());
         ImageView logoutImage = new ImageView(logout);
         logoutImage.setFitWidth(55);
         logoutImage.setFitHeight(55);
@@ -46,7 +46,7 @@ public class Styles extends FxmlController{
         GridPane root = new GridPane();
         logoutImage.setOnMouseClicked(e -> logoutToMainMenu());
         setGridPaneStyle(root);
-        Image backImage = new Image(getClass().getClassLoader().getResource("icons8-back-to-48.png").toString());
+        Image backImage = new Image(getClass().getClassLoader().getResource("pictures/icons8-back-to-48.png").toString());
         ImageView imageView = new ImageView(backImage);
         imageView.setFitWidth(50);
         imageView.setFitHeight(50);
@@ -58,6 +58,8 @@ public class Styles extends FxmlController{
         GridPane.setValignment(logoutImage, VPos.TOP);
         root.add(back, 0, 0);
         root.add(logoutImage, 2, 0);
+        root.setHgap(10);
+        root.setVgap(10);
         return root;
     }
 

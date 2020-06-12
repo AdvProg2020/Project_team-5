@@ -64,7 +64,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
             discountLink.setUnderline(false);
             vBox.getChildren().add(discountLink);
         }
-        Image shoppingBag = new Image(getClass().getClassLoader().getResource("shoppingBag.png").toString());
+        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
         ImageView shoppingBagImageView = new ImageView(shoppingBag);
         shoppingBagImageView.setFitHeight(80);
         shoppingBagImageView.setFitWidth(60);
@@ -95,10 +95,10 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Discount Code Information");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
-        discountCodeInfo.setPadding(new Insets(7));
+        discountCodeInfo.setPadding(new Insets(13));
         GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
         root.add(discountCodeInfo, 1, 1);
-        Image shoppingBag = new Image(getClass().getClassLoader().getResource("shoppingBag.png").toString());
+        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
         ImageView shoppingBagImageView = new ImageView(shoppingBag);
         shoppingBagImageView.setFitHeight(80);
         shoppingBagImageView.setFitWidth(60);
