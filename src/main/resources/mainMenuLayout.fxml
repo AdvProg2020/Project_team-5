@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -52,5 +53,13 @@
                 </Button>
             </children>
         </VBox>
+      <ImageView fitHeight="100.0" fitWidth="75.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT">
+         <image>
+            <Image url="@shoppingBag.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
     </children>
 </GridPane>

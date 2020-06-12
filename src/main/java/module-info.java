@@ -1,11 +1,11 @@
-module ApProject.OnlineShop {
+open module ApProject.OnlineShop {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.base;
     requires yagson;
     requires com.google.gson;
-
+    /*
     opens ApProject_OnlineShop;
     opens ApProject_OnlineShop.GUI;
     opens ApProject_OnlineShop.GUI.mainMenu;
@@ -20,5 +20,7 @@ module ApProject.OnlineShop {
     opens ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
     opens ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
     opens ApProject_OnlineShop.GUI.accountArea;
+
+     */
     exports ApProject_OnlineShop;
 }
