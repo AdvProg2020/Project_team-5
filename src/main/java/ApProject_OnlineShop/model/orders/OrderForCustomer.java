@@ -78,7 +78,7 @@ public class OrderForCustomer extends Order {
         orderDetails.add(getDate().toString());
         String goods = "";
         for (GoodInCart goodInCart : getGoodsDetails()) {
-            goods += goodInCart.getBriefString();
+            goods += "- "+goodInCart.getBriefString();
         }
         orderDetails.add(goods);
         orderDetails.add("" + getDiscountAmount());
