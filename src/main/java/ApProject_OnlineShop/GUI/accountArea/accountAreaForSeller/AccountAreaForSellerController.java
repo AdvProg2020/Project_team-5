@@ -48,7 +48,7 @@ public class AccountAreaForSellerController extends FxmlController implements In
     }
 
     public void viewOffs(MouseEvent mouseEvent) {
-        setScene("viewOffsForSller.fxml", "Offs");
+        setScene("viewOffsForSeller.fxml", "Offs");
     }
 
     public void logout(MouseEvent mouseEvent) {

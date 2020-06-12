@@ -14,10 +14,10 @@
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="27.20000762939455" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="345.5999923706055" minHeight="10.0" prefHeight="345.5999923706055" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="422.0" minHeight="10.0" prefHeight="422.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="76.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
     </rowConstraints>
-    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <VBox fx:id="vBox" maxWidth="-Infinity" minHeight="367.0" minWidth="348.0" prefHeight="348.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <opaqueInsets>
             <Insets top="1.0" />
         </opaqueInsets>
@@ -50,7 +50,7 @@
     </ImageView>
     <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
         <children>
-            <Button mnemonicParsing="false" onMouseClicked="#viewDiscountCode" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="add off">
+            <Button mnemonicParsing="false" onMouseClicked="#addOff" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="add off">
                 <font>
                     <Font size="14.0" />
                 </font>
