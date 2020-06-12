@@ -21,9 +21,10 @@ import java.util.List;
 
 public class ViewOrders extends FxmlController {
     private Styles style;
-    private AccountAreaForCustomerController controller =new AccountAreaForCustomerController();
+    private AccountAreaForCustomerController controller;
 
-    public ViewOrders() {
+    public ViewOrders(AccountAreaForCustomerController controller) {
+        this.controller = controller;
         this.style = new Styles();
     }
 

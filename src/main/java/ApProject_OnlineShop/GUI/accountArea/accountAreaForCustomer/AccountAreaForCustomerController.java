@@ -27,7 +27,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     public Label email;
     public Label phoneNumber;
     public Label credit;
-    private ViewOrders viewOrders = new ViewOrders();
+    private ViewOrders viewOrders = new ViewOrders(this);
     private Styles style = new Styles();
 
     @Override
@@ -141,5 +141,15 @@ public class AccountAreaForCustomerController extends FxmlController implements 
 
     public void editField(ActionEvent actionEvent) {
         setScene("editFieldPersons.fxml", "edit field");
+    }
+
+    public void logout() {
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
+        if (result.get() == ButtonType.OK) {
+            MainController.getInstance().getLoginRegisterController().logoutUser();
+            Shop.getInstance().clearCart();
+            setScene("mainMenuLayout.fxml", "Main menu");
+        }
     }
 }
