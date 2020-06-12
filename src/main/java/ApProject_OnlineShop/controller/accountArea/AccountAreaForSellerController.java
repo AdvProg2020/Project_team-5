@@ -112,6 +112,16 @@ public class AccountAreaForSellerController extends AccountAreaController {
         }
     }
 
+    public ArrayList<String> viewOffGUI(long offId) {
+        Off off = Shop.getInstance().findOffById(offId);
+        ArrayList<String> details = new ArrayList<>();
+        details.add(off.getOffId() + "");
+        details.add(off.getEndDate() + "");
+        details.add(off.getMaxDiscount() + "");
+        details.add(off.getDiscountPercent() + "");
+        return details;
+    }
+
     public boolean isSubCategoryCorrect(String subCategory) {
         return Shop.getInstance().findSubCategoryByName(subCategory) != null;
     }

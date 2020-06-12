@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,28 +22,33 @@ public class ViewOffsController extends FxmlController implements Initializable 
     public void initialize(URL location, ResourceBundle resources) {
         if (sortSlected == 0)
             for (String off : MainController.getInstance().getAccountAreaForSellerController().getAllOffs()) {
-                Hyperlink hyperlink = new Hyperlink(off);
+                Hyperlink hyperlink = new Hyperlink("- " + off);
                 hyperlink.setOnMouseClicked(e -> viewSingleOff(off));
                 hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
                 hyperlink.setAlignment(Pos.BOTTOM_LEFT);
                 hyperlink.setPadding(new Insets(8));
                 hyperlink.setUnderline(false);
+                hyperlink.setFont(new Font(14));
                 vBox.getChildren().add(hyperlink);
             }
         else {
             for (String off : MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(sortSlected)) {
-                Hyperlink hyperlink = new Hyperlink(off);
+                Hyperlink hyperlink = new Hyperlink("- " + off);
                 hyperlink.setOnMouseClicked(e -> viewSingleOff(off));
                 hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
                 hyperlink.setAlignment(Pos.BOTTOM_LEFT);
                 hyperlink.setPadding(new Insets(8));
                 hyperlink.setUnderline(false);
+                hyperlink.setFont(new Font(14));
                 vBox.getChildren().add(hyperlink);
             }
         }
     }
 
     private void viewSingleOff(String off) {
+        long id = Long.valueOf(off.substring(8, off.indexOf("\t")));
+        ViewSpecificOffController.setOffId(id);
+        setScene("showSpecificOffForSeller.fxml","Off");
     }
 
     public void backButton(ActionEvent actionEvent) {
