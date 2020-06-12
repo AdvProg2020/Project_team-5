@@ -33,7 +33,7 @@ public class OrderForSeller extends Order {
     private void calculateDeductAmount() {
         int primaryPrice = 0;
         for (Good good : getNumberPerGood().keySet()) {
-            primaryPrice += getPrice() * good.getPriceBySeller((Seller) Shop.getInstance().findUser(seller));
+            primaryPrice += getNumberPerGood().get(good) * good.getPriceBySeller((Seller) Shop.getInstance().findUser(seller));
         }
         offDeduct = primaryPrice - getPrice();
     }
@@ -86,7 +86,7 @@ public class OrderForSeller extends Order {
         orderDetails.add(getDate().toString());
         String goods = "";
         for (Long id : numberPerGood.keySet()) {
-            goods += "- " + "name: " + Shop.getInstance().findGoodById(id).getName() + "   \t number: " + numberPerGood.get(id) + "   \t finalPrice: " + Shop.getInstance().getFinalPriceOfAGood(Shop.getInstance().findGoodById(id),(Seller) Shop.getInstance().findUser(seller))*numberPerGood.get(id);
+            goods += "- " + "name: " + Shop.getInstance().findGoodById(id).getName() + "   \t brand: " + Shop.getInstance().findGoodById(id).getBrand() + "   \t number: " + numberPerGood.get(id);
         }
         orderDetails.add(goods);
         orderDetails.add("" + getOffDeduct());
