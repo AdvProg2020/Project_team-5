@@ -1,7 +1,11 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.productThings.DiscountCode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -31,6 +35,12 @@ public class EditDiscountCodePageController extends FxmlController implements In
     @FXML
     private TextField customerToRemove;
 
+    private static DiscountCode currentDiscount;
+
+    public static void setCurrentDiscount(DiscountCode currentDiscount) {
+        EditDiscountCodePageController.currentDiscount = currentDiscount;
+    }
+
     public void onBackButtonPressed() {
         setScene("viewDiscountCodesPage.fxml", "manage discount codes");
     }
@@ -49,7 +59,31 @@ public class EditDiscountCodePageController extends FxmlController implements In
     }
 
     public void onAddCustomerButtonPressed() {
+        String username = customerToAddField.getText();
+        String numberOfUse = numberOfUseField.getText();
+        if (username.isEmpty() || numberOfUse.isEmpty()) {
+            ErrorPageFxController.showPage("add customer error", "please fill both fields for add a customer to discount");
+            clearAddCustomerFields();
+            return;
+        }
+        if (!username.matches("\\w+") || !numberOfUse.matches("\\d+")) {
+            ErrorPageFxController.showPage("add customer error", "invalid input format");
+            clearAddCustomerFields();
+            return;
+        }
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode(currentDiscount.getCode(), username, numberOfUse);
+            SuccessPageFxController.showPage("successful adding customer", "customer added to code successfully");
+        } catch (Exception e) {
+            ErrorPageFxController.showPage("error", e.getMessage());
+        } finally {
+            clearAddCustomerFields();
+        }
+    }
 
+    private void clearAddCustomerFields() {
+        customerToAddField.clear();
+        numberOfUseField.clear();
     }
 
     public void onRemoveButtonPressed() {
@@ -58,6 +92,9 @@ public class EditDiscountCodePageController extends FxmlController implements In
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        startDateChooser.setPromptText(currentDiscount.getStartDate().toString());
+        endDateChooser.setPromptText(currentDiscount.getEndDate().toString());
+        discountAmountTextField.setPromptText("" + currentDiscount.getMaxDiscountAmount());
+        discountPercentTextField.setPromptText("" + currentDiscount.getDiscountPercent());
     }
 }
