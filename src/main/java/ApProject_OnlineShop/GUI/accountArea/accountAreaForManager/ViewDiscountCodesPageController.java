@@ -78,7 +78,7 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
     }
 
     public void onEditDiscountPressed() {
-
+        setScene("editDiscountPage.fxml", "edit discount");
     }
 
     public void onRemovePressed(ActionEvent e) {
