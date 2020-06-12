@@ -84,6 +84,10 @@ public class DiscountCode {
         return includedCustomers2;
     }
 
+    public void removeCustomer(String username) {
+        this.includedCustomers.remove(username);
+    }
+
     public void setDiscountPercent(int discountPercent) {
         this.discountPercent = discountPercent;
     }

@@ -5,6 +5,9 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +16,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -55,7 +60,38 @@ public class EditDiscountCodePageController extends FxmlController implements In
     }
 
     public void onEditDiscountCodePressed() {
+        String amount = discountAmountTextField.getText();
+        String percent = discountPercentTextField.getText();
+        LocalDate startDate = startDateChooser.getValue();
+        LocalDate endDate = endDateChooser.getValue();
+        if (amount.isEmpty() && percent.isEmpty() && startDate == null && endDate == null) {
+            ErrorPageFxController.showPage("edit discount code error", "please fill at least a field for edit discount");
+            return;
+        }
+        try {
+            if (!percent.isEmpty()) {
+                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "discountPercent", percent);
+            }
+            if (!amount.isEmpty()) {
+                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "maxDiscountAmount", amount);
+            }
+            if (startDate != null) {
+                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "startDate", startDate.toString());
+            }
+            if (endDate != null) {
+                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "endDate", endDate.toString());
+            }
+            updateFields();
+            SuccessPageFxController.showPage("edit", "discount code edited successfully");
+        } catch (Exception e) {
+            ErrorPageFxController.showPage("error", e.getMessage());
+        }
+        clearFields();
+    }
 
+    private void clearFields() {
+        discountPercentTextField.clear();
+        discountAmountTextField.clear();
     }
 
     public void onAddCustomerButtonPressed() {
@@ -87,11 +123,27 @@ public class EditDiscountCodePageController extends FxmlController implements In
     }
 
     public void onRemoveButtonPressed() {
-
+        String customer = customerToRemove.getText();
+        if (customer.isEmpty() || !customer.matches("\\w+")) {
+            ErrorPageFxController.showPage("add customer error", "invalid input format");
+            customerToRemove.clear();
+            return;
+        }
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().removeCustomerFromDiscount(currentDiscount.getCode(), customer);
+            SuccessPageFxController.showPage("successful adding customer", "customer removed from code successfully");
+        } catch (Exception e) {
+            ErrorPageFxController.showPage("error", e.getMessage());
+        }
+        customerToRemove.clear();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        updateFields();
+    }
+
+    private void updateFields() {
         startDateChooser.setPromptText(currentDiscount.getStartDate().toString());
         endDateChooser.setPromptText(currentDiscount.getEndDate().toString());
         discountAmountTextField.setPromptText("" + currentDiscount.getMaxDiscountAmount());
