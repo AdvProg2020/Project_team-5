@@ -95,7 +95,7 @@
                     <Label prefHeight="27.0" prefWidth="110.0" text="Additional details :" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                     <TextField fx:id="additionalDetails" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="167.0" promptText="additional details" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                     <Label text="Sub category :" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                    <TextField fx:id="sybCategory" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="167.0" promptText="sub category" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                    <TextField fx:id="subCategory" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="167.0" promptText="sub category" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                 </children>
             </GridPane>
         </children>
