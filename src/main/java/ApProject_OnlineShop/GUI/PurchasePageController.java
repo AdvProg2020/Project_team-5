@@ -6,11 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PurchasePageController extends FxmlController implements Initializable {
+    public HBox discountCodeBox;
     @FXML
     private Label shouldPayLabel;
     @FXML

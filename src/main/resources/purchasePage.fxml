@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="730.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.PurchasePageController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="95.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="587.0" minWidth="10.0" prefWidth="537.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="87.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="347.0" minHeight="10.0" prefHeight="347.0" vgrow="SOMETIMES" />
@@ -17,12 +17,18 @@
     <RowConstraints maxHeight="180.0" minHeight="0.0" prefHeight="107.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox alignment="CENTER" stylesheets="@styelsheets/baseStyles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <HBox alignment="CENTER"  fx:id="discountCodeBox" stylesheets="@styelsheets/baseStyles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Label prefHeight="28.0" prefWidth="115.0" stylesheets="@styelsheets/baseStyles.css" text="enter discount code:" />
-            <TextField fx:id="discountCodeField" prefHeight="25.0" prefWidth="190.0" promptText="discount code" stylesheets="@styelsheets/baseStyles.css" />
+            <Label prefHeight="28.0" prefWidth="162.0" stylesheets="@styelsheets/baseStyles.css" text="enter discount code:">
+               <font>
+                  <Font name="Century" size="14.0" />
+               </font></Label>
+            <TextField fx:id="discountCodeField" alignment="CENTER" prefHeight="25.0" prefWidth="190.0" promptText="discount code" stylesheets="@styelsheets/baseStyles.css">
+               <HBox.margin>
+                  <Insets left="7.0" />
+               </HBox.margin></TextField>
             <Region prefHeight="101.0" prefWidth="137.0" />
-            <Button fx:id="applyDiscountButton" mnemonicParsing="false" onAction="#onApplyDiscountButtonPressed" prefHeight="44.0" prefWidth="89.0" stylesheets="@styelsheets/baseStyles.css" text="Apply" />
+            <Button fx:id="applyDiscountButton" mnemonicParsing="false" onAction="#onApplyDiscountButtonPressed" prefHeight="35.0" prefWidth="96.0" styleClass="menuButtons" stylesheets="@styelsheets/baseStyles.css" text="Apply" />
          </children>
       </HBox>
       <GridPane stylesheets="@styelsheets/baseStyles.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -39,70 +45,121 @@
          <children>
             <VBox alignment="CENTER" prefHeight="53.0" prefWidth="151.0" GridPane.rowIndex="1">
                <children>
-                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="101.0" text="Total price:" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="101.0" text="Total price:">
+                     <font>
+                        <Font name="Century" size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                <children>
-                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="102.0" text="You pay :" />
+                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="102.0" text="You pay :">
+                     <font>
+                        <Font name="Century" size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="totalPriceLabel" prefHeight="43.0" prefWidth="221.0" text="1000000" />
+                  <Label fx:id="totalPriceLabel" prefHeight="43.0" prefWidth="221.0" text="1000000">
+                     <font>
+                        <Font name="Century" size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="shouldPayLabel" prefHeight="43.0" prefWidth="221.0" text="1000000" />
+                  <Label fx:id="shouldPayLabel" prefHeight="43.0" prefWidth="221.0" text="1000000">
+                     <font>
+                        <Font name="Century" size="14.0" />
+                     </font></Label>
                </children>
             </VBox>
-            <Button fx:id="purchaseButton" mnemonicParsing="false" onAction="#onPurchaseButtonPressed" prefHeight="33.0" prefWidth="165.0" text="Purchase" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="purchaseButton" mnemonicParsing="false" onAction="#onPurchaseButtonPressed" prefHeight="34.0" prefWidth="139.0" styleClass="menuButtons" text="Purchase" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <Label alignment="CENTER" prefHeight="55.0" prefWidth="541.0" text="Some text" />
-            <GridPane prefHeight="276.0" prefWidth="541.0">
+            <Label alignment="CENTER" prefHeight="55.0" prefWidth="541.0" text="recieve information">
+               <font>
+                  <Font name="Times New Roman" size="18.0" />
+               </font></Label>
+            <GridPane prefHeight="249.0" prefWidth="541.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="165.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="376.0" minWidth="10.0" prefWidth="376.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="201.6" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="376.0" minWidth="10.0" prefWidth="340.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="149.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="69.0" minHeight="3.0" prefHeight="39.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="44.2" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="111.8" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="69.0" minHeight="3.0" prefHeight="44.800015258789074" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label alignment="CENTER" text="receiver name :" />
+                        <Label alignment="CENTER" text="receiver name :">
+                           <font>
+                              <Font name="Century" size="14.0" />
+                           </font></Label>
                      </children>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
-                        <Label text="receiver postal code :" />
+                        <Label text="receiver postal code :">
+                           <font>
+                              <Font name="Century" size="14.0" />
+                           </font></Label>
                      </children>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                      <children>
-                        <Label text="receiver address :" />
+                        <Label text="receiver address :">
+                           <font>
+                              <Font name="Century" size="14.0" />
+                           </font></Label>
                      </children>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
                      <children>
-                        <Label text="receiver phone number :" />
+                        <Label prefHeight="18.0" prefWidth="167.0" text="receiver phone number :">
+                           <font>
+                              <Font name="Century" size="14.0" />
+                           </font></Label>
                      </children>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding>
                   </VBox>
-                  <TextField fx:id="nameField" promptText="name" GridPane.columnIndex="1" />
-                  <TextField fx:id="postalCodeField" promptText="postal code" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextArea fx:id="addressField" prefHeight="200.0" prefWidth="200.0" promptText="address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="phoneNumberField" promptText="phone number" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="nameField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="name" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <TextField fx:id="postalCodeField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="postal code" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <TextArea fx:id="addressField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="91.0" prefWidth="200.0" promptText="address" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <opaqueInsets>
+                        <Insets bottom="5.0" />
+                     </opaqueInsets></TextArea>
+                  <TextField fx:id="phoneNumberField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="phone number" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                     <opaqueInsets>
+                        <Insets top="5.0" />
+                     </opaqueInsets></TextField>
                </children>
             </GridPane>
-            <Button fx:id="submitPropertiesButton" mnemonicParsing="false" onAction="#onSubmitButtonPressed" prefHeight="44.0" prefWidth="141.0" text="Submit" />
+            <Button fx:id="submitPropertiesButton" mnemonicParsing="false" onAction="#onSubmitButtonPressed" prefHeight="30.0" prefWidth="115.0" styleClass="menuButtons" text="Submit">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Button>
          </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </VBox>
       <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
          <children>
