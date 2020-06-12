@@ -6,11 +6,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PurchasePageController extends FxmlController implements Initializable {
+    public HBox discountCodeBox;
+    public GridPane showPrice;
     @FXML
     private Label shouldPayLabel;
     @FXML
@@ -43,6 +47,7 @@ public class PurchasePageController extends FxmlController implements Initializa
         String postalCode = postalCodeField.getText();
         String address = addressField.getText();
         String phoneNumber = phoneNumberField.getText();
+        discountCodeBox.setVisible(true);
         if (name.isEmpty() || address.isEmpty() || postalCode.isEmpty() || phoneNumber.isEmpty()) {
             //TODO
         }
@@ -54,7 +59,7 @@ public class PurchasePageController extends FxmlController implements Initializa
     }
 
     public void onApplyDiscountButtonPressed() {
-
+        showPrice.setVisible(true);
     }
 
     public void onPurchaseButtonPressed() {
