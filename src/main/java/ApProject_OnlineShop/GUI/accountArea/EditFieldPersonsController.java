@@ -4,21 +4,20 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EditFieldPersonsController extends FxmlController implements Initializable {
@@ -58,7 +57,13 @@ public class EditFieldPersonsController extends FxmlController implements Initia
     }
 
     public void logout(MouseEvent mouseEvent) {
-        setScene("mainMenuLayout.fxml", "main menu");
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
+        if (result.get() == ButtonType.OK) {
+            MainController.getInstance().getLoginRegisterController().logoutUser();
+            Shop.getInstance().clearCart();
+            setScene("mainMenuLayout.fxml", "Main menu");
+        }
     }
 
     public void editPressed(ActionEvent actionEvent) {

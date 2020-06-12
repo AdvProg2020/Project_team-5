@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.GUI;
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,7 +40,7 @@ public class ErrorPageFxController extends FxmlController implements Initializab
         ErrorPageFxController.errorContent = errorContent;
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.getIcons().add(new Image(ErrorPageFxController.class.getClassLoader().getResource("error1.png").toString()));
+        window.getIcons().add(new Image(ErrorPageFxController.class.getClassLoader().getResource("pictures/error1.png").toString()));
         window.setResizable(false);
         window.setTitle("error");
         Parent root = null;

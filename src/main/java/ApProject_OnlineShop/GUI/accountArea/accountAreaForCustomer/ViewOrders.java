@@ -4,7 +4,6 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.accountArea.Styles;
 import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -39,7 +38,7 @@ public class ViewOrders extends FxmlController {
         topic.setPadding(new Insets(13));
         GridPane.setHalignment(topic, HPos.CENTER);
         root.add(topic, 1, 1);
-        Image shoppingBag = new Image(getClass().getClassLoader().getResource("shoppingBag.png").toString());
+        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
         ImageView shoppingBagImageView = new ImageView(shoppingBag);
         shoppingBagImageView.setFitHeight(80);
         shoppingBagImageView.setFitWidth(60);
@@ -81,7 +80,7 @@ public class ViewOrders extends FxmlController {
         Label discountCodeInfo = new Label("Customer Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
         discountCodeInfo.setPadding(new Insets(13));
-        Image shoppingBag = new Image(getClass().getClassLoader().getResource("shoppingBag.png").toString());
+        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
         ImageView shoppingBagImageView = new ImageView(shoppingBag);
         shoppingBagImageView.setFitHeight(80);
         shoppingBagImageView.setFitWidth(60);

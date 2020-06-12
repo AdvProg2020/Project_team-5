@@ -30,7 +30,7 @@
           <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton">
               <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                      <Image url="@./icons8-back-to-48.png" />
+                      <Image url="@pictures/icons8-back-to-48.png" />
                   </ImageView>
               </graphic>
           </Button>
@@ -40,7 +40,7 @@
       <children>
          <ImageView fitHeight="60.0" fitWidth="55.0" onMouseClicked="#onLogoutIconClicked" pickOnBounds="true" preserveRatio="true" styleClass="exitImage">
             <image>
-               <Image url="@logout.png" />
+               <Image url="@pictures/logout.png" />
             </image>
          </ImageView>
       </children>
