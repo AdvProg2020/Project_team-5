@@ -114,7 +114,7 @@ public class DiscountCode {
 
     @Override
     public String toString() {
-        return "discount code:" + code + "  \tend date: " + endDate;
+        return "discount code:" + code + "  \t start date: " + getStartDate().toString() + "  \t end date: " + endDate;
     }
 
     public static String generateRandomDiscountCode() {

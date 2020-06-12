@@ -42,7 +42,7 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     }
 
     public void onViewDiscountCodesPressed() {
-
+        setScene("viewDiscountCodesPage.fxml", "manage discount codes");
     }
 
     public void onManageUsersPressed() {
@@ -54,7 +54,7 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     }
 
     public void onManageAllProductsPressed() {
-
+        setScene("manageAllProductsPage.fxml", "manage products");
     }
 
     public void onManageCategoriesPressed() {

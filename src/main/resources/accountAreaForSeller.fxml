@@ -235,7 +235,7 @@
             </Button>
         </children>
     </VBox>
-    <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="Personal Information" GridPane.columnIndex="1">
+    <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="Seller Personal Information" GridPane.columnIndex="1">
         <font>
             <Font name="Times New Roman" size="26.0" />
         </font>
