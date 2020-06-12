@@ -117,7 +117,7 @@ public class AddProductPart2 extends FxmlController implements Initializable {
     public void selectPhoto(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
-        path = "./Resources/productImages/" + Good.getGoodsCount() + ".png";
+        path = "./Resources/productImages/" + Good.getGoodsCount() + ".jpg";
         BufferedImage bi = null;
         try {
             bi = ImageIO.read(selectedFile.toURL());
