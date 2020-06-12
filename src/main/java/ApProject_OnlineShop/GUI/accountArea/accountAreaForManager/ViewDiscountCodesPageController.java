@@ -74,6 +74,14 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
         removeButton.setDisable(false);
     }
 
+    public void onEditDiscountPressed() {
+
+    }
+
+    public void onRemovePressed() {
+
+    }
+
     public void onBackButtonPressed() {
         setScene("accountAreaForManager.fxml", "account area");
     }
