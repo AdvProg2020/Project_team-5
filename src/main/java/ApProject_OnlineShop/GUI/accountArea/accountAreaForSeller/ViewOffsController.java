@@ -85,6 +85,6 @@ public class ViewOffsController extends FxmlController implements Initializable 
     }
 
     public void addOff(MouseEvent mouseEvent) {
-
+        setScene("createOffForSeller.fxml", "create off");
     }
 }
