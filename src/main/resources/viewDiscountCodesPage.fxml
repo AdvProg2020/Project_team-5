@@ -17,8 +17,8 @@
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="766.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.ViewDiscountCodesPageController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="0.0" prefWidth="89.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="293.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="273.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="303.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="263.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="110.0" />
   </columnConstraints>
   <rowConstraints>
@@ -49,10 +49,10 @@
   </HBox>
    <VBox prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
       <children>
-         <TableView fx:id="discountTable" onMouseClicked="#onRowSelected" prefHeight="444.0" prefWidth="267.0" stylesheets="@styelsheets/baseStyles.css">
+         <TableView fx:id="discountTable" onMouseClicked="#onRowSelected" prefHeight="440.0" prefWidth="261.0" stylesheets="@styelsheets/baseStyles.css">
            <columns>
-             <TableColumn fx:id="codeColumn" editable="false" prefWidth="151.0" text="Discount" />
-             <TableColumn fx:id="startColumn" editable="false" prefWidth="117.0" text="Start Date" />
+             <TableColumn fx:id="codeColumn" editable="false" prefWidth="152.0" text="Discount" />
+             <TableColumn fx:id="startColumn" editable="false" prefWidth="118.0" text="Start Date" />
            </columns>
          </TableView>
       </children>
