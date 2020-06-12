@@ -173,7 +173,7 @@
         </GridPane.margin>
     </ImageView>
     <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1" />
-   <Hyperlink alignment="CENTER" contentDisplay="TOP" onAction="#editOff" text="edit off" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+   <Hyperlink alignment="CENTER" contentDisplay="TOP" onAction="#editOff" text="edit off" textAlignment="CENTER" textFill="#462990" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
       <font>
          <Font size="14.0" />
       </font>
