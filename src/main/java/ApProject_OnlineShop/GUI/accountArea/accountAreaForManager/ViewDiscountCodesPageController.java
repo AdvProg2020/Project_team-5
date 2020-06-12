@@ -1,9 +1,14 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeDeletedException;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -42,17 +48,12 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
 
     private ObservableList<DiscountCode> discountData;
     private ObservableList<String> codeData;
+    private String selectedDiscount;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        discountData = FXCollections.observableArrayList();
-        codeData = FXCollections.observableArrayList();
-        for (DiscountCode discountCode : Shop.getInstance().getAllDiscountCodes()) {
-            discountTable.getItems().add(discountCode);
-        }
-        codeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
-        startColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        updateTableView();
     }
 
     public void onLogoutIconClicked() {
@@ -65,6 +66,7 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
     }
 
     public void onRowSelected() {
+        this.selectedDiscount = discountTable.getSelectionModel().getSelectedItem().getCode();
         codeLabel.setText(discountTable.getSelectionModel().getSelectedItem().getCode());
         startDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getStartDate().toString());
         endDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getEndDate().toString());
@@ -78,8 +80,41 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
 
     }
 
-    public void onRemovePressed() {
+    public void onRemovePressed(ActionEvent e) {
+        Optional<ButtonType> result = new FxmlController().showAlert
+                (Alert.AlertType.CONFIRMATION, "delete", "Discount Delete", "are you sure to delete this discount?");
+        if (result.get() == ButtonType.OK) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode(this.selectedDiscount);
+                this.selectedDiscount = "";
+                updateTableView();
+                editButton.setDisable(true);
+                removeButton.setDisable(true);
+                clearLabels();
+            } catch (Exception ex) {
+                ErrorPageFxController.showPage("error", ex.getMessage());
+            }
+        } else
+            e.consume();
+    }
 
+    private void updateTableView() {
+        discountData = FXCollections.observableArrayList();
+        codeData = FXCollections.observableArrayList();
+        discountTable.getItems().clear();
+        for (DiscountCode discountCode : Shop.getInstance().getAllDiscountCodes()) {
+            discountTable.getItems().add(discountCode);
+        }
+        codeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
+        startColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+    }
+
+    private void clearLabels() {
+        codeLabel.setText("");
+        startDateLabel.setText("");
+        endDateLabel.setText("");
+        amountLabel.setText("");
+        percentLabel.setText("");
     }
 
     public void onBackButtonPressed() {
