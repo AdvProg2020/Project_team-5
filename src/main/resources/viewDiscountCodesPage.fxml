@@ -135,8 +135,8 @@
    </GridPane>
    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <children>
-         <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#onEditDiscountPressed" prefHeight="49.0" prefWidth="110.0" styleClass="buttonsStyle" text="edit" />
-         <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#onRemovePressed" prefHeight="49.0" prefWidth="110.0" styleClass="buttonsStyle" text="remove" />
+         <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#onEditDiscountPressed" prefHeight="49.0" prefWidth="110.0" styleClass="menuButtons" text="edit" />
+         <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#onRemovePressed" prefHeight="49.0" prefWidth="110.0" styleClass="menuButtons" text="remove" />
       </children>
    </HBox>
 </GridPane>
