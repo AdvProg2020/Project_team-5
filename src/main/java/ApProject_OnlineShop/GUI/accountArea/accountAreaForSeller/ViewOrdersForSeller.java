@@ -23,9 +23,9 @@ public class ViewOrdersForSeller extends FxmlController {
     private Styles style = new Styles();
     public void viewSortedOrders(int sort){
         GridPane root = style.makeGridPane();
-        Label topic = new Label("All Seller's Order");
+        Label topic = new Label("Sales History");
         topic.setFont(Font.font("Times New Roman", 26));
-        topic.setPadding(new Insets(5));
+        topic.setPadding(new Insets(13));
         GridPane.setHalignment(topic, HPos.CENTER);
         VBox vBox = new VBox();
         style.setVBoxStyle(vBox);
@@ -42,16 +42,13 @@ public class ViewOrdersForSeller extends FxmlController {
             vBox.getChildren().add(discountLink);
         }
         root.add(topic, 1, 1);
-        MenuItem sortByDiscountPercent = new MenuItem("sort by discount percent");
-        MenuItem sortByEndDate = new MenuItem("sort by end date");
-        MenuItem sortByMaxDiscount = new MenuItem("sort by maximum discount amount");
+        MenuItem sortByDiscountPercent = new MenuItem("sort by date");
+        MenuItem sortByEndDate = new MenuItem("sort by price");
         sortByDiscountPercent.setOnAction(e -> viewSortedOrders(1));
         sortByEndDate.setOnAction(e -> viewSortedOrders(2));
-        sortByMaxDiscount.setOnAction(e -> viewSortedOrders(3));
         style.setMenuItems(sortByDiscountPercent);
         style.setMenuItems(sortByEndDate);
-        style.setMenuItems(sortByMaxDiscount);
-        MenuButton sorts = new MenuButton("sorts", null, sortByDiscountPercent, sortByEndDate, sortByMaxDiscount);
+        MenuButton sorts = new MenuButton("sorts", null, sortByDiscountPercent, sortByEndDate);
         style.setMenuButtonStyle(sorts);
         root.getChildren().get(0).setOnMouseClicked(e -> backToAccountAreaSeller());
         root.add(sorts, 0, 2);
