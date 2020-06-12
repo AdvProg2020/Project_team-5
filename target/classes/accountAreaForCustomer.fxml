@@ -218,7 +218,7 @@
     </Hyperlink>
     <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
         <image>
-            <Image url="@logout.png" />
+            <Image url="@pictures/logout.png" />
         </image>
         <GridPane.margin>
             <Insets left="400.0" />

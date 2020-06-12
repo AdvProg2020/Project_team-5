@@ -42,7 +42,7 @@
     <children>
       <ImageView fitHeight="60.0" fitWidth="55.0" onMouseClicked="#onLogoutIconClicked" pickOnBounds="true" preserveRatio="true" styleClass="exitImage">
         <image>
-          <Image url="@logout.png" />
+          <Image url="@pictures/logout.png" />
         </image>
       </ImageView>
     </children>

@@ -20,7 +20,7 @@
     <children>
         <ImageView fitHeight="83.0" fitWidth="90.0" onMouseClicked="#exitButtonPressed" pickOnBounds="true" preserveRatio="true" styleClass="exitImage">
             <image>
-                <Image url="@exitIcon.png" />
+                <Image url="@pictures/exitIcon.png" />
             </image>
             <GridPane.margin>
                 <Insets left="140.0" top="10.0" />
