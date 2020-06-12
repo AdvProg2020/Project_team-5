@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
+import ApProject_OnlineShop.GUI.accountArea.Styles;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -19,21 +20,22 @@ import javafx.scene.text.Font;
 import java.util.List;
 
 public class ViewOrders extends FxmlController {
-    private AccountAreaForCustomerController GUIAccountAreaCustomer;
+    private Styles style;
+    private AccountAreaForCustomerController controller =new AccountAreaForCustomerController();
 
-    public ViewOrders(AccountAreaForCustomerController GUIAccountAreaCustomer) {
-        this.GUIAccountAreaCustomer = GUIAccountAreaCustomer;
+    public ViewOrders() {
+        this.style = new Styles();
     }
 
     public void viewSortedOrders(int sort){
-        GridPane root = GUIAccountAreaCustomer.makeGridPane();
+        GridPane root = style.makeGridPane();
         Label topic = new Label("All Orders");
         topic.setFont(Font.font("Times New Roman", 26));
         topic.setPadding(new Insets(5));
         GridPane.setHalignment(topic, HPos.CENTER);
         root.add(topic, 1, 1);
         VBox vBox = new VBox();
-        GUIAccountAreaCustomer.setVBoxStyle(vBox);
+        style.setVBoxStyle(vBox);
         root.add(vBox, 1, 2);
         List<String> orders = MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(sort);
         for (String order : orders) {
@@ -49,11 +51,11 @@ public class ViewOrders extends FxmlController {
         MenuItem sortByEndDate = new MenuItem("sort by price");
         sortByDiscountPercent.setOnAction(e -> viewSortedOrders(1));
         sortByEndDate.setOnAction(e -> viewSortedOrders(2));
-        GUIAccountAreaCustomer.setMenuItems(sortByDiscountPercent);
-        GUIAccountAreaCustomer.setMenuItems(sortByEndDate);
+        style.setMenuItems(sortByDiscountPercent);
+        style.setMenuItems(sortByEndDate);
         MenuButton sorts = new MenuButton("sorts", null, sortByDiscountPercent, sortByEndDate);
-        GUIAccountAreaCustomer.setMenuButtonStyle(sorts);
-        root.getChildren().get(0).setOnMouseClicked(e -> GUIAccountAreaCustomer.backToAccountAreaCustomer());
+        style.setMenuButtonStyle(sorts);
+        root.getChildren().get(0).setOnMouseClicked(e -> controller.backToAccountAreaCustomer());
         root.add(sorts, 0, 2);
         StageController.setSceneJavaFx(root);
     }
@@ -63,7 +65,7 @@ public class ViewOrders extends FxmlController {
         String code = orderString.substring("order ID: ".length(), index);
         long orderId = Long.parseLong(code);
         List<String> orderDetails = ((Customer)MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
-        GridPane root = GUIAccountAreaCustomer.makeGridPane();
+        GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Customer Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
         discountCodeInfo.setPadding(new Insets(7));
@@ -71,7 +73,7 @@ public class ViewOrders extends FxmlController {
         root.add(discountCodeInfo, 1, 1);
         VBox vBox = new VBox();
         addDetailsToVBox(orderDetails, vBox);
-        GUIAccountAreaCustomer.setVBoxStyle(vBox);
+        style.setVBoxStyle(vBox);
         root.add(vBox, 1, 2);
         root.getChildren().get(0).setOnMouseClicked(e -> viewSortedOrders(0));
         StageController.setSceneJavaFx(root);
@@ -87,14 +89,14 @@ public class ViewOrders extends FxmlController {
         Label phoneNumber = new Label("phone number:     " + orderDetails.get(6));
         Label orderStatus = new Label("order status:     " + orderDetails.get(7));
         goodsList.setPadding(new Insets(7));
-        GUIAccountAreaCustomer.setTextFont(id);
-        GUIAccountAreaCustomer.setTextFont(date);
-        GUIAccountAreaCustomer.setTextFont(goodsList);
-        GUIAccountAreaCustomer.setTextFont(discountAmount);
-        GUIAccountAreaCustomer.setTextFont(postCode);
-        GUIAccountAreaCustomer.setTextFont(address);
-        GUIAccountAreaCustomer.setTextFont(phoneNumber);
-        GUIAccountAreaCustomer.setTextFont(orderStatus);
+        style.setTextFont(id);
+        style.setTextFont(date);
+        style.setTextFont(goodsList);
+        style.setTextFont(discountAmount);
+        style.setTextFont(postCode);
+        style.setTextFont(address);
+        style.setTextFont(phoneNumber);
+        style.setTextFont(orderStatus);
         vBox.getChildren().add(id);
         vBox.getChildren().add(date);
         vBox.getChildren().add(goodsList);
