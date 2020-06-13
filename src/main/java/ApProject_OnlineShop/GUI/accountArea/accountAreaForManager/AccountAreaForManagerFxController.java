@@ -50,7 +50,7 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     }
 
     public void onManageRequestsPressed() {
-
+        setScene("manageRequestsPage.fxml", "manage requests");
     }
 
     public void onManageAllProductsPressed() {

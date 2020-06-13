@@ -14,13 +14,13 @@ import java.util.regex.Pattern;
 
 public class ViewDiscountCodesMenu extends Menu {
     public ViewDiscountCodesMenu(Menu parentMenu) {
-        super("ApProject_OnlineShop.view discount codes", parentMenu);
+        super("view discount codes", parentMenu);
         this.submenus.add(new LoginRegisterMenu(this));
     }
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("ApProject_OnlineShop.view discount code");
+        this.commandNames.add("view discount code");
         this.commandNames.add("edit discount code");
         this.commandNames.add("remove discount code");
     }

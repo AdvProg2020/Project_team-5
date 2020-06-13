@@ -49,6 +49,9 @@ public class Database {
         loadingData.loadOrderForSeller();
         loadingData.loadOrderForCustomer();
         loadingData.loadRequests();
+        for (Request request : Shop.getInstance().getAllRequest()) {
+            request.setName();
+        }
     }
 
     public void deleteItem(Object item) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
