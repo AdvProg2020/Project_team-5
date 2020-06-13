@@ -147,9 +147,9 @@
          </TextField>
         </children>
     </HBox>
-   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+   <VBox fx:id="customersVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
       <children>
-         <Label alignment="CENTER" prefHeight="40.0" prefWidth="143.0" text="Included customers " />
+         <Label alignment="CENTER" prefHeight="40.0" prefWidth="143.0" text="Included customers :" />
       </children>
    </VBox>
 </GridPane>
