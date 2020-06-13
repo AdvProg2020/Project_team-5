@@ -39,6 +39,7 @@ public class Database {
         loadingData.loadCompany();
         loadingData.loadCategory();
         loadingData.loadSubCategory();
+        loadingData.loadRequests();
         loadingData.loadProduct();
         loadingData.loadInfoAboutGood();
         loadingData.loadComment();
@@ -48,7 +49,6 @@ public class Database {
         loadingData.loadGoodsInCarts();
         loadingData.loadOrderForSeller();
         loadingData.loadOrderForCustomer();
-        loadingData.loadRequests();
         for (Request request : Shop.getInstance().getAllRequest()) {
             request.setName();
         }
