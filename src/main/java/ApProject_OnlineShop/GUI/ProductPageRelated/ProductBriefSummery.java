@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class ProductBriefSummery {
-    public VBox getProductForAllProductsPage(int productId) {
+    public VBox getProductForAllProductsPage(long productId) {
         List<String> goodInfo = MainController.getInstance().getAllProductsController().getProductBrief(productId);
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
@@ -44,7 +44,7 @@ public class ProductBriefSummery {
         HBox rateHBox = new HBox();
         rateHBox.setAlignment(Pos.CENTER_LEFT);
         int rateInteger = Integer.parseInt(goodInfo.get(1).substring(0, 1));
-        Label rate = new Label(goodInfo.get(1).substring(0, 3));
+        Label rate = new Label("  "+goodInfo.get(1).substring(0, 3));
         rateHBox.setPadding(new Insets(0, 15, 0, 15));
         for (int i = 0; i < rateInteger; i++) {
             ImageView star = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/star.png").toString()));

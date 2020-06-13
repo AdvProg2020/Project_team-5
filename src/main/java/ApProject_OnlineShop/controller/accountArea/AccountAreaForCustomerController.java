@@ -14,6 +14,7 @@ import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
+import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 
@@ -195,5 +196,15 @@ public class AccountAreaForCustomerController extends AccountAreaController {
                 }
             }
         }
+    }
+
+    public List<Long> getBoughtProducts(){
+        ArrayList<OrderForCustomer> orders = ((Customer)MainController.getInstance().getCurrentPerson()).getPreviousOrders();
+        ArrayList<Long> goods = new ArrayList<>();
+        for (OrderForCustomer order : orders) {
+            goods.addAll(order.getGoodsDetails().stream().map(goodInCart -> goodInCart.getGood().getGoodId()).collect(Collectors.toList()));
+        }
+        HashSet<Long> IDs = new HashSet<>(goods);
+        return new ArrayList<>(IDs);
     }
 }

@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.controller.sorting;
 
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
@@ -62,8 +63,10 @@ public class SortController {
 
     public List<Good> sortProductsByPrice(List<Good> goods) {
         Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
+//        goods.sort((Good firstGood, Good secondGood) ->
+//                (int) (secondGood.getPriceBySeller(seller) - firstGood.getPriceBySeller(seller)));
         goods.sort((Good firstGood, Good secondGood) ->
-                (int) (secondGood.getPriceBySeller(seller) - firstGood.getPriceBySeller(seller)));
+                (int) (Shop.getInstance().getFinalPriceOfAGood(secondGood, seller) - (Shop.getInstance().getFinalPriceOfAGood(firstGood, seller))));
         return goods;
     }
 

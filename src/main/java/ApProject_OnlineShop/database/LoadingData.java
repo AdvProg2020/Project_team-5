@@ -96,8 +96,14 @@ public class LoadingData {
                 Shop.getInstance().addGoodToAllGoods(yaGson.fromJson(readFile(file), Good.class));
             }
             if (Shop.getInstance().getAllGoods().size() != 0) {
-                Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
-                        .collect(Collectors.toList())) + 1);
+                if (Shop.getInstance().getAllRequest().size() != 0) {
+                    Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
+                            .collect(Collectors.toList())) + getMaximumOfNumbers(Shop.getInstance()
+                            .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
+                } else {
+                    Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
+                            .collect(Collectors.toList())) + 1);
+                }
             }
         }
     }
