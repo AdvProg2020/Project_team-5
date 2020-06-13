@@ -121,7 +121,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void rateProducts() {
-
+        setScene("rateProducts.fxml","rate products");
     }
 
 
