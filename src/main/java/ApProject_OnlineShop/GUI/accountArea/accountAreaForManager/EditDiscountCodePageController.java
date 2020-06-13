@@ -8,13 +8,14 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
+import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,9 +29,9 @@ public class EditDiscountCodePageController extends FxmlController implements In
     @FXML
     private TextField discountAmountTextField;
     @FXML
-    private TextField codeTextField;
-    @FXML
     private DatePicker startDateChooser;
+    @FXML
+    private VBox customersVBox;
     @FXML
     private DatePicker endDateChooser;
     @FXML
@@ -141,6 +142,13 @@ public class EditDiscountCodePageController extends FxmlController implements In
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateFields();
+        for (Customer customer : currentDiscount.getIncludedCustomers().keySet()) {
+            Label label = new Label();
+            label.setText(customer.getUsername());
+            label.setFont(new Font("Times New Roman",16));
+            label.setAlignment(Pos.CENTER);
+            customersVBox.getChildren().add(label);
+        }
     }
 
     private void updateFields() {

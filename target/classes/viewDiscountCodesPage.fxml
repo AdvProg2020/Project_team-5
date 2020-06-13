@@ -61,9 +61,9 @@
       <children>
          <MenuButton alignment="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="59.0" prefWidth="212.0" style="-fx-background-color: #dab3ff; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-width: 2 2 2 2; -fx-border-color: #600080; -fx-font-size: 14px;" text="Sort Discounts">
            <items>
-             <MenuItem mnemonicParsing="false" text="By End Date" />
-             <MenuItem mnemonicParsing="false" text="By Percent" />
-               <MenuItem mnemonicParsing="false" text="By Max Amount" />
+             <MenuItem mnemonicParsing="false" onAction="#onEndDateSort" text="By End Date" />
+             <MenuItem mnemonicParsing="false" onAction="#onPercentSort" text="By Percent" />
+               <MenuItem mnemonicParsing="false" onAction="#onMaxAmountSort" text="By Max Amount" />
            </items>
          </MenuButton>
       </children>
