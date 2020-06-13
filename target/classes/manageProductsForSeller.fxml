@@ -50,7 +50,7 @@
             <Image url="@./pictures/logout.png" />
         </image>
     </ImageView>
-   <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+   <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="601.6" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <opaqueInsets>
          <Insets top="10.0" />
       </opaqueInsets></GridPane>
