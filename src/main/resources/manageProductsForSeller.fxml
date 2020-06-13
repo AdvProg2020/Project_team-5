@@ -68,18 +68,33 @@
             <Image url="@./pictures/logout.png" />
         </image>
     </ImageView>
-   <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="601.6" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
-      <opaqueInsets>
-         <Insets top="10.0" />
-      </opaqueInsets>
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints></GridPane>
+   <ScrollPane hbarPolicy="NEVER" prefHeight="201.0" prefWidth="620.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+     <content>
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="598.0">
+            <children>
+               <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="601.6" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+                  <opaqueInsets>
+                     <Insets top="10.0" />
+                  </opaqueInsets>
+                  <columnConstraints>
+                     <ColumnConstraints />
+                     <ColumnConstraints />
+                     <ColumnConstraints />
+                     <ColumnConstraints />
+                     <ColumnConstraints />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                  </rowConstraints>
+               </GridPane>
+            </children>
+         </AnchorPane>
+     </content>
+   </ScrollPane>
     <padding>
         <Insets left="10.0" />
     </padding>
