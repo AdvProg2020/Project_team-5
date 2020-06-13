@@ -4,8 +4,10 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.ProductPageRelated.ProductBriefSummery;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,7 +30,7 @@ import java.util.*;
 public class RateProductsController extends FxmlController implements Initializable {
     @FXML
     public GridPane root;
-    private HashMap<VBox, Long> productDetails = new HashMap<>();
+    private static long productIdForRate;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,21 +41,23 @@ public class RateProductsController extends FxmlController implements Initializa
             VBox vbox = null;
             if (MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
                 vbox = new ProductBriefSummery().offProductBriefSummery(productId);
+                vbox.setOnMouseClicked(e -> rateProduct(productId));
             }
             if (!MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
                 vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
+                vbox.setOnMouseClicked(e -> rateProduct(productId));
             }
             root.add(vbox, num % 3, row);
             num++;
-            productDetails.put(vbox, productId);
-            vbox.setOnMouseClicked(e -> rateProduct());
             vbox.setCursor(Cursor.HAND);
             if (num % 3 == 0)
                 row++;
         }
     }
 
-    private void rateProduct() {
+
+    private void rateProduct(long productId2) {
+        productIdForRate = productId2;
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setResizable(false);
@@ -82,4 +86,16 @@ public class RateProductsController extends FxmlController implements Initializa
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
+
+
+    public void rate10(MouseEvent mouseEvent) {
+        try {
+            MainController.getInstance().getAccountAreaForCustomerController().rateProduct(productIdForRate, 10);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
