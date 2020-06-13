@@ -240,4 +240,16 @@ public class AccountAreaForSellerController extends AccountAreaController {
         }
         return output;
     }
+
+    public List<Long> viewProducts(int chosenSort){
+        return sort(chosenSort).stream().map(good -> good.getGoodId()).collect(Collectors.toList());
+    }
+
+    public boolean isInOff(long productId){
+        Seller seller = Shop.getInstance().findGoodById(productId).getSellerThatPutsThisGoodOnOff();
+        if(seller == null || !seller.getUsername().equals(MainController.getInstance().getCurrentPerson().getUsername())){
+            return false;
+        }
+        return true;
+    }
 }

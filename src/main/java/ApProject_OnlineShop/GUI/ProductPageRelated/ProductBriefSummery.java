@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class ProductBriefSummery {
-    public VBox getProductForAllProductsPage(int productId) {
+    public VBox getProductForAllProductsPage(long productId) {
         List<String> goodInfo = MainController.getInstance().getAllProductsController().getProductBrief(productId);
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
