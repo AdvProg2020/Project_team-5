@@ -56,4 +56,19 @@ public class ManageProduct extends FxmlController implements Initializable {
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
+
+    public void sortByVisitNumber(ActionEvent actionEvent) {
+    }
+
+    public void sortByAverageRate(ActionEvent actionEvent) {
+    }
+
+    public void sortByModificationDate(ActionEvent actionEvent) {
+    }
+
+    public void sortByAvailableNumber(ActionEvent actionEvent) {
+    }
+
+    public void sortByPrice(ActionEvent actionEvent) {
+    }
 }

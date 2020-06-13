@@ -40,9 +40,11 @@
             </Button>
             <MenuButton alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;" text="sort" textFill="#0e000e">
                 <items>
-                    <MenuItem mnemonicParsing="false" onAction="#sortByEndDate" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="end date" />
-                    <MenuItem mnemonicParsing="false" onAction="#sortByOffPercent" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="off percent" />
-                    <MenuItem mnemonicParsing="false" onAction="#sortByMaxDiscount" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="max discount" />
+                    <MenuItem mnemonicParsing="false" onAction="#sortByVisitNumber" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="visit number" />
+                    <MenuItem mnemonicParsing="false" onAction="#sortByAverageRate" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="average rate" />
+                    <MenuItem mnemonicParsing="false" onAction="#sortByModificationDate" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="modification date" />
+                    <MenuItem mnemonicParsing="false" onAction="#sortByPrice" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="price" />
+                    <MenuItem mnemonicParsing="false" onAction="#sortByAvailableNumber" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="available number" />
                 </items>
                 <cursor>
                     <Cursor fx:constant="HAND" />
