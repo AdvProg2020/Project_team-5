@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.awt.*;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class ProductBriefSummery {
@@ -74,12 +75,12 @@ public class ProductBriefSummery {
         gridPane.setSpacing(8);
     }
 
-    public VBox offProductBriefSummery(long productId){
+    public VBox offProductBriefSummery(long productId) {
         List<String> goodInfo = MainController.getInstance().getAllProductsController().getOffProductBriefSummery(productId);
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
         mainVBox.setAlignment(Pos.CENTER);
-        ImageView imageView = new ImageView(new Image("../../../Resources/productImages/7.jpg"));
+        ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/7.jpg").toUri().toString()));
         VBox image = new VBox();
         image.getChildren().add(imageView);
         mainVBox.getChildren().add(image);
@@ -115,7 +116,7 @@ public class ProductBriefSummery {
         primaryPrice.setStrikethrough(true);
         primaryPrice.setStroke(Color.LIGHTSLATEGREY);
         primaryPrice.setStrokeType(StrokeType.INSIDE);
-        Text finalPrice = new Text("  "+goodInfo.get(3));
+        Text finalPrice = new Text("  " + goodInfo.get(3));
         finalPrice.setFont(Font.font("Times New Roman", 16));
         Text rial = new Text("Rials");
         rial.setFont(Font.font("Times New Roman", 16));
@@ -127,7 +128,7 @@ public class ProductBriefSummery {
         return mainVBox;
     }
 
-    public void setScene(){
+    public void setScene() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         long id = 7;
