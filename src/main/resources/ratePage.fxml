@@ -71,5 +71,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
         </ImageView>
+        <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonAction" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" GridPane.halignment="CENTER">
+            <graphic>
+                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@pictures/icons8-back-to-48.png" />
+                </ImageView>
+            </graphic>
+        </Button>
     </children>
 </GridPane>
