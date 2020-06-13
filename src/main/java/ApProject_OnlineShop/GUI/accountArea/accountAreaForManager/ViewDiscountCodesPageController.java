@@ -94,7 +94,6 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
                 clearLabels();
                 SuccessPageFxController.showPage("delete discount", "discount code deleted successfully");
             } catch (Exception ex) {
-                ex.printStackTrace();
                 ErrorPageFxController.showPage("error", ex.getMessage());
             }
         } else

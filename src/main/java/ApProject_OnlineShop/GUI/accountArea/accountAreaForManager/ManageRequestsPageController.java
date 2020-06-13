@@ -1,7 +1,12 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeDeletedException;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.RequestNotFoundException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.requests.Request;
@@ -13,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,6 +36,8 @@ public class ManageRequestsPageController extends FxmlController implements Init
     private Button acceptButton;
     @FXML
     private Button declineButton;
+    @FXML
+    private Label detailsLabel;
 
     private ObservableList<DiscountCode> requestsData;
     private ObservableList<Long> idData;
@@ -62,6 +70,11 @@ public class ManageRequestsPageController extends FxmlController implements Init
 
     public void onRowSelected() {
         this.selectedRequest = requestsTable.getSelectionModel().getSelectedItem().getRequestId();
+        try {
+            detailsLabel.setText(MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails("" + this.selectedRequest));
+        } catch (RequestNotFoundException e) {
+            ErrorPageFxController.showPage("error", e.getMessage());
+        }
         acceptButton.setDisable(false);
         declineButton.setDisable(false);
     }
@@ -71,8 +84,30 @@ public class ManageRequestsPageController extends FxmlController implements Init
     }
 
     public void onAcceptRequestPressed(ActionEvent actionEvent) {
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().acceptRequest("" + this.selectedRequest);
+            this.selectedRequest = 0L;
+            updateTableView(Shop.getInstance().getAllRequest());
+            acceptButton.setDisable(true);
+            declineButton.setDisable(true);
+            detailsLabel.setText("");
+            SuccessPageFxController.showPage("accept", "request accepted successfully");
+        } catch (Exception e) {
+            ErrorPageFxController.showPage("error", e.getMessage());
+        }
     }
 
     public void onDeclineRequestPressed(ActionEvent actionEvent) {
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().declineRequest("" + this.selectedRequest);
+            this.selectedRequest = 0L;
+            updateTableView(Shop.getInstance().getAllRequest());
+            acceptButton.setDisable(true);
+            declineButton.setDisable(true);
+            detailsLabel.setText("");
+            SuccessPageFxController.showPage("decline", "request declined successfully");
+        } catch (Exception e) {
+            ErrorPageFxController.showPage("error", e.getMessage());
+        }
     }
 }
