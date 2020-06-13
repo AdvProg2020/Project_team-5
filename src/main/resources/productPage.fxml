@@ -50,20 +50,14 @@
             <Image url="@./pictures/logout.png" />
         </image>
     </ImageView>
-    <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="601.6" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <ScrollPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="622.0" styleClass="mainLayout" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="601.6" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <opaqueInsets>
             <Insets top="10.0" />
         </opaqueInsets>
-        <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-        </rowConstraints></GridPane>
+       </GridPane>
+    </ScrollPane>
     <padding>
         <Insets left="10.0" />
     </padding>
 </GridPane>
-
