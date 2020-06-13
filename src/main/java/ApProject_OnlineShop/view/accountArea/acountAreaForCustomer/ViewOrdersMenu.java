@@ -3,6 +3,7 @@ package ApProject_OnlineShop.view.accountArea.acountAreaForCustomer;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.*;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
+import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.exception.userExceptions.NotValidInput;
 import ApProject_OnlineShop.view.LoginRegisterMenu;
 import ApProject_OnlineShop.view.Menu;
@@ -105,7 +106,7 @@ public class ViewOrdersMenu extends Menu {
         return Long.parseLong(input);
     }
 
-    private void getRate(long productId) throws NotValidInput, IOException, FileCantBeSavedException {
+    private void getRate(long productId) throws NotValidInput, IOException, FileCantBeSavedException, YouRatedThisProductBefore {
         System.out.println("enter a number between 1 to 10 :");
         String input = scanner.nextLine();
         if (!Pattern.matches("[\\d]{1,2}", input))
