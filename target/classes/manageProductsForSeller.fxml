@@ -7,27 +7,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ManageProduct">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ManageProduct">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0" prefWidth="369.79999999999995" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="229.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="732.0000152587891" minWidth="10.0" prefWidth="619.2" />
+      <ColumnConstraints maxWidth="220.20000000000005" minWidth="60.200000000000045" prefWidth="140.79999999999995" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="27.20000762939455" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="345.5999923706055" minHeight="10.0" prefHeight="345.5999923706055" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.19999999999999" minHeight="0.0" prefHeight="27.19999999999999" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="576.6" minHeight="10.0" prefHeight="573.6" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
     </rowConstraints>
-    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <opaqueInsets>
-            <Insets top="1.0" />
-        </opaqueInsets>
-        <padding>
-            <Insets bottom="10.0" top="20.0" />
-        </padding>
-        <GridPane.margin>
-            <Insets />
-        </GridPane.margin>
-    </VBox>
     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
@@ -55,14 +45,13 @@
             <Font name="Times New Roman" size="26.0" />
         </font>
     </Label>
-    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
+    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
         <image>
             <Image url="@./pictures/logout.png" />
         </image>
-        <GridPane.margin>
-            <Insets left="400.0" />
-        </GridPane.margin>
     </ImageView>
+   <GridPane fx:id="root" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="620.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+   </GridPane>
     <padding>
         <Insets left="10.0" />
     </padding>
