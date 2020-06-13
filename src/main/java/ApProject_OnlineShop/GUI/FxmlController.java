@@ -15,14 +15,14 @@ public class FxmlController {
 
     public void setScene(String address, String title) {
         Stage stage = StageController.getStage();
-        Parent root = null;
+        Parent rootParent = null;
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource(address));
+            rootParent = FXMLLoader.load(getClass().getClassLoader().getResource(address));
         } catch (IOException e) {
             e.printStackTrace();
         }
         stage.setTitle(title);
-        stage.setScene(new Scene(root, 1000, 800));
+        stage.setScene(new Scene(rootParent, 1000, 800));
         // stage.setMaximized(true);
         stage.show();
     }
