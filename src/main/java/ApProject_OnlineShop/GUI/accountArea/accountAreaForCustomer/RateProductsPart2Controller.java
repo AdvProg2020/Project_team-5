@@ -69,10 +69,13 @@ public class RateProductsPart2Controller extends FxmlController {
             window.close();
             setScene("rateProducts.fxml", "rate products");
         } catch (IOException e) {
+            window.close();
             ErrorPageFxController.showPage("error occured during rate", e.getMessage());
         } catch (FileCantBeSavedException e) {
+            window.close();
             ErrorPageFxController.showPage("error occured during rate", e.getMessage());
         } catch (YouRatedThisProductBefore youRatedThisProductBefore) {
+            window.close();
             ErrorPageFxController.showPage("error occured during rate", youRatedThisProductBefore.getMessage());
         }
     }
