@@ -37,7 +37,7 @@ public class AddingCommentRequest extends Request {
 
     @Override
     public String toString() {
-        return "AddingCommentRequest:\n" + "Commenter: " + username + "\ngood id: " + goodId
+        return "Type: AddingCommentRequest\n" + "Commenter: " + username + "\ngood id: " + goodId
                 + "\ntitle: " + title + "\ncontent: " + comment;
     }
 }

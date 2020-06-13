@@ -31,10 +31,10 @@ public class EditingGoodRequest extends Request {
 
     @Override
     public String toString() {
-        return "EditingGoodRequest :\n" +
-                "request id = " + super.getRequestId() +
-                "\ngoodId = " + goodId +
-                "\nfieldsWithValuesForEditing : " + editedFields.toString();
+        return "Type: EditingGoodRequest\n" +
+                "request id: " + super.getRequestId() +
+                "\ngoodId: " + goodId +
+                "\nfieldsWithValuesForEditing: " + editedFields.toString();
     }
 
     @Override
