@@ -97,7 +97,8 @@ public class LoadingData {
             }
             if (Shop.getInstance().getAllGoods().size() != 0) {
                 Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
-                        .collect(Collectors.toList())) + 1);
+                        .collect(Collectors.toList())) + getMaximumOfNumbers(Shop.getInstance()
+                        .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
             }
         }
     }
