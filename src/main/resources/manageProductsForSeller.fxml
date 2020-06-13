@@ -75,11 +75,27 @@
       <columnConstraints>
          <ColumnConstraints />
          <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
       </columnConstraints>
       <rowConstraints>
          <RowConstraints />
          <RowConstraints />
-      </rowConstraints></GridPane>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+      <children>
+         <ScrollBar fx:id="scrollBar" orientation="VERTICAL" prefHeight="578.0" prefWidth="14.0" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowSpan="2147483647" GridPane.valignment="TOP">
+            <GridPane.margin>
+               <Insets />
+            </GridPane.margin>
+            <cursor>
+               <Cursor fx:constant="OPEN_HAND" />
+            </cursor>
+         </ScrollBar>
+      </children></GridPane>
     <padding>
         <Insets left="10.0" />
     </padding>

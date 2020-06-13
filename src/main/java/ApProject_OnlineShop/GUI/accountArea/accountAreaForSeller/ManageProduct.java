@@ -6,9 +6,11 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.GUI.ProductPageRelated.ProductBriefSummery;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
@@ -18,7 +20,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ManageProduct extends FxmlController implements Initializable {
+    @FXML
     public GridPane root;
+    @FXML
+    public ScrollBar scrollBar;
     private static int sortSelected;
 
     @Override
