@@ -6,6 +6,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -71,6 +72,8 @@ public class RateProductsPart2Controller extends FxmlController {
             ErrorPageFxController.showPage("error occured during rate", e.getMessage());
         } catch (FileCantBeSavedException e) {
             ErrorPageFxController.showPage("error occured during rate", e.getMessage());
+        } catch (YouRatedThisProductBefore youRatedThisProductBefore) {
+            ErrorPageFxController.showPage("error occured during rate", youRatedThisProductBefore.getMessage());
         }
     }
 
