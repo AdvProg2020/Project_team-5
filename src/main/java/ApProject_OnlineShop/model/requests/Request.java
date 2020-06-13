@@ -7,9 +7,18 @@ import java.io.IOException;
 public abstract class Request {
     private static long requestCount = 1;
     private long requestId;
+    private transient String name = this.getClass().getSimpleName();
 
     public Request() {
         this.requestId = requestCount++;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName() {
+        this.name = this.getClass().getSimpleName();
     }
 
     public String getBriefInfo() {
