@@ -22,8 +22,6 @@ import java.util.ResourceBundle;
 public class ManageProduct extends FxmlController implements Initializable {
     @FXML
     public GridPane root;
-    @FXML
-    public ScrollBar scrollBar;
     private static int sortSelected;
 
     @Override
