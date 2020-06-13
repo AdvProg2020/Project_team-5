@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.ProductPageRelated;
 
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.accountArea.Styles;
+import ApProject_OnlineShop.controller.MainController;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,9 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.awt.*;
+import java.util.List;
 
 public class ProductBriefSummery {
     public VBox getProductForAllProductsPage(int productId) {
+        List<String> goodInfo = MainController.getInstance().getAllProductsController().getProductBrief(productId);
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
         mainVBox.setAlignment(Pos.CENTER);
@@ -29,16 +32,17 @@ public class ProductBriefSummery {
         imageView.setFitWidth(150);
         VBox nameVBox = new VBox();
         nameVBox.setAlignment(Pos.CENTER_LEFT);
-        Label name = new Label("Galaxy S9 Samsung");
+        Label name = new Label(goodInfo.get(0));
         name.setFont(Font.font("Times New Roman", 16));
         name.setPadding(new Insets(0, 15, 0, 15));
         nameVBox.getChildren().add(name);
         mainVBox.getChildren().add(nameVBox);
         HBox rateHBox = new HBox();
         rateHBox.setAlignment(Pos.CENTER_LEFT);
-        Label rate = new Label("4.0");
+        int rateInteger = Integer.parseInt(goodInfo.get(1).substring(0,1));
+        Label rate = new Label(goodInfo.get(1).substring(0,3));
         rateHBox.setPadding(new Insets(0, 15, 0, 15));
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < rateInteger; i++) {
             ImageView star = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/star.png").toString()));
             star.setFitWidth(20);
             star.setFitHeight(20);
@@ -50,7 +54,7 @@ public class ProductBriefSummery {
         VBox priceVBox = new VBox();
         priceVBox.setAlignment(Pos.CENTER_LEFT);
         priceVBox.setPadding(new Insets(0, 15, 0, 15));
-        Label price = new Label("9000" + " Rial");
+        Label price = new Label(goodInfo.get(2));
         priceVBox.getChildren().add(price);
         mainVBox.getChildren().add(priceVBox);
         price.setFont(Font.font("Times New Roman", 16));
