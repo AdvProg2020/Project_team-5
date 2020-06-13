@@ -52,6 +52,9 @@ public class Database {
         for (Request request : Shop.getInstance().getAllRequest()) {
             request.setName();
         }
+        for (Person person : Shop.getInstance().getAllPersons()) {
+            person.setRole();
+        }
     }
 
     public void deleteItem(Object item) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
