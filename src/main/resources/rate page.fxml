@@ -32,15 +32,12 @@
         <ImageView fitHeight="112.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <ImageView fitHeight="112.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
         <ImageView fitHeight="134.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
-         <image>
-            <Image url="@pictures/emoji/emoji4%20(1).jpg" />
-         </image>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ImageView>
         <ImageView fx:id="emoji5" fitHeight="112.0" fitWidth="104.0" onMouseClicked="#rate10" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
             <image>
-                <Image url="@pictures/emoji/emoji5%20(2).jpg" />
+                <Image url="@pictures/emoji/emoji5.jpg" />
             </image>
          <cursor>
             <Cursor fx:constant="HAND" />
