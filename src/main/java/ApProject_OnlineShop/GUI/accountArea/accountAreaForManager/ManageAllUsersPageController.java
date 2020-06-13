@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.RequestNotFoundException;
 import ApProject_OnlineShop.model.Shop;
@@ -74,7 +75,30 @@ public class ManageAllUsersPageController extends FxmlController implements Init
         setScene("accountAreaForManager.fxml", "account area");
     }
 
-    public void onRemovePressed() {
+    public void onRemovePressed(ActionEvent e) {
+        Optional<ButtonType> result = new FxmlController().showAlert
+                (Alert.AlertType.CONFIRMATION, "delete", "User Delete", "are you sure to delete this user?");
+        if (result.get() == ButtonType.OK) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeUser(selectedUsername);
+                this.selectedUsername = "";
+                updateTableView(Shop.getInstance().getAllPersons());
+                removeButton.setDisable(true);
+                clearLabels();
+                SuccessPageFxController.showPage("delete user", "user deleted successfully");
+            } catch (Exception ex) {
+                ErrorPageFxController.showPage("error", ex.getMessage());
+            }
+        } else
+            e.consume();
+    }
+
+    private void clearLabels() {
+        usernameLabel.setText("");
+        firstNameLabel.setText("");
+        lastNameLabel.setText("");
+        emailLabel.setText("");
+        phoneNumberLabel.setText("");
     }
 
     public void onRowSelected() {
@@ -85,5 +109,9 @@ public class ManageAllUsersPageController extends FxmlController implements Init
         emailLabel.setText(usersTable.getSelectionModel().getSelectedItem().getEmail());
         phoneNumberLabel.setText(usersTable.getSelectionModel().getSelectedItem().getPhoneNumber());
         removeButton.setDisable(false);
+    }
+
+    public void onAddNewManagerPressed() {
+
     }
 }

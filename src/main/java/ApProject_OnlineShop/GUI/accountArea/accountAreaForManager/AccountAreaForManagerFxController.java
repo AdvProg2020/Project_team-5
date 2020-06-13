@@ -46,7 +46,7 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     }
 
     public void onManageUsersPressed() {
-
+        setScene("manageAllUsersPage.fxml", "manage users");
     }
 
     public void onManageRequestsPressed() {
