@@ -19,7 +19,7 @@ public class AddProductPart1 extends FxmlController {
     public TextField name, brand, price, additionalDetails, availableNumber, subCategory;
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
-        setScene("manageProducts.fxml", "manage products");
+        setScene("manageProductsForSeller.fxml", "manage products");
     }
 
     public void onLogoutIconClicked(MouseEvent mouseEvent) {
