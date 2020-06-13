@@ -6,56 +6,64 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ManageProduct">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css"
+          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.RateProductsController">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="229.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="732.0000152587891" minWidth="10.0" prefWidth="599.2" />
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="229.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="229.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="732.0000152587891" minWidth="10.0" prefWidth="599.2"/>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="229.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="127.19999999999999" minHeight="0.0" prefHeight="27.19999999999999" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="576.6" minHeight="10.0" prefHeight="573.6" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.19999999999999" minHeight="0.0" prefHeight="27.19999999999999"
+                        vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="576.6" minHeight="10.0" prefHeight="573.6" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES"/>
     </rowConstraints>
-    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
+    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0"
+            prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@./pictures/icons8-back-to-48.png" />
+                <Image url="@./pictures/icons8-back-to-48.png"/>
             </ImageView>
         </graphic>
     </Button>
-    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1" />
+    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1"/>
     <Label alignment="CENTER" prefHeight="84.0" prefWidth="782.0" text="Rate Products" GridPane.columnIndex="1">
         <font>
-            <Font name="Times New Roman" size="26.0" />
+            <Font name="Times New Roman" size="26.0"/>
         </font>
     </Label>
-    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
+    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true"
+               styleClass="exitImage" GridPane.columnIndex="2">
         <image>
-            <Image url="@./pictures/logout.png" />
+            <Image url="@./pictures/logout.png"/>
         </image>
     </ImageView>
     <ScrollPane hbarPolicy="NEVER" prefHeight="201.0" prefWidth="620.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="606.5">
                 <children>
-                    <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="601.6" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+                    <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="577.0"
+                              prefWidth="601.6" styleClass="backgroundStyle"
+                              stylesheets="@styelsheets/loginRegisterstyle.css">
                         <opaqueInsets>
-                            <Insets top="10.0" />
+                            <Insets top="10.0"/>
                         </opaqueInsets>
                         <columnConstraints>
-                            <ColumnConstraints />
-                            <ColumnConstraints />
-                            <ColumnConstraints />
-                            <ColumnConstraints />
-                            <ColumnConstraints />
+                            <ColumnConstraints/>
+                            <ColumnConstraints/>
+                            <ColumnConstraints/>
+                            <ColumnConstraints/>
+                            <ColumnConstraints/>
                         </columnConstraints>
                         <rowConstraints>
-                            <RowConstraints />
-                            <RowConstraints />
-                            <RowConstraints />
-                            <RowConstraints />
-                            <RowConstraints />
+                            <RowConstraints/>
+                            <RowConstraints/>
+                            <RowConstraints/>
+                            <RowConstraints/>
+                            <RowConstraints/>
                         </rowConstraints>
                     </GridPane>
                 </children>
@@ -63,6 +71,6 @@
         </content>
     </ScrollPane>
     <padding>
-        <Insets left="10.0" />
+        <Insets left="10.0"/>
     </padding>
 </GridPane>
