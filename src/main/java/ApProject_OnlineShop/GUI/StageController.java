@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.GUI;
 
+import ApProject_OnlineShop.GUI.ProductPageRelated.ProductBriefSummery;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

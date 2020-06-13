@@ -40,4 +40,23 @@ public class AllProductsController {
         }
         return output;
     }
+
+    public List<String> getProductBrief(long productId) {
+        Good good = Shop.getInstance().findGoodById(productId);
+        ArrayList<String> goodInfo = new ArrayList<>();
+        goodInfo.add(good.getName() + " " + good.getBrand());
+        goodInfo.add("" + (good.getAverageRate() / (float) 2));
+        goodInfo.add("" + good.getMinimumPrice() + " Rials");
+        return goodInfo;
+    }
+
+    public List<String> getOffProductBriefSummery(long productId) {
+        Good good = Shop.getInstance().findGoodById(productId);
+        ArrayList<String> goodInfo = new ArrayList<>();
+        goodInfo.add(good.getName() + " " + good.getBrand());
+        goodInfo.add("" + (good.getAverageRate() / (float) 2));
+        goodInfo.add("" + good.getPriceBySeller(good.getSellerThatPutsThisGoodOnOff()));
+        goodInfo.add("" + Shop.getInstance().getFinalPriceOfAGood(good, good.getSellerThatPutsThisGoodOnOff()));
+        return goodInfo;
+    }
 }
