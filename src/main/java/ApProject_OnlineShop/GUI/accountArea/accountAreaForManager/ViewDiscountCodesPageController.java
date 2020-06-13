@@ -22,8 +22,7 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ViewDiscountCodesPageController extends FxmlController implements Initializable {
     @FXML
@@ -54,7 +53,7 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateTableView();
+        updateTableView(Shop.getInstance().getAllDiscountCodes());
     }
 
     public void onLogoutIconClicked() {
@@ -89,7 +88,7 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode(this.selectedDiscount);
                 this.selectedDiscount = "";
-                updateTableView();
+                updateTableView(Shop.getInstance().getAllDiscountCodes());
                 editButton.setDisable(true);
                 removeButton.setDisable(true);
                 clearLabels();
@@ -102,15 +101,40 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
             e.consume();
     }
 
-    private void updateTableView() {
+    private void updateTableView(List<DiscountCode> discounts) {
         discountData = FXCollections.observableArrayList();
         codeData = FXCollections.observableArrayList();
         discountTable.getItems().clear();
-        for (DiscountCode discountCode : Shop.getInstance().getAllDiscountCodes()) {
+        for (DiscountCode discountCode : discounts) {
             discountTable.getItems().add(discountCode);
         }
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
         startColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+    }
+
+    public void onEndDateSort() {
+        List<DiscountCode> discountCodes = Shop.getInstance().getAllDiscountCodes();
+        discountCodes.sort((d1, d2) -> {
+            if (d1.getEndDate().isBefore(d2.getEndDate()))
+                return 1;
+            else if (d1.getEndDate().isAfter(d2.getEndDate()))
+                return -1;
+            else
+                return 0;
+        });
+        updateTableView(discountCodes);
+    }
+
+    public void onPercentSort() {
+        List<DiscountCode> discountCodes = Shop.getInstance().getAllDiscountCodes();
+        discountCodes.sort((d1, d2) -> (int) (d1.getMaxDiscountAmount() - d2.getMaxDiscountAmount()));
+        updateTableView(discountCodes);
+    }
+
+    public void onMaxAmountSort() {
+        List<DiscountCode> discountCodes = Shop.getInstance().getAllDiscountCodes();
+        discountCodes.sort(Comparator.comparingInt(DiscountCode::getDiscountPercent));
+        updateTableView(discountCodes);
     }
 
     private void clearLabels() {
