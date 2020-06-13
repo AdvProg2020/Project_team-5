@@ -20,7 +20,6 @@ public class StageController {
 
     public StageController() {
         StageController.stage = new Stage();
-//        new ProductBriefSummery().setScene();
         StageController.stage.setOnCloseRequest(e -> {
             Optional<ButtonType> result = new FxmlController().showAlert
                     (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");

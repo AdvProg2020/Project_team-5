@@ -53,14 +53,10 @@ public class AllProductsController {
     public List<String> getOffProductBriefSummery(long productId) {
         Good good = Shop.getInstance().findGoodById(productId);
         ArrayList<String> goodInfo = new ArrayList<>();
-//        goodInfo.add(good.getName() + " " + good.getBrand());
-//        goodInfo.add("" + (good.getAverageRate() / (float) 2));
-//        goodInfo.add("" + good.getPriceBySeller(good.getSellerThatPutsThisGoodOnOff()));
-//        goodInfo.add("" + Shop.getInstance().getFinalPriceOfAGood(good, good.getSellerThatPutsThisGoodOnOff()));
-        goodInfo.add("galaxy S9 samsung");
-        goodInfo.add("" + 9/(float)2);
-        goodInfo.add("90000");
-        goodInfo.add("60000");
+        goodInfo.add(good.getName() + " " + good.getBrand());
+        goodInfo.add("" + (good.getAverageRate() / (float) 2));
+        goodInfo.add("" + good.getPriceBySeller(good.getSellerThatPutsThisGoodOnOff()));
+        goodInfo.add("" + Shop.getInstance().getFinalPriceOfAGood(good, good.getSellerThatPutsThisGoodOnOff()));
         return goodInfo;
     }
 }
