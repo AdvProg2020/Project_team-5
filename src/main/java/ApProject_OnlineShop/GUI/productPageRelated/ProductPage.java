@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -24,6 +25,9 @@ public class ProductPage extends FxmlController implements Initializable {
     public HBox rate;
     public Label views;
     public Label details;
+    public VBox sellers;
+    public Label price;
+    public VBox properties;
 
     public void backButton(ActionEvent actionEvent) {
     }
@@ -35,6 +39,7 @@ public class ProductPage extends FxmlController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image.setImage(new Image(Paths.get("Resources/productImages/"+ productId+".jpg").toUri().toString()));
+
     }
 
     public static void setProductId(long productId) {
