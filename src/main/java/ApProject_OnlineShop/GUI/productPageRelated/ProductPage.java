@@ -24,6 +24,8 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -41,6 +43,7 @@ public class ProductPage extends FxmlController implements Initializable {
     public Label price;
     public VBox properties;
     public ScrollPane comments;
+    public Label detailsLabel;
 
     public void backButton(ActionEvent actionEvent) {
     }
@@ -69,6 +72,30 @@ public class ProductPage extends FxmlController implements Initializable {
         rate.getChildren().add(rateDouble);
         views.setText(mainInfo.get(5) + " views");
         makeSellersList();
+        makeProperties();
+    }
+
+    private void makeProperties() {
+        Good good = Shop.getInstance().findGoodById(productId);
+        detailsLabel.setText(good.getDetails());
+        HashMap<String, String> categoryProperties = good.getCategoryProperties();
+        properties.setAlignment(Pos.CENTER);
+        properties.setSpacing(13);
+        for (String detailKey : categoryProperties.keySet()) {
+            HBox details = new HBox();
+            details.setAlignment(Pos.CENTER_LEFT);
+            details.setPrefHeight(50);
+            details.setPrefWidth(599);
+            Label detailKey1 = new Label(detailKey + " :");
+            detailKey1.setFont(Font.font("Times New Roman", 14));
+            detailKey1.setPadding(new Insets(10));
+            details.getChildren().add(detailKey1);
+            Label detailValue = new Label(categoryProperties.get(detailKey));
+            detailValue.setFont(Font.font("Times New Roman", 14));
+            detailValue.setPadding(new Insets(10));
+            details.getChildren().add(detailValue);
+            properties.getChildren().add(details);
+        }
     }
 
     public void makeSellersList() {
