@@ -2,8 +2,12 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -60,10 +64,62 @@ public class ProductPage extends FxmlController implements Initializable {
         rateDouble.setFont(Font.font("Times New Roman", 16));
         rate.getChildren().add(rateDouble);
         views.setText(mainInfo.get(5) + " views");
+        makeSellersList();
+    }
+
+    public void makeSellersList(){
+        List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
+        for (SellerRelatedInfoAboutGood seller : sellersInfo) {
+            HBox sellerHBox = new HBox();
+            Label username = new Label(seller.getSeller().getUsername());
+            username.setFont(Font.font("Times New Roman", 16));
+            username.setPadding(new Insets(0,7,0,7));
+            sellerHBox.getChildren().add(username);
+            Label goodStatus = new Label();
+            if (seller.getAvailableNumber() == 0)
+                goodStatus.setText(Good.GoodStatus.NOTAVAILABLE.toString());
+            if (seller.getAvailableNumber() > 0 )
+                goodStatus.setText("AVAILABLE");
+            goodStatus.setFont(Font.font("Times New Roman", 16));
+            goodStatus.setPadding(new Insets(0,7,0,7));
+            sellerHBox.getChildren().add(goodStatus);
+            if (!MainController.getInstance().getProductController().isInOffBySeller(seller.getSeller())){
+                HBox priceBox = new HBox();
+                priceBox.setMaxWidth(130);
+                priceBox.setMinWidth(130);
+                Label price = new Label(""+seller.getPrice());
+                price.setFont(Font.font("Times New Roman", 16));
+                price.setPadding(new Insets(0,7,0,7));
+                priceBox.getChildren().add(price);
+                Label rials = new Label("Rials");
+                rials.setFont(Font.font("Times New Roman", 16));
+                rials.setPadding(new Insets(0,7,0,7));
+                priceBox.getChildren().add(rials);
+                sellerHBox.getChildren().add(priceBox);
+
+            }
+            if (MainController.getInstance().getProductController().isInOffBySeller(seller.getSeller())){
+                HBox priceBox = new HBox();
+                priceBox.setMaxWidth(130);
+                priceBox.setMinWidth(130);
+                Label price = new Label(""+seller.getPrice());
+                price.setFont(Font.font("Times New Roman", 16));
+                price.setPadding(new Insets(0,7,0,7));
+                priceBox.getChildren().add(price);
+                Label rials = new Label("Rials");
+                rials.setFont(Font.font("Times New Roman", 16));
+                rials.setPadding(new Insets(0,7,0,7));
+                priceBox.getChildren().add(rials);
+            }
+        }
     }
 
     public static void setProductId(long productId) {
         ProductPage.productId = productId;
         MainController.getInstance().getProductController().setGoodById(productId);
+    }
+
+    public void addToCart(String sellerUsername){
+        
     }
 }

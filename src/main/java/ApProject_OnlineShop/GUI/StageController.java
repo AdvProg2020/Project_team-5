@@ -20,27 +20,27 @@ public class StageController {
 
     public StageController() {
         StageController.stage = new Stage();
-//        ProductPage.setProductId(2);
-//        new FxmlController().setScene("productPage.fxml","product page");
-        StageController.stage.setOnCloseRequest(e -> {
-            Optional<ButtonType> result = new FxmlController().showAlert
-                    (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
-            if (result.get() == ButtonType.OK) {
-                Platform.exit();
-            } else
-                e.consume();
-        });
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("mainMenuLayout.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        stage.setTitle("Shop");
-        stage.setScene(new Scene(root, 1000, 800));
-        stage.getIcons().add(new Image(getClass().getClassLoader().getResource("pictures/iconcopy.png").toString()));
+        ProductPage.setProductId(6);
+        new FxmlController().setScene("productPage.fxml","product page");
+//        StageController.stage.setOnCloseRequest(e -> {
+//            Optional<ButtonType> result = new FxmlController().showAlert
+//                    (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
+//            if (result.get() == ButtonType.OK) {
+//                Platform.exit();
+//            } else
+//                e.consume();
+//        });
+//        Parent root = null;
+//        try {
+//            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("mainMenuLayout.fxml")));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        stage.setTitle("Shop");
+//        stage.setScene(new Scene(root, 1000, 800));
+//        stage.getIcons().add(new Image(getClass().getClassLoader().getResource("pictures/iconcopy.png").toString()));
         //       stage.setMaximized(true);
-        stage.show();
+//        stage.show();
     }
 
     public static void setSceneJavaFx(GridPane root) {

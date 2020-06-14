@@ -7,6 +7,7 @@ import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfTh
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Comment;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
@@ -35,7 +36,8 @@ public class ProductController {
             }
         }
     }
-    public void setGoodById(long goodId){
+
+    public void setGoodById(long goodId) {
         setGood(Shop.getInstance().findGoodById(goodId));
     }
 
@@ -109,15 +111,25 @@ public class ProductController {
         return output;
     }
 
-    public List<String> getMainInfo(){
+    public List<String> getMainInfo() {
         List<String> goodInfo = new ArrayList<>();
         goodInfo.add(good.getName());
         goodInfo.add(good.getBrand());
         goodInfo.add(good.getSubCategory().getParentCategory().getName());
         goodInfo.add(good.getSubCategory().getName());
-        goodInfo.add("" + good.getAverageRate()/2);
+        goodInfo.add("" + good.getAverageRate() / 2);
         goodInfo.add("" + good.getSeenNumber());
         return goodInfo;
+    }
+
+    public List<SellerRelatedInfoAboutGood> getSellersInfo() {
+        return good.getSellerRelatedInfoAboutGoods();
+    }
+
+    public boolean isInOffBySeller(Seller seller){
+        if (good.getPriceBySeller(seller) == Shop.getInstance().getFinalPriceOfAGood(good,seller))
+            return false;
+        return true;
     }
 
     public void addComment(String title, String content) throws IOException, FileCantBeSavedException {
