@@ -128,7 +128,7 @@ public class Cart extends FxmlController implements Initializable {
         try {
             MainController.getInstance().getAccountAreaForCustomerController().increaseInCartProduct(productId);
         } catch (Exception e) {
-            ErrorPageFxController.showPage("error occured", e.getMessage());
+            ErrorPageFxController.showPage("Error happened", e.getMessage());
         }
         setScene("cart.fxml", "cart");
     }
