@@ -59,14 +59,13 @@ public class AddingGoodRequest extends Request {
 
     @Override
     public String toString() {
-        return "AddingGoodRequest :\n" +
-                "request id = " + super.getRequestId() + "\n" +
-                "------------------------------------\n"
-                + "\nname = " + nameOfGood
-                + "\nbrand = " + brandOfGood
-                + "\ncategory = " + Shop.getInstance().findSubCategoryByName(subCategoryOfGood).getParentCategory().getName()
-                + "\nsubcategory = " + subCategoryOfGood
-                + "details =\n" + detailsOfGood +
-                "------------------------------------" + "\nseller = " + seller;
+        return "Type: AddingGoodRequest\n" +
+                "request id: " + super.getRequestId()
+                + "\nname: " + nameOfGood
+                + "\nbrand: " + brandOfGood
+                + "\ncategory: " + Shop.getInstance().findSubCategoryByName(subCategoryOfGood).getParentCategory().getName()
+                + "\nsubcategory: " + subCategoryOfGood
+                + "details:\n" + detailsOfGood +
+                "\nseller: " + seller;
     }
 }

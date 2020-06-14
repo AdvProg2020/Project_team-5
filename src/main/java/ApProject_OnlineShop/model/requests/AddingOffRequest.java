@@ -48,11 +48,10 @@ public class AddingOffRequest extends Request {
 
     @Override
     public String toString() {
-        return "---------------------------\nAddingOffRequest :\n"
-                + "request id = " + super.getRequestId() + "\n"
-                + "id of off goods : " +offGoods + "\nstart date : "+ startDate
-                + "\nend date :" +endDate + "\nmax discount amount :" + maxDiscount
-                + "\n discount percent :" + discountPercent + "\nseller : "
-                + seller + "\n---------------------------\n";
+        return "Type: AddingOffRequest\n"
+                + "request id: " + super.getRequestId() + "\n"
+                + "id of off goods: " +offGoods + "\nstart date: "+ startDate
+                + "\nend date:" +endDate + "\nmax discount amount: " + maxDiscount
+                + "\ndiscount percent: " + discountPercent + "\nseller: " + seller;
     }
 }

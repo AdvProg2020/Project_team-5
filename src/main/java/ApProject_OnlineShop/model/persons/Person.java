@@ -7,6 +7,7 @@ public abstract class Person {
     private String email;
     private String phoneNumber;
     private String password;
+    private transient String role = this.getClass().getSimpleName();
 
     public Person(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
         this.username = username;
@@ -39,6 +40,14 @@ public abstract class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole() {
+        this.role = this.getClass().getSimpleName();
     }
 
     public String getEmail() {
