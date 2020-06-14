@@ -162,7 +162,7 @@
     </VBox>
    <Button mnemonicParsing="false" onAction="#viewBuyers" prefHeight="47.0" prefWidth="167.0" styleClass="menuButtons" text="view buyers" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
       <GridPane.margin>
-         <Insets top="20.0" />
+         <Insets top="155.0" />
       </GridPane.margin>
       <font>
          <Font size="14.0" />
@@ -170,11 +170,19 @@
    </Button>
     <Button mnemonicParsing="false" onAction="#removeProduct" prefHeight="47.0" prefWidth="167.0" styleClass="menuButtons" text="remove product" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
         <GridPane.margin>
-            <Insets top="85.0" />
+            <Insets top="15.0" />
         </GridPane.margin>
       <font>
          <Font size="14.0" />
       </font>
+    </Button>
+    <Button mnemonicParsing="false" onAction="#shwComments" prefHeight="47.0" prefWidth="167.0" styleClass="menuButtons" text="Comments" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+        <GridPane.margin>
+            <Insets top="85.0" />
+        </GridPane.margin>
+        <font>
+            <Font size="14.0" />
+        </font>
     </Button>
     <padding>
         <Insets left="10.0" />

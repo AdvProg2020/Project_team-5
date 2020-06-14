@@ -1,14 +1,23 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.RateProductsPart2Controller;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeDeletedException;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -22,13 +31,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ProductPageControllerForSeller extends FxmlController implements Initializable {
     private static long productId = 0;
@@ -191,9 +200,40 @@ public class ProductPageControllerForSeller extends FxmlController implements In
     }
 
     public void removeProduct(ActionEvent actionEvent) {
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "Remove", "Remove product", "are you sure you want to remove this?");
+        if (result.get() == ButtonType.OK) {
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().removeProduct(productId);
+                setScene("manageProductsForSeller.fxml", "manage products");
+            } catch (ProductNotFoundExceptionForSeller e) {
+                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
+            } catch (IOException e) {
+                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
+            } catch (FileCantBeSavedException e) {
+                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
+            } catch (FileCantBeDeletedException e) {
+                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
+            }
+        }
     }
 
     public void viewBuyers(ActionEvent actionEvent) {
+        ViewBuyersOfGoodController.setProductId(productId);
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setResizable(false);
+        window.setTitle("buyers");
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(SuccessPageFxController.class.getClassLoader().getResource("viewBuyersOfGoodForSeller.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root, 600, 600);
+        window.setScene(scene);
+        ViewBuyersOfGoodController.setStage(window);
+        window.showAndWait();
     }
 
     public void editField(ActionEvent actionEvent) {
@@ -202,4 +242,6 @@ public class ProductPageControllerForSeller extends FxmlController implements In
     }
 
 
+    public void shwComments(ActionEvent actionEvent) {
+    }
 }
