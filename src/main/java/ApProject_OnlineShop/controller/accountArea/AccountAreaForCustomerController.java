@@ -40,8 +40,22 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return Shop.getInstance().checkExistProductInCart(productId);
     }
 
-    public List<String> viewInCartProducts() {
-        return Shop.getInstance().getCart().stream().map(GoodInCart::toString).collect(Collectors.toList());
+    public List<Long> viewInCartProducts() {
+        return Shop.getInstance().getCart().stream().map(goodInCart -> goodInCart.getGood().getGoodId()).collect(Collectors.toList());
+    }
+
+    public List<String> viewGoodInCartById(long productId) {
+        GoodInCart good = null;
+        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+            if (goodInCart.getGood().getGoodId() == productId)
+                good = goodInCart;
+        }
+        List<String> goodInfo = new ArrayList<>();
+        goodInfo.add(good.getGood().getName() + " " + good.getGood().getBrand());
+        goodInfo.add(good.getSeller().getUsername());
+        goodInfo.add("" + good.getNumber());
+        goodInfo.add("" + good.getFinalPrice());
+        return goodInfo;
     }
 
     public String viewSpecialProduct(long productId) {
