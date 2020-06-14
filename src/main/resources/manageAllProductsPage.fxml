@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.ManageAllProductsPageController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.ManageAllProductsPageController">
 <columnConstraints>
   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="229.0" />
   <ColumnConstraints hgrow="SOMETIMES" maxWidth="732.0000152587891" minWidth="10.0" prefWidth="599.2" />
@@ -83,33 +75,29 @@
     <Image url="@./pictures/logout.png" />
   </image>
 </ImageView>
-<ScrollPane hbarPolicy="NEVER" prefHeight="201.0" prefWidth="620.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-  <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="598.0">
-      <children>
-        <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="601.6" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
-          <opaqueInsets>
-            <Insets top="10.0" />
-          </opaqueInsets>
-          <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-          </columnConstraints>
-          <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-          </rowConstraints>
-        </GridPane>
-      </children>
-    </AnchorPane>
-  </content>
-</ScrollPane>
+   <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <content>
+  <GridPane fx:id="root" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="601.6" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+    <opaqueInsets>
+      <Insets top="10.0" />
+    </opaqueInsets>
+    <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+    </rowConstraints>
+  </GridPane>
+      </content>
+   </ScrollPane>
 <padding>
   <Insets left="10.0" />
 </padding>
