@@ -49,24 +49,7 @@
             <Font name="Times New Roman" size="26.0" />
         </font>
     </Label>
-    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" spacing="20.0" GridPane.rowIndex="1">
-        <children>
-            <Button fx:id="editButton" disable="true" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#onEditFieldPressed" prefHeight="34.0" prefWidth="155.0" styleClass="menuButtons" text="edit">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-                <padding>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                </padding>
-            <VBox.margin>
-               <Insets top="20.0" />
-            </VBox.margin>
-            </Button>
-        </children>
-    </VBox>
+    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" spacing="20.0" GridPane.rowIndex="1" />
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
         <children>
             <ImageView fitHeight="68.0" fitWidth="70.0" onMouseClicked="#onLogoutIconClicked" pickOnBounds="true" preserveRatio="true">
@@ -130,6 +113,20 @@
                </HBox>
             </children>
          </GridPane>
+            <Button fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#onEditFieldPressed" prefHeight="34.0" prefWidth="155.0" styleClass="menuButtons" text="edit">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+            <VBox.margin>
+               <Insets top="20.0" />
+            </VBox.margin>
+            </Button>
       </children>
     </VBox>
    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">

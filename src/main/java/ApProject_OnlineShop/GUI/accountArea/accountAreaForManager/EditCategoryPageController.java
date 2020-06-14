@@ -6,7 +6,9 @@ import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -30,6 +32,7 @@ public class EditCategoryPageController extends FxmlController implements Initia
     private TextField newPropertyField;
 
     private static String currentCategory;
+    private String selectedField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,11 +50,25 @@ public class EditCategoryPageController extends FxmlController implements Initia
         details.setAlignment(Pos.CENTER);
         allFieldsVBox.getChildren().add(details);
         for (String detail : Shop.getInstance().findCategoryByName(currentCategory).getDetails()) {
-            Label label = new Label(detail);
-            label.setFont(Font.font(14));
-            label.setAlignment(Pos.CENTER);
-            allFieldsVBox.getChildren().add(label);
+            Hyperlink hyperlink = new Hyperlink("- " + detail);
+            hyperlink.setOnMouseClicked(e -> {
+                singlePropertyVBox.setDisable(false);
+                editButton.setDisable(false);
+                viewSingleProperty(detail);
+            });
+            hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
+            hyperlink.setAlignment(Pos.BOTTOM_LEFT);
+            hyperlink.setPadding(new Insets(8));
+            hyperlink.setCursor(Cursor.HAND);
+            hyperlink.setUnderline(false);
+            hyperlink.setFont(new Font(14));
+            allFieldsVBox.getChildren().add(hyperlink);
         }
+    }
+
+    private void viewSingleProperty(String detail) {
+        this.selectedField = detail;
+        valueLabel.setText(detail);
     }
 
     public static void setCurrentCategory(String currentCategory) {
