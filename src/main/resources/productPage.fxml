@@ -41,41 +41,41 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="323.6" minHeight="10.0" prefHeight="274.2" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="332.3999999999999" minHeight="10.0" prefHeight="272.2" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="324.4" minHeight="10.0" prefHeight="324.4" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="332.3999999999999" minHeight="10.0" prefHeight="222.80000000000007" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <ImageView fx:id="image" fitHeight="262.0" fitWidth="304.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.valignment="TOP" />
-            <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="275.0" prefWidth="300.0" GridPane.valignment="TOP">
+            <ImageView fx:id="image" fitHeight="327.0" fitWidth="304.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.valignment="TOP" />
+            <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="330.0" prefWidth="300.0" GridPane.valignment="TOP">
                 <children>
-                    <Label fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="300.0">
+                    <Label fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="300.0">
+                        <font>
+                            <Font name="Times New Roman" size="18.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="brand" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="300.0">
                         <font>
                             <Font name="Times New Roman" size="14.0" />
                         </font>
                     </Label>
-                    <Label fx:id="brand" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="300.0">
-                        <font>
-                            <Font name="Times New Roman" size="14.0" />
-                        </font>
-                    </Label>
-                    <Label fx:id="category" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="300.0">
+                    <Label fx:id="price" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="300.0">
                         <font>
                             <Font name="Times New Roman" size="16.0" />
                         </font>
                     </Label>
-                    <Label fx:id="subcategory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="300.0">
+                    <Label fx:id="categoty" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="300.0">
                         <font>
                             <Font name="Times New Roman" size="14.0" />
                         </font>
                     </Label>
-                    <HBox fx:id="rate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="300.0" />
-               <Label fx:id="views" prefHeight="37.0" prefWidth="300.0">
+               <Label maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="300.0">
                   <font>
                      <Font name="Times New Roman" size="14.0" />
                   </font>
                </Label>
-               <Label fx:id="details" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="300.0">
+                    <HBox fx:id="rate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="300.0" />
+               <Label fx:id="views" prefHeight="37.0" prefWidth="300.0">
                   <font>
                      <Font name="Times New Roman" size="14.0" />
                   </font>

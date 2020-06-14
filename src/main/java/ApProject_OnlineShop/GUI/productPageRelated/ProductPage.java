@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -19,6 +20,10 @@ public class ProductPage extends FxmlController implements Initializable {
     public Label name;
     public Label brand;
     public Label category;
+    public Label subcategory;
+    public HBox rate;
+    public Label views;
+    public Label details;
 
     public void backButton(ActionEvent actionEvent) {
     }
