@@ -23,8 +23,8 @@ public class StageController {
 
     public StageController() {
         StageController.stage = new Stage();
-//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(1L),(Seller) Shop.getInstance().findUser("yasaman"),2);
-//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(2L),(Seller) Shop.getInstance().findUser("yasaman"),2);
+        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(1L),(Seller) Shop.getInstance().findUser("yasaman"),2);
+        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(2L),(Seller) Shop.getInstance().findUser("yasaman"),2);
 //        new FxmlController().setScene("cart.fxml", "cart");
         StageController.stage.setOnCloseRequest(e -> {
             Optional<ButtonType> result = new FxmlController().showAlert
