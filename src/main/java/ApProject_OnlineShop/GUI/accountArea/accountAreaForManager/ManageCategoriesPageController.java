@@ -117,6 +117,8 @@ public class ManageCategoriesPageController extends FxmlController implements In
     }
 
     public void onEditCategoryPressed(ActionEvent actionEvent) {
+        EditCategoryPageController.setCurrentCategory(selectedCategory);
+        setScene("editCategoryPage.fxml", "edit category");
     }
 
     public void onRemoveCategoryPressed(ActionEvent actionEvent) {

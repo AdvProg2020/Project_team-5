@@ -2,11 +2,14 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.Optional;
@@ -26,9 +29,33 @@ public class EditCategoryPageController extends FxmlController implements Initia
     @FXML
     private TextField newPropertyField;
 
+    private static String currentCategory;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        updatePropertiesBox();
+    }
 
+    private void updatePropertiesBox() {
+        allFieldsVBox.getChildren().clear();
+        Label title = new Label(currentCategory);
+        title.setFont(Font.font(18));
+        title.setAlignment(Pos.CENTER);
+        allFieldsVBox.getChildren().add(title);
+        Label details = new Label("Properties: ");
+        details.setFont(Font.font(16));
+        details.setAlignment(Pos.CENTER);
+        allFieldsVBox.getChildren().add(details);
+        for (String detail : Shop.getInstance().findCategoryByName(currentCategory).getDetails()) {
+            Label label = new Label(detail);
+            label.setFont(Font.font(14));
+            label.setAlignment(Pos.CENTER);
+            allFieldsVBox.getChildren().add(label);
+        }
+    }
+
+    public static void setCurrentCategory(String currentCategory) {
+        EditCategoryPageController.currentCategory = currentCategory;
     }
 
     public void onBackButtonPressed() {
