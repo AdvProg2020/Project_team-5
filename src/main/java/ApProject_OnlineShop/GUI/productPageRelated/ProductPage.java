@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -176,6 +177,7 @@ public class ProductPage extends FxmlController implements Initializable {
             ImageView cartImage = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/cart.png").toString()));
             cartImage.setFitHeight(35);
             cartImage.setFitWidth(35);
+            cartImage.setCursor(Cursor.HAND);
             cartImage.setOnMouseClicked(e -> addToCart(eachSellerInfo.getSeller().getUsername()));
             sellerHBox.getChildren().add(cartImage);
             sellers.getChildren().add(sellerHBox);
