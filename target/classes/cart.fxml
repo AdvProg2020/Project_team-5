@@ -27,9 +27,9 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-      <ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="558.0" vbarPolicy="ALWAYS" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="558.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <content>
-              <VBox fx:id="items" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="540.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" />
+              <VBox fx:id="items" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="541.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" />
          </content>
       </ScrollPane>
         <Button mnemonicParsing="false" onMouseClicked="#purchase" prefHeight="44.0" prefWidth="172.0" styleClass="menuButtons" text="purchse" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
