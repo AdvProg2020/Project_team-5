@@ -76,13 +76,18 @@ public class AddCategoryPageController extends FxmlController implements Initial
     }
 
     public void onFinishButtonPressed(ActionEvent actionEvent) {
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().addCategory(categoryName, properties);
-            SuccessPageFxController.showPage("successfully created", "new category added successfully. please add subcategory to it later.");
-            setScene("manageCategoriesPage.fxml", "account area");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
-        }
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "finish", "Finish adding category process", "are you sure to finish process of creating category?");
+        if (result.get() == ButtonType.OK) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().addCategory(categoryName, properties);
+                SuccessPageFxController.showPage("successfully created", "new category added successfully. please add subcategory to it later.");
+                setScene("manageCategoriesPage.fxml", "account area");
+            } catch (Exception e) {
+                ErrorPageFxController.showPage("error", e.getMessage());
+            }
+        } else
+            actionEvent.consume();
     }
 
     public void onAddPropertyPressed(ActionEvent actionEvent) {
@@ -102,6 +107,7 @@ public class AddCategoryPageController extends FxmlController implements Initial
             return;
         }
         properties.add(property);
+        propertyField.clear();
         finishButton.setDisable(false);
         updatePropertiesBox();
     }
