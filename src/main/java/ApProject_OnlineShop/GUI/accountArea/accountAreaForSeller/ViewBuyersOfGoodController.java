@@ -40,8 +40,8 @@ public class ViewBuyersOfGoodController extends FxmlController implements Initia
             VBox vbox1 = new VBox();
             vbox1.setAlignment(Pos.CENTER_LEFT);
             Label detailKey1 = new Label("- " + buyer);
-            detailKey1.setFont(Font.font("Times New Roman", 14));
-            detailKey1.setPadding(new Insets(10));
+            detailKey1.setFont(Font.font("Times New Roman", 16));
+            detailKey1.setPadding(new Insets(15));
             vbox1.getChildren().add(detailKey1);
             details.getChildren().add(vbox1);
             vbox.getChildren().add(details);
