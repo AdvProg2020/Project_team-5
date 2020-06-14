@@ -82,6 +82,7 @@ public class ProductController {
         return output;
     }
 
+
     public String compareWithAnotherProduct(long id) throws ProductWithThisIdNotExist {
         if (Shop.getInstance().findGoodById(id) == null)
             throw new ProductWithThisIdNotExist();
