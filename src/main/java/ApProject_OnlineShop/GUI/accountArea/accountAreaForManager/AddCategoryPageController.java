@@ -81,7 +81,7 @@ public class AddCategoryPageController extends FxmlController implements Initial
             try {
                 MainController.getInstance().getAccountAreaForManagerController().addCategory(categoryName, properties);
                 SuccessPageFxController.showPage("successfully created", "new category added successfully. please add subcategory to it later.");
-                setScene("manageCategoriesPage.fxml", "account area");
+                setScene("manageCategoriesPage.fxml", "manage categories");
             } catch (Exception e) {
                 ErrorPageFxController.showPage("error", e.getMessage());
             }
@@ -97,12 +97,12 @@ public class AddCategoryPageController extends FxmlController implements Initial
         }
         if (!property.matches("\\w+")) {
             ErrorPageFxController.showPage("error", "invalid name format for property");
-            nameField.clear();
+            propertyField.clear();
             return;
         }
         if (properties.stream().anyMatch(s -> s.equalsIgnoreCase(property))) {
-            ErrorPageFxController.showPage("error", "this name is already taken in another property");
-            nameField.clear();
+            ErrorPageFxController.showPage("error", "this name is already taken by another property");
+            propertyField.clear();
             return;
         }
         properties.add(property);
