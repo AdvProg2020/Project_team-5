@@ -4,6 +4,8 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Comment;
+import ApProject_OnlineShop.view.LoginRegisterMenu;
+import ApProject_OnlineShop.view.Menu;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -85,7 +87,11 @@ public class CommentsPage extends FxmlController implements Initializable {
 
 
     public void addComment(MouseEvent mouseEvent) {
-        setScene("addComment.fxml", "add comment");
+        if (MainController.getInstance().getCurrentPerson() == null){
+            setScene("login.fxml","login");
+        }else{
+            setScene("addComment.fxml", "add comment");
+        }
     }
 
     public void logout(MouseEvent mouseEvent) {

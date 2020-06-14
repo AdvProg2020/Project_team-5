@@ -64,7 +64,7 @@
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                         <children>
-                            <Label text="content :">
+                            <Label prefHeight="23.0" prefWidth="73.0" text="content :">
                         <font>
                            <Font size="14.0" />
                         </font></Label>
@@ -72,19 +72,19 @@
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="234.0" prefWidth="475.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="4">
                         <children>
-                            <TextField fx:id="brand" alignment="TOP_LEFT" prefHeight="139.0" prefWidth="294.0" promptText="content" />
+                            <TextField fx:id="content" alignment="TOP_LEFT" prefHeight="139.0" prefWidth="294.0" promptText="content" />
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                         <children>
-                            <TextField fx:id="name" alignment="CENTER" prefHeight="28.0" prefWidth="167.0" promptText="title" />
+                            <TextField fx:id="title" alignment="CENTER" prefHeight="28.0" prefWidth="167.0" promptText="title" />
                         </children>
                     </HBox>
                 </children>
             </GridPane>
         </children>
     </VBox>
-    <Button mnemonicParsing="false" onAction="#onAddProduct" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="add comment" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+    <Button mnemonicParsing="false" onAction="#onAddComment" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="add comment" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
