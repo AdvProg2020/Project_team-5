@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ProductPageControllerForSeller">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="229.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="732.0000152587891" minWidth="10.0" prefWidth="600.2" />
+        <ColumnConstraints maxWidth="220.20000000000005" minWidth="60.200000000000045" prefWidth="159.79999999999995" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="75.0" minHeight="0.0" prefHeight="75.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="300.0" minHeight="10.0" prefHeight="300.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="425.0" minHeight="10.0" prefHeight="425.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
+        <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@./pictures/icons8-back-to-48.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <Label alignment="CENTER" prefHeight="84.0" prefWidth="782.0" text="product page" GridPane.columnIndex="1">
+        <font>
+            <Font name="Times New Roman" size="26.0" />
+        </font>
+    </Label>
+    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
+        <image>
+            <Image url="@./pictures/logout.png" />
+        </image>
+    </ImageView>
+    <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="600.0" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="324.4" minHeight="10.0" prefHeight="324.4" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <children>
+            <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="301.0" prefWidth="300.0" styleClass="backgroundStyle" GridPane.valignment="TOP">
+                <children>
+                    <ImageView fx:id="image" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" styleClass="backgroundStyle" />
+                </children>
+            </VBox>
+            <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="301.0" prefWidth="293.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                <children>
+                    <Label fx:id="name" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="280.0">
+                        <font>
+                            <Font name="Times New Roman" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="15.0" />
+                        </VBox.margin>
+                        <padding>
+                            <Insets left="15.0" />
+                        </padding>
+                    </Label>
+                    <Label fx:id="brand" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="280.0">
+                        <font>
+                            <Font name="Times New Roman" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="15.0" />
+                        </VBox.margin>
+                        <padding>
+                            <Insets left="15.0" />
+                        </padding>
+                    </Label>
+                    <Label fx:id="category" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="280.0">
+                        <font>
+                            <Font name="Times New Roman" size="14.0" />
+                        </font>
+                        <padding>
+                            <Insets left="15.0" />
+                        </padding>
+                        <VBox.margin>
+                            <Insets left="15.0" />
+                        </VBox.margin>
+                    </Label>
+                    <Label fx:id="subcategory" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="280.0">
+                        <font>
+                            <Font name="Times New Roman" size="14.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="15.0" />
+                        </VBox.margin>
+                        <padding>
+                            <Insets left="15.0" />
+                        </padding>
+                    </Label>
+                    <Label fx:id="views" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="280.0">
+                        <font>
+                            <Font name="Times New Roman" size="14.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets left="15.0" />
+                        </VBox.margin>
+                        <padding>
+                            <Insets bottom="5.0" left="15.0" />
+                        </padding>
+                    </Label>
+                    <HBox fx:id="rate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="280.0">
+                        <VBox.margin>
+                            <Insets left="15.0" />
+                        </VBox.margin>
+                        <padding>
+                            <Insets left="15.0" />
+                        </padding></HBox>
+                </children>
+            </VBox>
+        </children>
+    </GridPane>
+    <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="163.0" prefWidth="600.0" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <children>
+            <VBox fx:id="sellers" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="600.0" styleClass="backgroundStyle">
+                <opaqueInsets>
+                    <Insets top="10.0" />
+                </opaqueInsets></VBox>
+            <VBox fx:id="properties" maxWidth="-Infinity" prefHeight="200.0" prefWidth="600.0" styleClass="backgroundStyle">
+                <children>
+                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="599.0">
+                        <children>
+                            <VBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="192.0">
+                                <children>
+                                    <Label alignment="CENTER" maxHeight="1.7976931348623157E308" text="Additional details :">
+                                        <padding>
+                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                        </padding>
+                                        <font>
+                                            <Font name="Times New Roman" size="14.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                            </VBox>
+                            <VBox alignment="CENTER" prefHeight="49.0" prefWidth="341.0">
+                                <children>
+                                    <Label fx:id="detailsLabel" alignment="CENTER" prefHeight="42.0" prefWidth="206.0" text="details">
+                                        <font>
+                                            <Font name="Times New Roman" size="14.0" />
+                                        </font>
+                                        <padding>
+                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                        </padding>
+                                    </Label>
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                </children></VBox>
+         <Hyperlink onAction="#editField" text="edit Product" textFill="#7a27b5" underline="true">
+            <font>
+               <Font size="14.0" />
+            </font></Hyperlink>
+        </children>
+    </VBox>
+   <Button mnemonicParsing="false" onAction="#viewBuyers" prefHeight="47.0" prefWidth="167.0" styleClass="menuButtons" text="view buyers" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <GridPane.margin>
+         <Insets top="20.0" />
+      </GridPane.margin>
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+    <Button mnemonicParsing="false" onAction="#removeProduct" prefHeight="47.0" prefWidth="167.0" styleClass="menuButtons" text="remove product" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+        <GridPane.margin>
+            <Insets top="85.0" />
+        </GridPane.margin>
+      <font>
+         <Font size="14.0" />
+      </font>
+    </Button>
+    <padding>
+        <Insets left="10.0" />
+    </padding>
+</GridPane>

@@ -1,7 +1,13 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeDeletedException;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -97,6 +104,14 @@ public class ManageCategoriesPageController extends FxmlController implements In
         }
     }
 
+    private void resetPage() {
+        this.selectedCategory = "";
+        singleCategoryVBox.getChildren().clear();
+        removeButton.setDisable(true);
+        editButton.setDisable(true);
+        updateAllCategoriesBox();
+    }
+
     public void onBackButtonPressed() {
         setScene("accountAreaForManager.fxml", "account area");
     }
@@ -105,6 +120,18 @@ public class ManageCategoriesPageController extends FxmlController implements In
     }
 
     public void onRemoveCategoryPressed(ActionEvent actionEvent) {
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "remove", "Remove Product", "are you sure to remove this product?");
+        if (result.get() == ButtonType.OK) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeCategory(selectedCategory);
+                resetPage();
+                SuccessPageFxController.showPage("successful remove", "category removed successfully");
+            } catch (Exception e) {
+                ErrorPageFxController.showPage("error in remove category", e.getMessage());
+            }
+        } else
+            actionEvent.consume();
     }
 
     public void onAddCategoryPressed(ActionEvent actionEvent) {

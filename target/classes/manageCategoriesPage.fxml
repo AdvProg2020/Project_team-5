@@ -75,6 +75,20 @@
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
          </Button>
+         <Button layoutX="24.0" layoutY="74.0" mnemonicParsing="false" onAction="#onAddCategoryPressed" prefHeight="34.0" prefWidth="155.0" styleClass="menuButtons" text="add category">
+            <font>
+               <Font size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+            <VBox.margin>
+               <Insets top="200.0" />
+            </VBox.margin>
+         </Button>
   </children>
 </VBox>
    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
