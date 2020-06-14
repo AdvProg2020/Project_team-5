@@ -13,7 +13,9 @@ import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.requests.AddingCommentRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ProductController {
     private Good good;
@@ -32,6 +34,9 @@ public class ProductController {
                 e.printStackTrace();
             }
         }
+    }
+    public void setGoodById(long goodId){
+        setGood(Shop.getInstance().findGoodById(goodId));
     }
 
     public String digest() {
@@ -102,6 +107,17 @@ public class ProductController {
             output += ("\n" + comment.toString() + "--------------------------------------------");
         }
         return output;
+    }
+
+    public List<String> getMainInfo(){
+        List<String> goodInfo = new ArrayList<>();
+        goodInfo.add(good.getName());
+        goodInfo.add(good.getBrand());
+        goodInfo.add(good.getSubCategory().getParentCategory().getName());
+        goodInfo.add(good.getSubCategory().getName());
+        goodInfo.add("" + good.getAverageRate()/2);
+        goodInfo.add("" + good.getSeenNumber());
+        return goodInfo;
     }
 
     public void addComment(String title, String content) throws IOException, FileCantBeSavedException {

@@ -14,7 +14,7 @@ public class ManageUsersMenu extends Menu {
 
     @Override
     protected void setCommandNames() {
-        this.commandNames.add("ApProject_OnlineShop/view");
+        this.commandNames.add("view");
         this.commandNames.add("delete user");
         this.commandNames.add("create manager profile");
     }

@@ -3,14 +3,12 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.GUI.ProductPageRelated.ProductBriefSummery;
-import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.GUI.productPageRelated.ProductBriefSummery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 

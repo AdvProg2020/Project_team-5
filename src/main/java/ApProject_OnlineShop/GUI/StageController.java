@@ -1,6 +1,6 @@
 package ApProject_OnlineShop.GUI;
 
-import ApProject_OnlineShop.GUI.ProductPageRelated.ProductBriefSummery;
+import ApProject_OnlineShop.GUI.productPageRelated.ProductPage;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +20,8 @@ public class StageController {
 
     public StageController() {
         StageController.stage = new Stage();
+//        ProductPage.setProductId(2);
+//        new FxmlController().setScene("productPage.fxml","product page");
         StageController.stage.setOnCloseRequest(e -> {
             Optional<ButtonType> result = new FxmlController().showAlert
                     (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
