@@ -106,7 +106,9 @@ public class Cart extends FxmlController implements Initializable {
             textFieldVBox.getChildren().add(hBox);
             items.getChildren().add(productBox);
         }
-        items.setPrefHeight(150 * productIds.size() + 1);
+        if (150 * productIds.size() > 540) {
+            items.setPrefHeight(150 * productIds.size() + 1);
+        }
     }
 
     public void setHBoxStyle(HBox hBox) {
