@@ -81,7 +81,7 @@ public class EditCategoryPageController extends FxmlController implements Initia
     }
 
     public void onBackButtonPressed() {
-        setScene("manageCategoriesPage.fxml", "account area");
+        setScene("manageCategoriesPage.fxml", "manage categories");
     }
 
     public void onLogoutIconClicked() {

@@ -42,7 +42,7 @@ public class AddCategoryPageController extends FxmlController implements Initial
     }
 
     public void onBackButtonPressed() {
-        setScene("manageCategoriesPage.fxml", "account area");
+        setScene("manageCategoriesPage.fxml", "manage categories");
     }
 
     public void onLogoutIconClicked() {
