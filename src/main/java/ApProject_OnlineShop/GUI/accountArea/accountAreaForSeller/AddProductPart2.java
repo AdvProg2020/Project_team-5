@@ -86,6 +86,7 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         }
         try {
             MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, detailValues);
+            Good.setGoodsCount(Good.getGoodsCount() + 1);
             SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
             setScene("manageProductsForSeller.fxml", "manage product");
         } catch (Exception e) {
