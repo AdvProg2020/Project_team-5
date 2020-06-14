@@ -94,7 +94,7 @@ public class EditPorductController extends FxmlController implements Initializab
             if (!availableNumber.getText().equals("")) {
                 try {
                     MainController.getInstance().getAccountAreaForSellerController()
-                            .editOff("availableNumber", availableNumber.getText(), id);
+                            .editProduct("availableNumber", availableNumber.getText(), id);
                     edited = true;
                 } catch (Exception exception) {
                     ErrorPageFxController.showPage("can not edited field available number", exception.getMessage());
@@ -103,7 +103,7 @@ public class EditPorductController extends FxmlController implements Initializab
             }
             if (!additionalDetails.getText().equals("")) {
                 try {
-                    MainController.getInstance().getAccountAreaForSellerController().editOff("details", additionalDetails.getText(), id);
+                    MainController.getInstance().getAccountAreaForSellerController().editProduct("details", additionalDetails.getText(), id);
                     edited = true;
                 } catch (Exception exception) {
                     ErrorPageFxController.showPage("can not edited field details", exception.getMessage());
@@ -113,7 +113,7 @@ public class EditPorductController extends FxmlController implements Initializab
             for (String detail : textFields.keySet()) {
                 if (!textFields.get(detail).getText().equals("")) {
                     try {
-                        MainController.getInstance().getAccountAreaForSellerController().editOff(detail, textFields.get(detail).getText(), id);
+                        MainController.getInstance().getAccountAreaForSellerController().editProduct(detail, textFields.get(detail).getText(), id);
                         edited = true;
                     } catch (Exception exception) {
                         ErrorPageFxController.showPage("can not edited field" + detail, exception.getMessage());
