@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
@@ -34,6 +36,7 @@ public class editPorductController extends FxmlController implements Initializab
     private static long goodId = 7;
     private File selectedFile;
     private String path;
+    private HashMap<String, TextField> textFields = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,6 +58,7 @@ public class editPorductController extends FxmlController implements Initializab
             textField.setMaxSize(167, 28);
             GridPane.setHalignment(textField, HPos.CENTER);
             gridpane.add(textField, 1, row);
+            textFields.put(detail, textField);
             row++;
         }
     }
@@ -78,7 +82,38 @@ public class editPorductController extends FxmlController implements Initializab
     }
 
     public void onEditProduct(ActionEvent actionEvent) {
+//        if (checkBaseInfos()) {
+//            HashMap<String, String> detailValues = new HashMap<>();
+//            for (String details : textFields.keySet()) {
+//                detailValues.put(details, textFields.get(details).getText());
+//                if (textFields.get(details).getText().equals("")) {
+//                    ErrorPageFxController.showPage("can not add good", "fields should be filled!");
+//                    return;
+//                }
+//            }
+//            if (selectedFile == null) {
+//                ErrorPageFxController.showPage("can not add good", "you should chose a photo");
+//                return;
+//            }
+//            try {
+//                MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, detailValues);
+//                SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
+//                setScene("manageProductsForSeller.fxml", "manage product");
+//            } catch (Exception e) {
+//                ErrorPageFxController.showPage("can not add good", e.getMessage());
+//            }
+//        }
+    }
 
+    private boolean checkBaseInfos() {
+        if (!price.getText().matches("\\d\\d\\d\\d+") && !price.getText().equals("")) {
+            ErrorPageFxController.showPage("Error for editing product", "price is invalid!");
+            return false;
+        } else if (!availableNumber.getText().matches("[0-9]{1,5}") && !availableNumber.getText().equals("")) {
+            ErrorPageFxController.showPage("Error for editing product", "available number is invalid!,should be a number");
+            return false;
+        }
+        return true;
     }
 }
 
