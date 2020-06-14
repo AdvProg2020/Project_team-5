@@ -10,10 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Cursor;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -46,13 +43,24 @@ public class ViewOrders extends FxmlController {
         root.add(shoppingBagImageView,2,2);
         GridPane.setValignment(shoppingBagImageView,VPos.TOP);
         VBox vBox = new VBox();
+        ScrollPane scrollPane = new ScrollPane(vBox);
+        scrollPane.setPrefWidth(430);
+        vBox.setPrefWidth(420);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         style.setVBoxStyle(vBox);
-        root.add(vBox, 1, 2);
+        root.add(scrollPane, 1, 2);
         List<String> orders = MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(sort);
+        if (orders.size() * 50 > 600) {
+            vBox.setPrefHeight((orders.size() * 50) + 20);
+        } else {
+            vBox.setPrefHeight(600);
+        }
         for (String order : orders) {
             Hyperlink discountLink = new Hyperlink(order);
             discountLink.setOnMouseClicked(e -> viewSingleOrder(order));
             discountLink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
+            discountLink.setPrefSize(400, 50);
             discountLink.setAlignment(Pos.BOTTOM_LEFT);
             discountLink.setPadding(new Insets(8));
             discountLink.setUnderline(false);

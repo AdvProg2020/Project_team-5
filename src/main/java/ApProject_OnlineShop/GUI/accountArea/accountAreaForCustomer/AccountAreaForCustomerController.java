@@ -134,7 +134,6 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         setScene("rateProducts.fxml", "rate products");
     }
 
-
     public void backToMain(ActionEvent actionEvent) {
         setScene("mainMenuLayout.fxml", "main menu");
     }
