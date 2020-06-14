@@ -120,6 +120,8 @@ public class ManageSubCategoriesPageController extends FxmlController implements
     }
 
     public void onEditSubCategoryPressed(ActionEvent actionEvent) {
+        EditSubCategoryPageController.setCurrentInfo(currentCategory, selectedSubCategory);
+        setScene("editSubCategoryPage.fxml", "edit sub category");
     }
 
     public void onAddSubCategoryPressed(ActionEvent actionEvent) {

@@ -12,8 +12,8 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.text.Font?>
+
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AddSubCategoryPageController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="68.0" />
@@ -63,7 +63,7 @@
         <children>
             <HBox alignment="CENTER_LEFT" prefHeight="76.0" prefWidth="497.0">
                 <children>
-                    <Label prefHeight="17.0" prefWidth="97.0" text="property name :">
+                    <Label prefHeight="25.0" prefWidth="132.0" text="property name :">
                         <font>
                             <Font size="16.0" />
                         </font>
