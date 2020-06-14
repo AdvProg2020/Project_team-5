@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.RateProductsPart2Controller;
+import ApProject_OnlineShop.GUI.productPageRelated.CommentsPage;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
@@ -241,7 +242,8 @@ public class ProductPageControllerForSeller extends FxmlController implements In
         setScene("editProduct.fxml", "edit product");
     }
 
-
-    public void shwComments(ActionEvent actionEvent) {
+    public void showComments(ActionEvent actionEvent) {
+        CommentsPage.setGoodId(productId);
+        setScene("commentsPage.fxml", "comments");
     }
 }

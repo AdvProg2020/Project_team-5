@@ -176,7 +176,7 @@
          <Font size="14.0" />
       </font>
     </Button>
-    <Button mnemonicParsing="false" onAction="#shwComments" prefHeight="47.0" prefWidth="167.0" styleClass="menuButtons" text="Comments" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+    <Button mnemonicParsing="false" onAction="#showComments" prefHeight="47.0" prefWidth="167.0" styleClass="menuButtons" text="Comments" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
         <GridPane.margin>
             <Insets top="85.0" />
         </GridPane.margin>

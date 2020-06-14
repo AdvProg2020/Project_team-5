@@ -52,10 +52,22 @@ public class Comment {
         this.commentStatus = commentStatus;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Commenter Username : %s\nProduct Id : %d\n" +
-                        "Product Name : %s\nTitle : %s\nContent : %s\n", this.person,
-                this.getGood().getGoodId(), this.getGood().getName(), this.title, this.comment);
+    public String getTitle() {
+        return title;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public boolean isDidCommenterBoughtThisProduct() {
+        return didCommenterBoughtThisProduct;
+    }
+
+    //    @Override
+//    public String toString() {
+//        return String.format("Commenter Username : %s\nProduct Id : %d\n" +
+//                        "Product Name : %s\nTitle : %s\nContent : %s\n", this.person,
+//                this.getGood().getGoodId(), this.getGood().getName(), this.title, this.comment);
+//    }
 }
