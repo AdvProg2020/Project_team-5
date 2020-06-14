@@ -119,6 +119,8 @@ public class EditCategoryPageController extends FxmlController implements Initia
     }
 
     public void onManageSubcatsPressed(ActionEvent actionEvent) {
+        ManageSubCategoriesPageController.setCurrentCategory(currentCategory);
+        setScene("manageSubCategoriesPage.fxml", "manage sub categories");
     }
 
     public void onAddPropertyPressed(ActionEvent actionEvent) {
