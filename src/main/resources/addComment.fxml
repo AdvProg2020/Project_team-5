@@ -1,14 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="AddComment"
-            prefHeight="400.0" prefWidth="600.0">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.AddCommentPage">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="68.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="528.0" minWidth="10.0" prefWidth="494.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="185.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="128.0" minHeight="6.0" prefHeight="101.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="393.0" minHeight="10.0" prefHeight="344.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+        <children>
 
-</AnchorPane>
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton">
+                <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@./pictures/icons8-back-to-48.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+        </children>
+    </HBox>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+        <children>
+            <ImageView fitHeight="60.0" fitWidth="55.0" onMouseClicked="#onLogoutIconClicked" pickOnBounds="true" preserveRatio="true" styleClass="exitImage">
+                <image>
+                    <Image url="@./pictures/logout.png" />
+                </image>
+            </ImageView>
+        </children>
+    </HBox>
+    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <children>
+            <GridPane prefHeight="364.0" prefWidth="475.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="141.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.0" minWidth="10.0" prefWidth="334.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="134.0" minHeight="0.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="153.0" minHeight="4.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="154.0" minHeight="0.0" prefHeight="63.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="226.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                        <children>
+                            <Label prefHeight="19.0" prefWidth="35.0" text="title :">
+                        <font>
+                           <Font name="Times New Roman" size="14.0" />
+                        </font></Label>
+                        </children>
+                    </HBox>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                        <children>
+                            <Label text="content :">
+                        <font>
+                           <Font size="14.0" />
+                        </font></Label>
+                        </children>
+                    </HBox>
+                    <HBox alignment="CENTER" prefHeight="234.0" prefWidth="475.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="4">
+                        <children>
+                            <TextField fx:id="brand" alignment="TOP_LEFT" prefHeight="139.0" prefWidth="294.0" promptText="content" />
+                        </children>
+                    </HBox>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <children>
+                            <TextField fx:id="name" alignment="CENTER" prefHeight="28.0" prefWidth="167.0" promptText="title" />
+                        </children>
+                    </HBox>
+                </children>
+            </GridPane>
+        </children>
+    </VBox>
+    <Button mnemonicParsing="false" onAction="#onAddProduct" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="add comment" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </padding>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin>
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Button>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+    <Label alignment="CENTER" contentDisplay="CENTER" text="add comment" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+        <font>
+            <Font name="Times New Roman" size="36.0" />
+        </font>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+    </Label>
+</GridPane>
