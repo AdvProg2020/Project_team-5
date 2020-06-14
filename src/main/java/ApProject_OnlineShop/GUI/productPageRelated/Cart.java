@@ -1,12 +1,15 @@
 package ApProject_OnlineShop.GUI.productPageRelated;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +29,12 @@ public class Cart extends FxmlController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Long> productIds = MainController.getInstance().getAccountAreaForCustomerController().viewInCartProducts();
+        if (productIds == null || productIds.size() == 0) {
+            Label isEmpty = new Label("any product doesn't exist in cart");
+            isEmpty.setPadding(new Insets(15, 15, 0, 15));
+            isEmpty.setFont(Font.font("Times New Roman", 20));
+            items.getChildren().add(isEmpty);
+        }
         for (Long productId : productIds) {
             HBox productBox = new HBox();
             setHBoxStyle(productBox);
@@ -41,13 +50,15 @@ public class Cart extends FxmlController implements Initializable {
             HBox nameHBox = new HBox();
             nameHBox.setAlignment(Pos.CENTER_LEFT);
             Label name = new Label(goodInfo.get(0));
+            name.setCursor(Cursor.HAND);
+            name.setOnMouseClicked(e -> showProduct(productId));
             name.setPadding(new Insets(10, 15, 0, 15));
             name.setFont(Font.font("Times New Roman", 20));
             nameHBox.getChildren().add(name);
             textFieldVBox.getChildren().add(nameHBox);
             HBox sellerUserBox = new HBox();
             sellerUserBox.setAlignment(Pos.CENTER_LEFT);
-            Label seller = new Label("seller:  "+goodInfo.get(1));
+            Label seller = new Label("seller:  " + goodInfo.get(1));
             seller.setPadding(new Insets(10, 15, 10, 15));
             seller.setFont(Font.font("Times New Roman", 16));
             sellerUserBox.getChildren().add(seller);
@@ -66,18 +77,20 @@ public class Cart extends FxmlController implements Initializable {
             numberBox.setMinWidth(70);
             numberBox.setMaxWidth(70);
             numberBox.setStyle("-fx-border-color:#000000;-fx-border-width: 1; -fx-border-style: solid;");
-            Text plus = new Text("  +   ");
+            Text plus = new Text("  +");
             plus.setFont(Font.font("Times New Roman", 18));
             plus.setStyle("-fx-font-weight: bold;");
+            plus.setCursor(Cursor.HAND);
             plus.setOnMouseClicked(e -> increaseProduct(productId));
             numberBox.getChildren().add(plus);
             numberBox.setAlignment(Pos.CENTER);
-            Text number = new Text(goodInfo.get(2));
+            Text number = new Text("   " + goodInfo.get(2) + "   ");
             numberBox.getChildren().add(number);
             number.setFont(Font.font("Times New Roman", 16));
-            Text minus = new Text("   - ");
+            Text minus = new Text("- ");
             minus.setFont(Font.font("Times New Roman", 22));
             minus.setStyle("-fx-font-weight: bold;");
+            minus.setCursor(Cursor.HAND);
             minus.setOnMouseClicked(e -> decreaseProduct(productId));
             numberBox.getChildren().add(minus);
             hBox.getChildren().add(numberBox);
@@ -107,10 +120,25 @@ public class Cart extends FxmlController implements Initializable {
     }
 
     public void decreaseProduct(long productId) {
-
+        MainController.getInstance().getAccountAreaForCustomerController().decreaseInCartProduct(productId);
+        setScene("cart.fxml", "cart");
     }
 
     public void increaseProduct(long productId) {
+        try {
+            MainController.getInstance().getAccountAreaForCustomerController().increaseInCartProduct(productId);
+        } catch (Exception e) {
+            ErrorPageFxController.showPage("error occured", e.getMessage());
+        }
+        setScene("cart.fxml", "cart");
+    }
 
+    public void purchase() {
+        setScene("purchasePage.fxml", "purchase");
+    }
+
+    public void showProduct(long productId) {
+        ProductPage.setProductId(productId);
+        setScene("productPage.fxml", "productPage");
     }
 }
