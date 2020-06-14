@@ -38,7 +38,7 @@ public class RateProductsController extends FxmlController implements Initializa
         int num = 0;
         int row = 0;
         for (Long productId : productIds) {
-            VBox vbox = null;
+            VBox vbox;
             if (MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
                 vbox = new ProductBriefSummery().offProductBriefSummery(productId);
                 root.add(vbox, num % 3, row);
@@ -57,7 +57,6 @@ public class RateProductsController extends FxmlController implements Initializa
                 row++;
         }
     }
-
 
     private void rateProduct(long productId2) {
         RateProductsPart2Controller.setProductIdForRate(productId2);

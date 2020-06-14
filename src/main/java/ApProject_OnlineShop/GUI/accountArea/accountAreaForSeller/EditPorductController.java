@@ -21,21 +21,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
-import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class editPorductController extends FxmlController implements Initializable {
+public class EditPorductController extends FxmlController implements Initializable {
     @FXML
     public GridPane gridpane;
     @FXML
     public TextField price, additionalDetails, availableNumber;
-    private static long goodId = 7;
-    private File selectedFile;
-    private String path;
+    private static long goodId ;
     private HashMap<String, TextField> textFields = new HashMap<>();
 
     @Override
@@ -64,7 +60,7 @@ public class editPorductController extends FxmlController implements Initializab
     }
 
     public static void setGoodId(long goodId) {
-        editPorductController.goodId = goodId;
+        EditPorductController.goodId = goodId;
     }
 
     public void onBackButtonPressed(ActionEvent actionEvent) {

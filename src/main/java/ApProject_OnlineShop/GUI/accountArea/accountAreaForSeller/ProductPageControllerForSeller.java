@@ -31,7 +31,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ProductPageControllerForSeller extends FxmlController implements Initializable {
-    public static long productId = 0;
+    private static long productId = 0;
     public ImageView image;
     public Label name;
     public Label brand;
@@ -197,6 +197,9 @@ public class ProductPageControllerForSeller extends FxmlController implements In
     }
 
     public void editField(ActionEvent actionEvent) {
-        setScene("editProduct.fxml","edit product");
+        EditPorductController.setGoodId(productId);
+        setScene("editProduct.fxml", "edit product");
     }
+
+
 }
