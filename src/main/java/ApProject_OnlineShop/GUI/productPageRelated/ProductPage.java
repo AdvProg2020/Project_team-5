@@ -86,14 +86,24 @@ public class ProductPage extends FxmlController implements Initializable {
             details.setAlignment(Pos.CENTER_LEFT);
             details.setPrefHeight(50);
             details.setPrefWidth(599);
+            VBox vbox1 = new VBox();
+            vbox1.setPrefHeight(57);
+            vbox1.setPrefWidth(192);
+            vbox1.setAlignment(Pos.CENTER_LEFT);
             Label detailKey1 = new Label(detailKey + " :");
             detailKey1.setFont(Font.font("Times New Roman", 14));
             detailKey1.setPadding(new Insets(10));
-            details.getChildren().add(detailKey1);
+            vbox1.getChildren().add(detailKey1);
+            details.getChildren().add(vbox1);
+            VBox vbox2 = new VBox();
+            vbox2.setPrefHeight(57);
+            vbox2.setPrefWidth(341);
+            vbox2.setAlignment(Pos.CENTER);
             Label detailValue = new Label(categoryProperties.get(detailKey));
             detailValue.setFont(Font.font("Times New Roman", 14));
             detailValue.setPadding(new Insets(10));
-            details.getChildren().add(detailValue);
+            vbox2.getChildren().add(detailValue);
+            details.getChildren().add(vbox2);
             properties.getChildren().add(details);
         }
     }
