@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ProductPageControllerForSeller">
+<GridPane alignment="CENTER" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ProductPageControllerForSeller">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="229.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="732.0000152587891" minWidth="10.0" prefWidth="600.2" />
         <ColumnConstraints maxWidth="220.20000000000005" minWidth="60.200000000000045" prefWidth="159.79999999999995" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="127.19999999999999" minHeight="0.0" prefHeight="74.79999618530273" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="576.6" minHeight="10.0" prefHeight="298.8000038146973" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="427.00000000000006" minHeight="10.0" prefHeight="427.00000000000006" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="75.0" minHeight="0.0" prefHeight="75.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="300.0" minHeight="10.0" prefHeight="300.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="425.0" minHeight="10.0" prefHeight="425.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>

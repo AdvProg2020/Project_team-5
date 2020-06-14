@@ -117,13 +117,13 @@
          </VBox>
         </children>
     </GridPane>
-   <VBox prefHeight="163.0" prefWidth="599.0" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+   <VBox prefHeight="163.0" prefWidth="600.0" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <children>
          <VBox fx:id="sellers" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="600.0" styleClass="backgroundStyle">
             <opaqueInsets>
                <Insets top="10.0" />
             </opaqueInsets></VBox>
-         <VBox fx:id="properties" prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle">
+         <VBox fx:id="properties" prefHeight="200.0" prefWidth="600.0" styleClass="backgroundStyle">
             <children>
                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="599.0">
                   <children>

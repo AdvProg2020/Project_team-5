@@ -123,6 +123,7 @@ public class EditPorductController extends FxmlController implements Initializab
             }
             if (edited) {
                 SuccessPageFxController.showPage("edit good request sent", "edit good request sent to manager succesfully!");
+                setScene("productPageEditableForSeller.fxml","product page");
             }
         }
     }
