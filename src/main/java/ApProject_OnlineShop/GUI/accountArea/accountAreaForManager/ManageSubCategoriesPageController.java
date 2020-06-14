@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +28,7 @@ public class ManageSubCategoriesPageController extends FxmlController implements
     private Button editButton;
 
     private static String currentCategory;
+    private String selectedSubCategory;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,7 +59,30 @@ public class ManageSubCategoriesPageController extends FxmlController implements
     }
 
     private void viewSingleSubCategory(String subCategory) {
+        singleSubCategoryVBox.getChildren().clear();
+        this.selectedSubCategory = subCategory;
+        Label title = new Label(subCategory);
+        title.setFont(Font.font(16));
+        title.setAlignment(Pos.CENTER);
+        singleSubCategoryVBox.getChildren().add(title);
+        Label details = new Label("- Properties: ");
+        details.setFont(Font.font(14));
+        details.setAlignment(Pos.CENTER);
+        singleSubCategoryVBox.getChildren().add(details);
+        for (String detail : Shop.getInstance().findSubCategoryByName(subCategory).getDetails()) {
+            Label label = new Label(detail);
+            label.setFont(Font.font(13));
+            label.setAlignment(Pos.CENTER);
+            singleSubCategoryVBox.getChildren().add(label);
+        }
+    }
 
+    private void resetPage() {
+        this.selectedSubCategory = "";
+        singleSubCategoryVBox.getChildren().clear();
+        removeButton.setDisable(true);
+        editButton.setDisable(true);
+        updateAllSubCategoriesBox();
     }
 
     public void onBackButtonPressed() {

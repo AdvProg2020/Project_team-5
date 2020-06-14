@@ -33,7 +33,6 @@ public class AddCategoryPageController extends FxmlController implements Initial
     @FXML
     private Button finishButton;
 
-    private boolean isCreated = false;
     private ArrayList<String> properties = new ArrayList<>();
     private String categoryName;
     
