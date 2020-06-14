@@ -27,6 +27,7 @@ public class ViewOffsController extends FxmlController implements Initializable 
         if (sortSlected == 0)
             for (String off : MainController.getInstance().getAccountAreaForSellerController().getAllOffs()) {
                 Hyperlink hyperlink = new Hyperlink("- " + off);
+                hyperlink.setPrefSize(200, 50);
                 hyperlink.setOnMouseClicked(e -> viewSingleOff(off));
                 hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
                 hyperlink.setAlignment(Pos.BOTTOM_LEFT);
@@ -46,6 +47,10 @@ public class ViewOffsController extends FxmlController implements Initializable 
                 hyperlink.setFont(new Font(14));
                 vBox.getChildren().add(hyperlink);
             }
+        }
+        int size = MainController.getInstance().getAccountAreaForSellerController().getAllOffs().size() * 50;
+        if (size > 348) {
+            vBox.setPrefHeight(size);
         }
     }
 
