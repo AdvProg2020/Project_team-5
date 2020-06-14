@@ -12,6 +12,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -19,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -44,15 +46,19 @@ public class ManageAllProductsPageController extends FxmlController implements I
     }
 
     public void onRemovePressed() {
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().removeProduct("" + selectedGoodId);
-            name.setText("");
-            id.setText("");
-            updatePage();
-            removeButton.setDisable(true);
-            SuccessPageFxController.showPage("successful remove", "product removed successfully");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error in removig good", e.getMessage());
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "remove", "Remove Product", "are you sure to remove this product?");
+        if (result.get() == ButtonType.OK) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeProduct("" + selectedGoodId);
+                name.setText("");
+                id.setText("");
+                updatePage();
+                removeButton.setDisable(true);
+                SuccessPageFxController.showPage("successful remove", "product removed successfully");
+            } catch (Exception e) {
+                ErrorPageFxController.showPage("error in removing good", e.getMessage());
+            }
         }
     }
 
@@ -75,19 +81,20 @@ public class ManageAllProductsPageController extends FxmlController implements I
         int num = 0;
         int row = 0;
         for (Long productId : productIds) {
-
-            /*
-            productBox.setOnMouseClicked(e -> {
-                //name.setText(Shop.getInstance().findGoodById(productBox.));
-                //removeButton.setDisable(false);
-                //TODO
-            });
-
-             */
-            root.add(new ProductBriefSummery().getProductForAllProductsPage(productId), num % 3, row);
+            VBox productBox = new ProductBriefSummery().getProductForAllProductsPage(productId);
+            productBox.setCursor(Cursor.HAND);
+            productBox.setOnMouseClicked(e -> selectProduct(productId));
+            root.add(productBox, num % 3, row);
             num++;
             if (num % 3 == 0)
                 row++;
         }
+    }
+
+    private void selectProduct(long productId) {
+        name.setText(Shop.getInstance().findGoodById(productId).getName());
+        id.setText("" + productId);
+        this.selectedGoodId = productId;
+        removeButton.setDisable(false);
     }
 }
