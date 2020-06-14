@@ -10,7 +10,7 @@
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.CommentsPage">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="229.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="732.0000152587891" minWidth="10.0" prefWidth="599.2" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="600.0" />
         <ColumnConstraints maxWidth="220.20000000000005" minWidth="60.200000000000045" prefWidth="160.79999999999995" />
     </columnConstraints>
     <rowConstraints>
@@ -50,9 +50,9 @@
             <Image url="@./pictures/logout.png" />
         </image>
     </ImageView>
-   <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+   <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="618.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <content>
-              <VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="598.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" />
+              <VBox fx:id="vbox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="602.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" />
       </content>
    </ScrollPane>
     <padding>

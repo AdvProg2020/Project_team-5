@@ -18,6 +18,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.awt.*;
 import java.net.URL;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -79,6 +80,10 @@ public class CommentsPage extends FxmlController implements Initializable {
                     "-fx-border-style: solid;" +
                     "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
         }
+        int size1 =  (comments.size() * (110));
+        if (size1 > 577) {
+            vbox.setPrefWidth(size1 + 20);
+        }
     }
 
     public void backButton(ActionEvent actionEvent) {
@@ -87,9 +92,9 @@ public class CommentsPage extends FxmlController implements Initializable {
 
 
     public void addComment(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null){
-            setScene("login.fxml","login");
-        }else{
+        if (MainController.getInstance().getCurrentPerson() == null) {
+            setScene("login.fxml", "login");
+        } else {
             setScene("addComment.fxml", "add comment");
         }
     }
