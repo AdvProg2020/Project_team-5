@@ -53,7 +53,7 @@
                 </Button>
             </children>
         </VBox>
-      <ImageView fitHeight="100.0" fitWidth="75.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+      <ImageView onMouseClicked="#cart" fitHeight="100.0" fitWidth="75.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
          <image>
             <Image url="@pictures/shoppingBag.png" />
          </image>

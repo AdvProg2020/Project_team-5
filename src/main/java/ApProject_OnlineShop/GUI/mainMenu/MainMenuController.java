@@ -44,4 +44,8 @@ public class MainMenuController extends FxmlController {
             Platform.exit();
         }
     }
+
+    public void cart() {
+        setScene("cart.fxml", "cart");
+    }
 }
