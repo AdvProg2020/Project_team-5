@@ -123,5 +123,7 @@ public class ManageSubCategoriesPageController extends FxmlController implements
     }
 
     public void onAddSubCategoryPressed(ActionEvent actionEvent) {
+        AddSubCategoryPageController.setCurrentCategory(currentCategory);
+        setScene("addSubCategoryPage.fxml", "adding subcategory");
     }
 }
