@@ -41,6 +41,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public List<Long> viewInCartProducts() {
+        ;
+        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(1L),(Seller) Shop.getInstance().findUser("yasaman"),2);
         return Shop.getInstance().getCart().stream().map(goodInCart -> goodInCart.getGood().getGoodId()).collect(Collectors.toList());
     }
 
