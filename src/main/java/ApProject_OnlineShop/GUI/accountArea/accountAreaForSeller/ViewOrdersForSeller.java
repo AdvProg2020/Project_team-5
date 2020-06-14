@@ -9,10 +9,7 @@ import ApProject_OnlineShop.model.persons.Seller;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -21,19 +18,31 @@ import java.util.List;
 
 public class ViewOrdersForSeller extends FxmlController {
     private Styles style = new Styles();
-    public void viewSortedOrders(int sort){
+
+    public void viewSortedOrders(int sort) {
         GridPane root = style.makeGridPane();
         Label topic = new Label("Sales History");
         topic.setFont(Font.font("Times New Roman", 26));
         topic.setPadding(new Insets(13));
         GridPane.setHalignment(topic, HPos.CENTER);
         VBox vBox = new VBox();
+        ScrollPane scrollPane = new ScrollPane(vBox);
+        scrollPane.setPrefWidth(430);
+        vBox.setPrefWidth(420);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         style.setVBoxStyle(vBox);
-        root.add(vBox, 1, 2);
+        root.add(scrollPane, 1, 2);
         List<String> orders = MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(sort);
+        if (orders.size() * 200 > 600) {
+            vBox.setPrefHeight(orders.size() * 200);
+        } else {
+            vBox.setPrefHeight(600);
+        }
         for (String order : orders) {
             Hyperlink discountLink = new Hyperlink(order);
-            discountLink.setFont(new Font("Times New Roman",16));
+            discountLink.setFont(new Font("Times New Roman", 16));
+            discountLink.setPrefSize(400, 50);
             discountLink.setOnMouseClicked(e -> viewSingleOrder(order));
             discountLink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
             discountLink.setAlignment(Pos.BOTTOM_LEFT);
@@ -55,11 +64,11 @@ public class ViewOrdersForSeller extends FxmlController {
         StageController.setSceneJavaFx(root);
     }
 
-    public void viewSingleOrder(String orderString){
+    public void viewSingleOrder(String orderString) {
         int index = orderString.indexOf("  ");
         String code = orderString.substring("order ID: ".length(), index);
         long orderId = Long.parseLong(code);
-        List<String> orderDetails = ((Seller)MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
+        List<String> orderDetails = ((Seller) MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
         GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Customer Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
@@ -74,7 +83,7 @@ public class ViewOrdersForSeller extends FxmlController {
         StageController.setSceneJavaFx(root);
     }
 
-    public void addDetailsToVBox(List<String> orderDetails, VBox vBox){
+    public void addDetailsToVBox(List<String> orderDetails, VBox vBox) {
         Label id = new Label("order ID:     " + orderDetails.get(0));
         Label date = new Label("date:     " + orderDetails.get(1));
         Label goodsList = new Label("goods list:\n\n" + orderDetails.get(2));
