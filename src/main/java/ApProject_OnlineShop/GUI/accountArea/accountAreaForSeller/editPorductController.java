@@ -44,7 +44,7 @@ public class editPorductController extends FxmlController implements Initializab
         price.setPromptText(good.getPriceBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
         additionalDetails.setPromptText(good.getDetails());
         availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
-        int row = 4;
+        int row = 3;
         for (String detail : MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(good.getSubCategory().getName())) {
             Label text = new Label(detail + " :");
             text.setFont(Font.font("Times New Roman", 14));
@@ -82,27 +82,53 @@ public class editPorductController extends FxmlController implements Initializab
     }
 
     public void onEditProduct(ActionEvent actionEvent) {
-//        if (checkBaseInfos()) {
-//            HashMap<String, String> detailValues = new HashMap<>();
-//            for (String details : textFields.keySet()) {
-//                detailValues.put(details, textFields.get(details).getText());
-//                if (textFields.get(details).getText().equals("")) {
-//                    ErrorPageFxController.showPage("can not add good", "fields should be filled!");
-//                    return;
-//                }
-//            }
-//            if (selectedFile == null) {
-//                ErrorPageFxController.showPage("can not add good", "you should chose a photo");
-//                return;
-//            }
-//            try {
-//                MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, detailValues);
-//                SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
-//                setScene("manageProductsForSeller.fxml", "manage product");
-//            } catch (Exception e) {
-//                ErrorPageFxController.showPage("can not add good", e.getMessage());
-//            }
-//        }
+        long id = goodId;
+        boolean edited = false;
+        if (checkBaseInfos()) {
+            if (!price.getText().equals("")) {
+                try {
+                    MainController.getInstance().getAccountAreaForSellerController()
+                            .editProduct("price", price.getText(), id);
+                    edited = true;
+                } catch (Exception exception) {
+                    ErrorPageFxController.showPage("can not edited field price", exception.getMessage());
+                    edited = false;
+                }
+            }
+            if (!availableNumber.getText().equals("")) {
+                try {
+                    MainController.getInstance().getAccountAreaForSellerController()
+                            .editOff("availableNumber", availableNumber.getText(), id);
+                    edited = true;
+                } catch (Exception exception) {
+                    ErrorPageFxController.showPage("can not edited field available number", exception.getMessage());
+                    edited = false;
+                }
+            }
+            if (!additionalDetails.getText().equals("")) {
+                try {
+                    MainController.getInstance().getAccountAreaForSellerController().editOff("details", additionalDetails.getText(), id);
+                    edited = true;
+                } catch (Exception exception) {
+                    ErrorPageFxController.showPage("can not edited field details", exception.getMessage());
+                    edited = false;
+                }
+            }
+            for (String detail : textFields.keySet()) {
+                if (!textFields.get(detail).getText().equals("")) {
+                    try {
+                        MainController.getInstance().getAccountAreaForSellerController().editOff(detail, textFields.get(detail).getText(), id);
+                        edited = true;
+                    } catch (Exception exception) {
+                        ErrorPageFxController.showPage("can not edited field" + detail, exception.getMessage());
+                        edited = false;
+                    }
+                }
+            }
+            if (edited) {
+                SuccessPageFxController.showPage("edit good request sent", "edit good request sent to manager succesfully!");
+            }
+        }
     }
 
     private boolean checkBaseInfos() {
