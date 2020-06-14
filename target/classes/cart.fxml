@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.Cart">
+    <content>
+        <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="982.0" styleClass="mainLayout">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="483.0" minWidth="10.0" prefWidth="270.3999847412109" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="538.4" prefWidth="538.4" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="746.6" minWidth="10.0" prefWidth="195.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="261.4" minHeight="10.0" prefHeight="120.19999999999999" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="631.4" minHeight="10.0" prefHeight="580.2" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="99.39999999999998" minHeight="10.0" prefHeight="99.39999999999998" vgrow="SOMETIMES" />
+            </rowConstraints>
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@pictures/icons8-back-to-48.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
+            <VBox fx:id="items" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="540.0" prefWidth="540.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onMouseClicked="#purchase" prefHeight="44.0" prefWidth="172.0" styleClass="menuButtons" text="purchse" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+         </children>
+        </GridPane>
+    </content>
+</ScrollPane>
