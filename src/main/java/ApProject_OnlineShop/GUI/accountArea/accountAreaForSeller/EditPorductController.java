@@ -31,7 +31,7 @@ public class EditPorductController extends FxmlController implements Initializab
     public GridPane gridpane;
     @FXML
     public TextField price, additionalDetails, availableNumber;
-    private static long goodId ;
+    private static long goodId;
     private HashMap<String, TextField> textFields = new HashMap<>();
 
     @Override
@@ -64,7 +64,7 @@ public class EditPorductController extends FxmlController implements Initializab
     }
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
-        setScene("", "product page");
+        setScene("productPageEditableForSeller.fxml", "product page");
     }
 
     public void onLogoutIconClicked(MouseEvent mouseEvent) {

@@ -50,9 +50,9 @@ public class ManageProduct extends FxmlController implements Initializable {
     }
 
     private void showProduct(Long productId) {
-
+        ProductPageControllerForSeller.setProductId(productId);
+        setScene("productPageEditableForSeller.fxml", "product page");
     }
-
 
     public void backButton(ActionEvent actionEvent) {
         setScene("accountAreaForSeller.fxml", "account area");

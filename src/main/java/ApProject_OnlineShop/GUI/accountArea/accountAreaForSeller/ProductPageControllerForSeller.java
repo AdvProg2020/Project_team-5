@@ -186,7 +186,7 @@ public class ProductPageControllerForSeller extends FxmlController implements In
     }
 
     public static void setProductId(long productId) {
-        ApProject_OnlineShop.GUI.productPageRelated.ProductPage.productId = productId;
+        ProductPageControllerForSeller.productId = productId;
         MainController.getInstance().getProductController().setGoodById(productId);
     }
 
