@@ -12,9 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -30,14 +28,13 @@ public class CommentsPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        vbox.setSpacing(13);
         ArrayList<Comment> comments = Shop.getInstance().findGoodById(goodId).getComments();
         for (Comment comment : comments) {
             GridPane gridPane = new GridPane();
             HBox writer = new HBox();
             writer.setPrefHeight(50);
             writer.setPrefWidth(100);
-            writer.setAlignment(Pos.CENTER_LEFT);
+            writer.setAlignment(Pos.BOTTOM_LEFT);
             Label label = new Label(comment.getPerson().getUsername() + " :");
             label.setFont(javafx.scene.text.Font.font("Times New Roman", 14));
             label.setPadding(new javafx.geometry.Insets(10));
@@ -74,16 +71,21 @@ public class CommentsPage extends FxmlController implements Initializable {
             label4.setPadding(new javafx.geometry.Insets(10));
             content.getChildren().add(label4);
             gridPane.add(content, 1, 1);
+            vbox.getChildren().add(gridPane);
+            gridPane.setStyle("-fx-border-color:#8600b3;" +
+                    "-fx-border-width: 1;" +
+                    "-fx-border-style: solid;" +
+                    "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
         }
     }
 
     public void backButton(ActionEvent actionEvent) {
-        setScene("productPageEditableForSeller.fxml","product page");
+        setScene("productPageEditableForSeller.fxml", "product page");
     }
 
 
     public void addComment(MouseEvent mouseEvent) {
-        setScene("addComment.fxml","add comment");
+        setScene("addComment.fxml", "add comment");
     }
 
     public void logout(MouseEvent mouseEvent) {
