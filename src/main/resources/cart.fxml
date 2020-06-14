@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.Cart">
+    <content>
+        <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="982.0" styleClass="mainLayout">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="483.0" minWidth="10.0" prefWidth="241.8" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="540.0" minWidth="540.0" prefWidth="540.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="746.6" minWidth="10.0" prefWidth="226.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="261.4" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="602.4" minHeight="10.0" prefHeight="590.4" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@pictures/icons8-back-to-48.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
+            <VBox fx:id="items" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+        </GridPane>
+    </content>
+</ScrollPane>
