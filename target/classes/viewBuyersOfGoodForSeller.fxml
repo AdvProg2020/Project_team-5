@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="TOP_CENTER" prefHeight="600.0" prefWidth="600.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ViewBuyersOfGoodController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="118.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="527.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="390.0" minHeight="10.0" prefHeight="354.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="76.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+        <opaqueInsets>
+            <Insets top="1.0" />
+        </opaqueInsets>
+        <padding>
+            <Insets bottom="10.0" top="20.0" />
+        </padding>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+    </VBox>
+    <VBox alignment="TOP_CENTER" prefHeight="331.0" prefWidth="118.0" GridPane.rowIndex="1" />
+    <Label alignment="CENTER" prefHeight="80.0" prefWidth="369.0" text="buyers" GridPane.columnIndex="1">
+        <font>
+            <Font name="Times New Roman" size="26.0" />
+        </font>
+    </Label>
+   <Button mnemonicParsing="false" onAction="#close" prefHeight="40.0" prefWidth="118.0" styleClass="menuButtons" text="close" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <font>
+         <Font size="16.0" />
+      </font>
+      <GridPane.margin>
+         <Insets left="120.0" />
+      </GridPane.margin>
+   </Button>
+    <padding>
+        <Insets left="10.0" />
+    </padding>
+</GridPane>

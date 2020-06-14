@@ -121,7 +121,7 @@ public class ManageCategoriesPageController extends FxmlController implements In
 
     public void onRemoveCategoryPressed(ActionEvent actionEvent) {
         Optional<ButtonType> result = showAlert
-                (Alert.AlertType.CONFIRMATION, "remove", "Remove Product", "are you sure to remove this product?");
+                (Alert.AlertType.CONFIRMATION, "remove", "Remove Category", "are you sure to remove this category?");
         if (result.get() == ButtonType.OK) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeCategory(selectedCategory);
