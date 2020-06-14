@@ -77,9 +77,9 @@ public class Cart extends FxmlController implements Initializable {
             numberBox.setMinWidth(70);
             numberBox.setMaxWidth(70);
             numberBox.setStyle("-fx-border-color:#000000;-fx-border-width: 1; -fx-border-style: solid;");
-            Text plus = new Text("  +");
+            Label plus = new Label("  +");
             plus.setFont(Font.font("Times New Roman", 18));
-            plus.setStyle("-fx-font-weight: bold;");
+//            plus.setStyle("-fx-font-weight: bold;");
             plus.setCursor(Cursor.HAND);
             plus.setOnMouseClicked(e -> increaseProduct(productId));
             numberBox.getChildren().add(plus);
@@ -87,9 +87,10 @@ public class Cart extends FxmlController implements Initializable {
             Text number = new Text("   " + goodInfo.get(2) + "   ");
             numberBox.getChildren().add(number);
             number.setFont(Font.font("Times New Roman", 16));
-            Text minus = new Text("- ");
+            Label minus = new Label("- ");
             minus.setFont(Font.font("Times New Roman", 22));
-            minus.setStyle("-fx-font-weight: bold;");
+            minus.setPadding(new Insets(0, 0, 4, 0));
+//            minus.setStyle("-fx-font-weight: bold;");
             minus.setCursor(Cursor.HAND);
             minus.setOnMouseClicked(e -> decreaseProduct(productId));
             numberBox.getChildren().add(minus);
@@ -104,6 +105,9 @@ public class Cart extends FxmlController implements Initializable {
             hBox.getChildren().add(priceBox);
             textFieldVBox.getChildren().add(hBox);
             items.getChildren().add(productBox);
+        }
+        if (150 * productIds.size() > 540) {
+            items.setPrefHeight(150 * productIds.size() + 1);
         }
     }
 

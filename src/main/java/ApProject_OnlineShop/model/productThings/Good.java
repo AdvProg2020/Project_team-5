@@ -25,7 +25,7 @@ public class Good {
 
     public enum GoodStatus {
         BUILTPROCESSING, CONFIRMED, NOTAVAILABLE,
-         EDITINGPROCESSING
+        EDITINGPROCESSING
     }
 
     public GoodStatus getGoodStatus() {
@@ -34,7 +34,6 @@ public class Good {
 
     public Good(String name, String brand, SubCategory subCategory, String details,
                 HashMap<String, String> categoryProperties, Seller seller, long price, int availableNumber) {
-        this.goodId = goodsCount++;
         this.name = name;
         this.brand = brand;
         this.subCategory = subCategory.getName();
@@ -50,6 +49,10 @@ public class Good {
 
     public String getName() {
         return name;
+    }
+
+    public void setGoodId(long goodId) {
+        this.goodId = goodId;
     }
 
     public String getBrand() {
@@ -75,7 +78,7 @@ public class Good {
     }
 
     public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
-        ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods1=new ArrayList<>();
+        ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods1 = new ArrayList<>();
         for (Long infoAboutGoodId : this.sellerRelatedInfoAboutGoods) {
             sellerRelatedInfoAboutGoods1.add(Shop.getInstance().getAllSellerRelatedInfoAboutGood().get(infoAboutGoodId));
         }
@@ -96,7 +99,8 @@ public class Good {
             if (relatedInfoAboutGood.getSeller().equals(seller))
                 sellerRelatedInfoAboutGood = relatedInfoAboutGood;
         }
-        if (sellerRelatedInfoAboutGood != null) this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
+        if (sellerRelatedInfoAboutGood != null)
+            this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
     }
 
     public void setAverageRate(double averageRate) {
@@ -166,7 +170,7 @@ public class Good {
     }
 
     public ArrayList<Comment> getComments() {
-        ArrayList<Comment> allComments=new ArrayList<>();
+        ArrayList<Comment> allComments = new ArrayList<>();
         for (Long commentId : comments) {
             allComments.add(Shop.getInstance().getAllComments().get(commentId));
         }
