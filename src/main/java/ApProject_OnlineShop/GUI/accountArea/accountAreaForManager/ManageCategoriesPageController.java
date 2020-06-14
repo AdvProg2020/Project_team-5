@@ -137,5 +137,6 @@ public class ManageCategoriesPageController extends FxmlController implements In
     }
 
     public void onAddCategoryPressed(ActionEvent actionEvent) {
+        setScene("addCategoryPage.fxml", "add category");
     }
 }
