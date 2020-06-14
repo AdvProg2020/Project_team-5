@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +29,7 @@ public class ProductPage extends FxmlController implements Initializable {
     public VBox sellers;
     public Label price;
     public VBox properties;
+    public ScrollPane comments;
 
     public void backButton(ActionEvent actionEvent) {
     }

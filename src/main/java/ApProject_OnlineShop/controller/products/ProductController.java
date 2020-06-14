@@ -22,8 +22,8 @@ public class ProductController {
         return good;
     }
 
-    public void setGood(Good good) {
-        this.good = good;
+    public void setGood(long goodId) {
+        this.good = Shop.getInstance().findGoodById(goodId);
         if (good != null) {
             good.setSeenNumber(good.getSeenNumber() + 1);
             try {

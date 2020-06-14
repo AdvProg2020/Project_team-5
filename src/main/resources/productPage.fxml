@@ -35,7 +35,7 @@
             <Image url="@./pictures/logout.png" />
         </image>
     </ImageView>
-    <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="600.0" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,10 +46,10 @@
         <children>
             <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="330.0" prefWidth="300.0" GridPane.valignment="TOP">
             <children>
-                  <ImageView fx:id="image" fitHeight="327.0" fitWidth="304.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="image" fitHeight="327.0" fitWidth="304.0" pickOnBounds="true" preserveRatio="true" styleClass="backgroundStyle" />
             </children>
             </VBox>
-         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1">
             <children>
                     <Label fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="300.0">
                         <font>
@@ -61,7 +61,7 @@
                             <Font name="Times New Roman" size="14.0" />
                         </font>
                     </Label>
-                    <Label fx:id="price" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="300.0">
+                    <Label fx:id="price" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="300.0" stylesheets="@styelsheets/loginRegisterstyle.css">
                         <font>
                             <Font name="Times New Roman" size="16.0" />
                         </font>
@@ -86,10 +86,18 @@
          </VBox>
         </children>
     </GridPane>
-   <VBox prefHeight="163.0" prefWidth="599.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+   <VBox prefHeight="163.0" prefWidth="599.0" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <children>
-         <VBox fx:id="sellers" prefHeight="164.0" prefWidth="599.0" />
+         <VBox fx:id="sellers" prefHeight="164.0" prefWidth="599.0">
+            <opaqueInsets>
+               <Insets top="10.0" />
+            </opaqueInsets></VBox>
          <VBox fx:id="properties" prefHeight="200.0" prefWidth="100.0" />
+         <ScrollPane fx:id="comments" prefHeight="200.0" prefWidth="200.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+           <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+           </content>
+         </ScrollPane>
       </children>
    </VBox>
     <padding>
