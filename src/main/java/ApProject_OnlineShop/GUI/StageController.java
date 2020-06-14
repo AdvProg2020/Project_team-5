@@ -25,10 +25,10 @@ public class StageController {
         StageController.stage = new Stage();
         Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(1L),(Seller) Shop.getInstance().findUser("yasaman"),2);
         Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(2L),(Seller) Shop.getInstance().findUser("yasaman"),2);
-//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(16L),(Seller) Shop.getInstance().findUser("jafar"),4);
-//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(6L),(Seller) Shop.getInstance().findUser("yasaman"),2);
-//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(7L),(Seller) Shop.getInstance().findUser("yasaman"),2);
-//        new FxmlController().setScene("cart.fxml", "cart");
+        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(16L),(Seller) Shop.getInstance().findUser("jafar"),4);
+        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(6L),(Seller) Shop.getInstance().findUser("yasaman"),2);
+        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(7L),(Seller) Shop.getInstance().findUser("yasaman"),2);
+        new FxmlController().setScene("cart.fxml", "cart");
         StageController.stage.setOnCloseRequest(e -> {
             Optional<ButtonType> result = new FxmlController().showAlert
                     (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
