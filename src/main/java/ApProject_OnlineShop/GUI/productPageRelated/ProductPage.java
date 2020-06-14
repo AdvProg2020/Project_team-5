@@ -8,6 +8,7 @@ import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -16,7 +17,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -47,70 +51,97 @@ public class ProductPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        image.setImage(new Image(Paths.get("Resources/productImages/"+ productId+".jpg").toUri().toString()));
+        image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
         name.setText(mainInfo.get(0));
         brand.setText(mainInfo.get(1));
         category.setText(mainInfo.get(2) + " category");
         subcategory.setText(mainInfo.get(3) + " subcategory");
-        int numOfStars = Integer.parseInt(mainInfo.get(4).substring(0,1));
+        int numOfStars = Integer.parseInt(mainInfo.get(4).substring(0, 1));
         for (int i = 0; i < numOfStars; i++) {
             ImageView star = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/star.png").toString()));
             star.setFitWidth(20);
             star.setFitHeight(20);
             rate.getChildren().add(star);
         }
-        Label rateDouble = new Label("  "+mainInfo.get(4).substring(0,3));
+        Label rateDouble = new Label("  " + mainInfo.get(4).substring(0, 3));
         rateDouble.setFont(Font.font("Times New Roman", 16));
         rate.getChildren().add(rateDouble);
         views.setText(mainInfo.get(5) + " views");
         makeSellersList();
     }
 
-    public void makeSellersList(){
+    public void makeSellersList() {
+        sellers.setAlignment(Pos.CENTER);
+        sellers.setSpacing(13);
         List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
-        for (SellerRelatedInfoAboutGood seller : sellersInfo) {
+        for (SellerRelatedInfoAboutGood eachSellerInfo : sellersInfo) {
             HBox sellerHBox = new HBox();
-            Label username = new Label(seller.getSeller().getUsername());
+            sellerHBox.setAlignment(Pos.CENTER_LEFT);
+            VBox usernameVBox = new VBox();
+            usernameVBox.setAlignment(Pos.CENTER_LEFT);
+            usernameVBox.setMinWidth(150);
+            usernameVBox.setMaxWidth(150);
+            Label username = new Label(eachSellerInfo.getSeller().getUsername());
             username.setFont(Font.font("Times New Roman", 16));
-            username.setPadding(new Insets(0,7,0,7));
-            sellerHBox.getChildren().add(username);
+            username.setPadding(new Insets(0, 15, 0, 15));
+            usernameVBox.getChildren().add(username);
+            sellerHBox.getChildren().add(usernameVBox);
+            VBox goodStatusVBox = new VBox();
+            goodStatusVBox.setAlignment(Pos.CENTER_LEFT);
+            goodStatusVBox.setMinWidth(150);
+            goodStatusVBox.setMaxWidth(150);
             Label goodStatus = new Label();
-            if (seller.getAvailableNumber() == 0)
-                goodStatus.setText(Good.GoodStatus.NOTAVAILABLE.toString());
-            if (seller.getAvailableNumber() > 0 )
-                goodStatus.setText("AVAILABLE");
+            if (eachSellerInfo.getAvailableNumber() == 0)
+                goodStatus.setText("unavailable");
+            if (eachSellerInfo.getAvailableNumber() > 0)
+                goodStatus.setText("available");
             goodStatus.setFont(Font.font("Times New Roman", 16));
-            goodStatus.setPadding(new Insets(0,7,0,7));
-            sellerHBox.getChildren().add(goodStatus);
-            if (!MainController.getInstance().getProductController().isInOffBySeller(seller.getSeller())){
+            goodStatus.setPadding(new Insets(0, 15, 0, 15));
+            goodStatusVBox.getChildren().add(goodStatus);
+            sellerHBox.getChildren().add(goodStatusVBox);
+            if (!MainController.getInstance().getProductController().isInOffBySeller(eachSellerInfo.getSeller())) {
                 HBox priceBox = new HBox();
-                priceBox.setMaxWidth(130);
-                priceBox.setMinWidth(130);
-                Label price = new Label(""+seller.getPrice());
+                priceBox.setAlignment(Pos.CENTER_LEFT);
+                priceBox.setMaxWidth(200);
+                priceBox.setMinWidth(200);
+                Label price = new Label("" + eachSellerInfo.getPrice());
                 price.setFont(Font.font("Times New Roman", 16));
-                price.setPadding(new Insets(0,7,0,7));
+                price.setPadding(new Insets(0, 7, 0, 7));
                 priceBox.getChildren().add(price);
                 Label rials = new Label("Rials");
                 rials.setFont(Font.font("Times New Roman", 16));
-                rials.setPadding(new Insets(0,7,0,7));
+                rials.setPadding(new Insets(0, 7, 0, 7));
                 priceBox.getChildren().add(rials);
                 sellerHBox.getChildren().add(priceBox);
 
             }
-            if (MainController.getInstance().getProductController().isInOffBySeller(seller.getSeller())){
+            if (MainController.getInstance().getProductController().isInOffBySeller(eachSellerInfo.getSeller())) {
                 HBox priceBox = new HBox();
-                priceBox.setMaxWidth(130);
-                priceBox.setMinWidth(130);
-                Label price = new Label(""+seller.getPrice());
-                price.setFont(Font.font("Times New Roman", 16));
-                price.setPadding(new Insets(0,7,0,7));
-                priceBox.getChildren().add(price);
+                priceBox.setAlignment(Pos.CENTER_LEFT);
+                priceBox.setMaxWidth(200);
+                priceBox.setMinWidth(200);
+                Text primaryPrice = new Text("" + eachSellerInfo.getPrice());
+                primaryPrice.setStrikethrough(true);
+                primaryPrice.setStroke(Color.LIGHTSLATEGREY);
+                primaryPrice.setStrokeType(StrokeType.INSIDE);
+                priceBox.getChildren().add(primaryPrice);
+                Label finalPrice = new Label("" + Shop.getInstance().getFinalPriceOfAGood(Shop.getInstance().findGoodById(productId), eachSellerInfo.getSeller()));
+                finalPrice.setFont(Font.font("Times New Roman", 16));
+                finalPrice.setPadding(new Insets(0, 7, 0, 7));
+                priceBox.getChildren().add(finalPrice);
                 Label rials = new Label("Rials");
                 rials.setFont(Font.font("Times New Roman", 16));
-                rials.setPadding(new Insets(0,7,0,7));
+                rials.setPadding(new Insets(0, 7, 0, 7));
                 priceBox.getChildren().add(rials);
+                sellerHBox.getChildren().add(priceBox);
             }
+            ImageView cartImage = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/cart.png").toString()));
+            cartImage.setFitHeight(35);
+            cartImage.setFitWidth(35);
+            cartImage.setOnMouseClicked(e -> addToCart(eachSellerInfo.getSeller().getUsername()));
+            sellerHBox.getChildren().add(cartImage);
+            sellers.getChildren().add(sellerHBox);
         }
     }
 
@@ -119,7 +150,7 @@ public class ProductPage extends FxmlController implements Initializable {
         MainController.getInstance().getProductController().setGoodById(productId);
     }
 
-    public void addToCart(String sellerUsername){
-        
+    public void addToCart(String sellerUsername) {
+        System.out.println(sellerUsername);
     }
 }

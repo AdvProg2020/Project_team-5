@@ -20,7 +20,7 @@ public class StageController {
 
     public StageController() {
         StageController.stage = new Stage();
-        ProductPage.setProductId(6);
+        ProductPage.setProductId(2);
         new FxmlController().setScene("productPage.fxml","product page");
 //        StageController.stage.setOnCloseRequest(e -> {
 //            Optional<ButtonType> result = new FxmlController().showAlert
