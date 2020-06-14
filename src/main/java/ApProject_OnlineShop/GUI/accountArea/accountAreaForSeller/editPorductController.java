@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +23,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class editPorductController extends FxmlController implements Initializable {
@@ -35,17 +38,13 @@ public class editPorductController extends FxmlController implements Initializab
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Good good = Shop.getInstance().findGoodById(goodId);
-        Seller seller = (Seller) Shop.getInstance().findUser("yasaman");
-//        price.setPromptText(good.getPriceBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
+        price.setPromptText(good.getPriceBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
         additionalDetails.setPromptText(good.getDetails());
-//        availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
-        price.setPromptText(good.getPriceBySeller(seller) + "");
-        availableNumber.setPromptText(good.getAvailableNumberBySeller(seller) + "");
-        HashMap<String, String> detailValues = new HashMap<>();
+        availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
         int row = 4;
         for (String detail : MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(good.getSubCategory().getName())) {
             Label text = new Label(detail + " :");
-            text.setFont(Font.font("Times New Roman", 16));
+            text.setFont(Font.font("Times New Roman", 14));
             text.setPadding(new Insets(20));
             GridPane.setHalignment(text, HPos.LEFT);
             gridpane.add(text, 0, row);
@@ -65,12 +64,21 @@ public class editPorductController extends FxmlController implements Initializab
     }
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
+        setScene("", "product page");
     }
 
     public void onLogoutIconClicked(MouseEvent mouseEvent) {
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
+        if (result.get() == ButtonType.OK) {
+            MainController.getInstance().getLoginRegisterController().logoutUser();
+            Shop.getInstance().clearCart();
+            setScene("mainMenuLayout.fxml", "Main menu");
+        }
     }
 
     public void onEditProduct(ActionEvent actionEvent) {
+
     }
 }
 
