@@ -60,7 +60,7 @@ public class AddProductPart1 extends FxmlController {
             ErrorPageFxController.showPage("Error for adding product", "available number is invalid!,should be a number");
             return false;
         } else if (!MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(subCategory.getText())) {
-            ErrorPageFxController.showPage("Error for registering", "password is invalid!");
+            ErrorPageFxController.showPage("Error for registering", "subcategory is invalid!");
             return false;
         }
         return true;

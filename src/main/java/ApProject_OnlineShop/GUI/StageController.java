@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.GUI.productPageRelated.ProductPage;
+import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.Shop;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +22,8 @@ public class StageController {
 
     public StageController() {
         StageController.stage = new Stage();
+//        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("yasaman"));
+//        new FxmlController().setScene("editProduct.fxml", "edit product");
 //        ProductPage.setProductId(2);
 //        new FxmlController().setScene("productPage.fxml","product page");
         StageController.stage.setOnCloseRequest(e -> {
