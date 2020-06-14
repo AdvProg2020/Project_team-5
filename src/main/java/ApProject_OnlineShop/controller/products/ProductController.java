@@ -28,7 +28,9 @@ public class ProductController {
     public void setGood(Good good) {
         this.good = good;
         if (good != null) {
-            good.setSeenNumber(good.getSeenNumber() + 1);
+            if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+                good.setSeenNumber(good.getSeenNumber() + 1);
+            }
             try {
                 Database.getInstance().saveItem(good);
             } catch (Exception e) {
@@ -127,8 +129,8 @@ public class ProductController {
         return good.getSellerRelatedInfoAboutGoods();
     }
 
-    public boolean isInOffBySeller(Seller seller){
-        if (good.getPriceBySeller(seller) == Shop.getInstance().getFinalPriceOfAGood(good,seller))
+    public boolean isInOffBySeller(Seller seller) {
+        if (good.getPriceBySeller(seller) == Shop.getInstance().getFinalPriceOfAGood(good, seller))
             return false;
         return true;
     }
