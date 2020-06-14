@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
@@ -103,6 +105,18 @@ public class ManageSubCategoriesPageController extends FxmlController implements
     }
 
     public void onRemoveSubCategoryPressed(ActionEvent actionEvent) {
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "remove", "Remove Category", "are you sure to remove this category?");
+        if (result.get() == ButtonType.OK) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeSubCategory(currentCategory, selectedSubCategory);
+                resetPage();
+                SuccessPageFxController.showPage("successful remove", "subcategory removed successfully");
+            } catch (Exception e) {
+                ErrorPageFxController.showPage("error in remove subcategory", e.getMessage());
+            }
+        } else
+            actionEvent.consume();
     }
 
     public void onEditSubCategoryPressed(ActionEvent actionEvent) {
