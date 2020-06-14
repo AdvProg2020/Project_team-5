@@ -25,6 +25,7 @@ import ApProject_OnlineShop.model.requests.Request;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AccountAreaForManagerController extends AccountAreaController {
     public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
@@ -329,6 +330,14 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new ProductWithThisIdNotExist();
         Shop.getInstance().getAllGoods().remove(good); //i think it has bug!
         Database.getInstance().deleteItem(good);
+    }
+
+    public List<String> getAllCategoriesName() {
+        return Shop.getInstance().getAllCategories().stream().map(Category::getName).collect(Collectors.toList());
+    }
+
+    public List<String> getAllSubCategoriesNamesOfCategory(String category) {
+        return Shop.getInstance().findCategoryByName(category).getSubCategories().stream().map(SubCategory::getName).collect(Collectors.toList());
     }
 
 }
