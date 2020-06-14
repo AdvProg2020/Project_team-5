@@ -7,13 +7,16 @@ import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfTh
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Comment;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.requests.AddingCommentRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ProductController {
     private Good good;
@@ -25,13 +28,19 @@ public class ProductController {
     public void setGood(Good good) {
         this.good = good;
         if (good != null) {
-            good.setSeenNumber(good.getSeenNumber() + 1);
+            if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+                good.setSeenNumber(good.getSeenNumber() + 1);
+            }
             try {
                 Database.getInstance().saveItem(good);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setGoodById(long goodId) {
+        setGood(Shop.getInstance().findGoodById(goodId));
     }
 
     public String digest() {
@@ -75,6 +84,7 @@ public class ProductController {
         return output;
     }
 
+
     public String compareWithAnotherProduct(long id) throws ProductWithThisIdNotExist {
         if (Shop.getInstance().findGoodById(id) == null)
             throw new ProductWithThisIdNotExist();
@@ -102,6 +112,27 @@ public class ProductController {
             output += ("\n" + comment.toString() + "--------------------------------------------");
         }
         return output;
+    }
+
+    public List<String> getMainInfo() {
+        List<String> goodInfo = new ArrayList<>();
+        goodInfo.add(good.getName());
+        goodInfo.add(good.getBrand());
+        goodInfo.add(good.getSubCategory().getParentCategory().getName());
+        goodInfo.add(good.getSubCategory().getName());
+        goodInfo.add("" + good.getAverageRate() / 2);
+        goodInfo.add("" + good.getSeenNumber());
+        return goodInfo;
+    }
+
+    public List<SellerRelatedInfoAboutGood> getSellersInfo() {
+        return good.getSellerRelatedInfoAboutGoods();
+    }
+
+    public boolean isInOffBySeller(Seller seller) {
+        if (good.getPriceBySeller(seller) == Shop.getInstance().getFinalPriceOfAGood(good, seller))
+            return false;
+        return true;
     }
 
     public void addComment(String title, String content) throws IOException, FileCantBeSavedException {

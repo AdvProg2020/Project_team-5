@@ -3,16 +3,16 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.GUI.ProductPageRelated.ProductBriefSummery;
-import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.GUI.productPageRelated.ProductBriefSummery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.List;
@@ -31,18 +31,28 @@ public class ManageProduct extends FxmlController implements Initializable {
         int row = 0;
         for (Long productId : productIds) {
             if (MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
-                root.add(new ProductBriefSummery().offProductBriefSummery(productId), num % 3, row);
+                VBox vbox = new ProductBriefSummery().offProductBriefSummery(productId);
+                root.add(vbox, num % 3, row);
                 num++;
+                vbox.setCursor(Cursor.HAND);
+                vbox.setOnMouseClicked(e -> showProduct(productId));
             }
             if (!MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
-                root.add(new ProductBriefSummery().getProductForAllProductsPage(productId), num % 3, row);
+                VBox vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
+                root.add(vbox, num % 3, row);
                 num++;
+                vbox.setCursor(Cursor.HAND);
+                vbox.setOnMouseClicked(e -> showProduct(productId));
             }
             if (num % 3 == 0)
                 row++;
         }
     }
 
+    private void showProduct(Long productId) {
+        ProductPageControllerForSeller.setProductId(productId);
+        setScene("productPageEditableForSeller.fxml", "product page");
+    }
 
     public void backButton(ActionEvent actionEvent) {
         setScene("accountAreaForSeller.fxml", "account area");

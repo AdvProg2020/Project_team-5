@@ -1,9 +1,7 @@
-package ApProject_OnlineShop.GUI.ProductPageRelated;
+package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.StageController;
-import ApProject_OnlineShop.GUI.accountArea.Styles;
 import ApProject_OnlineShop.controller.MainController;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -17,7 +15,6 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.awt.*;
 import java.nio.file.Paths;
 import java.util.List;
 
