@@ -41,7 +41,7 @@ public class RegisteringSellerRequest extends Request {
 
     @Override
     public String toString() {
-        return "Type: RegisteringSellerRequest\n" +
+        return "Type: Registering Seller Request\n" +
                 "request id: " + super.getRequestId() +
                 "\nseller Username: " + username;
     }

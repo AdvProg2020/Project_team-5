@@ -59,7 +59,7 @@ public class AddingGoodRequest extends Request {
 
     @Override
     public String toString() {
-        return "Type: AddingGoodRequest\n" +
+        return "Type: Adding Good Request\n" +
                 "request id: " + super.getRequestId()
                 + "\nname: " + nameOfGood
                 + "\nbrand: " + brandOfGood
