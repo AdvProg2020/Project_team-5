@@ -34,8 +34,8 @@ public class ViewOrdersForSeller extends FxmlController {
         style.setVBoxStyle(vBox);
         root.add(scrollPane, 1, 2);
         List<String> orders = MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(sort);
-        if (orders.size() * 200 > 600) {
-            vBox.setPrefHeight(orders.size() * 200);
+        if (orders.size() * 50 > 600) {
+            vBox.setPrefHeight((orders.size() * 50) + 20);
         } else {
             vBox.setPrefHeight(600);
         }
