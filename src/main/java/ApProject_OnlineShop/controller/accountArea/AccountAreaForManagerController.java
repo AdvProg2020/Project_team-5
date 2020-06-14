@@ -340,4 +340,14 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return Shop.getInstance().findCategoryByName(category).getSubCategories().stream().map(SubCategory::getName).collect(Collectors.toList());
     }
 
+    public void addPropertyToCategory(String categoryName, String property) throws IOException, FileCantBeSavedException {
+        Shop.getInstance().findCategoryByName(categoryName).getDetails().add(property);
+        Database.getInstance().saveItem(Shop.getInstance().findCategoryByName(categoryName));
+        for (Good good : Shop.getInstance().getAllGoods()) {
+            if (good.getSubCategory().getParentCategory().getName().equalsIgnoreCase(categoryName)) {
+                good.getCategoryProperties().put(property, "empty");
+                Database.getInstance().saveItem(good);
+            }
+        }
+    }
 }

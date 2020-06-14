@@ -122,5 +122,24 @@ public class EditCategoryPageController extends FxmlController implements Initia
     }
 
     public void onAddPropertyPressed(ActionEvent actionEvent) {
+        String newProperty = newPropertyField.getText();
+        if (newProperty.isEmpty()) {
+            ErrorPageFxController.showPage("error in editing", "please fill the text field and then click");
+            return;
+        }
+        if (!newProperty.matches("\\w+")) {
+            ErrorPageFxController.showPage("error in editing", "wrong name format entered");
+            newPropertyField.clear();
+            return;
+        }
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().addPropertyToCategory(currentCategory, newProperty);
+            newPropertyField.clear();
+            updatePropertiesBox();
+            SuccessPageFxController.showPage("successful edit", "property added successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            ErrorPageFxController.showPage("error", e.getMessage());
+        }
     }
 }
