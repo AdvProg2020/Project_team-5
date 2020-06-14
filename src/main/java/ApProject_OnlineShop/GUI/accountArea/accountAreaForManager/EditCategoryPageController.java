@@ -1,7 +1,11 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.PropertyNotFoundException;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -89,6 +94,28 @@ public class EditCategoryPageController extends FxmlController implements Initia
     }
 
     public void onEditFieldPressed(ActionEvent actionEvent) {
+        String newValue = newValueField.getText();
+        if (newValue.isEmpty()) {
+            ErrorPageFxController.showPage("error in editing", "please fill the text field and then click");
+            return;
+        }
+        if (!newValue.matches("\\w+")) {
+            ErrorPageFxController.showPage("error in editing", "wrong name format entered");
+            newValueField.clear();
+            return;
+        }
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().editCategory(currentCategory, selectedField, newValue);
+            newValueField.clear();
+            selectedField = "";
+            editButton.setDisable(true);
+            singlePropertyVBox.setDisable(true);
+            valueLabel.setText("");
+            updatePropertiesBox();
+            SuccessPageFxController.showPage("successful edit", "property edited successfully");
+        } catch (Exception e) {
+            ErrorPageFxController.showPage("error", e.getMessage());
+        }
     }
 
     public void onManageSubcatsPressed(ActionEvent actionEvent) {
