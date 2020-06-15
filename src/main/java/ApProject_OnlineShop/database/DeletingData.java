@@ -17,6 +17,7 @@ import ApProject_OnlineShop.model.requests.Request;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class DeletingData {
     public void deleteManager(Manager manager) throws FileCantBeDeletedException {
@@ -81,6 +82,15 @@ public class DeletingData {
         }
         Shop.getInstance().removeProduct(good);
         //remove rates
+        Iterator<Rate> rates = Shop.getInstance().getAllRates().iterator();
+        while (rates.hasNext()) {
+            Rate rate = rates.next();
+            if (rate.getGood().equals(good)) {
+                Database.getInstance().deleteItem(rate);
+                rates.remove();
+            }
+        }
+
     }
 
     public void deleteDiscount(DiscountCode discountCode) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
