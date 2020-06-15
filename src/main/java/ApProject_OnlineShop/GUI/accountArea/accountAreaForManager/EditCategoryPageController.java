@@ -104,6 +104,11 @@ public class EditCategoryPageController extends FxmlController implements Initia
             newValueField.clear();
             return;
         }
+        if (Shop.getInstance().findCategoryByName(currentCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newValue))) {
+            ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
+            newValueField.clear();
+            return;
+        }
         try {
             MainController.getInstance().getAccountAreaForManagerController().editCategory(currentCategory, selectedField, newValue);
             newValueField.clear();
@@ -132,6 +137,11 @@ public class EditCategoryPageController extends FxmlController implements Initia
         if (!newProperty.matches("\\w+")) {
             ErrorPageFxController.showPage("error in editing", "wrong name format entered");
             newPropertyField.clear();
+            return;
+        }
+        if (Shop.getInstance().findCategoryByName(currentCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty))) {
+            ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
+            newValueField.clear();
             return;
         }
         try {
