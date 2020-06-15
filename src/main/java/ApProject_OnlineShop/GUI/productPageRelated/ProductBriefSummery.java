@@ -87,6 +87,7 @@ public class ProductBriefSummery {
         LocalDate date = Shop.getInstance().findGoodById(productId).getThisGoodOff().getEndDate();
         Label days = new Label("" + ChronoUnit.DAYS.between(LocalDate.now(), date) + " days left");
         days.setTextFill(Color.RED);
+        days.setUnderline(true);
         leftDays.getChildren().add(days);
         mainVBox.getChildren().add(leftDays);
         ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
