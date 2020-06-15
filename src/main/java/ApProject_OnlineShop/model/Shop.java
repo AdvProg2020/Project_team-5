@@ -14,6 +14,7 @@ import ApProject_OnlineShop.model.requests.Request;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Shop {
     private static Shop ourInstance = new Shop();
@@ -160,8 +161,16 @@ public class Shop {
         }
     }
 
-    public void removeProductsFromOffs(Good good) {
-
+    public void removeProductsFromOffs(Good good) throws IOException, FileCantBeSavedException {
+        List<Seller> sellersOfGood = good.getSellerRelatedInfoAboutGoods().stream().map(SellerRelatedInfoAboutGood::getSeller).collect(Collectors.toList());
+        for (Seller seller : sellersOfGood) {
+            for (Off activeOff : seller.getActiveOffs()) {
+                if (activeOff.doesHaveThisProduct(good)) {
+                    activeOff.removeGood(good);
+                }
+                Database.getInstance().saveItem(activeOff);
+            }
+        }
     }
 
     public Person findUser(String userName) {

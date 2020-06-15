@@ -80,7 +80,6 @@ public class DeletingData {
             comment.getId();
             deleteComment(comment);
         }
-        //remove rates
         Shop.getInstance().removeProduct(good);
     }
 
