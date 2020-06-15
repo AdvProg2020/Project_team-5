@@ -7,82 +7,99 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ViewOffsController">
+<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="800.0" styleClass="mainLayout"
+          stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ViewOffsController">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="232.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="413.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="218.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="427.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="27.20000762939455" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="422.0" minHeight="10.0" prefHeight="422.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="76.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="422.0" minHeight="10.0" prefHeight="414.0" vgrow="SOMETIMES"/>
     </rowConstraints>
-    <VBox fx:id="vBox" maxWidth="-Infinity" minHeight="367.0" minWidth="348.0" prefHeight="348.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <opaqueInsets>
-            <Insets top="1.0" />
-        </opaqueInsets>
-        <padding>
-            <Insets bottom="10.0" top="20.0" />
-        </padding>
-        <GridPane.margin>
-            <Insets />
-        </GridPane.margin>
-    </VBox>
-    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
+    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0"
+            prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@pictures/icons8-back-to-48.png" />
+                <Image url="@pictures/icons8-back-to-48.png"/>
             </ImageView>
         </graphic>
     </Button>
-    <Label alignment="CENTER" prefHeight="80.0" prefWidth="369.0" text="Offs" GridPane.columnIndex="1">
+    <Label alignment="CENTER" prefHeight="85.0" prefWidth="331.0" text="Offs" GridPane.columnIndex="1">
         <font>
-            <Font name="Times New Roman" size="26.0" />
+            <Font name="Times New Roman" size="26.0"/>
         </font>
     </Label>
-    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
+    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true"
+               styleClass="exitImage" GridPane.columnIndex="1">
         <image>
-            <Image url="@pictures/logout.png" />
+            <Image url="@pictures/logout.png"/>
         </image>
         <GridPane.margin>
-            <Insets left="400.0" />
+            <Insets left="400.0"/>
         </GridPane.margin>
     </ImageView>
     <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
         <children>
-            <Button mnemonicParsing="false" onMouseClicked="#addOff" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="add off">
+            <Button mnemonicParsing="false" onMouseClicked="#addOff" prefHeight="30.0" prefWidth="181.0"
+                    styleClass="menuButtons" text="add off">
                 <font>
-                    <Font size="14.0" />
+                    <Font size="14.0"/>
                 </font>
                 <cursor>
-                    <Cursor fx:constant="HAND" />
+                    <Cursor fx:constant="HAND"/>
                 </cursor>
                 <VBox.margin>
-                    <Insets top="10.0" />
+                    <Insets top="10.0"/>
                 </VBox.margin>
                 <padding>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </padding>
             </Button>
-            <MenuButton alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;" text="sort" textFill="#0e000e">
+            <MenuButton alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" popupSide="RIGHT"
+                        prefHeight="30.0" prefWidth="179.0"
+                        style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2;"
+                        text="sort" textFill="#0e000e">
                 <items>
-                    <MenuItem mnemonicParsing="false" onAction="#sortByEndDate" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="end date" />
-                    <MenuItem mnemonicParsing="false" onAction="#sortByOffPercent" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="off percent" />
-                    <MenuItem mnemonicParsing="false" onAction="#sortByMaxDiscount" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="max discount" />
+                    <MenuItem mnemonicParsing="false" onAction="#sortByEndDate"
+                              style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;"
+                              text="end date"/>
+                    <MenuItem mnemonicParsing="false" onAction="#sortByOffPercent"
+                              style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;"
+                              text="off percent"/>
+                    <MenuItem mnemonicParsing="false" onAction="#sortByMaxDiscount"
+                              style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;"
+                              text="max discount"/>
                 </items>
                 <cursor>
-                    <Cursor fx:constant="HAND" />
+                    <Cursor fx:constant="HAND"/>
                 </cursor>
                 <font>
-                    <Font size="14.0" />
+                    <Font size="14.0"/>
                 </font>
                 <VBox.margin>
-                    <Insets top="15.0" />
+                    <Insets top="15.0"/>
                 </VBox.margin>
             </MenuButton>
         </children>
     </VBox>
+    <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="348.0" prefWidth="384.0"
+                GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+        <content>
+            <VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="348.0" prefWidth="367.0"
+                  styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+                <opaqueInsets>
+                    <Insets top="1.0"/>
+                </opaqueInsets>
+                <padding>
+                    <Insets bottom="10.0" top="20.0"/>
+                </padding>
+            </VBox>
+        </content>
+    </ScrollPane>
     <padding>
-        <Insets left="10.0" />
+        <Insets left="10.0"/>
     </padding>
 </GridPane>

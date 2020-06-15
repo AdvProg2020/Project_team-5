@@ -42,9 +42,9 @@ public class EditingOffRequest extends Request {
 
     @Override
     public String toString() {
-        return "Type: EditingOffRequest\n" +
+        return "Type: Editing Off Request\n" +
                 "request id: " + super.getRequestId() + "\n" +
                 Shop.getInstance().findOffById(offId) +
-                "editedFields:\n" + editedFields.toString();
+                "fields for editing:\n" + editedFields.toString();
     }
 }

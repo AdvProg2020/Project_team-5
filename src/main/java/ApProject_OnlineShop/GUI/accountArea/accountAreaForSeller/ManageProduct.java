@@ -47,6 +47,10 @@ public class ManageProduct extends FxmlController implements Initializable {
             if (num % 3 == 0)
                 row++;
         }
+        int size1 = productIds.size() * 250 / 3;
+        if (size1 > 577) {
+            root.setPrefHeight(size1);
+        }
     }
 
     private void showProduct(Long productId) {

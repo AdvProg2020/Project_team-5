@@ -20,9 +20,11 @@ public class AddingGoodRequest extends Request {
     private long priceOfGood;
     private int availableNumberOfGood;
     private String seller;
+    private long goodId;
 
     public AddingGoodRequest(String nameOfGood, String brandOfGood, SubCategory subCategoryOfGood, String detailsOfGood,
                              HashMap<String, String> categoryPropertiesOfGood, long priceOfGood, int availableNumberOfGood, String seller) {
+        this.goodId = Good.getGoodsCount();
         this.nameOfGood = nameOfGood;
         this.brandOfGood = brandOfGood;
         this.subCategoryOfGood = subCategoryOfGood.getName();
@@ -37,6 +39,7 @@ public class AddingGoodRequest extends Request {
     public void acceptRequest() throws IOException, FileCantBeSavedException {
         Good good = new Good(nameOfGood, brandOfGood, Shop.getInstance().findSubCategoryByName(subCategoryOfGood), detailsOfGood,
                 categoryPropertiesOfGood, (Seller) Shop.getInstance().findUser(seller), priceOfGood, availableNumberOfGood);
+        good.setGoodId(goodId);
         Good originalGood;
         Seller seller1 = (Seller) Shop.getInstance().findUser(seller);
         if ((originalGood = Shop.getInstance().getGoodByNameAndBrandAndSubCategory(good.getName(), good.getBrand(), good.getSubCategory())) == null) {
@@ -59,7 +62,7 @@ public class AddingGoodRequest extends Request {
 
     @Override
     public String toString() {
-        return "Type: AddingGoodRequest\n" +
+        return "Type: Adding Good Request\n" +
                 "request id: " + super.getRequestId()
                 + "\nname: " + nameOfGood
                 + "\nbrand: " + brandOfGood

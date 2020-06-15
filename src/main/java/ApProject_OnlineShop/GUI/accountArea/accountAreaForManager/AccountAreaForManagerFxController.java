@@ -58,7 +58,7 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     }
 
     public void onManageCategoriesPressed() {
-
+        setScene("manageCategoriesPage.fxml", "manage categories");
     }
 
     public void onCreateNewDiscountPressed() {

@@ -57,6 +57,9 @@ public class ManageRequestsPageController extends FxmlController implements Init
         }
         requestColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         idColumn.setCellValueFactory(new PropertyValueFactory<>("requestId"));
+        if (requests.size() * 27 > 400) {
+            requestsTable.setPrefHeight(requests.size() * 27);
+        }
     }
 
     public void onLogoutIconClicked() {

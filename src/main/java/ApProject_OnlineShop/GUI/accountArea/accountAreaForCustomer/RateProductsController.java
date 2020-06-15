@@ -56,6 +56,9 @@ public class RateProductsController extends FxmlController implements Initializa
             if (num % 3 == 0)
                 row++;
         }
+        if (productIds.size() * 250 > 577) {
+            root.setPrefHeight(productIds.size() * 250);
+        }
     }
 
     private void rateProduct(long productId2) {

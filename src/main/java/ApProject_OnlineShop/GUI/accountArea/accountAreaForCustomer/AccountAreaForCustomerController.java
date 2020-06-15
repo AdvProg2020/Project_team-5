@@ -51,12 +51,22 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         topic.setPadding(new Insets(5));
         GridPane.setHalignment(topic, HPos.CENTER);
         VBox vBox = new VBox();
+        ScrollPane scrollPane = new ScrollPane(vBox);
+        scrollPane.setPrefWidth(610);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         style.setVBoxStyle(vBox);
-        root.add(vBox, 1, 2);
+        root.add(scrollPane, 1, 2);
         List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(sort);
+        if (discountCodes.size() * 50 > 600) {
+            vBox.setPrefHeight((discountCodes.size() * 50) + 20);
+        } else {
+            vBox.setPrefHeight(600);
+        }
         for (String discountCode : discountCodes) {
             Hyperlink discountLink = new Hyperlink(discountCode);
-            discountLink.setFont(new Font("Times New Roman",16));
+            discountLink.setFont(new Font("Times New Roman", 16));
+            discountLink.setPrefSize(600, 50);
             discountLink.setOnMouseClicked(e -> viewSingleDiscountCode(discountCode));
             discountLink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
             discountLink.setAlignment(Pos.BOTTOM_LEFT);
@@ -69,8 +79,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         shoppingBagImageView.setFitHeight(80);
         shoppingBagImageView.setFitWidth(60);
         shoppingBagImageView.setCursor(Cursor.HAND);
-        root.add(shoppingBagImageView,2,2);
-        GridPane.setValignment(shoppingBagImageView,VPos.TOP);
+        root.add(shoppingBagImageView, 2, 2);
+        GridPane.setValignment(shoppingBagImageView, VPos.TOP);
         root.add(topic, 1, 1);
         MenuItem sortByDiscountPercent = new MenuItem("sort by discount percent");
         MenuItem sortByEndDate = new MenuItem("sort by end date");
@@ -103,8 +113,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         shoppingBagImageView.setFitHeight(80);
         shoppingBagImageView.setFitWidth(60);
         shoppingBagImageView.setCursor(Cursor.HAND);
-        root.add(shoppingBagImageView,2,2);
-        GridPane.setValignment(shoppingBagImageView,VPos.TOP);
+        root.add(shoppingBagImageView, 2, 2);
+        GridPane.setValignment(shoppingBagImageView, VPos.TOP);
         VBox vBox = new VBox();
         addDiscountDetailsToVBox(discountCodeDetails, vBox);
         style.setVBoxStyle(vBox);
@@ -121,9 +131,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void rateProducts() {
-        setScene("rateProducts.fxml","rate products");
+        setScene("rateProducts.fxml", "rate products");
     }
-
 
     public void backToMain(ActionEvent actionEvent) {
         setScene("mainMenuLayout.fxml", "main menu");
@@ -150,7 +159,6 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         vBox.getChildren().add(discountPercent);
         vBox.getChildren().add(maxDiscountAmount);
     }
-
 
 
     public void editField(ActionEvent actionEvent) {

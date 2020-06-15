@@ -136,8 +136,8 @@ public class Off {
 
     @Override
     public String toString() {
-        return String.format("Off Id : %d\nStart Date : %s\n" +
-                        "End Date : %s\nMax Discount : %d\nDiscount Percent : %s\nSeller : %s", this.offId,
+        return String.format("Off Id: %d\nStart Date: %s\n" +
+                        "End Date: %s\nMax Discount: %d\nDiscount Percent: %s\nSeller: %s", this.offId,
                 this.startDate.toString(), this.endDate.toString(), this.maxDiscount, this.discountPercent, this.seller);
     }
 }

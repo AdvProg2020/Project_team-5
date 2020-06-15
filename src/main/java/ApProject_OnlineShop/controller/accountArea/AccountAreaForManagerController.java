@@ -25,6 +25,7 @@ import ApProject_OnlineShop.model.requests.Request;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AccountAreaForManagerController extends AccountAreaController {
     public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
@@ -327,8 +328,28 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Good good = Shop.getInstance().findGoodById(Long.parseLong(productId));
         if (good == null)
             throw new ProductWithThisIdNotExist();
-        Shop.getInstance().getAllGoods().remove(good); //i think it has bug!
+        Shop.getInstance().removeProductsFromOffs(good);
+        Shop.getInstance().removeRatesOfAGood(good);
+        Shop.getInstance().removeGoodFromAllGoods(good);
         Database.getInstance().deleteItem(good);
     }
 
+    public List<String> getAllCategoriesName() {
+        return Shop.getInstance().getAllCategories().stream().map(Category::getName).collect(Collectors.toList());
+    }
+
+    public List<String> getAllSubCategoriesNamesOfCategory(String category) {
+        return Shop.getInstance().findCategoryByName(category).getSubCategories().stream().map(SubCategory::getName).collect(Collectors.toList());
+    }
+
+    public void addPropertyToCategory(String categoryName, String property) throws IOException, FileCantBeSavedException {
+        Shop.getInstance().findCategoryByName(categoryName).getDetails().add(property);
+        Database.getInstance().saveItem(Shop.getInstance().findCategoryByName(categoryName));
+        for (Good good : Shop.getInstance().getAllGoods()) {
+            if (good.getSubCategory().getParentCategory().getName().equalsIgnoreCase(categoryName)) {
+                good.getCategoryProperties().put(property, "empty");
+                Database.getInstance().saveItem(good);
+            }
+        }
+    }
 }
