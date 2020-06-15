@@ -60,6 +60,9 @@ public class ManageAllUsersPageController extends FxmlController implements Init
         }
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
+        if (persons.size() * 27 > 400) {
+            usersTable.setPrefHeight(persons.size() * 27);
+        }
     }
 
     public void onLogoutIconClicked() {
