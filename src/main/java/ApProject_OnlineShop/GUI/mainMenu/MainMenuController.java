@@ -10,14 +10,25 @@ import ApProject_OnlineShop.model.persons.Seller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.NodeOrientation;
+import javafx.geometry.VPos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class MainMenuController extends FxmlController {
+public class MainMenuController extends FxmlController implements Initializable {
+    @FXML
+    public GridPane gridpane;
 
     public void accountAreaButtonPressed(ActionEvent actionEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
@@ -47,7 +58,24 @@ public class MainMenuController extends FxmlController {
     }
 
     public void cart() {
-        Cart.setPathBack("mainMenuLayout.fxml","main menu");
+        Cart.setPathBack("mainMenuLayout.fxml", "main menu");
         setScene("cart.fxml", "cart");
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
+            ImageView imageView = new ImageView(new Image("/pictures/shoppingBag.png"));
+            gridpane.add(imageView, 2, 0);
+            imageView.setFitHeight(200);
+            imageView.setFitHeight(100);
+            imageView.setCursor(Cursor.HAND);
+            imageView.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            imageView.setPickOnBounds(true);
+            imageView.setPreserveRatio(true);
+            GridPane.setHalignment(imageView, HPos.LEFT);
+            GridPane.setValignment(imageView, VPos.CENTER);
+            imageView.setOnMouseClicked(e -> cart());
+        }
     }
 }
