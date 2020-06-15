@@ -44,6 +44,12 @@ public class AccountAreaForSellerController extends AccountAreaController {
                     break;
                 }
             }
+            for (Off activeOff : seller.getActiveOffs()) {
+                if (activeOff.doesHaveThisProduct(good)) {
+                    activeOff.removeGood(good);
+                    Database.getInstance().saveItem(activeOff);
+                }
+            }
             good.removeSeller(seller);
             seller.removeFromActiveGoods(good.getGoodId());
             Database.getInstance().saveItem(seller);

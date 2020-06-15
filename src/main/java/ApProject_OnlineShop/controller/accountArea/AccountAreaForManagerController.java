@@ -328,7 +328,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Good good = Shop.getInstance().findGoodById(Long.parseLong(productId));
         if (good == null)
             throw new ProductWithThisIdNotExist();
-        Shop.getInstance().getAllGoods().remove(good); //i think it has bug!
+        Shop.getInstance().removeProductsFromOffs(good);
+        Shop.getInstance().removeRatesOfAGood(good);
+        Shop.getInstance().removeGoodFromAllGoods(good);
         Database.getInstance().deleteItem(good);
     }
 
@@ -345,6 +347,17 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().saveItem(Shop.getInstance().findCategoryByName(categoryName));
         for (Good good : Shop.getInstance().getAllGoods()) {
             if (good.getSubCategory().getParentCategory().getName().equalsIgnoreCase(categoryName)) {
+                good.getCategoryProperties().put(property, "empty");
+                Database.getInstance().saveItem(good);
+            }
+        }
+    }
+
+    public void addPropertyToSubCategory(String subCategoryName, String property) throws IOException, FileCantBeSavedException {
+        Shop.getInstance().findSubCategoryByName(subCategoryName).getDetails().add(property);
+        Database.getInstance().saveItem(Shop.getInstance().findSubCategoryByName(subCategoryName));
+        for (Good good : Shop.getInstance().getAllGoods()) {
+            if (good.getSubCategory().getName().equalsIgnoreCase(subCategoryName)) {
                 good.getCategoryProperties().put(property, "empty");
                 Database.getInstance().saveItem(good);
             }

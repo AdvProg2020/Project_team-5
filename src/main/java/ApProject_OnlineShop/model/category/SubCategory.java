@@ -1,8 +1,11 @@
 package ApProject_OnlineShop.model.category;
 
+import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SubCategory {
@@ -45,8 +48,9 @@ public class SubCategory {
         this.goods.add(good.getGoodId());
     }
 
-    public void deleteGood(Good good) {
+    public void deleteGood(Good good) throws IOException, FileCantBeSavedException {
         this.goods.remove(good.getGoodId());
+        Database.getInstance().saveItem(this);
     }
 
     public Good findGoodById(long goodId) {
