@@ -83,12 +83,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@pictures/accountArea.png" />
                      </image>
                      <HBox.margin>
-                        <Insets bottom="1.0" right="5.0" />
+                        <Insets bottom="2.0" right="5.0" />
                      </HBox.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
