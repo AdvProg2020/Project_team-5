@@ -88,7 +88,7 @@ public class ManageSubCategoriesPageController extends FxmlController implements
     }
 
     public void onBackButtonPressed() {
-        setScene("manageCategoriesPage.fxml", "manage categories");
+        setScene("editCategoryPage.fxml", "edit category");
     }
 
     public void onLogoutIconClicked() {
