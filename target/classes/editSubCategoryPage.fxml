@@ -32,9 +32,9 @@
         </font>
     </Label>
     <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" spacing="20.0" GridPane.rowIndex="1" />
-   <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="220.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+   <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="220.0" vbarPolicy="ALWAYS" GridPane.columnIndex="2" GridPane.rowIndex="1">
       <content>
-          <VBox fx:id="allFieldsVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="350.0" minWidth="210.0" prefHeight="350.0" prefWidth="210.0" spacing="4.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+          <VBox fx:id="allFieldsVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="218.0" spacing="4.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
               <opaqueInsets>
                   <Insets top="1.0" />
               </opaqueInsets>
