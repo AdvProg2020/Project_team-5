@@ -149,6 +149,21 @@ public class Shop {
         good.getSubCategory().deleteGood(good);
     }
 
+    public void removeRatesOfAGood(Good good) throws FileCantBeSavedException, IOException, FileCantBeDeletedException {
+        Iterator<Rate> rates = Shop.getInstance().getAllRates().iterator();
+        while (rates.hasNext()) {
+            Rate rate = rates.next();
+            if (rate.getGood().equals(good)) {
+                Database.getInstance().deleteItem(rate);
+                rates.remove();
+            }
+        }
+    }
+
+    public void removeProductsFromOffs(Good good) {
+
+    }
+
     public Person findUser(String userName) {
         for (Person person : allPersons) {
             if (person.getUsername().equals(userName))

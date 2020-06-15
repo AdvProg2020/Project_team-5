@@ -80,17 +80,8 @@ public class DeletingData {
             comment.getId();
             deleteComment(comment);
         }
-        Shop.getInstance().removeProduct(good);
         //remove rates
-        Iterator<Rate> rates = Shop.getInstance().getAllRates().iterator();
-        while (rates.hasNext()) {
-            Rate rate = rates.next();
-            if (rate.getGood().equals(good)) {
-                Database.getInstance().deleteItem(rate);
-                rates.remove();
-            }
-        }
-
+        Shop.getInstance().removeProduct(good);
     }
 
     public void deleteDiscount(DiscountCode discountCode) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {
