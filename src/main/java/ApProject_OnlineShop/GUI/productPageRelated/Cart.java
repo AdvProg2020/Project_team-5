@@ -32,7 +32,7 @@ public class Cart extends FxmlController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Long> productIds = MainController.getInstance().getAccountAreaForCustomerController().viewInCartProducts();
         if (productIds == null || productIds.size() == 0) {
-            Label isEmpty = new Label("any product doesn't exist in cart");
+            Label isEmpty = new Label("cart is empty!");
             isEmpty.setPadding(new Insets(15, 15, 0, 15));
             isEmpty.setFont(Font.font("Times New Roman", 20));
             items.getChildren().add(isEmpty);
