@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.Shop;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -16,6 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ProductBriefSummery {
@@ -24,7 +27,7 @@ public class ProductBriefSummery {
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
         mainVBox.setAlignment(Pos.CENTER);
-        ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/"+ productId+".jpg").toUri().toString()));
+        ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         VBox image = new VBox();
         image.getChildren().add(imageView);
         mainVBox.getChildren().add(image);
@@ -41,7 +44,7 @@ public class ProductBriefSummery {
         HBox rateHBox = new HBox();
         rateHBox.setAlignment(Pos.CENTER_LEFT);
         int rateInteger = Integer.parseInt(goodInfo.get(1).substring(0, 1));
-        Label rate = new Label("  "+goodInfo.get(1).substring(0, 3));
+        Label rate = new Label("  " + goodInfo.get(1).substring(0, 3));
         rateHBox.setPadding(new Insets(0, 15, 0, 15));
         for (int i = 0; i < rateInteger; i++) {
             ImageView star = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/star.png").toString()));
@@ -77,13 +80,23 @@ public class ProductBriefSummery {
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
         mainVBox.setAlignment(Pos.CENTER);
-        ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/"+ productId+".jpg").toUri().toString()));
+        VBox leftDays = new VBox();
+        leftDays.setMaxHeight(30);
+        leftDays.setMaxHeight(30);
+        leftDays.setAlignment(Pos.CENTER);
+        LocalDate date = Shop.getInstance().findGoodById(productId).getThisGoodOff().getEndDate();
+        Label days = new Label("" + ChronoUnit.DAYS.between(LocalDate.now(), date) + " days left");
+        days.setTextFill(Color.RED);
+        days.setUnderline(true);
+        leftDays.getChildren().add(days);
+        mainVBox.getChildren().add(leftDays);
+        ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         VBox image = new VBox();
         image.getChildren().add(imageView);
         mainVBox.getChildren().add(image);
         image.setMaxSize(150, 150);
-        imageView.setFitHeight(150);
-        imageView.setFitWidth(150);
+        imageView.setFitHeight(130);
+        imageView.setFitWidth(130);
         VBox nameVBox = new VBox();
         nameVBox.setAlignment(Pos.CENTER_LEFT);
         Label name = new Label(goodInfo.get(0));

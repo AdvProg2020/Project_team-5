@@ -232,6 +232,14 @@ public class Good {
         return null;
     }
 
+    public Off getThisGoodOff(){
+        for (Off off : Shop.getInstance().getOffs()) {
+            if (off.getOffGoods().contains(this))
+                return off;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         StringBuilder sellerRelatedInfo = new StringBuilder();
