@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.accountArea.Styles;
+import ApProject_OnlineShop.GUI.productPageRelated.Cart;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -173,5 +175,10 @@ public class AccountAreaForCustomerController extends FxmlController implements 
             Shop.getInstance().clearCart();
             setScene("mainMenuLayout.fxml", "Main menu");
         }
+    }
+
+    public void cart(MouseEvent mouseEvent) {
+        Cart.setPathBack("accountAreaForCustomer.fxml","account area");
+        setScene("cart.fxml", "cart");
     }
 }
