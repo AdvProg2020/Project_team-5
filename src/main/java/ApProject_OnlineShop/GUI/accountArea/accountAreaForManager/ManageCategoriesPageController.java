@@ -60,8 +60,13 @@ public class ManageCategoriesPageController extends FxmlController implements In
             hyperlink.setPadding(new Insets(8));
             hyperlink.setCursor(Cursor.HAND);
             hyperlink.setUnderline(false);
+            hyperlink.setPrefSize(150, 50);
             hyperlink.setFont(new Font(14));
             allCategoriesVBox.getChildren().add(hyperlink);
+        }
+        int size = MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName().size() * 50;
+        if (size > 422) {
+            allCategoriesVBox.setPrefHeight(size);
         }
     }
 

@@ -40,7 +40,7 @@
   </HBox>
   <VBox prefHeight="400.0" prefWidth="270.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
     <children>
-         <ScrollPane hbarPolicy="NEVER" prefHeight="400.0" prefWidth="270.0">
+         <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="270.0">
             <content>
             <TableView fx:id="requestsTable" onMouseClicked="#onRowSelected" prefHeight="400.0" prefWidth="260.0" stylesheets="@styelsheets/baseStyles.css">
               <columns>
