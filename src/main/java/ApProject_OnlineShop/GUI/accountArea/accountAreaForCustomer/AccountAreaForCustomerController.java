@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.accountArea.Styles;
+import ApProject_OnlineShop.GUI.productPageRelated.Cart;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -74,13 +76,13 @@ public class AccountAreaForCustomerController extends FxmlController implements 
             discountLink.setUnderline(false);
             vBox.getChildren().add(discountLink);
         }
-        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
-        ImageView shoppingBagImageView = new ImageView(shoppingBag);
-        shoppingBagImageView.setFitHeight(80);
-        shoppingBagImageView.setFitWidth(60);
-        shoppingBagImageView.setCursor(Cursor.HAND);
-        root.add(shoppingBagImageView, 2, 2);
-        GridPane.setValignment(shoppingBagImageView, VPos.TOP);
+//        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
+//        ImageView shoppingBagImageView = new ImageView(shoppingBag);
+//        shoppingBagImageView.setFitHeight(80);
+//        shoppingBagImageView.setFitWidth(60);
+//        shoppingBagImageView.setCursor(Cursor.HAND);
+//        root.add(shoppingBagImageView, 2, 2);
+//        GridPane.setValignment(shoppingBagImageView, VPos.TOP);
         root.add(topic, 1, 1);
         MenuItem sortByDiscountPercent = new MenuItem("sort by discount percent");
         MenuItem sortByEndDate = new MenuItem("sort by end date");
@@ -108,13 +110,13 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         discountCodeInfo.setPadding(new Insets(13));
         GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
         root.add(discountCodeInfo, 1, 1);
-        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
-        ImageView shoppingBagImageView = new ImageView(shoppingBag);
-        shoppingBagImageView.setFitHeight(80);
-        shoppingBagImageView.setFitWidth(60);
-        shoppingBagImageView.setCursor(Cursor.HAND);
-        root.add(shoppingBagImageView, 2, 2);
-        GridPane.setValignment(shoppingBagImageView, VPos.TOP);
+//        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
+//        ImageView shoppingBagImageView = new ImageView(shoppingBag);
+//        shoppingBagImageView.setFitHeight(80);
+//        shoppingBagImageView.setFitWidth(60);
+//        shoppingBagImageView.setCursor(Cursor.HAND);
+//        root.add(shoppingBagImageView, 2, 2);
+//        GridPane.setValignment(shoppingBagImageView, VPos.TOP);
         VBox vBox = new VBox();
         addDiscountDetailsToVBox(discountCodeDetails, vBox);
         style.setVBoxStyle(vBox);
@@ -173,5 +175,10 @@ public class AccountAreaForCustomerController extends FxmlController implements 
             Shop.getInstance().clearCart();
             setScene("mainMenuLayout.fxml", "Main menu");
         }
+    }
+
+    public void cart(MouseEvent mouseEvent) {
+        Cart.setPathBack("accountAreaForCustomer.fxml","account area");
+        setScene("cart.fxml", "cart");
     }
 }

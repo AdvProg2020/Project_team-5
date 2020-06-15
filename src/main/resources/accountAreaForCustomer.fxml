@@ -7,17 +7,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController">
+<GridPane alignment="CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="433.6" minWidth="10.0" prefWidth="431.6" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="450.0" minWidth="450.0" prefWidth="450.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="27.20000762939455" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="345.5999923706055" minHeight="10.0" prefHeight="345.5999923706055" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="400.0" minHeight="400.0" prefHeight="400.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
     </rowConstraints>
-    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="367.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
         <opaqueInsets>
             <Insets top="1.0" />
         </opaqueInsets>
@@ -200,7 +201,7 @@
             </MenuButton>
         </children>
     </VBox>
-    <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="Customer Personal Information" GridPane.columnIndex="1">
+    <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="Customer Personal Information" GridPane.columnIndex="1" GridPane.halignment="CENTER">
         <font>
             <Font name="Times New Roman" size="26.0" />
         </font>
@@ -216,17 +217,17 @@
             <Insets top="10.0" />
         </padding>
     </Hyperlink>
-    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
+    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
         <image>
             <Image url="@pictures/logout.png" />
         </image>
         <GridPane.margin>
-            <Insets left="400.0" />
+            <Insets />
         </GridPane.margin>
     </ImageView>
-    <ImageView fitHeight="85.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+    <ImageView onMouseClicked="#cart" fitHeight="85.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
         <GridPane.margin>
-            <Insets left="400.0" />
+            <Insets />
         </GridPane.margin>
       <image>
          <Image url="@pictures/shoppingBag.png" />

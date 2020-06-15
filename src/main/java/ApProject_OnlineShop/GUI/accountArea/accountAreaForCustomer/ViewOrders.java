@@ -28,20 +28,20 @@ public class ViewOrders extends FxmlController {
         this.style = new Styles();
     }
 
-    public void viewSortedOrders(int sort){
+    public void viewSortedOrders(int sort) {
         GridPane root = style.makeGridPane();
         Label topic = new Label("All Orders");
         topic.setFont(Font.font("Times New Roman", 26));
         topic.setPadding(new Insets(13));
         GridPane.setHalignment(topic, HPos.CENTER);
         root.add(topic, 1, 1);
-        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
-        ImageView shoppingBagImageView = new ImageView(shoppingBag);
-        shoppingBagImageView.setFitHeight(80);
-        shoppingBagImageView.setFitWidth(60);
-        shoppingBagImageView.setCursor(Cursor.HAND);
-        root.add(shoppingBagImageView,2,2);
-        GridPane.setValignment(shoppingBagImageView,VPos.TOP);
+//        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
+//        ImageView shoppingBagImageView = new ImageView(shoppingBag);
+//        shoppingBagImageView.setFitHeight(80);
+//        shoppingBagImageView.setFitWidth(60);
+//        shoppingBagImageView.setCursor(Cursor.HAND);
+//        root.add(shoppingBagImageView,2,2);
+//        GridPane.setValignment(shoppingBagImageView,VPos.TOP);
         VBox vBox = new VBox();
         ScrollPane scrollPane = new ScrollPane(vBox);
         scrollPane.setPrefWidth(430);
@@ -79,22 +79,22 @@ public class ViewOrders extends FxmlController {
         StageController.setSceneJavaFx(root);
     }
 
-    public void viewSingleOrder(String orderString){
+    public void viewSingleOrder(String orderString) {
         int index = orderString.indexOf("  ");
         String code = orderString.substring("order ID: ".length(), index);
         long orderId = Long.parseLong(code);
-        List<String> orderDetails = ((Customer)MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
+        List<String> orderDetails = ((Customer) MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
         GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Customer Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
         discountCodeInfo.setPadding(new Insets(13));
-        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
-        ImageView shoppingBagImageView = new ImageView(shoppingBag);
-        shoppingBagImageView.setFitHeight(80);
-        shoppingBagImageView.setFitWidth(60);
-        shoppingBagImageView.setCursor(Cursor.HAND);
-        root.add(shoppingBagImageView,2,2);
-        GridPane.setValignment(shoppingBagImageView,VPos.TOP);
+//        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
+//        ImageView shoppingBagImageView = new ImageView(shoppingBag);
+//        shoppingBagImageView.setFitHeight(80);
+//        shoppingBagImageView.setFitWidth(60);
+//        shoppingBagImageView.setCursor(Cursor.HAND);
+//        root.add(shoppingBagImageView,2,2);
+//        GridPane.setValignment(shoppingBagImageView,VPos.TOP);
         GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
         root.add(discountCodeInfo, 1, 1);
         VBox vBox = new VBox();
@@ -105,7 +105,7 @@ public class ViewOrders extends FxmlController {
         StageController.setSceneJavaFx(root);
     }
 
-    public void addDetailsToVBox(List<String> orderDetails, VBox vBox){
+    public void addDetailsToVBox(List<String> orderDetails, VBox vBox) {
         Label id = new Label("order ID:     " + orderDetails.get(0));
         Label date = new Label("date:     " + orderDetails.get(1));
         Label goodsList = new Label("goods list:\n\n" + orderDetails.get(2));

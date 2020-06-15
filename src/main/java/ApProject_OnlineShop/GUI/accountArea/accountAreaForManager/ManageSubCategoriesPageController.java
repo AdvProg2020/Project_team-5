@@ -53,10 +53,15 @@ public class ManageSubCategoriesPageController extends FxmlController implements
             hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
             hyperlink.setAlignment(Pos.BOTTOM_LEFT);
             hyperlink.setPadding(new Insets(8));
+            hyperlink.setPrefSize(150, 50);
             hyperlink.setCursor(Cursor.HAND);
             hyperlink.setUnderline(false);
             hyperlink.setFont(new Font(14));
             allSubCategoriesVBox.getChildren().add(hyperlink);
+        }
+        int size = MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames(currentCategory).size() * 50;
+        if (size > 400) {
+            allSubCategoriesVBox.setPrefHeight(size);
         }
     }
 

@@ -40,6 +40,7 @@ public class ViewOffsController extends FxmlController implements Initializable 
             for (String off : MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(sortSlected)) {
                 Hyperlink hyperlink = new Hyperlink("- " + off);
                 hyperlink.setOnMouseClicked(e -> viewSingleOff(off));
+                hyperlink.setPrefSize(200, 50);
                 hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
                 hyperlink.setAlignment(Pos.BOTTOM_LEFT);
                 hyperlink.setPadding(new Insets(8));
