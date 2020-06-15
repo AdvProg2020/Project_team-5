@@ -31,6 +31,7 @@ public class CommentsPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setPhoto();
         ArrayList<Comment> comments = Shop.getInstance().findGoodById(goodId).getComments();
         for (Comment comment : comments) {
             GridPane gridPane = new GridPane();
@@ -84,6 +85,10 @@ public class CommentsPage extends FxmlController implements Initializable {
         if (size1 > 577) {
             vbox.setPrefWidth(size1 + 20);
         }
+    }
+
+    private void setPhoto() {
+
     }
 
     public void backButton(ActionEvent actionEvent) {

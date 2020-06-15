@@ -50,7 +50,7 @@
             <Image url="@./pictures/logout.png" />
         </image>
     </ImageView>
-   <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="618.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+   <ScrollPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="618.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <content>
               <VBox fx:id="vbox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="602.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" />
       </content>
