@@ -141,7 +141,7 @@ public class EditCategoryPageController extends FxmlController implements Initia
         }
         if (Shop.getInstance().findCategoryByName(currentCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty))) {
             ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
-            newValueField.clear();
+            newPropertyField.clear();
             return;
         }
         try {

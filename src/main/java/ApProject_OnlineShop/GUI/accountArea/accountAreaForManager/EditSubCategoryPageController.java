@@ -118,7 +118,30 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
     }
 
     public void onAddPropertyPressed(ActionEvent actionEvent) {
-
+        String newProperty = newPropertyField.getText();
+        if (newProperty.isEmpty()) {
+            ErrorPageFxController.showPage("error in editing", "please fill the text field and then click");
+            return;
+        }
+        if (!newProperty.matches("\\w+")) {
+            ErrorPageFxController.showPage("error in editing", "wrong name format entered");
+            newPropertyField.clear();
+            return;
+        }
+        if (Shop.getInstance().findSubCategoryByName(currentSubCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty)) || Shop.getInstance().findCategoryByName(currentCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty))) {
+            ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
+            newPropertyField.clear();
+            return;
+        }
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory(currentSubCategory, newProperty);
+            newPropertyField.clear();
+            updatePropertiesBox();
+            SuccessPageFxController.showPage("successful edit", "property added successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            ErrorPageFxController.showPage("error", e.getMessage());
+        }
     }
 
     public static void setCurrentInfo(String currentCategory, String currentSubCategory) {
