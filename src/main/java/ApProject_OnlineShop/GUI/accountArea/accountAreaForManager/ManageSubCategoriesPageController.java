@@ -106,7 +106,7 @@ public class ManageSubCategoriesPageController extends FxmlController implements
 
     public void onRemoveSubCategoryPressed(ActionEvent actionEvent) {
         Optional<ButtonType> result = showAlert
-                (Alert.AlertType.CONFIRMATION, "remove", "Remove Category", "are you sure to remove this category?");
+                (Alert.AlertType.CONFIRMATION, "remove", "Remove Sub Category", "are you sure to remove this sub category?");
         if (result.get() == ButtonType.OK) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeSubCategory(currentCategory, selectedSubCategory);

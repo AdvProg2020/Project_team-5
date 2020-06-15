@@ -38,7 +38,7 @@
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin></Label>
-            <Label fx:id="errorContentLabel" alignment="TOP_LEFT" prefHeight="110.0" prefWidth="237.0" text="Error content" />
+            <Label fx:id="errorContentLabel" alignment="TOP_LEFT" prefHeight="110.0" prefWidth="237.0" text="Error content" textOverrun="CLIP" />
             <Button id="errorButton" mnemonicParsing="false" onAction="#onOkButtonPressed" prefHeight="31.0" prefWidth="216.0" stylesheets="@styelsheets/baseStyles.css" text="OK">
                <VBox.margin>
                   <Insets top="10.0" />
