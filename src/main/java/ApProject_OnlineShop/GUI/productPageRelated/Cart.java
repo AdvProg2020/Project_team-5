@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 
 public class Cart extends FxmlController implements Initializable {
     public VBox items;
+    private static String pathBack;
+    private static String titleBack;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -144,5 +146,14 @@ public class Cart extends FxmlController implements Initializable {
     public void showProduct(long productId) {
         ProductPage.setProductId(productId);
         setScene("productPage.fxml", "productPage");
+    }
+
+    public void backPressed(MouseEvent mouseEvent) {
+        setScene(pathBack, titleBack);
+    }
+
+    public static void setPathBack(String pathBack, String titleBack) {
+        Cart.pathBack = pathBack;
+        Cart.titleBack = titleBack;
     }
 }

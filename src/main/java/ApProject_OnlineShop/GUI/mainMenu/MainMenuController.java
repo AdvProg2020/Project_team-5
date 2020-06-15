@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.mainMenu;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.productPageRelated.Cart;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -46,6 +47,7 @@ public class MainMenuController extends FxmlController {
     }
 
     public void cart() {
+        Cart.setPathBack("mainMenuLayout.fxml","main menu");
         setScene("cart.fxml", "cart");
     }
 }
