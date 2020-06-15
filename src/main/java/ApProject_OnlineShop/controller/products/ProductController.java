@@ -4,12 +4,14 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
+import ApProject_OnlineShop.exception.productExceptions.NotEnoughAvailableProduct;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Comment;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.requests.AddingCommentRequest;
 
@@ -68,6 +70,28 @@ public class ProductController {
         if (sellerRelatedInfoAboutGood.getAvailableNumber() < number)
             throw new DontHaveEnoughNumberOfThisProduct();
         Shop.getInstance().addGoodToCart(good, sellerRelatedInfoAboutGood.getSeller(), number);
+    }
+
+    public void addGoodToCartGUI(String seller) throws DontHaveEnoughNumberOfThisProduct, NotEnoughAvailableProduct {
+        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+            if (relatedInfoAboutGood.getSeller().getUsername().equals(seller)) {
+                sellerRelatedInfoAboutGood = relatedInfoAboutGood;
+                break;
+            }
+        }
+        if (sellerRelatedInfoAboutGood.getAvailableNumber() < 1)
+            throw new DontHaveEnoughNumberOfThisProduct();
+        boolean flag = false;
+        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+            if (goodInCart.getGood().equals(good) && goodInCart.getSeller().getUsername().equals(seller)) {
+                Shop.getInstance().increaseGoodInCartNumber(good.getGoodId());
+                flag = true;
+                return;
+            }
+        }
+        if (!flag)
+            Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1);
     }
 
     public int getAvailableNumberOfAProductByASeller(int sellerNumber) {
