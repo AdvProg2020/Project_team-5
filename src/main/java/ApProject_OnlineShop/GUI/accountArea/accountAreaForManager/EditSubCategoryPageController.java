@@ -63,9 +63,14 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             hyperlink.setAlignment(Pos.BOTTOM_LEFT);
             hyperlink.setPadding(new Insets(8));
             hyperlink.setCursor(Cursor.HAND);
+            hyperlink.setPrefSize(150, 50);
             hyperlink.setUnderline(false);
             hyperlink.setFont(new Font(14));
             allFieldsVBox.getChildren().add(hyperlink);
+        }
+        int size = Shop.getInstance().findSubCategoryByName(currentSubCategory).getDetails().size() * 50;
+        if (size > 355) {
+            allFieldsVBox.setPrefHeight(size);
         }
     }
 
