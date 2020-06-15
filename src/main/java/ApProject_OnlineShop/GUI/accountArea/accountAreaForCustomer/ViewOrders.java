@@ -28,7 +28,7 @@ public class ViewOrders extends FxmlController {
         this.style = new Styles();
     }
 
-    public void viewSortedOrders(int sort){
+    public void viewSortedOrders(int sort) {
         GridPane root = style.makeGridPane();
         Label topic = new Label("All Orders");
         topic.setFont(Font.font("Times New Roman", 26));
@@ -79,11 +79,11 @@ public class ViewOrders extends FxmlController {
         StageController.setSceneJavaFx(root);
     }
 
-    public void viewSingleOrder(String orderString){
+    public void viewSingleOrder(String orderString) {
         int index = orderString.indexOf("  ");
         String code = orderString.substring("order ID: ".length(), index);
         long orderId = Long.parseLong(code);
-        List<String> orderDetails = ((Customer)MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
+        List<String> orderDetails = ((Customer) MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
         GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Customer Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
@@ -105,7 +105,7 @@ public class ViewOrders extends FxmlController {
         StageController.setSceneJavaFx(root);
     }
 
-    public void addDetailsToVBox(List<String> orderDetails, VBox vBox){
+    public void addDetailsToVBox(List<String> orderDetails, VBox vBox) {
         Label id = new Label("order ID:     " + orderDetails.get(0));
         Label date = new Label("date:     " + orderDetails.get(1));
         Label goodsList = new Label("goods list:\n\n" + orderDetails.get(2));
