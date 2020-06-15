@@ -109,6 +109,9 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
         }
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
         startColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        if (discounts.size() * 27 > 400) {
+            discountTable.setPrefHeight(discounts.size() * 27);
+        }
     }
 
     public void onEndDateSort() {
