@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.Cart">
+   <content>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="236.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="864.9999847412109" minWidth="10.0" prefWidth="764.8" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="261.4" minHeight="0.0" prefHeight="132.60000000000002" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="682.8000076293945" minHeight="10.0" prefHeight="661.8" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+               <items>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/sort.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="19.0" prefWidth="91.0" text="sort by:">
+                     <font>
+                        <Font name="Times New Roman" size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="viewsSort" prefHeight="19.0" prefWidth="104.0" text="views">
+                     <font>
+                        <Font name="Times New Roman" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Label>
+                  <Label fx:id="rateSort" prefHeight="19.0" prefWidth="139.0" text="average rate">
+                     <font>
+                        <Font name="Times New Roman" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <Label fx:id="dateSort" prefHeight="19.0" prefWidth="179.0" text="modification date">
+                     <font>
+                        <Font name="Times New Roman" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </items>
+            </ToolBar>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/icons8-back-to-48.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="15.0" right="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
+                  <ImageView fitHeight="57.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/shoppingBag.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/accountArea.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="1.0" right="5.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </HBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </content>
+</ScrollPane>
