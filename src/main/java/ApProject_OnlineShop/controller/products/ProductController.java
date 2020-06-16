@@ -72,7 +72,7 @@ public class ProductController {
         Shop.getInstance().addGoodToCart(good, sellerRelatedInfoAboutGood.getSeller(), number);
     }
 
-    public void addGoodToCartGUI(String seller) throws DontHaveEnoughNumberOfThisProduct, NotEnoughAvailableProduct {
+    public void addGoodToCartGUI(String seller) throws Exception {
         SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
             if (relatedInfoAboutGood.getSeller().getUsername().equals(seller)) {
@@ -83,6 +83,11 @@ public class ProductController {
         if (sellerRelatedInfoAboutGood.getAvailableNumber() < 1)
             throw new DontHaveEnoughNumberOfThisProduct();
         boolean flag = false;
+        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+            if (goodInCart.getGood().equals(good) && !goodInCart.getSeller().getUsername().equals(seller)) {
+                throw new Exception("you cant buy a same procut from two different seller!");
+            }
+        }
         for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
             if (goodInCart.getGood().equals(good) && goodInCart.getSeller().getUsername().equals(seller)) {
                 Shop.getInstance().increaseGoodInCartNumber(good.getGoodId());
