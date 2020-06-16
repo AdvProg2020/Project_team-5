@@ -200,6 +200,8 @@ public class ProductPage extends FxmlController implements Initializable {
             SuccessPageFxController.showPage("product added to cart", "product added to cart succesfully!");
         } catch (DontHaveEnoughNumberOfThisProduct | NotEnoughAvailableProduct dontHaveEnoughNumberOfThisProduct) {
             ErrorPageFxController.showPage("cannot add this product", dontHaveEnoughNumberOfThisProduct.getMessage());
+        } catch (Exception exception) {
+            ErrorPageFxController.showPage("cannot add this product", exception.getMessage());
         }
     }
 
