@@ -3,16 +3,22 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Comment;
 import ApProject_OnlineShop.view.LoginRegisterMenu;
 import ApProject_OnlineShop.view.Menu;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.geometry.*;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -28,6 +34,7 @@ import java.util.ResourceBundle;
 public class CommentsPage extends FxmlController implements Initializable {
     private static long goodId;
     public VBox vbox;
+    public GridPane gridpane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,7 +87,7 @@ public class CommentsPage extends FxmlController implements Initializable {
                     "-fx-border-style: solid;" +
                     "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
         }
-        int size1 =  (comments.size() * (110));
+        int size1 = (comments.size() * (110));
         if (size1 > 577) {
             vbox.setPrefWidth(size1 + 20);
         }
@@ -99,17 +106,19 @@ public class CommentsPage extends FxmlController implements Initializable {
         }
     }
 
-    public void logout(MouseEvent mouseEvent) {
-        Optional<ButtonType> result = showAlert
-                (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
-        if (result.get() == ButtonType.OK) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
-            Shop.getInstance().clearCart();
-            setScene("mainMenuLayout.fxml", "Main menu");
-        }
-    }
-
     public static void setGoodId(long goodId) {
         CommentsPage.goodId = goodId;
+    }
+
+    public void accountArea(MouseEvent mouseEvent) {
+        if (MainController.getInstance().getCurrentPerson() == null) {
+            setScene("login.fxml", "login");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            setScene("accountAreaForCustomer.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+            setScene("accountAreaForSeller.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            setScene("accountAreaForManager.fxml", "account area");
+        }
     }
 }
