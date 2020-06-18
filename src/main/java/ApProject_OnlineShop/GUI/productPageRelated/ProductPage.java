@@ -57,7 +57,6 @@ public class ProductPage extends FxmlController implements Initializable {
         setScene("allProduct.fxml", "all products");
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
@@ -220,5 +219,9 @@ public class ProductPage extends FxmlController implements Initializable {
     public void showComments(ActionEvent actionEvent) {
         CommentsPage.setGoodId(productId);
         setScene("commentsPage.fxml", "comments");
+    }
+
+    public void compare(ActionEvent actionEvent) {
+        setScene("allProductsForCompareProduct.fxml","compare");
     }
 }

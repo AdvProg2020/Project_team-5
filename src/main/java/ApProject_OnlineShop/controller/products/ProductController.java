@@ -85,7 +85,7 @@ public class ProductController {
         boolean flag = false;
         for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
             if (goodInCart.getGood().equals(good) && !goodInCart.getSeller().getUsername().equals(seller)) {
-                throw new Exception("you cant buy a same procut from two different seller!");
+                throw new Exception("you can't buy a same product from two different seller!");
             }
         }
         for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
@@ -130,6 +130,28 @@ public class ProductController {
         output += String.format("| %-25s | %-25s | %-25s |%n", "number of sellers", numbersOfSellers(good), numbersOfSellers(good2));
         output += String.format("| %-25s | %-25s | %-25s |%n", "minmum price of product", good.getMinimumPrice(), good2.getMinimumPrice());
         output += "+---------------------------+---------------------------+---------------------------+\n";
+        return output;
+    }
+
+    public ArrayList<String> compareWithAnotherProductGUI(long id) {
+        Good good2 = Shop.getInstance().findGoodById(id);
+        ArrayList<String> output = new ArrayList<>();
+        output.add(good2.getName());
+        output.add(good.getName());
+        output.add(good2.getBrand());
+        output.add(good.getBrand());
+        output.add(good2.getAverageRate() + "");
+        output.add(good.getAverageRate() + "");
+        output.add(good2.getSubCategory().getName());
+        output.add(good.getSubCategory().getName());
+        output.add(good2.getModificationDate().toString());
+        output.add(good.getModificationDate().toString());
+        output.add(good2.getSeenNumber() + "");
+        output.add(good.getSeenNumber() + "");
+        output.add(numbersOfSellers(good2) + "");
+        output.add(numbersOfSellers(good) + "");
+        output.add(good2.getMinimumPrice() + "");
+        output.add(good.getMinimumPrice() + "");
         return output;
     }
 

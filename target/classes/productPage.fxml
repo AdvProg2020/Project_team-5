@@ -30,7 +30,7 @@
             <Font name="Times New Roman" size="26.0" />
         </font>
     </Label>
-    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#goToAccountArea" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
+    <ImageView GridPane.halignment="CENTER" fitHeight="61.0" fitWidth="55.0" onMouseClicked="#goToAccountArea" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
         <image>
             <Image url="@./pictures/accountArea.png" />
         </image>
@@ -167,6 +167,14 @@
             <Font size="14.0" />
         </font>
     </Button>
+   <Button alignment="CENTER" mnemonicParsing="false" onAction="#compare" prefHeight="47.0" prefWidth="167.0" styleClass="menuButtons" text="Compare" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <font>
+         <Font size="13.0" />
+      </font>
+      <GridPane.margin>
+         <Insets top="100.0" />
+      </GridPane.margin>
+   </Button>
     <padding>
         <Insets left="10.0" />
     </padding>

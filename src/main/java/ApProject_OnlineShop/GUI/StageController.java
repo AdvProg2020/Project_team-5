@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.GUI.productPageRelated.ProductPage;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.controller.products.ProductController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
 import javafx.application.Platform;
@@ -39,6 +40,8 @@ public class StageController {
         Parent root = null;
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("mainMenuLayout.fxml")));
+//            ProductPage.setProductId(6);
+//            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("productPage.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
