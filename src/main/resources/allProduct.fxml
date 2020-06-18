@@ -105,24 +105,42 @@
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding></RadioButton>
-                  <Label prefHeight="25.0" prefWidth="145.0" text="category:">
+                  <Label prefHeight="26.0" prefWidth="175.0" text="category:">
                      <font>
                         <Font name="Times New Roman" size="14.0" />
                      </font>
                   </Label>
                   <ChoiceBox fx:id="categoryChoiceBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" />
-                  <Label prefHeight="18.0" prefWidth="174.0" text="seller:">
+                  <Label prefHeight="18.0" prefWidth="174.0" text="name:">
                      <VBox.margin>
-                        <Insets top="8.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                      <font>
                         <Font name="Times New Roman" size="14.0" />
                      </font>
                   </Label>
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="nameFilterValue" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+                        <ImageView fx:id="nameFilter" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/search.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label prefHeight="18.0" prefWidth="180.0" text="seller:">
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
                      <children>
-                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="sellerValueFilter" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+                        <ImageView fx:id="sellerFilter" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/search.png" />
                            </image>
