@@ -133,6 +133,28 @@ public class ProductController {
         return output;
     }
 
+    public ArrayList<String> compareWithAnotherProductGUI(long id) {
+        Good good2 = Shop.getInstance().findGoodById(id);
+        ArrayList<String> output = new ArrayList<>();
+        output.add(good2.getName());
+        output.add(good.getName());
+        output.add(good2.getBrand());
+        output.add(good.getBrand());
+        output.add(good2.getAverageRate() + "");
+        output.add(good.getAverageRate() + "");
+        output.add(good2.getSubCategory().getName());
+        output.add(good.getSubCategory().getName());
+        output.add(good2.getModificationDate().toString());
+        output.add(good.getModificationDate().toString());
+        output.add(good2.getSeenNumber() + "");
+        output.add(good.getSeenNumber() + "");
+        output.add(numbersOfSellers(good2) + "");
+        output.add(numbersOfSellers(good) + "");
+        output.add(good2.getMinimumPrice() + "");
+        output.add(good.getMinimumPrice() + "");
+        return output;
+    }
+
     public String showComments() {
         String output = "--------------------------------------------\n";
         output += ("average rate of this product is = " + good.getAverageRate());
