@@ -36,6 +36,7 @@ public class AccountAreaForManagerTest {
 
     @BeforeClass
     public static void initializeVariables() {
+        Database.getInstance().loadTestFolders();
         fields = new ArrayList<>();
         fields.add("RandomDiscount");
         fields.add("2020-07-01");

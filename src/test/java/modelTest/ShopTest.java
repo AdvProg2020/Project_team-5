@@ -1,5 +1,6 @@
 package modelTest;
 
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 public class ShopTest {
     @BeforeClass
     public static void load(){
+        Database.getInstance().loadTestFolders();
         Shop.getInstance().getAllPersons().add(new Customer("yasaman1", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Customer("yasaman2", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));
         Shop.getInstance().getAllPersons().add(new Customer("yasaman3", "sadegh", "majidi", "sadegh0211380@gmail.com", "09361457810", "pass", 1500L));

@@ -1,5 +1,6 @@
 package modelTest.productThingsTest;
 
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import org.junit.Before;
@@ -14,6 +15,7 @@ public class DiscountCodeTest {
 
     @Before
     public void initializeRequiredValuesForUsingDiscountCodeTest() {
+        Database.getInstance().loadTestFolders();
         customer = new Customer("admin", "sadegh", "majidi",
                 "sadegh@gmail.com", "09360000000", "1234", 12212);
         discountCode = new DiscountCode("asdSDhjk43iu3tr",

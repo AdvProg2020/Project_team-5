@@ -1,5 +1,6 @@
 package modelTest.persons;
 
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -20,6 +21,7 @@ public class CustomerTest {
 
     @Before
     public void initializeValues() {
+        Database.getInstance().loadTestFolders();
         ArrayList<String> details = new ArrayList<>();
         details.add("p1");
         details.add("p2");
