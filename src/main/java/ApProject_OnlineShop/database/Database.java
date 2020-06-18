@@ -162,6 +162,8 @@ public class Database {
         File file = new File(folderPath);
         if (!file.exists())
             file.mkdir();
+        else if (folderPath.equalsIgnoreCase("TestResources"))
+            file.delete();
     }
 
 }
