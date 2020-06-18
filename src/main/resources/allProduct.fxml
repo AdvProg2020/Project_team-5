@@ -110,7 +110,25 @@
                         <Font name="Times New Roman" size="14.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="categoryChoiceBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" styleClass="menuButtons" />
+                  <ChoiceBox fx:id="categoryChoiceBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" />
+                  <Label prefHeight="18.0" prefWidth="174.0" text="seller:">
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
+                     <children>
+                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/search.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
                </children></VBox>
          </children>
       </GridPane>
