@@ -221,4 +221,8 @@ public class ProductPage extends FxmlController implements Initializable {
         CommentsPage.setGoodId(productId);
         setScene("commentsPage.fxml", "comments");
     }
+
+    public void compare(ActionEvent actionEvent) {
+        setScene("allProductsForCompareProduct.fxml","compare");
+    }
 }

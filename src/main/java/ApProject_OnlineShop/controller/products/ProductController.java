@@ -85,7 +85,7 @@ public class ProductController {
         boolean flag = false;
         for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
             if (goodInCart.getGood().equals(good) && !goodInCart.getSeller().getUsername().equals(seller)) {
-                throw new Exception("you cant buy a same procut from two different seller!");
+                throw new Exception("you can't buy a same product from two different seller!");
             }
         }
         for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
