@@ -39,6 +39,7 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
+        productIds.remove(Shop.getInstance().findGoodById(MainController.getInstance().getProductController().getGood().getGoodId()));
         int num = 0;
         int row = 0;
         for (Long productId : productIds) {
@@ -66,21 +67,8 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
     }
 
     private void compare(long productId2) {
-        RateProductsPart2Controller.setProductIdForRate(productId2);
-        Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setResizable(false);
-        window.setTitle("Rate");
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Objects.requireNonNull(SuccessPageFxController.class.getClassLoader().getResource("ratePage.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(root, 600, 400);
-        window.setScene(scene);
-        RateProductsPart2Controller.setWindow(window);
-        window.showAndWait();
+        CompareProductPart2Controller.setProductId1(productId2);
+        setScene("compareTwoProducts.fxml", "compare");
     }
 
     public void backButton(ActionEvent actionEvent) {

@@ -167,6 +167,14 @@
             <Font size="14.0" />
         </font>
     </Button>
+   <Button alignment="CENTER" mnemonicParsing="false" onAction="#compare" prefHeight="47.0" prefWidth="167.0" styleClass="menuButtons" text="Compare" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <font>
+         <Font size="13.0" />
+      </font>
+      <GridPane.margin>
+         <Insets top="100.0" />
+      </GridPane.margin>
+   </Button>
     <padding>
         <Insets left="10.0" />
     </padding>
