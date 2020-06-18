@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.persons.Customer;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -140,7 +141,11 @@ public class Cart extends FxmlController implements Initializable {
     }
 
     public void purchase() {
-        setScene("purchasePage.fxml", "purchase");
+        if (MainController.getInstance().getCurrentPerson()instanceof Customer){
+            setScene("purchasePage1.fxml", "purchase");
+        }else if (MainController.getInstance().getCurrentPerson() == null){
+            setScene("login.fxml","login");
+        }
     }
 
     public void showProduct(long productId) {
