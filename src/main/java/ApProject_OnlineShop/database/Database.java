@@ -135,7 +135,27 @@ public class Database {
     }
 
     public void loadTestFolders() {
-
+        SavingData.setTestMode(true);
+        DeletingData.setTestMode(true);
+        loadFolder("TestResources");
+        loadFolder("TestResources\\Users");
+        loadFolder("TestResources\\Orders");
+        loadFolder("TestResources\\Requests");
+        loadFolder("TestResources\\Orders\\OrderForCustomers");
+        loadFolder("TestResources\\Orders\\OrderForSellers");
+        loadFolder("TestResources\\SubCategories");
+        loadFolder("TestResources\\Categories");
+        loadFolder("TestResources\\Rates");
+        loadFolder("TestResources\\Offs");
+        loadFolder("TestResources\\Comments");
+        loadFolder("TestResources\\GoodsInCarts");
+        loadFolder("TestResources\\Discounts");
+        loadFolder("TestResources\\Products");
+        loadFolder("TestResources\\ProductsInfo");
+        loadFolder("TestResources\\Companies");
+        loadFolder("TestResources\\Users\\Sellers");
+        loadFolder("TestResources\\Users\\Customers");
+        loadFolder("TestResources\\Users\\Managers");
     }
 
     private void loadFolder(String folderPath) {
