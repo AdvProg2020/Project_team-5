@@ -44,8 +44,8 @@ public class CompareProductPart2Controller extends FxmlController implements Ini
         seenNumber2.setText(details.get(11));
         sellerNumber1.setText(details.get(12));
         sellerNumber2.setText(details.get(13));
-        price1.setText(details.get(14));
-        price2.setText(details.get(15));
+        price1.setText(details.get(14)+" Rials");
+        price2.setText(details.get(15) + " Rials");
         setLabelStyle(name1);
         setLabelStyle(name2);
         setLabelStyle(brand1);

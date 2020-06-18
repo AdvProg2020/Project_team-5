@@ -27,7 +27,7 @@
 
     <Label alignment="CENTER" prefHeight="84.0" prefWidth="782.0" text="compare" GridPane.columnIndex="1">
         <font>
-            <Font name="Times New Roman" size="26.0" />
+            <Font name="Times New Roman" size="30.0" />
         </font>
     </Label>
     <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#goToAccountArea" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
