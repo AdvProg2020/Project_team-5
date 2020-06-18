@@ -57,7 +57,6 @@ public class ProductPage extends FxmlController implements Initializable {
         setScene("allProduct.fxml", "all products");
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));

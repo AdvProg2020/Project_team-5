@@ -5,6 +5,9 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.RateProductsPart2Controller;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,14 +43,14 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
         int row = 0;
         for (Long productId : productIds) {
             VBox vbox;
-            if (MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
+            if (Shop.getInstance().getOffGoods().contains(Shop.getInstance().findGoodById(productId))) {
                 vbox = new ProductBriefSummery().offProductBriefSummery(productId);
                 root.add(vbox, num % 3, row);
                 num++;
                 vbox.setCursor(Cursor.HAND);
                 vbox.setOnMouseClicked(e -> compare(productId));
             }
-            if (!MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
+            if (!Shop.getInstance().getOffGoods().contains(Shop.getInstance().findGoodById(productId))) {
                 vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
                 root.add(vbox, num % 3, row);
                 num++;
@@ -57,7 +60,7 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
             if (num % 3 == 0)
                 row++;
         }
-        if (productIds.size() * 250 > 577) {
+        if (productIds.size() / 3 * 250 > 577) {
             root.setPrefHeight(productIds.size() * 250);
         }
     }
@@ -85,7 +88,15 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
     }
 
     public void goToAccountArea(MouseEvent mouseEvent) {
-
+        if (MainController.getInstance().getCurrentPerson() == null) {
+            setScene("login.fxml", "login");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            setScene("accountAreaForCustomer.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+            setScene("accountAreaForSeller.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            setScene("accountAreaForManager.fxml", "account area");
+        }
     }
 }
 
