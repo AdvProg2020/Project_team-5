@@ -5,6 +5,7 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.RateProductsPart2Controller;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.productThings.Good;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CompareProductPart1Controller extends FxmlController implements Initializable {
     @FXML
@@ -33,7 +35,7 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Long> productIds = MainController.getInstance().getAccountAreaForCustomerController().getBoughtProducts();
+        List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
         int num = 0;
         int row = 0;
         for (Long productId : productIds) {
@@ -43,14 +45,14 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
                 root.add(vbox, num % 3, row);
                 num++;
                 vbox.setCursor(Cursor.HAND);
-                vbox.setOnMouseClicked(e -> rateProduct(productId));
+                vbox.setOnMouseClicked(e -> compare(productId));
             }
             if (!MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
                 vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
                 root.add(vbox, num % 3, row);
                 num++;
                 vbox.setCursor(Cursor.HAND);
-                vbox.setOnMouseClicked(e -> rateProduct(productId));
+                vbox.setOnMouseClicked(e -> compare(productId));
             }
             if (num % 3 == 0)
                 row++;
@@ -60,7 +62,7 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
         }
     }
 
-    private void rateProduct(long productId2) {
+    private void compare(long productId2) {
         RateProductsPart2Controller.setProductIdForRate(productId2);
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -79,18 +81,11 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
     }
 
     public void backButton(ActionEvent actionEvent) {
-        setScene("accountAreaForCustomer.fxml", "account area");
+        setScene("productPage.fxml", "product page");
     }
 
-    public void logout(MouseEvent mouseEvent) {
-        Optional<ButtonType> result = showAlert
-                (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
-        if (result.get() == ButtonType.OK) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
-            Shop.getInstance().clearCart();
-            setScene("mainMenuLayout.fxml", "Main menu");
-        }
-    }
+    public void goToAccountArea(MouseEvent mouseEvent) {
 
+    }
 }
 

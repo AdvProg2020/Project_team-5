@@ -30,9 +30,9 @@
             <Font name="Times New Roman" size="26.0" />
         </font>
     </Label>
-    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
+    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#goToAccountArea" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
         <image>
-            <Image url="@./pictures/logout.png" />
+            <Image url="@./pictures/accountArea.png" />
         </image>
     </ImageView>
     <ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="610.0" vbarPolicy="ALWAYS" GridPane.columnIndex="1" GridPane.rowIndex="1">
