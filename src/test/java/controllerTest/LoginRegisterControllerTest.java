@@ -1,6 +1,7 @@
 package controllerTest;
 
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
@@ -10,6 +11,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Manager;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import ApProject_OnlineShop.testThings.TestShop;
 
@@ -18,6 +20,10 @@ import java.util.ArrayList;
 
 public class LoginRegisterControllerTest {
 
+    @BeforeClass
+    public static void initialize() {
+        Database.getInstance().loadTestFolders();
+    }
 
     @Test
     public void createAccountTest() {

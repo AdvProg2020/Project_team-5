@@ -2,6 +2,7 @@ package controllerTest.controllerAccountAreaTest;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.accountArea.AccountAreaForSellerController;
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.OffNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.model.Shop;
@@ -57,6 +58,7 @@ public class AccountAreaForSellerTest {
 
     @Before
     public void initializing() {
+        Database.getInstance().loadTestFolders();
         Shop.getInstance().addPerson(seller);
         MainController.getInstance().setCurrentPerson(seller);
         Shop.getInstance().addCategory(category);

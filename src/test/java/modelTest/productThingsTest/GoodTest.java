@@ -1,5 +1,6 @@
 package modelTest.productThingsTest;
 
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -8,6 +9,7 @@ import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -24,6 +26,11 @@ public class GoodTest {
     SubCategory subCategory = new SubCategory("sub", new ArrayList<>());
     DiscountCode discountCode = new DiscountCode("1111", LocalDate.parse("2020-03-15"), LocalDate.parse("2020-07-17"),200L, 22);
     Good good2 = new Good("phone", "samsung", subCategory,"",new HashMap<>(),seller,9000L,3);
+
+    @BeforeClass
+    public static void initialize() {
+        Database.getInstance().loadTestFolders();
+    }
     @Test
     public void GoodStatusTest(){
         assertEquals(Good.GoodStatus.BUILTPROCESSING,good.getGoodStatus());

@@ -2,12 +2,14 @@ package controllerTest.controllerAccountAreaTest;
 
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.BinaryFilters;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFound;
 import ApProject_OnlineShop.exception.userExceptions.SellerNotFound;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -17,6 +19,10 @@ import static org.junit.Assert.*;
 
 public class FilteringTest {
 
+    @BeforeClass
+    public static void initialize() {
+        Database.getInstance().loadTestFolders();
+    }
 
     @Test
     public void PriceFilter() {

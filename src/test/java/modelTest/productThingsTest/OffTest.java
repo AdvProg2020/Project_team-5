@@ -1,5 +1,6 @@
 package modelTest.productThingsTest;
 
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -23,6 +24,7 @@ public class OffTest {
 
     @Before
     public void initializeNecessaryValuesForTest() {
+        Database.getInstance().loadTestFolders();
         ArrayList<String> details=new ArrayList<>();
         details.add("p1");
         details.add("p2");

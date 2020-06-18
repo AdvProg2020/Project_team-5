@@ -2,6 +2,7 @@ package controllerTest.controllerAccountAreaTest;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.accountArea.AccountAreaForCustomerController;
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 
@@ -38,6 +39,7 @@ public class AccountAreaForCustomerTest {
 
     @Before
     public void initializing() {
+        Database.getInstance().loadTestFolders();
         MainController.getInstance().setCurrentPerson(customer);
         Shop.getInstance().addCategory(category);
         category.addSubCategory(subCategory);
