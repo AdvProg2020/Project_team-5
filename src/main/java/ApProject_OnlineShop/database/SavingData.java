@@ -26,6 +26,10 @@ public class SavingData {
         yaGson = new Gson();
     }
 
+    public static void setTestMode(boolean testMode) {
+        SavingData.testMode = testMode;
+    }
+
     public void saveManager(Manager manager) throws IOException, FileCantBeSavedException {
         String filePath;
         if (!testMode)

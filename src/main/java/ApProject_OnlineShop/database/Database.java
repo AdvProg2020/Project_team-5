@@ -11,6 +11,7 @@ import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.Request;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Database {
@@ -131,6 +132,16 @@ public class Database {
 
     public void saveItem(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws IOException, FileCantBeSavedException {
         savingData.saveInfoAboutGood(infoAboutGood, goodId);
+    }
+
+    public void loadTestFolders() {
+
+    }
+
+    private void loadFolder(String folderPath) {
+        File file = new File(folderPath);
+        if (!file.exists())
+            file.mkdir();
     }
 
 }
