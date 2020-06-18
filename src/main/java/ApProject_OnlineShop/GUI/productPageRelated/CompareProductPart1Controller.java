@@ -56,9 +56,10 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
 
     private void compare(long productId2) {
         if (Shop.getInstance().findGoodById(productId2).getSubCategory().equals(MainController.getInstance().getProductController().getGood().getSubCategory())) {
+            CompareProductPart2InACategoryController.setProductId1(productId2);
             setScene("compareTwoProductsInACategory.fxml", "compare");
         } else {
-            CompareProductPart2NotInACateogryController.setProductId1(productId2);
+            CompareProductPart2NotInACategoryController.setProductId1(productId2);
             setScene("compareTwoProductsNotInACategory.fxml", "compare");
         }
     }

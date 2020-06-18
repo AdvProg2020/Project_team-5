@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class CompareProductPart2InACateogryController extends FxmlController implements Initializable {
+public class CompareProductPart2NotInACategoryController extends FxmlController implements Initializable {
     private static long productId1;
     private long productId2;
     public ImageView image1, image2;
@@ -44,7 +44,7 @@ public class CompareProductPart2InACateogryController extends FxmlController imp
         seenNumber2.setText(details.get(11));
         sellerNumber1.setText(details.get(12));
         sellerNumber2.setText(details.get(13));
-        price1.setText(details.get(14) + " Rials");
+        price1.setText(details.get(14)+" Rials");
         price2.setText(details.get(15) + " Rials");
         setLabelStyle(name1);
         setLabelStyle(name2);
@@ -85,7 +85,7 @@ public class CompareProductPart2InACateogryController extends FxmlController imp
     }
 
     public static void setProductId1(long productId1) {
-        CompareProductPart2InACateogryController.productId1 = productId1;
+        CompareProductPart2NotInACategoryController.productId1 = productId1;
     }
 
     private void setLabelStyle(Label label) {
