@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
 import java.net.URL;
@@ -22,7 +23,8 @@ public class CompareProductPart2NotInACategoryController extends FxmlController 
     private static long productId1;
     private long productId2;
     public ImageView image1, image2;
-    public Label name1, name2, brand1, brand2, rate1, rate2, subCategory1, subCategory2, date1, date2, seenNumber1, seenNumber2, sellerNumber1, sellerNumber2, price1, price2;
+    public Label name1, name2, brand1, brand2, subCategory1, subCategory2, date1, date2, seenNumber1, seenNumber2, sellerNumber1, sellerNumber2, price1, price2;
+    public HBox rate1, rate2;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,8 +36,25 @@ public class CompareProductPart2NotInACategoryController extends FxmlController 
         name2.setText(details.get(1));
         brand1.setText(details.get(2));
         brand2.setText(details.get(3));
-        rate1.setText(details.get(4));
-        rate2.setText(details.get(5));
+        double num = Double.parseDouble(details.get(4));
+        for (int i = 0; i < num / 2; i++) {
+            ImageView star = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/star.png").toString()));
+            star.setFitWidth(20);
+            star.setFitHeight(20);
+            rate1.getChildren().add(star);
+        }
+        Label rateDouble = new Label("  " + (int) (Double.parseDouble(details.get(4)) / 2));
+        setLabelStyle(rateDouble);
+        rate1.getChildren().add(rateDouble);
+        for (int i = 0; i < (int) (Double.parseDouble(details.get(5)) / 2); i++) {
+            ImageView star = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/star.png").toString()));
+            star.setFitWidth(20);
+            star.setFitHeight(20);
+            rate2.getChildren().add(star);
+        }
+        Label rateDouble2 = new Label("  " + (int) (Double.parseDouble(details.get(5)) / 2));
+        setLabelStyle(rateDouble2);
+        rate2.getChildren().add(rateDouble2);
         subCategory1.setText(details.get(6));
         subCategory2.setText(details.get(7));
         date1.setText(details.get(8));
@@ -44,14 +63,12 @@ public class CompareProductPart2NotInACategoryController extends FxmlController 
         seenNumber2.setText(details.get(11));
         sellerNumber1.setText(details.get(12));
         sellerNumber2.setText(details.get(13));
-        price1.setText(details.get(14)+" Rials");
+        price1.setText(details.get(14) + " Rials");
         price2.setText(details.get(15) + " Rials");
         setLabelStyle(name1);
         setLabelStyle(name2);
         setLabelStyle(brand1);
         setLabelStyle(brand2);
-        setLabelStyle(rate1);
-        setLabelStyle(rate2);
         setLabelStyle(subCategory1);
         setLabelStyle(subCategory2);
         setLabelStyle(date1);
