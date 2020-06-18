@@ -32,7 +32,9 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
     public ImageView image1, image2;
     public GridPane gridpane;
     public VBox vbox1, vbox2;
-    public Label name1, name2, brand1, brand2, rate1, rate2, subCategory1, subCategory2, date1, date2, seenNumber1, seenNumber2, sellerNumber1, sellerNumber2, price1, price2;
+    public Label name1, name2, brand1, brand2, subCategory1, subCategory2, date1, date2, seenNumber1, seenNumber2, sellerNumber1, sellerNumber2, price1, price2;
+    public HBox rate1, rate2;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,8 +46,25 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
         name2.setText(details.get(1));
         brand1.setText(details.get(2));
         brand2.setText(details.get(3));
-        rate1.setText(details.get(4));
-        rate2.setText(details.get(5));
+        double num = Double.parseDouble(details.get(4));
+        for (int i = 0; i < num / 2; i++) {
+            ImageView star = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/star.png").toString()));
+            star.setFitWidth(20);
+            star.setFitHeight(20);
+            rate1.getChildren().add(star);
+        }
+        Label rateDouble = new Label("  " +  (Double.parseDouble(details.get(4)) / 2));
+        setLabelStyle(rateDouble);
+        rate1.getChildren().add(rateDouble);
+        for (int i = 0; i < (int) (Double.parseDouble(details.get(5)) / 2); i++) {
+            ImageView star = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/star.png").toString()));
+            star.setFitWidth(20);
+            star.setFitHeight(20);
+            rate2.getChildren().add(star);
+        }
+        Label rateDouble2 = new Label("  " +  (Double.parseDouble(details.get(5)) / 2));
+        setLabelStyle(rateDouble2);
+        rate2.getChildren().add(rateDouble2);
         subCategory1.setText(details.get(6));
         subCategory2.setText(details.get(7));
         date1.setText(details.get(8));
@@ -60,8 +79,6 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
         setLabelStyle(name2);
         setLabelStyle(brand1);
         setLabelStyle(brand2);
-        setLabelStyle(rate1);
-        setLabelStyle(rate2);
         setLabelStyle(subCategory1);
         setLabelStyle(subCategory2);
         setLabelStyle(date1);
@@ -88,15 +105,15 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
             hBox.setPrefWidth(300);
             hBox.setPrefHeight(50);
             hBox.setAlignment(Pos.CENTER_LEFT);
-            Label property=new Label(categoryProperties + " :");
+            Label property = new Label(categoryProperties + " :");
             property.setPrefHeight(52);
             property.setPrefWidth(170);
             property.setPadding(new Insets(10));
-            property.setTextFill(Color.rgb(18,48,148));
+            property.setTextFill(Color.rgb(18, 48, 148));
             property.setAlignment(Pos.CENTER_LEFT);
             property.setFont(new Font(18));
             hBox.getChildren().add(property);
-            Label propertyValue=new Label(categoryPropertiesGood1.get(categoryProperties));
+            Label propertyValue = new Label(categoryPropertiesGood1.get(categoryProperties));
             propertyValue.setPrefHeight(50);
             propertyValue.setPrefWidth(128);
             propertyValue.setAlignment(Pos.CENTER);
@@ -109,15 +126,15 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
             hBox.setPrefWidth(300);
             hBox.setPrefHeight(50);
             hBox.setAlignment(Pos.CENTER_LEFT);
-            Label property=new Label(categoryProperties + " :");
+            Label property = new Label(categoryProperties + " :");
             property.setPrefHeight(52);
             property.setPrefWidth(170);
             property.setPadding(new Insets(10));
-            property.setTextFill(Color.rgb(18,48,148));
+            property.setTextFill(Color.rgb(18, 48, 148));
             property.setAlignment(Pos.CENTER_LEFT);
             property.setFont(new Font(18));
             hBox.getChildren().add(property);
-            Label propertyValue=new Label(categoryPropertiesGood2.get(categoryProperties));
+            Label propertyValue = new Label(categoryPropertiesGood2.get(categoryProperties));
             propertyValue.setPrefHeight(50);
             propertyValue.setPrefWidth(128);
             propertyValue.setAlignment(Pos.CENTER);

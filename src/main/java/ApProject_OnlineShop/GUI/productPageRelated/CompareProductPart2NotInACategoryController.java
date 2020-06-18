@@ -43,7 +43,7 @@ public class CompareProductPart2NotInACategoryController extends FxmlController 
             star.setFitHeight(20);
             rate1.getChildren().add(star);
         }
-        Label rateDouble = new Label("  " + (int) (Double.parseDouble(details.get(4)) / 2));
+        Label rateDouble = new Label("  " +  (Double.parseDouble(details.get(4)) / 2));
         setLabelStyle(rateDouble);
         rate1.getChildren().add(rateDouble);
         for (int i = 0; i < (int) (Double.parseDouble(details.get(5)) / 2); i++) {
@@ -52,7 +52,7 @@ public class CompareProductPart2NotInACategoryController extends FxmlController 
             star.setFitHeight(20);
             rate2.getChildren().add(star);
         }
-        Label rateDouble2 = new Label("  " + (int) (Double.parseDouble(details.get(5)) / 2));
+        Label rateDouble2 = new Label("  " +  (Double.parseDouble(details.get(5)) / 2));
         setLabelStyle(rateDouble2);
         rate2.getChildren().add(rateDouble2);
         subCategory1.setText(details.get(6));
