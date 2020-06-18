@@ -8,12 +8,16 @@ import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
@@ -74,8 +78,52 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
     private void addCategoryProperties() {
         HashMap<String, String> categoryPropertiesGood2 = Shop.getInstance().findGoodById(productId2).getCategoryProperties();
         HashMap<String, String> categoryPropertiesGood1 = Shop.getInstance().findGoodById(productId1).getCategoryProperties();
+        if ((categoryPropertiesGood1.keySet().size() + 8) * 50 > 425) {
+            gridpane.setPrefHeight((categoryPropertiesGood1.keySet().size() + 8) * 50);
+            vbox1.setPrefHeight((categoryPropertiesGood1.keySet().size() + 8) * 50);
+            vbox2.setPrefHeight((categoryPropertiesGood1.keySet().size() + 8) * 50);
+        }
         for (String categoryProperties : categoryPropertiesGood1.keySet()) {
-            
+            HBox hBox = new HBox();
+            hBox.setPrefWidth(300);
+            hBox.setPrefHeight(50);
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            Label property=new Label(categoryProperties + " :");
+            property.setPrefHeight(52);
+            property.setPrefWidth(170);
+            property.setPadding(new Insets(10));
+            property.setTextFill(Color.rgb(18,48,148));
+            property.setAlignment(Pos.CENTER_LEFT);
+            property.setFont(new Font(18));
+            hBox.getChildren().add(property);
+            Label propertyValue=new Label(categoryPropertiesGood1.get(categoryProperties));
+            propertyValue.setPrefHeight(50);
+            propertyValue.setPrefWidth(128);
+            propertyValue.setAlignment(Pos.CENTER);
+            setLabelStyle(propertyValue);
+            hBox.getChildren().add(propertyValue);
+            vbox1.getChildren().add(hBox);
+        }
+        for (String categoryProperties : categoryPropertiesGood2.keySet()) {
+            HBox hBox = new HBox();
+            hBox.setPrefWidth(300);
+            hBox.setPrefHeight(50);
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            Label property=new Label(categoryProperties + " :");
+            property.setPrefHeight(52);
+            property.setPrefWidth(170);
+            property.setPadding(new Insets(10));
+            property.setTextFill(Color.rgb(18,48,148));
+            property.setAlignment(Pos.CENTER_LEFT);
+            property.setFont(new Font(18));
+            hBox.getChildren().add(property);
+            Label propertyValue=new Label(categoryPropertiesGood2.get(categoryProperties));
+            propertyValue.setPrefHeight(50);
+            propertyValue.setPrefWidth(128);
+            propertyValue.setAlignment(Pos.CENTER);
+            setLabelStyle(propertyValue);
+            hBox.getChildren().add(propertyValue);
+            vbox2.getChildren().add(hBox);
         }
     }
 

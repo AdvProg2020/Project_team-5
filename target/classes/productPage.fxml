@@ -30,7 +30,7 @@
             <Font name="Times New Roman" size="26.0" />
         </font>
     </Label>
-    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#goToAccountArea" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
+    <ImageView GridPane.halignment="CENTER" fitHeight="61.0" fitWidth="55.0" onMouseClicked="#goToAccountArea" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
         <image>
             <Image url="@./pictures/accountArea.png" />
         </image>
