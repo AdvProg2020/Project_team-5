@@ -1,8 +1,6 @@
 package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.RateProductsPart2Controller;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -11,24 +9,14 @@ import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -67,8 +55,12 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
     }
 
     private void compare(long productId2) {
-        CompareProductPart2Controller.setProductId1(productId2);
-        setScene("compareTwoProducts.fxml", "compare");
+        if (Shop.getInstance().findGoodById(productId2).getSubCategory().equals(MainController.getInstance().getProductController().getGood().getSubCategory())) {
+            setScene("compareTwoProductsInACategory.fxml", "compare");
+        } else {
+            CompareProductPart2NotInACateogryController.setProductId1(productId2);
+            setScene("compareTwoProductsNotInACategory.fxml", "compare");
+        }
     }
 
     public void backButton(ActionEvent actionEvent) {
