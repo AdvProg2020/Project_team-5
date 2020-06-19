@@ -129,7 +129,7 @@
                            </HBox.margin>
                         </ImageView>
                         <TextField fx:id="nameFilterValue" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
-                        <ImageView fx:id="nameFilter" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#ableNameFilter" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/search.png" />
                            </image>

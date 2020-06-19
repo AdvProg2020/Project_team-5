@@ -55,7 +55,7 @@ public class OffsPage extends Menu {
             showOffProducts();
             nextMenu = this;
         } else if (input == 6) {
-            MainController.getInstance().getControllerForFiltering().resetAll();
+//            MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();
         }
         nextMenu.execute();

@@ -63,7 +63,7 @@ public class AllProductsPage extends Menu {
             showProducts();
             nextMenu = this;
         } else if (input == 7) {
-            MainController.getInstance().getControllerForFiltering().resetAll();
+//            MainController.getInstance().getControllerForFiltering().resetAll();
             nextMenu = this.getParentMenu();
         }
         nextMenu.execute();

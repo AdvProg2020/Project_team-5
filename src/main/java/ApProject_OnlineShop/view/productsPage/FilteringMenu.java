@@ -116,25 +116,25 @@ public class FilteringMenu extends Menu {
     }
 
     private void currentFilters() {
-        int i = 1;
-        for (String currentFilter : MainController.getInstance().getControllerForFiltering().getCurrentFilters()) {
-            System.out.println("" + (i++) + "-" + currentFilter);
-        }
+//        int i = 1;
+//        for (String currentFilter : MainController.getInstance().getControllerForFiltering().getCurrentFilters()) {
+//            System.out.println("" + (i++) + "-" + currentFilter);
+//        }
     }
 
     private void disableFilters() {
-        currentFilters();
-        System.out.println("enter a current filter to disable the filter");
-        String chosenFilter = scanner.nextLine().trim();
-        try {
-            if (!Pattern.matches("^[\\d]$", chosenFilter))
-                throw new NotValidInput();
-            if (Integer.parseInt(chosenFilter) > MainController.getInstance().getControllerForFiltering().getCurrentFilters().size())
-                throw new NotValidInput();
-            MainController.getInstance().getControllerForFiltering().disableFilter(Integer.parseInt(chosenFilter));
-        } catch (Exception exception) {
-            System.out.println(exception.getMessage());
-        }
+//        currentFilters();
+//        System.out.println("enter a current filter to disable the filter");
+//        String chosenFilter = scanner.nextLine().trim();
+//        try {
+//            if (!Pattern.matches("^[\\d]$", chosenFilter))
+//                throw new NotValidInput();
+//            if (Integer.parseInt(chosenFilter) > MainController.getInstance().getControllerForFiltering().getCurrentFilters().size())
+//                throw new NotValidInput();
+//            MainController.getInstance().getControllerForFiltering().disableFilter(Integer.parseInt(chosenFilter));
+//        } catch (Exception exception) {
+//            System.out.println(exception.getMessage());
+//        }
 
     }
 }
