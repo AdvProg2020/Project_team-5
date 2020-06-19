@@ -1,6 +1,7 @@
 package controllerTest.controllerAccountAreaTest;
 
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.productExceptions.FieldCantBeEditedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
@@ -23,6 +24,7 @@ import java.util.List;
 public class AccountAreaTest {
     @BeforeClass
     public static void initializeVariables() {
+        Database.getInstance().loadTestFolders();
         ArrayList<String> details = new ArrayList<>();
         details.add("ram");
         details.add("cpu");
@@ -68,22 +70,8 @@ public class AccountAreaTest {
         Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", company);
         orders.add(new OrderForSeller(3000, seller, "dfddf", null));
         orders.add(new OrderForSeller(4323, seller, "dfddf", null));
-        list = MainController.getInstance().getAccountAreaForManagerController().getSortedOrders(2, orders);
-        String output = "[--------------------------------------------------------------------------------\n" +
-                "OrderId : " + (Order.getOrdersCount() - 2) + "\n" +
-                "Date : " + LocalDate.now() + "\n" +
-                "GoodsList :\n" +
-                "Paid price : 3000\n" +
-                "Discount amount : -3000\n" +
-                "Order status : READYTOSEND\n" +
-                "--------------------------------------------------------------------------------, --------------------------------------------------------------------------------\n" +
-                "OrderId : " + (Order.getOrdersCount() - 1) + "\n" +
-                "Date : " + LocalDate.now() + "\n" +
-                "GoodsList :\n" +
-                "Paid price : 4323\n" +
-                "Discount amount : -4323\n" +
-                "Order status : READYTOSEND\n" +
-                "--------------------------------------------------------------------------------]";
+        list = MainController.getInstance().getAccountAreaForSellerController().getSortedOrders(2, orders);
+        String output = "[order ID: 1   \t date : 2020-06-19, order ID: 2   \t date : 2020-06-19]";
         Assert.assertEquals(output, list.toString());
     }
 

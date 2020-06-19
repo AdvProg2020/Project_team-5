@@ -2,12 +2,14 @@ package controllerTest.controllerAccountAreaTest;
 
 import ApProject_OnlineShop.controller.sorting.SortController;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -17,6 +19,10 @@ import java.util.HashMap;
 import static org.junit.Assert.*;
 
 public class SortingTest {
+    @BeforeClass
+    public static void initialize() {
+        Database.getInstance().loadTestFolders();
+    }
     public ArrayList<Good> getArrayOfGoods(){
         ArrayList<Good> goods = new ArrayList<>();
         ArrayList<String> details = new ArrayList<>();

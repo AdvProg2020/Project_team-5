@@ -4,6 +4,9 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Seller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -32,6 +35,15 @@ public class AddCommentPage extends FxmlController {
         }
     }
 
-    public void onLogoutIconClicked(MouseEvent mouseEvent) {
+    public void onAccountAreaIconClicked(MouseEvent mouseEvent) {
+        if (MainController.getInstance().getCurrentPerson() == null) {
+            setScene("login.fxml", "login");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            setScene("accountAreaForCustomer.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+            setScene("accountAreaForSeller.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            setScene("accountAreaForManager.fxml", "account area");
+        }
     }
 }

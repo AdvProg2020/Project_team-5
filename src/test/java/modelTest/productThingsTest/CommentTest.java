@@ -2,6 +2,7 @@ package modelTest.productThingsTest;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.products.ProductController;
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Company;
@@ -10,6 +11,7 @@ import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.requests.AddingCommentRequest;
 import ApProject_OnlineShop.model.requests.Request;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,6 +25,11 @@ public class CommentTest {
     Seller seller = new Seller("aa","","", "", "","",company);
     Good good = new Good("laptop", "app", subCategory, "", new HashMap<>(), seller, 200, 3);
     Customer customer = new CustomerTest("aa","","","", "", "dd", 890L);
+
+    @BeforeClass
+    public static void initialize() {
+        Database.getInstance().loadTestFolders();
+    }
 
     @Test
     public void commentTesting(){

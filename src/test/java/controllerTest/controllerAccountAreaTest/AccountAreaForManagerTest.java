@@ -36,6 +36,7 @@ public class AccountAreaForManagerTest {
 
     @BeforeClass
     public static void initializeVariables() {
+        Database.getInstance().loadTestFolders();
         fields = new ArrayList<>();
         fields.add("RandomDiscount");
         fields.add("2020-07-01");
@@ -255,7 +256,7 @@ public class AccountAreaForManagerTest {
 
     @Test
     public void getAllUsersTest() {
-        Assert.assertEquals(3, MainController.getInstance().getAccountAreaForManagerController().getAllUsersList().size());
+        Assert.assertEquals(2, MainController.getInstance().getAccountAreaForManagerController().getAllUsersList().size());
     }
 
     @Test
@@ -269,9 +270,11 @@ public class AccountAreaForManagerTest {
             throws UserCantBeRemovedException, IOException, FileCantBeSavedException, FileCantBeDeletedException, UsernameNotFoundException {
         Assert.assertThrows(UsernameNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeUser("jdfjddfd"));
         Assert.assertThrows(UserCantBeRemovedException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeUser("XxXxXx"));
+        Database.getInstance().saveItem(Shop.getInstance().findUser("yasaman"));
         try {
             MainController.getInstance().getAccountAreaForManagerController().removeUser("yasaman");
         }catch (FileCantBeDeletedException e){
+            e.printStackTrace();
             Assert.assertTrue(true);
         }
         Assert.assertNull(Shop.getInstance().findUser("yasaman"));

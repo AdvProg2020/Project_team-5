@@ -1,8 +1,15 @@
 package ApProject_OnlineShop.GUI.productPageRelated;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
+import ApProject_OnlineShop.exception.productExceptions.NotEnoughAvailableProduct;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import javafx.event.ActionEvent;
@@ -47,10 +54,7 @@ public class ProductPage extends FxmlController implements Initializable {
     public Label detailsLabel;
 
     public void backButton(ActionEvent actionEvent) {
-    }
-
-
-    public void logout(MouseEvent mouseEvent) {
+        setScene("allProduct.fxml", "all products");
     }
 
     @Override
@@ -190,6 +194,34 @@ public class ProductPage extends FxmlController implements Initializable {
     }
 
     public void addToCart(String sellerUsername) {
-        System.out.println(sellerUsername);
+        try {
+            MainController.getInstance().getProductController().addGoodToCartGUI(sellerUsername);
+            SuccessPageFxController.showPage("product added to cart", "product added to cart succesfully!");
+        } catch (DontHaveEnoughNumberOfThisProduct | NotEnoughAvailableProduct dontHaveEnoughNumberOfThisProduct) {
+            ErrorPageFxController.showPage("cannot add this product", dontHaveEnoughNumberOfThisProduct.getMessage());
+        } catch (Exception exception) {
+            ErrorPageFxController.showPage("cannot add this product", exception.getMessage());
+        }
+    }
+
+    public void goToAccountArea(MouseEvent mouseEvent) {
+        if (MainController.getInstance().getCurrentPerson() == null) {
+            setScene("login.fxml", "login");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            setScene("accountAreaForCustomer.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+            setScene("accountAreaForSeller.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            setScene("accountAreaForManager.fxml", "account area");
+        }
+    }
+
+    public void showComments(ActionEvent actionEvent) {
+        CommentsPage.setGoodId(productId);
+        setScene("commentsPage.fxml", "comments");
+    }
+
+    public void compare(ActionEvent actionEvent) {
+        setScene("allProductsForCompareProduct.fxml","compare");
     }
 }

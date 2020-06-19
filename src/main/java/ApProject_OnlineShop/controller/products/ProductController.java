@@ -4,12 +4,14 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
+import ApProject_OnlineShop.exception.productExceptions.NotEnoughAvailableProduct;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Comment;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.requests.AddingCommentRequest;
 
@@ -70,6 +72,33 @@ public class ProductController {
         Shop.getInstance().addGoodToCart(good, sellerRelatedInfoAboutGood.getSeller(), number);
     }
 
+    public void addGoodToCartGUI(String seller) throws Exception {
+        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+            if (relatedInfoAboutGood.getSeller().getUsername().equals(seller)) {
+                sellerRelatedInfoAboutGood = relatedInfoAboutGood;
+                break;
+            }
+        }
+        if (sellerRelatedInfoAboutGood.getAvailableNumber() < 1)
+            throw new DontHaveEnoughNumberOfThisProduct();
+        boolean flag = false;
+        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+            if (goodInCart.getGood().equals(good) && !goodInCart.getSeller().getUsername().equals(seller)) {
+                throw new Exception("you can't buy a same product from two different seller!");
+            }
+        }
+        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+            if (goodInCart.getGood().equals(good) && goodInCart.getSeller().getUsername().equals(seller)) {
+                Shop.getInstance().increaseGoodInCartNumber(good.getGoodId());
+                flag = true;
+                return;
+            }
+        }
+        if (!flag)
+            Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1);
+    }
+
     public int getAvailableNumberOfAProductByASeller(int sellerNumber) {
         SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = good.getSellerRelatedInfoAboutGoods().get(sellerNumber - 1);
         return sellerRelatedInfoAboutGood.getAvailableNumber();
@@ -101,6 +130,28 @@ public class ProductController {
         output += String.format("| %-25s | %-25s | %-25s |%n", "number of sellers", numbersOfSellers(good), numbersOfSellers(good2));
         output += String.format("| %-25s | %-25s | %-25s |%n", "minmum price of product", good.getMinimumPrice(), good2.getMinimumPrice());
         output += "+---------------------------+---------------------------+---------------------------+\n";
+        return output;
+    }
+
+    public ArrayList<String> compareWithAnotherProductGUI(long id) {
+        Good good2 = Shop.getInstance().findGoodById(id);
+        ArrayList<String> output = new ArrayList<>();
+        output.add(good2.getName());
+        output.add(good.getName());
+        output.add(good2.getBrand());
+        output.add(good.getBrand());
+        output.add(good2.getAverageRate() + "");
+        output.add(good.getAverageRate() + "");
+        output.add(good2.getSubCategory().getName());
+        output.add(good.getSubCategory().getName());
+        output.add(good2.getModificationDate().toString());
+        output.add(good.getModificationDate().toString());
+        output.add(good2.getSeenNumber() + "");
+        output.add(good.getSeenNumber() + "");
+        output.add(numbersOfSellers(good2) + "");
+        output.add(numbersOfSellers(good) + "");
+        output.add(good2.getMinimumPrice() + "");
+        output.add(good.getMinimumPrice() + "");
         return output;
     }
 

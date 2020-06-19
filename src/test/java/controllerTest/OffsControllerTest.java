@@ -1,6 +1,7 @@
 package controllerTest;
 
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.ThisProductIsnotInAnyOff;
 import ApProject_OnlineShop.model.Shop;
@@ -25,6 +26,7 @@ public class OffsControllerTest {
 
     @BeforeClass
     public static void loading() {
+        Database.getInstance().loadTestFolders();
         ArrayList<String> details = new ArrayList<>();
 //        details.add("p1");
 //        details.add("p2");

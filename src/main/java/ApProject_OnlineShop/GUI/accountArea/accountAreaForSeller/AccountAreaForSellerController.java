@@ -43,10 +43,11 @@ public class AccountAreaForSellerController extends FxmlController implements In
     }
 
     public void manageProducts(MouseEvent mouseEvent) {
-        setScene("manageProductsForSeller.fxml","manage products");
+        setScene("manageProductsForSeller.fxml", "manage products");
     }
 
     public void showCategories(MouseEvent mouseEvent) {
+        setScene("showCategoriesForSeller.fxml", "categories");
     }
 
     public void viewOffs(MouseEvent mouseEvent) {
