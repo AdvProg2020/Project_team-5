@@ -1,5 +1,6 @@
 package controllerTest;
 
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
@@ -16,6 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import ApProject_OnlineShop.testThings.TestShop;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -71,8 +73,8 @@ public class ProductControllerTest {
                 "sellers = 1- seller = hi\tprice = 9000\tavailableNumber = 3\n" +
                 "details =\n" +
                 "details\n" +
-                "modification date = 2020-05-20\n" +
-                "seen number = 1\n" +
+                "modification date = " + LocalDate.now() +"\n" +
+                "seen number = 0\n" +
                 "------------------------------------";
         Assert.assertEquals(output,MainController.getInstance().getProductController().digest());
     }
