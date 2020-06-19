@@ -49,7 +49,7 @@ public class AllProductsPage extends Menu {
     @Override
     public void execute() {
         help();
-        MainController.getInstance().getControllerForFiltering().setGoodList(true);
+//        MainController.getInstance().getControllerForFiltering().setGoodList(true);
         Menu nextMenu = null;
         int input = getInput();
         if (input == 1 || input == 2 || input == 4) {

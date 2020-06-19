@@ -220,7 +220,7 @@
                   </GridPane>
                   <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="180.0">
                      <children>
-                        <Button fx:id="filterPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" styleClass="menuButtons" text="filter">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#filterByPrice" prefHeight="30.0" prefWidth="85.0" styleClass="menuButtons" text="filter">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -232,7 +232,7 @@
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="unfilterPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" styleClass="menuButtons" text="unfilter">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#disablePriceFilter" prefHeight="30.0" prefWidth="85.0" styleClass="menuButtons" text="disable">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

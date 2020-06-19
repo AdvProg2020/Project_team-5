@@ -44,7 +44,7 @@ public class OffsPage extends Menu {
     @Override
     public void execute() {
         help();
-        MainController.getInstance().getControllerForFiltering().setGoodList(false);
+//        MainController.getInstance().getControllerForFiltering().setGoodList(false);
         Menu nextMenu = null;
         int input = getInput();
         if (input == 1 || input == 2 || input == 4) {

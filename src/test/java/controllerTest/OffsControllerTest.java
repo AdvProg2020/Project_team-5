@@ -51,7 +51,7 @@ public class OffsControllerTest {
         Off off = new Off(goods, LocalDate.now(), LocalDate.now().plusMonths(2), 200000, 20, seller);
         Shop.getInstance().addOff(off);
         off.setOffStatus(Off.OffStatus.ACCEPTED);
-        MainController.getInstance().getControllerForFiltering().setGoodList(false);
+//        MainController.getInstance().getControllerForFiltering().setGoodList(false);
     }
 
     @Test

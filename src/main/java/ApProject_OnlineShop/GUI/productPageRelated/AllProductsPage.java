@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.GUI.productPageRelated;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.fxml.Initializable;
@@ -9,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class AllProductsPage extends FxmlController implements Initializable {
 
@@ -17,6 +19,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public TextField nameFilterValue;
     public TextField sellerValueFilter;
     public TextField brandValueFilter;
+    public TextField startPriceValue;
+    public TextField endPriceValue;
 
     public void availableProductsFilter() {
         if (MainController.getInstance().getControllerForFiltering().isAvailableProduct()) {
@@ -33,7 +37,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
         if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
             MainController.getInstance().getControllerForFiltering().removeOffProductsFilter();
             offProductsButton.setSelected(false);
-        }else if (!MainController.getInstance().getControllerForFiltering().isOffProductsFilter()){
+        } else if (!MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
             MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
             offProductsButton.setSelected(true);
         }
@@ -73,5 +77,17 @@ public class AllProductsPage extends FxmlController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public void filterByPrice() {
+        if (Pattern.matches("[\\d]+", startPriceValue.getText()) && Pattern.matches("[\\d]+", endPriceValue.getText()))
+            MainController.getInstance().getControllerForFiltering().addPriceFiltering(startPriceValue.getText(), endPriceValue.getText());
+        else
+            ErrorPageFxController.showPage("wrong price value", "price value must be number");
+        setScene("allProduct.fxml", "all products page");
+    }
+
+    public void disablePriceFilter() {
+        MainController.getInstance().getControllerForFiltering().disablePriceFiltering();
     }
 }

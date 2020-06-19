@@ -129,18 +129,15 @@ public class ControllerForFiltering {
         return allGoods.stream().filter(good -> good.doesExistInSellerList((Seller) Shop.getInstance().findUser(sellerUserName))).collect(Collectors.toList());
     }
 
-    public void setGoodList(boolean isAllProducts) {
-        if (isAllProducts)
-            goodList = Shop.getInstance().getAllGoods();
-        if (!isAllProducts)
-            goodList = Shop.getInstance().getOffGoods();
+    private List<Good> filterByOff(List<Good> allGoods) {
+        return allGoods.stream().filter(good -> good.getSellerThatPutsThisGoodOnOff() != null).collect(Collectors.toList());
     }
 
     public void addBinaryFilter(String filterName, String startValue, String endValue) {
         binaryFilters.add(new BinaryFilters(filterName, startValue, endValue));
     }
 
-    public void addCategoryFilter(String categoryName){
+    public void addCategoryFilter(String categoryName) {
         disableCategoryFilter();
         this.category = categoryName;
     }
@@ -153,13 +150,18 @@ public class ControllerForFiltering {
         this.brand = brandName;
     }
 
-    public void addPriceFiltering(String startValue, String endValue) {
-        for (BinaryFilters filter : binaryFilters) {
-            if (filter.getFilterName().equals("price")) {
-                binaryFilters.remove(filter);
-                break;
+    public void disablePriceFiltering() {
+        if (binaryFilters.size() > 0)
+            for (BinaryFilters filter : binaryFilters) {
+                if (filter.getFilterName().equals("price")) {
+                    binaryFilters.remove(filter);
+                    break;
+                }
             }
-        }
+    }
+
+    public void addPriceFiltering(String startValue, String endValue) {
+        disablePriceFiltering();
         addBinaryFilter("price", startValue, endValue);
     }
 
@@ -173,10 +175,6 @@ public class ControllerForFiltering {
 
     public void addAvailableProduct() {
         availableProduct = true;
-    }
-
-    public void removeAvailableProductsFilter() {
-
     }
 
     public List<String> getProperties() throws Exception {
@@ -203,9 +201,8 @@ public class ControllerForFiltering {
             goods = filterByCategory(getCategory(), goods);
         if (!getSubCategory().equals(""))
             goods = filterBySubCategory(getSubCategory(), goods);
-        if (isOffProductsFilter()) {
-            //ToDo
-        }
+        if (isOffProductsFilter())
+            goods = filterByOff(goods);
         if (!getBrand().equals(""))
             goods = filterByBrand(getBrand(), goods);
         if (!getName().equals(""))
@@ -217,5 +214,9 @@ public class ControllerForFiltering {
                 goods = filterByPrice(binaryFilter, goods);
         }
         return goods;
+    }
+
+    public void removeAvailableProductsFilter() {
+        this.availableProduct = false;
     }
 }
