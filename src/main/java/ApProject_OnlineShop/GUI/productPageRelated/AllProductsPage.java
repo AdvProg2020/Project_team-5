@@ -4,9 +4,12 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,6 +24,9 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public TextField brandValueFilter;
     public TextField startPriceValue;
     public TextField endPriceValue;
+    public VBox categoryRelatedVBox;
+    public ChoiceBox category;
+    public GridPane productsPart;
 
     public void availableProductsFilter() {
         if (MainController.getInstance().getControllerForFiltering().isAvailableProduct()) {
@@ -76,7 +82,10 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        
+        if (MainController.getInstance().getControllerForFiltering().getCategory().equals("")){
+            
+        }
     }
 
     public void filterByPrice() {
@@ -89,5 +98,6 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     public void disablePriceFilter() {
         MainController.getInstance().getControllerForFiltering().disablePriceFiltering();
+        setScene("allProduct.fxml", "all products page");
     }
 }
