@@ -120,7 +120,7 @@
                   </Label>
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="240.0">
                      <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#disableNameFilter" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/cross.png" />
                            </image>
@@ -146,7 +146,7 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#disableSellerFilter" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/cross.png" />
                            </image>
@@ -155,7 +155,7 @@
                            </HBox.margin>
                         </ImageView>
                         <TextField fx:id="sellerValueFilter" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
-                        <ImageView fx:id="sellerFilter" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#filterBySeller" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/search.png" />
                            </image>
@@ -172,7 +172,7 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#disableBrandFilter" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/cross.png" />
                            </image>
@@ -181,7 +181,7 @@
                            </HBox.margin>
                         </ImageView>
                         <TextField fx:id="brandValueFilter" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
-                        <ImageView fx:id="brandFilter" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#filterByBrand" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/search.png" />
                            </image>

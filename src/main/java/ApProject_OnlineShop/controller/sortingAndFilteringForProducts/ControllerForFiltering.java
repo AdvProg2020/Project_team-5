@@ -129,12 +129,6 @@ public class ControllerForFiltering {
         return allGoods.stream().filter(good -> good.doesExistInSellerList((Seller) Shop.getInstance().findUser(sellerUserName))).collect(Collectors.toList());
     }
 
-//    public void resetAll() {
-//        unaryFilters.clear();
-//        binaryFilters.clear();
-//        goodList.clear();
-//    }
-
     public void setGoodList(boolean isAllProducts) {
         if (isAllProducts)
             goodList = Shop.getInstance().getAllGoods();
@@ -145,23 +139,6 @@ public class ControllerForFiltering {
     public void addBinaryFilter(String filterName, String startValue, String endValue) {
         binaryFilters.add(new BinaryFilters(filterName, startValue, endValue));
     }
-
-//    public void addUnaryFilter(String filterName, String value) {
-//        unaryFilters.put(filterName, value);
-//    }
-
-//    public ArrayList<String> getCurrentFilters() {
-//        ArrayList<String> currentFilters = new ArrayList<>();
-//        for (String filterName : unaryFilters.keySet()) {
-//            currentFilters.add(filterName + ": " + unaryFilters.get(filterName));
-//        }
-//        for (BinaryFilters filter : binaryFilters) {
-//            currentFilters.add(filter.toString());
-//        }
-//        if (availableProduct)
-//            currentFilters.add("availableFilters");
-//        return currentFilters;
-//    }
 
     public void addCategoryFilter(String categoryName){
         disableCategoryFilter();
@@ -210,10 +187,6 @@ public class ControllerForFiltering {
 
     public void addPropertiesFilter(String property, String value) {
         categoryProperties.put(property, value);
-    }
-
-    public void disableNameFilter() {
-        this.name = "";
     }
 
     public void disableCategoryFilter() {
