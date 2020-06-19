@@ -96,9 +96,9 @@
                   </ImageView>
                </children>
             </HBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.rowIndex="1">
+            <VBox fx:id="filteringVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.rowIndex="1">
                <children>
-                  <RadioButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#activeAvailableProducts" prefHeight="35.0" prefWidth="150.0" text="available products">
+                  <RadioButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#activeAvailableProducts" prefHeight="35.0" prefWidth="175.0" text="available products">
                      <font>
                         <Font name="Times New Roman" size="15.0" />
                      </font>
@@ -119,8 +119,16 @@
                         <Font name="Times New Roman" size="14.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="240.0">
                      <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/cross.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                        </ImageView>
                         <TextField fx:id="nameFilterValue" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
                         <ImageView fx:id="nameFilter" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -139,6 +147,14 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
                      <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/cross.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                        </ImageView>
                         <TextField fx:id="sellerValueFilter" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
                         <ImageView fx:id="sellerFilter" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -147,6 +163,74 @@
                         </ImageView>
                      </children>
                   </HBox>
+                  <Label prefHeight="18.0" prefWidth="180.0" text="brand:">
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/cross.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="2.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <TextField fx:id="brandValueFilter" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+                        <ImageView fx:id="brandFilter" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/search.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <GridPane alignment="CENTER_RIGHT">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="68.59999618530273" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.6" minWidth="10.0" prefWidth="166.60000381469726" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="27.4" minHeight="10.0" prefHeight="27.4" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="48.39999904632568" minHeight="10.0" prefHeight="33.4" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label prefHeight="16.0" prefWidth="38.0" text="price" GridPane.halignment="RIGHT">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="16.0" prefWidth="38.0" text="from:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="startPriceValue" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label contentDisplay="RIGHT" prefHeight="18.0" prefWidth="38.0" text="to:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="endPriceValue" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button fx:id="priceFilter" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" styleClass="menuButtons" text="filter" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets left="20.0" />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets left="20.0" top="7.0" />
+                           </GridPane.margin>
+                        </Button>
+                     </children>
+                  </GridPane>
                </children></VBox>
          </children>
       </GridPane>
