@@ -171,6 +171,10 @@ public class ControllerForFiltering {
         availableProduct = true;
     }
 
+    public void removeAvailableProductsFilter(){
+
+    }
+
     public List<String> getProperties() throws Exception {
         if (filteredCategory == null)
             throw new HaveNotChosenCategoryFilter();
