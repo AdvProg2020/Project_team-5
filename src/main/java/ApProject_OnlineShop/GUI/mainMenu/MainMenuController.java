@@ -44,10 +44,9 @@ public class MainMenuController extends FxmlController implements Initializable 
     }
 
     public void productsPageButtonPressed(ActionEvent actionEvent) {
+        setScene("allProduct.fxml","all products");
     }
 
-    public void offsPageButtonPressed(ActionEvent actionEvent) {
-    }
 
     public void exitButtonPressed(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
