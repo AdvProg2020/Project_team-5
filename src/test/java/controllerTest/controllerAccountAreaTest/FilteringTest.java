@@ -28,7 +28,7 @@ public class FilteringTest {
     public void PriceFilter() {
         ControllerForFiltering controller = new ControllerForFiltering() {
             @Override
-            public ArrayList<Good> getGoodList() {
+            public ArrayList<Good> showProducts() {
                 SubCategory subCategory2 = new SubCategory("b", new ArrayList<>());
                 SubCategory subCategory = new SubCategory("a", new ArrayList<>());
                 ArrayList<Good> goods = new ArrayList<>();
@@ -59,7 +59,7 @@ public class FilteringTest {
     public void categoryFilter() {
         ControllerForFiltering controller = new ControllerForFiltering() {
             @Override
-            public ArrayList<Good> getGoodList() {
+            public ArrayList<Good> showProducts() {
                 SubCategory subCategory2 = new SubCategory("b", new ArrayList<>());
                 SubCategory subCategory = new SubCategory("a", new ArrayList<>());
                 ArrayList<Good> goods = new ArrayList<>();
@@ -92,7 +92,7 @@ public class FilteringTest {
     public void filterByAvailable() {
         ControllerForFiltering controller = new ControllerForFiltering() {
             @Override
-            public ArrayList<Good> getGoodList() {
+            public ArrayList<Good> showProducts() {
                 SubCategory subCategory2 = new SubCategory("b", new ArrayList<>());
                 SubCategory subCategory = new SubCategory("a", new ArrayList<>());
                 ArrayList<Good> goods = new ArrayList<>();

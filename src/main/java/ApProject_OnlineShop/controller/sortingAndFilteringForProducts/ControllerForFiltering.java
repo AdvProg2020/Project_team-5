@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class ControllerForFiltering {
     private HashMap<String, String> categoryProperties;
     private ArrayList<BinaryFilters> binaryFilters;
-    private List<Good> goodList;
     private boolean availableProduct;
     private boolean offProductsFilter;
     private String category = "";
@@ -32,7 +31,6 @@ public class ControllerForFiltering {
     public ControllerForFiltering() {
         this.categoryProperties = new HashMap<>();
         this.binaryFilters = new ArrayList<>();
-        this.goodList = new ArrayList<>();
     }
 
     public boolean isOffProductsFilter() {
@@ -77,10 +75,6 @@ public class ControllerForFiltering {
 
     public String getBrand() {
         return brand;
-    }
-
-    public List<Good> getGoodList() {
-        return goodList;
     }
 
     public ArrayList<BinaryFilters> getBinaryFilters() {
@@ -207,7 +201,7 @@ public class ControllerForFiltering {
     }
 
     public List<Good> showProducts() {
-        List<Good> goods = new ArrayList<>(getGoodList());
+        List<Good> goods = new ArrayList<>(Shop.getInstance().getAllGoods());
         if (isAvailableProduct())
             goods = filterAvailableProducts(goods);
         if (!getCategory().equals(""))

@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ProductPageControllerForSeller;
 import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.collections.FXCollections;
@@ -132,6 +133,35 @@ public class AllProductsPage extends FxmlController implements Initializable {
                 }
             }
         }
+        setProducts();
+    }
+
+    public void setProducts(){
+        int num = 0;
+        int row = 0;
+        for (Long productId : MainController.getInstance().getAllProductsController().getGoods()) {
+            if (MainController.getInstance().getAllProductsController().isInOff(productId)) {
+                VBox vbox = new ProductBriefSummery().offProductBriefSummery(productId);
+                productsPart.add(vbox, num % 3, row);
+                num++;
+                vbox.setCursor(Cursor.HAND);
+                vbox.setOnMouseClicked(e -> showProduct(productId));
+            }
+            if (!MainController.getInstance().getAllProductsController().isInOff(productId)) {
+                VBox vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
+                productsPart.add(vbox, num % 3, row);
+                num++;
+                vbox.setCursor(Cursor.HAND);
+                vbox.setOnMouseClicked(e -> showProduct(productId));
+            }
+            if (num % 3 == 0)
+                row++;
+        }
+    }
+
+    private void showProduct(Long productId) {
+        ProductPageControllerForSeller.setProductId(productId);
+        setScene("productPageEditableForSeller.fxml", "product page");
     }
 
     public void removeCategoryProperty(String property) {
