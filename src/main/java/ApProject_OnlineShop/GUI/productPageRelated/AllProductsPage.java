@@ -2,8 +2,6 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ProductPageControllerForSeller;
-import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
@@ -13,7 +11,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;

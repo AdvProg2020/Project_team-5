@@ -220,6 +220,9 @@ public class ControllerForFiltering {
             goods = filterByName(getName(), goods);
         if (!getSeller().equals(""))
             goods = filterBySeller(getSeller(), goods);
+        for (String property : categoryProperties.keySet()) {
+            goods = filterByProperty(property, goods);
+        }
         for (BinaryFilters binaryFilter : getBinaryFilters()) {
             if (binaryFilter.getFilterName().equals("price"))
                 goods = filterByPrice(binaryFilter, goods);
