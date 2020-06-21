@@ -54,6 +54,7 @@ public class ProductPage extends FxmlController implements Initializable {
     public VBox properties;
     public ScrollPane comments;
     public Label detailsLabel;
+    public ImageView cart;
     private static String pathBack;
     private static String titleBack;
 
@@ -63,6 +64,9 @@ public class ProductPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (MainController.getInstance().getCurrentPerson() instanceof Seller || MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            cart.setVisible(false);
+        }
         image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
         name.setText(mainInfo.get(0));
