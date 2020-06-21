@@ -30,6 +30,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     public Label credit;
     private ViewOrders viewOrders = new ViewOrders(this);
     private Styles style = new Styles();
+    private static String pathBack;
+    private static String titleBack;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -141,7 +143,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void backToAccountAreaCustomer() {
-        setScene("accountAreaForCustomer.fxml", "main menu");
+        setScene(pathBack, titleBack);
     }
 
     public void addDiscountDetailsToVBox(List<String> discountCodeDetails, VBox vBox) {
@@ -178,7 +180,12 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void cart(MouseEvent mouseEvent) {
-        Cart.setPathBack("accountAreaForCustomer.fxml","account area");
+        Cart.setPathBack("accountAreaForCustomer.fxml", "account area");
         setScene("cart.fxml", "cart");
+    }
+
+    public static void setPathBack(String pathBack, String titleBack) {
+        AccountAreaForCustomerController.pathBack = pathBack;
+        AccountAreaForCustomerController.titleBack = titleBack;
     }
 }

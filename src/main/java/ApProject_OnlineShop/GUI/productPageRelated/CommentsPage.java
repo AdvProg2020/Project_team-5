@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -35,6 +36,8 @@ public class CommentsPage extends FxmlController implements Initializable {
     private static long goodId;
     public VBox vbox;
     public GridPane gridpane;
+    private static String pathBack;
+    private static String titleBack;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -94,12 +97,14 @@ public class CommentsPage extends FxmlController implements Initializable {
     }
 
     public void backButton(ActionEvent actionEvent) {
-        setScene("productPageEditableForSeller.fxml", "product page");
+        setScene(pathBack, titleBack);
     }
 
 
     public void addComment(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
+            LoginController.setPathAfterLogin("addComment.fxml", "add comment");
+            LoginController.setPathBack("commentsPage.fxml", "comments");
             setScene("login.fxml", "login");
         } else {
             setScene("addComment.fxml", "add comment");
@@ -112,6 +117,8 @@ public class CommentsPage extends FxmlController implements Initializable {
 
     public void accountArea(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
+            LoginController.setPathBack("commentsPage.fxml", "comments page");
+            LoginController.setPathAfterLogin(null, null);
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
             setScene("accountAreaForCustomer.fxml", "account area");
@@ -120,5 +127,10 @@ public class CommentsPage extends FxmlController implements Initializable {
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
             setScene("accountAreaForManager.fxml", "account area");
         }
+    }
+
+    public static void setPathBack(String pathBack, String titleBack) {
+        CommentsPage.pathBack = pathBack;
+        CommentsPage.titleBack = titleBack;
     }
 }

@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
+import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
 import ApProject_OnlineShop.exception.productExceptions.NotEnoughAvailableProduct;
@@ -50,9 +51,11 @@ public class ProductPage extends FxmlController implements Initializable {
     public VBox properties;
     public ScrollPane comments;
     public Label detailsLabel;
+    private static String pathBack;
+    private static String titleBack;
 
     public void backButton(ActionEvent actionEvent) {
-        setScene("allProducts.fxml", "all products");
+        setScene(pathBack, titleBack);
     }
 
     @Override
@@ -206,6 +209,8 @@ public class ProductPage extends FxmlController implements Initializable {
 
     public void goToAccountArea(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
+            LoginController.setPathAfterLogin(null, null);
+            LoginController.setPathBack("productPage.fxml", "product page");
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
             setScene("accountAreaForCustomer.fxml", "account area");
@@ -218,10 +223,16 @@ public class ProductPage extends FxmlController implements Initializable {
 
     public void showComments(ActionEvent actionEvent) {
         CommentsPage.setGoodId(productId);
+        CommentsPage.setPathBack("productPage.fxml","product page");
         setScene("commentsPage.fxml", "comments");
     }
 
     public void compare(ActionEvent actionEvent) {
-        setScene("allProductsForCompareProduct.fxml","compare");
+        setScene("allProductsForCompareProduct.fxml", "compare");
+    }
+
+    public static void setPathBack(String pathBack, String titleBack) {
+        ProductPage.pathBack = pathBack;
+        ProductPage.titleBack = titleBack;
     }
 }

@@ -20,15 +20,20 @@ public class LoginController extends FxmlController {
     PasswordField password;
     @FXML
     TextField username;
-    private String pathBack;
-    private String titleBack;
+    private static String pathBack;
+    private static String titleBack;
+    private static String pathAfterLogin = null;
+    private static String titleNextPage;
 
     public void loginButtonPressed(ActionEvent actionEvent) {
         try {
             MainController.getInstance().getLoginRegisterController().loginUser(username.getText(), password.getText());
             SuccessPageFxController.showPage("Login successful", "you logined successful");
-            if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-                setScene("accountAreaForCustomer.fxml", "Account area for custmoer");
+            if (pathAfterLogin != null) {
+                setScene(pathAfterLogin, pathBack);
+                pathAfterLogin = null;
+            } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+                setScene("accountAreaForCustomer.fxml", "Account area for customer");
             } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
                 setScene("accountAreaForManager.fxml", "Account area for manager");
             } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
@@ -57,11 +62,16 @@ public class LoginController extends FxmlController {
     }
 
     public void backButtonAction(ActionEvent actionEvent) {
-        setScene("mainMenuLayout.fxml", "Main menu");
+        setScene(pathBack, titleBack);
     }
 
-    public void setPathBack(String pathBack, String titleBack) {
-        this.pathBack = pathBack;
-        this.titleBack = titleBack;
+    public static void setPathBack(String pathBack, String titleBack) {
+        LoginController.pathBack = pathBack;
+        LoginController.titleBack = titleBack;
+    }
+
+    public static void setPathAfterLogin(String pathAfterLogin, String titleAfter) {
+        LoginController.pathAfterLogin = pathAfterLogin;
+        LoginController.titleNextPage = titleAfter;
     }
 }

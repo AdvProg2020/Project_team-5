@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import javafx.fxml.Initializable;
@@ -144,12 +145,15 @@ public class Cart extends FxmlController implements Initializable {
         if (MainController.getInstance().getCurrentPerson()instanceof Customer){
             setScene("purchasePage1.fxml", "purchase");
         }else if (MainController.getInstance().getCurrentPerson() == null){
+            LoginController.setPathAfterLogin("purchasePage1.fxml","purchase");
+            LoginController.setPathBack("cart.fxml", "cart");
             setScene("login.fxml","login");
         }
     }
 
     public void showProduct(long productId) {
         ProductPage.setProductId(productId);
+        ProductPage.setPathBack("cart.fxml","cart");
         setScene("productPage.fxml", "productPage");
     }
 

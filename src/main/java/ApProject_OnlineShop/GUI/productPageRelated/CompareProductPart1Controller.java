@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -70,6 +71,8 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
 
     public void goToAccountArea(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
+            LoginController.setPathAfterLogin(null,null);
+            LoginController.setPathBack("allProductsForCompareProduct.fxml", "All products");
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
             setScene("accountAreaForCustomer.fxml", "account area");

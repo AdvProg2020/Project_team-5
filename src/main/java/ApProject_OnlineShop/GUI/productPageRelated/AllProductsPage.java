@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
@@ -194,6 +195,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     private void showProduct(Long productId) {
         ProductPage.setProductId(productId);
+        ProductPage.setPathBack("allProducts.fxml","all products");
         setScene("productPage.fxml", "product page");
     }
 
@@ -299,6 +301,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     public void onAccountArea(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
+            LoginController.setPathBack("allProducts.fxml", "All products");
+            LoginController.setPathAfterLogin(null,null);
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
             setScene("accountAreaForCustomer.fxml", "account area");

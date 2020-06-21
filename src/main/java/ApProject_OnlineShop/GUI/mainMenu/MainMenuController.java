@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.mainMenu;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.GUI.productPageRelated.Cart;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -31,7 +32,9 @@ public class MainMenuController extends FxmlController implements Initializable 
 
     public void accountAreaButtonPressed(ActionEvent actionEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
-            setScene("login.fxml", "Login or Reigster");
+            LoginController.setPathBack("mainMenuLayout.fxml", "main menu");
+            LoginController.setPathAfterLogin(null,null);
+            setScene("login.fxml", "Login or Register");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
@@ -39,13 +42,11 @@ public class MainMenuController extends FxmlController implements Initializable 
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
             setScene("accountAreaForManager.fxml", "account area");
         }
-
     }
 
     public void productsPageButtonPressed(ActionEvent actionEvent) {
-        setScene("allProducts.fxml","all products");
+        setScene("allProducts.fxml", "all products");
     }
-
 
     public void exitButtonPressed(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
