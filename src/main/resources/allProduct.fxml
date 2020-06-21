@@ -104,7 +104,10 @@
                      </font>
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
-                     </padding></RadioButton>
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="12.0" />
+                     </VBox.margin></RadioButton>
                   <RadioButton fx:id="offProductsButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#offProductsFilter" prefHeight="35.0" prefWidth="175.0" text="off products">
                      <font>
                         <Font name="Times New Roman" size="15.0" />
