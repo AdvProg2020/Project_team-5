@@ -9,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -19,7 +21,7 @@ public class PurchasePageController2 extends FxmlController implements Initializ
     @FXML
     public TextField discountCode;
     @FXML
-    public Label totalPrice;
+    public Label totalPrice, label1;
     @FXML
     public Button purchaseButton;
     private String discountCodeString;
@@ -35,6 +37,7 @@ public class PurchasePageController2 extends FxmlController implements Initializ
         try {
             MainController.getInstance().getAccountAreaForCustomerController().purchase(totalPrice1, PurchasePageController1.getUserInfo(), discountCodeString);
             SuccessPageFxController.showPage("purchase was successful", totalPrice.getText() + " has reduced from your account!");
+            setScene("mainMenuLayout.fxml", "main menu");
         } catch (NotEnoughCredit notEnoughCredit) {
             ErrorPageFxController.showPage("error happened during purchase", notEnoughCredit.getMessage());
 
@@ -47,14 +50,10 @@ public class PurchasePageController2 extends FxmlController implements Initializ
         String discountCode1 = discountCode.getText();
         if (discountCode1.equals("")) {
             totalPrice1 = MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(Shop.getInstance().getCart());
+            discountCodeString = null;
         } else {
             try {
                 MainController.getInstance().getAccountAreaForCustomerController().checkValidDiscountCode(discountCode1);
-            } catch (Exception exception) {
-                ErrorPageFxController.showPage("error for accept discountCode", exception.getMessage());
-                setScene("purchasePage2.fxml", "purchase");
-            }
-            try {
                 totalPrice1 = MainController.getInstance().getAccountAreaForCustomerController().useDiscountCode(discountCode1);
             } catch (Exception exception) {
                 ErrorPageFxController.showPage("error for accept discountCode", exception.getMessage());
@@ -63,6 +62,8 @@ public class PurchasePageController2 extends FxmlController implements Initializ
             discountCodeString = discountCode1;
         }
         totalPrice.setText(totalPrice1 + " Rials");
+        totalPrice.setVisible(true);
+        label1.setVisible(true);
         purchaseButton.setVisible(true);
         purchaseButton.setDisable(false);
     }
