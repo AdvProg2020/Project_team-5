@@ -3,6 +3,9 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Seller;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -11,6 +14,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -185,7 +189,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     public void sort(int chosenSort) {
         MainController.getInstance().getControllerForSorting().sortASort(chosenSort);
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     private void showProduct(Long productId) {
@@ -195,13 +199,13 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     public void removeCategoryProperty(String property) {
         MainController.getInstance().getControllerForFiltering().removeProperty(property);
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void addCategoryProperty(String property, String value) {
         if (!value.equals("")) {
             MainController.getInstance().getControllerForFiltering().addPropertiesFilter(property, value);
-            setScene("allProduct.fxml", "all products page");
+            setScene("allProducts.fxml", "all products page");
         }
     }
 
@@ -211,7 +215,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
         else {
             MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(subCategory);
         }
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void setCategory(String category) {
@@ -220,7 +224,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
         else {
             MainController.getInstance().getControllerForFiltering().addCategoryFilter(category);
         }
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void availableProductsFilter() {
@@ -229,7 +233,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
         } else if (!MainController.getInstance().getControllerForFiltering().isAvailableProduct()) {
             MainController.getInstance().getControllerForFiltering().addAvailableProduct();
         }
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void offProductsFilter() {
@@ -238,37 +242,37 @@ public class AllProductsPage extends FxmlController implements Initializable {
         } else if (!MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
             MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
         }
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void ableNameFilter() {
         MainController.getInstance().getControllerForFiltering().addNameFiltering(nameFilterValue.getText());
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void disableNameFilter() {
         MainController.getInstance().getControllerForFiltering().addNameFiltering("");
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void filterBySeller() {
         MainController.getInstance().getControllerForFiltering().addSellerFilter(sellerValueFilter.getText());
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void filterByBrand() {
         MainController.getInstance().getControllerForFiltering().addBrandFiltering(brandValueFilter.getText());
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void disableBrandFilter() {
         MainController.getInstance().getControllerForFiltering().addBrandFiltering("");
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void disableSellerFilter() {
         MainController.getInstance().getControllerForFiltering().addSellerFilter("");
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void filterByPrice() {
@@ -276,11 +280,32 @@ public class AllProductsPage extends FxmlController implements Initializable {
             MainController.getInstance().getControllerForFiltering().addPriceFiltering(startPriceValue.getText(), endPriceValue.getText());
         else
             ErrorPageFxController.showPage("wrong price value", "price value must be number");
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
     }
 
     public void disablePriceFilter() {
         MainController.getInstance().getControllerForFiltering().disablePriceFiltering();
-        setScene("allProduct.fxml", "all products page");
+        setScene("allProducts.fxml", "all products page");
+    }
+
+    public void backAction(MouseEvent mouseEvent) {
+        setScene("mainMenuLayout.fxml", "main menu");
+    }
+
+    public void onCart(MouseEvent mouseEvent) {
+        Cart.setPathBack("allProducts.fxml", "all prdocuts");
+        setScene("cart.fxml", "cart");
+    }
+
+    public void onAccountArea(MouseEvent mouseEvent) {
+        if (MainController.getInstance().getCurrentPerson() == null) {
+            setScene("login.fxml", "login");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            setScene("accountAreaForCustomer.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+            setScene("accountAreaForSeller.fxml", "account area");
+        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            setScene("accountAreaForManager.fxml", "account area");
+        }
     }
 }

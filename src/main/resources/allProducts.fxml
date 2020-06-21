@@ -62,7 +62,7 @@
             </ToolBar>
             <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#backAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@pictures/icons8-back-to-48.png" />
                      </image>
@@ -72,7 +72,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
-                  <ImageView fitHeight="57.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="57.0" fitWidth="46.0" onMouseClicked="#onCart" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@pictures/shoppingBag.png" />
                      </image>
@@ -83,7 +83,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" onMouseClicked="#onAccountArea" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@pictures/accountArea.png" />
                      </image>

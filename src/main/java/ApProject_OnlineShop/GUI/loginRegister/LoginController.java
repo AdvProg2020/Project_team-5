@@ -20,7 +20,8 @@ public class LoginController extends FxmlController {
     PasswordField password;
     @FXML
     TextField username;
-
+    private String pathBack;
+    private String titleBack;
 
     public void loginButtonPressed(ActionEvent actionEvent) {
         try {
@@ -57,5 +58,10 @@ public class LoginController extends FxmlController {
 
     public void backButtonAction(ActionEvent actionEvent) {
         setScene("mainMenuLayout.fxml", "Main menu");
+    }
+
+    public void setPathBack(String pathBack, String titleBack) {
+        this.pathBack = pathBack;
+        this.titleBack = titleBack;
     }
 }

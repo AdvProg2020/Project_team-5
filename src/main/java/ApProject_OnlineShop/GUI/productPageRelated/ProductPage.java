@@ -22,7 +22,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -32,7 +31,6 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -54,7 +52,7 @@ public class ProductPage extends FxmlController implements Initializable {
     public Label detailsLabel;
 
     public void backButton(ActionEvent actionEvent) {
-        setScene("allProduct.fxml", "all products");
+        setScene("allProducts.fxml", "all products");
     }
 
     @Override
