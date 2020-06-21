@@ -187,7 +187,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
     }
 
     private void showProduct(Long productId) {
-        ProductPageControllerForSeller.setProductId(productId);
+        ProductPage.setProductId(productId);
+        setScene("productPage.fxml", "product page");
     }
 
     public void removeCategoryProperty(String property) {
