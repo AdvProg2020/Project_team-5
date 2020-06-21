@@ -39,7 +39,7 @@
 </HBox>
 <VBox prefHeight="442.0" prefWidth="272.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
   <children>
-         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="270.0" vbarPolicy="ALWAYS">
+          <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="270.0" vbarPolicy="ALWAYS">
             <content>
           <TableView fx:id="usersTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onRowSelected" prefHeight="400.0" prefWidth="250.0" stylesheets="@styelsheets/baseStyles.css">
             <columns>
@@ -47,8 +47,8 @@
               <TableColumn fx:id="roleColumn" editable="false" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" text="Role" />
             </columns>
           </TableView>
-            </content>
-         </ScrollPane>
+          </content>
+          </ScrollPane>
   </children>
 </VBox>
 <VBox alignment="CENTER" prefHeight="400.0" prefWidth="300.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
