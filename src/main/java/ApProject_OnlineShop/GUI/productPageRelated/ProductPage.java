@@ -179,6 +179,8 @@ public class ProductPage extends FxmlController implements Initializable {
                 sellerHBox.getChildren().add(priceBox);
             }
             ImageView cartImage = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/cart.png").toString()));
+            cartImage.setPickOnBounds(true);
+            cartImage.setPreserveRatio(true);
             cartImage.setFitHeight(35);
             cartImage.setFitWidth(35);
             cartImage.setCursor(Cursor.HAND);
