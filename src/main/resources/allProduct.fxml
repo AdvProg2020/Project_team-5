@@ -12,7 +12,7 @@
       <GridPane maxHeight="2000.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1635.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="300.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="864.9999847412109" minWidth="10.0" prefWidth="764.8" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="864.9999847412109" minWidth="10.0" prefWidth="700.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="133.0" minHeight="133.0" prefHeight="132.60000000000002" vgrow="SOMETIMES" />
@@ -211,8 +211,8 @@
                   </HBox>
                   <GridPane alignment="CENTER_RIGHT">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="68.59999618530273" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.6" minWidth="10.0" prefWidth="166.60000381469726" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="85.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.60000000000002" minWidth="10.0" prefWidth="196.60000000000002" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="27.4" minHeight="27.0" prefHeight="27.4" vgrow="SOMETIMES" />
