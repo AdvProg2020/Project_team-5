@@ -140,7 +140,7 @@ public class AccountAreaForSellerTest {
         Shop.getInstance().addCompany(company);
         Shop.getInstance().addPerson(seller1);
         MainController.getInstance().setCurrentPerson(seller1);
-        assertEquals(company.toString(),controller.getCompanyInfo());
+        assertEquals(company.toString(),controller.getCompanyInfo().toString());
     }
 
     @Test

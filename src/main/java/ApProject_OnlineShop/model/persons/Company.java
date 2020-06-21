@@ -54,14 +54,8 @@ public class Company {
         return address;
     }
 
-//    @Override
-//    public String toString() {
-//        return "############\n" +
-//                "Company" + "\n" +
-//                "name = " + name + "\n" +
-//                "website = " + website + "\n" +
-//                "phoneNumber = " + phoneNumber + "\n" +
-//                "faxNumber = " + faxNumber + "\n" +
-//                "address = " + address + "\n############";
-//    }
+    @Override
+    public String toString() {
+        return "["  + name + ", " + website + ", " + phoneNumber + ", " + faxNumber + ", " + address + "]";
+    }
 }
