@@ -17,10 +17,8 @@ import java.util.HashMap;
 
 public class AllProductsControllerTest {
 
-
-
     @Before
-    public  void load(){
+    public void load(){
         Database.getInstance().loadTestFolders();
         ArrayList<String> details=new ArrayList<>();
         details.add("p1");
@@ -32,10 +30,12 @@ public class AllProductsControllerTest {
         details2.add("hi2");
         SubCategory subCategory=new SubCategory("sub kabir",details2);
         category.addSubCategory(subCategory);
+        Shop.getInstance().addSubCategory(subCategory);
         Company company=new Company("salam","asfs","asdasd","addasd","999");
         Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
         Good good=new Good("phone", "samsung", subCategory, "", new HashMap<>(), seller, 9000L, 3);
         subCategory.addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
     }
 
     @Test
@@ -46,6 +46,7 @@ public class AllProductsControllerTest {
                 "Special properties :\n" +
                 "1- p1\n" +
                 "2- p2\n";
+        System.out.println(Shop.getInstance().findCategoryByName("aboots").toString());
         Assert.assertEquals(MainController.getInstance().getAllProductsController().showCategories(),output);
     }
 
