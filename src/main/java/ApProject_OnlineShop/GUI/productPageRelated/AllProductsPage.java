@@ -63,6 +63,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
             VBox.setMargin(subCategoryText, new Insets(8, 0, 0, 0));
             categoryRelatedVBox.getChildren().add(subCategoryText);
             ChoiceBox subCategory = new ChoiceBox();
+            subCategory.setCursor(Cursor.HAND);
             VBox.setMargin(subCategory, new Insets(2, 0, 0, 0));
             subCategory.setPrefWidth(150);
             subCategory.setPrefHeight(32);
@@ -84,6 +85,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
                 propertyHBox.setPrefWidth(200);
                 propertyHBox.setPrefHeight(40);
                 ImageView remove = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/cross.png").toString()));
+                remove.setPickOnBounds(true);
+                remove.setPreserveRatio(true);
                 remove.setCursor(Cursor.HAND);
                 remove.setFitHeight(20);
                 remove.setFitWidth(20);
@@ -98,6 +101,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
                 propertyValue.setPromptText(MainController.getInstance().getControllerForFiltering().getValueOfProperty(property));
                 propertyHBox.getChildren().add(propertyValue);
                 ImageView search = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/search.png").toString()));
+                search.setPickOnBounds(true);
+                search.setPreserveRatio(true);
                 search.setFitHeight(30);
                 search.setFitWidth(30);
                 search.setOnMouseClicked(e -> addCategoryProperty(property, propertyValue.getText()));
