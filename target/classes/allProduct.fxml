@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.AllProductsPage">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.AllProductsPage">
    <content>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="236.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="864.9999847412109" minWidth="10.0" prefWidth="764.8" />
@@ -248,8 +248,17 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <VBox fx:id="categoryRelatedVBox" prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="categoryRelatedVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ChoiceBox fx:id="category" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="150.0" styleClass="menuButtons">
+                           <VBox.margin>
+                              <Insets top="8.0" />
+                           </VBox.margin></ChoiceBox>
+                     </children></VBox>
                </children></VBox>
+            <GridPane fx:id="productsPart" styleClass="mainLayout" GridPane.columnIndex="1" GridPane.rowIndex="1">
+
+            </GridPane>
          </children>
       </GridPane>
    </content>
