@@ -139,4 +139,9 @@ public class CommentsPage extends FxmlController implements Initializable {
         CommentsPage.pathBack = pathBack;
         CommentsPage.titleBack = titleBack;
     }
+
+    public void cart(MouseEvent mouseEvent) {
+        Cart.setPathBack("commentsPage.fxml", "comments page");
+        setScene("cart.fxml", "cart");
+    }
 }
