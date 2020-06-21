@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI;
 import ApProject_OnlineShop.GUI.productPageRelated.Cart;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -73,6 +74,10 @@ public class PurchasePageController1 extends FxmlController implements Initializ
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (!(MainController.getInstance().getCurrentPerson() instanceof Customer)){
+            ErrorPageFxController.showPage("can not purchase","you can not purchase because you aren't customer");
+            setScene("mainMenuLayout.fxml","main menu");
+        }
         userInfo.clear();
     }
 }
