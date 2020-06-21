@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
@@ -42,7 +43,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        handleSorts();
         if (MainController.getInstance().getControllerForFiltering().isAvailableProduct())
             availableProducts.setSelected(true);
         if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter())
@@ -168,13 +169,25 @@ public class AllProductsPage extends FxmlController implements Initializable {
         }
     }
 
-    public void handleSorts(){
-        
+    public void handleSorts() {
+        viewsSort.setOnMouseClicked(e -> sort(1));
+        rateSort.setOnMouseClicked(e -> sort(2));
+        dateSort.setOnMouseClicked(e -> sort(3));
+        if (MainController.getInstance().getControllerForSorting().getCurrentSort().equals("visit number"))
+            viewsSort.setTextFill(Color.BLUE);
+        if (MainController.getInstance().getControllerForSorting().getCurrentSort().equals("average rate"))
+            rateSort.setTextFill(Color.BLUE);
+        if (MainController.getInstance().getControllerForSorting().getCurrentSort().equals("date"))
+            dateSort.setTextFill(Color.BLUE);
+    }
+
+    public void sort(int chosenSort) {
+        MainController.getInstance().getControllerForSorting().sortASort(chosenSort);
+        setScene("allProduct.fxml", "all products page");
     }
 
     private void showProduct(Long productId) {
         ProductPageControllerForSeller.setProductId(productId);
-        setScene("productPageEditableForSeller.fxml", "product page");
     }
 
     public void removeCategoryProperty(String property) {
