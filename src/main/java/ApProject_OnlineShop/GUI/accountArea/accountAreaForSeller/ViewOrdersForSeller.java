@@ -70,7 +70,7 @@ public class ViewOrdersForSeller extends FxmlController {
         long orderId = Long.parseLong(code);
         List<String> orderDetails = ((Seller) MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
         GridPane root = style.makeGridPane();
-        Label discountCodeInfo = new Label("Customer Order");
+        Label discountCodeInfo = new Label("Seller Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
         discountCodeInfo.setPadding(new Insets(7));
         GridPane.setHalignment(discountCodeInfo, HPos.CENTER);

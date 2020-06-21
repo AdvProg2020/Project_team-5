@@ -84,7 +84,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public void rateProduct(long productId, int rate) throws IOException, FileCantBeSavedException, YouRatedThisProductBefore {
         for (Rate rate2 : Shop.getInstance().getAllRates()) {
-            if (rate2.getCustomer().equals(MainController.getInstance().getCurrentPerson())) {
+            if (rate2.getCustomer().equals(MainController.getInstance().getCurrentPerson()) && rate2.getGood().equals(Shop.getInstance().findGoodById(productId))) {
                 throw new YouRatedThisProductBefore();
             }
         }
@@ -189,7 +189,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
         for (Seller seller : sellerSet) {
             List<GoodInCart> sellerProduct = cart.stream().filter(good -> good.getSeller() == seller).collect(Collectors.toList());
-            OrderForSeller orderForSeller = new OrderForSeller(finalPriceOfAList(sellerProduct), seller, customerName, sellerProduct);
+            OrderForSeller orderForSeller = new OrderForSeller(finalPriceOfAList(sellerProduct), seller, MainController.getInstance().getCurrentPerson().getUsername(), sellerProduct);
             seller.addOrder(orderForSeller);
             Shop.getInstance().addOrder(orderForSeller);
             orderForSeller.setOrderStatus(Order.OrderStatus.SENT);
