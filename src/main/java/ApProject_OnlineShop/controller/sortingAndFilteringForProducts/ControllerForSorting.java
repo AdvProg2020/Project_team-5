@@ -26,7 +26,7 @@ public class ControllerForSorting {
             currentSort = "date";
     }
 
-    public List<Good> showProducts(List<Good> allGoods){
+    public List<Good> showProducts(List<Good> allGoods) {
         if (currentSort.equals("visit number"))
             return showSortByVisitNumber(allGoods);
         if (currentSort.equals("average rate"))
@@ -36,19 +36,19 @@ public class ControllerForSorting {
         return allGoods;
     }
 
-    public List<Good> showSortByVisitNumber(List<Good> allGoods){
+    public List<Good> showSortByVisitNumber(List<Good> allGoods) {
         allGoods.sort((Comparator.comparingInt(Good::getSeenNumber)));
         Collections.reverse(allGoods);
         return allGoods;
     }
 
-    public List<Good> showSortByAverageRate(List<Good> allGoods){
+    public List<Good> showSortByAverageRate(List<Good> allGoods) {
         allGoods.sort(Comparator.comparingDouble(Good::getAverageRate));
         Collections.reverse(allGoods);
         return allGoods;
     }
 
-    public List<Good> showSortByDate(List<Good> allGoods){
+    public List<Good> showSortByDate(List<Good> allGoods) {
         allGoods.sort((Good firstGood, Good secondGood) -> secondGood.getModificationDate().toString().
                 compareTo(firstGood.getModificationDate().toString()));
         return allGoods;
