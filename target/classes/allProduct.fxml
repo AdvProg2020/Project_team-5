@@ -9,14 +9,14 @@
 
 <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.AllProductsPage">
    <content>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css">
+      <GridPane maxHeight="2000.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1635.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="236.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="300.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="864.9999847412109" minWidth="10.0" prefWidth="764.8" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="261.4" minHeight="0.0" prefHeight="132.60000000000002" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="682.8000076293945" minHeight="10.0" prefHeight="661.8" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="133.0" minHeight="133.0" prefHeight="132.60000000000002" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1500.0" minHeight="10.0" prefHeight="1000.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
@@ -96,7 +96,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <VBox fx:id="filteringVBox" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="662.0" prefWidth="235.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.rowIndex="1">
+            <VBox fx:id="filteringVBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="300.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.rowIndex="1">
                <children>
                   <RadioButton fx:id="availableProducts" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#availableProductsFilter" prefHeight="35.0" prefWidth="175.0" text="available products">
                      <font>
@@ -127,12 +127,18 @@
                            <HBox.margin>
                               <Insets right="2.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <TextField fx:id="nameFilterValue" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
                         <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#ableNameFilter" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/search.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </children>
                   </HBox>
@@ -153,12 +159,18 @@
                            <HBox.margin>
                               <Insets right="2.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <TextField fx:id="sellerValueFilter" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
                         <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#filterBySeller" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/search.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </children>
                   </HBox>
@@ -179,12 +191,18 @@
                            <HBox.margin>
                               <Insets right="2.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <TextField fx:id="brandValueFilter" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
                         <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#filterByBrand" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/search.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </children>
                   </HBox>
@@ -194,9 +212,9 @@
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.6" minWidth="10.0" prefWidth="166.60000381469726" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="27.4" minHeight="10.0" prefHeight="27.4" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="48.39999904632568" minHeight="10.0" prefHeight="33.4" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="27.4" minHeight="27.0" prefHeight="27.4" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="48.39999904632568" minHeight="33.0" prefHeight="33.4" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label prefHeight="16.0" prefWidth="38.0" text="price" GridPane.halignment="RIGHT">
@@ -250,13 +268,24 @@
                   </HBox>
                   <VBox fx:id="categoryRelatedVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <ChoiceBox fx:id="category" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="150.0" styleClass="menuButtons">
+                        <Label prefHeight="18.0" prefWidth="150.0" text="category:">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
                            <VBox.margin>
                               <Insets top="8.0" />
-                           </VBox.margin></ChoiceBox>
+                           </VBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="category" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color=#000000;">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ChoiceBox>
                      </children></VBox>
                </children></VBox>
-            <GridPane fx:id="productsPart" styleClass="mainLayout" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane fx:id="productsPart" prefHeight="1000.0" styleClass="mainLayout" GridPane.columnIndex="1" GridPane.rowIndex="1">
 
             </GridPane>
          </children>

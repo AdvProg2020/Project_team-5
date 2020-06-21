@@ -77,4 +77,5 @@ public class MainMenuController extends FxmlController implements Initializable 
             imageView.setOnMouseClicked(e -> cart());
         }
     }
+
 }

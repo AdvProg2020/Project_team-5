@@ -2,16 +2,26 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ProductPageControllerForSeller;
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
+import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -27,14 +37,195 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public VBox categoryRelatedVBox;
     public ChoiceBox category;
     public GridPane productsPart;
+    public Label viewsSort;
+    public Label rateSort;
+    public Label dateSort;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        handleSorts();
+        if (MainController.getInstance().getControllerForFiltering().isAvailableProduct())
+            availableProducts.setSelected(true);
+        if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter())
+            offProductsButton.setSelected(true);
+        List<String> categories = MainController.getInstance().getAllProductsController().getAllCategories();
+        categories.add("none");
+        category.setItems(FXCollections.observableList(categories));
+        category.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
+        category.setValue(MainController.getInstance().getControllerForFiltering().getCategory());
+        category.setOnAction(e -> setCategory(category.getValue().toString()));
+        nameFilterValue.setPromptText(MainController.getInstance().getControllerForFiltering().getName());
+        sellerValueFilter.setPromptText(MainController.getInstance().getControllerForFiltering().getSeller());
+        brandValueFilter.setPromptText(MainController.getInstance().getControllerForFiltering().getBrand());
+        startPriceValue.setPromptText(MainController.getInstance().getControllerForFiltering().getStartPrice());
+        endPriceValue.setPromptText(MainController.getInstance().getControllerForFiltering().getEndPrice());
+        if (!MainController.getInstance().getControllerForFiltering().getCategory().equals("")) {
+            Label subCategoryText = new Label("subcategory:");
+            subCategoryText.setPrefWidth(150);
+            subCategoryText.setFont(Font.font("Times New Roman", 14));
+            VBox.setMargin(subCategoryText, new Insets(8, 0, 0, 0));
+            categoryRelatedVBox.getChildren().add(subCategoryText);
+            ChoiceBox subCategory = new ChoiceBox();
+            VBox.setMargin(subCategory, new Insets(2, 0, 0, 0));
+            subCategory.setPrefWidth(150);
+            subCategory.setPrefHeight(32);
+            List<String> subcategories = MainController.getInstance().getControllerForFiltering().getSubcategories();
+            subcategories.add("none");
+            subCategory.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
+            subCategory.setItems(FXCollections.observableArrayList(subcategories));
+            subCategory.setValue(MainController.getInstance().getControllerForFiltering().getSubCategory());
+            subCategory.setOnAction(e -> setSubCategory(subCategory.getValue().toString()));
+            categoryRelatedVBox.getChildren().add(subCategory);
+            for (String property : MainController.getInstance().getControllerForFiltering().getCategoryProperties()) {
+                Label propertyText = new Label(property);
+                propertyText.setPrefWidth(150);
+                propertyText.setFont(Font.font("Times New Roman", 14));
+                VBox.setMargin(propertyText, new Insets(8, 0, 0, 0));
+                categoryRelatedVBox.getChildren().add(propertyText);
+                HBox propertyHBox = new HBox();
+                propertyHBox.setAlignment(Pos.CENTER);
+                propertyHBox.setPrefWidth(200);
+                propertyHBox.setPrefHeight(40);
+                ImageView remove = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/cross.png").toString()));
+                remove.setCursor(Cursor.HAND);
+                remove.setFitHeight(20);
+                remove.setFitWidth(20);
+                remove.setOnMouseClicked(e -> removeCategoryProperty(property));
+                HBox.setMargin(remove, new Insets(0, 2, 0, 0));
+                propertyHBox.getChildren().add(remove);
+                TextField propertyValue = new TextField();
+                propertyValue.setMinHeight(30);
+                propertyValue.setMinWidth(150);
+                propertyValue.setMaxWidth(150);
+                propertyValue.setMaxWidth(30);
+                propertyValue.setPromptText(MainController.getInstance().getControllerForFiltering().getValueOfProperty(property));
+                propertyHBox.getChildren().add(propertyValue);
+                ImageView search = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/search.png").toString()));
+                search.setFitHeight(30);
+                search.setFitWidth(30);
+                search.setOnMouseClicked(e -> addCategoryProperty(property, propertyValue.getText()));
+                search.setCursor(Cursor.HAND);
+                propertyHBox.getChildren().add(search);
+                categoryRelatedVBox.getChildren().add(propertyHBox);
+            }
+            if (!MainController.getInstance().getControllerForFiltering().getSubCategory().equals("")) {
+                for (String property : MainController.getInstance().getControllerForFiltering().getSubCategoryProperties()) {
+                    Label propertyText = new Label(property + ":");
+                    propertyText.setPrefWidth(150);
+                    propertyText.setFont(Font.font("Times New Roman", 14));
+                    VBox.setMargin(propertyText, new Insets(8, 0, 0, 0));
+                    categoryRelatedVBox.getChildren().add(propertyText);
+                    HBox propertyHBox = new HBox();
+                    propertyHBox.setAlignment(Pos.CENTER);
+                    propertyHBox.setPrefWidth(200);
+                    propertyHBox.setPrefHeight(40);
+                    ImageView remove = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/cross.png").toString()));
+                    remove.setCursor(Cursor.HAND);
+                    remove.setFitHeight(20);
+                    remove.setFitWidth(20);
+                    remove.setOnMouseClicked(e -> removeCategoryProperty(property));
+                    HBox.setMargin(remove, new Insets(0, 2, 0, 0));
+                    propertyHBox.getChildren().add(remove);
+                    TextField propertyValue = new TextField();
+                    propertyValue.setMinHeight(30);
+                    propertyValue.setMinWidth(150);
+                    propertyValue.setMaxWidth(150);
+                    propertyValue.setMaxWidth(30);
+                    propertyValue.setPromptText(MainController.getInstance().getControllerForFiltering().getValueOfProperty(property));
+                    propertyHBox.getChildren().add(propertyValue);
+                    ImageView search = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/search.png").toString()));
+                    search.setFitHeight(30);
+                    search.setFitWidth(30);
+                    search.setOnMouseClicked(e -> addCategoryProperty(property, propertyValue.getText()));
+                    search.setCursor(Cursor.HAND);
+                    propertyHBox.getChildren().add(search);
+                    categoryRelatedVBox.getChildren().add(propertyHBox);
+                }
+            }
+        }
+        setProducts();
+    }
+
+    public void setProducts() {
+        int num = 0;
+        int row = 0;
+        for (Long productId : MainController.getInstance().getAllProductsController().getGoods()) {
+            if (MainController.getInstance().getAllProductsController().isInOff(productId)) {
+                VBox vbox = new ProductBriefSummery().offProductBriefSummery(productId);
+                productsPart.add(vbox, num % 3, row);
+                num++;
+                vbox.setCursor(Cursor.HAND);
+                vbox.setOnMouseClicked(e -> showProduct(productId));
+            }
+            if (!MainController.getInstance().getAllProductsController().isInOff(productId)) {
+                VBox vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
+                productsPart.add(vbox, num % 3, row);
+                num++;
+                vbox.setCursor(Cursor.HAND);
+                vbox.setOnMouseClicked(e -> showProduct(productId));
+            }
+            if (num % 3 == 0)
+                row++;
+        }
+    }
+
+    public void handleSorts() {
+        viewsSort.setOnMouseClicked(e -> sort(1));
+        rateSort.setOnMouseClicked(e -> sort(2));
+        dateSort.setOnMouseClicked(e -> sort(3));
+        if (MainController.getInstance().getControllerForSorting().getCurrentSort().equals("visit number"))
+            viewsSort.setTextFill(Color.BLUE);
+        if (MainController.getInstance().getControllerForSorting().getCurrentSort().equals("average rate"))
+            rateSort.setTextFill(Color.BLUE);
+        if (MainController.getInstance().getControllerForSorting().getCurrentSort().equals("date"))
+            dateSort.setTextFill(Color.BLUE);
+    }
+
+    public void sort(int chosenSort) {
+        MainController.getInstance().getControllerForSorting().sortASort(chosenSort);
+        setScene("allProduct.fxml", "all products page");
+    }
+
+    private void showProduct(Long productId) {
+        ProductPage.setProductId(productId);
+        setScene("productPage.fxml", "product page");
+    }
+
+    public void removeCategoryProperty(String property) {
+        MainController.getInstance().getControllerForFiltering().removeProperty(property);
+        setScene("allProduct.fxml", "all products page");
+    }
+
+    public void addCategoryProperty(String property, String value) {
+        if (!value.equals("")) {
+            MainController.getInstance().getControllerForFiltering().addPropertiesFilter(property, value);
+            setScene("allProduct.fxml", "all products page");
+        }
+    }
+
+    public void setSubCategory(String subCategory) {
+        if (subCategory.equals("none"))
+            MainController.getInstance().getControllerForFiltering().disableSubcategoryFilter();
+        else {
+            MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(subCategory);
+        }
+        setScene("allProduct.fxml", "all products page");
+    }
+
+    public void setCategory(String category) {
+        if (category.equals("none"))
+            MainController.getInstance().getControllerForFiltering().disableCategoryFilter();
+        else {
+            MainController.getInstance().getControllerForFiltering().addCategoryFilter(category);
+        }
+        setScene("allProduct.fxml", "all products page");
+    }
 
     public void availableProductsFilter() {
         if (MainController.getInstance().getControllerForFiltering().isAvailableProduct()) {
             MainController.getInstance().getControllerForFiltering().removeAvailableProductsFilter();
-            availableProducts.setSelected(false);
         } else if (!MainController.getInstance().getControllerForFiltering().isAvailableProduct()) {
             MainController.getInstance().getControllerForFiltering().addAvailableProduct();
-            availableProducts.setSelected(true);
         }
         setScene("allProduct.fxml", "all products page");
     }
@@ -42,10 +233,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public void offProductsFilter() {
         if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
             MainController.getInstance().getControllerForFiltering().removeOffProductsFilter();
-            offProductsButton.setSelected(false);
         } else if (!MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
             MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
-            offProductsButton.setSelected(true);
         }
         setScene("allProduct.fxml", "all products page");
     }
@@ -78,14 +267,6 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public void disableSellerFilter() {
         MainController.getInstance().getControllerForFiltering().addSellerFilter("");
         setScene("allProduct.fxml", "all products page");
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        
-        if (MainController.getInstance().getControllerForFiltering().getCategory().equals("")){
-            
-        }
     }
 
     public void filterByPrice() {

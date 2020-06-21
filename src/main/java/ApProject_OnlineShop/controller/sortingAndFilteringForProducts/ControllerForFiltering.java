@@ -20,8 +20,6 @@ import java.util.stream.Collectors;
 public class ControllerForFiltering {
     private HashMap<String, String> categoryProperties;
     private ArrayList<BinaryFilters> binaryFilters;
-    private List<Good> goodList;
-    private Category filteredCategory;
     private boolean availableProduct;
     private boolean offProductsFilter;
     private String category = "";
@@ -33,7 +31,6 @@ public class ControllerForFiltering {
     public ControllerForFiltering() {
         this.categoryProperties = new HashMap<>();
         this.binaryFilters = new ArrayList<>();
-        this.goodList = new ArrayList<>();
     }
 
     public boolean isOffProductsFilter() {
@@ -68,10 +65,6 @@ public class ControllerForFiltering {
         this.brand = brand;
     }
 
-    public HashMap<String, String> getCategoryProperties() {
-        return categoryProperties;
-    }
-
     public String getCategory() {
         return category;
     }
@@ -82,10 +75,6 @@ public class ControllerForFiltering {
 
     public String getBrand() {
         return brand;
-    }
-
-    public List<Good> getGoodList() {
-        return goodList;
     }
 
     public ArrayList<BinaryFilters> getBinaryFilters() {
@@ -160,6 +149,18 @@ public class ControllerForFiltering {
             }
     }
 
+    public String getStartPrice(){
+        if (binaryFilters.size() > 0)
+            return binaryFilters.get(0).getStartValue();
+        return "";
+    }
+
+    public String getEndPrice(){
+        if (binaryFilters.size() > 0)
+            return binaryFilters.get(0).getEndValue();
+        return "";
+    }
+
     public void addPriceFiltering(String startValue, String endValue) {
         disablePriceFiltering();
         addBinaryFilter("price", startValue, endValue);
@@ -178,13 +179,9 @@ public class ControllerForFiltering {
     }
 
     public List<String> getProperties() throws Exception {
-        if (filteredCategory == null)
-            throw new HaveNotChosenCategoryFilter();
+//        if (filteredCategory == null)
+//            throw new HaveNotChosenCategoryFilter();
         return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
-    }
-
-    public void addPropertiesFilter(String property, String value) {
-        categoryProperties.put(property, value);
     }
 
     public void disableCategoryFilter() {
@@ -193,8 +190,22 @@ public class ControllerForFiltering {
         category = "";
     }
 
+    public List<String> getSubcategories(){
+        if (!getCategory().equals(""))
+            return Shop.getInstance().findCategoryByName(getCategory()).getSubCategories().stream().map(subcategory -> subcategory.getName()).collect(Collectors.toList());
+        return null;
+    }
+
+    public void disableSubcategoryFilter(){
+        subCategory = "";
+    }
+
+    public List<String> getCategoryProperties(){
+        return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
+    }
+
     public List<Good> showProducts() {
-        List<Good> goods = new ArrayList<>(getGoodList());
+        List<Good> goods = new ArrayList<>(Shop.getInstance().getAllGoods());
         if (isAvailableProduct())
             goods = filterAvailableProducts(goods);
         if (!getCategory().equals(""))
@@ -214,6 +225,30 @@ public class ControllerForFiltering {
                 goods = filterByPrice(binaryFilter, goods);
         }
         return goods;
+    }
+
+    public List<String> getSubCategoryProperties(){
+        if (!getSubCategory().equals(""))
+            return Shop.getInstance().findSubCategoryByName(getSubCategory()).getDetails();
+        return null;
+    }
+
+    public String getValueOfProperty(String property){
+        if (categoryProperties.containsKey(property))
+            return categoryProperties.get(property);
+        return "";
+    }
+
+    public void addPropertiesFilter(String property,String value){
+        if (categoryProperties.containsKey(property))
+            categoryProperties.replace(property,value);
+        else
+            categoryProperties.put(property, value);
+    }
+
+    public void removeProperty(String property){
+        if (categoryProperties.containsKey(property))
+            categoryProperties.remove(property);
     }
 
     public void removeAvailableProductsFilter() {
