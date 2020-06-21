@@ -24,8 +24,7 @@ public class PurchasePageController1 extends FxmlController {
     public TextField addressField;
     @FXML
     public TextField phoneNumberField;
-    @FXML
-    public TextField discountCodeField;
+
     private static ArrayList<String> userInfo = new ArrayList<>();
 
     public void onLogoutIconClicked(MouseEvent mouseEvent) {
@@ -45,7 +44,7 @@ public class PurchasePageController1 extends FxmlController {
             userInfo.add(postalCodeField.getText());
             userInfo.add(addressField.getText());
             userInfo.add(phoneNumberField.getText());
-            setScene("purchasePage2.fxml","purchase part2");
+            setScene("purchasePage2.fxml", "purchase part2");
         }
     }
 
