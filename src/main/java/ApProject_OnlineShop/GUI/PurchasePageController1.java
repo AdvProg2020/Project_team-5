@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class PurchasePageController1 extends FxmlController {
+public class PurchasePageController1 extends FxmlController implements Initializable {
     @FXML
     public TextField nameField;
     @FXML
@@ -64,5 +64,14 @@ public class PurchasePageController1 extends FxmlController {
             return false;
         }
         return true;
+    }
+
+    public static ArrayList<String> getUserInfo() {
+        return userInfo;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        userInfo.clear();
     }
 }
