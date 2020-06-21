@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -42,7 +43,9 @@ public class AllProductsPage extends FxmlController implements Initializable {
             availableProducts.setSelected(true);
         if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter())
             offProductsButton.setSelected(true);
-        category.setItems(FXCollections.observableList(MainController.getInstance().getAllProductsController().getAllCategories()));
+        List<String> categories = MainController.getInstance().getAllProductsController().getAllCategories();
+        categories.add("none");
+        category.setItems(FXCollections.observableList(categories));
         category.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
         category.setValue(MainController.getInstance().getControllerForFiltering().getCategory());
         category.setOnAction(e -> setCategory(category.getValue().toString()));
@@ -61,8 +64,10 @@ public class AllProductsPage extends FxmlController implements Initializable {
             VBox.setMargin(subCategory, new Insets(2, 0, 0, 0));
             subCategory.setPrefWidth(150);
             subCategory.setPrefHeight(32);
+            List<String> subcategories = MainController.getInstance().getControllerForFiltering().getSubcategories();
+            subcategories.add("none");
             subCategory.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
-            subCategory.setItems(FXCollections.observableArrayList(MainController.getInstance().getControllerForFiltering().getSubcategories()));
+            subCategory.setItems(FXCollections.observableArrayList(subcategories));
             subCategory.setValue(MainController.getInstance().getControllerForFiltering().getSubCategory());
             subCategory.setOnAction(e -> setSubCategory(subCategory.getValue().toString()));
             categoryRelatedVBox.getChildren().add(subCategory);
@@ -136,7 +141,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
         setProducts();
     }
 
-    public void setProducts(){
+    public void setProducts() {
         int num = 0;
         int row = 0;
         for (Long productId : MainController.getInstance().getAllProductsController().getGoods()) {
@@ -177,12 +182,20 @@ public class AllProductsPage extends FxmlController implements Initializable {
     }
 
     public void setSubCategory(String subCategory) {
-        MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(subCategory);
+        if (subCategory.equals("none"))
+            MainController.getInstance().getControllerForFiltering().disableSubcategoryFilter();
+        else {
+            MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(subCategory);
+        }
         setScene("allProduct.fxml", "all products page");
     }
 
     public void setCategory(String category) {
-        MainController.getInstance().getControllerForFiltering().addCategoryFilter(category);
+        if (category.equals("none"))
+            MainController.getInstance().getControllerForFiltering().disableCategoryFilter();
+        else {
+            MainController.getInstance().getControllerForFiltering().addCategoryFilter(category);
+        }
         setScene("allProduct.fxml", "all products page");
     }
 

@@ -196,6 +196,10 @@ public class ControllerForFiltering {
         return null;
     }
 
+    public void disableSubcategoryFilter(){
+        subCategory = "";
+    }
+
     public List<String> getCategoryProperties(){
         return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
     }
