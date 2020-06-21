@@ -74,10 +74,6 @@ public class PurchasePageController1 extends FxmlController implements Initializ
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (!(MainController.getInstance().getCurrentPerson() instanceof Customer)){
-            ErrorPageFxController.showPage("can not purchase","you can not purchase because you aren't customer");
-            setScene("mainMenuLayout.fxml","main menu");
-        }
         userInfo.clear();
     }
 }

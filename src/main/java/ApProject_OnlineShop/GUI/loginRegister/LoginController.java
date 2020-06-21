@@ -33,16 +33,22 @@ public class LoginController extends FxmlController {
             MainController.getInstance().getLoginRegisterController().loginUser(username.getText(), password.getText());
             SuccessPageFxController.showPage("Login successful", "you logined successful");
             if (pathAfterLogin != null) {
+                if (pathAfterLogin.equals("purchasePage1.fxml"))
+                    if (!(MainController.getInstance().getCurrentPerson() instanceof Customer)) {
+                        ErrorPageFxController.showPage("can not purchase", "you can not purchase because you aren't customer");
+                        setScene("mainMenuLayout.fxml", "main menu");
+                        return;
+                    }
                 setScene(pathAfterLogin, pathBack);
                 pathAfterLogin = null;
             } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-                AccountAreaForCustomerController.setPathBack(pathBack,titleBack);
+                AccountAreaForCustomerController.setPathBack(pathBack, titleBack);
                 setScene("accountAreaForCustomer.fxml", "Account area for customer");
             } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
-                AccountAreaForManagerFxController.setPathBack(pathBack,titleBack);
+                AccountAreaForManagerFxController.setPathBack(pathBack, titleBack);
                 setScene("accountAreaForManager.fxml", "Account area for manager");
             } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
-                AccountAreaForSellerController.setPathBack(pathBack,titleBack);
+                AccountAreaForSellerController.setPathBack(pathBack, titleBack);
                 setScene("accountAreaForSeller.fxml", "Account area for seller");
             }
         } catch (UsernameNotFoundException | PasswordIncorrectException e) {
