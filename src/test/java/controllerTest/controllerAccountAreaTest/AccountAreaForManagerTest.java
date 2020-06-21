@@ -35,7 +35,7 @@ public class AccountAreaForManagerTest {
     static ArrayList<String> fields;
 
     @BeforeClass
-    public static void initializeVariables() {
+    public static void initializeVariables() throws IOException, FileCantBeSavedException {
         Database.getInstance().loadTestFolders();
         fields = new ArrayList<>();
         fields.add("RandomDiscount");
@@ -54,6 +54,9 @@ public class AccountAreaForManagerTest {
         SubCategory subCategory = new SubCategory("subAshghal", details);
         category.addSubCategory(subCategory);
         Shop.getInstance().addCategory(category);
+        Shop.getInstance().addSubCategory(subCategory);
+        Database.getInstance().saveItem(category);
+        Database.getInstance().saveItem(subCategory);
     }
 
     @Test
