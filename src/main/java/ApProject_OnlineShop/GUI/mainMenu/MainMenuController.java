@@ -1,8 +1,10 @@
 package ApProject_OnlineShop.GUI.mainMenu;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.GUI.productPageRelated.Cart;
+import ApProject_OnlineShop.GUI.productPageRelated.CommentsPage;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
@@ -36,6 +38,7 @@ public class MainMenuController extends FxmlController implements Initializable 
             LoginController.setPathAfterLogin(null,null);
             setScene("login.fxml", "Login or Register");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            AccountAreaForCustomerController.setPathBack("mainMenuLayout.fxml","main menu");
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
             setScene("accountAreaForSeller.fxml", "account area");
