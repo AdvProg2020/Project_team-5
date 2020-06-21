@@ -243,4 +243,9 @@ public class ProductPage extends FxmlController implements Initializable {
         ProductPage.pathBack = pathBack;
         ProductPage.titleBack = titleBack;
     }
+
+    public void cart(MouseEvent mouseEvent) {
+        Cart.setPathBack("productPage.fxml", "product page");
+        setScene("cart.fxml", "cart");
+    }
 }
