@@ -91,7 +91,7 @@ public class GoodTest {
     @Test
     public void reduceAvailableNumberTest(){
         good.reduceAvailableNumber(seller,1);
-        assertEquals(2, good.getAvailableNumberBySeller(seller));
+        assertEquals(4, good.getAvailableNumberBySeller(seller));
     }
 
     @Test
@@ -111,8 +111,22 @@ public class GoodTest {
         assertEquals(good2,Shop.getInstance().findGoodById(goodId));
         assertEquals(good2,Shop.getInstance().getGoodByNameAndBrandAndSubCategory("phone","samsung", subCategory));
         //subCategory.removeGood(good2);
-        assertEquals(null,Shop.getInstance().findGoodById(goodId));
-        assertEquals(null,Shop.getInstance().getGoodByNameAndBrandAndSubCategory("phone","samsung", subCategory));
+        String output = "------------------------------------\n" +
+                "GoodId = 0\n" +
+                "name = phone\n" +
+                "goodStatus = BUILTPROCESSING\n" +
+                "brand = samsung\n" +
+                "average rate = 0.0\n" +
+                "category = cat\n" +
+                "subcategory = sub\n" +
+                "sellers = 1- seller = hi\tprice = 9000\tavailableNumber = 3\n" +
+                "details =\n" +
+                "\n" +
+                "modification date = 2020-06-22\n" +
+                "seen number = 0\n" +
+                "------------------------------------";
+        assertEquals(output,Shop.getInstance().findGoodById(goodId).toString());
+        assertEquals(output,Shop.getInstance().getGoodByNameAndBrandAndSubCategory("phone","samsung", subCategory).toString());
     }
 
 
