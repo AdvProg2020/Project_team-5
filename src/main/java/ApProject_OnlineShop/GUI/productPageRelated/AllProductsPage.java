@@ -2,9 +2,12 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
+import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -28,13 +31,26 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public ChoiceBox category;
     public GridPane productsPart;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (MainController.getInstance().getControllerForFiltering().isAvailableProduct())
+            availableProducts.setSelected(true);
+        if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter())
+            offProductsButton.setSelected(true);
+        category.setItems(FXCollections.observableList(MainController.getInstance().getAllProductsController().getAllCategories()));
+        category.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
+        category.setValue(MainController.getInstance().getControllerForFiltering().getCategory());
+        category.setOnAction(e -> MainController.getInstance().getControllerForFiltering().addCategoryFilter(category.getValue().toString()));
+        if (MainController.getInstance().getControllerForFiltering().getCategory().equals("")){
+
+        }
+    }
+
     public void availableProductsFilter() {
         if (MainController.getInstance().getControllerForFiltering().isAvailableProduct()) {
             MainController.getInstance().getControllerForFiltering().removeAvailableProductsFilter();
-            availableProducts.setSelected(false);
         } else if (!MainController.getInstance().getControllerForFiltering().isAvailableProduct()) {
             MainController.getInstance().getControllerForFiltering().addAvailableProduct();
-            availableProducts.setSelected(true);
         }
         setScene("allProduct.fxml", "all products page");
     }
@@ -42,11 +58,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public void offProductsFilter() {
         if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
             MainController.getInstance().getControllerForFiltering().removeOffProductsFilter();
-            offProductsButton.setSelected(false);
         } else if (!MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
-            MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
-            offProductsButton.setSelected(true);
-        }
+            MainController.getInstance().getControllerForFiltering().setOffProductsFilter(); }
         setScene("allProduct.fxml", "all products page");
     }
 
@@ -78,14 +91,6 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public void disableSellerFilter() {
         MainController.getInstance().getControllerForFiltering().addSellerFilter("");
         setScene("allProduct.fxml", "all products page");
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        
-        if (MainController.getInstance().getControllerForFiltering().getCategory().equals("")){
-            
-        }
     }
 
     public void filterByPrice() {

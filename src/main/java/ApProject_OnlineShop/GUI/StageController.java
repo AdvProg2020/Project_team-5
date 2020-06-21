@@ -24,11 +24,11 @@ public class StageController {
 
     public StageController() {
         StageController.stage = new Stage();
-        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(1L),(Seller) Shop.getInstance().findUser("yasaman"),2);
-        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(2L),(Seller) Shop.getInstance().findUser("yasaman"),2);
-        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(16L),(Seller) Shop.getInstance().findUser("jafar"),4);
-        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(6L),(Seller) Shop.getInstance().findUser("yasaman"),2);
-        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(7L),(Seller) Shop.getInstance().findUser("yasaman"),2);
+//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(1L),(Seller) Shop.getInstance().findUser("yasaman"),2);
+//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(2L),(Seller) Shop.getInstance().findUser("yasaman"),2);
+//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(16L),(Seller) Shop.getInstance().findUser("jafar"),4);
+//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(6L),(Seller) Shop.getInstance().findUser("yasaman"),2);
+//        Shop.getInstance().addGoodToCart(Shop.getInstance().findGoodById(7L),(Seller) Shop.getInstance().findUser("yasaman"),2);
         StageController.stage.setOnCloseRequest(e -> {
             Optional<ButtonType> result = new FxmlController().showAlert
                     (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
@@ -39,7 +39,7 @@ public class StageController {
         });
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("mainMenuLayout.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("allProduct.fxml")));
 //            ProductPage.setProductId(6);
 //            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("productPage.fxml")));
         } catch (IOException e) {

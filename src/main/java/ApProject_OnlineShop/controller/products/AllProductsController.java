@@ -8,6 +8,7 @@ import ApProject_OnlineShop.model.productThings.Good;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AllProductsController {
 
@@ -58,5 +59,9 @@ public class AllProductsController {
         goodInfo.add("" + good.getPriceBySeller(good.getSellerThatPutsThisGoodOnOff()));
         goodInfo.add("" + Shop.getInstance().getFinalPriceOfAGood(good, good.getSellerThatPutsThisGoodOnOff()));
         return goodInfo;
+    }
+
+    public List<String> getAllCategories(){
+        return Shop.getInstance().getAllCategories().stream().map(category -> category.getName()).collect(Collectors.toList());
     }
 }
