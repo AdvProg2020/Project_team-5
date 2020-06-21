@@ -7,9 +7,14 @@ import ApProject_OnlineShop.controller.MainController;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -48,11 +53,11 @@ public class AllProductsPage extends FxmlController implements Initializable {
         if (!MainController.getInstance().getControllerForFiltering().getCategory().equals("")) {
             Label subCategoryText = new Label("subcategory:");
             subCategoryText.setPrefWidth(150);
-            subCategoryText.setFont(Font.font("Times New Roman",14));
-            VBox.setMargin(subCategoryText,new Insets(8,0,0,0));
+            subCategoryText.setFont(Font.font("Times New Roman", 14));
+            VBox.setMargin(subCategoryText, new Insets(8, 0, 0, 0));
             categoryRelatedVBox.getChildren().add(subCategoryText);
             ChoiceBox subCategory = new ChoiceBox();
-            VBox.setMargin(subCategory,new Insets(2,0,0,0));
+            VBox.setMargin(subCategory, new Insets(2, 0, 0, 0));
             subCategory.setPrefWidth(150);
             subCategory.setPrefHeight(32);
             subCategory.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
@@ -63,20 +68,90 @@ public class AllProductsPage extends FxmlController implements Initializable {
             for (String property : MainController.getInstance().getControllerForFiltering().getCategoryProperties()) {
                 Label propertyText = new Label(property);
                 propertyText.setPrefWidth(150);
-                propertyText.setFont(Font.font("Times New Roman",14));
-                VBox.setMargin(propertyText,new Insets(8,0,0,0));
+                propertyText.setFont(Font.font("Times New Roman", 14));
+                VBox.setMargin(propertyText, new Insets(8, 0, 0, 0));
                 categoryRelatedVBox.getChildren().add(propertyText);
-                
+                HBox propertyHBox = new HBox();
+                propertyHBox.setAlignment(Pos.CENTER);
+                propertyHBox.setPrefWidth(200);
+                propertyHBox.setPrefHeight(40);
+                ImageView remove = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/cross.png").toString()));
+                remove.setCursor(Cursor.HAND);
+                remove.setFitHeight(20);
+                remove.setFitWidth(20);
+                remove.setOnMouseClicked(e -> removeCategoryProperty(property));
+                HBox.setMargin(remove, new Insets(0, 2, 0, 0));
+                propertyHBox.getChildren().add(remove);
+                TextField propertyValue = new TextField();
+                propertyValue.setMinHeight(30);
+                propertyValue.setMinWidth(150);
+                propertyValue.setMaxWidth(150);
+                propertyValue.setMaxWidth(30);
+                propertyValue.setPromptText(MainController.getInstance().getControllerForFiltering().getValueOfProperty(property));
+                propertyHBox.getChildren().add(propertyValue);
+                ImageView search = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/search.png").toString()));
+                search.setFitHeight(30);
+                search.setFitWidth(30);
+                search.setOnMouseClicked(e -> addCategoryProperty(property, propertyValue.getText()));
+                search.setCursor(Cursor.HAND);
+                propertyHBox.getChildren().add(search);
+                categoryRelatedVBox.getChildren().add(propertyHBox);
+            }
+            if (!MainController.getInstance().getControllerForFiltering().getSubCategory().equals("")) {
+                for (String property : MainController.getInstance().getControllerForFiltering().getSubCategoryProperties()) {
+                    Label propertyText = new Label(property + ":");
+                    propertyText.setPrefWidth(150);
+                    propertyText.setFont(Font.font("Times New Roman", 14));
+                    VBox.setMargin(propertyText, new Insets(8, 0, 0, 0));
+                    categoryRelatedVBox.getChildren().add(propertyText);
+                    HBox propertyHBox = new HBox();
+                    propertyHBox.setAlignment(Pos.CENTER);
+                    propertyHBox.setPrefWidth(200);
+                    propertyHBox.setPrefHeight(40);
+                    ImageView remove = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/cross.png").toString()));
+                    remove.setCursor(Cursor.HAND);
+                    remove.setFitHeight(20);
+                    remove.setFitWidth(20);
+                    remove.setOnMouseClicked(e -> removeCategoryProperty(property));
+                    HBox.setMargin(remove, new Insets(0, 2, 0, 0));
+                    propertyHBox.getChildren().add(remove);
+                    TextField propertyValue = new TextField();
+                    propertyValue.setMinHeight(30);
+                    propertyValue.setMinWidth(150);
+                    propertyValue.setMaxWidth(150);
+                    propertyValue.setMaxWidth(30);
+                    propertyValue.setPromptText(MainController.getInstance().getControllerForFiltering().getValueOfProperty(property));
+                    propertyHBox.getChildren().add(propertyValue);
+                    ImageView search = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/search.png").toString()));
+                    search.setFitHeight(30);
+                    search.setFitWidth(30);
+                    search.setOnMouseClicked(e -> addCategoryProperty(property, propertyValue.getText()));
+                    search.setCursor(Cursor.HAND);
+                    propertyHBox.getChildren().add(search);
+                    categoryRelatedVBox.getChildren().add(propertyHBox);
+                }
             }
         }
     }
 
-    public void setSubCategory(String subCategory){
+    public void removeCategoryProperty(String property) {
+        MainController.getInstance().getControllerForFiltering().removeProperty(property);
+        setScene("allProduct.fxml", "all products page");
+    }
+
+    public void addCategoryProperty(String property, String value) {
+        if (!value.equals("")) {
+            MainController.getInstance().getControllerForFiltering().addPropertiesFilter(property, value);
+            setScene("allProduct.fxml", "all products page");
+        }
+    }
+
+    public void setSubCategory(String subCategory) {
         MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(subCategory);
         setScene("allProduct.fxml", "all products page");
     }
 
-    public void setCategory(String category){
+    public void setCategory(String category) {
         MainController.getInstance().getControllerForFiltering().addCategoryFilter(category);
         setScene("allProduct.fxml", "all products page");
     }

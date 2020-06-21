@@ -190,10 +190,6 @@ public class ControllerForFiltering {
         return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
     }
 
-    public void addPropertiesFilter(String property, String value) {
-        categoryProperties.put(property, value);
-    }
-
     public void disableCategoryFilter() {
         categoryProperties = new HashMap<>();
         subCategory = "";
@@ -231,6 +227,30 @@ public class ControllerForFiltering {
                 goods = filterByPrice(binaryFilter, goods);
         }
         return goods;
+    }
+
+    public List<String> getSubCategoryProperties(){
+        if (!getSubCategory().equals(""))
+            return Shop.getInstance().findSubCategoryByName(getSubCategory()).getDetails();
+        return null;
+    }
+
+    public String getValueOfProperty(String property){
+        if (categoryProperties.containsKey(property))
+            return categoryProperties.get(property);
+        return "";
+    }
+
+    public void addPropertiesFilter(String property,String value){
+        if (categoryProperties.containsKey(property))
+            categoryProperties.replace(property,value);
+        else
+            categoryProperties.put(property, value);
+    }
+
+    public void removeProperty(String property){
+        if (categoryProperties.containsKey(property))
+            categoryProperties.remove(property);
     }
 
     public void removeAvailableProductsFilter() {
