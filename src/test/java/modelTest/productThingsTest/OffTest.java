@@ -69,9 +69,9 @@ public class OffTest {
         category.addSubCategory(subCategory);
         Good good2 = new Good("kalbas", "gooshtiran", subCategory, "vanak sosise",
                 null, seller, 50000L, 4);
-        Assert.assertEquals(false,off.doesHaveThisProduct(good));
-        Assert.assertEquals(true,off.doesHaveThisProduct(null));
-        Assert.assertEquals(false,off.doesHaveThisProduct(good2));
+        Assert.assertEquals(true,off.doesHaveThisProduct(good));
+        Assert.assertEquals(false,off.doesHaveThisProduct(null));
+        Assert.assertEquals(true,off.doesHaveThisProduct(good2));
     }
 
     @Test

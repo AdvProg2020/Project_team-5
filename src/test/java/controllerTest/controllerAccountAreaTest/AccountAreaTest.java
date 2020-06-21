@@ -69,7 +69,7 @@ public class AccountAreaTest {
         orders.add(new OrderForSeller(3000, seller, "dfddf", null));
         orders.add(new OrderForSeller(4323, seller, "dfddf", null));
         list = MainController.getInstance().getAccountAreaForSellerController().getSortedOrders(2, orders);
-        String output = "[order ID: 1   \t date : 2020-06-21, order ID: 2   \t date : 2020-06-21]";
+        String output = "[order ID: 1   \t date : "+ LocalDate.now().toString()+", order ID: 2   \t date : "+ LocalDate.now().toString() +"]";
         Assert.assertEquals(output, list.toString());
     }
 
