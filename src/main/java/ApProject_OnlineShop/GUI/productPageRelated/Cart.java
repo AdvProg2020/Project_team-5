@@ -153,6 +153,7 @@ public class Cart extends FxmlController implements Initializable {
 
     public void showProduct(long productId) {
         ProductPage.setProductId(productId);
+        ProductPage.setPathBack("cart.fxml","cart");
         setScene("productPage.fxml", "productPage");
     }
 

@@ -195,6 +195,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     private void showProduct(Long productId) {
         ProductPage.setProductId(productId);
+        ProductPage.setPathBack("allProducts.fxml","all products");
         setScene("productPage.fxml", "product page");
     }
 

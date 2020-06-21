@@ -51,9 +51,11 @@ public class ProductPage extends FxmlController implements Initializable {
     public VBox properties;
     public ScrollPane comments;
     public Label detailsLabel;
+    private static String pathBack;
+    private static String titleBack;
 
     public void backButton(ActionEvent actionEvent) {
-        setScene("allProducts.fxml", "all products");
+        setScene(pathBack, titleBack);
     }
 
     @Override
@@ -207,7 +209,7 @@ public class ProductPage extends FxmlController implements Initializable {
 
     public void goToAccountArea(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
-            LoginController.setPathAfterLogin(null,null);
+            LoginController.setPathAfterLogin(null, null);
             LoginController.setPathBack("productPage.fxml", "product page");
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
@@ -225,6 +227,11 @@ public class ProductPage extends FxmlController implements Initializable {
     }
 
     public void compare(ActionEvent actionEvent) {
-        setScene("allProductsForCompareProduct.fxml","compare");
+        setScene("allProductsForCompareProduct.fxml", "compare");
+    }
+
+    public static void setPathBack(String pathBack, String titleBack) {
+        ProductPage.pathBack = pathBack;
+        ProductPage.titleBack = titleBack;
     }
 }
