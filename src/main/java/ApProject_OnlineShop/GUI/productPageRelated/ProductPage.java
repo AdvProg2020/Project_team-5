@@ -187,6 +187,8 @@ public class ProductPage extends FxmlController implements Initializable {
             cartImage.setCursor(Cursor.HAND);
             cartImage.setOnMouseClicked(e -> addToCart(eachSellerInfo.getSeller().getUsername()));
             sellerHBox.getChildren().add(cartImage);
+            if (MainController.getInstance().getCurrentPerson() instanceof Manager || MainController.getInstance().getCurrentPerson() instanceof Seller)
+                cartImage.setVisible(false);
             sellers.getChildren().add(sellerHBox);
         }
     }
