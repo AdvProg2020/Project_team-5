@@ -223,6 +223,7 @@ public class ProductPage extends FxmlController implements Initializable {
 
     public void showComments(ActionEvent actionEvent) {
         CommentsPage.setGoodId(productId);
+        CommentsPage.setPathBack("productPage.fxml","product page");
         setScene("commentsPage.fxml", "comments");
     }
 

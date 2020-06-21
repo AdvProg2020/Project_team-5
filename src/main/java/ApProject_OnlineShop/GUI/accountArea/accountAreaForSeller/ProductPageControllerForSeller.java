@@ -244,6 +244,7 @@ public class ProductPageControllerForSeller extends FxmlController implements In
 
     public void showComments(ActionEvent actionEvent) {
         CommentsPage.setGoodId(productId);
+        CommentsPage.setPathBack("productPageEditableForSeller.fxml","product page for seller");
         setScene("commentsPage.fxml", "comments");
     }
 }
