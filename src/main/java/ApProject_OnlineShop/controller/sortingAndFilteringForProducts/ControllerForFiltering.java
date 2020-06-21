@@ -21,7 +21,6 @@ public class ControllerForFiltering {
     private HashMap<String, String> categoryProperties;
     private ArrayList<BinaryFilters> binaryFilters;
     private List<Good> goodList;
-    private Category filteredCategory;
     private boolean availableProduct;
     private boolean offProductsFilter;
     private String category = "";
@@ -66,10 +65,6 @@ public class ControllerForFiltering {
 
     public void setBrand(String brand) {
         this.brand = brand;
-    }
-
-    public HashMap<String, String> getCategoryProperties() {
-        return categoryProperties;
     }
 
     public String getCategory() {
@@ -160,6 +155,18 @@ public class ControllerForFiltering {
             }
     }
 
+    public String getStartPrice(){
+        if (binaryFilters.size() > 0)
+            return binaryFilters.get(0).getStartValue();
+        return "";
+    }
+
+    public String getEndPrice(){
+        if (binaryFilters.size() > 0)
+            return binaryFilters.get(0).getEndValue();
+        return "";
+    }
+
     public void addPriceFiltering(String startValue, String endValue) {
         disablePriceFiltering();
         addBinaryFilter("price", startValue, endValue);
@@ -178,8 +185,8 @@ public class ControllerForFiltering {
     }
 
     public List<String> getProperties() throws Exception {
-        if (filteredCategory == null)
-            throw new HaveNotChosenCategoryFilter();
+//        if (filteredCategory == null)
+//            throw new HaveNotChosenCategoryFilter();
         return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
     }
 
@@ -191,6 +198,16 @@ public class ControllerForFiltering {
         categoryProperties = new HashMap<>();
         subCategory = "";
         category = "";
+    }
+
+    public List<String> getSubcategories(){
+        if (!getCategory().equals(""))
+            return Shop.getInstance().findCategoryByName(getCategory()).getSubCategories().stream().map(subcategory -> subcategory.getName()).collect(Collectors.toList());
+        return null;
+    }
+
+    public List<String> getCategoryProperties(){
+        return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
     }
 
     public List<Good> showProducts() {

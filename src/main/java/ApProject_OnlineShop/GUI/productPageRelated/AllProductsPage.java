@@ -6,13 +6,12 @@ import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,10 +39,46 @@ public class AllProductsPage extends FxmlController implements Initializable {
         category.setItems(FXCollections.observableList(MainController.getInstance().getAllProductsController().getAllCategories()));
         category.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
         category.setValue(MainController.getInstance().getControllerForFiltering().getCategory());
-        category.setOnAction(e -> MainController.getInstance().getControllerForFiltering().addCategoryFilter(category.getValue().toString()));
-        if (MainController.getInstance().getControllerForFiltering().getCategory().equals("")){
-
+        category.setOnAction(e -> setCategory(category.getValue().toString()));
+        nameFilterValue.setPromptText(MainController.getInstance().getControllerForFiltering().getName());
+        sellerValueFilter.setPromptText(MainController.getInstance().getControllerForFiltering().getSeller());
+        brandValueFilter.setPromptText(MainController.getInstance().getControllerForFiltering().getBrand());
+        startPriceValue.setPromptText(MainController.getInstance().getControllerForFiltering().getStartPrice());
+        endPriceValue.setPromptText(MainController.getInstance().getControllerForFiltering().getEndPrice());
+        if (!MainController.getInstance().getControllerForFiltering().getCategory().equals("")) {
+            Label subCategoryText = new Label("subcategory:");
+            subCategoryText.setPrefWidth(150);
+            subCategoryText.setFont(Font.font("Times New Roman",14));
+            VBox.setMargin(subCategoryText,new Insets(8,0,0,0));
+            categoryRelatedVBox.getChildren().add(subCategoryText);
+            ChoiceBox subCategory = new ChoiceBox();
+            VBox.setMargin(subCategory,new Insets(2,0,0,0));
+            subCategory.setPrefWidth(150);
+            subCategory.setPrefHeight(32);
+            subCategory.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
+            subCategory.setItems(FXCollections.observableArrayList(MainController.getInstance().getControllerForFiltering().getSubcategories()));
+            subCategory.setValue(MainController.getInstance().getControllerForFiltering().getSubCategory());
+            subCategory.setOnAction(e -> setSubCategory(subCategory.getValue().toString()));
+            categoryRelatedVBox.getChildren().add(subCategory);
+            for (String property : MainController.getInstance().getControllerForFiltering().getCategoryProperties()) {
+                Label propertyText = new Label(property);
+                propertyText.setPrefWidth(150);
+                propertyText.setFont(Font.font("Times New Roman",14));
+                VBox.setMargin(propertyText,new Insets(8,0,0,0));
+                categoryRelatedVBox.getChildren().add(propertyText);
+                
+            }
         }
+    }
+
+    public void setSubCategory(String subCategory){
+        MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(subCategory);
+        setScene("allProduct.fxml", "all products page");
+    }
+
+    public void setCategory(String category){
+        MainController.getInstance().getControllerForFiltering().addCategoryFilter(category);
+        setScene("allProduct.fxml", "all products page");
     }
 
     public void availableProductsFilter() {
@@ -59,7 +94,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
         if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
             MainController.getInstance().getControllerForFiltering().removeOffProductsFilter();
         } else if (!MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
-            MainController.getInstance().getControllerForFiltering().setOffProductsFilter(); }
+            MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
+        }
         setScene("allProduct.fxml", "all products page");
     }
 
