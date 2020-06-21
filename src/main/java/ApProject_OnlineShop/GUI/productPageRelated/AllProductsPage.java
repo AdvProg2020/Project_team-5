@@ -42,9 +42,12 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public Label viewsSort;
     public Label rateSort;
     public Label dateSort;
+    public ImageView shoppingBag;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (MainController.getInstance().getCurrentPerson() instanceof Manager || MainController.getInstance().getCurrentPerson() instanceof Seller)
+            shoppingBag.setVisible(false);
         handleSorts();
         if (MainController.getInstance().getControllerForFiltering().isAvailableProduct())
             availableProducts.setSelected(true);

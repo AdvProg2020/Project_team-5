@@ -72,7 +72,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
-                  <ImageView fitHeight="57.0" fitWidth="46.0" onMouseClicked="#onCart" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="shoppingBag" fitHeight="57.0" fitWidth="46.0" onMouseClicked="#onCart" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@pictures/shoppingBag.png" />
                      </image>
