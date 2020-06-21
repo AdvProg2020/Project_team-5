@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.mainMenu;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.GUI.productPageRelated.Cart;
 import ApProject_OnlineShop.GUI.productPageRelated.CommentsPage;
@@ -43,6 +44,7 @@ public class MainMenuController extends FxmlController implements Initializable 
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            AccountAreaForManagerFxController.setPathBack("mainMenuLayout.fxml","main menu");
             setScene("accountAreaForManager.fxml", "account area");
         }
     }

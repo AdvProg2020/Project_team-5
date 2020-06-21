@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
@@ -221,6 +222,7 @@ public class ProductPage extends FxmlController implements Initializable {
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            AccountAreaForManagerFxController.setPathBack("productPage.fxml","product page");
             setScene("accountAreaForManager.fxml", "account area");
         }
     }
