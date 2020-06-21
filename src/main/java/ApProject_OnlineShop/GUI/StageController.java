@@ -39,7 +39,7 @@ public class StageController {
         });
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("allProduct.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("mainMenuLayout.fxml")));
 //            ProductPage.setProductId(6);
 //            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("productPage.fxml")));
         } catch (IOException e) {
