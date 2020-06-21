@@ -36,9 +36,13 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public VBox categoryRelatedVBox;
     public ChoiceBox category;
     public GridPane productsPart;
+    public Label viewsSort;
+    public Label rateSort;
+    public Label dateSort;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         if (MainController.getInstance().getControllerForFiltering().isAvailableProduct())
             availableProducts.setSelected(true);
         if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter())
@@ -162,6 +166,10 @@ public class AllProductsPage extends FxmlController implements Initializable {
             if (num % 3 == 0)
                 row++;
         }
+    }
+
+    public void handleSorts(){
+        
     }
 
     private void showProduct(Long productId) {

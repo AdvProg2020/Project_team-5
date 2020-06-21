@@ -11,7 +11,7 @@
    <content>
       <GridPane maxHeight="2000.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1635.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="236.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="300.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="864.9999847412109" minWidth="10.0" prefWidth="764.8" />
         </columnConstraints>
         <rowConstraints>
@@ -96,7 +96,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <VBox fx:id="filteringVBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="235.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.rowIndex="1">
+            <VBox fx:id="filteringVBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="300.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.rowIndex="1">
                <children>
                   <RadioButton fx:id="availableProducts" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#availableProductsFilter" prefHeight="35.0" prefWidth="175.0" text="available products">
                      <font>
