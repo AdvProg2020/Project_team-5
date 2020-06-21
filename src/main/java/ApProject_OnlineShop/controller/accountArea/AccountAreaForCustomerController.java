@@ -189,7 +189,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
         for (Seller seller : sellerSet) {
             List<GoodInCart> sellerProduct = cart.stream().filter(good -> good.getSeller() == seller).collect(Collectors.toList());
-            OrderForSeller orderForSeller = new OrderForSeller(finalPriceOfAList(sellerProduct), seller, customerName, sellerProduct);
+            OrderForSeller orderForSeller = new OrderForSeller(finalPriceOfAList(sellerProduct), seller, MainController.getInstance().getCurrentPerson().getUsername(), sellerProduct);
             seller.addOrder(orderForSeller);
             Shop.getInstance().addOrder(orderForSeller);
             orderForSeller.setOrderStatus(Order.OrderStatus.SENT);
