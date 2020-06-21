@@ -248,8 +248,17 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <VBox fx:id="categoryRelatedVBox" prefHeight="200.0" prefWidth="100.0" />
+                  <VBox fx:id="categoryRelatedVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ChoiceBox fx:id="category" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="150.0" styleClass="menuButtons">
+                           <VBox.margin>
+                              <Insets top="8.0" />
+                           </VBox.margin></ChoiceBox>
+                     </children></VBox>
                </children></VBox>
+            <GridPane fx:id="productsPart" styleClass="mainLayout" GridPane.columnIndex="1" GridPane.rowIndex="1">
+
+            </GridPane>
          </children>
       </GridPane>
    </content>
