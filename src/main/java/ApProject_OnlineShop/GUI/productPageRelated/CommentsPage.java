@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -100,6 +101,8 @@ public class CommentsPage extends FxmlController implements Initializable {
 
     public void addComment(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
+            LoginController.setPathAfterLogin("addComment.fxml","add comment");
+            LoginController.setPathBack("commentsPage.fxml", "comments");
             setScene("login.fxml", "login");
         } else {
             setScene("addComment.fxml", "add comment");
@@ -112,6 +115,8 @@ public class CommentsPage extends FxmlController implements Initializable {
 
     public void accountArea(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
+            LoginController.setPathBack("commentsPage.fxml", "comments page");
+            LoginController.setPathAfterLogin(null,null);
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
             setScene("accountAreaForCustomer.fxml", "account area");
