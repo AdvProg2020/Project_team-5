@@ -4,6 +4,8 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
@@ -34,10 +36,13 @@ public class LoginController extends FxmlController {
                 setScene(pathAfterLogin, pathBack);
                 pathAfterLogin = null;
             } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+                AccountAreaForCustomerController.setPathBack(pathBack,titleBack);
                 setScene("accountAreaForCustomer.fxml", "Account area for customer");
             } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+                AccountAreaForManagerFxController.setPathBack(pathBack,titleBack);
                 setScene("accountAreaForManager.fxml", "Account area for manager");
             } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+                AccountAreaForSellerController.setPathBack(pathBack,titleBack);
                 setScene("accountAreaForSeller.fxml", "Account area for seller");
             }
         } catch (UsernameNotFoundException | PasswordIncorrectException e) {
