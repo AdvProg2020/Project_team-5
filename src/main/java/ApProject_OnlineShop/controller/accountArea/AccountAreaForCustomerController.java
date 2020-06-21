@@ -84,7 +84,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public void rateProduct(long productId, int rate) throws IOException, FileCantBeSavedException, YouRatedThisProductBefore {
         for (Rate rate2 : Shop.getInstance().getAllRates()) {
-            if (rate2.getCustomer().equals(MainController.getInstance().getCurrentPerson())) {
+            if (rate2.getCustomer().equals(MainController.getInstance().getCurrentPerson()) && rate2.getGood().equals(Shop.getInstance().findGoodById(productId))) {
                 throw new YouRatedThisProductBefore();
             }
         }

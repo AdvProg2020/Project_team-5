@@ -24,24 +24,6 @@ public class RateProductsPart2Controller extends FxmlController {
     private static Stage window;
 
 
-    private void rateProduct(long productId2) {
-        productIdForRate = productId2;
-        window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setResizable(false);
-        window.setTitle("Rate");
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Objects.requireNonNull(SuccessPageFxController.class.getClassLoader().getResource("ratePage.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(root, 600, 400);
-        window.setScene(scene);
-        window.showAndWait();
-    }
-
-
     public void rate10(MouseEvent mouseEvent) {
         rateProductFinally(10);
     }
