@@ -13,17 +13,18 @@ public class OrderForSeller extends Order {
     private String seller;
     private String customerName;
     private long offDeduct;
-    private HashMap<Long, Integer> numberPerGood = new HashMap<>();
+    private HashMap<Long, Integer> numberPerGood;
 
     public OrderForSeller(long price, Seller seller, String customerName, List<GoodInCart> goods) {
         super(price);
         this.seller = seller.getUsername();
         this.customerName = customerName;
-        calculateDeductAmount();
         setNumberPerGood(goods);
+        calculateDeductAmount();
     }
 
     private void setNumberPerGood(List<GoodInCart> goods) {
+        numberPerGood=new HashMap<>();
         if (goods == null) return;
         for (GoodInCart good : goods) {
             numberPerGood.put(good.getGood().getGoodId(), good.getNumber());
