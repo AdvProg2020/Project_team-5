@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
@@ -126,6 +127,7 @@ public class CommentsPage extends FxmlController implements Initializable {
             AccountAreaForCustomerController.setPathBack("commentsPage.fxml","comments");
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+            AccountAreaForSellerController.setPathBack("commentsPage.fxml","comments");
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("commentsPage.fxml","comments");
