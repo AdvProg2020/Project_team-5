@@ -36,6 +36,7 @@ public class ErrorPageFxController extends FxmlController implements Initializab
     }
 
     public static void showPage(String errorTitle, String errorContent) {
+        playErrorMusic();
         ErrorPageFxController.errorTitle = errorTitle;
         ErrorPageFxController.errorContent = errorContent;
         window = new Stage();

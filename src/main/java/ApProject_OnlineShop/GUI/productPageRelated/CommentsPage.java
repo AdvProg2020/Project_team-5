@@ -49,6 +49,10 @@ public class CommentsPage extends FxmlController implements Initializable {
             cart.setVisible(false);
         }
         ArrayList<Comment> comments = Shop.getInstance().findGoodById(goodId).getComments();
+        int size1 = (comments.size() * (110));
+        if (size1 > 577) {
+            vbox.setPrefWidth(size1 + 20);
+        }
         for (Comment comment : comments) {
             GridPane gridPane = new GridPane();
             HBox writer = new HBox();
@@ -96,10 +100,6 @@ public class CommentsPage extends FxmlController implements Initializable {
                     "-fx-border-width: 1;" +
                     "-fx-border-style: solid;" +
                     "-fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
-        }
-        int size1 = (comments.size() * (110));
-        if (size1 > 577) {
-            vbox.setPrefWidth(size1 + 20);
         }
     }
 

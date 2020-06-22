@@ -127,7 +127,6 @@ public class Cart extends FxmlController implements Initializable {
             priceBox.getChildren().add(finalPrice);
             items.getChildren().add(priceBox);
         }
-
         if (150 * productIds.size() > 540) {
             items.setPrefHeight(150 * productIds.size() + 50);
         }

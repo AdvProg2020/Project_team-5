@@ -35,6 +35,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        playMusicBackGround(false, false, true);
         ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForCustomerController().getUserPersonalInfo();
         userName.setText(personalInfo.get(0));
         name.setText(personalInfo.get(1));
@@ -49,6 +50,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void viewSortedDiscountCode(int sort) {
+        playButtonMusic();
         GridPane root = style.makeGridPane();
         Label topic = new Label("Discount codes");
         topic.setFont(Font.font("Times New Roman", 26));
@@ -103,6 +105,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void viewSingleDiscountCode(String summeryOfDiscountCode) {
+        playButtonMusic();
         int index = summeryOfDiscountCode.indexOf("  ");
         String code = summeryOfDiscountCode.substring("discount code:".length(), index);
         List<String> discountCodeDetails = Shop.getInstance().findDiscountCode(code).getAllDetails();

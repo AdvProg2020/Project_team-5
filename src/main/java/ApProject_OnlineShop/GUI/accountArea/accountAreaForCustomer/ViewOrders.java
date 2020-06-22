@@ -29,6 +29,7 @@ public class ViewOrders extends FxmlController {
     }
 
     public void viewSortedOrders(int sort) {
+        playButtonMusic();
         GridPane root = style.makeGridPane();
         Label topic = new Label("All Orders");
         topic.setFont(Font.font("Times New Roman", 26));
@@ -80,6 +81,7 @@ public class ViewOrders extends FxmlController {
     }
 
     public void viewSingleOrder(String orderString) {
+        playButtonMusic();
         int index = orderString.indexOf("  ");
         String code = orderString.substring("order ID: ".length(), index);
         long orderId = Long.parseLong(code);

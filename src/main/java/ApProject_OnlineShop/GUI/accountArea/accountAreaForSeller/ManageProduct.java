@@ -29,6 +29,15 @@ public class ManageProduct extends FxmlController implements Initializable {
         List<Long> productIds = MainController.getInstance().getAccountAreaForSellerController().viewProducts(sortSelected);
         int num = 0;
         int row = 0;
+        int size1;
+        if (productIds.size() % 3 == 0) {
+            size1 = productIds.size() * 250 / 3;
+        } else {
+            size1 = ((productIds.size() / 3) + 1) * 250;
+        }
+        if (size1 > 577) {
+            root.setPrefHeight(size1);
+        }
         for (Long productId : productIds) {
             if (MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
                 VBox vbox = new ProductBriefSummery().offProductBriefSummery(productId);
@@ -46,10 +55,6 @@ public class ManageProduct extends FxmlController implements Initializable {
             }
             if (num % 3 == 0)
                 row++;
-        }
-        int size1 = productIds.size() * 250 / 3;
-        if (size1 > 577) {
-            root.setPrefHeight(size1);
         }
     }
 

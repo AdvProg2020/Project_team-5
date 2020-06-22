@@ -28,6 +28,7 @@ public class AccountAreaForSellerController extends FxmlController implements In
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        playMusicBackGround(false, false, true);
         ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForSellerController().getUserPersonalInfo();
         userName.setText(personalInfo.get(0));
         name.setText(personalInfo.get(1));

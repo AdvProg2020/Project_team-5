@@ -34,6 +34,15 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
         productIds.remove(Shop.getInstance().findGoodById(MainController.getInstance().getProductController().getGood().getGoodId()));
         int num = 0;
         int row = 0;
+        if (productIds.size() % 3 == 0) {
+            if (productIds.size() / 3 * 250 > 577) {
+                root.setPrefHeight(productIds.size() * 250 / 3);
+            }
+        } else {
+            if (((productIds.size() / 3) + 1) * 250 > 577) {
+                root.setPrefHeight(((productIds.size() / 3) + 1) * 250);
+            }
+        }
         for (Long productId : productIds) {
             VBox vbox;
             if (Shop.getInstance().getOffGoods().contains(Shop.getInstance().findGoodById(productId))) {
@@ -53,9 +62,6 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
             if (num % 3 == 0)
                 row++;
         }
-        if (productIds.size() / 3 * 250 > 577) {
-            root.setPrefHeight(productIds.size() * 250);
-        }
     }
 
     private void compare(long productId2) {
@@ -74,17 +80,17 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
 
     public void goToAccountArea(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
-            LoginController.setPathAfterLogin(null,null);
+            LoginController.setPathAfterLogin(null, null);
             LoginController.setPathBack("allProductsForCompareProduct.fxml", "All products");
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-            AccountAreaForCustomerController.setPathBack("allProductsForCompareProduct.fxml","All products");
+            AccountAreaForCustomerController.setPathBack("allProductsForCompareProduct.fxml", "All products");
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
-            AccountAreaForSellerController.setPathBack("allProductsForCompareProduct.fxml","All products");
+            AccountAreaForSellerController.setPathBack("allProductsForCompareProduct.fxml", "All products");
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
-            AccountAreaForManagerFxController.setPathBack("allProductsForCompareProduct.fxml","All products");
+            AccountAreaForManagerFxController.setPathBack("allProductsForCompareProduct.fxml", "All products");
             setScene("accountAreaForManager.fxml", "account area");
         }
     }

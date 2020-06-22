@@ -72,6 +72,7 @@ public class AccountAreaForManagerFxController extends FxmlController implements
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        playMusicBackGround(false, false, true);
         ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForManagerController().getUserPersonalInfo();
         userName.setText(personalInfo.get(0));
         name.setText(personalInfo.get(1));
