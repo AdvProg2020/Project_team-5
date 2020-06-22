@@ -94,7 +94,7 @@ public class ProductBriefSummery {
         offBox.setMaxHeight(30);
         Label percent = new Label("" + Shop.getInstance().findGoodById(productId).getThisGoodOff().getDiscountPercent() + "%");
         percent.setTextFill(Color.RED);
-        HBox.setMargin(percent, new Insets(0, 30, 0, 5));
+        HBox.setMargin(percent, new Insets(0, 20, 0, 5));
         offBox.getChildren().add(percent);
         LocalDate date = Shop.getInstance().findGoodById(productId).getThisGoodOff().getEndDate();
         Label days = new Label("" + ChronoUnit.DAYS.between(LocalDate.now(), date) + " days left");
@@ -104,6 +104,7 @@ public class ProductBriefSummery {
         if (Shop.getInstance().findGoodById(productId).getGoodStatus() != Good.GoodStatus.CONFIRMED) {
             Label available = new Label("not available");
             available.setTextFill(Color.RED);
+            HBox.setMargin(available, new Insets(0, 0, 0, 10));
             offBox.getChildren().add(available);
         }
         mainVBox.getChildren().add(offBox);
