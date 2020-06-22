@@ -1,6 +1,5 @@
 package controllerTest;
 
-import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
@@ -11,6 +10,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
@@ -45,6 +45,8 @@ public class moreTests {
         Company company=new Company("salam","asfs","asdasd","addasd","999");
         Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
         Shop.getInstance().addPerson(seller);
+        Customer customer = new Customer("customer", "", "", "", "", "aa", 90000L);
+        Shop.getInstance().addPerson(customer);
     }
 
     @Test
@@ -351,6 +353,18 @@ public class moreTests {
         } catch (Exception e) {
             Assert.fail();
         }
+    }
+
+    @Test
+    public void getBriefSummeryOfOrdersTest() {
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("customer"));
+        Assert.assertEquals(0, MainController.getInstance().getAccountAreaForCustomerController().getBriefSummeryOfOrders().size());
+    }
+
+    @Test
+    public void getSortedOrders() {
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("customer"));
+        Assert.assertEquals(0, MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(1).size());
     }
 
     @After
