@@ -17,6 +17,7 @@ import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.*;
+import ApProject_OnlineShop.model.requests.AddingCommentRequest;
 import ApProject_OnlineShop.testThings.TestShop;
 import org.junit.After;
 import org.junit.Assert;
@@ -724,6 +725,18 @@ public class moreTests {
         ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         off.setOffStatus(Off.OffStatus.ACCEPTED);
         Assert.assertEquals(off, good.getThisGoodOff());
+    }
+
+    @Test
+    public void addCommentRequestAcceptTest() throws IOException, FileCantBeSavedException {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        AddingCommentRequest comment = new AddingCommentRequest(Shop.getInstance().findUser("customer"), good, "title", "comment", false);
+        comment.acceptRequest();
+        Assert.assertEquals(1, Shop.getInstance().getAllComments().size());
     }
 
     @After
