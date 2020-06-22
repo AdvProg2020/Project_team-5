@@ -1,5 +1,7 @@
 package controllerTest;
 
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.ManageAllUsersPageController;
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.BinaryFilters;
 import ApProject_OnlineShop.database.Database;
@@ -106,7 +108,7 @@ public class moreTests {
         Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        Assert.assertEquals(1, MainController.getInstance().getAllProductsController().getGoods().size());
+        Assert.assertEquals(0, MainController.getInstance().getAllProductsController().getGoods().size());
     }
 
     @Test
@@ -503,7 +505,7 @@ public class moreTests {
     }
 
     @Test
-    public void filteringTest() {
+    public void filteringTest() throws Exception {
         Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
@@ -517,7 +519,34 @@ public class moreTests {
         Assert.assertEquals(1, MainController.getInstance().getControllerForFiltering().filterByCategory("aboots", Shop.getInstance().getAllGoods()).size());
         Assert.assertEquals(1, MainController.getInstance().getControllerForFiltering().filterBySubCategory("sub kabir", Shop.getInstance().getAllGoods()).size());
         MainController.getInstance().getControllerForFiltering().addBinaryFilter("price", "5000", "12000");
+        MainController.getInstance().getControllerForFiltering().addCategoryFilter("aboots");
+        MainController.getInstance().getControllerForFiltering().addSubCategoryFilter("sub kabir");
+        MainController.getInstance().getControllerForFiltering().addBrandFiltering("samsung");
+        MainController.getInstance().getControllerForFiltering().addNameFiltering("phone");
+        MainController.getInstance().getControllerForFiltering().addSellerFilter("hi");
+        MainController.getInstance().getControllerForFiltering().addAvailableProduct();
+        MainController.getInstance().getControllerForFiltering().addPriceFiltering("5000", "12000");
         Assert.assertEquals(1, MainController.getInstance().getControllerForFiltering().showProducts().size());
+        String start = MainController.getInstance().getControllerForFiltering().getStartPrice();
+        String end = MainController.getInstance().getControllerForFiltering().getEndPrice();
+        Assert.assertEquals("5000", start);
+        Assert.assertEquals("12000", end);
+        Assert.assertEquals(2, MainController.getInstance().getControllerForFiltering().getCategoryProperties().size());
+        Assert.assertEquals(1, MainController.getInstance().getControllerForFiltering().getSubcategories().size());
+        Assert.assertEquals(2, MainController.getInstance().getControllerForFiltering().getCategoryProperties().size());
+        Assert.assertEquals(2, MainController.getInstance().getControllerForFiltering().getProperties().size());
+        Assert.assertEquals(2, MainController.getInstance().getControllerForFiltering().getSubCategoryProperties().size());
+        MainController.getInstance().getControllerForFiltering().addPropertiesFilter("p1", "");
+        MainController.getInstance().getControllerForFiltering().addPropertiesFilter("p1", "ds");
+        String propertyValue = MainController.getInstance().getControllerForFiltering().getValueOfProperty("p1");
+        Assert.assertEquals("ds", propertyValue);
+        MainController.getInstance().getControllerForFiltering().disableCategoryFilter();
+        MainController.getInstance().getControllerForFiltering().disablePriceFiltering();
+        MainController.getInstance().getControllerForFiltering().disableSubcategoryFilter();
+        MainController.getInstance().getControllerForFiltering().removeOffProductsFilter();
+        MainController.getInstance().getControllerForFiltering().removeProperty("p1");
+        MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
+        Assert.assertEquals(0, MainController.getInstance().getControllerForFiltering().showProducts().size());
     }
 
     @After
