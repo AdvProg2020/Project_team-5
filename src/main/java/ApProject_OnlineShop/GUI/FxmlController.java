@@ -68,7 +68,6 @@ public class FxmlController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("effect played");
     }
 
     private static void playMusicForMainLayout(boolean show) {
@@ -77,10 +76,8 @@ public class FxmlController {
         audioClip.setCycleCount(INDEFINITE);
         if (show) {
             audioClip.play();
-            System.out.println("music played");
         } else {
             audioClip.stop();
-            System.out.println("music stopped");
         }
     }
 
@@ -90,10 +87,8 @@ public class FxmlController {
         audioClip.setCycleCount(INDEFINITE);
         if (show) {
             audioClip.play();
-            System.out.println("music played");
         } else {
             audioClip.stop();
-            System.out.println("music stopped");
         }
     }
 
@@ -103,10 +98,8 @@ public class FxmlController {
         audioClip.setCycleCount(INDEFINITE);
         if (show) {
             audioClip.play();
-            System.out.println("music played");
         } else {
             audioClip.stop();
-            System.out.println("music stopped");
         }
     }
 
