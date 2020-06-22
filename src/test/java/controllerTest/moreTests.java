@@ -429,6 +429,16 @@ public class moreTests {
         }
     }
 
+    @Test
+    public void getAllCategoriesNameTest() {
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName().size());
+    }
+
+    @Test
+    public void getAllSubCategoriesNameTest() {
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllSubCategoriesNamesOfCategory("aboots").size());
+    }
+
     @After
     public void terminate() {
         TestShop.clearShop();
