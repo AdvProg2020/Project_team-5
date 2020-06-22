@@ -285,6 +285,59 @@ public class moreTests {
         Assert.assertEquals(5, MainController.getInstance().getAccountAreaForSellerController().viewOffGUI(off.getOffId()).size());
     }
 
+    @Test
+    public void viewSellersProductTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
+        String output = "-------------------------\n" +
+                "your products:\n" +
+                "------------------------------------\n" +
+                "GoodId = 0\n" +
+                "name = phone\n" +
+                "goodStatus = BUILTPROCESSING\n" +
+                "brand = samsung\n" +
+                "average rate = 0.0\n" +
+                "category = aboots\n" +
+                "subcategory = sub kabir\n" +
+                "sellers = 1- seller = hi\tprice = 9000\tavailableNumber = 3\n" +
+                "details =\n" +
+                "\n" +
+                "modification date = 2020-06-22\n" +
+                "seen number = 0\n" +
+                "------------------------------------";
+        MainController.getInstance().getAccountAreaForSellerController().viewSellersProducts(2);
+        MainController.getInstance().getAccountAreaForSellerController().viewSellersProducts(3);
+        Assert.assertEquals(output, MainController.getInstance().getAccountAreaForSellerController().viewSellersProducts(1));
+    }
+
+    @Test
+    public void isGoodInOffThisSellerTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ArrayList<Good> offGoods = new ArrayList<>();
+        offGoods.add(good);
+        Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
+        Shop.getInstance().addOff(off);
+        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
+        Assert.assertTrue(MainController.getInstance().getAccountAreaForSellerController().isInOff(good.getGoodId()));
+    }
+
+    @Test
+    public void viewSortedProductsThisSellerTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForSellerController().viewProducts(1).size());
+    }
+
     @After
     public void terminate() {
         TestShop.clearShop();
