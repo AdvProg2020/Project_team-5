@@ -675,8 +675,55 @@ public class moreTests {
     }
 
     @Test
-    public void rateAtributesTest() {
+    public void rateAttributesTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Rate rate = new Rate((Customer)Shop.getInstance().findUser("customer"), good, 5);
+        rate.setCustomer((Customer) Shop.getInstance().findUser("customer"));
+        rate.setGood(good);
+        rate.setRate(4);
+        String output = "################\n" +
+                "Customer Username: customer\n" +
+                "Product Id : 0\n" +
+                "Product Name : phone\n" +
+                "Rate : 4\n" +
+                "################\n";
+        Assert.assertEquals(output, rate.toString());
+    }
 
+    @Test
+    public void discountDetailsTest() {
+        DiscountCode discountCode = Shop.getInstance().findDiscountCode("fuckingDiscount");
+        discountCode.setStartDate(LocalDate.parse("2020-06-19"));
+        discountCode.setEndDate(LocalDate.parse("2020-07-18"));
+        discountCode.setDiscountPercent(40);
+        discountCode.setMaxDiscountAmount(50000L);
+        Assert.assertEquals(5, discountCode.getAllDetails().size());
+    }
+
+    @Test
+    public void getGoodOffTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        good.setAverageRate(2.5);
+        good.setSeenNumber(5);
+        good.setDetails("fdf");
+        good.setBrand("fdfd");
+        good.setName("phonee");
+        good.setSubCategory(Shop.getInstance().getSubCategory("sub kabir"));
+        ArrayList<Good> offGoods = new ArrayList<>();
+        offGoods.add(good);
+        Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
+        Shop.getInstance().addOff(off);
+        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        off.setOffStatus(Off.OffStatus.ACCEPTED);
+        Assert.assertEquals(off, good.getThisGoodOff());
     }
 
     @After
