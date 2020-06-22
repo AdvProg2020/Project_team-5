@@ -6,6 +6,7 @@ import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
+import ApProject_OnlineShop.exception.productExceptions.ThisProductIsnotInAnyOff;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -469,6 +470,28 @@ public class moreTests {
         Assert.assertEquals(3, Shop.getInstance().findCategoryByName("aboots").getDetails().size());
         Database.getInstance().deleteItem(Shop.getInstance().findUser("hi"));
         Database.getInstance().deleteItem(Shop.getInstance().findCategoryByName("aboots"));
+    }
+
+    @Test
+    public void shoeCategoriesTest() {
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().showCategories().size());
+    }
+
+    @Test
+    public void showProductOffControllerTest() throws ThisProductIsnotInAnyOff, ProductWithThisIdNotExist {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Assert.assertThrows(ThisProductIsnotInAnyOff.class, () -> MainController.getInstance().getOffsController().showAProduct(good.getGoodId()));
+        ArrayList<Good> offGoods = new ArrayList<>();
+        offGoods.add(good);
+        Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
+        Shop.getInstance().addOff(off);
+        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        off.setOffStatus(Off.OffStatus.ACCEPTED);
+        MainController.getInstance().getOffsController().showAProduct(good.getGoodId());
+        Assert.assertNotNull(MainController.getInstance().getProductController().getGood());
     }
 
     @After
