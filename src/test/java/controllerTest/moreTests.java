@@ -164,6 +164,29 @@ public class moreTests {
         Assert.assertTrue(MainController.getInstance().getProductController().isInOffBySeller((Seller) Shop.getInstance().findUser("hi")));
     }
 
+    @Test
+    public void addGoodToCartGUITest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        MainController.getInstance().getProductController().setGood(good);
+        try {
+            MainController.getInstance().getProductController().addGoodToCartGUI("hi");
+            Assert.assertEquals(5, Shop.getInstance().getCart().size());
+        } catch (Exception e) {
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void getNumberOfPerSellerTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        MainController.getInstance().getProductController().setGoodById(good.getGoodId());
+        Assert.assertEquals(3, MainController.getInstance().getProductController().getAvailableNumberOfAProductByASeller(1));
+    }
+
     @After
     public void terminate() {
         TestShop.clearShop();
