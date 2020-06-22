@@ -14,6 +14,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
+import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
@@ -561,7 +562,7 @@ public class moreTests {
         OrderForCustomer orderForCustomer = new OrderForCustomer(goodInCarts, 98000L, "folan", "32423243", "dsfs", "4324243234 ");
         Shop.getInstance().addOrder(orderForCustomer);
         String output = "--------------------------------------------------------------------------------\n" +
-                "OrderId : 5\n" +
+                "OrderId : " + orderForCustomer.getOrderId() + "\n" +
                 "Date : "+ LocalDate.now().toString() +"\n" +
                 "GoodsList :\n" +
                 "name : phone\tbrand : samsung\tprice : 9000\tnumber :3\tseller : seller seller\n" +
@@ -589,6 +590,47 @@ public class moreTests {
         OrderForCustomer orderForCustomer = new OrderForCustomer(goodInCarts, 98000L, "folan", "32423243", "dsfs", "4324243234 ");
         Shop.getInstance().addOrder(orderForCustomer);
         Assert.assertEquals(8, orderForCustomer.getDetails().size());
+    }
+
+    @Test
+    public void orderForSellerToStringTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
+        Shop.getInstance().addGoodInCart(goodInCart);
+        ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
+        goodInCarts.add(goodInCart);
+        OrderForSeller orderForSeller = new OrderForSeller(96000L, (Seller) Shop.getInstance().findUser("hi"),"hichkas",  goodInCarts);
+        Shop.getInstance().addOrder(orderForSeller);
+        String output = "--------------------------------------------------------------------------------\n" +
+                "OrderId : " + orderForSeller.getOrderId() + "\n" +
+                "Date : " + LocalDate.now().toString() + "\n" +
+                "GoodsList :\n" +
+                "name : phone\tbrand : samsung\tprice : 9000\tnumber :null\n" +
+                "Paid price : 96000\n" +
+                "Discount amount : -69000\n" +
+                "Order status : READYTOSEND\n" +
+                "--------------------------------------------------------------------------------";
+        Assert.assertEquals(output, orderForSeller.toString());
+    }
+
+    @Test
+    public void getOrderForSellerDetailsTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
+        Shop.getInstance().addGoodInCart(goodInCart);
+        ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
+        goodInCarts.add(goodInCart);
+        OrderForSeller orderForSeller = new OrderForSeller(96000L, (Seller) Shop.getInstance().findUser("hi"),"hichkas",  goodInCarts);
+        Shop.getInstance().addOrder(orderForSeller);
+        Assert.assertEquals(5, orderForSeller.getDetails().size());
     }
 
     @After
