@@ -633,6 +633,23 @@ public class moreTests {
         Assert.assertEquals(5, orderForSeller.getDetails().size());
     }
 
+    @Test
+    public void findOrderForCustomerTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
+        Shop.getInstance().addGoodInCart(goodInCart);
+        ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
+        goodInCarts.add(goodInCart);
+        OrderForCustomer orderForCustomer = new OrderForCustomer(goodInCarts, 98000L, "folan", "32423243", "dsfs", "4324243234 ");
+        Shop.getInstance().addOrder(orderForCustomer);
+        ((Customer)Shop.getInstance().findUser("customer")).addOrder(orderForCustomer);
+        Assert.assertEquals(orderForCustomer, ((Customer)Shop.getInstance().findUser("customer")).findOrderById(orderForCustomer.getOrderId()));
+    }
+
     @After
     public void terminate() {
         TestShop.clearShop();
