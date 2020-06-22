@@ -164,13 +164,6 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public void setProducts() {
         int num = 0;
         int row = 0;
-        if ((MainController.getInstance().getAllProductsController().getGoods().size() % 3 != 0)) {
-            if ((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) > 1067) {
-                mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) + 133);
-            }
-        } else {
-            mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3)) * 250) + 133);
-        }
         for (Long productId : MainController.getInstance().getAllProductsController().getGoods()) {
             if (MainController.getInstance().getAllProductsController().isInOff(productId)) {
                 VBox vbox = new ProductBriefSummery().offProductBriefSummery(productId);
@@ -188,6 +181,17 @@ public class AllProductsPage extends FxmlController implements Initializable {
             }
             if (num % 3 == 0)
                 row++;
+        }
+        if (MainController.getInstance().getAllProductsController().getGoods().size() == 0)
+            return;
+        if ((MainController.getInstance().getAllProductsController().getGoods().size() % 3 != 0)) {
+            if ((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) + 133);
+            }
+        } else {
+            if ((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 0) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 0) * 250) + 133);
+            }
         }
     }
 
