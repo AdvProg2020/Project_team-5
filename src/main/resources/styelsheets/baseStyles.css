@@ -214,12 +214,15 @@
 }
 
 .text-field {
+    -fx-background-color: transparent;
     -fx-border-color: #4a0249;
-    -fx-border-width: 2 2 2 2px;
-  -fx-border-radius: 5px;
+    -fx-border-width: 0 0 2 0px;
+  -fx-border-radius: 2px;
 }
 
 .text-field:focused {
+    -fx-background-color: transparent;
+    -fx-outline: none;
     -fx-border-color: #4a0249;
     -fx-border-width: 0 0 2 0px;
 }
