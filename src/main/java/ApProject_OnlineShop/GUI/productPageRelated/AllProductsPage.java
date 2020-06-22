@@ -46,9 +46,11 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public Label rateSort;
     public Label dateSort;
     public ImageView shoppingBag;
+    public GridPane mainGridPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        playMusicBackGround(false, true, false);
         if (MainController.getInstance().getCurrentPerson() instanceof Manager || MainController.getInstance().getCurrentPerson() instanceof Seller)
             shoppingBag.setVisible(false);
         handleSorts();
@@ -180,6 +182,17 @@ public class AllProductsPage extends FxmlController implements Initializable {
             if (num % 3 == 0)
                 row++;
         }
+        if (MainController.getInstance().getAllProductsController().getGoods().size() == 0)
+            return;
+        if ((MainController.getInstance().getAllProductsController().getGoods().size() % 3 != 0)) {
+            if ((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) + 133);
+            }
+        } else {
+            if ((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 0) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 0) * 250) + 133);
+            }
+        }
     }
 
     public void handleSorts() {
@@ -201,7 +214,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     private void showProduct(Long productId) {
         ProductPage.setProductId(productId);
-        ProductPage.setPathBack("allProducts.fxml","all products");
+        ProductPage.setPathBack("allProducts.fxml", "all products");
         setScene("productPage.fxml", "product page");
     }
 
@@ -308,16 +321,16 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public void onAccountArea(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
             LoginController.setPathBack("allProducts.fxml", "All products");
-            LoginController.setPathAfterLogin(null,null);
+            LoginController.setPathAfterLogin(null, null);
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-            AccountAreaForCustomerController.setPathBack("allProducts.fxml","all products");
+            AccountAreaForCustomerController.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
-            AccountAreaForSellerController.setPathBack("allProducts.fxml","all products");
+            AccountAreaForSellerController.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
-            AccountAreaForManagerFxController.setPathBack("allProducts.fxml","all products");
+            AccountAreaForManagerFxController.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForManager.fxml", "account area");
         }
     }

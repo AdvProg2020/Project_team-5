@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -12,14 +13,13 @@ import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.awt.*;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
@@ -83,7 +83,6 @@ public class Cart extends FxmlController implements Initializable {
             numberBox.setStyle("-fx-border-color:#000000;-fx-border-width: 1; -fx-border-style: solid;");
             Label plus = new Label("  +");
             plus.setFont(Font.font("Times New Roman", 18));
-//            plus.setStyle("-fx-font-weight: bold;");
             plus.setCursor(Cursor.HAND);
             plus.setOnMouseClicked(e -> increaseProduct(productId));
             numberBox.getChildren().add(plus);
@@ -94,24 +93,42 @@ public class Cart extends FxmlController implements Initializable {
             Label minus = new Label("- ");
             minus.setFont(Font.font("Times New Roman", 22));
             minus.setPadding(new Insets(0, 0, 4, 0));
-//            minus.setStyle("-fx-font-weight: bold;");
             minus.setCursor(Cursor.HAND);
             minus.setOnMouseClicked(e -> decreaseProduct(productId));
             numberBox.getChildren().add(minus);
             hBox.getChildren().add(numberBox);
             HBox priceBox = new HBox();
-            priceBox.setMinWidth(270);
-            priceBox.setAlignment(Pos.CENTER_RIGHT);
+            priceBox.setAlignment(Pos.CENTER);
             Label price = new Label(goodInfo.get(3) + " Rials");
-            price.setFont(Font.font("Times New Roman", 16));
+            price.setFont(Font.font("Times New Roman", 14));
             price.setPadding(new Insets(0, 15, 0, 15));
             priceBox.getChildren().add(price);
             hBox.getChildren().add(priceBox);
+            HBox totalPriceBox = new HBox();
+            totalPriceBox.setAlignment(Pos.CENTER_RIGHT);
+            Label totalPrice = new Label(goodInfo.get(4) + " Rials");
+            totalPrice.setFont(Font.font("Times New Roman", 14));
+            totalPrice.setPadding(new Insets(0, 15, 0, 15));
+            totalPriceBox.getChildren().add(totalPrice);
+            hBox.getChildren().add(totalPriceBox);
             textFieldVBox.getChildren().add(hBox);
             items.getChildren().add(productBox);
         }
+        if (productIds.size() > 0) {
+            HBox priceBox = new HBox();
+            priceBox.setAlignment(Pos.CENTER);
+            Label text = new Label("total price is");
+            text.setFont(Font.font("Times New Roman", 16));
+            priceBox.getChildren().add(text);
+            Label finalPrice = new Label(" " + MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(Shop.getInstance().getCart()) + " Rials");
+            finalPrice.setFont(Font.font("Times New Roman", 16));
+            finalPrice.setTextFill(Color.RED);
+            HBox.setMargin(finalPrice, new Insets(8, 8, 8, 8));
+            priceBox.getChildren().add(finalPrice);
+            items.getChildren().add(priceBox);
+        }
         if (150 * productIds.size() > 540) {
-            items.setPrefHeight(150 * productIds.size() + 1);
+            items.setPrefHeight(150 * productIds.size() + 50);
         }
     }
 
@@ -142,18 +159,18 @@ public class Cart extends FxmlController implements Initializable {
     }
 
     public void purchase() {
-        if (MainController.getInstance().getCurrentPerson()instanceof Customer){
+        if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
             setScene("purchasePage1.fxml", "purchase");
-        }else if (MainController.getInstance().getCurrentPerson() == null){
-            LoginController.setPathAfterLogin("purchasePage1.fxml","purchase");
+        } else if (MainController.getInstance().getCurrentPerson() == null) {
+            LoginController.setPathAfterLogin("purchasePage1.fxml", "purchase");
             LoginController.setPathBack("cart.fxml", "cart");
-            setScene("login.fxml","login");
+            setScene("login.fxml", "login");
         }
     }
 
     public void showProduct(long productId) {
         ProductPage.setProductId(productId);
-        ProductPage.setPathBack("cart.fxml","cart");
+        ProductPage.setPathBack("cart.fxml", "cart");
         setScene("productPage.fxml", "productPage");
     }
 
