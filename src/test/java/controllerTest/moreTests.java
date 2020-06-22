@@ -1,7 +1,11 @@
 package controllerTest;
 
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.exception.FileCantBeDeletedException;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
@@ -10,12 +14,14 @@ import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
+import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.testThings.TestShop;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -185,6 +191,45 @@ public class moreTests {
         Shop.getInstance().addGoodToAllGoods(good);
         MainController.getInstance().getProductController().setGoodById(good.getGoodId());
         Assert.assertEquals(3, MainController.getInstance().getProductController().getAvailableNumberOfAProductByASeller(1));
+    }
+
+    @Test
+    public void removeProductWithMultipleSellers() throws IOException, FileCantBeSavedException {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Company company=new Company("salam1","asfs","asdasd","addasd","999");
+        Seller seller = new Seller("hi2", "seller", "seller", "", "", "aa",company);
+        Shop.getInstance().addPerson(seller);
+        SellerRelatedInfoAboutGood infoAboutGood = new SellerRelatedInfoAboutGood(seller, 30000L, 5);
+        seller.addToActiveGoods(good.getGoodId());
+        good.addSeller(infoAboutGood);
+        MainController.getInstance().setCurrentPerson(seller);
+        ArrayList<Good> offGoods = new ArrayList<>();
+        offGoods.add(good);
+        Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, seller);
+        Shop.getInstance().addOff(off);
+        seller.addOff(off.getOffId());
+        Shop.getInstance().addSellerRelatedInfoAboutGood(infoAboutGood);
+        Database.getInstance().saveItem(good);
+        Database.getInstance().saveItem(infoAboutGood, good.getGoodId());
+        Database.getInstance().saveItem(seller);
+        try {
+            MainController.getInstance().getAccountAreaForSellerController().removeProduct(good.getGoodId());
+        } catch (ProductNotFoundExceptionForSeller | FileCantBeDeletedException productNotFoundExceptionForSeller) {
+            Assert.fail();
+        }
+        Assert.assertEquals(1, Shop.getInstance().findGoodById(good.getGoodId()).getSellerRelatedInfoAboutGoods().size());
+    }
+
+    @Test
+    public void getSellerSalesLogTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
+        Assert.assertEquals(0, MainController.getInstance().getAccountAreaForSellerController().getSalesLog().size());
     }
 
     @After
