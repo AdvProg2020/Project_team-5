@@ -11,6 +11,7 @@ import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.Request;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
@@ -59,8 +60,8 @@ public class Shop {
         return allCompanies;
     }
 
-    public void addCompany(Company company){
-        allCompanies.put(company.getId(),company);
+    public void addCompany(Company company) {
+        allCompanies.put(company.getId(), company);
     }
 
     public ArrayList<Category> getAllCategories() {
@@ -95,8 +96,8 @@ public class Shop {
         return allRates;
     }
 
-    public void addSellerRelatedInfoAboutGood(SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood){
-        this.allSellerRelatedInfoAboutGood.put(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId(),sellerRelatedInfoAboutGood);
+    public void addSellerRelatedInfoAboutGood(SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood) {
+        this.allSellerRelatedInfoAboutGood.put(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId(), sellerRelatedInfoAboutGood);
     }
 
     public HashMap<String, Category> getHashMapOfCategories() {
@@ -142,9 +143,13 @@ public class Shop {
         allPersons.add(user);
     }
 
-    public void addGoodToAllGoods(Good good) { allGoods.put(good.getGoodId(), good); }
+    public void addGoodToAllGoods(Good good) {
+        allGoods.put(good.getGoodId(), good);
+    }
 
-    public void removeGoodFromAllGoods(Good good) { allGoods.remove(good.getGoodId()); }
+    public void removeGoodFromAllGoods(Good good) {
+        allGoods.remove(good.getGoodId());
+    }
 
     public void removeProduct(Good good) throws IOException, FileCantBeSavedException {
         good.getSubCategory().deleteGood(good);
@@ -320,6 +325,10 @@ public class Shop {
         DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
         discountCode.addAllCustomers(randomCustomers(5, 1, discountCode));
         allDiscountCodes.put(discountCode.getId(), discountCode);
+        Database.getInstance().saveItem(discountCode);
+        for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
+            Database.getInstance().saveItem(customer);
+        }
         this.lastRandomPeriodDiscountCodeCreatedDate = LocalDate.now();
     }
 
@@ -329,7 +338,8 @@ public class Shop {
             int randomNumber = ((int) (Math.random() * 1000000)) % allPersons.size();
             Person person = allPersons.get(randomNumber);
             if (person instanceof Customer) {
-                randomCustomers.put((Customer) person, repeatingTimes);
+                if (!randomCustomers.containsKey(person))
+                    randomCustomers.put((Customer) person, repeatingTimes);
             }
         }
         return randomCustomers;
@@ -424,8 +434,6 @@ public class Shop {
             }
         }
     }
-
-
 
     public void expireItemsThatTheirTimeIsFinished() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
         for (Off off : this.getOffs()) {

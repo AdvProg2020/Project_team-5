@@ -1,10 +1,13 @@
 package ApProject_OnlineShop.model.persons;
 
+import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -82,7 +85,7 @@ public class Customer extends Person {
         return false;
     }
 
-    public void donateDiscountCodeTOBestCustomers() {
+    public void donateDiscountCodeTOBestCustomers() throws IOException, FileCantBeSavedException {
         long allPricesOfOrdersWithOutLastOne = 0L;
         for (OrderForCustomer order : this.getPreviousOrders()) {
             if (!order.equals(this.getPreviousOrders().get(this.getPreviousOrders().size() - 1))) {
@@ -95,6 +98,8 @@ public class Customer extends Person {
                     , LocalDate.now(),LocalDate.now().plusMonths(1), 10000L,30);
             discountCode.addCustomerToCode(this,1);
             Shop.getInstance().addDiscountCode(discountCode);
+            Database.getInstance().saveItem(discountCode);
+            Database.getInstance().saveItem(this);
         }
     }
 

@@ -31,7 +31,7 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
-        productIds.remove(Shop.getInstance().findGoodById(MainController.getInstance().getProductController().getGood().getGoodId()));
+        productIds.remove(Shop.getInstance().findGoodById(MainController.getInstance().getProductController().getGood().getGoodId()).getGoodId());
         int num = 0;
         int row = 0;
         if (productIds.size() % 3 == 0) {
