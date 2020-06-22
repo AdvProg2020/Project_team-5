@@ -37,6 +37,15 @@ public class RateProductsController extends FxmlController implements Initializa
         List<Long> productIds = MainController.getInstance().getAccountAreaForCustomerController().getBoughtProducts();
         int num = 0;
         int row = 0;
+        if (productIds.size() % 3 == 0) {
+            if (((productIds.size() / 3) + 0) * 250 > 577) {
+                root.setPrefHeight(((productIds.size() / 3) + 0) * 250);
+            }
+        } else {
+            if (((productIds.size() / 3) + 1) * 250 > 577) {
+                root.setPrefHeight(((productIds.size() / 3) + 1) * 250);
+            }
+        }
         for (Long productId : productIds) {
             VBox vbox;
             if (MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
@@ -55,9 +64,6 @@ public class RateProductsController extends FxmlController implements Initializa
             }
             if (num % 3 == 0)
                 row++;
-        }
-        if (productIds.size()/3 * 250 > 577) {
-            root.setPrefHeight(productIds.size() * 250);
         }
     }
 

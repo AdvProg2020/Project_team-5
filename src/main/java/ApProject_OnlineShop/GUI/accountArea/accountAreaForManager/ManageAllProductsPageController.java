@@ -81,7 +81,12 @@ public class ManageAllProductsPageController extends FxmlController implements I
         List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
         int num = 0;
         int row = 0;
-        int size1 = productIds.size() * 250 / 3;
+        int size1 ;
+        if (productIds.size() % 3 == 0) {
+            size1 = productIds.size() * 250 / 3;
+        } else {
+            size1 = ((productIds.size() / 3) + 1) * 250;
+        }
         if (size1 > 577) {
             root.setPrefHeight(size1);
         }

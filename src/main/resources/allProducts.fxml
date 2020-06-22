@@ -9,14 +9,14 @@
 
 <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.AllProductsPage">
    <content>
-      <GridPane maxHeight="2000.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1635.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css">
+      <GridPane fx:id="mainGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="300.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="864.9999847412109" minWidth="10.0" prefWidth="700.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="133.0" minHeight="133.0" prefHeight="132.60000000000002" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="1500.0" minHeight="10.0" prefHeight="1000.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="2000.0" minHeight="10.0" prefHeight="1000.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
@@ -96,7 +96,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <VBox fx:id="filteringVBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="300.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.rowIndex="1">
+            <VBox fx:id="filteringVBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="300.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.rowIndex="1">
                <children>
                   <RadioButton fx:id="availableProducts" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#availableProductsFilter" prefHeight="35.0" prefWidth="175.0" text="available products">
                      <font>
@@ -288,7 +288,7 @@
                            </cursor></ChoiceBox>
                      </children></VBox>
                </children></VBox>
-            <GridPane fx:id="productsPart" prefHeight="1000.0" styleClass="mainLayout" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane fx:id="productsPart" prefHeight="850.0" styleClass="mainLayout" GridPane.columnIndex="1" GridPane.rowIndex="1">
 
             </GridPane>
          </children>
