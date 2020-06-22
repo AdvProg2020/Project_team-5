@@ -29,7 +29,7 @@ import java.util.HashMap;
 
 public class moreTests {
     @Before
-    public void initialize() {
+    public void initialize() throws IOException, FileCantBeSavedException {
         Database.getInstance().loadTestFolders();
         TestShop.clearShop();
         ArrayList<String> details=new ArrayList<>();
@@ -52,6 +52,8 @@ public class moreTests {
                 LocalDate.parse("2020-06-09"), LocalDate.parse("2020-07-10"), 300L, 20);
         Shop.getInstance().addDiscountCode(discountCode);
         discountCode.addCustomerToCode(customer, 4);
+        Database.getInstance().saveItem(discountCode);
+        Database.getInstance().saveItem(customer);
     }
 
     @Test
@@ -384,6 +386,18 @@ public class moreTests {
     public void getBoughtProductsTest() {
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("customer"));
         Assert.assertEquals(0, MainController.getInstance().getAccountAreaForCustomerController().getBoughtProducts().size());
+    }
+
+    @Test
+    public void removeUserFromDiscountTest() {
+        Assert.assertEquals(1, Shop.getInstance().findDiscountCode("fuckingDiscount").getIncludedCustomers().size());
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().removeCustomerFromDiscount("fuckingDiscount", "customer");
+            Assert.assertEquals(0, Shop.getInstance().findDiscountCode("fuckingDiscount").getIncludedCustomers().size());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
     }
 
     @After
