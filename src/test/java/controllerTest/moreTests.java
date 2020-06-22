@@ -504,7 +504,20 @@ public class moreTests {
 
     @Test
     public void filteringTest() {
-
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
+        MainController.getInstance().getControllerForFiltering().removeOffProductsFilter();
+        MainController.getInstance().getControllerForFiltering().setCategory("aboots");
+        MainController.getInstance().getControllerForFiltering().setSubCategory("sub kabir");
+        MainController.getInstance().getControllerForFiltering().setBrand("samsung");
+        Assert.assertEquals(1, MainController.getInstance().getControllerForFiltering().filterByCategory("aboots", Shop.getInstance().getAllGoods()).size());
+        Assert.assertEquals(1, MainController.getInstance().getControllerForFiltering().filterBySubCategory("sub kabir", Shop.getInstance().getAllGoods()).size());
+        MainController.getInstance().getControllerForFiltering().addBinaryFilter("price", "5000", "12000");
+        Assert.assertEquals(1, MainController.getInstance().getControllerForFiltering().showProducts().size());
     }
 
     @After
