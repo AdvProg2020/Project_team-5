@@ -233,7 +233,7 @@ public class moreTests {
     }
 
     @Test
-    public void getBuyersOfProduct() {
+    public void getBuyersOfProductTest() {
         Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
@@ -247,12 +247,42 @@ public class moreTests {
     }
 
     @Test
-    public void getSortedLogs() {
+    public void getSortedLogsTest() {
         Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
         Assert.assertEquals(0, MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(1).size());
+    }
+
+    @Test
+    public void getSortedOffsTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ArrayList<Good> offGoods = new ArrayList<>();
+        offGoods.add(good);
+        Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
+        Shop.getInstance().addOff(off);
+        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
+        MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(2);
+        MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(3);
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(1).size());
+    }
+
+    @Test
+    public void viewOffGUITest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ArrayList<Good> offGoods = new ArrayList<>();
+        offGoods.add(good);
+        Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
+        Shop.getInstance().addOff(off);
+        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
+        Assert.assertEquals(5, MainController.getInstance().getAccountAreaForSellerController().viewOffGUI(off.getOffId()).size());
     }
 
     @After
