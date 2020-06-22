@@ -213,7 +213,7 @@
     -fx-background-color: linear-gradient(#4a0249 0%, #a81b91 100%);
 }
 
-/*.text-field {
+.text-field {
     -fx-background-color: transparent;
     -fx-border-color: #4a0249;
     -fx-border-width: 0 0 2 0px;
@@ -225,4 +225,4 @@
     -fx-outline: none;
     -fx-border-color: #4a0249;
     -fx-border-width: 0 0 2 0px;
-}*/
+}
