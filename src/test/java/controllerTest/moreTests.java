@@ -400,6 +400,35 @@ public class moreTests {
         }
     }
 
+    @Test
+    public void getAllGoodsInfoTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllGoodsInfo().size());
+    }
+
+    @Test
+    public void removeProductTest() throws IOException, FileCantBeSavedException {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Database.getInstance().saveItem(Shop.getInstance().findUser("hi"));
+        Database.getInstance().saveItem(good);
+        Database.getInstance().saveItem(Shop.getInstance().findSubCategoryByName("sub kabir"));
+        try {
+            MainController.getInstance().getAccountAreaForManagerController().removeProduct("" + good.getGoodId());
+            Assert.assertEquals(0, Shop.getInstance().findSubCategoryByName("sub kabir").getGoods().size());
+            Database.getInstance().deleteItem(Shop.getInstance().findUser("hi"));
+            Database.getInstance().deleteItem(Shop.getInstance().findSubCategoryByName("sub kabir"));
+        } catch (ProductWithThisIdNotExist | FileCantBeDeletedException productWithThisIdNotExist) {
+            productWithThisIdNotExist.printStackTrace();
+            Assert.fail();
+        }
+    }
+
     @After
     public void terminate() {
         TestShop.clearShop();
