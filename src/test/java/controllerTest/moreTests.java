@@ -232,6 +232,29 @@ public class moreTests {
         Assert.assertEquals(0, MainController.getInstance().getAccountAreaForSellerController().getSalesLog().size());
     }
 
+    @Test
+    public void getBuyersOfProduct() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
+        try {
+            Assert.assertEquals(0, MainController.getInstance().getAccountAreaForSellerController().buyersOfProduct(good.getGoodId()).size());
+        } catch (ProductNotFoundExceptionForSeller productNotFoundExceptionForSeller) {
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void getSortedLogs() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
+        Assert.assertEquals(0, MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(1).size());
+    }
+
     @After
     public void terminate() {
         TestShop.clearShop();
