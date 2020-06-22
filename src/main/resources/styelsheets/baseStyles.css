@@ -221,9 +221,10 @@
   -fx-border-radius: 2px;
 }
 
-.text-fieldre:focused {
-    -fx-background-color: transparent;
-    -fx-outline: none;
-    -fx-border-color: #4a0249;
-    -fx-border-width: 0 0 2 0px;
+.text-field:focused {
+      -fx-background-color: #ffffff;
+      -fx-border-color: #b3e6ff;
+      -fx-border-width: 1 1 1 1px;
+       -fx-prompt-text-fill: #808080;
+    -fx-border-radius: 2px;
 }
