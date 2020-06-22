@@ -70,6 +70,7 @@ public class MainMenuController extends FxmlController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        playMusicForMainLayout(true);
         if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
             ImageView imageView = new ImageView(new Image("/pictures/shoppingBag.png"));
             gridpane.add(imageView, 2, 0);

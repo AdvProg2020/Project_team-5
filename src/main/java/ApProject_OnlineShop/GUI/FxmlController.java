@@ -9,9 +9,12 @@ import javafx.stage.Stage;
 import javafx.scene.media.AudioClip;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+
+import static javafx.scene.media.AudioClip.INDEFINITE;
 
 public class FxmlController {
 
@@ -53,7 +56,6 @@ public class FxmlController {
         realPlay(resource2);
     }
 
-
     private static void realPlay(String url) {
         AudioClip audioClip = new AudioClip(url);
         audioClip.setVolume(0.2);
@@ -64,6 +66,45 @@ public class FxmlController {
             e.printStackTrace();
         }
         System.out.println("effect played");
+    }
+
+    public static void playMusicForMainLayout(boolean show) {
+        AudioClip audioClip = new AudioClip(Paths.get("src/main/resources/musics/mainLayout.mp3").toUri().toString());
+        audioClip.setVolume(0.05);
+        audioClip.setCycleCount(INDEFINITE);
+        if (show) {
+            audioClip.play();
+            System.out.println("music played");
+        } else {
+            audioClip.stop();
+            System.out.println("music stopped");
+        }
+    }
+
+    public static void playMusicForAllProducts(boolean show) {
+        AudioClip audioClip = new AudioClip(Paths.get("src/main/resources/musics/allProducts.mp3").toUri().toString());
+        audioClip.setVolume(0.05);
+        audioClip.setCycleCount(INDEFINITE);
+        if (show) {
+            audioClip.play();
+            System.out.println("music played");
+        } else {
+            audioClip.stop();
+            System.out.println("music stopped");
+        }
+    }
+
+    public static void playMusicForAccountArea(boolean show) {
+        AudioClip audioClip = new AudioClip(Paths.get("src/main/resources/musics/accountArea.mp3").toUri().toString());
+        audioClip.setVolume(0.05);
+        audioClip.setCycleCount(INDEFINITE);
+        if (show) {
+            audioClip.play();
+            System.out.println("music played");
+        } else {
+            audioClip.stop();
+            System.out.println("music stopped");
+        }
     }
 
 }
