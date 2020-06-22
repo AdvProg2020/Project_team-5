@@ -439,6 +439,38 @@ public class moreTests {
         Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllSubCategoriesNamesOfCategory("aboots").size());
     }
 
+    @Test
+    public void addPropertyToSubCategoryTest() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Database.getInstance().saveItem(Shop.getInstance().findUser("hi"));
+        Database.getInstance().saveItem(good);
+        Database.getInstance().saveItem(Shop.getInstance().findSubCategoryByName("sub kabir"));
+        Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), good.getGoodId());
+        MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory("sub kabir", "alakiProp");
+        Assert.assertEquals(3, Shop.getInstance().findSubCategoryByName("sub kabir").getDetails().size());
+        Database.getInstance().deleteItem(Shop.getInstance().findUser("hi"));
+        Database.getInstance().deleteItem(Shop.getInstance().findSubCategoryByName("sub kabir"));
+    }
+
+    @Test
+    public void addPropertyToCategoryTest() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Database.getInstance().saveItem(Shop.getInstance().findUser("hi"));
+        Database.getInstance().saveItem(good);
+        Database.getInstance().saveItem(Shop.getInstance().findCategoryByName("aboots"));
+        Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), good.getGoodId());
+        MainController.getInstance().getAccountAreaForManagerController().addPropertyToCategory("aboots", "alakiProp");
+        Assert.assertEquals(3, Shop.getInstance().findCategoryByName("aboots").getDetails().size());
+        Database.getInstance().deleteItem(Shop.getInstance().findUser("hi"));
+        Database.getInstance().deleteItem(Shop.getInstance().findCategoryByName("aboots"));
+    }
+
     @After
     public void terminate() {
         TestShop.clearShop();
