@@ -36,6 +36,7 @@ public class SuccessPageFxController extends FxmlController implements Initializ
     }
 
     public static void showPage(String successTitle, String successContent) {
+        playSuccessMusic();
         SuccessPageFxController.successTitle = successTitle;
         SuccessPageFxController.successContent = successContent;
         window = new Stage();

@@ -48,6 +48,12 @@ public class FxmlController {
         realPlay(resource2);
     }
 
+    public static void playSuccessMusic() {
+        String resource2 = Paths.get("src/main/resources/musics/buttonsEffects/Success-sound-effect (mp3cut.net).mp3").toUri().toString();
+        realPlay(resource2);
+    }
+
+
     private static void realPlay(String url) {
         AudioClip audioClip = new AudioClip(url);
         audioClip.setVolume(0.2);
