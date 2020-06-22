@@ -54,6 +54,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         goodInfo.add(good.getGood().getName() + " " + good.getGood().getBrand());
         goodInfo.add(good.getSeller().getUsername());
         goodInfo.add("" + good.getNumber());
+        goodInfo.add("" + Shop.getInstance().getFinalPriceOfAGood(good.getGood(),good.getSeller()));
         goodInfo.add("" + good.getFinalPrice());
         return goodInfo;
     }
