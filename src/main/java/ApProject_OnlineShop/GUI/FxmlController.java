@@ -17,6 +17,9 @@ import java.util.concurrent.TimeUnit;
 import static javafx.scene.media.AudioClip.INDEFINITE;
 
 public class FxmlController {
+    private static boolean isMainLayoutPlay;
+    private static boolean isAccountAreaPlay;
+    private static boolean isAllProductPlay;
 
     public void setScene(String address, String title) {
         playButtonMusic();
@@ -108,9 +111,14 @@ public class FxmlController {
     }
 
     public static void playMusicBackGround(boolean mainLayout, boolean allProducts, boolean accountArea) {
+        if (mainLayout == isMainLayoutPlay && allProducts == isAllProductPlay && accountArea == isAccountAreaPlay)
+            return;
         playMusicForMainLayout(mainLayout);
         playMusicForAccountArea(accountArea);
         playMusicForAllProducts(allProducts);
+        isMainLayoutPlay = mainLayout;
+        isAccountAreaPlay = accountArea;
+        isAllProductPlay = allProducts;
     }
 
 }
