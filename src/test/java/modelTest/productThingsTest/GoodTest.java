@@ -122,7 +122,7 @@ public class GoodTest {
                 "sellers = 1- seller = hi\tprice = 9000\tavailableNumber = 3\n" +
                 "details =\n" +
                 "\n" +
-                "modification date = 2020-06-22\n" +
+                "modification date = " + LocalDate.now().toString() + "\n" +
                 "seen number = 0\n" +
                 "------------------------------------";
         assertEquals(output,Shop.getInstance().findGoodById(goodId).toString());

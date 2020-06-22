@@ -13,13 +13,11 @@ import ApProject_OnlineShop.exception.productExceptions.ThisProductIsnotInAnyOff
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
-import ApProject_OnlineShop.model.productThings.DiscountCode;
-import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.model.productThings.Off;
-import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
+import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.testThings.TestShop;
 import org.junit.After;
 import org.junit.Assert;
@@ -318,7 +316,7 @@ public class moreTests {
                 "sellers = 1- seller = hi\tprice = 9000\tavailableNumber = 3\n" +
                 "details =\n" +
                 "\n" +
-                "modification date = 2020-06-22\n" +
+                "modification date = "+ LocalDate.now().toString() + "\n" +
                 "seen number = 0\n" +
                 "------------------------------------";
         MainController.getInstance().getAccountAreaForSellerController().viewSellersProducts(2);
@@ -547,6 +545,34 @@ public class moreTests {
         MainController.getInstance().getControllerForFiltering().removeProperty("p1");
         MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
         Assert.assertEquals(0, MainController.getInstance().getControllerForFiltering().showProducts().size());
+    }
+
+    @Test
+    public void orderForCustomerToStringTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
+        Shop.getInstance().addGoodInCart(goodInCart);
+        ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
+        goodInCarts.add(goodInCart);
+        OrderForCustomer orderForCustomer = new OrderForCustomer(goodInCarts, 98000L, "folan", "32423243", "dsfs", "4324243234 ");
+        Shop.getInstance().addOrder(orderForCustomer);
+        String output = "--------------------------------------------------------------------------------\n" +
+                "OrderId : 5\n" +
+                "Date : "+ LocalDate.now().toString() +"\n" +
+                "GoodsList :\n" +
+                "name : phone\tbrand : samsung\tprice : 9000\tnumber :3\tseller : seller seller\n" +
+                "Paid price : 98000\n" +
+                "Discount amount : -44000\n" +
+                "Post code : 32423243\n" +
+                "Address : dsfs\n" +
+                "PhoneNumber : 4324243234 \n" +
+                "Order status : READYTOSEND\n" +
+                "--------------------------------------------------------------------------------";
+        Assert.assertEquals(output, orderForCustomer.toString());
     }
 
     @After
