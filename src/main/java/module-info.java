@@ -6,6 +6,7 @@ open module ApProject.OnlineShop {
     requires yagson;
     requires com.google.gson;
     requires java.desktop;
+    requires javafx.media;
     /*
     opens ApProject_OnlineShop;
     opens ApProject_OnlineShop.GUI;
