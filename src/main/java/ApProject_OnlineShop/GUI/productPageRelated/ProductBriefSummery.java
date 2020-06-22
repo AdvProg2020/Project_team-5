@@ -39,7 +39,7 @@ public class ProductBriefSummery {
         }
         ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         if (Shop.getInstance().findGoodById(productId).getGoodStatus() != Good.GoodStatus.CONFIRMED)
-            imageView.setOpacity(0.7);
+            imageView.setOpacity(0.5);
         VBox image = new VBox();
         image.getChildren().add(imageView);
         mainVBox.getChildren().add(image);
@@ -112,7 +112,7 @@ public class ProductBriefSummery {
         mainVBox.getChildren().add(offBox);
         ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         if (Shop.getInstance().findGoodById(productId).getGoodStatus() != Good.GoodStatus.CONFIRMED)
-            imageView.setOpacity(0.7);
+            imageView.setOpacity(0.5);
         VBox image = new VBox();
         image.getChildren().add(imageView);
         mainVBox.getChildren().add(image);
