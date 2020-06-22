@@ -1,6 +1,7 @@
 package controllerTest;
 
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.BinaryFilters;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
@@ -492,6 +493,18 @@ public class moreTests {
         off.setOffStatus(Off.OffStatus.ACCEPTED);
         MainController.getInstance().getOffsController().showAProduct(good.getGoodId());
         Assert.assertNotNull(MainController.getInstance().getProductController().getGood());
+    }
+
+    @Test
+    public void binaryFiltersTest() {
+        BinaryFilters binaryFilters = new BinaryFilters("filter", "start", "end");
+        String output = binaryFilters.getFilterName() + ": from " + binaryFilters.getStartValue() + " to " + binaryFilters.getEndValue();
+        Assert.assertEquals(output, binaryFilters.toString());
+    }
+
+    @Test
+    public void filteringTest() {
+
     }
 
     @After
