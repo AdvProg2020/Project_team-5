@@ -1,7 +1,5 @@
 package controllerTest;
 
-import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.ManageAllUsersPageController;
-import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.BinaryFilters;
 import ApProject_OnlineShop.database.Database;
@@ -47,6 +45,8 @@ public class moreTests {
         category.addSubCategory(subCategory);
         Shop.getInstance().addSubCategory(subCategory);
         Company company=new Company("salam","asfs","asdasd","addasd","999");
+        company.setName("hello");
+        company.setPhoneNumber("09361457810");
         Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
         Shop.getInstance().addPerson(seller);
         Customer customer = new Customer("customer", "", "", "", "", "aa", 90000L);
@@ -648,6 +648,35 @@ public class moreTests {
         Shop.getInstance().addOrder(orderForCustomer);
         ((Customer)Shop.getInstance().findUser("customer")).addOrder(orderForCustomer);
         Assert.assertEquals(orderForCustomer, ((Customer)Shop.getInstance().findUser("customer")).findOrderById(orderForCustomer.getOrderId()));
+    }
+
+    @Test
+    public void findOrderForSellerTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
+        Shop.getInstance().addGoodInCart(goodInCart);
+        ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
+        goodInCarts.add(goodInCart);
+        OrderForSeller orderForSeller = new OrderForSeller(96000L, (Seller) Shop.getInstance().findUser("hi"),"hichkas",  goodInCarts);
+        Shop.getInstance().addOrder(orderForSeller);
+        ((Seller)Shop.getInstance().findUser("hi")).addOrder(orderForSeller);
+        Assert.assertEquals(orderForSeller, ((Seller)Shop.getInstance().findUser("hi")).findOrderById(orderForSeller.getOrderId()));
+        Assert.assertEquals(1, ((Seller)Shop.getInstance().findUser("hi")).buyersOfAGood(good).size());
+    }
+
+    @Test
+    public void sellerToStringTest() {
+        String output = "";
+        Assert.assertEquals(output, Shop.getInstance().findUser("hi").toString());
+    }
+
+    @Test
+    public void rateAtributesTest() {
+
     }
 
     @After
