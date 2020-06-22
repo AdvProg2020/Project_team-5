@@ -213,6 +213,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
                     break;
                 }
             }
+            Database.getInstance().saveItem(good.getGood());
         }
     }
 

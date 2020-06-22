@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.productThings.Good;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -27,13 +28,22 @@ public class ProductBriefSummery {
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
         mainVBox.setAlignment(Pos.CENTER);
+        if (Shop.getInstance().findGoodById(productId).getGoodStatus() != Good.GoodStatus.CONFIRMED) {
+            HBox box = new HBox();
+            box.setMaxHeight(25);
+            box.setAlignment(Pos.CENTER);
+            Label available = new Label("not available");
+            available.setTextFill(Color.RED);
+            box.getChildren().add(available);
+            mainVBox.getChildren().add(box);
+        }
         ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         VBox image = new VBox();
         image.getChildren().add(imageView);
         mainVBox.getChildren().add(image);
         image.setMaxSize(150, 150);
-        imageView.setFitHeight(150);
-        imageView.setFitWidth(150);
+        imageView.setFitHeight(130);
+        imageView.setFitWidth(130);
         VBox nameVBox = new VBox();
         nameVBox.setAlignment(Pos.CENTER_LEFT);
         Label name = new Label(goodInfo.get(0));
@@ -84,15 +94,18 @@ public class ProductBriefSummery {
         offBox.setMaxHeight(30);
         Label percent = new Label("" + Shop.getInstance().findGoodById(productId).getThisGoodOff().getDiscountPercent() + "%");
         percent.setTextFill(Color.RED);
-//        percent.setFont(Font.font("Times New Roman", 16));
-        percent.setAlignment(Pos.CENTER_LEFT);
-        HBox.setMargin(percent, new Insets(0, 30,0,5));
+        HBox.setMargin(percent, new Insets(0, 30, 0, 5));
         offBox.getChildren().add(percent);
         LocalDate date = Shop.getInstance().findGoodById(productId).getThisGoodOff().getEndDate();
         Label days = new Label("" + ChronoUnit.DAYS.between(LocalDate.now(), date) + " days left");
         days.setTextFill(Color.RED);
         days.setUnderline(true);
         offBox.getChildren().add(days);
+        if (Shop.getInstance().findGoodById(productId).getGoodStatus() != Good.GoodStatus.CONFIRMED) {
+            Label available = new Label("not available");
+            available.setTextFill(Color.RED);
+            offBox.getChildren().add(available);
+        }
         mainVBox.getChildren().add(offBox);
         ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         VBox image = new VBox();

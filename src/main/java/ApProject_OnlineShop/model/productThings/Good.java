@@ -186,13 +186,15 @@ public class Good {
     }
 
     public void reduceAvailableNumber(Seller seller, int reductionNumber) {
+        int goodNumber =0 ;
         for (SellerRelatedInfoAboutGood sellerInfo : getSellerRelatedInfoAboutGoods()) {
             if (sellerInfo.getSeller() == seller) {
                 sellerInfo.setAvailableNumber(sellerInfo.getAvailableNumber() - reductionNumber);
-                if (sellerInfo.getAvailableNumber() == 0)
-                    goodStatus = GoodStatus.NOTAVAILABLE;
             }
+            goodNumber += sellerInfo.getAvailableNumber();
         }
+        if (goodNumber == 0)
+            goodStatus = GoodStatus.NOTAVAILABLE;
     }
 
     public boolean doesExistInSellerList(Seller seller) {
