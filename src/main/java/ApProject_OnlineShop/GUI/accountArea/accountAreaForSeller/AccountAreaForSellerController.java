@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
@@ -22,6 +23,8 @@ public class AccountAreaForSellerController extends FxmlController implements In
     public Label email;
     public Label phoneNumber;
     public Label balance;
+    private static String pathBack;
+    private static String titleBack;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,7 +38,7 @@ public class AccountAreaForSellerController extends FxmlController implements In
     }
 
     public void viewCompanyInformation(MouseEvent mouseEvent) {
-        setScene("showCompanyInformation.fxml", "Copmany Information");
+        setScene("showCompanyInformation.fxml", "Company Information");
     }
 
     public void viewSaleHistory(MouseEvent mouseEvent) {
@@ -65,10 +68,15 @@ public class AccountAreaForSellerController extends FxmlController implements In
     }
 
     public void backButton(ActionEvent actionEvent) {
-        setScene("mainMenuLayout.fxml", "Main menu");
+        setScene(pathBack, titleBack);
     }
 
     public void editField(ActionEvent actionEvent) {
         setScene("editFieldPersons.fxml", "edit field");
+    }
+
+    public static void setPathBack(String pathBack, String titleBack) {
+        AccountAreaForSellerController.pathBack = pathBack;
+        AccountAreaForSellerController.titleBack = titleBack;
     }
 }

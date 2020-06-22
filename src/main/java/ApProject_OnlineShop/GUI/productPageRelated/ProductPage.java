@@ -4,6 +4,8 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
@@ -52,6 +54,7 @@ public class ProductPage extends FxmlController implements Initializable {
     public VBox properties;
     public ScrollPane comments;
     public Label detailsLabel;
+    public ImageView cart;
     private static String pathBack;
     private static String titleBack;
 
@@ -61,6 +64,9 @@ public class ProductPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (MainController.getInstance().getCurrentPerson() instanceof Seller || MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            cart.setVisible(false);
+        }
         image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
         name.setText(mainInfo.get(0));
@@ -216,18 +222,20 @@ public class ProductPage extends FxmlController implements Initializable {
             LoginController.setPathBack("productPage.fxml", "product page");
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-            AccountAreaForCustomerController.setPathBack("productPage.fxml","product page");
+            AccountAreaForCustomerController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+            AccountAreaForSellerController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            AccountAreaForManagerFxController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForManager.fxml", "account area");
         }
     }
 
     public void showComments(ActionEvent actionEvent) {
         CommentsPage.setGoodId(productId);
-        CommentsPage.setPathBack("productPage.fxml","product page");
+        CommentsPage.setPathBack("productPage.fxml", "product page");
         setScene("commentsPage.fxml", "comments");
     }
 
@@ -238,5 +246,10 @@ public class ProductPage extends FxmlController implements Initializable {
     public static void setPathBack(String pathBack, String titleBack) {
         ProductPage.pathBack = pathBack;
         ProductPage.titleBack = titleBack;
+    }
+
+    public void cart(MouseEvent mouseEvent) {
+        Cart.setPathBack("productPage.fxml", "product page");
+        setScene("cart.fxml", "cart");
     }
 }

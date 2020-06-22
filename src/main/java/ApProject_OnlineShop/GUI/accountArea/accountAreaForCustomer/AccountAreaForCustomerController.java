@@ -139,11 +139,11 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void backToMain(ActionEvent actionEvent) {
-        setScene("mainMenuLayout.fxml", "main menu");
+        setScene(pathBack, titleBack);
     }
 
     public void backToAccountAreaCustomer() {
-        setScene(pathBack, titleBack);
+        setScene("accountAreaForCustomer.fxml", "account area for customer");
     }
 
     public void addDiscountDetailsToVBox(List<String> discountCodeDetails, VBox vBox) {
