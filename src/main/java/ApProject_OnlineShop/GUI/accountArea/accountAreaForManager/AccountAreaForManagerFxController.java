@@ -1,8 +1,10 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.view.accountArea.accountAreaForManager.AccountAreaForManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,9 +29,12 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     private Label email;
     @FXML
     private Label phoneNumber;
+    private static String pathBack;
+    private static String titleBack;
+
 
     public void onBackButtonPressed() {
-        setScene("mainMenuLayout.fxml","main menu");
+        setScene(pathBack, titleBack);
     }
 
     public void onLogoutClicked(MouseEvent mouseEvent) {
@@ -78,5 +83,10 @@ public class AccountAreaForManagerFxController extends FxmlController implements
 
     public void editField(ActionEvent actionEvent) {
         setScene("editFieldPersons.fxml", "edit field");
+    }
+
+    public static void setPathBack(String pathBack, String titleBack) {
+        AccountAreaForManagerFxController.pathBack = pathBack;
+        AccountAreaForManagerFxController.titleBack = titleBack;
     }
 }

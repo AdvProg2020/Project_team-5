@@ -1,7 +1,12 @@
 package ApProject_OnlineShop.GUI.mainMenu;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
+import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.GUI.productPageRelated.Cart;
+import ApProject_OnlineShop.GUI.productPageRelated.CommentsPage;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
@@ -31,21 +36,24 @@ public class MainMenuController extends FxmlController implements Initializable 
 
     public void accountAreaButtonPressed(ActionEvent actionEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
-            setScene("login.fxml", "Login or Reigster");
+            LoginController.setPathBack("mainMenuLayout.fxml", "main menu");
+            LoginController.setPathAfterLogin(null,null);
+            setScene("login.fxml", "Login or Register");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            AccountAreaForCustomerController.setPathBack("mainMenuLayout.fxml","main menu");
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+            AccountAreaForSellerController.setPathBack("mainMenuLayout.fxml","main menu");
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+            AccountAreaForManagerFxController.setPathBack("mainMenuLayout.fxml","main menu");
             setScene("accountAreaForManager.fxml", "account area");
         }
-
     }
 
     public void productsPageButtonPressed(ActionEvent actionEvent) {
-        setScene("allProducts.fxml","all products");
+        setScene("allProducts.fxml", "all products");
     }
-
 
     public void exitButtonPressed(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
