@@ -132,6 +132,37 @@ public class moreTests {
         Assert.assertEquals(16, MainController.getInstance().getProductController().compareWithAnotherProductGUI(good2.getGoodId()).size());
     }
 
+    @Test
+    public void getMainInfoTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        MainController.getInstance().getProductController().setGood(good);
+        Assert.assertEquals(6, MainController.getInstance().getProductController().getMainInfo().size());
+    }
+
+    @Test
+    public void getSellerInfoTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        MainController.getInstance().getProductController().setGood(good);
+        Assert.assertNotNull(MainController.getInstance().getProductController().getSellersInfo().get(0));
+    }
+
+    @Test
+    public void isInOffBySeller() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ArrayList<Good> offGoods = new ArrayList<>();
+        offGoods.add(good);
+        Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
+        Shop.getInstance().addOff(off);
+        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        MainController.getInstance().getProductController().setGood(good);
+        Assert.assertTrue(MainController.getInstance().getProductController().isInOffBySeller((Seller) Shop.getInstance().findUser("hi")));
+    }
 
     @After
     public void terminate() {
