@@ -49,6 +49,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        playMusicBackGround(false, true, false);
         if (MainController.getInstance().getCurrentPerson() instanceof Manager || MainController.getInstance().getCurrentPerson() instanceof Seller)
             shoppingBag.setVisible(false);
         handleSorts();

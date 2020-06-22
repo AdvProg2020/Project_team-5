@@ -37,16 +37,16 @@ public class MainMenuController extends FxmlController implements Initializable 
     public void accountAreaButtonPressed(ActionEvent actionEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
             LoginController.setPathBack("mainMenuLayout.fxml", "main menu");
-            LoginController.setPathAfterLogin(null,null);
+            LoginController.setPathAfterLogin(null, null);
             setScene("login.fxml", "Login or Register");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-            AccountAreaForCustomerController.setPathBack("mainMenuLayout.fxml","main menu");
+            AccountAreaForCustomerController.setPathBack("mainMenuLayout.fxml", "main menu");
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
-            AccountAreaForSellerController.setPathBack("mainMenuLayout.fxml","main menu");
+            AccountAreaForSellerController.setPathBack("mainMenuLayout.fxml", "main menu");
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
-            AccountAreaForManagerFxController.setPathBack("mainMenuLayout.fxml","main menu");
+            AccountAreaForManagerFxController.setPathBack("mainMenuLayout.fxml", "main menu");
             setScene("accountAreaForManager.fxml", "account area");
         }
     }
@@ -70,7 +70,7 @@ public class MainMenuController extends FxmlController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playMusicForMainLayout(true);
+        playMusicBackGround(true, false, false);
         if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
             ImageView imageView = new ImageView(new Image("/pictures/shoppingBag.png"));
             gridpane.add(imageView, 2, 0);

@@ -68,7 +68,7 @@ public class FxmlController {
         System.out.println("effect played");
     }
 
-    public static void playMusicForMainLayout(boolean show) {
+    private static void playMusicForMainLayout(boolean show) {
         AudioClip audioClip = new AudioClip(Paths.get("src/main/resources/musics/mainLayout.mp3").toUri().toString());
         audioClip.setVolume(0.05);
         audioClip.setCycleCount(INDEFINITE);
@@ -81,7 +81,7 @@ public class FxmlController {
         }
     }
 
-    public static void playMusicForAllProducts(boolean show) {
+    private static void playMusicForAllProducts(boolean show) {
         AudioClip audioClip = new AudioClip(Paths.get("src/main/resources/musics/allProducts.mp3").toUri().toString());
         audioClip.setVolume(0.05);
         audioClip.setCycleCount(INDEFINITE);
@@ -94,7 +94,7 @@ public class FxmlController {
         }
     }
 
-    public static void playMusicForAccountArea(boolean show) {
+    private static void playMusicForAccountArea(boolean show) {
         AudioClip audioClip = new AudioClip(Paths.get("src/main/resources/musics/accountArea.mp3").toUri().toString());
         audioClip.setVolume(0.05);
         audioClip.setCycleCount(INDEFINITE);
@@ -105,6 +105,12 @@ public class FxmlController {
             audioClip.stop();
             System.out.println("music stopped");
         }
+    }
+
+    public static void playMusicBackGround(boolean mainLayout, boolean allProducts, boolean accountArea) {
+        playMusicForMainLayout(mainLayout);
+        playMusicForAccountArea(accountArea);
+        playMusicForAllProducts(allProducts);
     }
 
 }
