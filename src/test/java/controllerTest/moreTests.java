@@ -12,6 +12,7 @@ import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
@@ -47,6 +48,10 @@ public class moreTests {
         Shop.getInstance().addPerson(seller);
         Customer customer = new Customer("customer", "", "", "", "", "aa", 90000L);
         Shop.getInstance().addPerson(customer);
+        DiscountCode discountCode = new DiscountCode("fuckingDiscount",
+                LocalDate.parse("2020-06-09"), LocalDate.parse("2020-07-10"), 300L, 20);
+        Shop.getInstance().addDiscountCode(discountCode);
+        discountCode.addCustomerToCode(customer, 4);
     }
 
     @Test
@@ -362,9 +367,23 @@ public class moreTests {
     }
 
     @Test
-    public void getSortedOrders() {
+    public void getSortedOrdersTest() {
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("customer"));
         Assert.assertEquals(0, MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(1).size());
+    }
+
+    @Test
+    public void getSortedDiscountsTest() {
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("customer"));
+        MainController.getInstance().getAccountAreaForCustomerController().getSortedDiscountCode(1);
+        MainController.getInstance().getAccountAreaForCustomerController().getSortedDiscountCode(2);
+        Assert.assertEquals(0, MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(3).size());
+    }
+
+    @Test
+    public void getBoughtProductsTest() {
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("customer"));
+        Assert.assertEquals(0, MainController.getInstance().getAccountAreaForCustomerController().getBoughtProducts().size());
     }
 
     @After
