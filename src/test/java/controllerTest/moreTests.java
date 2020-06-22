@@ -338,6 +338,21 @@ public class moreTests {
         Assert.assertEquals(1, MainController.getInstance().getAccountAreaForSellerController().viewProducts(1).size());
     }
 
+    @Test
+    public void getGoodInCartInfoTest() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        MainController.getInstance().getProductController().setGood(good);
+        try {
+            MainController.getInstance().getProductController().addGoodToCartGUI("hi");
+            Assert.assertEquals(4, MainController.getInstance().getAccountAreaForCustomerController().viewGoodInCartById(good.getGoodId()).size());
+        } catch (Exception e) {
+            Assert.fail();
+        }
+    }
+
     @After
     public void terminate() {
         TestShop.clearShop();
