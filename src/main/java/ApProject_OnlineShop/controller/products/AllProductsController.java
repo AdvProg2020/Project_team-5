@@ -71,8 +71,6 @@ public class AllProductsController {
     }
 
     public boolean isInOff(long goodId){
-        if (Shop.getInstance().findGoodById(goodId).getSellerThatPutsThisGoodOnOff() == null)
-            return false;
-        return true;
+        return Shop.getInstance().findGoodById(goodId).getSellerThatPutsThisGoodOnOff() != null;
     }
 }
