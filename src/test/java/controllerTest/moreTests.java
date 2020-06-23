@@ -20,6 +20,7 @@ import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.AddingCommentRequest;
 import ApProject_OnlineShop.model.requests.AddingGoodRequest;
 import ApProject_OnlineShop.model.requests.EditingGoodRequest;
+import ApProject_OnlineShop.model.requests.EditingOffRequest;
 import ApProject_OnlineShop.testThings.TestShop;
 import org.junit.After;
 import org.junit.Assert;
@@ -835,15 +836,58 @@ public class moreTests {
         ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         HashMap<String, String> fields = new HashMap<>();
         fields.put("p1", "fd");
+        fields.put("hi1", "dsd");
         fields.put("availableNumber", "6");
         EditingGoodRequest request = new EditingGoodRequest(good.getGoodId(), (Seller)Shop.getInstance().findUser("hi"), fields);
         String output = "Type: Editing Good Request\n" +
                 "request id: " + request.getRequestId() + "\n" +
                 "goodId: 0\n" +
-                "fields for editing: {p1=fd, availableNumber=6}";
+                "fields for editing: {p1=fd, hi1=dsd, availableNumber=6}";
         Assert.assertEquals(output, request.toString());
         request.acceptRequest();
         Assert.assertEquals(6, good.getAvailableNumberBySeller((Seller)Shop.getInstance().findUser("hi")));
+    }
+
+    @Test
+    public void editingOffRequestTest() throws IOException, FileCantBeSavedException {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Good good1=new Good("phone1", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9200L, 5);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good1);
+        good1.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good1);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good1.getGoodId());
+        ArrayList<Good> offGoods = new ArrayList<>();
+        offGoods.add(good);
+        Off off = new Off(offGoods, LocalDate.parse("2020-06-10"), LocalDate.parse("2020-06-20"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
+        Shop.getInstance().addOff(off);
+        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        off.setOffStatus(Off.OffStatus.ACCEPTED);
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("start date", "2020-06-27");
+        fields.put("end date", "2020-07-21");
+        fields.put("discount percent", "24");
+        fields.put("add good", "" + good1.getGoodId());
+        fields.put("remove good", "" + good.getGoodId());
+        EditingOffRequest request = new EditingOffRequest(off.getOffId(), fields);
+        String output = "Type: Editing Off Request\n" +
+                "request id: " + request.getRequestId() + "\n" +
+                "Off Id: " + off.getOffId() + "\n" +
+                "Start Date: 2020-06-10\n" +
+                "End Date: 2020-06-20\n" +
+                "Max Discount: 60000\n" +
+                "Discount Percent: 30\n" +
+                "Seller: hifields for editing:\n" +
+                "{start date=2020-06-27, add good=0, discount percent=24, end date=2020-07-21, remove good=0}";
+        Assert.assertEquals(output, request.toString());
+        request.acceptRequest();
+        Assert.assertEquals(24, off.getDiscountPercent());
+        Assert.assertEquals("2020-07-21", off.getEndDate().toString());
+        Assert.assertEquals("2020-06-27", off.getStartDate().toString());
+        Assert.assertEquals(1, off.getOffGoods().size());
     }
 
     @After
