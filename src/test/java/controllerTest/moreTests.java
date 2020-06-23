@@ -5,9 +5,12 @@ import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.BinaryFilt
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFound;
+import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.ThisProductIsnotInAnyOff;
+import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -815,6 +818,7 @@ public class moreTests {
         fields.put("p2", "fd");
         fields.put("hi1", "fd");
         fields.put("hi2", "fd");
+        Assert.assertThrows(CategoryNotFound.class, () -> { throw new CategoryNotFound(); });
         AddingGoodRequest request = new AddingGoodRequest("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", fields, 6000L, 8, seller.getUsername());
         String output = "Type: Adding Good Request\n" +
                 "request id: " + request.getRequestId() + "\n" +
@@ -888,6 +892,20 @@ public class moreTests {
         Assert.assertEquals("2020-07-21", off.getEndDate().toString());
         Assert.assertEquals("2020-06-27", off.getStartDate().toString());
         Assert.assertEquals(1, off.getOffGoods().size());
+    }
+
+    @Test
+    public void exceptionsTest() {
+        Assert.assertThrows(SubCategoryNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeSubCategory("aboots", "fdfdf"));
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Rate rate = new Rate((Customer)Shop.getInstance().findUser("customer"), good, 5);
+        Shop.getInstance().addRate(rate);
+        MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("customer"));
+        Assert.assertThrows(YouRatedThisProductBefore.class, () -> MainController.getInstance().getAccountAreaForCustomerController().rateProduct(good.getGoodId(), 4));
     }
 
     @After
