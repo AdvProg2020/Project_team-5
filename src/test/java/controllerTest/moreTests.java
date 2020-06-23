@@ -18,6 +18,7 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.AddingCommentRequest;
+import ApProject_OnlineShop.model.requests.AddingGoodRequest;
 import ApProject_OnlineShop.testThings.TestShop;
 import org.junit.After;
 import org.junit.Assert;
@@ -775,6 +776,53 @@ public class moreTests {
         Assert.assertEquals(0, ((Seller)Shop.getInstance().findUser("hi")).getActiveOffs().size());
         Database.getInstance().deleteItem(Shop.getInstance().findUser("hi"));
         Database.getInstance().deleteItem(Shop.getInstance().findUser("customer"));
+    }
+
+    @Test
+    public void addAnAvailableGoodRequestTest() throws IOException, FileCantBeSavedException {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Company company = new Company("anothersalam","asfs","asdasd","addasd","999");
+        Seller seller = new Seller("hi2", "seller", "seller", "", "", "aa",company);
+        Shop.getInstance().addPerson(seller);
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("p1", "fd");
+        fields.put("p2", "fd");
+        fields.put("hi1", "fd");
+        fields.put("hi2", "fd");
+        AddingGoodRequest request = new AddingGoodRequest("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", fields, 6000L, 8, seller.getUsername());
+        request.acceptRequest();
+        Assert.assertEquals(2, good.getSellerRelatedInfoAboutGoods().size());
+    }
+
+    @Test
+    public void addGoodRequestToString() {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Company company = new Company("anothersalam","asfs","asdasd","addasd","999");
+        Seller seller = new Seller("hi2", "seller", "seller", "", "", "aa",company);
+        Shop.getInstance().addPerson(seller);
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("p1", "fd");
+        fields.put("p2", "fd");
+        fields.put("hi1", "fd");
+        fields.put("hi2", "fd");
+        AddingGoodRequest request = new AddingGoodRequest("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", fields, 6000L, 8, seller.getUsername());
+        String output = "Type: Adding Good Request\n" +
+                "request id: " + request.getRequestId() + "\n" +
+                "name: phone\n" +
+                "brand: samsung\n" +
+                "category: aboots\n" +
+                "subcategory: sub kabirdetails:\n" +
+                "\n" +
+                "seller: hi2";
+        Assert.assertEquals(output, request.toString());
     }
 
     @After
