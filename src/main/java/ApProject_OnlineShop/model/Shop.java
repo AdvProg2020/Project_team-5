@@ -431,7 +431,7 @@ public class Shop {
         for (Off off : this.getOffs()) {
             if (off.isOffExpired()) {
                 this.removeOff(off);
-                off.getSeller().removeFromActiveGoods(off.getOffId());
+                off.getSeller().removeFromActiveOffs(off.getOffId());
                 Database.getInstance().saveItem(off.getSeller());
                 Database.getInstance().deleteItem(off);
             }

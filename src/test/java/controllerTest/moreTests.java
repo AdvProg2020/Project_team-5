@@ -769,7 +769,9 @@ public class moreTests {
         Shop.getInstance().expireItemsThatTheirTimeIsFinished();
         Assert.assertEquals(0, Shop.getInstance().getAllDiscountCodes().size());
         Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("aboots"));
-        //Database.getInstance().deleteItem(Shop.getInstance().findUser("hi"));
+        Assert.assertTrue(off.isOffExpired());
+        Assert.assertEquals(0, ((Seller)Shop.getInstance().findUser("hi")).getActiveOffs().size());
+        Database.getInstance().deleteItem(Shop.getInstance().findUser("hi"));
         Database.getInstance().deleteItem(Shop.getInstance().findUser("customer"));
     }
 
