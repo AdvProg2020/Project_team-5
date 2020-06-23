@@ -19,6 +19,7 @@ import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.AddingCommentRequest;
 import ApProject_OnlineShop.model.requests.AddingGoodRequest;
+import ApProject_OnlineShop.model.requests.EditingGoodRequest;
 import ApProject_OnlineShop.testThings.TestShop;
 import org.junit.After;
 import org.junit.Assert;
@@ -823,6 +824,26 @@ public class moreTests {
                 "\n" +
                 "seller: hi2";
         Assert.assertEquals(output, request.toString());
+    }
+
+    @Test
+    public void editGoodRequestTest() throws IOException, FileCantBeSavedException {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("p1", "fd");
+        fields.put("availableNumber", "6");
+        EditingGoodRequest request = new EditingGoodRequest(good.getGoodId(), (Seller)Shop.getInstance().findUser("hi"), fields);
+        String output = "Type: Editing Good Request\n" +
+                "request id: " + request.getRequestId() + "\n" +
+                "goodId: 0\n" +
+                "fields for editing: {p1=fd, availableNumber=6}";
+        Assert.assertEquals(output, request.toString());
+        request.acceptRequest();
+        Assert.assertEquals(6, good.getAvailableNumberBySeller((Seller)Shop.getInstance().findUser("hi")));
     }
 
     @After
