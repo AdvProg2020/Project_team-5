@@ -32,6 +32,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -928,6 +929,26 @@ public class moreTests {
         Assert.assertThrows(DiscountCodeExpired.class, () -> MainController.getInstance().getAccountAreaForCustomerController().useDiscountCode("fuckingDiscount"));
         MainController.getInstance().getProductController().setGood(good);
         Assert.assertThrows(DontHaveEnoughNumberOfThisProduct.class, () -> MainController.getInstance().getProductController().addGoodToCart(100, 1));
+    }
+
+    @Test
+    public void databaseMethodsTest() throws FileCantBeSavedException, IOException, FileCantBeDeletedException {
+        Database.getInstance().initializeShop();
+        Assert.assertEquals("sadegh", Shop.getInstance().findUser("sadegh").getFirstName());
+        TestShop.clearShop();
+        Company company = new Company("anothersalam", "asfs", "asdasd", "addasd", "999");
+        Database.getInstance().saveItem(company);
+        Database.getInstance().deleteItem(company);
+        Assert.assertFalse(new File("TestResources\\Companies\\company_anothersalam.json").exists());
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Comment comment = new Comment(Shop.getInstance().findUser("customer"), good, "title2", "comment", false);
+        Database.getInstance().saveItem(comment);
+        Database.getInstance().deleteItem(comment);
+        Assert.assertFalse(new File("TestResources\\Comments\\comment_" + comment.getGood().getGoodId() + "_" + comment.getPerson().getUsername() + ".json").exists());
     }
 
     @After
