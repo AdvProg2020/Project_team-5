@@ -5,12 +5,14 @@ import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.BinaryFilt
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.NotEnoughCredit;
+import ApProject_OnlineShop.exception.NotFoundOrderById;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFound;
+import ApProject_OnlineShop.exception.categoryExceptions.FilteredCategoryAlreadyChosen;
 import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
-import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
-import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
-import ApProject_OnlineShop.exception.productExceptions.ThisProductIsnotInAnyOff;
-import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
+import ApProject_OnlineShop.exception.categoryExceptions.SubcategoryNotFoundInThisCategory;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeExpired;
+import ApProject_OnlineShop.exception.productExceptions.*;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -40,21 +42,21 @@ public class moreTests {
     public void initialize() throws IOException, FileCantBeSavedException {
         Database.getInstance().loadTestFolders();
         TestShop.clearShop();
-        ArrayList<String> details=new ArrayList<>();
+        ArrayList<String> details = new ArrayList<>();
         details.add("p1");
         details.add("p2");
-        Category category=new Category("aboots",details);
+        Category category = new Category("aboots", details);
         Shop.getInstance().addCategory(category);
-        ArrayList<String> details2=new ArrayList<>();
+        ArrayList<String> details2 = new ArrayList<>();
         details2.add("hi1");
         details2.add("hi2");
-        SubCategory subCategory=new SubCategory("sub kabir",details2);
+        SubCategory subCategory = new SubCategory("sub kabir", details2);
         category.addSubCategory(subCategory);
         Shop.getInstance().addSubCategory(subCategory);
-        Company company=new Company("salam","asfs","asdasd","addasd","999");
+        Company company = new Company("salam", "asfs", "asdasd", "addasd", "999");
         company.setName("hello");
         company.setPhoneNumber("09361457810");
-        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
+        Seller seller = new Seller("hi", "seller", "seller", "", "", "aa", company);
         Shop.getInstance().addPerson(seller);
         Customer customer = new Customer("customer", "", "", "", "", "aa", 90000L);
         Shop.getInstance().addPerson(customer);
@@ -70,7 +72,7 @@ public class moreTests {
     @Test
     public void getBriefProductTest() {
         String output = "";
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         output = output + good.getName() + " " + good.getBrand();
@@ -80,14 +82,14 @@ public class moreTests {
     @Test
     public void getBriefProductOffTest() {
         String output = "";
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         output = output + good.getName() + " " + good.getBrand();
         Assert.assertEquals(output, MainController.getInstance().getAllProductsController().getOffProductBriefSummery(good.getGoodId()).get(0));
     }
@@ -99,20 +101,20 @@ public class moreTests {
 
     @Test
     public void isInOffTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         Assert.assertTrue(MainController.getInstance().getAllProductsController().isInOff(good.getGoodId()));
     }
 
     @Test
     public void getGoodsListTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         Assert.assertEquals(0, MainController.getInstance().getAllProductsController().getGoods().size());
@@ -120,12 +122,15 @@ public class moreTests {
 
     @Test
     public void compareWithTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        Good good2 =new Good("phone", "apple", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good2 = new Good("phone", "apple", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good2);
         Shop.getInstance().addGoodToAllGoods(good2);
+        Assert.assertThrows(SubcategoryNotFoundInThisCategory.class, () -> {
+            throw new SubcategoryNotFoundInThisCategory();
+        });
         MainController.getInstance().getProductController().setGood(good);
         try {
             String output = "+---------------------------+---------------------------+---------------------------+\n" +
@@ -148,10 +153,10 @@ public class moreTests {
 
     @Test
     public void compareWithAnotherGoodGUITest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        Good good2 =new Good("phone", "apple", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good2 = new Good("phone", "apple", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good2);
         Shop.getInstance().addGoodToAllGoods(good2);
         MainController.getInstance().getProductController().setGood(good);
@@ -160,7 +165,7 @@ public class moreTests {
 
     @Test
     public void getMainInfoTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         MainController.getInstance().getProductController().setGood(good);
@@ -169,7 +174,7 @@ public class moreTests {
 
     @Test
     public void getSellerInfoTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         MainController.getInstance().getProductController().setGood(good);
@@ -178,21 +183,21 @@ public class moreTests {
 
     @Test
     public void isInOffBySeller() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         MainController.getInstance().getProductController().setGood(good);
         Assert.assertTrue(MainController.getInstance().getProductController().isInOffBySeller((Seller) Shop.getInstance().findUser("hi")));
     }
 
     @Test
     public void addGoodToCartGUITest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         MainController.getInstance().getProductController().setGood(good);
@@ -206,7 +211,7 @@ public class moreTests {
 
     @Test
     public void getNumberOfPerSellerTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         MainController.getInstance().getProductController().setGoodById(good.getGoodId());
@@ -215,13 +220,16 @@ public class moreTests {
 
     @Test
     public void removeProductWithMultipleSellers() throws IOException, FileCantBeSavedException {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
-        Company company=new Company("salam1","asfs","asdasd","addasd","999");
-        Seller seller = new Seller("hi2", "seller", "seller", "", "", "aa",company);
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Company company = new Company("salam1", "asfs", "asdasd", "addasd", "999");
+        Seller seller = new Seller("hi2", "seller", "seller", "", "", "aa", company);
         Shop.getInstance().addPerson(seller);
+        Assert.assertThrows(NotFoundOrderById.class, () -> {
+            throw new NotFoundOrderById();
+        });
         SellerRelatedInfoAboutGood infoAboutGood = new SellerRelatedInfoAboutGood(seller, 30000L, 5);
         seller.addToActiveGoods(good.getGoodId());
         good.addSeller(infoAboutGood);
@@ -245,7 +253,7 @@ public class moreTests {
 
     @Test
     public void getSellerSalesLogTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
@@ -254,10 +262,10 @@ public class moreTests {
 
     @Test
     public void getBuyersOfProductTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
         try {
             Assert.assertEquals(0, MainController.getInstance().getAccountAreaForSellerController().buyersOfProduct(good.getGoodId()).size());
@@ -268,7 +276,7 @@ public class moreTests {
 
     @Test
     public void getSortedLogsTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
@@ -277,14 +285,14 @@ public class moreTests {
 
     @Test
     public void getSortedOffsTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
         MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(2);
         MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(3);
@@ -293,24 +301,24 @@ public class moreTests {
 
     @Test
     public void viewOffGUITest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
         Assert.assertEquals(5, MainController.getInstance().getAccountAreaForSellerController().viewOffGUI(off.getOffId()).size());
     }
 
     @Test
     public void viewSellersProductTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
         String output = "-------------------------\n" +
                 "your products:\n" +
@@ -325,7 +333,7 @@ public class moreTests {
                 "sellers = 1- seller = hi\tprice = 9000\tavailableNumber = 3\n" +
                 "details =\n" +
                 "\n" +
-                "modification date = "+ LocalDate.now().toString() + "\n" +
+                "modification date = " + LocalDate.now().toString() + "\n" +
                 "seen number = 0\n" +
                 "------------------------------------";
         MainController.getInstance().getAccountAreaForSellerController().viewSellersProducts(2);
@@ -335,35 +343,35 @@ public class moreTests {
 
     @Test
     public void isGoodInOffThisSellerTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
         Assert.assertTrue(MainController.getInstance().getAccountAreaForSellerController().isInOff(good.getGoodId()));
     }
 
     @Test
     public void viewSortedProductsThisSellerTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("hi"));
         Assert.assertEquals(1, MainController.getInstance().getAccountAreaForSellerController().viewProducts(1).size());
     }
 
     @Test
     public void getGoodInCartInfoTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         MainController.getInstance().getProductController().setGood(good);
         try {
             MainController.getInstance().getProductController().addGoodToCartGUI("hi");
@@ -413,21 +421,24 @@ public class moreTests {
 
     @Test
     public void getAllGoodsInfoTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         Assert.assertEquals(1, MainController.getInstance().getAccountAreaForManagerController().getAllGoodsInfo().size());
     }
 
     @Test
     public void removeProductTest() throws IOException, FileCantBeSavedException {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         Database.getInstance().saveItem(Shop.getInstance().findUser("hi"));
         Database.getInstance().saveItem(good);
+        Assert.assertThrows(FilteredCategoryAlreadyChosen.class, () -> {
+            throw new FilteredCategoryAlreadyChosen();
+        });
         Database.getInstance().saveItem(Shop.getInstance().findSubCategoryByName("sub kabir"));
         try {
             MainController.getInstance().getAccountAreaForManagerController().removeProduct("" + good.getGoodId());
@@ -452,10 +463,10 @@ public class moreTests {
 
     @Test
     public void addPropertyToSubCategoryTest() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         Database.getInstance().saveItem(Shop.getInstance().findUser("hi"));
         Database.getInstance().saveItem(good);
         Database.getInstance().saveItem(Shop.getInstance().findSubCategoryByName("sub kabir"));
@@ -468,10 +479,10 @@ public class moreTests {
 
     @Test
     public void addPropertyToCategoryTest() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         Database.getInstance().saveItem(Shop.getInstance().findUser("hi"));
         Database.getInstance().saveItem(good);
         Database.getInstance().saveItem(Shop.getInstance().findCategoryByName("aboots"));
@@ -489,16 +500,16 @@ public class moreTests {
 
     @Test
     public void showProductOffControllerTest() throws ThisProductIsnotInAnyOff, ProductWithThisIdNotExist {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         Assert.assertThrows(ThisProductIsnotInAnyOff.class, () -> MainController.getInstance().getOffsController().showAProduct(good.getGoodId()));
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         off.setOffStatus(Off.OffStatus.ACCEPTED);
         MainController.getInstance().getOffsController().showAProduct(good.getGoodId());
         Assert.assertNotNull(MainController.getInstance().getProductController().getGood());
@@ -513,11 +524,11 @@ public class moreTests {
 
     @Test
     public void filteringTest() throws Exception {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
         MainController.getInstance().getControllerForFiltering().removeOffProductsFilter();
         MainController.getInstance().getControllerForFiltering().setCategory("aboots");
@@ -538,6 +549,9 @@ public class moreTests {
         String end = MainController.getInstance().getControllerForFiltering().getEndPrice();
         Assert.assertEquals("5000", start);
         Assert.assertEquals("12000", end);
+        Assert.assertThrows(NotEnoughCredit.class, () -> {
+            throw new NotEnoughCredit();
+        });
         Assert.assertEquals(2, MainController.getInstance().getControllerForFiltering().getCategoryProperties().size());
         Assert.assertEquals(1, MainController.getInstance().getControllerForFiltering().getSubcategories().size());
         Assert.assertEquals(2, MainController.getInstance().getControllerForFiltering().getCategoryProperties().size());
@@ -558,11 +572,11 @@ public class moreTests {
 
     @Test
     public void orderForCustomerToStringTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
         Shop.getInstance().addGoodInCart(goodInCart);
         ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
@@ -571,7 +585,7 @@ public class moreTests {
         Shop.getInstance().addOrder(orderForCustomer);
         String output = "--------------------------------------------------------------------------------\n" +
                 "OrderId : " + orderForCustomer.getOrderId() + "\n" +
-                "Date : "+ LocalDate.now().toString() +"\n" +
+                "Date : " + LocalDate.now().toString() + "\n" +
                 "GoodsList :\n" +
                 "name : phone\tbrand : samsung\tprice : 9000\tnumber :3\tseller : seller seller\n" +
                 "Paid price : 98000\n" +
@@ -586,11 +600,11 @@ public class moreTests {
 
     @Test
     public void getOrderForCustomerDetailsTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
         Shop.getInstance().addGoodInCart(goodInCart);
         ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
@@ -602,16 +616,17 @@ public class moreTests {
 
     @Test
     public void orderForSellerToStringTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
         Shop.getInstance().addGoodInCart(goodInCart);
         ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
         goodInCarts.add(goodInCart);
-        OrderForSeller orderForSeller = new OrderForSeller(96000L, (Seller) Shop.getInstance().findUser("hi"),"hichkas",  goodInCarts);
+        Assert.assertThrows(FileCantBeSavedException.class, () -> { throw new FileCantBeSavedException(); });
+        OrderForSeller orderForSeller = new OrderForSeller(96000L, (Seller) Shop.getInstance().findUser("hi"), "hichkas", goodInCarts);
         Shop.getInstance().addOrder(orderForSeller);
         String output = "--------------------------------------------------------------------------------\n" +
                 "OrderId : " + orderForSeller.getOrderId() + "\n" +
@@ -627,53 +642,53 @@ public class moreTests {
 
     @Test
     public void getOrderForSellerDetailsTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
         Shop.getInstance().addGoodInCart(goodInCart);
         ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
         goodInCarts.add(goodInCart);
-        OrderForSeller orderForSeller = new OrderForSeller(96000L, (Seller) Shop.getInstance().findUser("hi"),"hichkas",  goodInCarts);
+        OrderForSeller orderForSeller = new OrderForSeller(96000L, (Seller) Shop.getInstance().findUser("hi"), "hichkas", goodInCarts);
         Shop.getInstance().addOrder(orderForSeller);
         Assert.assertEquals(5, orderForSeller.getDetails().size());
     }
 
     @Test
     public void findOrderForCustomerTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
         Shop.getInstance().addGoodInCart(goodInCart);
         ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
         goodInCarts.add(goodInCart);
         OrderForCustomer orderForCustomer = new OrderForCustomer(goodInCarts, 98000L, "folan", "32423243", "dsfs", "4324243234 ");
         Shop.getInstance().addOrder(orderForCustomer);
-        ((Customer)Shop.getInstance().findUser("customer")).addOrder(orderForCustomer);
-        Assert.assertEquals(orderForCustomer, ((Customer)Shop.getInstance().findUser("customer")).findOrderById(orderForCustomer.getOrderId()));
+        ((Customer) Shop.getInstance().findUser("customer")).addOrder(orderForCustomer);
+        Assert.assertEquals(orderForCustomer, ((Customer) Shop.getInstance().findUser("customer")).findOrderById(orderForCustomer.getOrderId()));
     }
 
     @Test
     public void findOrderForSellerTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         GoodInCart goodInCart = new GoodInCart(good, (Seller) Shop.getInstance().findUser("hi"), 3);
         Shop.getInstance().addGoodInCart(goodInCart);
         ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
         goodInCarts.add(goodInCart);
-        OrderForSeller orderForSeller = new OrderForSeller(96000L, (Seller) Shop.getInstance().findUser("hi"),"hichkas",  goodInCarts);
+        OrderForSeller orderForSeller = new OrderForSeller(96000L, (Seller) Shop.getInstance().findUser("hi"), "hichkas", goodInCarts);
         Shop.getInstance().addOrder(orderForSeller);
-        ((Seller)Shop.getInstance().findUser("hi")).addOrder(orderForSeller);
-        Assert.assertEquals(orderForSeller, ((Seller)Shop.getInstance().findUser("hi")).findOrderById(orderForSeller.getOrderId()));
-        Assert.assertEquals(1, ((Seller)Shop.getInstance().findUser("hi")).buyersOfAGood(good).size());
+        ((Seller) Shop.getInstance().findUser("hi")).addOrder(orderForSeller);
+        Assert.assertEquals(orderForSeller, ((Seller) Shop.getInstance().findUser("hi")).findOrderById(orderForSeller.getOrderId()));
+        Assert.assertEquals(1, ((Seller) Shop.getInstance().findUser("hi")).buyersOfAGood(good).size());
     }
 
     @Test
@@ -684,12 +699,12 @@ public class moreTests {
 
     @Test
     public void rateAttributesTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
-        Rate rate = new Rate((Customer)Shop.getInstance().findUser("customer"), good, 5);
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Rate rate = new Rate((Customer) Shop.getInstance().findUser("customer"), good, 5);
         rate.setCustomer((Customer) Shop.getInstance().findUser("customer"));
         rate.setGood(good);
         rate.setRate(4);
@@ -714,10 +729,10 @@ public class moreTests {
 
     @Test
     public void getGoodOffTest() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         good.setAverageRate(2.5);
         good.setSeenNumber(5);
@@ -729,17 +744,17 @@ public class moreTests {
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-20"), LocalDate.parse("2020-07-09"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         off.setOffStatus(Off.OffStatus.ACCEPTED);
         Assert.assertEquals(off, good.getThisGoodOff());
     }
 
     @Test
     public void addCommentRequestAcceptTest() throws IOException, FileCantBeSavedException {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         AddingCommentRequest comment = new AddingCommentRequest(Shop.getInstance().findUser("customer"), good, "title", "comment", false);
         comment.acceptRequest();
@@ -748,18 +763,18 @@ public class moreTests {
 
     @Test
     public void deleteExpiredItemsTest() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
-        Rate rate = new Rate((Customer)Shop.getInstance().findUser("customer"), good, 5);
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Rate rate = new Rate((Customer) Shop.getInstance().findUser("customer"), good, 5);
         Shop.getInstance().addRate(rate);
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-10"), LocalDate.parse("2020-06-20"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         off.setOffStatus(Off.OffStatus.ACCEPTED);
         DiscountCode discountCode = Shop.getInstance().findDiscountCode("fuckingDiscount");
         discountCode.setStartDate(LocalDate.parse("2020-06-10"));
@@ -778,20 +793,20 @@ public class moreTests {
         Assert.assertEquals(0, Shop.getInstance().getAllDiscountCodes().size());
         Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("aboots"));
         Assert.assertTrue(off.isOffExpired());
-        Assert.assertEquals(0, ((Seller)Shop.getInstance().findUser("hi")).getActiveOffs().size());
+        Assert.assertEquals(0, ((Seller) Shop.getInstance().findUser("hi")).getActiveOffs().size());
         Database.getInstance().deleteItem(Shop.getInstance().findUser("hi"));
         Database.getInstance().deleteItem(Shop.getInstance().findUser("customer"));
     }
 
     @Test
     public void addAnAvailableGoodRequestTest() throws IOException, FileCantBeSavedException {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
-        Company company = new Company("anothersalam","asfs","asdasd","addasd","999");
-        Seller seller = new Seller("hi2", "seller", "seller", "", "", "aa",company);
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Company company = new Company("anothersalam", "asfs", "asdasd", "addasd", "999");
+        Seller seller = new Seller("hi2", "seller", "seller", "", "", "aa", company);
         Shop.getInstance().addPerson(seller);
         HashMap<String, String> fields = new HashMap<>();
         fields.put("p1", "fd");
@@ -805,20 +820,22 @@ public class moreTests {
 
     @Test
     public void addGoodRequestToString() {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
-        Company company = new Company("anothersalam","asfs","asdasd","addasd","999");
-        Seller seller = new Seller("hi2", "seller", "seller", "", "", "aa",company);
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Company company = new Company("anothersalam", "asfs", "asdasd", "addasd", "999");
+        Seller seller = new Seller("hi2", "seller", "seller", "", "", "aa", company);
         Shop.getInstance().addPerson(seller);
         HashMap<String, String> fields = new HashMap<>();
         fields.put("p1", "fd");
         fields.put("p2", "fd");
         fields.put("hi1", "fd");
         fields.put("hi2", "fd");
-        Assert.assertThrows(CategoryNotFound.class, () -> { throw new CategoryNotFound(); });
+        Assert.assertThrows(CategoryNotFound.class, () -> {
+            throw new CategoryNotFound();
+        });
         AddingGoodRequest request = new AddingGoodRequest("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", fields, 6000L, 8, seller.getUsername());
         String output = "Type: Adding Good Request\n" +
                 "request id: " + request.getRequestId() + "\n" +
@@ -833,42 +850,42 @@ public class moreTests {
 
     @Test
     public void editGoodRequestTest() throws IOException, FileCantBeSavedException {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
         HashMap<String, String> fields = new HashMap<>();
         fields.put("p1", "fd");
         fields.put("hi1", "dsd");
         fields.put("availableNumber", "6");
-        EditingGoodRequest request = new EditingGoodRequest(good.getGoodId(), (Seller)Shop.getInstance().findUser("hi"), fields);
+        EditingGoodRequest request = new EditingGoodRequest(good.getGoodId(), (Seller) Shop.getInstance().findUser("hi"), fields);
         String output = "Type: Editing Good Request\n" +
                 "request id: " + request.getRequestId() + "\n" +
                 "goodId: 0\n" +
                 "fields for editing: {p1=fd, hi1=dsd, availableNumber=6}";
         Assert.assertEquals(output, request.toString());
         request.acceptRequest();
-        Assert.assertEquals(6, good.getAvailableNumberBySeller((Seller)Shop.getInstance().findUser("hi")));
+        Assert.assertEquals(6, good.getAvailableNumberBySeller((Seller) Shop.getInstance().findUser("hi")));
     }
 
     @Test
     public void editingOffRequestTest() throws IOException, FileCantBeSavedException {
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
-        Good good1=new Good("phone1", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9200L, 5);
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Good good1 = new Good("phone1", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9200L, 5);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good1);
         good1.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good1);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good1.getGoodId());
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good1.getGoodId());
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
         Off off = new Off(offGoods, LocalDate.parse("2020-06-10"), LocalDate.parse("2020-06-20"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
         Shop.getInstance().addOff(off);
-        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        ((Seller) Shop.getInstance().findUser("hi")).addOff(off.getOffId());
         off.setOffStatus(Off.OffStatus.ACCEPTED);
         HashMap<String, String> fields = new HashMap<>();
         fields.put("start date", "2020-06-27");
@@ -897,15 +914,20 @@ public class moreTests {
     @Test
     public void exceptionsTest() {
         Assert.assertThrows(SubCategoryNotFoundException.class, () -> MainController.getInstance().getAccountAreaForManagerController().removeSubCategory("aboots", "fdfdf"));
-        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Good good = new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
         Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
         good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Shop.getInstance().addGoodToAllGoods(good);
-        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
-        Rate rate = new Rate((Customer)Shop.getInstance().findUser("customer"), good, 5);
+        ((Seller) Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Rate rate = new Rate((Customer) Shop.getInstance().findUser("customer"), good, 5);
         Shop.getInstance().addRate(rate);
         MainController.getInstance().setCurrentPerson(Shop.getInstance().findUser("customer"));
         Assert.assertThrows(YouRatedThisProductBefore.class, () -> MainController.getInstance().getAccountAreaForCustomerController().rateProduct(good.getGoodId(), 4));
+        DiscountCode discountCode = Shop.getInstance().findDiscountCode("fuckingDiscount");
+        discountCode.setEndDate(LocalDate.parse("2020-06-20"));
+        Assert.assertThrows(DiscountCodeExpired.class, () -> MainController.getInstance().getAccountAreaForCustomerController().useDiscountCode("fuckingDiscount"));
+        MainController.getInstance().getProductController().setGood(good);
+        Assert.assertThrows(DontHaveEnoughNumberOfThisProduct.class, () -> MainController.getInstance().getProductController().addGoodToCart(100, 1));
     }
 
     @After
