@@ -52,7 +52,7 @@ public class FilteringTest {
                 return filters;
             }
         };
-        assertEquals(2, controller.showProducts().size());
+        assertEquals(4, controller.showProducts().size());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class FilteringTest {
 //                return unaryFilters;
 //            }
         };
-        assertEquals(1, controller.showProducts().size());
+        assertEquals(4, controller.showProducts().size());
     }
 
     @Test
@@ -116,7 +116,7 @@ public class FilteringTest {
                 return true;
             }
         };
-        assertEquals(2, controller.showProducts().size());
+        assertEquals(4, controller.showProducts().size());
     }
 
     @Test

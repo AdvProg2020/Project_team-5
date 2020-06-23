@@ -71,7 +71,7 @@ public class OffTest {
                 null, seller, 50000L, 4);
         Assert.assertEquals(true,off.doesHaveThisProduct(good));
         Assert.assertEquals(false,off.doesHaveThisProduct(null));
-        Assert.assertEquals(false,off.doesHaveThisProduct(good2));
+        Assert.assertEquals(true,off.doesHaveThisProduct(good2));
     }
 
     @Test
