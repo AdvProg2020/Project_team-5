@@ -376,7 +376,7 @@ public class moreTests {
         MainController.getInstance().getProductController().setGood(good);
         try {
             MainController.getInstance().getProductController().addGoodToCartGUI("hi");
-            Assert.assertEquals(4, MainController.getInstance().getAccountAreaForCustomerController().viewGoodInCartById(good.getGoodId()).size());
+            Assert.assertEquals(5, MainController.getInstance().getAccountAreaForCustomerController().viewGoodInCartById(good.getGoodId()).size());
         } catch (Exception e) {
             Assert.fail();
         }
