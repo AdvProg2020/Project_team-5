@@ -56,6 +56,7 @@ public class moreTests {
                 LocalDate.parse("2020-06-09"), LocalDate.parse("2020-07-10"), 300L, 20);
         Shop.getInstance().addDiscountCode(discountCode);
         discountCode.addCustomerToCode(customer, 4);
+        Shop.getInstance().donatePeriodRandomDiscountCodes();
         Database.getInstance().saveItem(discountCode);
         Database.getInstance().saveItem(customer);
     }
@@ -767,6 +768,7 @@ public class moreTests {
         Database.getInstance().saveItem(rate);
         Database.getInstance().saveItem(discountCode);
         Shop.getInstance().expireItemsThatTheirTimeIsFinished();
+        Shop.getInstance().removeRatesOfAGood(good);
         Assert.assertEquals(0, Shop.getInstance().getAllDiscountCodes().size());
         Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("aboots"));
         Assert.assertTrue(off.isOffExpired());
