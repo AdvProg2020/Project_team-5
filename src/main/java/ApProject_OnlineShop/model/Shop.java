@@ -431,8 +431,8 @@ public class Shop {
         for (Off off : this.getOffs()) {
             if (off.isOffExpired()) {
                 this.removeOff(off);
-                off.getSeller().getActiveOffs().remove(off);
-                // Database.getInstance().saveItem(off.getSeller());
+                off.getSeller().removeFromActiveGoods(off.getOffId());
+                Database.getInstance().saveItem(off.getSeller());
                 Database.getInstance().deleteItem(off);
             }
         }
@@ -442,7 +442,7 @@ public class Shop {
             }
             for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
                 customer.removeDiscountCode(discountCode);
-                //  Database.getInstance().saveItem(customer);
+                Database.getInstance().saveItem(customer);
             }
             Database.getInstance().deleteItem(discountCode);
         }

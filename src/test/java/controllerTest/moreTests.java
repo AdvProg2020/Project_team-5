@@ -739,6 +739,40 @@ public class moreTests {
         Assert.assertEquals(1, Shop.getInstance().getAllComments().size());
     }
 
+    @Test
+    public void deleteExpiredItemsTest() throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
+        Good good=new Good("phone", "samsung", Shop.getInstance().findSubCategoryByName("sub kabir"), "", new HashMap<>(), (Seller) Shop.getInstance().findUser("hi"), 9000L, 3);
+        Shop.getInstance().findSubCategoryByName("sub kabir").addGood(good);
+        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        Shop.getInstance().addGoodToAllGoods(good);
+        ((Seller)Shop.getInstance().findUser("hi")).addToActiveGoods(good.getGoodId());
+        Rate rate = new Rate((Customer)Shop.getInstance().findUser("customer"), good, 5);
+        Shop.getInstance().addRate(rate);
+        ArrayList<Good> offGoods = new ArrayList<>();
+        offGoods.add(good);
+        Off off = new Off(offGoods, LocalDate.parse("2020-06-10"), LocalDate.parse("2020-06-20"), 60000L, 30, (Seller) Shop.getInstance().findUser("hi"));
+        Shop.getInstance().addOff(off);
+        ((Seller)Shop.getInstance().findUser("hi")).addOff(off.getOffId());
+        off.setOffStatus(Off.OffStatus.ACCEPTED);
+        DiscountCode discountCode = Shop.getInstance().findDiscountCode("fuckingDiscount");
+        discountCode.setStartDate(LocalDate.parse("2020-06-10"));
+        discountCode.setEndDate(LocalDate.parse("2020-06-18"));
+        Database.getInstance().saveItem(good);
+        Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), good.getGoodId());
+        Database.getInstance().saveItem(off);
+        Database.getInstance().saveItem(Shop.getInstance().findCategoryByName("aboots"));
+        Database.getInstance().saveItem(Shop.getInstance().findSubCategoryByName("sub kabir"));
+        Database.getInstance().saveItem(Shop.getInstance().findUser("hi"));
+        Database.getInstance().saveItem(Shop.getInstance().findUser("customer"));
+        Database.getInstance().saveItem(rate);
+        Database.getInstance().saveItem(discountCode);
+        Shop.getInstance().expireItemsThatTheirTimeIsFinished();
+        Assert.assertEquals(0, Shop.getInstance().getAllDiscountCodes().size());
+        Shop.getInstance().removeCategory(Shop.getInstance().findCategoryByName("aboots"));
+        //Database.getInstance().deleteItem(Shop.getInstance().findUser("hi"));
+        Database.getInstance().deleteItem(Shop.getInstance().findUser("customer"));
+    }
+
     @After
     public void terminate() {
         TestShop.clearShop();
