@@ -86,8 +86,7 @@ public class DeletingData {
             filePath = "Test".concat(filePath);
         deleteFile(filePath);
         if (!testMode)
-            deleteFile("Resources\\productImages\\" + good.getGoodId() + ".png");
-        Database.getInstance().saveItem(good.getSubCategory());
+            deleteFile("Resources\\productImages\\" + good.getGoodId() + ".jpg");
         for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
             deleteProductInfo(infoAboutGood, good.getGoodId());
             infoAboutGood.getSeller().removeFromActiveGoods(good.getGoodId());

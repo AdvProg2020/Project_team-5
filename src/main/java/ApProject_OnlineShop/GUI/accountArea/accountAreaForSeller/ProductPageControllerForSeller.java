@@ -207,8 +207,6 @@ public class ProductPageControllerForSeller extends FxmlController implements In
         if (result.get() == ButtonType.OK) {
             try {
                 MainController.getInstance().getAccountAreaForSellerController().removeProduct(productId);
-                File file = new File("Resources\\productImages\\" + productId + ".jpg");
-                file.delete();
                 setScene("manageProductsForSeller.fxml", "manage products");
             } catch (ProductNotFoundExceptionForSeller e) {
                 ErrorPageFxController.showPage("can not remove this product", e.getMessage());

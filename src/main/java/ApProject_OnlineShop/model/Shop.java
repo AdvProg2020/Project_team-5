@@ -152,6 +152,7 @@ public class Shop {
 
     public void removeProduct(Good good) throws IOException, FileCantBeSavedException {
         good.getSubCategory().deleteGood(good);
+        allGoods.remove(good.getGoodId());
     }
 
     public void removeRatesOfAGood(Good good) throws FileCantBeSavedException, IOException, FileCantBeDeletedException {
