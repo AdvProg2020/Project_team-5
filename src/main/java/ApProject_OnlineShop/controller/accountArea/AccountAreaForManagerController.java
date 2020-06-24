@@ -20,6 +20,7 @@ import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.requests.Request;
 
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeCantCreatedException("number of use");
         }
         discountCode.addCustomerToCode((Customer) person, number);
-        Customer customer= (Customer) person;
+        Customer customer = (Customer) person;
         Database.getInstance().saveItem(discountCode);
         Database.getInstance().saveItem(customer);
     }
@@ -80,7 +81,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if (input == 1)
             discountCodes = MainController.getInstance().getSortController().
                     sortByDiscountPercent(Shop.getInstance().getAllDiscountCodes());
-        if(input ==2)
+        if (input == 2)
             discountCodes = MainController.getInstance().getSortController().
                     sortByEndDate(Shop.getInstance().getAllDiscountCodes());
         if (input == 3)
@@ -332,6 +333,10 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Shop.getInstance().removeRatesOfAGood(good);
         Shop.getInstance().removeGoodFromAllGoods(good);
         Database.getInstance().deleteItem(good);
+        Database.getInstance().saveItem(good.getSubCategory());
+        for (SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+            Database.getInstance().saveItem(sellerRelatedInfoAboutGood.getSeller());
+        }
     }
 
     public List<String> getAllCategoriesName() {

@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -84,6 +85,9 @@ public class ManageAllUsersPageController extends FxmlController implements Init
         if (result.get() == ButtonType.OK) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeUser(selectedUsername);
+                File file = new File("Resources\\UserImages\\" + selectedUsername + ".jpg");
+                if (file.exists())
+                    file.delete();
                 this.selectedUsername = "";
                 updateTableView(Shop.getInstance().getAllPersons());
                 removeButton.setDisable(true);

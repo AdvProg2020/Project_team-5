@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -50,6 +51,8 @@ public class ManageAllProductsPageController extends FxmlController implements I
         if (result.get() == ButtonType.OK) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeProduct("" + selectedGoodId);
+                File file = new File("Resources\\productImages\\" + selectedGoodId + ".jpg");
+                file.delete();
                 name.setText("");
                 id.setText("");
                 updatePage();
@@ -81,7 +84,7 @@ public class ManageAllProductsPageController extends FxmlController implements I
         List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
         int num = 0;
         int row = 0;
-        int size1 ;
+        int size1;
         if (productIds.size() % 3 == 0) {
             size1 = productIds.size() * 250 / 3;
         } else {

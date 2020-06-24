@@ -271,8 +271,6 @@
             </children></VBox>
       </children>
    </GridPane>
-   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
     <padding>
         <Insets left="10.0" />
     </padding>

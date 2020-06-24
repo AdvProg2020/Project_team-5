@@ -35,6 +35,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -206,6 +207,8 @@ public class ProductPageControllerForSeller extends FxmlController implements In
         if (result.get() == ButtonType.OK) {
             try {
                 MainController.getInstance().getAccountAreaForSellerController().removeProduct(productId);
+                File file = new File("Resources\\productImages\\" + productId + ".jpg");
+                file.delete();
                 setScene("manageProductsForSeller.fxml", "manage products");
             } catch (ProductNotFoundExceptionForSeller e) {
                 ErrorPageFxController.showPage("can not remove this product", e.getMessage());
@@ -244,7 +247,7 @@ public class ProductPageControllerForSeller extends FxmlController implements In
 
     public void showComments(ActionEvent actionEvent) {
         CommentsPage.setGoodId(productId);
-        CommentsPage.setPathBack("productPageEditableForSeller.fxml","product page for seller");
+        CommentsPage.setPathBack("productPageEditableForSeller.fxml", "product page for seller");
         setScene("commentsPage.fxml", "comments");
     }
 }
