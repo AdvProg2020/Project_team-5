@@ -331,12 +331,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new ProductWithThisIdNotExist();
         Shop.getInstance().removeProductsFromOffs(good);
         Shop.getInstance().removeRatesOfAGood(good);
-        Shop.getInstance().removeGoodFromAllGoods(good);
         Database.getInstance().deleteItem(good);
-        Database.getInstance().saveItem(good.getSubCategory());
-        for (SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
-            Database.getInstance().saveItem(sellerRelatedInfoAboutGood.getSeller());
-        }
     }
 
     public List<String> getAllCategoriesName() {

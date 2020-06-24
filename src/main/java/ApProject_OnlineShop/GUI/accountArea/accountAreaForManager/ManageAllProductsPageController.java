@@ -51,8 +51,6 @@ public class ManageAllProductsPageController extends FxmlController implements I
         if (result.get() == ButtonType.OK) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeProduct("" + selectedGoodId);
-                File file = new File("Resources\\productImages\\" + selectedGoodId + ".jpg");
-                file.delete();
                 name.setText("");
                 id.setText("");
                 updatePage();
