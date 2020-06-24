@@ -36,16 +36,13 @@ public class RegisterControllerPart2 extends FxmlController {
     }
 
     public void registerButtonPressed(ActionEvent actionEvent) {
-        if (selectedFile == null) {
-            ErrorPageFxController.showPage("can not register", "you should select photo");
-            return;
-        }
         try {
             MainController.getInstance().getLoginRegisterController().createAccount
                     (role, userName, details);
             SuccessPageFxController.showPage("Register was successful",
                     "you registered successfully");
-            copyPhoto();
+            if (selectedFile != null)
+                copyPhoto();
             setScene("login.fxml", "Login");
         } catch (UsernameIsTakenAlreadyException | FileCantBeSavedException | MainManagerAlreadyRegistered | IOException e) {
             ErrorPageFxController.showPage("Error for registering", e.getMessage());
