@@ -9,9 +9,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -25,11 +30,17 @@ public class AccountAreaForSellerController extends FxmlController implements In
     public Label balance;
     private static String pathBack;
     private static String titleBack;
+    public ImageView photo;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playMusicBackGround(false, false, true);
         ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForSellerController().getUserPersonalInfo();
+        Image image = new Image(Paths.get("Resources/UserImages/" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg").toUri().toString());
+        File file = new File("Resources\\UserImages\\" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg");
+        if (!file.exists())
+            image = new Image(Paths.get("Resources/UserImages/default1.jpg").toUri().toString());
+        photo.setImage(image);
         userName.setText(personalInfo.get(0));
         name.setText(personalInfo.get(1));
         lastName.setText(personalInfo.get(2));
