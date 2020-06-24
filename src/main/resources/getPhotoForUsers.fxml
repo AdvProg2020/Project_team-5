@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" prefHeight="494.0" prefWidth="638.0" styleClass="mainLayout" stylesheets="@./styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.loginRegister.RegisterController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="188.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="511.4" minWidth="10.0" prefWidth="344.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="188.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="93.2" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="470.80000000000007" minHeight="10.0" prefHeight="423.2" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="424.3999961853027" minHeight="10.0" prefHeight="14.799999999999955" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="450.0" prefWidth="355.0" styleClass="backgroundStyle" stylesheets="@./styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <children>
+                <Label alignment="CENTER" prefHeight="50.0" prefWidth="196.0" text="select photo">
+                    <font>
+                        <Font name="Times New Roman" size="23.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                    </padding>
+                </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Label" />
+               </children></HBox>
+                <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#loginButtonPressed" prefHeight="30.0" prefWidth="132.0" styleClass="buttonsStyle" stylesheets="@./styelsheets/baseStyles.css" text="login">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="25.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <opaqueInsets>
+                <Insets top="1.0" />
+            </opaqueInsets>
+            <padding>
+                <Insets bottom="25.0" />
+            </padding>
+        </VBox>
+        <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonAction" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0" GridPane.halignment="RIGHT">
+            <graphic>
+                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@pictures/icons8-back-to-48.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
+</GridPane>
