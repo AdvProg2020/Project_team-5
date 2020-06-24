@@ -11,6 +11,7 @@ open module ApProject.OnlineShop {
     requires java.naming;
     requires java.persistence;
     requires org.hibernate.orm.core;
+    requires org.hibernate.commons.annotations;
     requires java.xml.bind;
     requires net.bytebuddy;
     /*
