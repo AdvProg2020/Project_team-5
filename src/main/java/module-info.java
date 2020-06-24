@@ -8,6 +8,11 @@ open module ApProject.OnlineShop {
     requires java.desktop;
     requires javafx.media;
     requires java.sql;
+    requires java.naming;
+    requires java.persistence;
+    requires org.hibernate.orm.core;
+    requires java.xml.bind;
+    requires net.bytebuddy;
     /*
     opens ApProject_OnlineShop;
     opens ApProject_OnlineShop.GUI;
