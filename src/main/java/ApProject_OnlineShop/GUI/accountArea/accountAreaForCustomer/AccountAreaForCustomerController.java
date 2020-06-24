@@ -18,7 +18,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class AccountAreaForCustomerController extends FxmlController implements Initializable {
@@ -28,6 +30,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     public Label email;
     public Label phoneNumber;
     public Label credit;
+    public ImageView photo;
     private ViewOrders viewOrders = new ViewOrders(this);
     private Styles style = new Styles();
     private static String pathBack;
@@ -37,6 +40,11 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playMusicBackGround(false, false, true);
         ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForCustomerController().getUserPersonalInfo();
+        Image image = new Image(Paths.get("Resources/UserImages/" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg").toUri().toString());
+        File file = new File("Resources\\UserImages\\" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg");
+        if (!file.exists())
+            image = new Image(Paths.get("Resources/UserImages/default1.jpg").toUri().toString());
+        photo.setImage(image);
         userName.setText(personalInfo.get(0));
         name.setText(personalInfo.get(1));
         lastName.setText(personalInfo.get(2));
