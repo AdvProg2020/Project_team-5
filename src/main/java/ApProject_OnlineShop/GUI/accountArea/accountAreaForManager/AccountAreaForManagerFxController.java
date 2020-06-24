@@ -11,14 +11,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AccountAreaForManagerFxController extends FxmlController implements Initializable {
+    public ImageView photo;
     @FXML
     private Label userName;
     @FXML
@@ -74,6 +79,11 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     public void initialize(URL location, ResourceBundle resources) {
         playMusicBackGround(false, false, true);
         ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForManagerController().getUserPersonalInfo();
+        Image image = new Image(Paths.get("Resources/UserImages/" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg").toUri().toString());
+        File file = new File("Resources\\UserImages\\" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg");
+        if (!file.exists())
+            image = new Image(Paths.get("Resources/UserImages/default1.jpg").toUri().toString());
+        photo.setImage(image);
         userName.setText(personalInfo.get(0));
         name.setText(personalInfo.get(1));
         lastName.setText(personalInfo.get(2));
