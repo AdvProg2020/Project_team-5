@@ -265,7 +265,10 @@
                   <Insets />
               </GridPane.margin>
           </VBox>
-         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="151.0" styleClass="backgroundStyle" GridPane.columnIndex="1" GridPane.valignment="TOP" />
+         <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="151.0" styleClass="backgroundStyle" GridPane.columnIndex="1" GridPane.valignment="TOP">
+            <children>
+               <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+            </children></VBox>
       </children>
    </GridPane>
    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
