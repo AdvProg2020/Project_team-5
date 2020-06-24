@@ -134,7 +134,7 @@
                         <Font size="14.0" />
                     </font>
                 </TextField>
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#RegisterForSellerPressed" prefHeight="40.0" prefWidth="113.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="register">
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#RegisterForSellerPressed" prefHeight="40.0" prefWidth="113.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="next">
                     <VBox.margin>
                         <Insets bottom="20.0" top="20.0" />
                     </VBox.margin>

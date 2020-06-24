@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.database;
 
-import com.gilecode.yagson.YaGson;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -35,6 +34,12 @@ public class LoadingData {
         if (!file.exists())
             file.mkdir();
         file = new File("Resources\\Orders");
+        if (!file.exists())
+            file.mkdir();
+        file = new File("Resources\\UserImages");
+        if (!file.exists())
+            file.mkdir();
+        file = new File("Resources\\productImages");
         if (!file.exists())
             file.mkdir();
     }
