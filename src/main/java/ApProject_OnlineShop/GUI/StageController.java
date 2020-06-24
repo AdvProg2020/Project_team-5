@@ -41,7 +41,6 @@ public class StageController {
         stage.setTitle("Shop");
         stage.setScene(new Scene(root, 1000, 800));
         stage.getIcons().add(new Image(getClass().getClassLoader().getResource("pictures/iconcopy.png").toString()));
-        //       stage.setMaximized(true);
         stage.show();
     }
 

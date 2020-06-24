@@ -172,8 +172,6 @@ public class ControllerForFiltering {
     }
 
     public List<String> getProperties() throws Exception {
-//        if (filteredCategory == null)
-//            throw new HaveNotChosenCategoryFilter();
         return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
     }
 

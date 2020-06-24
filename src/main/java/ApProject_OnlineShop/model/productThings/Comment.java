@@ -28,10 +28,6 @@ public class Comment {
         this.commentStatus = CommentStatus.INPROGRESS;
     }
 
-    public static long getCommentIdCounter() {
-        return commentIdCounter;
-    }
-
     public Person getPerson() {
         return Shop.getInstance().findUser(person);
     }

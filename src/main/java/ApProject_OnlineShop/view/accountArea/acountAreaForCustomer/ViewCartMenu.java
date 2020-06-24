@@ -52,14 +52,6 @@ public class ViewCartMenu extends Menu {
     }
 
     private void showProducts() {
-//        List<String> cart = MainController.getInstance().getAccountAreaForCustomerController().viewInCartProducts();
-//        if (cart.size() == 0)
-//            System.out.println("cart is empty!");
-//        else {
-//            for (String good : cart) {
-//                System.out.println(good);
-//            }
-//        }
     }
 
     private void showASpecialProduct() {

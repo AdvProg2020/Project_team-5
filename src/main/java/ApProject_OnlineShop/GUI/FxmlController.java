@@ -32,7 +32,6 @@ public class FxmlController {
         }
         stage.setTitle(title);
         stage.setScene(new Scene(rootParent, 1000, 800));
-        // stage.setMaximized(true);
         stage.show();
     }
 

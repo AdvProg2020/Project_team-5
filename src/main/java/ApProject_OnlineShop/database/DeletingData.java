@@ -150,17 +150,6 @@ public class DeletingData {
         String filePath = "Resources\\Categories\\" + category.getName() + ".json";
         if (testMode)
             filePath = "Test".concat(filePath);
-        //List<String> subCategoryNames = category.getSubCategories().stream().map(SubCategory::getName).collect(Collectors.toList());
-        /*
-        category.getSubCategories().forEach((s) -> {
-            try {
-                deleteSubCategory(s);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-         */
 
         for (SubCategory subCategory : category.getSubCategories()) {
             try {

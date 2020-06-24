@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.controller.accountArea;
 
-import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.productExceptions.FieldCantBeEditedException;
@@ -9,9 +8,7 @@ import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.persons.Customer;
-import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
-import ApProject_OnlineShop.model.persons.Seller;
 
 import java.util.ArrayList;
 import java.util.Collections;
