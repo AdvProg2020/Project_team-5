@@ -81,9 +81,9 @@ public class AccountAreaForCustomerTest {
         } catch (Exception e) {
             assertFalse(false);
         }
-        assertEquals(0, customer.getPreviousOrders().size());
-        assertEquals(3, good.getAvailableNumberBySeller(seller));
-        assertTrue(customer.getCredit() == 90000L);
+        assertEquals(1, customer.getPreviousOrders().size());
+        assertEquals(0, good.getAvailableNumberBySeller(seller));
+        assertTrue(customer.getCredit() != 90000L);
         if (controller.hasBuyProduct(good.getGoodId())) {
             try {
                 controller.rateProduct(good.getGoodId(), 8);

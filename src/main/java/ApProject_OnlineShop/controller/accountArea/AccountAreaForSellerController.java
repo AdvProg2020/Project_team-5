@@ -248,7 +248,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
     }
 
     public List<Long> viewProducts(int chosenSort){
-        return sort(chosenSort).stream().map(good -> good.getGoodId()).collect(Collectors.toList());
+        return sort(chosenSort).stream().map(Good::getGoodId).collect(Collectors.toList());
     }
 
     public boolean isInOff(long productId){

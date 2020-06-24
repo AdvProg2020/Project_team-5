@@ -12,6 +12,7 @@ import ApProject_OnlineShop.model.productThings.Good;
 import org.junit.*;
 import ApProject_OnlineShop.testThings.TestShop;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -62,7 +63,20 @@ public class AllProductsControllerTest {
 
     @Test
     public void showProducts(){
-        String output="";
+        String output="------------------------------------\n" +
+                "GoodId = 0\n" +
+                "name = phone\n" +
+                "goodStatus = BUILTPROCESSING\n" +
+                "brand = samsung\n" +
+                "average rate = 0.0\n" +
+                "category = aboots\n" +
+                "subcategory = sub kabir\n" +
+                "sellers = 1- seller = hi\tprice = 9000\tavailableNumber = 3\n" +
+                "details =\n" +
+                "\n" +
+                "modification date = "+ LocalDate.now().toString() + "\n" +
+                "seen number = 0\n" +
+                "------------------------------------";
         Assert.assertEquals(output,MainController.getInstance().getAllProductsController().showProducts());
     }
 

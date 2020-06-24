@@ -49,6 +49,8 @@ public class Seller extends Person {
         this.activeGoodsIds.remove(id);
     }
 
+    public void removeFromActiveOffs(long id) { this.activeOffsIds.remove(id); }
+
     public ArrayList<Off> getActiveOffs() {
         ArrayList<Off> offs=new ArrayList<>();
         for (Long offsId : this.activeOffsIds) {

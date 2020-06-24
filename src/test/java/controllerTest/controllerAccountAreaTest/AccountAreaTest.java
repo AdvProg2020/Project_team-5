@@ -11,10 +11,7 @@ import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import ApProject_OnlineShop.testThings.TestShop;
 
 import java.time.LocalDate;
@@ -22,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountAreaTest {
-    @BeforeClass
-    public static void initializeVariables() {
+    @Before
+    public  void initializeVariables() {
         Database.getInstance().loadTestFolders();
         ArrayList<String> details = new ArrayList<>();
         details.add("ram");
@@ -31,6 +28,7 @@ public class AccountAreaTest {
         Category category = new Category("laptop", details);
         SubCategory subCategory = new SubCategory("lenovo", details);
         category.addSubCategory(subCategory);
+        subCategory.setParentCategory(category);
         Shop.getInstance().addCategory(category);
         category.addSubCategory(subCategory);
         Manager manager = new Manager("aboot", "aboot", "aboot", "dfdf@dfdf.sd", "23232323232", "Mdf2");
@@ -71,7 +69,7 @@ public class AccountAreaTest {
         orders.add(new OrderForSeller(3000, seller, "dfddf", null));
         orders.add(new OrderForSeller(4323, seller, "dfddf", null));
         list = MainController.getInstance().getAccountAreaForSellerController().getSortedOrders(2, orders);
-        String output = "[order ID: 1   \t date : 2020-06-19, order ID: 2   \t date : 2020-06-19]";
+        String output = "[order ID: 1   \t date : "+ LocalDate.now().toString()+", order ID: 2   \t date : "+ LocalDate.now().toString() +"]";
         Assert.assertEquals(output, list.toString());
     }
 

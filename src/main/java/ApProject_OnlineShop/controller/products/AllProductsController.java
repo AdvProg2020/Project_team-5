@@ -67,7 +67,7 @@ public class AllProductsController {
 
     public List<Long> getGoods(){
         return MainController.getInstance().getControllerForSorting().showProducts(MainController.getInstance().getControllerForFiltering().showProducts()).
-                stream().map(good -> good.getGoodId()).collect(Collectors.toList());
+                stream().map(Good::getGoodId).collect(Collectors.toList());
     }
 
     public boolean isInOff(long goodId){
