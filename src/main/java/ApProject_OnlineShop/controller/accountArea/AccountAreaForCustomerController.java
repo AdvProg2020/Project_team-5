@@ -217,6 +217,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
     }
 
+
     public List<Long> getBoughtProducts() {
         ArrayList<OrderForCustomer> orders = ((Customer) MainController.getInstance().getCurrentPerson()).getPreviousOrders();
         ArrayList<Long> goods = new ArrayList<>();

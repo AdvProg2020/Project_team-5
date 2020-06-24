@@ -73,7 +73,11 @@ public class ViewOrders extends FxmlController {
         StageController.setSceneJavaFx(root);
     }
 
-    public void viewSingleOrder(String orderString) {
+    public void viewSingleOrder(String orderString){
+        StageController.setSceneJavaFx(makeGridPane(orderString));
+    }
+
+    public GridPane makeGridPane(String orderString) {
         playButtonMusic();
         int index = orderString.indexOf("  ");
         String code = orderString.substring("order ID: ".length(), index);
@@ -90,7 +94,7 @@ public class ViewOrders extends FxmlController {
         style.setVBoxStyle(vBox);
         root.add(vBox, 1, 2);
         root.getChildren().get(0).setOnMouseClicked(e -> viewSortedOrders(0));
-        StageController.setSceneJavaFx(root);
+        return root;
     }
 
     public void addDetailsToVBox(List<String> orderDetails, VBox vBox) {
