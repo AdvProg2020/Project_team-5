@@ -42,10 +42,6 @@ public abstract class Person {
         this.lastName = lastName;
     }
 
-    public String getRole() {
-        return role;
-    }
-
     public void setRole() {
         this.role = this.getClass().getSimpleName();
     }

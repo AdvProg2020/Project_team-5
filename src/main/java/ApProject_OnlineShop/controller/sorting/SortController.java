@@ -63,8 +63,6 @@ public class SortController {
 
     public List<Good> sortProductsByPrice(List<Good> goods) {
         Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
-//        goods.sort((Good firstGood, Good secondGood) ->
-//                (int) (secondGood.getPriceBySeller(seller) - firstGood.getPriceBySeller(seller)));
         goods.sort((Good firstGood, Good secondGood) ->
                 (int) (Shop.getInstance().getFinalPriceOfAGood(secondGood, seller) - (Shop.getInstance().getFinalPriceOfAGood(firstGood, seller))));
         return goods;

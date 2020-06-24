@@ -54,5 +54,6 @@ public class LoginRegisterController {
 
     public void logoutUser() {
         MainController.getInstance().setCurrentPerson(null);
+        MainController.getInstance().getControllerForFiltering().clearAllFilters();
     }
 }

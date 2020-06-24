@@ -36,13 +36,6 @@ public class ViewOrders extends FxmlController {
         topic.setPadding(new Insets(13));
         GridPane.setHalignment(topic, HPos.CENTER);
         root.add(topic, 1, 1);
-//        Image shoppingBag = new Image(getClass().getClassLoader().getResource("pictures/shoppingBag.png").toString());
-//        ImageView shoppingBagImageView = new ImageView(shoppingBag);
-//        shoppingBagImageView.setFitHeight(80);
-//        shoppingBagImageView.setFitWidth(60);
-//        shoppingBagImageView.setCursor(Cursor.HAND);
-//        root.add(shoppingBagImageView,2,2);
-//        GridPane.setValignment(shoppingBagImageView,VPos.TOP);
         VBox vBox = new VBox();
         ScrollPane scrollPane = new ScrollPane(vBox);
         scrollPane.setPrefWidth(430);

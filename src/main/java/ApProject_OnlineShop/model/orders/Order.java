@@ -44,10 +44,6 @@ public abstract class Order {
         Order.ordersCount = ordersCount;
     }
 
-    public static long getOrdersCount() {
-        return ordersCount;
-    }
-
     public String briefString(){
         return "order ID: " + getOrderId() +"   \t date : " + getDate();
     }

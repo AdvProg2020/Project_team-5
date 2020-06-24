@@ -1,14 +1,7 @@
 package ApProject_OnlineShop.controller.sortingAndFilteringForProducts;
 
-import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFound;
-import ApProject_OnlineShop.exception.categoryExceptions.FilteredCategoryAlreadyChosen;
-import ApProject_OnlineShop.exception.categoryExceptions.HaveNotChosenCategoryFilter;
-import ApProject_OnlineShop.exception.categoryExceptions.SubcategoryNotFoundInThisCategory;
-import ApProject_OnlineShop.exception.userExceptions.SellerNotFound;
+
 import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.category.Category;
-import ApProject_OnlineShop.model.category.SubCategory;
-import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 
@@ -149,13 +142,13 @@ public class ControllerForFiltering {
             }
     }
 
-    public String getStartPrice(){
+    public String getStartPrice() {
         if (binaryFilters.size() > 0)
             return binaryFilters.get(0).getStartValue();
         return "";
     }
 
-    public String getEndPrice(){
+    public String getEndPrice() {
         if (binaryFilters.size() > 0)
             return binaryFilters.get(0).getEndValue();
         return "";
@@ -179,8 +172,6 @@ public class ControllerForFiltering {
     }
 
     public List<String> getProperties() throws Exception {
-//        if (filteredCategory == null)
-//            throw new HaveNotChosenCategoryFilter();
         return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
     }
 
@@ -190,17 +181,17 @@ public class ControllerForFiltering {
         category = "";
     }
 
-    public List<String> getSubcategories(){
+    public List<String> getSubcategories() {
         if (!getCategory().equals(""))
             return Shop.getInstance().findCategoryByName(getCategory()).getSubCategories().stream().map(subcategory -> subcategory.getName()).collect(Collectors.toList());
         return null;
     }
 
-    public void disableSubcategoryFilter(){
+    public void disableSubcategoryFilter() {
         subCategory = "";
     }
 
-    public List<String> getCategoryProperties(){
+    public List<String> getCategoryProperties() {
         return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
     }
 
@@ -230,31 +221,43 @@ public class ControllerForFiltering {
         return goods;
     }
 
-    public List<String> getSubCategoryProperties(){
+    public List<String> getSubCategoryProperties() {
         if (!getSubCategory().equals(""))
             return Shop.getInstance().findSubCategoryByName(getSubCategory()).getDetails();
         return null;
     }
 
-    public String getValueOfProperty(String property){
+    public String getValueOfProperty(String property) {
         if (categoryProperties.containsKey(property))
             return categoryProperties.get(property);
         return "";
     }
 
-    public void addPropertiesFilter(String property,String value){
+    public void addPropertiesFilter(String property, String value) {
         if (categoryProperties.containsKey(property))
-            categoryProperties.replace(property,value);
+            categoryProperties.replace(property, value);
         else
             categoryProperties.put(property, value);
     }
 
-    public void removeProperty(String property){
+    public void removeProperty(String property) {
         if (categoryProperties.containsKey(property))
             categoryProperties.remove(property);
     }
 
     public void removeAvailableProductsFilter() {
         this.availableProduct = false;
+    }
+
+    public void clearAllFilters() {
+        categoryProperties.clear();
+        binaryFilters.clear();
+        availableProduct = false;
+        offProductsFilter = false;
+        category = "";
+        subCategory = "";
+        brand = "";
+        seller = "";
+        name = "";
     }
 }
