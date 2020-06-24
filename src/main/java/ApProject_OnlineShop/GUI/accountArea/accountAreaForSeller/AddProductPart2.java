@@ -121,6 +121,9 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         if (!file.exists())
             file.mkdir();
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter png = new FileChooser.ExtensionFilter("png", "*.png");
+        FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("jpg", "*.jpg");
+        fileChooser.getExtensionFilters().addAll(png,jpg);
         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
         path = "./Resources/productImages/" + Good.getGoodsCount() + ".jpg";
         BufferedImage bi = null;
