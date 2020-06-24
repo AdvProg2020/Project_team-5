@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="494.0" prefWidth="638.0" styleClass="mainLayout" stylesheets="@./styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.loginRegister.RegisterController">
+<GridPane alignment="CENTER" prefHeight="494.0" prefWidth="638.0" styleClass="mainLayout" stylesheets="@./styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.loginRegister.RegisterControllerPart2">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="188.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="511.4" minWidth="10.0" prefWidth="344.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="188.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="93.2" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="200" minHeight="10.0" prefHeight="200" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="470.80000000000007" minHeight="10.0" prefHeight="423.2" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="424.3999961853027" minHeight="10.0" prefHeight="14.799999999999955" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="200" minHeight="10.0" prefHeight="200" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="450.0" prefWidth="355.0" styleClass="backgroundStyle" stylesheets="@./styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefHeight="300.0" prefWidth="355.0" styleClass="backgroundStyle" stylesheets="@./styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <children>
                 <Label alignment="CENTER" prefHeight="50.0" prefWidth="196.0" text="select photo">
                     <font>
@@ -29,13 +29,31 @@
                         <Insets bottom="10.0" top="10.0" />
                     </padding>
                 </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Label" />
-               </children></HBox>
-                <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#loginButtonPressed" prefHeight="30.0" prefWidth="132.0" styleClass="buttonsStyle" stylesheets="@./styelsheets/baseStyles.css" text="login">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label prefHeight="44.0" prefWidth="173.0" text="image :">
+                            <font>
+                                <Font name="Times New Roman" size="16.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding></Label>
+                        <Button mnemonicParsing="false" onAction="#onSelectPhoto" prefHeight="1.0" prefWidth="96.0" styleClass="menuButtons" text="select" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <Button mnemonicParsing="false" onAction="#registerButtonPressed" prefHeight="30.0" prefWidth="132.0" styleClass="buttonsStyle" stylesheets="@./styelsheets/baseStyles.css" text="Register">
                     <VBox.margin>
-                        <Insets bottom="10.0" top="25.0" />
+                        <Insets bottom="20.0" top="60.0" />
                     </VBox.margin>
                 </Button>
             </children>
