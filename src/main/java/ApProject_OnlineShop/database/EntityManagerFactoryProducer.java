@@ -8,7 +8,7 @@ public class EntityManagerFactoryProducer {
 
     public static EntityManagerFactory getInstanceOfEntityManagerFactory() {
         if (entityManagerFactory == null)
-            Persistence.createEntityManagerFactory("Project_team-5");
+            entityManagerFactory = Persistence.createEntityManagerFactory("Project_team-5");
         return entityManagerFactory;
     }
 
