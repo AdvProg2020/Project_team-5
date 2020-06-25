@@ -77,6 +77,9 @@ public class RegisterControllerPart2 extends FxmlController {
         if (!file.exists())
             file.mkdir();
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter png = new FileChooser.ExtensionFilter("png", "*.png");
+        FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("jpg", "*.jpg");
+        fileChooser.getExtensionFilters().addAll(png,jpg);
         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
         path = "./Resources/UserImages/" + userName + ".jpg";
     }
