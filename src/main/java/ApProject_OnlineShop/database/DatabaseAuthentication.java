@@ -1,25 +1,37 @@
 package ApProject_OnlineShop.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 public class DatabaseAuthentication {
     public static void createConnection() {
-        Connection connection;
-        String connectionUrl = "jdbc:mysql://192.168.43.236\\MSSQLSERVER:1433;databaseName=AdventureWorks2017;user=sa;password=1051380";
+        EntityManagerFactoryProducer.closeEntityManagerFactory();
+    }
+
+    private void addCustomer(int id, String username) {
+        EntityManager entityManagerProducer = EntityManagerProducer.getInstanceOfEntityManager();
+        EntityTransaction entityTransaction = null;
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(connectionUrl);
-            Statement stmt = connection.createStatement();
-            String SQL = "SELECT * FROM Production.Product ORDER BY ProductID DESC";
-            ResultSet rs = stmt.executeQuery(SQL);
-            while (rs.next()) {
-                System.out.println(rs.getString("ProductID") + " " + rs.getString("Name"));
-            }
-        } catch ( Exception e ) {
+            entityTransaction = entityManagerProducer.getTransaction();
+            entityTransaction.begin();
+            Student student = new Student(id, username);
+            entityManagerProducer.persist(student);
+            entityTransaction.commit();
+        } catch (Exception e) {
+            if (entityTransaction != null)
+                entityTransaction.rollback();
             e.printStackTrace();
+        } finally {
+            entityManagerProducer.close();
         }
+    }
+
+    private void getCustomer(int id) {
+        EntityManager entityManagerProducer = EntityManagerProducer.getInstanceOfEntityManager();
+        EntityTransaction entityTransaction = null;
+        String query = "SELECT c FROM testCustomer WHERE c.customerID = :custID";
+        TypedQuery<Student> typedQuery = entityManagerProducer.createQuery(query, Student.class);
+        typedQuery.setParameter("custID", id);
     }
 }
