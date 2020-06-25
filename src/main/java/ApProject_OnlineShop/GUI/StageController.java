@@ -1,10 +1,6 @@
 package ApProject_OnlineShop.GUI;
 
-import ApProject_OnlineShop.GUI.productPageRelated.ProductPage;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.controller.products.ProductController;
 import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.persons.Seller;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,7 +30,10 @@ public class StageController {
         });
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("mainMenuLayout.fxml")));
+            if (Shop.getInstance().getAllPersons().size() == 0) {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("registerManager.fxml")));
+            } else
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("mainMenuLayout.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
