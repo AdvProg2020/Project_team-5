@@ -223,12 +223,12 @@ public class Good {
     public Seller getSellerThatPutsThisGoodOnOff() {
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : getSellerRelatedInfoAboutGoods()) {
             for (Off off : relatedInfoAboutGood.getSeller().getActiveOffs()) {
-                if (off.getOffGoods().contains(this))
+                if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDate.now()))
                     return relatedInfoAboutGood.getSeller();
             }
         }
         for (Off off : Shop.getInstance().getOffs()) {
-            if (off.getOffGoods().contains(this))
+            if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDate.now()))
                 return off.getSeller();
         }
         return null;
