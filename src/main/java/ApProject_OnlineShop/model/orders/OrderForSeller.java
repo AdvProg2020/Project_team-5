@@ -92,6 +92,7 @@ public class OrderForSeller extends Order {
         }
         orderDetails.add(goods);
         orderDetails.add("" + getOffDeduct());
+        orderDetails.add("" + getPrice());
         orderDetails.add(getOrderStatus().toString());
         return orderDetails;
     }
