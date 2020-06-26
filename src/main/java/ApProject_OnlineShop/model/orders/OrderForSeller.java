@@ -87,10 +87,12 @@ public class OrderForSeller extends Order {
         orderDetails.add(getDate().toString());
         String goods = "";
         for (Long id : numberPerGood.keySet()) {
-            goods += "- " + "name: " + Shop.getInstance().findGoodById(id).getName() + "   \t brand: " + Shop.getInstance().findGoodById(id).getBrand() + "   \t number: " + numberPerGood.get(id);
+            goods += "- " + "name: " + Shop.getInstance().findGoodById(id).getName() +  "   \t number: " + numberPerGood.get(id) + "   \t final price: "
+                    + Shop.getInstance().getFinalPriceOfAGood(Shop.getInstance().findGoodById(id), (Seller) Shop.getInstance().findUser(seller));
         }
         orderDetails.add(goods);
         orderDetails.add("" + getOffDeduct());
+        orderDetails.add("" + getPrice());
         orderDetails.add(getOrderStatus().toString());
         return orderDetails;
     }

@@ -17,7 +17,7 @@ import java.util.Optional;
 public class Styles extends FxmlController{
     public void setTextFont(Label text) {
         text.setFont(Font.font("Times New Roman", 16));
-        text.setPadding(new Insets(20));
+        text.setPadding(new Insets(15));
         GridPane.setHalignment(text, HPos.CENTER);
     }
     public void setMenuButtonStyle(MenuButton menuButton) {

@@ -82,6 +82,7 @@ public class OrderForCustomer extends Order {
         }
         orderDetails.add(goods);
         orderDetails.add("" + getDiscountAmount());
+        orderDetails.add("" + getPrice());
         orderDetails.add(postCode);
         orderDetails.add(getAddress());
         orderDetails.add(getPhoneNumber());
