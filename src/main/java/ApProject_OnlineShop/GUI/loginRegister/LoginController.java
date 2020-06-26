@@ -59,14 +59,12 @@ public class LoginController extends FxmlController {
     }
 
     public void goToRegisterMenu(ActionEvent actionEvent) {
-        String choices[] = {"Manager", "Seller", "Customer"};
-        ChoiceDialog dialog = new ChoiceDialog(choices[2], choices);
+        String choices[] = {"Seller", "Customer"};
+        ChoiceDialog dialog = new ChoiceDialog(choices[0], choices);
         dialog.setHeaderText("choice role");
         dialog.setContentText("choice your role that you want to register!");
         dialog.showAndWait();
-        if (dialog.getSelectedItem().equals("Manager")) {
-            setScene("registerManager.fxml", "Register");
-        } else if (dialog.getSelectedItem().equals("Seller")) {
+        if (dialog.getSelectedItem().equals("Seller") && (!dialog.resultProperty().getValue().equals(null))) {
             setScene("registerSeller.fxml", "Register");
         } else if (dialog.getSelectedItem().equals("Customer") && (!dialog.resultProperty().getValue().equals(null))) {
             setScene("registerCustomer.fxml", "Register");
