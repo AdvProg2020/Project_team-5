@@ -115,9 +115,6 @@ public class EditOffForSellerController extends FxmlController implements Initia
         } else if (!discountPercentTextField.getText().matches("[\\d]{1,2}") && !discountPercentTextField.getText().equals("")) {
             ErrorPageFxController.showPage("error for create off", "discount percent amount discount format not valid!");
             return false;
-        } else if (!startDateChooser.getValue().isAfter(LocalDate.now())) {
-            ErrorPageFxController.showPage("error for create off", "start date should be after now!");
-            return false;
         } else if (!endDateChooser.getValue().isAfter(LocalDate.now())) {
             ErrorPageFxController.showPage("error for create off", "end date should be after now!");
             return false;

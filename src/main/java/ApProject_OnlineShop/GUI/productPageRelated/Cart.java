@@ -159,6 +159,10 @@ public class Cart extends FxmlController implements Initializable {
     }
 
     public void purchase() {
+        if (Shop.getInstance().getCart().size() == 0) {
+            ErrorPageFxController.showPage("error for purchase", "your cart is empty");
+            return;
+        }
         if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
             setScene("purchasePage1.fxml", "purchase");
         } else if (MainController.getInstance().getCurrentPerson() == null) {
