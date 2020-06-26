@@ -58,7 +58,14 @@ public class EditingGoodRequest extends Request {
                 }
             }
         }
-        good.setGoodStatus(Good.GoodStatus.CONFIRMED);
+        int availableNumber = 0;
+        for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+            availableNumber += good.getAvailableNumberBySeller(infoAboutGood.getSeller());
+        }
+        if (availableNumber == 0)
+            good.setGoodStatus(Good.GoodStatus.NOTAVAILABLE);
+        else
+            good.setGoodStatus(Good.GoodStatus.CONFIRMED);
         Database.getInstance().saveItem(good);
     }
 }
