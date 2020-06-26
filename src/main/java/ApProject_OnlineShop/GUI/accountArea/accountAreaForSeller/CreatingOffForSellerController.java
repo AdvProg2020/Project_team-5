@@ -50,6 +50,7 @@ public class CreatingOffForSellerController extends FxmlController {
                     SuccessPageFxController.showPage("off request created successfully", "your request successfully sent to manager");
                     offProducts.clear();
                     finished = false;
+                    setScene("accountAreaForSeller.fxml","account area for seller");
                 } catch (Exception e) {
                     ErrorPageFxController.showPage("off request cannot be created", e.getMessage());
                     finished = false;
