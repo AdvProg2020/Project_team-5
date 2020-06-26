@@ -212,10 +212,33 @@ public class AccountAreaForManagerController extends AccountAreaController {
             if (category.getDetails().get(i).equalsIgnoreCase(property)) {
                 category.getDetails().set(i, newValue);
                 Database.getInstance().saveItem(category);
+                updatePropertyForProducts(Shop.getInstance().findCategoryByName(name),property, newValue);
                 return;
             }
         }
         throw new PropertyNotFoundException();
+    }
+
+    private void updatePropertyForProducts(Category category, String property, String newValue) throws IOException, FileCantBeSavedException {
+        for (Good good : Shop.getInstance().getAllGoods()) {
+            if (good.getSubCategory().getParentCategory().getName().equalsIgnoreCase(category.getName())) {
+                String value = good.getCategoryProperties().get(property);
+                good.getCategoryProperties().remove(property);
+                good.getCategoryProperties().put(newValue, value);
+                Database.getInstance().saveItem(good);
+            }
+        }
+    }
+
+    private void updatePropertySubCategoryForProducts(SubCategory subCategory, String property, String newValue) throws IOException, FileCantBeSavedException {
+        for (Good good : Shop.getInstance().getAllGoods()) {
+            if (good.getSubCategory().getName().equalsIgnoreCase(subCategory.getName())) {
+                String value = good.getCategoryProperties().get(property);
+                good.getCategoryProperties().remove(property);
+                good.getCategoryProperties().put(newValue, value);
+                Database.getInstance().saveItem(good);
+            }
+        }
     }
 
     public boolean isExistCategoryWithThisName(String name) {
@@ -275,6 +298,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
             if (subCategory.getDetails().get(i).equalsIgnoreCase(property)) {
                 subCategory.getDetails().set(i, newValue);
                 Database.getInstance().saveItem(subCategory);
+                updatePropertySubCategoryForProducts(Shop.getInstance().findSubCategoryByName(subCategoryName), property, newValue);
                 return;
             }
         }
