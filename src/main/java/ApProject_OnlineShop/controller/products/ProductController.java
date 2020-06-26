@@ -29,7 +29,7 @@ public class ProductController {
     public void setGood(Good good) {
         this.good = good;
         if (good != null) {
-            if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+            if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
                 good.setSeenNumber(good.getSeenNumber() + 1);
             }
             try {
