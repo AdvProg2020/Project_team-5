@@ -74,7 +74,7 @@ public class ProductControllerTest {
                 "details =\n" +
                 "details\n" +
                 "modification date = " + LocalDate.now() +"\n" +
-                "seen number = 0\n" +
+                "seen number = 1\n" +
                 "------------------------------------";
         Assert.assertEquals(output,MainController.getInstance().getProductController().digest());
     }
