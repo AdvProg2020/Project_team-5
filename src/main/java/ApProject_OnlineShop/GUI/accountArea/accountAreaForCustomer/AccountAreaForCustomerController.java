@@ -66,7 +66,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         GridPane.setHalignment(topic, HPos.CENTER);
         VBox vBox = new VBox();
         ScrollPane scrollPane = new ScrollPane(vBox);
-        scrollPane.setPrefWidth(610);
+        scrollPane.setMaxHeight(610);
+        scrollPane.setMinHeight(610);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         style.setVBoxStyle(vBox);

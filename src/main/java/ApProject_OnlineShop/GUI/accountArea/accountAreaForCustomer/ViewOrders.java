@@ -39,6 +39,8 @@ public class ViewOrders extends FxmlController {
         VBox vBox = new VBox();
         ScrollPane scrollPane = new ScrollPane(vBox);
         scrollPane.setPrefWidth(430);
+        scrollPane.setMinHeight(600);
+        scrollPane.setMaxHeight(600);
         vBox.setPrefWidth(420);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
