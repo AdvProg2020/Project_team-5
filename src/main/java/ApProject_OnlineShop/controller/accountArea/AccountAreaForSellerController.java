@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,7 +86,9 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public ArrayList<String> buyersOfProduct(long productId) throws ProductNotFoundExceptionForSeller {
         if (!((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(productId))
             throw new ProductNotFoundExceptionForSeller();
-        return ((Seller) MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId));
+        HashSet<String> hashSet = new HashSet<>(((Seller) MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId)));
+        ArrayList<String> buyerList = new ArrayList<>(hashSet);
+        return buyerList;
     }
 
     public String viewProduct(long productId) throws ProductNotFoundExceptionForSeller {
@@ -247,13 +250,13 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return output;
     }
 
-    public List<Long> viewProducts(int chosenSort){
+    public List<Long> viewProducts(int chosenSort) {
         return sort(chosenSort).stream().map(Good::getGoodId).collect(Collectors.toList());
     }
 
-    public boolean isInOff(long productId){
+    public boolean isInOff(long productId) {
         Seller seller = Shop.getInstance().findGoodById(productId).getSellerThatPutsThisGoodOnOff();
-        if(seller == null || !seller.getUsername().equals(MainController.getInstance().getCurrentPerson().getUsername())){
+        if (seller == null || !seller.getUsername().equals(MainController.getInstance().getCurrentPerson().getUsername())) {
             return false;
         }
         return true;
