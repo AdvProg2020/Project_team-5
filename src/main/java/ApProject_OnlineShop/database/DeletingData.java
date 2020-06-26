@@ -43,7 +43,7 @@ public class DeletingData {
             Shop.getInstance().getHasMapOfOrders().remove(previousOrder.getOrderId());
         }
         for (DiscountCode discountCode : customer.getDiscountCodes()) {
-            discountCode.getIncludedCustomers().remove(customer);
+            discountCode.getOriginalIncludedCustomers().remove(customer.getUsername());
             Database.getInstance().saveItem(discountCode);
         }
     }
