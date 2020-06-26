@@ -115,6 +115,7 @@ public class EditDiscountCodePageController extends FxmlController implements In
             ErrorPageFxController.showPage("error", e.getMessage());
         } finally {
             clearAddCustomerFields();
+            updateCustomers();
         }
     }
 
@@ -135,13 +136,19 @@ public class EditDiscountCodePageController extends FxmlController implements In
             SuccessPageFxController.showPage("successful adding customer", "customer removed from code successfully");
         } catch (Exception e) {
             ErrorPageFxController.showPage("error", e.getMessage());
+        } finally {
+            customerToRemove.clear();
+            updateCustomers();
         }
-        customerToRemove.clear();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateFields();
+        updateCustomers();
+    }
+
+    private void updateCustomers() {
         for (Customer customer : currentDiscount.getIncludedCustomers().keySet()) {
             Label label = new Label();
             label.setText(customer.getUsername());
