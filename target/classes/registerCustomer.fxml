@@ -121,5 +121,10 @@
                 </ImageView>
             </graphic>
         </Button>
+      <Label text="Register customer" textFill="#8a1e86" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font name="Times New Roman" size="24.0" />
+         </font>
+      </Label>
     </children>
 </GridPane>

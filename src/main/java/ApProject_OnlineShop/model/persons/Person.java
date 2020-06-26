@@ -46,6 +46,10 @@ public abstract class Person {
         this.role = this.getClass().getSimpleName();
     }
 
+    public String getRole() {
+        return role;
+    }
+
     public String getEmail() {
         return email;
     }

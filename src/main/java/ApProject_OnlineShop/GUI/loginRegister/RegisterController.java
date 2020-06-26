@@ -2,16 +2,16 @@ package ApProject_OnlineShop.GUI.loginRegister;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.model.Shop;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class RegisterController extends FxmlController {
     @FXML
@@ -120,6 +120,13 @@ public class RegisterController extends FxmlController {
     }
 
     public void backButtonAction(ActionEvent actionEvent) {
+        if (Shop.getInstance().getAllPersons().size() == 0) {
+            Optional<ButtonType> result = new FxmlController().showAlert
+                    (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
+            if (result.get() == ButtonType.OK) {
+                Platform.exit();
+            }
+        }
         setScene("login.fxml", "Login");
     }
 
