@@ -31,6 +31,10 @@ public class DiscountCode {
         this.includedCustomers = new HashMap<>();
     }
 
+    public HashMap<String, Integer> getOriginalIncludedCustomers() {
+        return this.includedCustomers;
+    }
+
     public void addCustomerToCode(Customer customer, int numberOfUse) {
         this.includedCustomers.put(customer.getUsername(), numberOfUse);
         customer.addDiscountCode(this);
