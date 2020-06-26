@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DatabaseAuthentication {
     public static void createConnection() {
-        addCustomer(7, "cliff");
+        addCustomer(8, "dave");
         getCustomer(1);
         getAllCustomers();
         EntityManagerFactoryProducer.closeEntityManagerFactory();

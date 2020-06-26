@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.model.persons;
 
 public abstract class Person {
+    private long personId; //TODO
     private String username;
     private String firstName;
     private String lastName;
@@ -72,6 +73,14 @@ public abstract class Person {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(long personId) {
+        this.personId = personId;
     }
 
     @Override
