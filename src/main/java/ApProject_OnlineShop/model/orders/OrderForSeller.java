@@ -88,7 +88,7 @@ public class OrderForSeller extends Order {
         String goods = "";
         for (Long id : numberPerGood.keySet()) {
             goods += "- " + "name: " + Shop.getInstance().findGoodById(id).getName() +  "   \t number: " + numberPerGood.get(id) + "   \t final price: "
-                    + Shop.getInstance().getFinalPriceOfAGood(Shop.getInstance().findGoodById(id), (Seller) Shop.getInstance().findUser(seller));
+                    + Shop.getInstance().getFinalPriceOfAGood(Shop.getInstance().findGoodById(id), (Seller) Shop.getInstance().findUser(seller)) + "\n";
         }
         orderDetails.add(goods);
         orderDetails.add("" + getOffDeduct());
