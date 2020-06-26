@@ -60,7 +60,7 @@ public class AddCategoryPageController extends FxmlController implements Initial
             ErrorPageFxController.showPage("error", "please fill field and then click");
             return;
         }
-        if (!name.matches("\\w+")) {
+        if (!name.matches(".+")) {
             ErrorPageFxController.showPage("error", "invalid name format for category");
             nameField.clear();
             return;
@@ -95,7 +95,7 @@ public class AddCategoryPageController extends FxmlController implements Initial
             ErrorPageFxController.showPage("error", "please fill field and then click");
             return;
         }
-        if (!property.matches("\\w+")) {
+        if (!property.matches(".+")) {
             ErrorPageFxController.showPage("error", "invalid name format for property");
             propertyField.clear();
             return;

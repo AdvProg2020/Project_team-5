@@ -30,6 +30,8 @@ public class ViewOrdersForSeller extends FxmlController {
         ScrollPane scrollPane = new ScrollPane(vBox);
         scrollPane.setPrefWidth(430);
         vBox.setPrefWidth(420);
+        scrollPane.setMinHeight(600);
+        scrollPane.setMaxHeight(600);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         style.setVBoxStyle(vBox);
@@ -90,8 +92,10 @@ public class ViewOrdersForSeller extends FxmlController {
         Label date = new Label("date:     " + orderDetails.get(1));
         Label goodsList = new Label("goods list:\n\n" + orderDetails.get(2));
         Label discountAmount = new Label("discount amount:     " + orderDetails.get(3));
-        Label orderStatus = new Label("order status:     " + orderDetails.get(4));
+        Label totalAmount = new Label("total price:     " + orderDetails.get(4));
+        Label orderStatus = new Label("order status:     " + orderDetails.get(5));
         goodsList.setPadding(new Insets(7));
+        style.setTextFont(totalAmount);
         style.setTextFont(id);
         style.setTextFont(date);
         style.setTextFont(goodsList);
@@ -101,6 +105,7 @@ public class ViewOrdersForSeller extends FxmlController {
         vBox.getChildren().add(date);
         vBox.getChildren().add(goodsList);
         vBox.getChildren().add(discountAmount);
+        vBox.getChildren().add(totalAmount);
         vBox.getChildren().add(orderStatus);
     }
 
