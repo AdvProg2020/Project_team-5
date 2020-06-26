@@ -99,7 +99,7 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             ErrorPageFxController.showPage("error in editing", "please fill the text field and then click");
             return;
         }
-        if (!newValue.matches("\\w+")) {
+        if (!newValue.matches(".+")) {
             ErrorPageFxController.showPage("error in editing", "wrong name format entered");
             newValueField.clear();
             return;
@@ -129,7 +129,7 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             ErrorPageFxController.showPage("error in editing", "please fill the text field and then click");
             return;
         }
-        if (!newProperty.matches("\\w+")) {
+        if (!newProperty.matches(".+")) {
             ErrorPageFxController.showPage("error in editing", "wrong name format entered");
             newPropertyField.clear();
             return;

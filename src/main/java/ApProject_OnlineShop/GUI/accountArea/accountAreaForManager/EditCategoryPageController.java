@@ -99,7 +99,7 @@ public class EditCategoryPageController extends FxmlController implements Initia
             ErrorPageFxController.showPage("error in editing", "please fill the text field and then click");
             return;
         }
-        if (!newValue.matches("\\w+")) {
+        if (!newValue.matches(".+")) {
             ErrorPageFxController.showPage("error in editing", "wrong name format entered");
             newValueField.clear();
             return;
