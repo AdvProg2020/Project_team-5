@@ -38,11 +38,9 @@ public class PurchasePageController2 extends FxmlController implements Initializ
             MainController.getInstance().getAccountAreaForCustomerController().purchase(totalPrice1, PurchasePageController1.getUserInfo(), discountCodeString);
             SuccessPageFxController.showPage("purchase was successful", totalPrice.getText() + " has reduced from your account!");
             setScene("mainMenuLayout.fxml", "main menu");
-        } catch (NotEnoughCredit notEnoughCredit) {
-            ErrorPageFxController.showPage("error happened during purchase", notEnoughCredit.getMessage());
-
-        } catch (FileCantBeSavedException | IOException e) {
+        } catch (Exception e) {
             ErrorPageFxController.showPage("error happened during purchase", e.getMessage());
+
         }
     }
 
