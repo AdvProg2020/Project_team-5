@@ -112,8 +112,9 @@ public class DiscountCode {
         for (Customer customers : this.getIncludedCustomers().keySet()) {
             if (customers.getUsername().equals(customer.getUsername())) {
                 includedCustomers.put(customers.getUsername(), includedCustomers.get(customers.getUsername()) - 1);
-                if (includedCustomers.get(customers.getUsername()) == 0)
-                    includedCustomers.remove(customers.getUsername());
+                if (includedCustomers.get(customers.getUsername()) == 0){
+                    customer.removeDiscountCode(this);
+                    includedCustomers.remove(customers.getUsername());}
                 Database.getInstance().saveItem(this);
                 Database.getInstance().saveItem(customer);
             }
