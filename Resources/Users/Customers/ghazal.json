@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"discountCodesIds":[4],"previousOrders":[44],"credit":100000000,"username":"ghazal","firstName":"ghazal","lastName":"hi","email":"ghazal@gmail.com","phoneNumber":"09876543214","password":"Ghazal1"}
+=======
+{"discountCodesIds":[],"previousOrders":[44],"credit":100000000,"username":"ghazal","firstName":"ghazal","lastName":"hi","email":"ghazal@gmail.com","phoneNumber":"09876543214","password":"Ghazal1"}
+>>>>>>> d12548ca25efa3a120d0a6c626111c8a61669f78

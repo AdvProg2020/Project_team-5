@@ -146,7 +146,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return finalPriceOfAList(Shop.getInstance().getCart()) - discountCode.getMaxDiscountAmount();
     }
 
-    public void purchase(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws NotEnoughCredit, IOException, FileCantBeSavedException {
+    public void purchase(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws Exception {
         if (((Customer) MainController.getInstance().getCurrentPerson()).getCredit() < totalPrice)
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
@@ -154,11 +154,9 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         finalBuyProcess(totalPrice, customerInfo);
     }
 
-    public void reduceNumberOfDiscountCode(String discountCode) throws IOException, FileCantBeSavedException {
+    public void reduceNumberOfDiscountCode(String discountCode) throws Exception {
         Customer customer = (Customer) MainController.getInstance().getCurrentPerson();
-        customer.findDiscountCode(discountCode).reduceNumberOfDiscountCodeForCostumer(customer);
-        Database.getInstance().saveItem(customer);
-        Database.getInstance().saveItem(customer.findDiscountCode(discountCode));
+        Shop.getInstance().findDiscountCode(discountCode).discountBeUsedForCustomer(customer);
     }
 
     public void finalBuyProcess(long price, ArrayList<String> customerInfo) throws IOException, FileCantBeSavedException {

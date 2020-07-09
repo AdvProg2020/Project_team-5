@@ -109,9 +109,7 @@ public class PurchaseMenu extends Menu {
         scanner.nextLine();
         try {
             MainController.getInstance().getAccountAreaForCustomerController().purchase(totalPrice, customerInfo, usedDiscountCode);
-        } catch (NotEnoughCredit notEnoughCredit) {
-            System.out.println(notEnoughCredit.getMessage());
-        } catch (FileCantBeSavedException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
