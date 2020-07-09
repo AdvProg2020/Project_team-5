@@ -32,8 +32,6 @@ public class Database {
     }
 
     public void initializeShop() throws IOException, FileCantBeDeletedException, FileCantBeSavedException {
-        Shop.getInstance().donatePeriodRandomDiscountCodes();
-        Shop.getInstance().expireItemsThatTheirTimeIsFinished();
         loadingData.loadManager();
         loadingData.loadCustomer();
         loadingData.loadSeller();
@@ -56,6 +54,8 @@ public class Database {
         for (Person person : Shop.getInstance().getAllPersons()) {
             person.setRole();
         }
+        Shop.getInstance().donatePeriodRandomDiscountCodes();
+        Shop.getInstance().expireItemsThatTheirTimeIsFinished();
     }
 
     public void deleteItem(Object item) throws FileCantBeDeletedException, IOException, FileCantBeSavedException {

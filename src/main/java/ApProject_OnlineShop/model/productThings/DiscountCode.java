@@ -145,6 +145,12 @@ public class DiscountCode {
                 } else {
                     includedCustomers.remove(includedCustomer.getUsername());
                     includedCustomer.removeDiscountCode(this);
+                    if(includedCustomers.size() == 0) {
+                        Database.getInstance().deleteItem(this);
+                        Shop.getInstance().removeDiscountCode(this);
+                        Database.getInstance().saveItem(customer);
+                        return;
+                    }
                 }
                 Database.getInstance().saveItem(this);
                 Database.getInstance().saveItem(customer);
