@@ -1,13 +1,36 @@
 package ApProject_OnlineShop.model.persons;
 
-public abstract class Person {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "Person.Persons")
+public abstract class Person implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PersonId", unique = true)
     private long personId; //TODO
+
+    @Column(name = "UserName", unique = true, nullable = false)
     private String username;
+
+    @Column(name = "FirstName")
     private String firstName;
+
+    @Column(name = "LastName")
     private String lastName;
+
+    @Column(name = "Email")
     private String email;
+
+    @Column(name = "PhoneNumber")
     private String phoneNumber;
-    private String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "", joinColumns = @JoinColumn(name = "PersonId"), inverseJoinColumns = @JoinColumn(name = "PersonId"))
+    private Password password;
+
+    @Transient
     private transient String role = this.getClass().getSimpleName();
 
     public Person(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
@@ -16,7 +39,10 @@ public abstract class Person {
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.password = password;
+        this.password = new Password(this.personId, password);
+    }
+
+    public Person() {
     }
 
     public String getUsername() {
@@ -67,11 +93,11 @@ public abstract class Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPassword() {
+    public Password getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(Password password) {
         this.password = password;
     }
 
