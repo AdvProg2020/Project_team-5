@@ -36,8 +36,8 @@ public class AccountAreaForSellerController extends FxmlController implements In
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playMusicBackGround(false, false, true);
         ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForSellerController().getUserPersonalInfo();
-        Image image = new Image(Paths.get("Resources/UserImages/" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg").toUri().toString());
-        File file = new File("Resources\\UserImages\\" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg");
+        Image image = new Image(Paths.get("Resources/UserImages/" + FxmlController.getCurrentPerson().getUsername() + ".jpg").toUri().toString());
+        File file = new File("Resources\\UserImages\\" + FxmlController.getCurrentPerson().getUsername() + ".jpg");
         if (!file.exists())
             image = new Image(Paths.get("Resources/UserImages/default1.jpg").toUri().toString());
         photo.setImage(image);

@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.controller.accountArea;
 
+import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
@@ -80,7 +81,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
     }
 
     public long viewBalance() {
-        return ((Seller) MainController.getInstance().getCurrentPerson()).balance();
+        return ((Seller) FxmlController.getCurrentPerson()).balance();
     }
 
     public ArrayList<String> buyersOfProduct(long productId) throws ProductNotFoundExceptionForSeller {

@@ -4,11 +4,7 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
-import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
-import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 
@@ -36,16 +32,23 @@ public class RegisterControllerPart2 extends FxmlController {
     }
 
     public void registerButtonPressed(ActionEvent actionEvent) {
-        try {
-            MainController.getInstance().getLoginRegisterController().createAccount
-                    (role, userName, details);
+//        try {
+//            MainController.getInstance().getLoginRegisterController().createAccount
+//                    (role, userName, details);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(role);
+        inputs.add(userName);
+        inputs.addAll(details);
+        RequestForServer requestForServer = new RequestForServer("LoginRegisterController", "createAccount", null, inputs);
+        String serverResponse = connectToServer(requestForServer);
+        if (serverResponse.equals("successfully account created.")) {
             SuccessPageFxController.showPage("Register was successful",
                     "you registered successfully");
             if (selectedFile != null)
                 copyPhoto();
             setScene("login.fxml", "Login");
-        } catch (UsernameIsTakenAlreadyException | FileCantBeSavedException | MainManagerAlreadyRegistered | IOException e) {
-            ErrorPageFxController.showPage("Error for registering", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("Error for registering", serverResponse);
             if (role.equals("seller"))
                 setScene("registerSeller.fxml", "register seller");
             else if (role.equals("manager"))
@@ -53,6 +56,15 @@ public class RegisterControllerPart2 extends FxmlController {
             else if (role.equals("customer"))
                 setScene("registerCustomer.fxml", "register customer");
         }
+//        } catch (UsernameIsTakenAlreadyException | FileCantBeSavedException | MainManagerAlreadyRegistered | IOException e) {
+//            ErrorPageFxController.showPage("Error for registering", e.getMessage());
+//            if (role.equals("seller"))
+//                setScene("registerSeller.fxml", "register seller");
+//            else if (role.equals("manager"))
+//                setScene("registerManager.fxml", "register manager");
+//            else if (role.equals("customer"))
+//                setScene("registerCustomer.fxml", "register customer");
+//        }
     }
 
     private void copyPhoto() {
@@ -79,7 +91,7 @@ public class RegisterControllerPart2 extends FxmlController {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter png = new FileChooser.ExtensionFilter("png", "*.png");
         FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("jpg", "*.jpg");
-        fileChooser.getExtensionFilters().addAll(png,jpg);
+        fileChooser.getExtensionFilters().addAll(png, jpg);
         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
         path = "./Resources/UserImages/" + userName + ".jpg";
     }

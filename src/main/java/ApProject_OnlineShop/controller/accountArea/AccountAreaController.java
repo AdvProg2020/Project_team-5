@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.controller.accountArea;
 
+import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.productExceptions.FieldCantBeEditedException;
@@ -32,14 +33,14 @@ public class AccountAreaController {
 
     public ArrayList<String> getUserPersonalInfo() {
         ArrayList<String> personalInfo = new ArrayList<>();
-            Person person = MainController.getInstance().getCurrentPerson();
+            Person person = FxmlController.getCurrentPerson();
             personalInfo.add(person.getUsername());
             personalInfo.add(person.getFirstName());
             personalInfo.add(person.getLastName());
             personalInfo.add(person.getEmail());
             personalInfo.add(person.getPhoneNumber());
-        if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-            Customer customer = (Customer) MainController.getInstance().getCurrentPerson();
+        if (FxmlController.getCurrentPerson() instanceof Customer) {
+            Customer customer = (Customer) FxmlController.getCurrentPerson();
             personalInfo.add("" + customer.getCredit());
         }
         return personalInfo;
