@@ -6,6 +6,7 @@ import ApProject_OnlineShop.model.persons.Seller;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,11 @@ public class Off implements Serializable {
     @Column(name = "OffStatus", nullable = false)
     private OffStatus offStatus;
 
+    @Column(name = "StartFrom", nullable = false)
+    private LocalDateTime startDate;
 
-    private LocalDate startDate;
-    private LocalDate endDate;
+    @Column(name = "EndTo", nullable = false)
+    private LocalDateTime endDate;
 
     @Column(name = "MaxDiscount", nullable = false)
     private long maxDiscount;
@@ -46,7 +49,7 @@ public class Off implements Serializable {
         EDITING
     }
 
-    public Off(List<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
+    public Off(List<Good> offGoods, LocalDateTime startDate, LocalDateTime endDate, long maxDiscount, int discountPercent, Seller seller) {
         offsCount++;
         this.offGoods = offGoods;
         this.offStatus = OffStatus.VALIDATING;
@@ -82,11 +85,11 @@ public class Off implements Serializable {
         return offStatus;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
@@ -106,11 +109,11 @@ public class Off implements Serializable {
         this.offStatus = offStatus;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -158,7 +161,19 @@ public class Off implements Serializable {
     }
 
     public boolean isOffExpired() {
-        return LocalDate.now().isAfter(this.endDate);
+        return LocalDateTime.now().isAfter(this.endDate);
+    }
+
+    public void setOffId(long offId) {
+        this.offId = offId;
+    }
+
+    public void setOffGoods(List<Good> offGoods) {
+        this.offGoods = offGoods;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 
     @Override
