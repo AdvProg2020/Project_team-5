@@ -3,21 +3,34 @@ package ApProject_OnlineShop.model.category;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
 @Table(name = "Category")
-public class Category {
+public class Category implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CategoryId", nullable = false, unique = true)
+    private int categoryId;
+
+    @Column(name = "Name", nullable = false)
     private String name;
+
+    @OneToMany
     private ArrayList<String> details;
-    private ArrayList<String> subCategories;
+
+    @OneToMany
+    private ArrayList<SubCategory> subCategories;
 
     public Category(String name, ArrayList<String> details) {
         this.name = name;
         this.details = details;
         this.subCategories = new ArrayList<>();
+    }
+
+    public Category() {
     }
 
     public String getName() {
@@ -29,15 +42,17 @@ public class Category {
     }
 
     public ArrayList<SubCategory> getSubCategories() {
-        ArrayList<SubCategory> subCategories2=new ArrayList<>();
+        return subCategories;
+        /*ArrayList<SubCategory> subCategories2=new ArrayList<>();
         for (String subCategory : this.subCategories) {
             subCategories2.add(Shop.getInstance().getSubCategory(subCategory));
         }
-        return subCategories2;
+        return subCategories2;*/
     }
 
     public void addSubCategory(SubCategory subCategory) {
-        this.subCategories.add(subCategory.getName());
+        this.subCategories.add(subCategory);
+        //this.subCategories.add(subCategory.getName());
         subCategory.setParentCategory(this);
     }
 
@@ -46,7 +61,7 @@ public class Category {
     }
 
     public void removeSubCategoryFromList(SubCategory subCategory) {
-        this.subCategories.remove(subCategory.getName());
+        this.subCategories.remove(subCategory);
     }
 
     public Good findGoodInSubCategories(long goodId) {
@@ -63,6 +78,26 @@ public class Category {
                 return subCategory;
         }
         return null;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDetails(ArrayList<String> details) {
+        this.details = details;
+    }
+
+    public void setSubCategories(ArrayList<SubCategory> subCategories) {
+        this.subCategories = subCategories;
     }
 
     @Override
