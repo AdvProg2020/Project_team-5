@@ -41,7 +41,6 @@ public class Server {
                 DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
                 DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(clientSocket.getInputStream()));
                 new ClientHandler(clientSocket, dataOutputStream, dataInputStream, serverSocket).start();
-                clientSocket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

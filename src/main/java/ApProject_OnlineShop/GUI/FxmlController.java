@@ -1,5 +1,9 @@
 package ApProject_OnlineShop.GUI;
 
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Person;
+import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +27,7 @@ public class FxmlController {
     private static boolean isMainLayoutPlay;
     private static boolean isAccountAreaPlay;
     private static boolean isAllProductPlay;
+    private static String token;
 
     public void setScene(String address, String title) {
         playButtonMusic();
@@ -116,7 +121,7 @@ public class FxmlController {
         isAllProductPlay = allProducts;
     }
 
-    public String connectToServer(RequestForServer requestForServer) {
+    public static String connectToServer(RequestForServer requestForServer) {
         try {
             Socket socket = new Socket("127.0.0.1", 8888);
             System.out.println("Successfully connected to server!");
@@ -132,4 +137,24 @@ public class FxmlController {
         return null;
     }
 
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        FxmlController.token = token;
+    }
+
+    public static Person getCurrentPerson() {
+        String input = connectToServer(new RequestForServer("getCurrentPerson", null, token, null));
+        Person person = null;
+        if (input.startsWith("customer")) {
+            person = new Gson().fromJson(input.split("###")[1], Customer.class);
+        } else if (input.startsWith("seller")) {
+            person = new Gson().fromJson(input.split("###")[1], Seller.class);
+        } else if (input.startsWith("manager")) {
+            person = new Gson().fromJson(input.split("###")[1], Manager.class);
+        }
+        return person;
+    }
 }

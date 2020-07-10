@@ -6,7 +6,10 @@ import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistere
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
+import ApProject_OnlineShop.model.persons.Seller;
 import com.google.gson.Gson;
 
 import java.io.DataInputStream;
@@ -22,17 +25,25 @@ public class ClientHandler extends Thread {
     private DataInputStream dataInputStream;
     private ServerSocket serverSocket;
     private Person user;
+    private Gson gson;
 
     public ClientHandler(Socket clientSocket, DataOutputStream dataOutputStream, DataInputStream dataInputStream, ServerSocket serverSocket) {
         this.clientSocket = clientSocket;
         this.dataOutputStream = dataOutputStream;
         this.dataInputStream = dataInputStream;
         this.serverSocket = serverSocket;
+        gson = new Gson();
+        user = null;
     }
 
     @Override
     public void run() {
         handelClient();
+        try {
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handelClient() {
@@ -43,15 +54,53 @@ public class ClientHandler extends Thread {
             e.printStackTrace();
         }
         RequestForServer requestForServer = new Gson().fromJson(input, RequestForServer.class);
-        handleRequest(requestForServer);
+        try {
+            handleRequest(requestForServer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void handleRequest(RequestForServer requestForServer) {
-        Person currentPerson = null;
+    private void handleRequest(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getToken() != null)
-            currentPerson = Server.getOnlineUsers().get(requestForServer.getToken());
-        if (requestForServer.getController().equals("LoginRegisterController")) {
+            user = Server.getOnlineUsers().get(requestForServer.getToken());
+        if (requestForServer.getController().equals("getCurrentPerson")) {
+            getCurrentPerson();
+        } else if (requestForServer.getController().equals("LoginRegisterController")) {
             loginRegisterControllerHandler(requestForServer);
+        }
+    }
+
+    private void getCurrentPerson() throws IOException {
+        if (user == null) {
+            try {
+                dataOutputStream.writeUTF("null");
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (user instanceof Customer) {
+            try {
+                dataOutputStream.writeUTF("customer###" + gson.toJson(user, Customer.class));
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (user instanceof Seller) {
+            try {
+                dataOutputStream.writeUTF("seller###" + gson.toJson(user, Seller.class));
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (user instanceof Manager) {
+            try {
+                dataOutputStream.writeUTF("manager###" + gson.toJson(user, Manager.class));
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -88,8 +137,10 @@ public class ClientHandler extends Thread {
             }
         } else if (requestForServer.getFunction().equals("loginUser")) {
             try {
-                MainController.getInstance().getLoginRegisterController().loginUser(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
-                dataOutputStream.writeUTF("successfully login.");
+                Person person = MainController.getInstance().getLoginRegisterController().loginUser(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+                String token = generateToken();
+                Server.addOnlineUser(person, token);
+                dataOutputStream.writeUTF("successfully login #" + token);
                 dataOutputStream.flush();
             } catch (UsernameNotFoundException e) {
                 try {
@@ -108,9 +159,18 @@ public class ClientHandler extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         } else if (requestForServer.getFunction().equals("logoutUser")) {
 
         }
+    }
+
+    private String generateToken() {
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvxyz";
+        StringBuilder randomCode = new StringBuilder(12);
+        for (int i = 0; i < 12; i++) {
+            int index = (int) (AlphaNumericString.length() * Math.random());
+            randomCode.append(AlphaNumericString.charAt(index));
+        }
+        return randomCode.toString();
     }
 }

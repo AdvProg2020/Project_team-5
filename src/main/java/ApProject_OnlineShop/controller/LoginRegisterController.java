@@ -43,13 +43,14 @@ public class LoginRegisterController {
         }
     }
 
-    public void loginUser(String username, String password) throws UsernameNotFoundException, PasswordIncorrectException {
+    public Person loginUser(String username, String password) throws UsernameNotFoundException, PasswordIncorrectException {
         if (Shop.getInstance().findUser(username) == null)
             throw new UsernameNotFoundException();
         Person person = Shop.getInstance().findUser(username);
         if (!(person.getPassword().equals(password)))
             throw new PasswordIncorrectException();
         MainController.getInstance().setCurrentPerson(person);
+        return person;
     }
 
     public void logoutUser() {
