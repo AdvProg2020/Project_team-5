@@ -36,7 +36,7 @@ public class Good implements Serializable {
     private double averageRate;
 
     @ManyToOne
-    @JoinColumn(name = "SubCategoryId")
+    @JoinColumn(name = "SubCategoryId", referencedColumnName = "SubCategoryId")
     private SubCategory subCategory;
 
     private ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods;

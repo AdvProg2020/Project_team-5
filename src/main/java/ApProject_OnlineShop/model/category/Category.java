@@ -15,13 +15,13 @@ public class Category implements Serializable {
     @Column(name = "CategoryId", nullable = false, unique = true)
     private int categoryId;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "Name", nullable = false, unique = true)
     private String name;
 
     @OneToMany
     private ArrayList<String> details;
 
-    @OneToMany
+    @OneToMany(mappedBy = "parentCategory")
     private ArrayList<SubCategory> subCategories;
 
     public Category(String name, ArrayList<String> details) {

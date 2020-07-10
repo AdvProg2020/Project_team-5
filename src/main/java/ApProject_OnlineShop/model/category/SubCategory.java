@@ -5,14 +5,31 @@ import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 
+import javax.persistence.*;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SubCategory {
+@Entity
+@Table(name = "SubCategory")
+public class SubCategory implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SubCategoryId", nullable = false, unique = true)
+    private int subCategoryId;
+
+    @Column(name = "Name", nullable = false, unique = true)
     private String name;
-    private String parentCategory;
+
+    @ManyToOne
+    @JoinColumn(name = "Category", referencedColumnName = "CategoryId")
+    private Category parentCategory;
+
+    @OneToMany
     private ArrayList<String> details;
-    private ArrayList<Long> goods;
+
+    @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
+    private ArrayList<Good> goods;
 
     public SubCategory(String name, ArrayList<String> details) {
         this.name = name;
@@ -20,8 +37,12 @@ public class SubCategory {
         this.goods = new ArrayList<>();
     }
 
+    public SubCategory() {
+        this.goods = new ArrayList<>();
+    }
+
     public void setParentCategory(Category parentCategory) {
-        this.parentCategory= parentCategory.getName();
+        this.parentCategory= parentCategory;
     }
 
     public String getName() {
@@ -29,7 +50,7 @@ public class SubCategory {
     }
 
     public Category getParentCategory() {
-        return Shop.getInstance().getHashMapOfCategories().get(this.parentCategory);
+        return this.parentCategory;
     }
 
     public ArrayList<String> getDetails() {
@@ -37,19 +58,41 @@ public class SubCategory {
     }
 
     public ArrayList<Good> getGoods() {
-        ArrayList<Good> goods1=new ArrayList<>();
+        return this.goods;
+        /*ArrayList<Good> goods1=new ArrayList<>();
         for (Long id : goods) {
             goods1.add(Shop.getInstance().getAvailableGood(id));
         }
-        return goods1;
+        return goods1;*/
     }
 
     public void addGood(Good good) {
-        this.goods.add(good.getGoodId());
+        this.goods.add(good);
+        //this.goods.add(good.getGoodId());
+    }
+
+    public int getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(int subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDetails(ArrayList<String> details) {
+        this.details = details;
+    }
+
+    public void setGoods(ArrayList<Good> goods) {
+        this.goods = goods;
     }
 
     public void deleteGood(Good good) throws IOException, FileCantBeSavedException {
-        this.goods.remove(good.getGoodId());
+        this.goods.remove(good);
         Database.getInstance().saveItem(this);
     }
 
