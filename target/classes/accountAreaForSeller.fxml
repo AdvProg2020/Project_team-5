@@ -81,6 +81,15 @@
                     <Insets top="20.0" />
                 </VBox.margin>
             </Button>
+         <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="181.0" style="-fx-background-color: #dab3ff; -fx-background-radius: 8px; -fx-margin: 4px 2px; -fx-border-radius: 8px; -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color: black;" styleClass="menuButtons" text="MenuButton" textFill="#0e000e">
+           <items>
+             <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="withdraw money" />
+             <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="increase balance" />
+           </items>
+            <VBox.margin>
+               <Insets top="20.0" />
+            </VBox.margin>
+         </MenuButton>
         </children>
     </VBox>
     <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="Seller Personal Information" GridPane.columnIndex="1">
