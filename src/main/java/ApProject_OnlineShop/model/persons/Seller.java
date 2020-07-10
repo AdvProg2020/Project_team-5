@@ -7,6 +7,8 @@ import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +16,10 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "Seller")
 public class Seller extends Person implements Serializable {
+    @ManyToOne
+    @JoinColumn(name = "CompanyID", nullable = false)
     private Company company;
+
     private ArrayList<OrderForSeller> previousSellsIds;
     private ArrayList<Good> activeGoodsIds;
     private ArrayList<Off> activeOffsIds;
