@@ -3,8 +3,12 @@ package ApProject_OnlineShop.model.category;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 
+@Entity
+@Table(name = "Category")
 public class Category {
     private String name;
     private ArrayList<String> details;

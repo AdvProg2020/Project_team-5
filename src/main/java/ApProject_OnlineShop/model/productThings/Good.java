@@ -35,14 +35,16 @@ public class Good implements Serializable {
     @Column(name = "AverageRate", nullable = false)
     private double averageRate;
 
-
+    @ManyToOne
+    @JoinColumn(name = "SubCategoryId")
     private SubCategory subCategory;
-    private ArrayList<Long> sellerRelatedInfoAboutGoods;
+
+    private ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods;
 
     @Column(name = "Description")
     private String details;
 
-    private ArrayList<Long> comments;
+    private ArrayList<Comment> comments;
 
     @Column(name = "SeenNumber", nullable = false)
     private int seenNumber;
@@ -71,10 +73,15 @@ public class Good implements Serializable {
         this.goodStatus = GoodStatus.BUILTPROCESSING;
         SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = new SellerRelatedInfoAboutGood(seller, price, availableNumber);
         Shop.getInstance().addSellerRelatedInfoAboutGood(sellerRelatedInfoAboutGood);
-        sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
+        sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
         this.sellerRelatedInfoAboutGoods = new ArrayList<>();
         this.comments = new ArrayList<>();
         this.modificationDate = LocalDateTime.now();
+    }
+
+    public Good() {
+        this.sellerRelatedInfoAboutGoods = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public String getName() {
@@ -108,11 +115,12 @@ public class Good implements Serializable {
     }
 
     public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
-        ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods1 = new ArrayList<>();
+        return this.sellerRelatedInfoAboutGoods;
+        /*ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods1 = new ArrayList<>();
         for (Long infoAboutGoodId : this.sellerRelatedInfoAboutGoods) {
             sellerRelatedInfoAboutGoods1.add(Shop.getInstance().getAllSellerRelatedInfoAboutGood().get(infoAboutGoodId));
         }
-        return sellerRelatedInfoAboutGoods1;
+        return sellerRelatedInfoAboutGoods1;*/
     }
 
     public SubCategory getSubCategory() {
@@ -120,7 +128,8 @@ public class Good implements Serializable {
     }
 
     public void addSeller(SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood) {
-        this.sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
+        this.sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
+        //this.sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
     }
 
     public void removeSeller(Seller seller) {
@@ -130,7 +139,7 @@ public class Good implements Serializable {
                 sellerRelatedInfoAboutGood = relatedInfoAboutGood;
         }
         if (sellerRelatedInfoAboutGood != null)
-            this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
+            this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfoAboutGood);
     }
 
     public void setAverageRate(double averageRate) {
@@ -200,11 +209,12 @@ public class Good implements Serializable {
     }
 
     public ArrayList<Comment> getComments() {
-        ArrayList<Comment> allComments = new ArrayList<>();
+        return this.comments;
+        /*ArrayList<Comment> allComments = new ArrayList<>();
         for (Long commentId : comments) {
             allComments.add(Shop.getInstance().getAllComments().get(commentId));
         }
-        return allComments;
+        return allComments;*/
     }
 
     public static void setGoodsCount(long goodsCount) {
@@ -212,7 +222,8 @@ public class Good implements Serializable {
     }
 
     public void addComment(Comment comment) {
-        this.comments.add(comment.getId());
+        this.comments.add(comment);
+        //this.comments.add(comment.getId());
     }
 
     public void reduceAvailableNumber(Seller seller, int reductionNumber) {
