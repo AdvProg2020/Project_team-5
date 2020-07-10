@@ -1,16 +1,42 @@
 package ApProject_OnlineShop.model.productThings;
 
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Person;
 
-public class Comment {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "Comment")
+public class Comment implements Serializable {
+    @Transient
     private static long commentIdCounter = 1;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CommentID", nullable = false, unique = true)
     private long id;
-    private String person;
-    private long good;
+
+    @ManyToOne
+    @JoinColumn(name = "CustomerId", nullable = false)
+    private Customer person;
+
+    @ManyToOne
+    @JoinColumn(name = "ProductID", nullable = false)
+    private Good good;
+
+    @Column(name = "Title", nullable = false)
     private String title;
+
+    @Column(name = "Content")
     private String comment;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "CommentStatus", nullable = false)
     private CommentStatus commentStatus;
+
+    @Column(name = "isCommenterBuysThisProduct", nullable = false)
     private boolean didCommenterBoughtThisProduct;
 
     public enum CommentStatus {
@@ -19,13 +45,16 @@ public class Comment {
     }
 
     public Comment(Person person, Good good, String title, String comment, boolean didCommenterBoughtThisProduct) {
-        this.id = commentIdCounter++;
-        this.person = person.getUsername();
-        this.good = good.getGoodId();
+        commentIdCounter++;
+        this.person = (Customer) person;
+        this.good = good;
         this.title = title;
         this.comment = comment;
         this.didCommenterBoughtThisProduct = didCommenterBoughtThisProduct;
         this.commentStatus = CommentStatus.INPROGRESS;
+    }
+
+    public Comment() {
     }
 
     public static long getCommentIdCounter() {
@@ -33,7 +62,7 @@ public class Comment {
     }
 
     public Person getPerson() {
-        return Shop.getInstance().findUser(person);
+        return this.person;
     }
 
     public static void setCommentIdCounter(long commentIdCounter) {
@@ -45,7 +74,35 @@ public class Comment {
     }
 
     public Good getGood() {
-        return Shop.getInstance().findGoodById(this.good);
+        return this.good;
+    }
+
+    public CommentStatus getCommentStatus() {
+        return commentStatus;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setPerson(Customer person) {
+        this.person = person;
+    }
+
+    public void setGood(Good good) {
+        this.good = good;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setDidCommenterBoughtThisProduct(boolean didCommenterBoughtThisProduct) {
+        this.didCommenterBoughtThisProduct = didCommenterBoughtThisProduct;
     }
 
     public void setCommentStatus(CommentStatus commentStatus) {
