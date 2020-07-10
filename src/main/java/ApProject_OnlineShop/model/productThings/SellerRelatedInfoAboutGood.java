@@ -20,20 +20,33 @@ public class SellerRelatedInfoAboutGood {
     @JoinColumn(name = "SellerId", nullable = false)
     private Seller seller;
 
+    @ManyToOne
+    @JoinColumn(name = "ProductID", nullable = false)
+    private Good good;
+
     @Column(name = "Price", nullable = false)
     private long price;
 
     @Column(name = "NumberOfAvailables", nullable = false)
     private int availableNumber;
 
-    public SellerRelatedInfoAboutGood(Seller seller, long price, int availableNumber) {
+    public SellerRelatedInfoAboutGood(Seller seller, Good good, long price, int availableNumber) {
         sellerRelatedInfoAboutGoodCount++;
         this.seller = seller;
+        this.good = good;
         this.price = price;
         this.availableNumber = availableNumber;
     }
 
     public SellerRelatedInfoAboutGood() {
+    }
+
+    public Good getGood() {
+        return good;
+    }
+
+    public void setGood(Good good) {
+        this.good = good;
     }
 
     public Seller getSeller() {

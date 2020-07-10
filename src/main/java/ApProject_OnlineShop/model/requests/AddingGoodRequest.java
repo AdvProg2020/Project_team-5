@@ -45,14 +45,14 @@ public class AddingGoodRequest extends Request {
         if ((originalGood = Shop.getInstance().getGoodByNameAndBrandAndSubCategory(good.getName(), good.getBrand(), good.getSubCategory())) == null) {
             good.getSubCategory().addGood(good);
             good.setGoodStatus(Good.GoodStatus.CONFIRMED);
-            seller1.addToActiveGoods(good.getGoodId());
+            seller1.addToActiveGoods(good);
             Database.getInstance().saveItem(good.getSubCategory());
             Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), good.getGoodId());
             Shop.getInstance().getHashMapOfGoods().put(good.getGoodId(), good);
             Database.getInstance().saveItem(good);
         } else {
             originalGood.addSeller(good.getSellerRelatedInfoAboutGoods().get(0));
-            seller1.addToActiveGoods(originalGood.getGoodId());
+            seller1.addToActiveGoods(originalGood);
             Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), originalGood.getGoodId());
             Database.getInstance().saveItem(originalGood);
         }

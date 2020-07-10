@@ -39,11 +39,13 @@ public class Good implements Serializable {
     @JoinColumn(name = "SubCategoryId", referencedColumnName = "SubCategoryId")
     private SubCategory subCategory;
 
+    @OneToMany(mappedBy = "good", cascade = CascadeType.PERSIST)
     private ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods;
 
     @Column(name = "Description")
     private String details;
 
+    @OneToMany(mappedBy = "good", cascade = CascadeType.ALL)
     private ArrayList<Comment> comments;
 
     @Column(name = "SeenNumber", nullable = false)
@@ -71,7 +73,7 @@ public class Good implements Serializable {
         this.details = details;
         this.categoryProperties = categoryProperties;
         this.goodStatus = GoodStatus.BUILTPROCESSING;
-        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = new SellerRelatedInfoAboutGood(seller, price, availableNumber);
+        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = new SellerRelatedInfoAboutGood(seller,this, price, availableNumber);
         Shop.getInstance().addSellerRelatedInfoAboutGood(sellerRelatedInfoAboutGood);
         sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
         this.sellerRelatedInfoAboutGoods = new ArrayList<>();
