@@ -1,15 +1,10 @@
 package ApProject_OnlineShop.model.persons;
 
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -20,61 +15,84 @@ public class Seller extends Person implements Serializable {
     @JoinColumn(name = "CompanyID", nullable = false)
     private Company company;
 
-    private ArrayList<OrderForSeller> previousSellsIds;
-    private ArrayList<Good> activeGoodsIds;
-    private ArrayList<Off> activeOffsIds;
+    private ArrayList<OrderForSeller> previousSells;
+    private ArrayList<Good> activeGoods;
+
+    @OneToMany(mappedBy = "seller")
+    private ArrayList<Off> activeOffs;
 
     public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
         super(username, firstName, lastName, email, phoneNumber, password);
-        this.previousSellsIds = new ArrayList<>();
-        this.activeGoodsIds = new ArrayList<>();
-        this.activeOffsIds = new ArrayList<>();
+        this.previousSells = new ArrayList<>();
+        this.activeGoods = new ArrayList<>();
+        this.activeOffs = new ArrayList<>();
         this.company = company;
     }
 
     public Seller() {
+        this.previousSells = new ArrayList<>();
+        this.activeGoods = new ArrayList<>();
+        this.activeOffs = new ArrayList<>();
     }
 
     public Company getCompany() {
-        return Shop.getInstance().getAllCompanies().get(company);
+        return this.company;
     }
 
     public ArrayList<OrderForSeller> getPreviousSells() {
+        return this.previousSells;
+        /*
         ArrayList<OrderForSeller> ordersForSeller= new ArrayList<>();
         for (Long id : this.previousSellsIds) {
             ordersForSeller.add((OrderForSeller) Shop.getInstance().getHasMapOfOrders().get(id));
         }
         return ordersForSeller;
+
+         */
     }
 
     public ArrayList<Good> getActiveGoods() {
+        return this.activeGoods;
+        /*
         ArrayList<Good> activeGoods= new ArrayList<>();
         for (Long id : this.activeGoodsIds) {
             activeGoods.add(Shop.getInstance().getHashMapOfGoods().get(id));
         }
         return activeGoods;
+
+         */
     }
 
-    public void addToActiveGoods(long id) {
-        this.activeGoodsIds.add(id);
+    public void addToActiveGoods(Good good) {
+        this.activeGoods.add(good);
+        //this.activeGoodsIds.add(id);
     }
 
-    public void removeFromActiveGoods(long id) {
-        this.activeGoodsIds.remove(id);
+    public void removeFromActiveGoods(Good good) {
+        this.activeGoods.remove(good);
+        //this.activeGoodsIds.remove(id);
     }
 
-    public void removeFromActiveOffs(long id) { this.activeOffsIds.remove(id); }
+    public void removeFromActiveOffs(Off off) {
+        this.activeOffs.remove(off);
+        //this.activeOffsIds.remove(id);
+    }
 
     public ArrayList<Off> getActiveOffs() {
+        return this.activeOffs;
+        /*
         ArrayList<Off> offs=new ArrayList<>();
         for (Long offsId : this.activeOffsIds) {
             offs.add(Shop.getInstance().getHashMapOfOffs().get(offsId));
         }
         return offs;
+
+         */
     }
 
-    public void addOff(long id) {
-        this.activeOffsIds.add(id);
+    public void addOff(Off off) {
+        this.activeOffs.add(off);
+        //this.activeOffsIds.add(id);
     }
 
     public ArrayList<String> buyersOfAGood(Good good) {
@@ -97,7 +115,8 @@ public class Seller extends Person implements Serializable {
     }
 
     public void addOrder(OrderForSeller order) {
-        previousSellsIds.add(order.getOrderId());
+        previousSells.add(order);
+        //previousSellsIds.add(order.getId());
     }
 
     public Off findOffById(long offId) {
@@ -114,6 +133,22 @@ public class Seller extends Person implements Serializable {
 
     public long balance() {
         return this.getPreviousSells().stream().mapToLong(OrderForSeller::getPrice).sum();
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public void setPreviousSells(ArrayList<OrderForSeller> previousSells) {
+        this.previousSells = previousSells;
+    }
+
+    public void setActiveGoods(ArrayList<Good> activeGoods) {
+        this.activeGoods = activeGoods;
+    }
+
+    public void setActiveOffs(ArrayList<Off> activeOffs) {
+        this.activeOffs = activeOffs;
     }
 
     @Override
