@@ -3,31 +3,53 @@ package ApProject_OnlineShop.model.productThings;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 
-public class Rate {
-    private String customer;
-    private long good;
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "Rate")
+public class Rate implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "RateID", nullable = false, unique = true)
+    private int rateId;
+
+    @ManyToOne
+    @JoinColumn(name = "CustomerId", nullable = false)
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "ProductID", nullable = false)
+    private Good good;
+
+    @Column(name = "Rate", nullable = false)
     private int rate;
 
     public Rate(Customer customer, Good good, int rate) {
-        this.customer = customer.getUsername();
-        this.good = good.getGoodId();
+        this.customer = customer;
+        this.good = good;
         this.rate = rate;
     }
 
+    public Rate() {
+    }
+
     public Customer getCustomer() {
-        return (Customer) Shop.getInstance().findUser(customer);
+        return this.customer;
     }
 
     public void setCustomer(Customer customer) {
-        this.customer = customer.getUsername();
+        this.customer = customer;
+        //this.customer = customer.getUsername();
     }
 
     public Good getGood() {
-        return Shop.getInstance().findGoodById(good);
+        return this.good;
     }
 
     public void setGood(Good good) {
-        this.good = good.getGoodId();
+        this.good = good;
+        //this.good = good.getGoodId();
     }
 
     public int getRate() {
@@ -38,7 +60,13 @@ public class Rate {
         this.rate = rate;
     }
 
+    public int getRateId() {
+        return rateId;
+    }
 
+    public void setRateId(int rateId) {
+        this.rateId = rateId;
+    }
 
     @Override
     public String toString() {
