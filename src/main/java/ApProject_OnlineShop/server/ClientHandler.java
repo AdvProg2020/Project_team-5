@@ -104,12 +104,15 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void loginRegisterControllerHandler(RequestForServer requestForServer) {
+    private void loginRegisterControllerHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("createAccount")) {
             try {
+                ArrayList<String> details = new ArrayList<>();
+                for (int i = 2; i < requestForServer.getInputs().size(); i++) {
+                    details.add(requestForServer.getInputs().get(i));
+                }
                 MainController.getInstance().getLoginRegisterController()
-                        .createAccount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1),
-                                (ArrayList<String>) requestForServer.getInputs().subList(2, requestForServer.getInputs().size()));
+                        .createAccount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), details);
                 dataOutputStream.writeUTF("successfully account created.");
                 dataOutputStream.flush();
             } catch (UsernameIsTakenAlreadyException e) {
@@ -160,7 +163,10 @@ public class ClientHandler extends Thread {
                 e.printStackTrace();
             }
         } else if (requestForServer.getFunction().equals("logoutUser")) {
-
+            MainController.getInstance().getLoginRegisterController().logoutUser();
+            Server.removeOnlineUser(requestForServer.getToken());
+            dataOutputStream.writeUTF("logout successfully");
+            dataOutputStream.flush();
         }
     }
 
