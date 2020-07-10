@@ -1,24 +1,33 @@
 package ApProject_OnlineShop.model.persons;
 
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Seller extends Person {
-    private long company;
-    private ArrayList<Long> previousSellsIds;
-    private ArrayList<Long> activeGoodsIds;
-    private ArrayList<Long> activeOffsIds;
+@Entity
+@Table(name = "Seller")
+public class Seller extends Person implements Serializable {
+    private Company company;
+    private ArrayList<OrderForSeller> previousSellsIds;
+    private ArrayList<Good> activeGoodsIds;
+    private ArrayList<Off> activeOffsIds;
 
     public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
         super(username, firstName, lastName, email, phoneNumber, password);
         this.previousSellsIds = new ArrayList<>();
         this.activeGoodsIds = new ArrayList<>();
         this.activeOffsIds = new ArrayList<>();
-        this.company = company.getId();
+        this.company = company;
+    }
+
+    public Seller() {
     }
 
     public Company getCompany() {

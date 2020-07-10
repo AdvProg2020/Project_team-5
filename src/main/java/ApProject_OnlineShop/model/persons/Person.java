@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Person.Persons")
+@Table(name = "Persons")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public abstract class Person implements Serializable {
     private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "", joinColumns = @JoinColumn(name = "PersonId"), inverseJoinColumns = @JoinColumn(name = "PersonId"))
+    @JoinColumn(name = "PersonId")
     private Password password;
 
     @Transient
