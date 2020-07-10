@@ -7,44 +7,72 @@ import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Customer extends Person {
-    private ArrayList<Long> discountCodesIds;
-    private ArrayList<Long> previousOrders;
+@Entity
+@Table(name = "Customer")
+public class Customer extends Person implements Serializable {
+    private ArrayList<DiscountCode> discountCodes;
+    private ArrayList<OrderForCustomer> previousOrders;
+
+    @Column(name = "Credit", nullable = false)
     private long credit;
 
     public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password, long credit) {
         super(username, firstName, lastName, email, phoneNumber, password);
         this.credit = credit;
-        this.discountCodesIds = new ArrayList<>();
+        this.discountCodes = new ArrayList<>();
+        this.previousOrders = new ArrayList<>();
+    }
+
+    public Customer() {
+        this.discountCodes = new ArrayList<>();
         this.previousOrders = new ArrayList<>();
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-        this.discountCodesIds.add(discountCode.getId());
+        this.discountCodes.add(discountCode);
+        //this.discountCodes.add(discountCode.getId());
     }
 
     public void removeDiscountCode(DiscountCode discountCode) {
-        this.discountCodesIds.remove(discountCode.getId());
+        this.discountCodes.remove(discountCode);
     }
 
     public ArrayList<DiscountCode> getDiscountCodes() {
-        ArrayList<DiscountCode> discountCodes=new ArrayList<>();
-        for (Long discountCodesId : this.discountCodesIds) {
+        return this.discountCodes;
+        /*ArrayList<DiscountCode> discountCodes=new ArrayList<>();
+        for (Long discountCodesId : this.discountCodes) {
             discountCodes.add(Shop.getInstance().getHashMapOfDiscountCodes().get(discountCodesId));
         }
-        return discountCodes;
+        return discountCodes;*/
     }
 
     public ArrayList<OrderForCustomer> getPreviousOrders() {
-        ArrayList<OrderForCustomer> previousOrders=new ArrayList<>();
+        return this.previousOrders;
+        /*ArrayList<OrderForCustomer> previousOrders=new ArrayList<>();
         for (Long id : this.previousOrders) {
             previousOrders.add((OrderForCustomer) Shop.getInstance().getHasMapOfOrders().get(id));
         }
-        return previousOrders;
+        return previousOrders;*/
+    }
+
+    public void setDiscountCodes(ArrayList<DiscountCode> discountCodes) {
+        this.discountCodes = discountCodes;
+    }
+
+    public void setPreviousOrders(ArrayList<OrderForCustomer> previousOrders) {
+        this.previousOrders = previousOrders;
+    }
+
+    public void setCredit(long credit) {
+        this.credit = credit;
     }
 
     public Long getCredit() {
@@ -56,7 +84,8 @@ public class Customer extends Person {
     }
 
     public void addOrder(OrderForCustomer order) {
-        previousOrders.add(order.getOrderId());
+        previousOrders.add(order);
+        //previousOrders.add(order.getOrderId());
     }
 
     public OrderForCustomer findOrderById(long orderId) {

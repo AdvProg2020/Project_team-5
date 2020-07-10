@@ -16,6 +16,8 @@ public class Seller extends Person implements Serializable {
     private Company company;
 
     private ArrayList<OrderForSeller> previousSells;
+
+
     private ArrayList<Good> activeGoods;
 
     @OneToMany(mappedBy = "seller")
