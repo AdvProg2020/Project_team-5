@@ -1,5 +1,7 @@
 package ApProject_OnlineShop.GUI;
 
+import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,7 +10,8 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.scene.media.AudioClip;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Optional;
@@ -111,6 +114,22 @@ public class FxmlController {
         isMainLayoutPlay = mainLayout;
         isAccountAreaPlay = accountArea;
         isAllProductPlay = allProducts;
+    }
+
+    public String connectToServer(RequestForServer requestForServer) {
+        try {
+            Socket socket = new Socket("127.0.0.1", 8888);
+            System.out.println("Successfully connected to server!");
+            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            Gson gson = new Gson();
+            dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
+            dataOutputStream.flush();
+            return dataInputStream.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -12,11 +12,14 @@ import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.util.ArrayList;
 
 public class LoginController extends FxmlController {
     @FXML
@@ -29,8 +32,14 @@ public class LoginController extends FxmlController {
     private static String titleNextPage;
 
     public void loginButtonPressed(ActionEvent actionEvent) {
-        try {
-            MainController.getInstance().getLoginRegisterController().loginUser(username.getText(), password.getText());
+//        try {
+//            MainController.getInstance().getLoginRegisterController().loginUser(username.getText(), password.getText());
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(username.getText());
+        inputs.add(password.getText());
+        RequestForServer requestForServer = new RequestForServer("LoginRegisterController", "loginUser", null, inputs);
+        String serverResponse = connectToServer(requestForServer);
+        if (serverResponse.equals("successfully login.")) {
             SuccessPageFxController.showPage("Login successful", "you logined successful");
             if (pathAfterLogin != null) {
                 if (pathAfterLogin.equals("purchasePage1.fxml"))
@@ -51,11 +60,16 @@ public class LoginController extends FxmlController {
                 AccountAreaForSellerController.setPathBack(pathBack, titleBack);
                 setScene("accountAreaForSeller.fxml", "Account area for seller");
             }
-        } catch (UsernameNotFoundException | PasswordIncorrectException e) {
-            ErrorPageFxController.showPage("Error happened", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("Error happened", serverResponse);
             username.clear();
             password.clear();
         }
+//        } catch (UsernameNotFoundException | PasswordIncorrectException e) {
+//            ErrorPageFxController.showPage("Error happened", e.getMessage());
+//            username.clear();
+//            password.clear();
+//        }
     }
 
     public void goToRegisterMenu(ActionEvent actionEvent) {
