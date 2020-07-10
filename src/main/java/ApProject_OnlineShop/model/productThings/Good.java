@@ -4,23 +4,52 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Seller;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Good {
+@Entity
+@Table(name = "Product")
+public class Good implements Serializable {
+    @Transient
     private static long goodsCount = 1;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ProductID", nullable = false, unique = true)
     private long goodId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ProductStatus", nullable = false)
     private GoodStatus goodStatus;
+
+    @Column(name = "Name", nullable = false)
     private String name;
+
+    @Column(name = "Brand")
     private String brand;
+
+    @Column(name = "AverageRate", nullable = false)
     private double averageRate;
-    private String subCategory;
-    private ArrayList<Long> sellerRelatedInfoAboutGoods = new ArrayList<>();
+
+
+    private SubCategory subCategory;
+    private ArrayList<Long> sellerRelatedInfoAboutGoods;
+
+    @Column(name = "Description")
     private String details;
+
     private ArrayList<Long> comments;
+
+    @Column(name = "SeenNumber", nullable = false)
     private int seenNumber;
-    private LocalDate modificationDate;
+
+    @Column(name = "ModificationDate")
+    private LocalDateTime modificationDate;
+
     private HashMap<String, String> categoryProperties;
 
     public enum GoodStatus {
@@ -36,15 +65,16 @@ public class Good {
                 HashMap<String, String> categoryProperties, Seller seller, long price, int availableNumber) {
         this.name = name;
         this.brand = brand;
-        this.subCategory = subCategory.getName();
+        this.subCategory = subCategory;
         this.details = details;
         this.categoryProperties = categoryProperties;
         this.goodStatus = GoodStatus.BUILTPROCESSING;
         SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = new SellerRelatedInfoAboutGood(seller, price, availableNumber);
         Shop.getInstance().addSellerRelatedInfoAboutGood(sellerRelatedInfoAboutGood);
         sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
+        this.sellerRelatedInfoAboutGoods = new ArrayList<>();
         this.comments = new ArrayList<>();
-        this.modificationDate = LocalDate.now();
+        this.modificationDate = LocalDateTime.now();
     }
 
     public String getName() {
@@ -86,7 +116,7 @@ public class Good {
     }
 
     public SubCategory getSubCategory() {
-        return Shop.getInstance().getAllSubCategories().get(subCategory);
+        return this.subCategory;
     }
 
     public void addSeller(SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood) {
@@ -129,7 +159,7 @@ public class Good {
     }
 
     public void setSubCategory(SubCategory subCategory) {
-        this.subCategory = subCategory.getName();
+        this.subCategory = subCategory;
     }
 
     public void setDetails(String details) {
@@ -156,7 +186,7 @@ public class Good {
         return averageRate;
     }
 
-    public LocalDate getModificationDate() {
+    public LocalDateTime getModificationDate() {
         return modificationDate;
     }
 
