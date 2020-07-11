@@ -95,9 +95,10 @@ public class AccountAreaForSellerController extends FxmlController implements In
     }
 
     public void withdrawMoney() {
-        setScene("withdrawMoney.fxml", "withdrawMoney");
+        setScene("withdrawMoney.fxml", "withdraw money");
     }
 
     public void depositMoney(ActionEvent actionEvent) {
+        setScene("depositMoney.fxml", "deposit money");
     }
 }

@@ -13,6 +13,8 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.server.clientHandler.BankAccountsControllerHandler;
+import ApProject_OnlineShop.server.clientHandler.BankTransactionControllerHandler;
 import com.google.gson.Gson;
 
 import java.io.DataInputStream;
@@ -76,11 +78,13 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getController().equals("AccountAreaController")) {
             accountAreaControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("BankAccountsController")) {
+            new BankAccountsControllerHandler(clientSocket,dataOutputStream,dataInputStream,serverSocket,user).
             bankAccountsControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForSellerController")) {
             accountAreaForSellerHandler(requestForServer);
         }else if(requestForServer.getController().equals("BankTransactionsController")){
-            bankTransactionControllerHandler(requestForServer);
+            new BankTransactionControllerHandler(clientSocket,dataOutputStream,dataInputStream,serverSocket,user).
+                    bankTransactionControllerHandler(requestForServer);
         }
     }
 
@@ -276,32 +280,6 @@ public class ClientHandler extends Thread {
             }
         }
     }
-
-    private void bankAccountsControllerHandler(RequestForServer requestForServer) throws IOException {
-        if (requestForServer.getFunction().equals("createBankAccount")) {
-            String response = MainController.getInstance().getBankAccountsController().createBankAccount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1),
-                    requestForServer.getInputs().get(2),requestForServer.getInputs().get(3), requestForServer.getInputs().get(5));
-            if(!response.startsWith("password") &&response.startsWith("username")){
-                Person user = Shop.getInstance().findUser(requestForServer.getInputs().get(2));
-                if (user instanceof Customer)
-                    ((Customer) user).setBankAccountId(response);
-                if (user instanceof Seller)
-                    ((Seller)user).setBankAccountId(response);
-            }
-            dataOutputStream.writeUTF(response);
-            dataOutputStream.flush();
-        }
-    }
-
-    private void bankTransactionControllerHandler(RequestForServer requestForServer) throws IOException {
-        if (requestForServer.getFunction().equals("increaseCustomerCredit")){
-            String response = MainController.getInstance().getBankTransactionsController().increaseCustomerCredit(requestForServer.getInputs().get(0),
-                    requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
-            dataOutputStream.writeUTF(response);
-            dataOutputStream.flush();
-        }
-    }
-
     private void loginRegisterControllerHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("createAccount")) {
             try {

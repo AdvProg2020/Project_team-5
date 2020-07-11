@@ -61,4 +61,27 @@ public class BankRelatedController extends FxmlController {
             setScene("accountAreaForCustomer.fxml", "account area for customer");
         }
     }
+
+    public void withdrawMoneySeller() {
+        if (!getCurrentPerson().getUsername().equals(user.getText())){
+            ErrorPageFxController.showPage("can not increase credit", "your shop username does not match bank username");
+        }else {
+            ArrayList<String> input = new ArrayList<>();
+            input.add(user.getText());
+            input.add(password.getText());
+            input.add(money.getText());
+            RequestForServer requestForServer = new RequestForServer("BankTransactionsController", "increaseCustomerCredit", getToken(), input);
+            String response = connectToServer(requestForServer);
+            if (response.equals("done successfully"))
+                SuccessPageFxController.showPage("successfully done", money.getText() + "Rials withdrawn successfully");
+            else {
+                ErrorPageFxController.showPage("error happened", response);
+            }
+            setScene("accountAreaForCustomer.fxml", "account area for customer");
+        }
+    }
+
+    public void depositMoneySeller(){
+
+    }
 }
