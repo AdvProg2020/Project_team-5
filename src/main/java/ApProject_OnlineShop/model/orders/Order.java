@@ -1,12 +1,30 @@
 package ApProject_OnlineShop.model.orders;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public abstract class Order {
+@Entity
+@Table(name = "Order")
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Order implements Serializable {
+    @Transient
     private static long ordersCount = 1;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "OrderId", nullable = false, unique = true)
     private long orderId;
-    private LocalDate date;
+
+    @Column(name = "ModificationDate", nullable = false)
+    private LocalDateTime date;
+
+    @Column(name = "TotalPrice", nullable = false)
     private long price;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "OrderStatus", nullable = false)
     private OrderStatus orderStatus;
 
     public enum OrderStatus {
@@ -15,16 +33,19 @@ public abstract class Order {
 
     public Order(long price) {
         this.price = price;
-        this.date = LocalDate.now();
+        this.date = LocalDateTime.now();
         this.orderStatus = OrderStatus.READYTOSEND;
-        orderId = ordersCount++;
+        ordersCount++;
+    }
+
+    public Order() {
     }
 
     public long getOrderId() {
         return orderId;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
