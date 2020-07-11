@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.GUI.productPageRelated.ProductBriefSummery;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -26,7 +28,14 @@ public class ManageProduct extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Long> productIds = MainController.getInstance().getAccountAreaForSellerController().viewProducts(sortSelected);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + sortSelected);
+        ArrayList<String> productIdsString = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "viewProducts", getToken(), inputs)));
+        List<Long> productIds = new ArrayList<>();
+        for (String s : productIdsString) {
+            productIds.add(Long.parseLong(s));
+        }
+//        List<Long> productIds = MainController.getInstance().getAccountAreaForSellerController().viewProducts(sortSelected);
         int num = 0;
         int row = 0;
         int size1;
@@ -39,14 +48,17 @@ public class ManageProduct extends FxmlController implements Initializable {
             root.setPrefHeight(size1);
         }
         for (Long productId : productIds) {
-            if (MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
+            ArrayList<String> inputs1 = new ArrayList<>();
+            inputs1.add(productId + "");
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "isInOff", getToken(), inputs1));
+            if (serverResponse.equals("true")) {
                 VBox vbox = new ProductBriefSummery().offProductBriefSummery(productId);
                 root.add(vbox, num % 3, row);
                 num++;
                 vbox.setCursor(Cursor.HAND);
                 vbox.setOnMouseClicked(e -> showProduct(productId));
             }
-            if (!MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
+            if (serverResponse.equals("false")) {
                 VBox vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
                 root.add(vbox, num % 3, row);
                 num++;

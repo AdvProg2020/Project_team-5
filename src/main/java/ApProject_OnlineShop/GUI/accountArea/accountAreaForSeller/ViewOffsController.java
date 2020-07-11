@@ -43,7 +43,7 @@ public class ViewOffsController extends FxmlController implements Initializable 
         else {
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(sortSlected + "");
-            List<String> sortedOffs = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSortedOffs", getToken(), null)));
+            List<String> sortedOffs = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSortedOffs", getToken(), inputs)));
             for (String off : sortedOffs) {
                 Hyperlink hyperlink = new Hyperlink("- " + off);
                 hyperlink.setOnMouseClicked(e -> viewSingleOff(off));

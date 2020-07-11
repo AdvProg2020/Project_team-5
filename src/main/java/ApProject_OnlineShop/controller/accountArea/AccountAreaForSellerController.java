@@ -103,7 +103,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return ((Seller) person).getActiveOffs().stream().map(Off::getBriefSummery).collect(Collectors.toList());
     }
 
-    public List<String> getSortedOffs(int chosenSort,Person person) {
+    public List<String> getSortedOffs(int chosenSort, Person person) {
         List<Off> offs = ((Seller) person).getActiveOffs();
         List<String> offsString = new ArrayList<>();
         if (chosenSort == 1)
@@ -145,7 +145,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return details;
     }
 
-    public void addProduct(ArrayList<String> productInfo, HashMap<String, String> subcategoryDetailsValue,Person person) throws IOException, FileCantBeSavedException {
+    public void addProduct(ArrayList<String> productInfo, HashMap<String, String> subcategoryDetailsValue, Person person) throws IOException, FileCantBeSavedException {
         AddingGoodRequest addingGoodRequest = new AddingGoodRequest(productInfo.get(0), productInfo.get(1),
                 Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
                 productInfo.get(4), subcategoryDetailsValue, Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)),
@@ -164,7 +164,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
 //                && Integer.parseInt(matcher.group(3)) <= 30 && (!LocalDate.now().isAfter(LocalDate.parse(date))) && checkEndDateIsAfterStart(date, a, startDate));
 //    }
 
-    public boolean checkValidProductId(long productId,Person person) {
+    public boolean checkValidProductId(long productId, Person person) {
         return ((Seller) person).hasThisProduct(productId);
     }
 
@@ -175,7 +175,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
 //        return matcher;
 //    }
 
-    public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts,Person person) throws IOException, FileCantBeSavedException {
+    public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts, Person person) throws IOException, FileCantBeSavedException {
         AddingOffRequest addingOffRequest = new AddingOffRequest(getProductsByIds(offProducts),
                 LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
                 Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)),
@@ -213,7 +213,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
 //        return off.getSeller().equals(MainController.getInstance().getCurrentPerson());
 //    }
 
-    public void editProduct(String field, String key, long id,Person person) throws IOException, FileCantBeSavedException {
+    public void editProduct(String field, String key, long id, Person person) throws IOException, FileCantBeSavedException {
         HashMap<String, String> editedFields = new HashMap<>();
         editedFields.put(field, key);
         Shop.getInstance().findGoodById(id).setGoodStatus(Good.GoodStatus.EDITINGPROCESSING);
@@ -256,9 +256,9 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return sort(chosenSort).stream().map(Good::getGoodId).collect(Collectors.toList());
     }
 
-    public boolean isInOff(long productId) {
+    public boolean isInOff(long productId, Person person) {
         Seller seller = Shop.getInstance().findGoodById(productId).getSellerThatPutsThisGoodOnOff();
-        if (seller == null || !seller.getUsername().equals(MainController.getInstance().getCurrentPerson().getUsername())) {
+        if (seller == null || !seller.getUsername().equals(person.getUsername())) {
             return false;
         }
         return true;

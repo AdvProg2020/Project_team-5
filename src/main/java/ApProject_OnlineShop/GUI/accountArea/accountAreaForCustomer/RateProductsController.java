@@ -7,6 +7,7 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -48,14 +49,17 @@ public class RateProductsController extends FxmlController implements Initializa
         }
         for (Long productId : productIds) {
             VBox vbox;
-            if (MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(productId + "");
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "isInOff", getToken(), inputs));
+            if (serverResponse.equals("true")) {
                 vbox = new ProductBriefSummery().offProductBriefSummery(productId);
                 root.add(vbox, num % 3, row);
                 num++;
                 vbox.setCursor(Cursor.HAND);
                 vbox.setOnMouseClicked(e -> rateProduct(productId));
             }
-            if (!MainController.getInstance().getAccountAreaForSellerController().isInOff(productId)) {
+            if (serverResponse.equals("false")) {
                 vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
                 root.add(vbox, num % 3, row);
                 num++;
