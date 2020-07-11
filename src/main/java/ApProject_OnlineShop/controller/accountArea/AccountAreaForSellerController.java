@@ -145,11 +145,11 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return details;
     }
 
-    public void addProduct(ArrayList<String> productInfo, HashMap<String, String> subcategoryDetailsValue) throws IOException, FileCantBeSavedException {
+    public void addProduct(ArrayList<String> productInfo, HashMap<String, String> subcategoryDetailsValue,Person person) throws IOException, FileCantBeSavedException {
         AddingGoodRequest addingGoodRequest = new AddingGoodRequest(productInfo.get(0), productInfo.get(1),
                 Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
                 productInfo.get(4), subcategoryDetailsValue, Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)),
-                MainController.getInstance().getCurrentPerson().getUsername());
+                person.getUsername());
         Shop.getInstance().addRequest(addingGoodRequest);
         Database.getInstance().saveItem(addingGoodRequest);
     }

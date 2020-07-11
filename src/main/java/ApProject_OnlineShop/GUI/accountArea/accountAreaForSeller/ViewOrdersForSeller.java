@@ -77,7 +77,7 @@ public class ViewOrdersForSeller extends FxmlController {
         int index = orderString.indexOf("  ");
         String code = orderString.substring("order ID: ".length(), index);
         long orderId = Long.parseLong(code);
-        List<String> orderDetails = ((Seller) MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
+        List<String> orderDetails = ((Seller) FxmlController.getCurrentPerson()).findOrderById(orderId).getDetails();
         GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Seller Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));

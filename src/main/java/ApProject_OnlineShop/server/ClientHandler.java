@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ClientHandler extends Thread {
@@ -135,12 +136,26 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("isSubCategoryCorrect")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(requestForServer.getInputs().get(0)));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("getSubcategoryDetails")){
+        } else if (requestForServer.getFunction().equals("getSubcategoryDetails")) {
             List<String> data = MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("")){
-
+        } else if (requestForServer.getFunction().equals("addProduct")) {
+            ArrayList<String> productInfo = new ArrayList<>();
+            for (int i = 0; i < requestForServer.getInputs().indexOf("###"); i++) {
+                productInfo.add(requestForServer.getInputs().get(i));
+            }
+            HashMap<String, String> categoryProperties = new HashMap<>();
+            for (int i = requestForServer.getInputs().indexOf("###") + 1; i < requestForServer.getInputs().size(); i = i + 2) {
+                categoryProperties.put(requestForServer.getInputs().get(i), requestForServer.getInputs().get(i + 1));
+            }
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().addProduct(productInfo, categoryProperties, person);
+                dataOutputStream.writeUTF("successfully created!");
+                dataOutputStream.flush();
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

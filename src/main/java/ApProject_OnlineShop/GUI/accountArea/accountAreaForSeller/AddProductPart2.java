@@ -88,14 +88,26 @@ public class AddProductPart2 extends FxmlController implements Initializable {
             ErrorPageFxController.showPage("can not add good", "you should chose a photo");
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, detailValues);
+//        try {
+//            MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, detailValues);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.addAll(productDetails);
+        inputs.add("###");
+        for (String s : detailValues.keySet()) {
+            inputs.add(s);
+            inputs.add(detailValues.get(s));
+        }
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "addProduct", getToken(), inputs));
+        if (serverResponse.equals("successfully created!")) {
             Good.setGoodsCount(Good.getGoodsCount() + 1);
             SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
             setScene("manageProductsForSeller.fxml", "manage product");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("can not add good", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("can not add good", serverResponse);
         }
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("can not add good", e.getMessage());
+//        }
     }
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
