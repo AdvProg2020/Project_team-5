@@ -117,16 +117,23 @@ public class ManageRequestsPageController extends FxmlController implements Init
     }
 
     public void onDeclineRequestPressed(ActionEvent actionEvent) {
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().declineRequest("" + this.selectedRequest);
+//        try {
+//            MainController.getInstance().getAccountAreaForManagerController().declineRequest("" + this.selectedRequest);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + this.selectedRequest);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "declineRequest", getToken(), inputs));
+        if (serverResponse.equals("request declined successfully")) {
             this.selectedRequest = 0L;
             updateTableView(Shop.getInstance().getAllRequest());
             acceptButton.setDisable(true);
             declineButton.setDisable(true);
             detailsLabel.setText("");
             SuccessPageFxController.showPage("decline", "request declined successfully");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
         }
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        }
     }
 }
