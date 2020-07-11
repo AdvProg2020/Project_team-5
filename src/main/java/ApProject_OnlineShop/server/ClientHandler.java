@@ -157,6 +157,14 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF("#error");
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("acceptRequest")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().acceptRequest(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("request accepted successfully");
+                dataOutputStream.flush();
+            } catch (RequestNotFoundException | FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();            }
         }
     }
 
