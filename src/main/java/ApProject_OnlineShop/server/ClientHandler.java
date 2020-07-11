@@ -101,9 +101,15 @@ public class ClientHandler extends Thread {
                 dataOutputStream.flush();
             }
         } else if (requestForServer.getFunction().equals("getCompanyInfo")) {
-            ArrayList<String> data=MainController.getInstance().getAccountAreaForSellerController().getCompanyInfo(person);
+            ArrayList<String> data = MainController.getInstance().getAccountAreaForSellerController().getCompanyInfo(person);
             dataOutputStream.writeUTF(convertArrayListToString(data));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSortedLogs")) {
+            List<String> data = MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(Integer.parseInt(requestForServer.getInputs().get(0)), person);
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("")){
+
         }
     }
 
@@ -249,6 +255,15 @@ public class ClientHandler extends Thread {
     }
 
     private String convertArrayListToString(ArrayList<String> data) {
+        String output = "";
+        for (String s : data) {
+            output += s + "#";
+        }
+        String output2 = output.substring(0, output.lastIndexOf("#"));
+        return output2;
+    }
+
+    private String convertListToString(List<String> data) {
         String output = "";
         for (String s : data) {
             output += s + "#";

@@ -71,13 +71,13 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return companyInfo;
     }
 
-    public List<String> getSalesLog() {
-        return ((Seller) MainController.getInstance().getCurrentPerson()).getPreviousSells().stream().
-                map(OrderForSeller::toString).collect(Collectors.toList());
-    }
+//    public List<String> getSalesLog() {
+//        return ((Seller) MainController.getInstance().getCurrentPerson()).getPreviousSells().stream().
+//                map(OrderForSeller::toString).collect(Collectors.toList());
+//    }
 
-    public List<String> getSortedLogs(int chosenSort) {
-        List<Order> orders = ((Seller) MainController.getInstance().getCurrentPerson()).getPreviousSells().stream().map(order -> (Order) order).collect(Collectors.toList());
+    public List<String> getSortedLogs(int chosenSort, Person person) {
+        List<Order> orders = ((Seller) person).getPreviousSells().stream().map(order -> (Order) order).collect(Collectors.toList());
         return getSortedOrders(chosenSort, orders);
     }
 

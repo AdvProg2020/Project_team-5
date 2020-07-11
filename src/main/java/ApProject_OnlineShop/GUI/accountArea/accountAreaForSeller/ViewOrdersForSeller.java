@@ -6,6 +6,7 @@ import ApProject_OnlineShop.GUI.accountArea.Styles;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewOrdersForSeller extends FxmlController {
@@ -36,7 +38,10 @@ public class ViewOrdersForSeller extends FxmlController {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         style.setVBoxStyle(vBox);
         root.add(scrollPane, 1, 2);
-        List<String> orders = MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(sort);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + sort);
+        List<String> orders = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSortedLogs", getToken(), inputs)));
+//        List<String> orders = MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(sort);
         if (orders.size() * 50 > 600) {
             vBox.setPrefHeight((orders.size() * 50) + 20);
         } else {
