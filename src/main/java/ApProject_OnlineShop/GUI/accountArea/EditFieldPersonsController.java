@@ -72,49 +72,99 @@ public class EditFieldPersonsController extends FxmlController implements Initia
         boolean edited = false;
         if (checkBaseInfos()) {
             if (!firstName.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForManagerController().editField(1, firstName.getText());
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("1");
+                inputs.add(firstName.getText());
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaController", "editField", getToken(), inputs));
+                if (serverResponse.equals("field edited successfully"))
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForManagerController().editField(1, firstName.getText());
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!lastName.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForManagerController().editField(2, lastName.getText());
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("2");
+                inputs.add(lastName.getText());
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaController", "editField", getToken(), inputs));
+                if (serverResponse.equals("field edited successfully"))
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForManagerController().editField(2, lastName.getText());
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!email.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForManagerController().editField(3, email.getText());
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("3");
+                inputs.add(email.getText());
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaController", "editField", getToken(), inputs));
+                if (serverResponse.equals("field edited successfully"))
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForManagerController().editField(3, email.getText());
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!phoneNumber.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForManagerController().editField(4, phoneNumber.getText());
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("4");
+                inputs.add(phoneNumber.getText());
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaController", "editField", getToken(), inputs));
+                if (serverResponse.equals("field edited successfully"))
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForManagerController().editField(4, phoneNumber.getText());
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!password.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForManagerController().editField(5, password.getText());
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("5");
+                inputs.add(password.getText());
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaController", "editField", getToken(), inputs));
+                if (serverResponse.equals("field edited successfully"))
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForManagerController().editField(5, password.getText());
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (edited) {
                 SuccessPageFxController.showPage("field edited", "fields edited succesfully!");

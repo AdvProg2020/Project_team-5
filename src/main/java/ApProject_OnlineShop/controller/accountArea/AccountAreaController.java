@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.controller.accountArea;
 
-import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.productExceptions.FieldCantBeEditedException;
@@ -45,29 +44,29 @@ public class AccountAreaController {
         return personalInfo;
     }
 
-    public void editField(int chosenField, String newValue) throws FieldCantBeEditedException, Exception {
+    public void editField(int chosenField, String newValue, Person person) throws FieldCantBeEditedException, Exception {
         if (chosenField == 1) {
-            MainController.getInstance().getCurrentPerson().setFirstName(newValue);
+            person.setFirstName(newValue);
         } else if (chosenField == 2) {
-            MainController.getInstance().getCurrentPerson().setLastName(newValue);
+            person.setLastName(newValue);
         } else if (chosenField == 3) {
             if (MainController.isEmailValid(newValue))
-                MainController.getInstance().getCurrentPerson().setEmail(newValue);
+                person.setEmail(newValue);
             else
                 throw new FieldCantBeEditedException("email", "input has not correct format for email");
         } else if (chosenField == 4) {
             if (MainController.isPhoneNumberValid(newValue))
-                MainController.getInstance().getCurrentPerson().setPhoneNumber(newValue);
+                person.setPhoneNumber(newValue);
             else
                 throw new FieldCantBeEditedException("phone number", "input has not correct format for phone number");
         } else if (chosenField == 5) {
             if (!newValue.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})"))
                 throw new FieldCantBeEditedException("password", "input has not conditions of a valid password");
-            if (newValue.equals(MainController.getInstance().getCurrentPerson().getPassword()))
+            if (newValue.equals(person.getPassword()))
                 throw new FieldCantBeEditedException("password", "new password and old password are identical");
-            MainController.getInstance().getCurrentPerson().setPassword(newValue);
+            person.setPassword(newValue);
         } else throw new Exception("no valid field selected.");
-        Database.getInstance().saveItem(MainController.getInstance().getCurrentPerson());
+        Database.getInstance().saveItem(person);
     }
 
     public List<String> getSortedOrders(int chosenSort, List<Order> orders) {

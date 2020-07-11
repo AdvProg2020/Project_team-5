@@ -93,7 +93,15 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(convertArrayListToString(personalInfo));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("editField")) {
-
+            try {
+                MainController.getInstance().getAccountAreaForManagerController()
+                        .editField(Integer.parseInt(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), person);
+                dataOutputStream.writeUTF("field edited successfully");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
         } else if (requestForServer.getFunction().equals("getSortedOrders")) {
 
         }
