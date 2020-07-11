@@ -81,8 +81,8 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return getSortedOrders(chosenSort, orders);
     }
 
-    public long viewBalance() {
-        return ((Seller) FxmlController.getCurrentPerson()).balance();
+    public long viewBalance(Person person) {
+        return ((Seller) person).balance();
     }
 
     public ArrayList<String> buyersOfProduct(long productId) throws ProductNotFoundExceptionForSeller {

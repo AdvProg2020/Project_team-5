@@ -108,8 +108,9 @@ public class ClientHandler extends Thread {
             List<String> data = MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(Integer.parseInt(requestForServer.getInputs().get(0)), person);
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("")){
-
+        } else if (requestForServer.getFunction().equals("viewBalance")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().viewBalance(person));
+            dataOutputStream.flush();
         }
     }
 

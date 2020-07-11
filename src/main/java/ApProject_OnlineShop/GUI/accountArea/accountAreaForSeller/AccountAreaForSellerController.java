@@ -48,7 +48,7 @@ public class AccountAreaForSellerController extends FxmlController implements In
         lastName.setText(personalInfo.get(2));
         email.setText(personalInfo.get(3));
         phoneNumber.setText(personalInfo.get(4));
-        balance.setText(MainController.getInstance().getAccountAreaForSellerController().viewBalance() + "");
+        balance.setText(connectToServer(new RequestForServer("AccountAreaForSellerController", "viewBalance", getToken(), null)));
     }
 
     public void viewCompanyInformation(MouseEvent mouseEvent) {
