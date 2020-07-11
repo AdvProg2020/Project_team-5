@@ -15,6 +15,7 @@ public class Seller extends Person implements Serializable {
     @JoinColumn(name = "CompanyID", nullable = false)
     private Company company;
 
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private ArrayList<OrderForSeller> previousSells;
 
 
