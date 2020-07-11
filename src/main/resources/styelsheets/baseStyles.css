@@ -58,7 +58,7 @@
 
 .menuButtons:hover {
     -fx-background-color: white;
-    -fx-text-fill: black;
+    -fx-text-fill: #9933ff;
     -fx-color: #9933ff;
     -fx-border-color: #9933ff;
     -fx-border-width: 2 2 2 2;
