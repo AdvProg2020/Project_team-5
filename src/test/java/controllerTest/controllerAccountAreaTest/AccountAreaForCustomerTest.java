@@ -15,10 +15,8 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.model.productThings.GoodInCart;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import ApProject_OnlineShop.testThings.TestShop;
 
@@ -77,7 +75,7 @@ public class AccountAreaForCustomerTest {
         assertTrue(controller.checkExistProductInCart(good.getGoodId()));
         assertEquals(good.toString(), controller.viewSpecialProduct(good.getGoodId()));
         try {
-            controller.purchase(7200L, makeArrayListForOrder(), "1111");
+            controller.purchaseByWallet(7200L, makeArrayListForOrder(), "1111");
         } catch (Exception e) {
             assertFalse(false);
         }

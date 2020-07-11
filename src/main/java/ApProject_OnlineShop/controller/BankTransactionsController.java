@@ -62,4 +62,16 @@ public class BankTransactionsController {
             return receiptId;
         return MainController.getInstance().getBankAccountsController().pay(receiptId);
     }
+
+    public String payMoneyToSellerAfterPurchaseByWallet(String money, String username) throws IOException {
+        String token = MainController.getInstance().getBankAccountsController().getToken(Shop.getInstance().getShopBankAccount().getUserName(), Shop.getInstance().getShopBankAccount().getPassword());
+        if (token.startsWith("invalid"))
+            return token;
+        Seller seller = (Seller) Shop.getInstance().findUser(username);
+        Long moneyToMove = Long.parseLong(money) * (100 - Shop.getInstance().getShopBankAccount().getBankingFeePercent()) / 100;
+        String receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "move", "" + moneyToMove, Shop.getInstance().getShopBankId(), seller.getBankAccountId(), "");
+        if (!Pattern.matches("[\\d+]", receiptId))
+            return receiptId;
+        return MainController.getInstance().getBankAccountsController().pay(receiptId);
+    }
 }

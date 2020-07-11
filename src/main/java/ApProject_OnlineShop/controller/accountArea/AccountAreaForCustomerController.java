@@ -54,7 +54,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         goodInfo.add(good.getGood().getName() + " " + good.getGood().getBrand());
         goodInfo.add(good.getSeller().getUsername());
         goodInfo.add("" + good.getNumber());
-        goodInfo.add("" + Shop.getInstance().getFinalPriceOfAGood(good.getGood(),good.getSeller()));
+        goodInfo.add("" + Shop.getInstance().getFinalPriceOfAGood(good.getGood(), good.getSeller()));
         goodInfo.add("" + good.getFinalPrice());
         return goodInfo;
     }
@@ -146,7 +146,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return finalPriceOfAList(Shop.getInstance().getCart()) - discountCode.getMaxDiscountAmount();
     }
 
-    public void purchase(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws Exception {
+    public void purchaseByWallet(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws Exception {
         if (((Customer) MainController.getInstance().getCurrentPerson()).getCredit() < totalPrice)
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
@@ -170,7 +170,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
             Database.getInstance().saveItem(goodInCart);
         }
         Shop.getInstance().addOrder(orderForCustomer);
-        orderForCustomer.setOrderStatus(Order.OrderStatus.RECEIVED);
+        orderForCustomer.setOrderStatus(Order.OrderStatus.PROCESSING);
         Database.getInstance().saveItem(orderForCustomer);
         currentUser.setCredit(currentUser.getCredit() - price);
         currentUser.donateDiscountCodeTOBestCustomers();
@@ -189,6 +189,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         for (Seller seller : sellerSet) {
             List<GoodInCart> sellerProduct = cart.stream().filter(good -> good.getSeller() == seller).collect(Collectors.toList());
             OrderForSeller orderForSeller = new OrderForSeller(finalPriceOfAList(sellerProduct), seller, MainController.getInstance().getCurrentPerson().getUsername(), sellerProduct);
+            MainController.getInstance().getBankTransactionsController().payMoneyToSellerAfterPurchaseByWallet("" + finalPriceOfAList(sellerProduct), seller.getUsername());
             seller.addOrder(orderForSeller);
             Shop.getInstance().addOrder(orderForSeller);
             orderForSeller.setOrderStatus(Order.OrderStatus.SENT);
