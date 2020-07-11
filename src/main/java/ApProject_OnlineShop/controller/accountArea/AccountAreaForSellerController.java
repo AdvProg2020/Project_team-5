@@ -11,6 +11,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
@@ -32,8 +33,8 @@ import java.util.stream.Collectors;
 
 public class AccountAreaForSellerController extends AccountAreaController {
 
-    public void removeProduct(long productId) throws ProductNotFoundExceptionForSeller, IOException, FileCantBeSavedException, FileCantBeDeletedException {
-        Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
+    public void removeProduct(long productId, Person person) throws ProductNotFoundExceptionForSeller, IOException, FileCantBeSavedException, FileCantBeDeletedException {
+        Seller seller = (Seller) person;
         Good good = seller.findProductOfSeller(productId);
         if (!seller.hasThisProduct(productId))
             throw new ProductNotFoundExceptionForSeller();
@@ -59,9 +60,9 @@ public class AccountAreaForSellerController extends AccountAreaController {
         }
     }
 
-    public ArrayList<String> getCompanyInfo() {
+    public ArrayList<String> getCompanyInfo(Person person) {
         ArrayList<String> companyInfo = new ArrayList<>();
-        Company company = ((Seller) MainController.getInstance().getCurrentPerson()).getCompany();
+        Company company = ((Seller) person).getCompany();
         companyInfo.add(company.getName());
         companyInfo.add(company.getWebsite());
         companyInfo.add(company.getPhoneNumber());

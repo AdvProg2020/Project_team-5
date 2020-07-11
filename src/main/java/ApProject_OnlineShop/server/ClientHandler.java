@@ -1,7 +1,9 @@
 package ApProject_OnlineShop.server;
 
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientHandler extends Thread {
     private Socket clientSocket;
@@ -70,6 +73,35 @@ public class ClientHandler extends Thread {
             loginRegisterControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaController")) {
             accountAreaControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("AccountAreaForSellerController")) {
+            accountAreaForSellerHandler(requestForServer);
+        }
+    }
+
+    private void accountAreaForSellerHandler(RequestForServer requestForServer) throws IOException {
+        Person person = user;
+        if (person == null)
+            return;
+        if (requestForServer.getFunction().equals("removeProduct")) {
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().removeProduct(Long.parseLong(requestForServer.getInputs().get(0)), person);
+                dataOutputStream.writeUTF("product removed successfully");
+                dataOutputStream.flush();
+            } catch (ProductNotFoundExceptionForSeller productNotFoundExceptionForSeller) {
+                dataOutputStream.writeUTF(productNotFoundExceptionForSeller.getMessage());
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (FileCantBeSavedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getCompanyInfo")) {
+
         }
     }
 
@@ -102,8 +134,6 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(exception.getMessage());
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getFunction().equals("getSortedOrders")) {
-
         }
     }
 
