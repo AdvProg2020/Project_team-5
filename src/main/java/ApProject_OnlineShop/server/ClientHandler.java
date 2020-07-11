@@ -101,7 +101,9 @@ public class ClientHandler extends Thread {
                 dataOutputStream.flush();
             }
         } else if (requestForServer.getFunction().equals("getCompanyInfo")) {
-
+            ArrayList<String> data=MainController.getInstance().getAccountAreaForSellerController().getCompanyInfo(person);
+            dataOutputStream.writeUTF(convertArrayListToString(data));
+            dataOutputStream.flush();
         }
     }
 

@@ -211,7 +211,7 @@ public class ProductPageControllerForSeller extends FxmlController implements In
             String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "removeProduct", getToken(), inputs));
             if (serverResponse.equals("product removed successfully")) {
                 setScene("manageProductsForSeller.fxml", "manage products");
-            }else{
+            } else {
                 ErrorPageFxController.showPage("can not remove this product", serverResponse);
             }
 //            try {

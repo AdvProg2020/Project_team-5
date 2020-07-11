@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,7 +23,8 @@ public class CompanyInformationController extends FxmlController implements Init
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<String> details = MainController.getInstance().getAccountAreaForSellerController().getCompanyInfo();
+        ArrayList<String> details = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getCompanyInfo", getToken(), null)));
+//        ArrayList<String> details = MainController.getInstance().getAccountAreaForSellerController().getCompanyInfo();
         name.setText(details.get(0));
         website.setText(details.get(1));
         phoneNumber.setText(details.get(2));
