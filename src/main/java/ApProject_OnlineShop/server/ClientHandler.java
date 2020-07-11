@@ -3,6 +3,8 @@ package ApProject_OnlineShop.server;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
@@ -63,10 +65,12 @@ public class ClientHandler extends Thread {
             handleRequest(requestForServer);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
         }
     }
 
-    private void handleRequest(RequestForServer requestForServer) throws IOException {
+    private void handleRequest(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
         if (requestForServer.getToken() != null)
             user = Server.getOnlineUsers().get(requestForServer.getToken());
         if (requestForServer.getController().equals("getCurrentPerson")) {
@@ -79,6 +83,38 @@ public class ClientHandler extends Thread {
             bankAccountsControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForSellerController")) {
             accountAreaForSellerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("AccountAreaForManagerController")) {
+            accountAreaForManagerHandler(requestForServer);
+        }
+    }
+
+    private void accountAreaForManagerHandler(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+        if (requestForServer.getFunction().equals("createNewDiscountCode")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(requestForServer.getInputs());
+                dataOutputStream.writeUTF("discountCode created successfully");
+                dataOutputStream.flush();
+            } catch (DiscountCodeCantCreatedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("addIncludedCustomerToDiscountCode")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+                dataOutputStream.writeUTF("customer included successfully");
+                dataOutputStream.flush();
+            } catch (DiscountCodeCantCreatedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (UsernameNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (DiscountCodeNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getAllDiscountCodesInfo")) {
+            
         }
     }
 
@@ -278,13 +314,13 @@ public class ClientHandler extends Thread {
     private void bankAccountsControllerHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("createBankAccount")) {
             String response = MainController.getInstance().getBankAccountsController().createBankAccount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1),
-                    requestForServer.getInputs().get(2),requestForServer.getInputs().get(3), requestForServer.getInputs().get(5));
-            if(!response.startsWith("password") &&response.startsWith("username")){
+                    requestForServer.getInputs().get(2), requestForServer.getInputs().get(3), requestForServer.getInputs().get(5));
+            if (!response.startsWith("password") && response.startsWith("username")) {
                 Person user = Shop.getInstance().findUser(requestForServer.getInputs().get(2));
                 if (user instanceof Customer)
                     ((Customer) user).setBankAccountId(response);
                 if (user instanceof Seller)
-                    ((Seller)user).setBankAccountId(response);
+                    ((Seller) user).setBankAccountId(response);
             }
             dataOutputStream.writeUTF(response);
             dataOutputStream.flush();

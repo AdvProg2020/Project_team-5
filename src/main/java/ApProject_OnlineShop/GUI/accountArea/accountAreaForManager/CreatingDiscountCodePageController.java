@@ -9,6 +9,7 @@ import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -60,14 +61,20 @@ public class CreatingDiscountCodePageController extends FxmlController implement
         ArrayList<String> discountCodeFields = initializeDiscountFields();
         if (discountCodeFields == null)
             return;
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(discountCodeFields);
+//        try {
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "createNewDiscountCode", getToken(), discountCodeFields));
+//            MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(discountCodeFields);
+        if (serverResponse.equals("discountCode created successfully")) {
             SuccessPageFxController.showPage("successful discount creation", "discount code created successfully");
             this.isDiscountCreated = true;
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
             clearFields();
         }
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//            clearFields();
+//        }
     }
 
     private void clearFields() {
@@ -124,14 +131,25 @@ public class CreatingDiscountCodePageController extends FxmlController implement
             clearAddCustomerFields();
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode(this.code, username, numberOfUse);
+//        try {
+//            MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode(this.code, username, numberOfUse);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(this.code);
+        inputs.add(username);
+        inputs.add(numberOfUse);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "addIncludedCustomerToDiscountCode", getToken(), inputs));
+        if (serverResponse.equals("customer included successfully")) {
             SuccessPageFxController.showPage("successful adding customer", "customer added to code successfully");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
-        } finally {
+            clearAddCustomerFields();
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
             clearAddCustomerFields();
         }
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        } finally {
+//            clearAddCustomerFields();
+//        }
     }
 
     private void clearAddCustomerFields() {
