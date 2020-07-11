@@ -68,10 +68,35 @@ public class ClientHandler extends Thread {
             getCurrentPerson();
         } else if (requestForServer.getController().equals("LoginRegisterController")) {
             loginRegisterControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("AccountAreaController")) {
+            accountAreaControllerHandler(requestForServer);
         }
     }
 
-    private void getCurrentPerson() throws IOException {
+    private void accountAreaControllerHandler(RequestForServer requestForServer) {
+        Person person = Server.getOnlineUsers().get(requestForServer.getToken());
+        if (person == null)
+            return;
+        if (requestForServer.getFunction().equals("showCategories")) {
+            ArrayList<String> data;
+            if (person instanceof Customer) {
+                data = MainController.getInstance().getAccountAreaForCustomerController().showCategories();
+            } else if (person instanceof Seller) {
+                data = MainController.getInstance().getAccountAreaForSellerController().showCategories();
+            } else if (person instanceof Manager) {
+                data = MainController.getInstance().getAccountAreaForManagerController().showCategories();
+            }
+//            dataOutputStream.writeUTF(data);
+        } else if (requestForServer.getFunction().equals("getUserPersonalInfo")) {
+
+        } else if (requestForServer.getFunction().equals("editField")) {
+
+        } else if (requestForServer.getFunction().equals("getSortedOrders")) {
+
+        }
+    }
+
+    private void getCurrentPerson() {
         if (user == null) {
             try {
                 dataOutputStream.writeUTF("null");
