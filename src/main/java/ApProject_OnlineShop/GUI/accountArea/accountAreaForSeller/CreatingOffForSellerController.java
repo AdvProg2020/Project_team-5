@@ -5,6 +5,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -45,17 +46,34 @@ public class CreatingOffForSellerController extends FxmlController {
                 offDetails.add(endDateChooser.getValue().toString());
                 offDetails.add(maxAmount.getText());
                 offDetails.add(discountPercentTextField.getText());
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails, offProducts);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.addAll(offDetails);
+                inputs.add("###");
+                for (Long offProduct : offProducts) {
+                    inputs.add(offProduct + "");
+                }
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "addOff", getToken(), inputs));
+                if (serverResponse.equals("off successfully added")) {
                     SuccessPageFxController.showPage("off request created successfully", "your request successfully sent to manager");
                     offProducts.clear();
                     finished = false;
-                    setScene("accountAreaForSeller.fxml","account area for seller");
-                } catch (Exception e) {
-                    ErrorPageFxController.showPage("off request cannot be created", e.getMessage());
+                    setScene("accountAreaForSeller.fxml", "account area for seller");
+                } else {
+                    ErrorPageFxController.showPage("off request cannot be created", serverResponse);
                     finished = false;
                     offProducts.clear();
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails, offProducts);
+//                    SuccessPageFxController.showPage("off request created successfully", "your request successfully sent to manager");
+//                    offProducts.clear();
+//                    finished = false;
+//                    setScene("accountAreaForSeller.fxml", "account area for seller");
+//                } catch (Exception e) {
+//                    ErrorPageFxController.showPage("off request cannot be created", e.getMessage());
+//                    finished = false;
+//                    offProducts.clear();
+//                }
             }
         }
     }
@@ -84,7 +102,9 @@ public class CreatingOffForSellerController extends FxmlController {
             productToAdd.clear();
             return;
         }
-        if (!MainController.getInstance().getAccountAreaForSellerController().checkValidProductId(Long.parseLong(productToAdd.getText()))) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productToAdd.getText());
+        if (connectToServer(new RequestForServer("AccountAreaForSellerController", "checkValidProductId", getToken(), inputs)).equals("false")) {
             ErrorPageFxController.showPage("error for adding product", "This product does not exist your active goods");
             productToAdd.clear();
         } else {

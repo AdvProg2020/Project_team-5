@@ -8,6 +8,7 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,7 +54,10 @@ public class AddProductPart2 extends FxmlController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         HashMap<String, String> detailValues = new HashMap<>();
         int row = 1;
-        for (String detail : MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(productDetails.get(5))) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productDetails.get(5));
+        ArrayList<String> subCategoryDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSubcategoryDetails", getToken(), inputs)));
+        for (String detail : subCategoryDetails) {
             Label text = new Label(detail + " :");
             text.setFont(Font.font("Times New Roman", 16));
             text.setPadding(new Insets(20));
@@ -84,14 +88,26 @@ public class AddProductPart2 extends FxmlController implements Initializable {
             ErrorPageFxController.showPage("can not add good", "you should chose a photo");
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, detailValues);
+//        try {
+//            MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, detailValues);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.addAll(productDetails);
+        inputs.add("###");
+        for (String s : detailValues.keySet()) {
+            inputs.add(s);
+            inputs.add(detailValues.get(s));
+        }
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "addProduct", getToken(), inputs));
+        if (serverResponse.equals("successfully created!")) {
             Good.setGoodsCount(Good.getGoodsCount() + 1);
             SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
             setScene("manageProductsForSeller.fxml", "manage product");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("can not add good", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("can not add good", serverResponse);
         }
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("can not add good", e.getMessage());
+//        }
     }
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
@@ -123,7 +139,7 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter png = new FileChooser.ExtensionFilter("png", "*.png");
         FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("jpg", "*.jpg");
-        fileChooser.getExtensionFilters().addAll(png,jpg);
+        fileChooser.getExtensionFilters().addAll(png, jpg);
         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
         path = "./Resources/productImages/" + Good.getGoodsCount() + ".jpg";
         BufferedImage bi = null;

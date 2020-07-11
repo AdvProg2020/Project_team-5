@@ -12,6 +12,7 @@ import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundException
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -205,18 +206,26 @@ public class ProductPageControllerForSeller extends FxmlController implements In
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Remove", "Remove product", "are you sure you want to remove this?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForSellerController().removeProduct(productId);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add("" + productId);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "removeProduct", getToken(), inputs));
+            if (serverResponse.equals("product removed successfully")) {
                 setScene("manageProductsForSeller.fxml", "manage products");
-            } catch (ProductNotFoundExceptionForSeller e) {
-                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
-            } catch (IOException e) {
-                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
-            } catch (FileCantBeSavedException e) {
-                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
-            } catch (FileCantBeDeletedException e) {
-                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
+            } else {
+                ErrorPageFxController.showPage("can not remove this product", serverResponse);
             }
+//            try {
+//                MainController.getInstance().getAccountAreaForSellerController().removeProduct(productId);
+//                setScene("manageProductsForSeller.fxml", "manage products");
+//            } catch (ProductNotFoundExceptionForSeller e) {
+//                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
+//            } catch (IOException e) {
+//                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
+//            } catch (FileCantBeSavedException e) {
+//                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
+//            } catch (FileCantBeDeletedException e) {
+//                ErrorPageFxController.showPage("can not remove this product", e.getMessage());
+//            }
         }
     }
 

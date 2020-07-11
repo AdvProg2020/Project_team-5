@@ -7,6 +7,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -41,7 +43,10 @@ public class EditPorductController extends FxmlController implements Initializab
         additionalDetails.setPromptText(good.getDetails());
         availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
         int row = 3;
-        for (String detail : MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(good.getSubCategory().getName())) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(good.getSubCategory().getName());
+        ArrayList<String> subCategoryDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSubcategoryDetails", getToken(), inputs)));
+        for (String detail : subCategoryDetails){
             Label text = new Label(detail + " :");
             text.setFont(Font.font("Times New Roman", 14));
             text.setPadding(new Insets(20));
@@ -82,48 +87,92 @@ public class EditPorductController extends FxmlController implements Initializab
         boolean edited = false;
         if (checkBaseInfos()) {
             if (!price.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController()
-                            .editProduct("price", price.getText(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("price");
+                inputs.add(price.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editProduct", getToken(), inputs));
+                if (serverResponse.equals("product edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field price", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController()
+//                            .editProduct("price", price.getText(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field price", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!availableNumber.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController()
-                            .editProduct("availableNumber", availableNumber.getText(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("availableNumber");
+                inputs.add(availableNumber.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editProduct", getToken(), inputs));
+                if (serverResponse.equals("product edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field available number", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController()
+//                            .editProduct("availableNumber", availableNumber.getText(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field available number", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!additionalDetails.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController().editProduct("details", additionalDetails.getText(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("details");
+                inputs.add(additionalDetails.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editProduct", getToken(), inputs));
+                if (serverResponse.equals("product edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field details", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController().editProduct("details", additionalDetails.getText(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field details", exception.getMessage());
+//                    edited = false;
+//                }
             }
             for (String detail : textFields.keySet()) {
                 if (!textFields.get(detail).getText().equals("")) {
-                    try {
-                        MainController.getInstance().getAccountAreaForSellerController().editProduct(detail, textFields.get(detail).getText(), id);
+                    ArrayList<String> inputs = new ArrayList<>();
+                    inputs.add(detail);
+                    inputs.add(textFields.get(detail).getText());
+                    inputs.add("" + id);
+                    String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editProduct", getToken(), inputs));
+                    if (serverResponse.equals("product edited successfully")) {
                         edited = true;
-                    } catch (Exception exception) {
-                        ErrorPageFxController.showPage("can not edited field" + detail, exception.getMessage());
+                    } else {
+                        ErrorPageFxController.showPage("can not edited field", serverResponse);
                         edited = false;
                     }
+//                    try {
+//                        MainController.getInstance().getAccountAreaForSellerController().editProduct(detail, textFields.get(detail).getText(), id);
+//                        edited = true;
+//                    } catch (Exception exception) {
+//                        ErrorPageFxController.showPage("can not edited field" + detail, exception.getMessage());
+//                        edited = false;
+//                    }
                 }
             }
             if (edited) {
                 SuccessPageFxController.showPage("edit good request sent", "edit good request sent to manager succesfully!");
-                setScene("productPageEditableForSeller.fxml","product page");
+                setScene("productPageEditableForSeller.fxml", "product page");
             }
         }
     }

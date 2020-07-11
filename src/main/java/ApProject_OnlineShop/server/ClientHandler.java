@@ -6,7 +6,6 @@ import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistere
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
@@ -19,8 +18,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.List;
 
 public class ClientHandler extends Thread {
     private Socket clientSocket;
@@ -75,15 +74,145 @@ public class ClientHandler extends Thread {
             accountAreaControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("BankAccountsController")) {
             bankAccountsControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("AccountAreaForSellerController")) {
+            accountAreaForSellerHandler(requestForServer);
         }
     }
 
-    private void accountAreaControllerHandler(RequestForServer requestForServer) {
+    private void accountAreaForSellerHandler(RequestForServer requestForServer) throws IOException {
+        Person person = user;
+        if (person == null)
+            return;
+        if (requestForServer.getFunction().equals("removeProduct")) {
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().removeProduct(Long.parseLong(requestForServer.getInputs().get(0)), person);
+                dataOutputStream.writeUTF("product removed successfully");
+                dataOutputStream.flush();
+            } catch (ProductNotFoundExceptionForSeller productNotFoundExceptionForSeller) {
+                dataOutputStream.writeUTF(productNotFoundExceptionForSeller.getMessage());
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (FileCantBeSavedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getCompanyInfo")) {
+            ArrayList<String> data = MainController.getInstance().getAccountAreaForSellerController().getCompanyInfo(person);
+            dataOutputStream.writeUTF(convertArrayListToString(data));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSortedLogs")) {
+            List<String> data = MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(Integer.parseInt(requestForServer.getInputs().get(0)), person);
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("viewBalance")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().viewBalance(person));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("buyersOfProduct")) {
+            try {
+                String output = convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().buyersOfProduct(Long.parseLong(requestForServer.getInputs().get(0)), person));
+                dataOutputStream.writeUTF(output);
+                dataOutputStream.flush();
+            } catch (ProductNotFoundExceptionForSeller productNotFoundExceptionForSeller) {
+                dataOutputStream.writeUTF(productNotFoundExceptionForSeller.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getAllOffs")) {
+            List<String> data = MainController.getInstance().getAccountAreaForSellerController().getAllOffs(person);
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSortedOffs")) {
+            List<String> data = MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(Integer.parseInt(requestForServer.getInputs().get(0)), person);
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("viewOffGUI")) {
+            String output = convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().viewOffGUI(Long.parseLong(requestForServer.getInputs().get(0))));
+            dataOutputStream.writeUTF(output);
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isSubCategoryCorrect")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(requestForServer.getInputs().get(0)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSubcategoryDetails")) {
+            List<String> data = MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addProduct")) {
+            ArrayList<String> productInfo = new ArrayList<>();
+            for (int i = 0; i < requestForServer.getInputs().indexOf("###"); i++) {
+                productInfo.add(requestForServer.getInputs().get(i));
+            }
+            HashMap<String, String> categoryProperties = new HashMap<>();
+            for (int i = requestForServer.getInputs().indexOf("###") + 1; i < requestForServer.getInputs().size(); i = i + 2) {
+                categoryProperties.put(requestForServer.getInputs().get(i), requestForServer.getInputs().get(i + 1));
+            }
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().addProduct(productInfo, categoryProperties, person);
+                dataOutputStream.writeUTF("successfully created!");
+                dataOutputStream.flush();
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
+        } else if (requestForServer.getFunction().equals("checkValidProductId")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().checkValidProductId(Long.parseLong(requestForServer.getInputs().get(0)), person));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addOff")) {
+            ArrayList<String> offDetails = new ArrayList<>();
+            for (int i = 0; i < requestForServer.getInputs().indexOf("###"); i++) {
+                offDetails.add(requestForServer.getInputs().get(i));
+            }
+            ArrayList<Long> offProducts = new ArrayList<>();
+            for (int i = requestForServer.getInputs().indexOf("###") + 1; i < requestForServer.getInputs().size(); i++) {
+                offProducts.add(Long.parseLong(requestForServer.getInputs().get(i)));
+            }
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails, offProducts, person);
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
+            dataOutputStream.writeUTF("off successfully added");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("editOff")) {
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().editOff(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), Long.parseLong(requestForServer.getInputs().get(2)));
+                dataOutputStream.writeUTF("off edited successfully");
+                dataOutputStream.flush();
+            } catch (FileCantBeSavedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("editProduct")) {
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().editProduct(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), Long.parseLong(requestForServer.getInputs().get(2)), person);
+                dataOutputStream.writeUTF("product edited successfully");
+                dataOutputStream.flush();
+            } catch (FileCantBeSavedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("viewProducts")) {
+            List<Long> products = MainController.getInstance().getAccountAreaForSellerController().viewProducts(Integer.parseInt(requestForServer.getInputs().get(0)));
+            ArrayList<String> output = new ArrayList<>();
+            for (Long product : products) {
+                output.add(product + "");
+            }
+            dataOutputStream.writeUTF(convertArrayListToString(output));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isInOff")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().isInOff(Long.parseLong(requestForServer.getInputs().get(0)), person));
+            dataOutputStream.flush();
+        }
+    }
+
+    private void accountAreaControllerHandler(RequestForServer requestForServer) throws IOException {
         Person person = Server.getOnlineUsers().get(requestForServer.getToken());
         if (person == null)
             return;
         if (requestForServer.getFunction().equals("showCategories")) {
-            ArrayList<String> data;
+            ArrayList<String> data = null;
             if (person instanceof Customer) {
                 data = MainController.getInstance().getAccountAreaForCustomerController().showCategories();
             } else if (person instanceof Seller) {
@@ -91,13 +220,22 @@ public class ClientHandler extends Thread {
             } else if (person instanceof Manager) {
                 data = MainController.getInstance().getAccountAreaForManagerController().showCategories();
             }
-//            dataOutputStream.writeUTF(data);
+            dataOutputStream.writeUTF(convertArrayListToString(data));
+            dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getUserPersonalInfo")) {
-
+            ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForSellerController().getUserPersonalInfo(person);
+            dataOutputStream.writeUTF(convertArrayListToString(personalInfo));
+            dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("editField")) {
-
-        } else if (requestForServer.getFunction().equals("getSortedOrders")) {
-
+            try {
+                MainController.getInstance().getAccountAreaForManagerController()
+                        .editField(Integer.parseInt(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), person);
+                dataOutputStream.writeUTF("field edited successfully");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 
@@ -226,4 +364,21 @@ public class ClientHandler extends Thread {
         return randomCode.toString();
     }
 
+    private String convertArrayListToString(ArrayList<String> data) {
+        String output = "";
+        for (String s : data) {
+            output += s + "#";
+        }
+        String output2 = output.substring(0, output.lastIndexOf("#"));
+        return output2;
+    }
+
+    private String convertListToString(List<String> data) {
+        String output = "";
+        for (String s : data) {
+            output += s + "#";
+        }
+        String output2 = output.substring(0, output.lastIndexOf("#"));
+        return output2;
+    }
 }

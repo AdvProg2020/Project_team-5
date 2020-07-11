@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -47,6 +48,8 @@ public class AddProductPart1 extends FxmlController {
     }
 
     private boolean checkBaseInfos() {
+        ArrayList<String> subcat = new ArrayList<>();
+        subcat.add(subCategory.getText());
         if (!name.getText().matches("[A-Za-z0-9\\s]+")) {
             ErrorPageFxController.showPage("Error for adding product", "name is invalid!");
             return false;
@@ -59,7 +62,7 @@ public class AddProductPart1 extends FxmlController {
         } else if (!availableNumber.getText().matches("[0-9]{1,5}")) {
             ErrorPageFxController.showPage("Error for adding product", "available number is invalid!,should be a number");
             return false;
-        } else if (!MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(subCategory.getText())) {
+        } else if (connectToServer(new RequestForServer("AccountAreaForSellerController", "isSubCategoryCorrect", getToken(), subcat)).equals("false")) {
             ErrorPageFxController.showPage("Error for registering", "subcategory is invalid!");
             return false;
         }

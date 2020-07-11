@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.OffNotFoundException;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -22,7 +23,10 @@ public class ViewSpecificOffController extends FxmlController implements Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<String> offDetails = MainController.getInstance().getAccountAreaForSellerController().viewOffGUI(offId);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + offId);
+        ArrayList<String> offDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "viewOffGUI", getToken(), inputs)));
+//        ArrayList<String> offDetails = MainController.getInstance().getAccountAreaForSellerController().viewOffGUI(offId);
         id.setText(offDetails.get(0));
         startDate.setText(offDetails.get(1));
         endDate.setText(offDetails.get(2));
