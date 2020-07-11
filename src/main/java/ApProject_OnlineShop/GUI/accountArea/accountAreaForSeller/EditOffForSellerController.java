@@ -47,64 +47,130 @@ public class EditOffForSellerController extends FxmlController implements Initia
         Long id = ViewSpecificOffController.getOffId();
         if (checkBaseInfos()) {
             if (!maxAmount.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController()
-                            .editOff("max discount", maxAmount.getText(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("max discount");
+                inputs.add(maxAmount.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editOff", getToken(), inputs));
+                if (serverResponse.equals("off edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController()
+//                            .editOff("max discount", maxAmount.getText(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!discountPercentTextField.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController()
-                            .editOff("discount percent", discountPercentTextField.getText(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("discount percent");
+                inputs.add(discountPercentTextField.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editOff", getToken(), inputs));
+                if (serverResponse.equals("off edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController()
+//                            .editOff("discount percent", discountPercentTextField.getText(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!startDateChooser.getValue().equals(Shop.getInstance().findOffById(id).getStartDate())) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController()
-                            .editOff("start date", startDateChooser.getValue().toString(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("start date");
+                inputs.add(startDateChooser.getValue().toString());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editOff", getToken(), inputs));
+                if (serverResponse.equals("off edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController()
+//                            .editOff("start date", startDateChooser.getValue().toString(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!endDateChooser.getValue().equals(Shop.getInstance().findOffById(id).getEndDate())) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController()
-                            .editOff("end date", endDateChooser.getValue().toString(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("end date");
+                inputs.add(endDateChooser.getValue().toString());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editOff", getToken(), inputs));
+                if (serverResponse.equals("off edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController()
+//                            .editOff("end date", endDateChooser.getValue().toString(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!addProduct.getText().equals("")) {
-                try {
-                    long productId = Long.parseLong(addProduct.getText());
-                    MainController.getInstance().getAccountAreaForSellerController().editOff("add good", "" + productId, id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("add good");
+                inputs.add(addProduct.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editOff", getToken(), inputs));
+                if (serverResponse.equals("off edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    long productId = Long.parseLong(addProduct.getText());
+//                    MainController.getInstance().getAccountAreaForSellerController().editOff("add good", "" + productId, id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!removeProduct.getText().equals("")) {
-                try {
-                    long productId = Long.parseLong(removeProduct.getText());
-                    MainController.getInstance().getAccountAreaForSellerController().editOff("remove good", "" + productId, id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("remove good");
+                inputs.add(removeProduct.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editOff", getToken(), inputs));
+                if (serverResponse.equals("off edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    long productId = Long.parseLong(removeProduct.getText());
+//                    MainController.getInstance().getAccountAreaForSellerController().editOff("remove good", "" + productId, id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (edited) {
                 SuccessPageFxController.showPage("edit request sent", "edit request sent to manager succesfully!");

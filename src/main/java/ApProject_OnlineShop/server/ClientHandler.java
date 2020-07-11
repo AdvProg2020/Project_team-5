@@ -8,6 +8,7 @@ import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistere
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
+import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
@@ -164,17 +165,28 @@ public class ClientHandler extends Thread {
             for (int i = 0; i < requestForServer.getInputs().indexOf("###"); i++) {
                 offDetails.add(requestForServer.getInputs().get(i));
             }
-            ArrayList<Long> offProducts=new ArrayList<>();
-            for (int i = requestForServer.getInputs().indexOf("###")+1; i < requestForServer.getInputs().size(); i++) {
+            ArrayList<Long> offProducts = new ArrayList<>();
+            for (int i = requestForServer.getInputs().indexOf("###") + 1; i < requestForServer.getInputs().size(); i++) {
                 offProducts.add(Long.parseLong(requestForServer.getInputs().get(i)));
             }
             try {
-                MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails,offProducts,person);
+                MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails, offProducts, person);
             } catch (FileCantBeSavedException e) {
                 e.printStackTrace();
             }
             dataOutputStream.writeUTF("off successfully added");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("editOff")) {
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().editOff(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), Long.parseLong(requestForServer.getInputs().get(2)));
+                dataOutputStream.writeUTF("off edited successfully");
+                dataOutputStream.flush();
+            } catch (FileCantBeSavedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("")){
+
         }
     }
 

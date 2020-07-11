@@ -188,13 +188,13 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return productIds.stream().map(productId -> Shop.getInstance().findGoodById(productId)).collect(Collectors.toList());
     }
 
-    public boolean checkEndDateIsAfterStart(String endDate, int a, String startDate) {
-        if (a == 0)
-            return true;
-        else {
-            return LocalDate.parse(startDate).isBefore(LocalDate.parse(endDate));
-        }
-    }
+//    public boolean checkEndDateIsAfterStart(String endDate, int a, String startDate) {
+//        if (a == 0)
+//            return true;
+//        else {
+//            return LocalDate.parse(startDate).isBefore(LocalDate.parse(endDate));
+//        }
+//    }
 
     public void editOff(String field, String key, long id) throws IOException, FileCantBeSavedException {
         HashMap<String, String> editedFields = new HashMap<>();
