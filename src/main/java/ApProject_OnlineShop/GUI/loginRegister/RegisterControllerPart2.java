@@ -42,8 +42,16 @@ public class RegisterControllerPart2 extends FxmlController {
         RequestForServer requestForServer = new RequestForServer("LoginRegisterController", "createAccount", null, inputs);
         String serverResponse = connectToServer(requestForServer);
         if (serverResponse.equals("successfully account created.")) {
+            ArrayList<String> bankAccountInfo = new ArrayList<>();
+            bankAccountInfo.add(details.get(0));
+            bankAccountInfo.add(details.get(1));
+            bankAccountInfo.add(userName);
+            bankAccountInfo.add(details.get(details.size() -2));
+            bankAccountInfo.add(details.get(details.size() -1));
+            RequestForServer bankAccountRequest = new RequestForServer("BankAccountsController", "createBankAccount", null,bankAccountInfo);
+            String bankAccountResponse = connectToServer(bankAccountRequest);
             SuccessPageFxController.showPage("Register was successful",
-                    "you registered successfully");
+                    "bank account created by ID " + bankAccountResponse);
             if (selectedFile != null)
                 copyPhoto();
             setScene("login.fxml", "Login");

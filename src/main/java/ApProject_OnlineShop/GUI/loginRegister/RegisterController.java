@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class RegisterController extends FxmlController {
-    public TextField repeatPassword;
-    public TextField bankPassword;
+    public PasswordField repeatPassword;
+    public PasswordField bankPassword;
     @FXML
     Label passwordLabel;
     @FXML
@@ -29,11 +29,11 @@ public class RegisterController extends FxmlController {
 
 
     public void RegisterForCustomerPressed(ActionEvent actionEvent) {
-        if (checkBaseInfos()) {
+        if (checkBaseInfos("customer")) {
             if (!credit.getText().matches("\\d\\d\\d\\d+")) {
                 ErrorPageFxController.showPage("Error for registering", "credit is invalid!");
             } else {
-                RegisterControllerPart2.setDetails2(addDeatails("customer"));
+                RegisterControllerPart2.setDetails2(addDetails("customer"));
                 RegisterControllerPart2.setRole("customer");
                 RegisterControllerPart2.setUserName(username.getText());
                 setScene("getPhotoForUsers.fxml", "register");
@@ -42,8 +42,8 @@ public class RegisterController extends FxmlController {
     }
 
     public void RegisterForManagerPressed(ActionEvent actionEvent) {
-        if (checkBaseInfos()) {
-            RegisterControllerPart2.setDetails2(addDeatails("manager"));
+        if (checkBaseInfos("manager")) {
+            RegisterControllerPart2.setDetails2(addDetails("manager"));
             RegisterControllerPart2.setRole("manager");
             RegisterControllerPart2.setUserName(username.getText());
             setScene("getPhotoForUsers.fxml", "register");
@@ -51,7 +51,7 @@ public class RegisterController extends FxmlController {
     }
 
     public void RegisterForSellerPressed(ActionEvent actionEvent) {
-        if (checkBaseInfos()) {
+        if (checkBaseInfos("seller")) {
             if (!companyName.getText().matches("[a-zA-Z]{1,}")) {
                 ErrorPageFxController.showPage("Error for registering", "company name is invalid!");
             } else if (!companyWebsite.getText()
@@ -62,7 +62,7 @@ public class RegisterController extends FxmlController {
             } else if (!companyFaxNumber.getText().matches("^(\\d+){6,}$")) {
                 ErrorPageFxController.showPage("Error for registering", "company fax number is invalid!");
             } else {
-                RegisterControllerPart2.setDetails2(addDeatails("seller"));
+                RegisterControllerPart2.setDetails2(addDetails("seller"));
                 RegisterControllerPart2.setRole("seller");
                 RegisterControllerPart2.setUserName(username.getText());
                 setScene("getPhotoForUsers.fxml", "register");
@@ -70,7 +70,7 @@ public class RegisterController extends FxmlController {
         }
     }
 
-    public boolean checkBaseInfos() {
+    public boolean checkBaseInfos(String role) {
         if (!username.getText().matches("\\w+")) {
             ErrorPageFxController.showPage("Error for registering", "username is invalid!");
             return false;
@@ -90,6 +90,16 @@ public class RegisterController extends FxmlController {
             ErrorPageFxController.showPage("Error for registering", "password is invalid!");
             return false;
         }
+        if (role.equals("customer") || role.equals("seller")){
+            if (!bankPassword.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")){
+                ErrorPageFxController.showPage("Error for registering", "bank password is invalid!");
+                return false;
+            }
+            else if (!bankPassword.getText().equals(repeatPassword.getText())){
+                ErrorPageFxController.showPage("Error for registering", "passwords do not match");
+                return false;
+            }
+        }
         return true;
     }
 
@@ -102,7 +112,7 @@ public class RegisterController extends FxmlController {
         passwordLabel.setTooltip(tooltip);
     }
 
-    public ArrayList<String> addDeatails(String role) {
+    public ArrayList<String> addDetails(String role) {
         ArrayList<String> details = new ArrayList<>();
         details.add(firstName.getText());
         details.add(lastName.getText());
@@ -111,12 +121,16 @@ public class RegisterController extends FxmlController {
         details.add(password.getText());
         if (role.equals("customer")) {
             details.add(credit.getText());
+            details.add(bankPassword.getText());
+            details.add(repeatPassword.getText());
         } else if (role.equals("seller")) {
             details.add(companyName.getText());
             details.add(companyWebsite.getText());
             details.add(companyPhoneNumber.getText());
             details.add(companyFaxNumber.getText());
             details.add(companyAddress.getText());
+            details.add(bankPassword.getText());
+            details.add(repeatPassword.getText());
         }
         return details;
     }

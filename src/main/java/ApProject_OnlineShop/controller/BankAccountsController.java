@@ -10,7 +10,7 @@ public class BankAccountsController {
         this.bankPort = bankPort;
     }
 
-    public String createBankAccounts(String firstName, String lastName, String userName, String password, String repeatPassword) throws IOException {
+    public String createBankAccount(String firstName, String lastName, String userName, String password, String repeatPassword) throws IOException {
         Socket socket = new Socket("127.0.0.1", bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));

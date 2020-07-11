@@ -1,5 +1,7 @@
 package ApProject_OnlineShop.database;
 
+import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.ShopBankAccount;
 import com.gilecode.yagson.YaGson;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.category.Category;
@@ -46,6 +48,11 @@ public class SavingData {
         else
             filePath = "TestResources\\Users\\Customers\\" + customer.getUsername() + ".json";
         saveFile(yaGson.toJson(customer, Customer.class), filePath);
+    }
+
+    public void saveShopBankAccount(ShopBankAccount account) throws IOException, FileCantBeSavedException {
+        String filePath = "Resources\\BankAccounts\\" + "Shop" + ".json";
+        saveFile(yaGson.toJson(account, ShopBankAccount.class), filePath);
     }
 
     public void saveSeller(Seller seller) throws IOException, FileCantBeSavedException {

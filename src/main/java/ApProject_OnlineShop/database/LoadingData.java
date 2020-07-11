@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.database;
 
+import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.ShopBankAccount;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
@@ -42,6 +44,9 @@ public class LoadingData {
         file = new File("Resources\\productImages");
         if (!file.exists())
             file.mkdir();
+        file = new File("Resources\\BankAccounts");
+        if (!file.exists())
+            file.mkdir();
     }
 
     public void loadManager() throws IOException {
@@ -78,6 +83,16 @@ public class LoadingData {
                 List<Long> ids = new ArrayList<>(Shop.getInstance().getAllCompanies().keySet());
                 Company.setCompanyIdCounter(getMaximumOfNumbers(ids) + 1);
             }
+        }
+    }
+
+    public void loadShopBankAccount() throws IOException {
+        File file = new File("Resources\\BankAccounts\\Shop.json");
+        if (file.exists())
+            Shop.getInstance().setShopBankAccount(yaGson.fromJson(readFile(file), ShopBankAccount.class));
+        if (!file.exists()){
+            String accountId = MainController.getInstance().getBankAccountsController().createBankAccount("Shop","Shop","Shop","Shop1","Shop1");
+            Shop.getInstance().setShopBankAccount(new ShopBankAccount("shop","Shop1", accountId));
         }
     }
 

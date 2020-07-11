@@ -33,6 +33,7 @@ public class Shop {
     private HashMap<Long, SellerRelatedInfoAboutGood> allSellerRelatedInfoAboutGood;
     private HashMap<Long, Company> allCompanies;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
+    private ShopBankAccount shopBankAccount;
 
     public static Shop getInstance() {
         return ourInstance;
@@ -69,6 +70,21 @@ public class Shop {
 
     public HashMap<Long, SellerRelatedInfoAboutGood> getAllSellerRelatedInfoAboutGood() {
         return allSellerRelatedInfoAboutGood;
+    }
+
+    public String getShopBankId(){
+        return shopBankAccount.getAccountID();
+    }
+
+    public void setShopBankAccount(ShopBankAccount shopBankAccount) {
+        this.shopBankAccount = shopBankAccount;
+        try {
+            Database.getInstance().saveItem(shopBankAccount);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
     }
 
     public HashMap<Long, GoodInCart> getAllGoodInCarts() {

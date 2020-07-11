@@ -1,10 +1,13 @@
 package ApProject_OnlineShop.model.persons;
 
+import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Seller extends Person {
@@ -12,6 +15,7 @@ public class Seller extends Person {
     private ArrayList<Long> previousSellsIds;
     private ArrayList<Long> activeGoodsIds;
     private ArrayList<Long> activeOffsIds;
+    private String bankAccountId;
 
     public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
         super(username, firstName, lastName, email, phoneNumber, password);
@@ -19,6 +23,17 @@ public class Seller extends Person {
         this.activeGoodsIds = new ArrayList<>();
         this.activeOffsIds = new ArrayList<>();
         this.company = company.getId();
+    }
+
+    public void setBankAccountId(String bankAccountId) {
+        this.bankAccountId = bankAccountId;
+        try {
+            Database.getInstance().saveItem(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
     }
 
     public Company getCompany() {

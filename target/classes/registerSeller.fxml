@@ -14,8 +14,8 @@
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="89.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="143.0" minHeight="0.0" prefHeight="91.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="832.0" minHeight="10.0" prefHeight="701.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="143.0" minHeight="0.0" prefHeight="68.2" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="832.0" minHeight="10.0" prefHeight="722.6" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="646.0" minHeight="0.0" prefHeight="12.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
@@ -26,10 +26,10 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="5.0" />
                     </VBox.margin>
                 </Label>
-                <TextField fx:id="username" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="username">
+                <TextField fx:id="username" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="username">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -38,7 +38,7 @@
                     </padding>
                 </TextField>
                 <Label prefHeight="31.0" prefWidth="197.0" text="first name :" />
-                <TextField fx:id="firstName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="first name">
+                <TextField fx:id="firstName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="first name">
                     <padding>
                         <Insets bottom="5.0" top="5.0" />
                     </padding>
@@ -47,7 +47,7 @@
                     </font>
                 </TextField>
                 <Label prefHeight="31.0" prefWidth="197.0" text="last name :" />
-                <TextField fx:id="lastName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="last name">
+                <TextField fx:id="lastName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="last name">
                     <padding>
                         <Insets bottom="5.0" top="5.0" />
                     </padding>
@@ -56,7 +56,7 @@
                     </font>
                 </TextField>
                 <Label prefHeight="32.0" prefWidth="197.0" text="email :" />
-                <TextField fx:id="email" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="email">
+                <TextField fx:id="email" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="email">
                     <padding>
                         <Insets bottom="5.0" top="5.0" />
                     </padding>
@@ -65,7 +65,7 @@
                     </font>
                 </TextField>
                 <Label prefHeight="31.0" prefWidth="197.0" text="phone number :" />
-                <TextField fx:id="phoneNumber" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="phone number">
+                <TextField fx:id="phoneNumber" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="phone number">
                     <padding>
                         <Insets bottom="5.0" top="5.0" />
                     </padding>
@@ -78,7 +78,7 @@
                         <Insets />
                     </VBox.margin>
                 </Label>
-                <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="18.0" prefWidth="193.0" promptText="password">
+                <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="193.0" promptText="password">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -90,7 +90,7 @@
                     </VBox.margin>
                 </PasswordField>
                 <Label prefHeight="31.0" prefWidth="197.0" text="Company name :" />
-                <TextField fx:id="companyName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="company name">
+                <TextField fx:id="companyName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="company name">
                     <padding>
                         <Insets bottom="5.0" top="5.0" />
                     </padding>
@@ -99,7 +99,7 @@
                     </font>
                 </TextField>
                 <Label prefHeight="31.0" prefWidth="197.0" text="Company website :" />
-                <TextField fx:id="companyWebsite" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="company website">
+                <TextField fx:id="companyWebsite" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="company website">
                     <padding>
                         <Insets bottom="5.0" top="5.0" />
                     </padding>
@@ -107,8 +107,8 @@
                         <Font size="14.0" />
                     </font>
                 </TextField>
-                <Label prefHeight="31.0" prefWidth="197.0" text="Company phone number :" />
-                <TextField fx:id="companyPhoneNumber" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="company phone number">
+                <Label prefHeight="27.0" prefWidth="197.0" text="Company phone number :" />
+                <TextField fx:id="companyPhoneNumber" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="company phone number">
                     <padding>
                         <Insets bottom="5.0" top="5.0" />
                     </padding>
@@ -116,8 +116,8 @@
                         <Font size="14.0" />
                     </font>
                 </TextField>
-                <Label prefHeight="31.0" prefWidth="197.0" text="Company fax number :" />
-                <TextField fx:id="companyFaxNumber" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="company fax number">
+                <Label prefHeight="27.0" prefWidth="197.0" text="Company fax number :" />
+                <TextField fx:id="companyFaxNumber" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="company fax number">
                     <padding>
                         <Insets bottom="5.0" top="5.0" />
                     </padding>
@@ -125,8 +125,8 @@
                         <Font size="14.0" />
                     </font>
                 </TextField>
-                <Label prefHeight="31.0" prefWidth="197.0" text="Company address :" />
-                <TextField fx:id="companyAddress" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="company address">
+                <Label prefHeight="27.0" prefWidth="197.0" text="Company address :" />
+                <TextField fx:id="companyAddress" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="28.0" prefWidth="195.0" promptText="company address">
                     <padding>
                         <Insets bottom="5.0" top="5.0" />
                     </padding>
@@ -134,13 +134,28 @@
                         <Font size="14.0" />
                     </font>
                 </TextField>
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#RegisterForSellerPressed" prefHeight="40.0" prefWidth="113.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="next">
+            <Label prefHeight="27.0" prefWidth="197.0" text="bank password : " />
+            <PasswordField fx:id="bankPassword" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="195.0" promptText="bank password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </PasswordField>
+            <Label prefHeight="27.0" prefWidth="197.0" text="repeat bank password :" />
+            <PasswordField fx:id="repeatPassword" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="197.0" promptText="repeat password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </PasswordField>
+                <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#RegisterForSellerPressed" prefHeight="40.0" prefWidth="113.0" styleClass="menuButtons" text="next">
                     <VBox.margin>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets bottom="5.0" top="10.0" />
                     </VBox.margin>
                     <padding>
-                        <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                        <Insets left="10.0" right="10.0" />
                     </padding>
+               <font>
+                  <Font size="14.0" />
+               </font>
                 </Button>
             </children>
             <cursor>

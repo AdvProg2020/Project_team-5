@@ -6,6 +6,7 @@ import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistere
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
+import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
@@ -18,6 +19,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ClientHandler extends Thread {
     private Socket clientSocket;
@@ -70,6 +73,8 @@ public class ClientHandler extends Thread {
             loginRegisterControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaController")) {
             accountAreaControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("BankAccountsController")) {
+            bankAccountsControllerHandler(requestForServer);
         }
     }
 
@@ -126,6 +131,22 @@ public class ClientHandler extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void bankAccountsControllerHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("createBankAccount")) {
+            String response = MainController.getInstance().getBankAccountsController().createBankAccount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1),
+                    requestForServer.getInputs().get(2),requestForServer.getInputs().get(3), requestForServer.getInputs().get(5));
+            if(!response.startsWith("password") &&response.startsWith("username")){
+                Person user = Shop.getInstance().findUser(requestForServer.getInputs().get(2));
+                if (user instanceof Customer)
+                    ((Customer) user).setBankAccountId(response);
+                if (user instanceof Seller)
+                    ((Seller)user).setBankAccountId(response);
+            }
+            dataOutputStream.writeUTF(response);
+            dataOutputStream.flush();
         }
     }
 

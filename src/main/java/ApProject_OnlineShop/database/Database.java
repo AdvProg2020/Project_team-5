@@ -3,6 +3,7 @@ package ApProject_OnlineShop.database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.ShopBankAccount;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
@@ -48,6 +49,7 @@ public class Database {
         loadingData.loadGoodsInCarts();
         loadingData.loadOrderForSeller();
         loadingData.loadOrderForCustomer();
+        loadingData.loadShopBankAccount();
         for (Request request : Shop.getInstance().getAllRequest()) {
             request.setName();
         }
@@ -127,7 +129,10 @@ public class Database {
             savingData.saveOrderForCustomer((OrderForCustomer) item);
         } else if (item instanceof Request) {
             savingData.saveRequest((Request) item);
-        } else throw new FileCantBeSavedException();
+        }else if(item instanceof ShopBankAccount){
+            savingData.saveShopBankAccount((ShopBankAccount)item);
+        }
+        else throw new FileCantBeSavedException();
     }
 
     public void saveItem(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws IOException, FileCantBeSavedException {

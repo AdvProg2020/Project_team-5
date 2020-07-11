@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Customer extends Person {
     private ArrayList<Long> discountCodesIds;
     private ArrayList<Long> previousOrders;
+    private String bankAccountId;
     private long credit;
 
     public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password, long credit) {
@@ -21,6 +22,17 @@ public class Customer extends Person {
         this.credit = credit;
         this.discountCodesIds = new ArrayList<>();
         this.previousOrders = new ArrayList<>();
+    }
+
+    public void setBankAccountId(String bankAccountId) {
+        this.bankAccountId = bankAccountId;
+        try {
+            Database.getInstance().saveItem(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
