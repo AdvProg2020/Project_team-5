@@ -9,7 +9,7 @@ import java.io.Serializable;
 public abstract class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PersonId", unique = true)
+    @Column(name = "PersonId", nullable = false,  unique = true)
     private long personId; //TODO
 
     @Column(name = "UserName", unique = true, nullable = false)
