@@ -99,13 +99,13 @@
                     </VBox.margin>
                 </PasswordField>
             <Label prefHeight="31.0" prefWidth="197.0" text="bank password :" />
-            <TextField alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="193.0" promptText="bank password">
+            <TextField fx:id="bankPassword" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="193.0" promptText="bank password">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
             <Label prefHeight="31.0" prefWidth="197.0" text="reapeat bank password :" />
-            <TextField alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="193.0" promptText="repeat password">
+            <TextField fx:id="repeatPassword" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="193.0" promptText="repeat password">
                <font>
                   <Font size="14.0" />
                </font>
