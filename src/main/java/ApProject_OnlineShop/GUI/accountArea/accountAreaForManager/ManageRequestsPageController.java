@@ -10,6 +10,7 @@ import ApProject_OnlineShop.exception.RequestNotFoundException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.requests.Request;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -73,10 +74,18 @@ public class ManageRequestsPageController extends FxmlController implements Init
 
     public void onRowSelected() {
         this.selectedRequest = requestsTable.getSelectionModel().getSelectedItem().getRequestId();
-        try {
-            detailsLabel.setText(MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails("" + this.selectedRequest));
-        } catch (RequestNotFoundException e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
+//        try {
+//            detailsLabel.setText(MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails("" + this.selectedRequest));
+//        } catch (RequestNotFoundException e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        }
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(this.selectedRequest + "");
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "viewRequestDetails", getToken(), inputs));
+        if (serverResponse.equals("#error")) {
+            ErrorPageFxController.showPage("error", "request not found");
+        } else {
+            detailsLabel.setText(serverResponse);
         }
         acceptButton.setDisable(false);
         declineButton.setDisable(false);

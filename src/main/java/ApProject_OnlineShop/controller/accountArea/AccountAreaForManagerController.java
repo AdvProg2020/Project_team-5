@@ -152,13 +152,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Shop.getInstance().removeDiscountCode(discountCode);
     }
 
-    public ArrayList<String> getAllRequestsInfo() {
-        ArrayList<String> requests = new ArrayList<>();
-        for (Request request : Shop.getInstance().getAllRequest()) {
-            requests.add(request.getBriefInfo());
-        }
-        return requests;
-    }
+//    public ArrayList<String> getAllRequestsInfo() {
+//        ArrayList<String> requests = new ArrayList<>();
+//        for (Request request : Shop.getInstance().getAllRequest()) {
+//            requests.add(request.getBriefInfo());
+//        }
+//        return requests;
+//    }
 
     public String viewRequestDetails(String requestId) throws RequestNotFoundException {
         Request request;
