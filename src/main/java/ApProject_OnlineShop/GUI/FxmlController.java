@@ -18,6 +18,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -156,5 +157,14 @@ public class FxmlController {
             person = new Gson().fromJson(input.split("###")[1], Manager.class);
         }
         return person;
+    }
+
+    public ArrayList<String> convertStringToArraylist(String data) {
+        String[] split = data.split("#");
+        ArrayList<String> output = new ArrayList<>();
+        for (String s : split) {
+            output.add(s);
+        }
+        return output;
     }
 }

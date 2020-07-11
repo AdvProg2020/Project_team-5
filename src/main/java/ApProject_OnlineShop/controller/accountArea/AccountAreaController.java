@@ -31,16 +31,15 @@ public class AccountAreaController {
         return categories;
     }
 
-    public ArrayList<String> getUserPersonalInfo() {
+    public ArrayList<String> getUserPersonalInfo(Person person) {
         ArrayList<String> personalInfo = new ArrayList<>();
-            Person person = FxmlController.getCurrentPerson();
-            personalInfo.add(person.getUsername());
-            personalInfo.add(person.getFirstName());
-            personalInfo.add(person.getLastName());
-            personalInfo.add(person.getEmail());
-            personalInfo.add(person.getPhoneNumber());
-        if (FxmlController.getCurrentPerson() instanceof Customer) {
-            Customer customer = (Customer) FxmlController.getCurrentPerson();
+        personalInfo.add(person.getUsername());
+        personalInfo.add(person.getFirstName());
+        personalInfo.add(person.getLastName());
+        personalInfo.add(person.getEmail());
+        personalInfo.add(person.getPhoneNumber());
+        if (person instanceof Customer) {
+            Customer customer = (Customer) person;
             personalInfo.add("" + customer.getCredit());
         }
         return personalInfo;

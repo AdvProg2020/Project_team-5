@@ -73,12 +73,12 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void accountAreaControllerHandler(RequestForServer requestForServer) {
+    private void accountAreaControllerHandler(RequestForServer requestForServer) throws IOException {
         Person person = Server.getOnlineUsers().get(requestForServer.getToken());
         if (person == null)
             return;
         if (requestForServer.getFunction().equals("showCategories")) {
-            ArrayList<String> data;
+            ArrayList<String> data = null;
             if (person instanceof Customer) {
                 data = MainController.getInstance().getAccountAreaForCustomerController().showCategories();
             } else if (person instanceof Seller) {
@@ -86,9 +86,12 @@ public class ClientHandler extends Thread {
             } else if (person instanceof Manager) {
                 data = MainController.getInstance().getAccountAreaForManagerController().showCategories();
             }
-//            dataOutputStream.writeUTF(data);
+            dataOutputStream.writeUTF(convertArrayListToString(data));
+            dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getUserPersonalInfo")) {
-
+            ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForSellerController().getUserPersonalInfo(person);
+            dataOutputStream.writeUTF(convertArrayListToString(personalInfo));
+            dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("editField")) {
 
         } else if (requestForServer.getFunction().equals("getSortedOrders")) {
@@ -205,4 +208,12 @@ public class ClientHandler extends Thread {
         return randomCode.toString();
     }
 
+    private String convertArrayListToString(ArrayList<String> data) {
+        String output = "";
+        for (String s : data) {
+            output += s + "#";
+        }
+        String output2 = output.substring(0, output.lastIndexOf("#"));
+        return output2;
+    }
 }

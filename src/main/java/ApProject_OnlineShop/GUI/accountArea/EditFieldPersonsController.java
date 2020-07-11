@@ -8,6 +8,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +31,8 @@ public class EditFieldPersonsController extends FxmlController implements Initia
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForSellerController().getUserPersonalInfo();
+//        ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForSellerController().getUserPersonalInfo();
+        ArrayList<String> personalInfo = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaController", "getUserPersonalInfo", getToken(), null)));
         firstName.setPromptText(personalInfo.get(1));
         lastName.setPromptText(personalInfo.get(2));
         email.setPromptText(personalInfo.get(3));

@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -35,7 +36,8 @@ public class AccountAreaForSellerController extends FxmlController implements In
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playMusicBackGround(false, false, true);
-        ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForSellerController().getUserPersonalInfo();
+//        ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForSellerController().getUserPersonalInfo();
+        ArrayList<String> personalInfo = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaController", "getUserPersonalInfo", getToken(), null)));
         Image image = new Image(Paths.get("Resources/UserImages/" + FxmlController.getCurrentPerson().getUsername() + ".jpg").toUri().toString());
         File file = new File("Resources\\UserImages\\" + FxmlController.getCurrentPerson().getUsername() + ".jpg");
         if (!file.exists())
