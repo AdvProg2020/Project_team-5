@@ -6,13 +6,14 @@ import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @Entity
 @Table(name = "OrderForSeller")
-public class OrderForSeller extends Order {
+public class OrderForSeller extends Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "SellerId", referencedColumnName = "PersonId", nullable = false)
     private Seller seller;
