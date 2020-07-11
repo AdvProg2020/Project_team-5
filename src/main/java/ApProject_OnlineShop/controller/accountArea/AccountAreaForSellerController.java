@@ -85,7 +85,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return ((Seller) person).balance();
     }
 
-    public ArrayList<String> buyersOfProduct(long productId,Person person) throws ProductNotFoundExceptionForSeller {
+    public ArrayList<String> buyersOfProduct(long productId, Person person) throws ProductNotFoundExceptionForSeller {
         if (!((Seller) person).hasThisProduct(productId))
             throw new ProductNotFoundExceptionForSeller();
         HashSet<String> hashSet = new HashSet<>(((Seller) person).buyersOfAGood(Shop.getInstance().findGoodById(productId)));
@@ -93,14 +93,14 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return buyerList;
     }
 
-    public String viewProduct(long productId) throws ProductNotFoundExceptionForSeller {
-        if (!((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(productId))
-            throw new ProductNotFoundExceptionForSeller();
-        return ((Seller) MainController.getInstance().getCurrentPerson()).findProductOfSeller(productId).toString();
-    }
+//    public String viewProduct(long productId) throws ProductNotFoundExceptionForSeller {
+//        if (!((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(productId))
+//            throw new ProductNotFoundExceptionForSeller();
+//        return ((Seller) MainController.getInstance().getCurrentPerson()).findProductOfSeller(productId).toString();
+//    }
 
-    public List<String> getAllOffs() {
-        return ((Seller) MainController.getInstance().getCurrentPerson()).getActiveOffs().stream().map(Off::getBriefSummery).collect(Collectors.toList());
+    public List<String> getAllOffs(Person person) {
+        return ((Seller) person).getActiveOffs().stream().map(Off::getBriefSummery).collect(Collectors.toList());
     }
 
     public List<String> getSortedOffs(int chosenSort) {

@@ -120,6 +120,10 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(productNotFoundExceptionForSeller.getMessage());
                 dataOutputStream.flush();
             }
+        }else if (requestForServer.getFunction().equals("getAllOffs")){
+            List<String> data = MainController.getInstance().getAccountAreaForSellerController().getAllOffs(person);
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
         }
     }
 

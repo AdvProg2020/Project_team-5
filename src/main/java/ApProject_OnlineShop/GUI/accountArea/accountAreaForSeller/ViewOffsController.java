@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -24,8 +26,9 @@ public class ViewOffsController extends FxmlController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        List<String> offs = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getAllOffs", getToken(), null)));
         if (sortSlected == 0)
-            for (String off : MainController.getInstance().getAccountAreaForSellerController().getAllOffs()) {
+            for (String off : offs) {
                 Hyperlink hyperlink = new Hyperlink("- " + off);
                 hyperlink.setPrefSize(200, 50);
                 hyperlink.setOnMouseClicked(e -> viewSingleOff(off));
@@ -49,7 +52,7 @@ public class ViewOffsController extends FxmlController implements Initializable 
                 vBox.getChildren().add(hyperlink);
             }
         }
-        int size = MainController.getInstance().getAccountAreaForSellerController().getAllOffs().size() * 50;
+        int size = offs.size() * 50;
         if (size > 348) {
             vBox.setPrefHeight(size);
         }
