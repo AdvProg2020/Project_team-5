@@ -2,7 +2,7 @@ package controllerTest.controllerAccountAreaTest;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.accountArea.AccountAreaForCustomerController;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 
@@ -15,10 +15,8 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.model.productThings.GoodInCart;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import ApProject_OnlineShop.testThings.TestShop;
 

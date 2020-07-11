@@ -1,6 +1,6 @@
 package ApProject_OnlineShop.model.persons;
 
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
@@ -10,7 +10,6 @@ import ApProject_OnlineShop.model.productThings.GoodInCart;
 import javax.persistence.*;
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 

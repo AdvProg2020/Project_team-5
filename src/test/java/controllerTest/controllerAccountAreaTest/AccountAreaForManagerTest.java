@@ -17,7 +17,7 @@ import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoun
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;

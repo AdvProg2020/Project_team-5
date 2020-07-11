@@ -2,7 +2,7 @@ package modelTest.productThingsTest;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.products.ProductController;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Company;

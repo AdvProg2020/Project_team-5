@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.database;
+package ApProject_OnlineShop.database.fileMode;
 
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;

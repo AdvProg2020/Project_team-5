@@ -2,7 +2,7 @@ package controllerTest;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.BinaryFilters;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.NotEnoughCredit;

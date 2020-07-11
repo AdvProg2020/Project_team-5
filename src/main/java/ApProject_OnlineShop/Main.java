@@ -1,7 +1,7 @@
 package ApProject_OnlineShop;
 
 import ApProject_OnlineShop.GUI.StageController;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import javafx.application.Application;

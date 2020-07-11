@@ -1,6 +1,5 @@
-package ApProject_OnlineShop.database;
+package ApProject_OnlineShop.database.fileMode;
 
-import com.gilecode.yagson.YaGson;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;

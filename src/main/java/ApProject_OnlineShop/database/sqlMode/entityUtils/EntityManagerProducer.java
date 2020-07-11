@@ -1,4 +1,6 @@
-package ApProject_OnlineShop.database;
+package ApProject_OnlineShop.database.sqlMode.entityUtils;
+
+import ApProject_OnlineShop.database.sqlMode.entityUtils.EntityManagerFactoryProducer;
 
 import javax.persistence.EntityManager;
 

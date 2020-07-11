@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.database;
+package ApProject_OnlineShop.database.fileMode;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
@@ -17,7 +17,6 @@ import ApProject_OnlineShop.model.requests.Request;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class DeletingData {
     private static boolean testMode = false;
@@ -89,7 +88,7 @@ public class DeletingData {
         Database.getInstance().saveItem(good.getSubCategory());
         for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
             deleteProductInfo(infoAboutGood, good.getGoodId());
-            infoAboutGood.getSeller().removeFromActiveGoods(good.getGoodId());
+            infoAboutGood.getSeller().removeFromActiveGoods(good);
             Database.getInstance().saveItem(infoAboutGood.getSeller());
         }
         for (Comment comment : good.getComments()) {

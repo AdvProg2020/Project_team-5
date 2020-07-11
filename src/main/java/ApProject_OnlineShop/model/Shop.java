@@ -1,6 +1,6 @@
 package ApProject_OnlineShop.model;
 
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.productExceptions.NotEnoughAvailableProduct;
@@ -11,9 +11,7 @@ import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.Request;
 
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;

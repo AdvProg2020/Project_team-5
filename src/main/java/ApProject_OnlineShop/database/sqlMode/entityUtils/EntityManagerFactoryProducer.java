@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.database;
+package ApProject_OnlineShop.database.sqlMode.entityUtils;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

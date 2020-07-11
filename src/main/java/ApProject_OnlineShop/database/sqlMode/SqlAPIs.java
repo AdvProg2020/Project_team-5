@@ -1,4 +1,7 @@
-package ApProject_OnlineShop.database;
+package ApProject_OnlineShop.database.sqlMode;
+
+import ApProject_OnlineShop.database.sqlMode.entityUtils.EntityManagerFactoryProducer;
+import ApProject_OnlineShop.database.sqlMode.entityUtils.EntityManagerProducer;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;

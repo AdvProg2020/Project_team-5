@@ -2,9 +2,7 @@ package controllerTest.controllerAccountAreaTest;
 
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.BinaryFilters;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
-import ApProject_OnlineShop.database.Database;
-import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFound;
-import ApProject_OnlineShop.exception.userExceptions.SellerNotFound;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Seller;

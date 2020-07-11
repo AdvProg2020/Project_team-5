@@ -1,10 +1,9 @@
 package ApProject_OnlineShop.controller.products;
 
 import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
-import ApProject_OnlineShop.exception.productExceptions.NotEnoughAvailableProduct;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
