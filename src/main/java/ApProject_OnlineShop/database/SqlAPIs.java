@@ -1,9 +1,6 @@
 package ApProject_OnlineShop.database;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -20,7 +17,14 @@ public abstract class SqlAPIs<T> {
     }
 
     public T getObjectById(long id) {
-        return null;
+        EntityManager entityManager = EntityManagerProducer.getInstanceOfEntityManager();
+        try {
+            return entityManager.find(classOfT, id);
+        } catch (Exception e) {
+            return null;
+        } finally {
+            entityManager.close();
+        }
     }
 
     public List<T> getAllObjects() {
@@ -36,6 +40,8 @@ public abstract class SqlAPIs<T> {
         } catch (NoResultException e) {
             System.out.println(e.getMessage());
             return new ArrayList<>();
+        } finally {
+            entityManager.close();
         }
     }
 
@@ -44,7 +50,27 @@ public abstract class SqlAPIs<T> {
     }
 
     public void save(T targetObject) {
+        EntityManager entityManager = EntityManagerProducer.getInstanceOfEntityManager();
+        EntityTransaction entityTransaction = null;
+        try {
+            entityTransaction = entityManager.getTransaction();
+            entityTransaction.begin();
+            long id = -1L;
+            if (targetObject != null)
+                id = (long) entityManagerFactory.getPersistenceUnitUtil().getIdentifier(targetObject);
 
+            if (id == 0)
+                entityManager.persist(targetObject);
+            else if (id != -1)
+                entityManager.merge(targetObject);
+            entityTransaction.commit();
+        } catch (Exception e) {
+            if (entityTransaction != null)
+                entityTransaction.rollback();
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
     }
 
     public void delete(long id) {
