@@ -21,6 +21,7 @@ import ApProject_OnlineShop.model.requests.EditingOffRequest;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +52,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
                 }
             }
             good.removeSeller(seller);
-            seller.removeFromActiveGoods(good.getGoodId());
+            seller.removeFromActiveGoods(good);
             Database.getInstance().saveItem(seller);
             Database.getInstance().saveItem(good);
         }
@@ -172,7 +173,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
 
     public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts) throws IOException, FileCantBeSavedException {
         AddingOffRequest addingOffRequest = new AddingOffRequest(getProductsByIds(offProducts),
-                LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
+                LocalDateTime.parse(offDetails.get(0)), LocalDateTime.parse(offDetails.get(1)),
                 Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)),
                 ((Seller) MainController.getInstance().getCurrentPerson()));
         Shop.getInstance().addRequest(addingOffRequest);
@@ -253,9 +254,6 @@ public class AccountAreaForSellerController extends AccountAreaController {
 
     public boolean isInOff(long productId){
         Seller seller = Shop.getInstance().findGoodById(productId).getSellerThatPutsThisGoodOnOff();
-        if(seller == null || !seller.getUsername().equals(MainController.getInstance().getCurrentPerson().getUsername())){
-            return false;
-        }
-        return true;
+        return seller != null && seller.getUsername().equals(MainController.getInstance().getCurrentPerson().getUsername());
     }
 }
