@@ -5,24 +5,46 @@ import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 
+import javax.persistence.*;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DiscountCode {
+@Entity
+@Table(name = "Discount")
+public class DiscountCode implements Serializable {
+    @Transient
     private static long discountCodeCount = 1;
-    private long id;
-    private String code;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private Long maxDiscountAmount;
-    private int discountPercent;
-    private HashMap<String, Integer> includedCustomers;
 
-    public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent) {
-        this.id = discountCodeCount++;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "DiscountId", nullable = false, unique = true)
+    private long id;
+
+    @Column(name = "DiscountCode", nullable = false, unique = true)
+    private String code;
+
+    @Column(name = "StartDate", nullable = false)
+    private LocalDateTime startDate;
+
+    @Column(name = "EndDate", nullable = false)
+    private LocalDateTime endDate;
+
+    @Column(name = "MaxDiscountAmount", nullable = false)
+    private Long maxDiscountAmount;
+
+    @Column(name = "Percent", nullable = false)
+    private int discountPercent;
+
+
+    private HashMap<Customer, Integer> includedCustomers;
+
+    public DiscountCode(String code, LocalDateTime startDate, LocalDateTime endDate, Long maxDiscountAmount, int discountPercent) {
+        discountCodeCount++;
         this.code = code;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -31,8 +53,12 @@ public class DiscountCode {
         this.includedCustomers = new HashMap<>();
     }
 
+    public DiscountCode() {
+        this.includedCustomers = new HashMap<>();
+    }
+
     public void addCustomerToCode(Customer customer, int numberOfUse) {
-        this.includedCustomers.put(customer.getUsername(), numberOfUse);
+        this.includedCustomers.put(customer, numberOfUse);
         customer.addDiscountCode(this);
     }
 
@@ -42,7 +68,7 @@ public class DiscountCode {
 
     public void addAllCustomers(HashMap<Customer, Integer> allCustomers) throws IOException, FileCantBeSavedException {
         for (Customer customer : allCustomers.keySet()) {
-            this.includedCustomers.put(customer.getUsername(), allCustomers.get(customer));
+            this.includedCustomers.put(customer, allCustomers.get(customer));
             Database.getInstance().saveItem(this);
         }
         for (Customer customer : allCustomers.keySet()) {
@@ -55,11 +81,11 @@ public class DiscountCode {
         return code;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
@@ -71,21 +97,38 @@ public class DiscountCode {
         DiscountCode.discountCodeCount = discountCodeCount;
     }
 
+    public static long getDiscountCodeCount() {
+        return discountCodeCount;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setIncludedCustomers(HashMap<Customer, Integer> includedCustomers) {
+        this.includedCustomers = includedCustomers;
+    }
+
     public int getDiscountPercent() {
         return discountPercent;
     }
 
     public HashMap<Customer, Integer> getIncludedCustomers() {
-        HashMap<Customer, Integer> includedCustomers2 = new HashMap<>();
-        for (String customerUserName : this.includedCustomers.keySet()) {
+        return this.includedCustomers;
+        /*HashMap<Customer, Integer> includedCustomers2 = new HashMap<>();
+        for (Customer customer : this.includedCustomers.keySet()) {
             includedCustomers2.put((Customer) Shop.getInstance().findUser(customerUserName),
                     this.includedCustomers.get(customerUserName));
         }
-        return includedCustomers2;
+        return includedCustomers2;*/
     }
 
     public void removeCustomer(String username) {
-        this.includedCustomers.remove(username);
+        this.includedCustomers.remove((Customer) Shop.getInstance().findUser(username));
     }
 
     public void setDiscountPercent(int discountPercent) {
@@ -96,20 +139,20 @@ public class DiscountCode {
         this.maxDiscountAmount = maxDiscountAmount;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
     public void reduceNumberOfDiscountCodeForCostumer(Customer customer) throws IOException, FileCantBeSavedException {
         for (Customer customers : this.getIncludedCustomers().keySet()) {
             if (customers.getUsername().equals(customer.getUsername())) {
-                includedCustomers.put(customers.getUsername(), includedCustomers.get(customers.getUsername()) - 1);
-                if (includedCustomers.get(customers.getUsername()) == 0)
-                    includedCustomers.remove(customers.getUsername());
+                includedCustomers.put(customers, includedCustomers.get(customers) - 1);
+                if (includedCustomers.get(customers) == 0)
+                    includedCustomers.remove(customers);
                 Database.getInstance().saveItem(this);
                 Database.getInstance().saveItem(customer);
             }
@@ -135,11 +178,11 @@ public class DiscountCode {
     public void discountBeUsedForCustomer(Customer customer) throws Exception {
         for (Customer includedCustomer : this.getIncludedCustomers().keySet()) {
             if (includedCustomer.equals(customer)) {
-                int remainedNumberOfUse = includedCustomers.get(includedCustomer.getUsername());
+                int remainedNumberOfUse = includedCustomers.get(includedCustomer);
                 if (remainedNumberOfUse > 1) {
-                    includedCustomers.replace(includedCustomer.getUsername(), remainedNumberOfUse - 1);
+                    includedCustomers.replace(includedCustomer, remainedNumberOfUse - 1);
                 } else {
-                    includedCustomers.remove(includedCustomer.getUsername());
+                    includedCustomers.remove(includedCustomer);
                     includedCustomer.removeDiscountCode(this);
                 }
                 Database.getInstance().saveItem(this);
@@ -152,7 +195,7 @@ public class DiscountCode {
 
 
     public boolean isDiscountCodeExpired() {
-        return LocalDate.now().isAfter(this.endDate);
+        return LocalDateTime.now().isAfter(this.endDate);
     }
 
     public String getPrintableProperties() {
