@@ -175,11 +175,11 @@ public class AccountAreaForSellerController extends AccountAreaController {
 //        return matcher;
 //    }
 
-    public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts) throws IOException, FileCantBeSavedException {
+    public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts,Person person) throws IOException, FileCantBeSavedException {
         AddingOffRequest addingOffRequest = new AddingOffRequest(getProductsByIds(offProducts),
                 LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
                 Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)),
-                ((Seller) MainController.getInstance().getCurrentPerson()));
+                ((Seller) person));
         Shop.getInstance().addRequest(addingOffRequest);
         Database.getInstance().saveItem(addingOffRequest);
     }

@@ -159,6 +159,22 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("checkValidProductId")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().checkValidProductId(Long.parseLong(requestForServer.getInputs().get(0)), person));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addOff")) {
+            ArrayList<String> offDetails = new ArrayList<>();
+            for (int i = 0; i < requestForServer.getInputs().indexOf("###"); i++) {
+                offDetails.add(requestForServer.getInputs().get(i));
+            }
+            ArrayList<Long> offProducts=new ArrayList<>();
+            for (int i = requestForServer.getInputs().indexOf("###")+1; i < requestForServer.getInputs().size(); i++) {
+                offProducts.add(Long.parseLong(requestForServer.getInputs().get(i)));
+            }
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().addOff(offDetails,offProducts,person);
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+            }
+            dataOutputStream.writeUTF("off successfully added");
+            dataOutputStream.flush();
         }
     }
 

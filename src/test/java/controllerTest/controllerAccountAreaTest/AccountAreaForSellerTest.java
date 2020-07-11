@@ -160,11 +160,11 @@ public class AccountAreaForSellerTest {
 
     @Test
     public void AddingOff(){
-        try {
-            controller.addOff(makeArrayListForOff(),makeListOfGood());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            controller.addOff(makeArrayListForOff(),makeListOfGood());
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
         Request requestTemp = null;
         for (Request request : Shop.getInstance().getAllRequest()) {
             if (request instanceof AddingOffRequest){
