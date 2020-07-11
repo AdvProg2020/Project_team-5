@@ -87,43 +87,87 @@ public class EditPorductController extends FxmlController implements Initializab
         boolean edited = false;
         if (checkBaseInfos()) {
             if (!price.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController()
-                            .editProduct("price", price.getText(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("price");
+                inputs.add(price.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editProduct", getToken(), inputs));
+                if (serverResponse.equals("product edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field price", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController()
+//                            .editProduct("price", price.getText(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field price", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!availableNumber.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController()
-                            .editProduct("availableNumber", availableNumber.getText(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("availableNumber");
+                inputs.add(availableNumber.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editProduct", getToken(), inputs));
+                if (serverResponse.equals("product edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field available number", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController()
+//                            .editProduct("availableNumber", availableNumber.getText(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field available number", exception.getMessage());
+//                    edited = false;
+//                }
             }
             if (!additionalDetails.getText().equals("")) {
-                try {
-                    MainController.getInstance().getAccountAreaForSellerController().editProduct("details", additionalDetails.getText(), id);
+                ArrayList<String> inputs = new ArrayList<>();
+                inputs.add("details");
+                inputs.add(additionalDetails.getText());
+                inputs.add("" + id);
+                String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editProduct", getToken(), inputs));
+                if (serverResponse.equals("product edited successfully")) {
                     edited = true;
-                } catch (Exception exception) {
-                    ErrorPageFxController.showPage("can not edited field details", exception.getMessage());
+                } else {
+                    ErrorPageFxController.showPage("can not edited field", serverResponse);
                     edited = false;
                 }
+//                try {
+//                    MainController.getInstance().getAccountAreaForSellerController().editProduct("details", additionalDetails.getText(), id);
+//                    edited = true;
+//                } catch (Exception exception) {
+//                    ErrorPageFxController.showPage("can not edited field details", exception.getMessage());
+//                    edited = false;
+//                }
             }
             for (String detail : textFields.keySet()) {
                 if (!textFields.get(detail).getText().equals("")) {
-                    try {
-                        MainController.getInstance().getAccountAreaForSellerController().editProduct(detail, textFields.get(detail).getText(), id);
+                    ArrayList<String> inputs = new ArrayList<>();
+                    inputs.add(detail);
+                    inputs.add(textFields.get(detail).getText());
+                    inputs.add("" + id);
+                    String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "editProduct", getToken(), inputs));
+                    if (serverResponse.equals("product edited successfully")) {
                         edited = true;
-                    } catch (Exception exception) {
-                        ErrorPageFxController.showPage("can not edited field" + detail, exception.getMessage());
+                    } else {
+                        ErrorPageFxController.showPage("can not edited field", serverResponse);
                         edited = false;
                     }
+//                    try {
+//                        MainController.getInstance().getAccountAreaForSellerController().editProduct(detail, textFields.get(detail).getText(), id);
+//                        edited = true;
+//                    } catch (Exception exception) {
+//                        ErrorPageFxController.showPage("can not edited field" + detail, exception.getMessage());
+//                        edited = false;
+//                    }
                 }
             }
             if (edited) {

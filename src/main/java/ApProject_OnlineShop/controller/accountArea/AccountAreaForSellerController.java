@@ -205,19 +205,19 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Database.getInstance().saveItem(editingOffRequest);
     }
 
-    public boolean doesSellerHaveThisOff(long id) {
-        if (Shop.getInstance().findOffById(id) == null) {
-            return false;
-        }
-        Off off = Shop.getInstance().findOffById(id);
-        return off.getSeller().equals(MainController.getInstance().getCurrentPerson());
-    }
+//    public boolean doesSellerHaveThisOff(long id) {
+//        if (Shop.getInstance().findOffById(id) == null) {
+//            return false;
+//        }
+//        Off off = Shop.getInstance().findOffById(id);
+//        return off.getSeller().equals(MainController.getInstance().getCurrentPerson());
+//    }
 
-    public void editProduct(String field, String key, long id) throws IOException, FileCantBeSavedException {
+    public void editProduct(String field, String key, long id,Person person) throws IOException, FileCantBeSavedException {
         HashMap<String, String> editedFields = new HashMap<>();
         editedFields.put(field, key);
         Shop.getInstance().findGoodById(id).setGoodStatus(Good.GoodStatus.EDITINGPROCESSING);
-        EditingGoodRequest editingGoodRequest = new EditingGoodRequest(id, (Seller) MainController.getInstance().getCurrentPerson(), editedFields);
+        EditingGoodRequest editingGoodRequest = new EditingGoodRequest(id, (Seller) person, editedFields);
         Shop.getInstance().addRequest(editingGoodRequest);
         Database.getInstance().saveItem(editingGoodRequest);
     }
@@ -241,16 +241,16 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return goods;
     }
 
-    public String viewSellersProducts(int chosenSort) {
-        String output = "-------------------------\nyour products:";
-        List<Good> goods = sort(chosenSort);
-        if (goods != null) {
-            for (Good good : goods) {
-                output += ("\n" + good.toString());
-            }
-        }
-        return output;
-    }
+//    public String viewSellersProducts(int chosenSort) {
+//        String output = "-------------------------\nyour products:";
+//        List<Good> goods = sort(chosenSort);
+//        if (goods != null) {
+//            for (Good good : goods) {
+//                output += ("\n" + good.toString());
+//            }
+//        }
+//        return output;
+//    }
 
     public List<Long> viewProducts(int chosenSort) {
         return sort(chosenSort).stream().map(Good::getGoodId).collect(Collectors.toList());

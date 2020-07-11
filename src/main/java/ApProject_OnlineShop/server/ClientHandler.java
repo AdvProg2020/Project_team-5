@@ -185,8 +185,15 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getFunction().equals("")){
-
+        } else if (requestForServer.getFunction().equals("editProduct")) {
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().editProduct(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), Long.parseLong(requestForServer.getInputs().get(2)), person);
+                dataOutputStream.writeUTF("product edited successfully");
+                dataOutputStream.flush();
+            } catch (FileCantBeSavedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 
