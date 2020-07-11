@@ -31,6 +31,8 @@ public class BankTransactionControllerHandler {
             increaseCreditCustomerHandler(requestForServer);
         }else if (requestForServer.getFunction().equals("withdrawMoneySeller")){
             withdrawMoneySellerHandler(requestForServer);
+        }else if(requestForServer.getFunction().equals("depositMoneySeller")){
+            depositMoneySellerHandler(requestForServer);
         }
     }
 
@@ -43,6 +45,13 @@ public class BankTransactionControllerHandler {
 
     private void withdrawMoneySellerHandler(RequestForServer requestForServer) throws IOException {
         String response = MainController.getInstance().getBankTransactionsController().withdrawMoneySeller(requestForServer.getInputs().get(0),
+                requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+        dataOutputStream.writeUTF(response);
+        dataOutputStream.flush();
+    }
+
+    private void depositMoneySellerHandler(RequestForServer requestForServer) throws IOException {
+        String response = MainController.getInstance().getBankTransactionsController().depositMoneySeller(requestForServer.getInputs().get(0),
                 requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
         dataOutputStream.writeUTF(response);
         dataOutputStream.flush();

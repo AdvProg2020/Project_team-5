@@ -84,11 +84,14 @@
          <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="181.0" style="-fx-background-color: #dab3ff; -fx-background-radius: 8px; -fx-margin: 4px 2px; -fx-border-radius: 8px; -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color: black;" text="MenuButton" textFill="#0e000e">
            <items>
              <MenuItem mnemonicParsing="false" onAction="#withdrawMoney" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="withdraw money" />
-             <MenuItem mnemonicParsing="false" onAction="#depositMoney"  style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="deposit money" />
+             <MenuItem mnemonicParsing="false" onAction="#depositMoney" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="deposit money" />
            </items>
             <VBox.margin>
                <Insets top="20.0" />
             </VBox.margin>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
          </MenuButton>
         </children>
     </VBox>

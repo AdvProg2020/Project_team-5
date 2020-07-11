@@ -51,4 +51,15 @@ public class BankTransactionsController {
         //seller balance remained
         return finalResponse;
     }
+
+    public String depositMoneySeller(String username, String password, String money) throws IOException {
+        String token = MainController.getInstance().getBankAccountsController().getToken(username, password);
+        if (token.startsWith("invalid"))
+            return token;
+        Seller user = (Seller) Shop.getInstance().findUser(username);
+        String receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "deposit", money, "-1", user.getBankAccountId(), "");
+        if (!Pattern.matches("[\\d+]", receiptId))
+            return receiptId;
+        return MainController.getInstance().getBankAccountsController().pay(receiptId);
+    }
 }
