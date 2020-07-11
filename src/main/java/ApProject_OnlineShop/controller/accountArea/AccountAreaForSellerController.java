@@ -154,26 +154,26 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Database.getInstance().saveItem(addingGoodRequest);
     }
 
-    public boolean checkValidProductNumber(int number) {
-        return number <= ((Seller) MainController.getInstance().getCurrentPerson()).getActiveGoods().size();
+//    public boolean checkValidProductNumber(int number) {
+//        return number <= ((Seller) MainController.getInstance().getCurrentPerson()).getActiveGoods().size();
+//    }
+
+//    public boolean checkValidDate(String date, int a, String startDate) {
+//        Matcher matcher = getMatcher("(\\d{4})-(\\d{2})-(\\d{2})", date);
+//        return (Integer.parseInt(matcher.group(2)) >= 1 && Integer.parseInt(matcher.group(2)) <= 12 && Integer.parseInt(matcher.group(3)) >= 1
+//                && Integer.parseInt(matcher.group(3)) <= 30 && (!LocalDate.now().isAfter(LocalDate.parse(date))) && checkEndDateIsAfterStart(date, a, startDate));
+//    }
+
+    public boolean checkValidProductId(long productId,Person person) {
+        return ((Seller) person).hasThisProduct(productId);
     }
 
-    public boolean checkValidDate(String date, int a, String startDate) {
-        Matcher matcher = getMatcher("(\\d{4})-(\\d{2})-(\\d{2})", date);
-        return (Integer.parseInt(matcher.group(2)) >= 1 && Integer.parseInt(matcher.group(2)) <= 12 && Integer.parseInt(matcher.group(3)) >= 1
-                && Integer.parseInt(matcher.group(3)) <= 30 && (!LocalDate.now().isAfter(LocalDate.parse(date))) && checkEndDateIsAfterStart(date, a, startDate));
-    }
-
-    public boolean checkValidProductId(long productId) {
-        return ((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(productId);
-    }
-
-    private Matcher getMatcher(String regex, String mainString) {
-        Pattern datePattern = Pattern.compile(regex);
-        Matcher matcher = datePattern.matcher(mainString);
-        matcher.find();
-        return matcher;
-    }
+//    private Matcher getMatcher(String regex, String mainString) {
+//        Pattern datePattern = Pattern.compile(regex);
+//        Matcher matcher = datePattern.matcher(mainString);
+//        matcher.find();
+//        return matcher;
+//    }
 
     public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts) throws IOException, FileCantBeSavedException {
         AddingOffRequest addingOffRequest = new AddingOffRequest(getProductsByIds(offProducts),

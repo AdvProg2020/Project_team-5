@@ -133,10 +133,12 @@ public class EditOffForSellerController extends FxmlController implements Initia
             }
         } else if (addProduct.getText().matches("[\\d]+")) {
             long productId = Long.parseLong(addProduct.getText());
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(productId + "");
             if (Shop.getInstance().findGoodById(productId) == null) {
                 ErrorPageFxController.showPage("error for edit off", "doesn't exist a product with this id");
                 return false;
-            } else if (!MainController.getInstance().getAccountAreaForSellerController().checkValidProductId(productId)) {
+            } else if (connectToServer(new RequestForServer("AccountAreaForSellerController", "checkValidProductId", getToken(), inputs)).equals("false")) {
                 ErrorPageFxController.showPage("error for edit off", "This product does not exist your active goods");
                 return false;
             } else if (Shop.getInstance().findOffById(ViewSpecificOffController.getOffId()).doesHaveThisProduct(Shop.getInstance().findGoodById(productId))) {

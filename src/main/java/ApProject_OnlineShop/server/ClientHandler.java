@@ -156,6 +156,9 @@ public class ClientHandler extends Thread {
             } catch (FileCantBeSavedException e) {
                 e.printStackTrace();
             }
+        } else if (requestForServer.getFunction().equals("checkValidProductId")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().checkValidProductId(Long.parseLong(requestForServer.getInputs().get(0)), person));
+            dataOutputStream.flush();
         }
     }
 

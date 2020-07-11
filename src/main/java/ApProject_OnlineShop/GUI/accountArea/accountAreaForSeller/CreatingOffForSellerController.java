@@ -5,6 +5,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -50,7 +51,7 @@ public class CreatingOffForSellerController extends FxmlController {
                     SuccessPageFxController.showPage("off request created successfully", "your request successfully sent to manager");
                     offProducts.clear();
                     finished = false;
-                    setScene("accountAreaForSeller.fxml","account area for seller");
+                    setScene("accountAreaForSeller.fxml", "account area for seller");
                 } catch (Exception e) {
                     ErrorPageFxController.showPage("off request cannot be created", e.getMessage());
                     finished = false;
@@ -84,7 +85,9 @@ public class CreatingOffForSellerController extends FxmlController {
             productToAdd.clear();
             return;
         }
-        if (!MainController.getInstance().getAccountAreaForSellerController().checkValidProductId(Long.parseLong(productToAdd.getText()))) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productToAdd.getText());
+        if (connectToServer(new RequestForServer("AccountAreaForSellerController", "checkValidProductId", getToken(), inputs)).equals("false")) {
             ErrorPageFxController.showPage("error for adding product", "This product does not exist your active goods");
             productToAdd.clear();
         } else {
