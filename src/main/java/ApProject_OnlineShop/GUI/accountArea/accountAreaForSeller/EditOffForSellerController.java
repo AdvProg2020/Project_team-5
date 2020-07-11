@@ -6,6 +6,7 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Off;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,7 +32,10 @@ public class EditOffForSellerController extends FxmlController implements Initia
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<String> offDetails = MainController.getInstance().getAccountAreaForSellerController().viewOffGUI(ViewSpecificOffController.getOffId());
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + ViewSpecificOffController.getOffId());
+        ArrayList<String> offDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "viewOffGUI", getToken(), inputs)));
+//        ArrayList<String> offDetails = MainController.getInstance().getAccountAreaForSellerController().viewOffGUI(ViewSpecificOffController.getOffId());
         maxAmount.setPromptText(offDetails.get(3));
         discountPercentTextField.setPromptText(offDetails.get(4));
         startDateChooser.setValue(LocalDate.parse(offDetails.get(1)));

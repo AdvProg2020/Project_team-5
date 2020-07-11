@@ -103,8 +103,8 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return ((Seller) person).getActiveOffs().stream().map(Off::getBriefSummery).collect(Collectors.toList());
     }
 
-    public List<String> getSortedOffs(int chosenSort) {
-        List<Off> offs = ((Seller) MainController.getInstance().getCurrentPerson()).getActiveOffs();
+    public List<String> getSortedOffs(int chosenSort,Person person) {
+        List<Off> offs = ((Seller) person).getActiveOffs();
         List<String> offsString = new ArrayList<>();
         if (chosenSort == 1)
             offsString = MainController.getInstance().getSortController().sortByEndDateOffs(offs).stream().map(Off::getBriefSummery).collect(Collectors.toList());
@@ -115,13 +115,13 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return offsString;
     }
 
-    public String viewOff(long offId) throws OffNotFoundException {
-        if (Shop.getInstance().findOffById(offId) == null)
-            throw new OffNotFoundException();
-        else {
-            return Shop.getInstance().findOffById(offId).toString();
-        }
-    }
+//    public String viewOff(long offId) throws OffNotFoundException {
+//        if (Shop.getInstance().findOffById(offId) == null)
+//            throw new OffNotFoundException();
+//        else {
+//            return Shop.getInstance().findOffById(offId).toString();
+//        }
+//    }
 
     public ArrayList<String> viewOffGUI(long offId) {
         Off off = Shop.getInstance().findOffById(offId);

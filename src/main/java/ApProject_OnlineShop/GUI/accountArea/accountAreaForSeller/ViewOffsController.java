@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -40,7 +41,10 @@ public class ViewOffsController extends FxmlController implements Initializable 
                 vBox.getChildren().add(hyperlink);
             }
         else {
-            for (String off : MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(sortSlected)) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(sortSlected + "");
+            List<String> sortedOffs = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSortedOffs", getToken(), null)));
+            for (String off : sortedOffs) {
                 Hyperlink hyperlink = new Hyperlink("- " + off);
                 hyperlink.setOnMouseClicked(e -> viewSingleOff(off));
                 hyperlink.setPrefSize(200, 50);
