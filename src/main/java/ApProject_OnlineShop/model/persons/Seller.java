@@ -36,6 +36,10 @@ public class Seller extends Person {
         }
     }
 
+    public String getBankAccountId() {
+        return bankAccountId;
+    }
+
     public Company getCompany() {
         return Shop.getInstance().getAllCompanies().get(company);
     }

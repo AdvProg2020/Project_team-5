@@ -35,6 +35,10 @@ public class Customer extends Person {
         }
     }
 
+    public String getBankAccountId() {
+        return bankAccountId;
+    }
+
     public void addDiscountCode(DiscountCode discountCode) {
         this.discountCodesIds.add(discountCode.getId());
     }

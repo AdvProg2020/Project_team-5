@@ -29,6 +29,7 @@ public class MainController {
     private ProductController productController;
     private SortController sortController;
     private BankAccountsController bankAccountsController;
+    private BankTransactionsController bankTransactionsController;
 
     public static MainController getInstance() {
         return ourInstance;
@@ -48,10 +49,15 @@ public class MainController {
         this.productController = new ProductController();
         this.sortController = new SortController();
         this.bankAccountsController = new BankAccountsController(8090);
+        this.bankTransactionsController = new BankTransactionsController(8090);
     }
 
     public BankAccountsController getBankAccountsController() {
         return bankAccountsController;
+    }
+
+    public BankTransactionsController getBankTransactionsController() {
+        return bankTransactionsController;
     }
 
     public LoginRegisterController getLoginRegisterController() {
