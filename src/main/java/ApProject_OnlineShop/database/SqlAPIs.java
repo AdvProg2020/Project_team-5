@@ -105,6 +105,8 @@ public abstract class SqlAPIs<T> {
             delete(targetObject);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            entityManager.close();
         }
     }
 
@@ -120,6 +122,8 @@ public abstract class SqlAPIs<T> {
             if (entityTransaction != null)
                 entityTransaction.rollback();
             e.printStackTrace();
+        } finally {
+            entityManager.close();
         }
     }
 
