@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class RegisterController extends FxmlController {
-    public TextField repeatPassword;
-    public TextField bankPassword;
     @FXML
     Label passwordLabel;
     @FXML

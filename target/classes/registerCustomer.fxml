@@ -15,18 +15,18 @@
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="143.0" minHeight="0.0" prefHeight="71.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="673.0" minHeight="10.0" prefHeight="565.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="700.0" minHeight="10.0" prefHeight="620.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="646.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="390.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <VBox alignment="TOP_CENTER" prefHeight="650.0" prefWidth="334.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
                 <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="11.0" prefWidth="204.0" text="username :" textAlignment="JUSTIFY" textOverrun="CLIP">
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="15.0" />
                     </VBox.margin>
                 </Label>
                 <TextField fx:id="username" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="username">
@@ -87,7 +87,7 @@
                         <Insets />
                     </VBox.margin>
                 </Label>
-                <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="18.0" prefWidth="193.0" promptText="password">
+                <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="18.0" prefWidth="193.0" promptText="shop password">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -98,13 +98,28 @@
                         <Insets />
                     </VBox.margin>
                 </PasswordField>
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#RegisterForCustomerPressed" prefHeight="40.0" prefWidth="113.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="next">
+            <Label prefHeight="31.0" prefWidth="197.0" text="bank password :" />
+            <TextField fx:id="bankPassword" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="193.0" promptText="bank password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label prefHeight="31.0" prefWidth="197.0" text="reapeat bank password :" />
+            <TextField fx:id="repeatPassword" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="193.0" promptText="repeat password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+                <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#RegisterForCustomerPressed" prefHeight="35.0" prefWidth="114.0" styleClass="menuButtons" stylesheets="@styelsheets/baseStyles.css" text="next">
                     <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets bottom="5.0" top="20.0" />
                     </VBox.margin>
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets left="10.0" right="10.0" />
                     </padding>
+               <font>
+                  <Font size="14.0" />
+               </font>
                 </Button>
             </children>
             <cursor>
