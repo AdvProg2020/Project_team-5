@@ -5,6 +5,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -43,7 +45,10 @@ public class ManageSubCategoriesPageController extends FxmlController implements
         label.setFont(Font.font(15));
         label.setAlignment(Pos.CENTER);
         allSubCategoriesVBox.getChildren().add(label);
-        for (String subCategory : MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames(currentCategory)) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(currentCategory);
+        ArrayList<String> subCats = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getCategorySubCatsNames", getToken(), inputs)));
+        for (String subCategory : subCats) {
             Hyperlink hyperlink = new Hyperlink("- " + subCategory);
             hyperlink.setOnMouseClicked(e -> {
                 viewSingleSubCategory(subCategory);
@@ -59,7 +64,7 @@ public class ManageSubCategoriesPageController extends FxmlController implements
             hyperlink.setFont(new Font(14));
             allSubCategoriesVBox.getChildren().add(hyperlink);
         }
-        int size = MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames(currentCategory).size() * 50;
+        int size = subCats.size() * 50;
         if (size > 400) {
             allSubCategoriesVBox.setPrefHeight(size);
         }

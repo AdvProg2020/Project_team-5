@@ -175,6 +175,9 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("getCategorySubCatsNames")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
         }
     }
 

@@ -184,14 +184,14 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().deleteItem(request);
     }
 
-    public ArrayList<String> getAllCategories() {
-        ArrayList<String> categories = new ArrayList<>();
-        for (Category category : Shop.getInstance().getAllCategories()) {
-            categories.add(category.toString());
-        }
-        Collections.sort(categories);
-        return categories;
-    }
+//    public ArrayList<String> getAllCategories() {
+//        ArrayList<String> categories = new ArrayList<>();
+//        for (Category category : Shop.getInstance().getAllCategories()) {
+//            categories.add(category.toString());
+//        }
+//        Collections.sort(categories);
+//        return categories;
+//    }
 
     public ArrayList<String> getCategorySubCatsNames(String categoryName) {
         ArrayList<String> subCategories = new ArrayList<>();
