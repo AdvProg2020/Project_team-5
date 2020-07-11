@@ -99,11 +99,28 @@ public abstract class SqlAPIs<T> {
     }
 
     public void delete(long id) {
-
+        EntityManager entityManager = EntityManagerProducer.getInstanceOfEntityManager();
+        try {
+            T targetObject = entityManager.find(classOfT, id);
+            delete(targetObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(T targetObject) {
-
+        EntityManager entityManager = EntityManagerProducer.getInstanceOfEntityManager();
+        EntityTransaction entityTransaction = null;
+        try {
+            entityTransaction = entityManager.getTransaction();
+            entityTransaction.begin();
+            entityManager.remove(targetObject);
+            entityTransaction.commit();
+        } catch (Exception e) {
+            if (entityTransaction != null)
+                entityTransaction.rollback();
+            e.printStackTrace();
+        }
     }
 
     public boolean isExistObjectById(long id) {
