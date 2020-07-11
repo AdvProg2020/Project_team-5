@@ -120,17 +120,20 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(productNotFoundExceptionForSeller.getMessage());
                 dataOutputStream.flush();
             }
-        }else if (requestForServer.getFunction().equals("getAllOffs")){
+        } else if (requestForServer.getFunction().equals("getAllOffs")) {
             List<String> data = MainController.getInstance().getAccountAreaForSellerController().getAllOffs(person);
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("getSortedOffs")){
-            List<String> data = MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(Integer.parseInt(requestForServer.getInputs().get(0)),person);
+        } else if (requestForServer.getFunction().equals("getSortedOffs")) {
+            List<String> data = MainController.getInstance().getAccountAreaForSellerController().getSortedOffs(Integer.parseInt(requestForServer.getInputs().get(0)), person);
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("viewOffGUI")){
+        } else if (requestForServer.getFunction().equals("viewOffGUI")) {
             String output = convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().viewOffGUI(Long.parseLong(requestForServer.getInputs().get(0))));
             dataOutputStream.writeUTF(output);
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isSubCategoryCorrect")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(requestForServer.getInputs().get(0)));
             dataOutputStream.flush();
         }
     }
