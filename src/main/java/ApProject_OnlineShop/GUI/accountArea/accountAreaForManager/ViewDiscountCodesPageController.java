@@ -9,6 +9,7 @@ import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,7 +72,7 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
         startDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getStartDate().toString());
         endDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getEndDate().toString());
         amountLabel.setText(discountTable.getSelectionModel().getSelectedItem().getMaxDiscountAmount().toString());
-        percentLabel.setText("" +discountTable.getSelectionModel().getSelectedItem().getDiscountPercent());
+        percentLabel.setText("" + discountTable.getSelectionModel().getSelectedItem().getDiscountPercent());
         editButton.setDisable(false);
         removeButton.setDisable(false);
     }
@@ -85,16 +86,29 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
         Optional<ButtonType> result = new FxmlController().showAlert
                 (Alert.AlertType.CONFIRMATION, "delete", "Discount Delete", "are you sure to delete this discount?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode(this.selectedDiscount);
+//            try {
+//                MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode(this.selectedDiscount);
+//                this.selectedDiscount = "";
+//                updateTableView(Shop.getInstance().getAllDiscountCodes());
+//                editButton.setDisable(true);
+//                removeButton.setDisable(true);
+//                clearLabels();
+//                SuccessPageFxController.showPage("delete discount", "discount code deleted successfully");
+//            } catch (Exception ex) {
+//                ErrorPageFxController.showPage("error", ex.getMessage());
+//            }
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(this.selectedDiscount);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeDiscountCode", getToken(), inputs));
+            if (serverResponse.equals("discountCode removed successfully")) {
                 this.selectedDiscount = "";
                 updateTableView(Shop.getInstance().getAllDiscountCodes());
                 editButton.setDisable(true);
                 removeButton.setDisable(true);
                 clearLabels();
                 SuccessPageFxController.showPage("delete discount", "discount code deleted successfully");
-            } catch (Exception ex) {
-                ErrorPageFxController.showPage("error", ex.getMessage());
+            } else {
+                ErrorPageFxController.showPage("error", serverResponse);
             }
         } else
             e.consume();

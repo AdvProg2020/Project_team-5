@@ -135,6 +135,20 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(exception.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("removeDiscountCode")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("discountCode removed successfully");
+                dataOutputStream.flush();
+            } catch (DiscountCodeNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("")) {
+
         }
     }
 
