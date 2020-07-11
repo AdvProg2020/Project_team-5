@@ -40,7 +40,10 @@ public class DiscountCode implements Serializable {
     @Column(name = "Percent", nullable = false)
     private int discountPercent;
 
-
+    @ElementCollection
+    @CollectionTable(name = "DiscountPerson", joinColumns = @JoinColumn(name = "DiscountId"))
+    @Column(name = "RemainingNumber", nullable = false)
+    @MapKeyJoinColumn(name = "CustomerId")
     private HashMap<Customer, Integer> includedCustomers;
 
     public DiscountCode(String code, LocalDateTime startDate, LocalDateTime endDate, Long maxDiscountAmount, int discountPercent) {

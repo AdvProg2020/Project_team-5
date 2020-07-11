@@ -7,18 +7,21 @@ import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Entity
 @Table(name = "Customer")
 public class Customer extends Person implements Serializable {
+
+    @ManyToMany
+    @JoinTable(name = "DiscountPerson", joinColumns = @JoinColumn(name = "CustomerId"), inverseJoinColumns = @JoinColumn(name = "DiscountId"))
     private ArrayList<DiscountCode> discountCodes;
+
     private ArrayList<OrderForCustomer> previousOrders;
 
     @Column(name = "Credit", nullable = false)
@@ -124,7 +127,7 @@ public class Customer extends Person implements Serializable {
         if (((allPricesOfOrdersWithOutLastOne + this.getPreviousOrders().get(this.getPreviousOrders().size() - 1).getPrice()) / 1000000)
                 - (allPricesOfOrdersWithOutLastOne / 1000000) > 0){
             DiscountCode discountCode=new DiscountCode(DiscountCode.generateRandomDiscountCode()
-                    , LocalDate.now(),LocalDate.now().plusMonths(1), 10000L,30);
+                    , LocalDateTime.now(),LocalDateTime.now().plusMonths(1), 10000L,30);
             discountCode.addCustomerToCode(this,1);
             Shop.getInstance().addDiscountCode(discountCode);
             Database.getInstance().saveItem(discountCode);
