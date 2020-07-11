@@ -27,9 +27,8 @@ public abstract class Person implements Serializable {
     @Column(name = "PhoneNumber")
     private String phoneNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PersonId")
-    private Password password;
+    @Column(name = "Password", nullable = false)
+    private String password;
 
     @Transient
     private transient String role = this.getClass().getSimpleName();
@@ -40,7 +39,7 @@ public abstract class Person implements Serializable {
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.password = new Password(this.personId, password);
+        this.password = password;
     }
 
     public Person() {
@@ -94,11 +93,11 @@ public abstract class Person implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Password getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Password password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

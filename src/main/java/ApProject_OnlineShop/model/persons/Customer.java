@@ -23,6 +23,9 @@ public class Customer extends Person implements Serializable {
 
     private ArrayList<OrderForCustomer> previousOrders;
 
+    @Column(name = "BankAccountId")
+    private String bankAccountId;
+
     @Column(name = "Credit", nullable = false)
     private long credit;
 
@@ -83,6 +86,14 @@ public class Customer extends Person implements Serializable {
 
     public void setCredit(Long credit) {
         this.credit = credit;
+    }
+
+    public void setBankAccountId(String bankAccountId) {
+        this.bankAccountId = bankAccountId;
+    }
+
+    public String getBankAccountId() {
+        return bankAccountId;
     }
 
     public void addOrder(OrderForCustomer order) {
