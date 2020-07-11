@@ -111,6 +111,15 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("viewBalance")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().viewBalance(person));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("buyersOfProduct")) {
+            try {
+                String output = convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().buyersOfProduct(Long.parseLong(requestForServer.getInputs().get(0)), person));
+                dataOutputStream.writeUTF(output);
+                dataOutputStream.flush();
+            } catch (ProductNotFoundExceptionForSeller productNotFoundExceptionForSeller) {
+                dataOutputStream.writeUTF(productNotFoundExceptionForSeller.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 

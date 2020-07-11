@@ -85,10 +85,10 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return ((Seller) person).balance();
     }
 
-    public ArrayList<String> buyersOfProduct(long productId) throws ProductNotFoundExceptionForSeller {
-        if (!((Seller) MainController.getInstance().getCurrentPerson()).hasThisProduct(productId))
+    public ArrayList<String> buyersOfProduct(long productId,Person person) throws ProductNotFoundExceptionForSeller {
+        if (!((Seller) person).hasThisProduct(productId))
             throw new ProductNotFoundExceptionForSeller();
-        HashSet<String> hashSet = new HashSet<>(((Seller) MainController.getInstance().getCurrentPerson()).buyersOfAGood(Shop.getInstance().findGoodById(productId)));
+        HashSet<String> hashSet = new HashSet<>(((Seller) person).buyersOfAGood(Shop.getInstance().findGoodById(productId)));
         ArrayList<String> buyerList = new ArrayList<>(hashSet);
         return buyerList;
     }

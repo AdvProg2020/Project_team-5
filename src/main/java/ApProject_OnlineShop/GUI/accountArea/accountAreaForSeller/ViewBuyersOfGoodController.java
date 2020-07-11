@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,12 +28,15 @@ public class ViewBuyersOfGoodController extends FxmlController implements Initia
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<String> buyers = null;
-        try {
-            buyers = MainController.getInstance().getAccountAreaForSellerController().buyersOfProduct(productId);
-        } catch (ProductNotFoundExceptionForSeller productNotFoundExceptionForSeller) {
-            productNotFoundExceptionForSeller.printStackTrace();
-        }
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + productId);
+        ArrayList<String> buyers = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "buyersOfProduct", getToken(), inputs)));
+//        ArrayList<String> buyers = null;
+//        try {
+//            buyers = MainController.getInstance().getAccountAreaForSellerController().buyersOfProduct(productId);
+//        } catch (ProductNotFoundExceptionForSeller productNotFoundExceptionForSeller) {
+//            productNotFoundExceptionForSeller.printStackTrace();
+//        }
         for (String buyer : buyers) {
             HBox details = new HBox();
             details.setAlignment(Pos.CENTER_LEFT);
@@ -45,7 +49,7 @@ public class ViewBuyersOfGoodController extends FxmlController implements Initia
             details.getChildren().add(vbox1);
             vbox.getChildren().add(details);
         }
-        if (buyers.size() == 0){
+        if (buyers.size() == 0) {
             HBox details = new HBox();
             details.setAlignment(Pos.CENTER_LEFT);
             VBox vbox1 = new VBox();
