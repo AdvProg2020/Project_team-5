@@ -126,6 +126,15 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("removeCustomerFromDiscount")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeCustomerFromDiscount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+                dataOutputStream.writeUTF("customers removed successfully");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 

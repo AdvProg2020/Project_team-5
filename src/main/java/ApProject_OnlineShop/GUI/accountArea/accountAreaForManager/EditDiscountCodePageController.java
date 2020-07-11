@@ -195,15 +195,25 @@ public class EditDiscountCodePageController extends FxmlController implements In
             customerToRemove.clear();
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().removeCustomerFromDiscount(currentDiscount.getCode(), customer);
+//        try {
+//            MainController.getInstance().getAccountAreaForManagerController().removeCustomerFromDiscount(currentDiscount.getCode(), customer);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(currentDiscount.getCode());
+        inputs.add(customer);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeCustomerFromDiscount", getToken(), inputs));
+        if (serverResponse.equals("customers removed successfully")) {
             SuccessPageFxController.showPage("successful adding customer", "customer removed from code successfully");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
-        } finally {
-            customerToRemove.clear();
-            updateCustomers();
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
         }
+        customerToRemove.clear();
+        updateCustomers();
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        } finally {
+//            customerToRemove.clear();
+//            updateCustomers();
+//        }
     }
 
     @Override
