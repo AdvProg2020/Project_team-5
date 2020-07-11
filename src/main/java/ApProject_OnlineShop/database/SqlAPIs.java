@@ -46,7 +46,32 @@ public abstract class SqlAPIs<T> {
     }
 
     public List<T> getAllObjectsWithSort(String field, boolean asc) {
-        return null;
+        EntityManager entityManager = EntityManagerProducer.getInstanceOfEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = criteriaBuilder.createQuery(classOfT);
+        Root<T> root = query.from(classOfT);
+
+        query.select(root);
+        if (field != null && !field.isEmpty()) {
+            try {
+                if (asc)
+                    query.orderBy(criteriaBuilder.asc(root.get(field)));
+                else
+                    query.orderBy(criteriaBuilder.desc(root.get(field)));
+            } catch (Exception e) {
+                e.printStackTrace();
+                query.getOrderList().removeIf(order -> true);
+            }
+        }
+        try {
+            TypedQuery<T> typedQuery = entityManager.createQuery(query);
+            return typedQuery.getResultList();
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+            return new ArrayList<>();
+        } finally {
+            entityManager.close();
+        }
     }
 
     public void save(T targetObject) {
@@ -82,6 +107,6 @@ public abstract class SqlAPIs<T> {
     }
 
     public boolean isExistObjectById(long id) {
-        return true;
+        return getObjectById(id) != null;
     }
 }
