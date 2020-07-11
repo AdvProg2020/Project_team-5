@@ -135,6 +135,12 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("isSubCategoryCorrect")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().isSubCategoryCorrect(requestForServer.getInputs().get(0)));
             dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("getSubcategoryDetails")){
+            List<String> data = MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("")){
+
         }
     }
 

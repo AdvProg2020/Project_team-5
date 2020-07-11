@@ -7,6 +7,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -41,7 +43,10 @@ public class EditPorductController extends FxmlController implements Initializab
         additionalDetails.setPromptText(good.getDetails());
         availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
         int row = 3;
-        for (String detail : MainController.getInstance().getAccountAreaForSellerController().getSubcategoryDetails(good.getSubCategory().getName())) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(good.getSubCategory().getName());
+        ArrayList<String> subCategoryDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSubcategoryDetails", getToken(), inputs)));
+        for (String detail : subCategoryDetails){
             Label text = new Label(detail + " :");
             text.setFont(Font.font("Times New Roman", 14));
             text.setPadding(new Insets(20));
@@ -123,7 +128,7 @@ public class EditPorductController extends FxmlController implements Initializab
             }
             if (edited) {
                 SuccessPageFxController.showPage("edit good request sent", "edit good request sent to manager succesfully!");
-                setScene("productPageEditableForSeller.fxml","product page");
+                setScene("productPageEditableForSeller.fxml", "product page");
             }
         }
     }
