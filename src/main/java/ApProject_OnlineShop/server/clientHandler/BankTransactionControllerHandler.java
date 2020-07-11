@@ -29,11 +29,20 @@ public class BankTransactionControllerHandler {
     public void bankTransactionControllerHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("increaseCustomerCredit")){
             increaseCreditCustomerHandler(requestForServer);
+        }else if (requestForServer.getFunction().equals("withdrawMoneySeller")){
+            withdrawMoneySellerHandler(requestForServer);
         }
     }
 
-    public void increaseCreditCustomerHandler(RequestForServer requestForServer) throws IOException {
+    private void increaseCreditCustomerHandler(RequestForServer requestForServer) throws IOException {
         String response = MainController.getInstance().getBankTransactionsController().increaseCustomerCredit(requestForServer.getInputs().get(0),
+                requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+        dataOutputStream.writeUTF(response);
+        dataOutputStream.flush();
+    }
+
+    private void withdrawMoneySellerHandler(RequestForServer requestForServer) throws IOException {
+        String response = MainController.getInstance().getBankTransactionsController().withdrawMoneySeller(requestForServer.getInputs().get(0),
                 requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
         dataOutputStream.writeUTF(response);
         dataOutputStream.flush();

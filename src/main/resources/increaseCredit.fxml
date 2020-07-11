@@ -20,7 +20,7 @@
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
         <children>
 
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressedCustomer" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton">
                 <graphic>
                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@./pictures/icons8-back-to-48.png" />

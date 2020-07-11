@@ -48,8 +48,7 @@ public class BankTransactionsController {
         if (!Pattern.matches("[\\d+]", receiptId))
             return receiptId;
         String finalResponse = MainController.getInstance().getBankAccountsController().pay(receiptId);
+        //seller balance remained
         return finalResponse;
     }
-
-
 }

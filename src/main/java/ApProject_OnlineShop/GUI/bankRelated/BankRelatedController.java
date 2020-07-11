@@ -23,14 +23,12 @@ public class BankRelatedController extends FxmlController {
     public PasswordField password;
     public TextField money;
 
-    public void onBackButtonPressed() {
-        Optional<ButtonType> result = showAlert
-                (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
-        if (result.get() == ButtonType.OK) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
-            Shop.getInstance().clearCart();
-            setScene("mainMenuLayout.fxml", "Main menu");
-        }
+    public void onBackButtonPressedCustomer() {
+        setScene("accountAreaForCustomer.fxml", "account area");
+    }
+
+    public void onBackButtonPressedSeller(){
+        setScene("accountAreaForSeller.fxml", "account area");
     }
 
     public void onLogoutIconClicked() {
@@ -70,14 +68,14 @@ public class BankRelatedController extends FxmlController {
             input.add(user.getText());
             input.add(password.getText());
             input.add(money.getText());
-            RequestForServer requestForServer = new RequestForServer("BankTransactionsController", "increaseCustomerCredit", getToken(), input);
+            RequestForServer requestForServer = new RequestForServer("BankTransactionsController", "withdrawMoneySeller", getToken(), input);
             String response = connectToServer(requestForServer);
             if (response.equals("done successfully"))
                 SuccessPageFxController.showPage("successfully done", money.getText() + "Rials withdrawn successfully");
             else {
                 ErrorPageFxController.showPage("error happened", response);
             }
-            setScene("accountAreaForCustomer.fxml", "account area for customer");
+            setScene("accountAreaForSeller.fxml", "account area for customer");
         }
     }
 
