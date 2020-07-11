@@ -1,5 +1,8 @@
-package ApProject_OnlineShop.GUI;
+package ApProject_OnlineShop.GUI.bankRelated;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
+import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.requests.Request;
@@ -14,7 +17,8 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class IncreaseCreditController extends FxmlController {
+public class BankRelatedController extends FxmlController {
+
     public TextField user;
     public PasswordField password;
     public TextField money;
@@ -39,7 +43,7 @@ public class IncreaseCreditController extends FxmlController {
         }
     }
 
-    public void increaseCredit() {
+    public void increaseCreditCustomer() {
         if (!getCurrentPerson().getUsername().equals(user.getText())){
             ErrorPageFxController.showPage("can not increase credit", "your shop username does not match bank username");
         }else {

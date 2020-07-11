@@ -79,6 +79,8 @@ public class ClientHandler extends Thread {
             bankAccountsControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForSellerController")) {
             accountAreaForSellerHandler(requestForServer);
+        }else if(requestForServer.getController().equals("BankTransactionsController")){
+            bankTransactionControllerHandler(requestForServer);
         }
     }
 
@@ -286,6 +288,15 @@ public class ClientHandler extends Thread {
                 if (user instanceof Seller)
                     ((Seller)user).setBankAccountId(response);
             }
+            dataOutputStream.writeUTF(response);
+            dataOutputStream.flush();
+        }
+    }
+
+    private void bankTransactionControllerHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("increaseCustomerCredit")){
+            String response = MainController.getInstance().getBankTransactionsController().increaseCustomerCredit(requestForServer.getInputs().get(0),
+                    requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
             dataOutputStream.writeUTF(response);
             dataOutputStream.flush();
         }
