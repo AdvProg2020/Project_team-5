@@ -18,7 +18,8 @@ public class Category implements Serializable {
     @Column(name = "Name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany
+    @ElementCollection
+    @CollectionTable(name = "DetailOfEachCategory", joinColumns = @JoinColumn(name = "Category"))
     private ArrayList<String> details;
 
     @OneToMany(mappedBy = "parentCategory")
