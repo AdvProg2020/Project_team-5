@@ -1,11 +1,14 @@
 package ApProject_OnlineShop.server;
 
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
 import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
+import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
