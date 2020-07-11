@@ -18,6 +18,7 @@ import ApProject_OnlineShop.model.productThings.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -135,7 +136,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public long useDiscountCode(String code) throws Exception {
         DiscountCode discountCode = ((Customer) MainController.getInstance().getCurrentPerson()).findDiscountCode(code);
-        if (discountCode.getEndDate().isBefore(LocalDate.now()))
+        if (discountCode.getEndDate().isBefore(LocalDateTime.now()))
             throw new DiscountCodeExpired();
         return calculateFinalPrice(discountCode);
     }
@@ -200,7 +201,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public long finalPriceOfAList(List<GoodInCart> products) {
-        return products.stream().map(GoodInCart::getFinalPrice).reduce(0L, (ans, i) -> ans + i);
+        return products.stream().map(GoodInCart::getFinalPrice).reduce(0L, Long::sum);
     }
 
     public void reduceAvailableNumberOfGoodsAfterPurchase() throws IOException, FileCantBeSavedException {
