@@ -3,6 +3,7 @@ package ApProject_OnlineShop.server;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
@@ -113,8 +114,18 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getFunction().equals("getAllDiscountCodesInfo")) {
-            
+        } else if (requestForServer.getFunction().equals("editDiscountCode")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+                dataOutputStream.writeUTF("discountCode edited successfully");
+                dataOutputStream.flush();
+            } catch (DiscountCodeNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (DiscountCodeCantBeEditedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 

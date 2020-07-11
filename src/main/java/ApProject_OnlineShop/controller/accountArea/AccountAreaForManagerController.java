@@ -66,36 +66,36 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().saveItem(customer);
     }
 
-    public ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
-        ArrayList<String> allDiscountCodes = new ArrayList<>();
-        for (DiscountCode discountCode : discountCodes) {
-            allDiscountCodes.add(discountCode.toString());
-        }
-        return allDiscountCodes;
-    }
+//    public ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
+//        ArrayList<String> allDiscountCodes = new ArrayList<>();
+//        for (DiscountCode discountCode : discountCodes) {
+//            allDiscountCodes.add(discountCode.toString());
+//        }
+//        return allDiscountCodes;
+//    }
+//
+//    public ArrayList<String> getAllDiscountCodeWithSort(int input) {
+//        ArrayList<DiscountCode> discountCodes = new ArrayList<>();
+//        if (input == 0)
+//            discountCodes = Shop.getInstance().getAllDiscountCodes();
+//        if (input == 1)
+//            discountCodes = MainController.getInstance().getSortController().
+//                    sortByDiscountPercent(Shop.getInstance().getAllDiscountCodes());
+//        if (input == 2)
+//            discountCodes = MainController.getInstance().getSortController().
+//                    sortByEndDate(Shop.getInstance().getAllDiscountCodes());
+//        if (input == 3)
+//            discountCodes = MainController.getInstance().getSortController().
+//                    sortByMaxDiscountAmount(Shop.getInstance().getAllDiscountCodes());
+//        return getAllDiscountCodesInfo(discountCodes);
+//    }
 
-    public ArrayList<String> getAllDiscountCodeWithSort(int input) {
-        ArrayList<DiscountCode> discountCodes = new ArrayList<>();
-        if (input == 0)
-            discountCodes = Shop.getInstance().getAllDiscountCodes();
-        if (input == 1)
-            discountCodes = MainController.getInstance().getSortController().
-                    sortByDiscountPercent(Shop.getInstance().getAllDiscountCodes());
-        if (input == 2)
-            discountCodes = MainController.getInstance().getSortController().
-                    sortByEndDate(Shop.getInstance().getAllDiscountCodes());
-        if (input == 3)
-            discountCodes = MainController.getInstance().getSortController().
-                    sortByMaxDiscountAmount(Shop.getInstance().getAllDiscountCodes());
-        return getAllDiscountCodesInfo(discountCodes);
-    }
-
-    public String viewDiscountCode(String code) throws DiscountCodeNotFoundException {
-        DiscountCode discountCode;
-        if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
-            throw new DiscountCodeNotFoundException();
-        return discountCode.getPrintableProperties();
-    }
+//    public String viewDiscountCode(String code) throws DiscountCodeNotFoundException {
+//        DiscountCode discountCode;
+//        if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
+//            throw new DiscountCodeNotFoundException();
+//        return discountCode.getPrintableProperties();
+//    }
 
     public void editDiscountCode(String code, String field, String newValue)
             throws DiscountCodeNotFoundException, DiscountCodeCantBeEditedException, IOException, FileCantBeSavedException {
