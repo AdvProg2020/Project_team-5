@@ -10,6 +10,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -58,7 +59,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
             availableProducts.setSelected(true);
         if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter())
             offProductsButton.setSelected(true);
-        List<String> categories = MainController.getInstance().getAllProductsController().getAllCategories();
+        List<String> categories = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getAllCategories", getToken(), null)));
+//       List<String> categories = MainController.getInstance().getAllProductsController().getAllCategories();
         categories.add("none");
         category.setItems(FXCollections.observableList(categories));
         category.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");

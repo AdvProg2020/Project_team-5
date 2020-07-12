@@ -1,9 +1,11 @@
 package ApProject_OnlineShop.GUI.productPageRelated;
 
+import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -20,11 +22,15 @@ import javafx.scene.text.Text;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductBriefSummery {
+public class ProductBriefSummery extends FxmlController {
     public VBox getProductForAllProductsPage(long productId) {
-        List<String> goodInfo = MainController.getInstance().getAllProductsController().getProductBrief(productId);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + productId);
+        List<String> goodInfo = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getProductBrief", getToken(), inputs)));
+//        List<String> goodInfo = MainController.getInstance().getAllProductsController().getProductBrief(productId);
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
         mainVBox.setAlignment(Pos.CENTER);
@@ -88,7 +94,10 @@ public class ProductBriefSummery {
     }
 
     public VBox offProductBriefSummery(long productId) {
-        List<String> goodInfo = MainController.getInstance().getAllProductsController().getOffProductBriefSummery(productId);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + productId);
+        List<String> goodInfo = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getOffProductBriefSummery", getToken(), inputs)));
+//        List<String> goodInfo = MainController.getInstance().getAllProductsController().getOffProductBriefSummery(productId);
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
         mainVBox.setAlignment(Pos.CENTER);

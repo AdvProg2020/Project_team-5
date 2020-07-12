@@ -14,13 +14,12 @@ import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundException
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.exception.userExceptions.*;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
-import ApProject_OnlineShop.server.clientHandler.BankAccountsControllerHandler;
-import ApProject_OnlineShop.server.clientHandler.BankTransactionControllerHandler;
+import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
+import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
 import com.google.gson.Gson;
 
 import java.io.DataInputStream;
@@ -104,6 +103,21 @@ public class ClientHandler extends Thread {
             accountAreaForManagerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForCustomerController")) {
             accountAreaForCustomer(requestForServer);
+        } else if (requestForServer.getController().equals("AllProductsController")) {
+            allProductsHandler(requestForServer);
+        }
+    }
+
+    private void allProductsHandler(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+        if (requestForServer.getFunction().equals("getProductBrief")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getProductBrief(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getOffProductBriefSummery")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getOffProductBriefSummery(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllCategories")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getAllCategories()));
+            dataOutputStream.flush();
         }
     }
 
@@ -388,11 +402,11 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
             dataOutputStream.writeUTF("successfully property added");
             dataOutputStream.flush();
-        }else if(requestForServer.getFunction().equals("setBankingFeePercent")){
+        } else if (requestForServer.getFunction().equals("setBankingFeePercent")) {
             MainController.getInstance().getAccountAreaForManagerController().setBankingFeePercent(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF("percent of banking fee successfully changed");
             dataOutputStream.flush();
-        }else if(requestForServer.getFunction().equals("setMinimumAmountForWallet")){
+        } else if (requestForServer.getFunction().equals("setMinimumAmountForWallet")) {
             MainController.getInstance().getAccountAreaForManagerController().setMinimumAmountForWallet(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF("minimum amount successfully changed");
             dataOutputStream.flush();
