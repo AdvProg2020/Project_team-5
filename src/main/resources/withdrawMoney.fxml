@@ -129,7 +129,7 @@
         </font>
     </Button>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-    <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" text="Withdraw money" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+    <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" text="Withdraw from shop wallet" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
         <font>
             <Font name="Times New Roman" size="36.0" />
         </font>
