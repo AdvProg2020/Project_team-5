@@ -21,6 +21,8 @@ public class Off implements Serializable {
     @Column(name = "OffID")
     private long offId;
 
+    @ManyToMany
+    @JoinTable(name = "OffAndGoods", joinColumns = @JoinColumn(name = "OffId"), inverseJoinColumns = @JoinColumn(name = "ProductId"))
     private List<Good> offGoods;
 
     @Enumerated(EnumType.STRING)
