@@ -15,7 +15,7 @@ public class BankTransactionsController {
         this.bankPort = bankPort;
     }
 
-    public String increaseCustomerCredit(String username, String password, String money) throws IOException {
+    public String moveMoneyFromCustomerToShop(String username, String password, String money) throws IOException {
         String token = MainController.getInstance().getBankAccountsController().getToken(username, password);
         if (token.startsWith("invalid"))
             return token;
@@ -29,8 +29,15 @@ public class BankTransactionsController {
         if (!Pattern.matches("[\\d+]", receiptId))
             return receiptId;
         String finalResponse = MainController.getInstance().getBankAccountsController().pay(receiptId);
-        if (finalResponse.equals("done successfully"))
+        return finalResponse;
+    }
+
+    public String increaseCustomerCredit(String username, String password, String money) throws IOException {
+        String finalResponse = moveMoneyFromCustomerToShop(username, password, money);
+        if (moveMoneyFromCustomerToShop(username, password, money).equals("done successfully")) {
+            Customer user = (Customer)Shop.getInstance().findUser(username);
             user.setCredit(user.getCredit() + Long.parseLong(money));
+        }
         return finalResponse;
     }
 
