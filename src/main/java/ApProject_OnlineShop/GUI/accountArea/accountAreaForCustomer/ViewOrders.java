@@ -89,7 +89,7 @@ public class ViewOrders extends FxmlController {
         int index = orderString.indexOf("  ");
         String code = orderString.substring("order ID: ".length(), index);
         long orderId = Long.parseLong(code);
-        List<String> orderDetails = ((Customer) MainController.getInstance().getCurrentPerson()).findOrderById(orderId).getDetails();
+        List<String> orderDetails = ((Customer) getCurrentPerson()).findOrderById(orderId).getDetails(); //todo
         GridPane root = style.makeGridPane();
         Label orderInfo = new Label("Customer Order");
         orderInfo.setFont(Font.font("Times New Roman", 26));

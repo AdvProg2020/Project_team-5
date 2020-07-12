@@ -665,7 +665,9 @@ public class ClientHandler extends Thread {
         for (String s : data) {
             output += s + "#";
         }
-        String output2 = output.substring(0, output.lastIndexOf("#"));
+        String output2 = output;
+        if (!data.isEmpty())
+            output2 = output.substring(0, output.lastIndexOf("#"));
         return output2;
     }
 
@@ -674,7 +676,9 @@ public class ClientHandler extends Thread {
         for (String s : data) {
             output += s + "#";
         }
-        String output2 = output.substring(0, output.lastIndexOf("#"));
+        String output2 = output;
+        if (!data.isEmpty())
+            output2 = output.substring(0, output.lastIndexOf("#"));
         return output2;
     }
 }
