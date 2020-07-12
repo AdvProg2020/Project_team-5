@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="505.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AddSupporterPageController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="89.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="337.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="89.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="143.0" minHeight="0.0" prefHeight="71.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="673.0" minHeight="10.0" prefHeight="564.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="646.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="366.0" prefWidth="328.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <children>
+                <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="11.0" prefWidth="204.0" text="username :" textAlignment="JUSTIFY" textOverrun="CLIP">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets top="40.0" />
+                    </VBox.margin>
+                </Label>
+                <TextField fx:id="username" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="username">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                </TextField>
+                <Label prefHeight="31.0" prefWidth="197.0" text="first name :" />
+                <TextField fx:id="firstName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="first name">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+                <Label prefHeight="31.0" prefWidth="197.0" text="last name :" />
+                <TextField fx:id="lastName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="last name">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+                <Label prefHeight="32.0" prefWidth="197.0" text="email :" />
+                <TextField fx:id="email" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="email">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+                <Label prefHeight="31.0" prefWidth="197.0" text="phone number :" />
+                <TextField fx:id="phoneNumber" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="phone number">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+                <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="18.0" prefWidth="193.0" promptText="password">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </PasswordField>
+                <Button alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#RegisterForSupporter" prefHeight="51.0" prefWidth="188.0" styleClass="buttonsStyle" stylesheets="@styelsheets/baseStyles.css" text="add supporter">
+                    <VBox.margin>
+                        <Insets top="80.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </VBox>
+        <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonAction" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
+            <graphic>
+                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@pictures/icons8-back-to-48.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <Label text="Register Supporter" textFill="#8a1e86" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <font>
+                <Font name="Times New Roman" size="24.0" />
+            </font>
+        </Label>
+    </children>
+</GridPane>

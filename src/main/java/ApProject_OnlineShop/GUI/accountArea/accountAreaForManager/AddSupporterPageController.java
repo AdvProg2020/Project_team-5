@@ -1,0 +1,86 @@
+package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
+
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
+import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
+import ApProject_OnlineShop.server.RequestForServer;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+
+import java.util.ArrayList;
+
+public class AddSupporterPageController extends FxmlController {
+
+    public TextField username;
+    public TextField firstName;
+    public TextField lastName;
+    public TextField email;
+    public TextField phoneNumber;
+    public PasswordField password;
+
+    public void RegisterForSupporter() {
+        if (checkBaseInfos()) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(username.getText());
+            inputs.addAll(addDetails());
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "createSupporterAccount", getToken(), inputs));
+            if (serverResponse.equals("user created successfully")) {
+                SuccessPageFxController.showPage
+                        ("successful add", "new manager registered successfully");
+            } else {
+                ErrorPageFxController.showPage("error for registering", serverResponse);
+            }
+        }
+    }
+
+    public boolean checkBaseInfos() {
+        if (!username.getText().matches("\\w+")) {
+            ErrorPageFxController.showPage("Error for registering", "username is invalid!");
+            username.clear();
+            password.clear();
+            return false;
+        } else if (!firstName.getText().matches("[a-zA-Z]{2,}")) {
+            ErrorPageFxController.showPage("Error for registering", "first name is invalid!");
+            firstName.clear();
+            password.clear();
+            return false;
+        } else if (!lastName.getText().matches("[a-zA-Z]{2,}")) {
+            ErrorPageFxController.showPage("Error for registering", "last name is invalid!");
+            lastName.clear();
+            password.clear();
+            return false;
+        } else if (!email.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+            ErrorPageFxController.showPage("Error for registering", "email is invalid!");
+            email.clear();
+            password.clear();
+            return false;
+        } else if (!phoneNumber.getText().matches("^\\d{11}$")) {
+            ErrorPageFxController.showPage("Error for registering", "phone number is invalid!");
+            phoneNumber.clear();
+            password.clear();
+            return false;
+        } else if (!password.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")) {
+            ErrorPageFxController.showPage("Error for registering", "password is invalid!");
+            password.clear();
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<String> addDetails() {
+        ArrayList<String> details = new ArrayList<>();
+        details.add(firstName.getText());
+        details.add(lastName.getText());
+        details.add(email.getText());
+        details.add(phoneNumber.getText());
+        details.add(password.getText());
+        return details;
+    }
+
+    public void backButtonAction() {
+        setScene("manageAllUsersPage.fxml", "manage users");
+    }
+}

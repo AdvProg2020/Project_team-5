@@ -63,6 +63,9 @@ public class RegisterControllerPart2 extends FxmlController {
                 setScene("registerManager.fxml", "register manager");
             else if (role.equals("customer"))
                 setScene("registerCustomer.fxml", "register customer");
+            else if (role.equals("supporter")){
+
+            }
         }
 //        } catch (UsernameIsTakenAlreadyException | FileCantBeSavedException | MainManagerAlreadyRegistered | IOException e) {
 //            ErrorPageFxController.showPage("Error for registering", e.getMessage());
