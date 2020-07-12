@@ -3,6 +3,7 @@ package ApProject_OnlineShop.server;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.PropertyNotFoundException;
 import ApProject_OnlineShop.exception.RequestNotFoundException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
@@ -178,6 +179,15 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getCategorySubCatsNames")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("editCategory")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+                dataOutputStream.writeUTF("category edited successfully");
+                dataOutputStream.flush();
+            } catch (PropertyNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 

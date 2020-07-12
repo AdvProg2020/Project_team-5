@@ -7,6 +7,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.PropertyNotFoundException;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -109,8 +111,14 @@ public class EditCategoryPageController extends FxmlController implements Initia
             newValueField.clear();
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().editCategory(currentCategory, selectedField, newValue);
+//        try {
+//            MainController.getInstance().getAccountAreaForManagerController().editCategory(currentCategory, selectedField, newValue);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(currentCategory);
+        inputs.add(selectedField);
+        inputs.add(newValue);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editCategory", getToken(), inputs));
+        if (serverResponse.equals("category edited successfully")) {
             newValueField.clear();
             selectedField = "";
             editButton.setDisable(true);
@@ -118,9 +126,12 @@ public class EditCategoryPageController extends FxmlController implements Initia
             valueLabel.setText("");
             updatePropertiesBox();
             SuccessPageFxController.showPage("successful edit", "property edited successfully");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
         }
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        }
     }
 
     public void onManageSubcatsPressed(ActionEvent actionEvent) {
