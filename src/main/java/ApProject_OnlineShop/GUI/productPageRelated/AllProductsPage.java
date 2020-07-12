@@ -27,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -166,7 +167,12 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public void setProducts() {
         int num = 0;
         int row = 0;
-        for (Long productId : MainController.getInstance().getAllProductsController().getGoods()) {
+        ArrayList<String> products = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getGoods", getToken(), null)));
+        ArrayList<Long> productsIds = new ArrayList<>();
+        for (String product : products) {
+            productsIds.add(Long.parseLong(product));
+        }
+        for (Long productId : productsIds) {
             if (MainController.getInstance().getAllProductsController().isInOff(productId)) {
                 VBox vbox = new ProductBriefSummery().offProductBriefSummery(productId);
                 productsPart.add(vbox, num % 3, row);
@@ -184,15 +190,15 @@ public class AllProductsPage extends FxmlController implements Initializable {
             if (num % 3 == 0)
                 row++;
         }
-        if (MainController.getInstance().getAllProductsController().getGoods().size() == 0)
+        if (productsIds.size() == 0)
             return;
-        if ((MainController.getInstance().getAllProductsController().getGoods().size() % 3 != 0)) {
-            if ((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) > 1067) {
-                mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) + 133);
+        if ((productsIds.size() % 3 != 0)) {
+            if ((((productsIds.size() / 3) + 1) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((productsIds.size() / 3) + 1) * 250) + 133);
             }
         } else {
-            if ((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 0) * 250) > 1067) {
-                mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 0) * 250) + 133);
+            if ((((productsIds.size() / 3) + 0) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((productsIds.size() / 3) + 0) * 250) + 133);
             }
         }
     }
