@@ -8,10 +8,7 @@ import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
-import ApProject_OnlineShop.model.persons.Company;
-import ApProject_OnlineShop.model.persons.Customer;
-import ApProject_OnlineShop.model.persons.Manager;
-import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.*;
 import com.google.gson.Gson;
@@ -70,6 +67,14 @@ public class LoadingData {
         if (files != null)
             for (File file : files) {
                 Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Seller.class));
+            }
+    }
+
+    public void loadSupporter() throws IOException {
+        File[] files = loadFolder("Resources\\Users\\Supporters");
+        if (files != null)
+            for (File file : files) {
+                Shop.getInstance().addPerson(yaGson.fromJson(readFile(file), Supporter.class));
             }
     }
 

@@ -2,16 +2,13 @@ package ApProject_OnlineShop.database;
 
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.ShopBankAccount;
+import ApProject_OnlineShop.model.persons.*;
 import com.gilecode.yagson.YaGson;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
-import ApProject_OnlineShop.model.persons.Company;
-import ApProject_OnlineShop.model.persons.Customer;
-import ApProject_OnlineShop.model.persons.Manager;
-import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.*;
 import com.google.gson.Gson;
@@ -35,9 +32,9 @@ public class SavingData {
     public void saveManager(Manager manager) throws IOException, FileCantBeSavedException {
         String filePath;
         if (!testMode)
-            filePath = "Resources\\Users\\Managers\\"+ manager.getUsername() + ".json";
+            filePath = "Resources\\Users\\Managers\\" + manager.getUsername() + ".json";
         else
-            filePath = "TestResources\\Users\\Managers\\"+ manager.getUsername() + ".json";
+            filePath = "TestResources\\Users\\Managers\\" + manager.getUsername() + ".json";
         saveFile(yaGson.toJson(manager, Manager.class), filePath);
     }
 
@@ -48,6 +45,11 @@ public class SavingData {
         else
             filePath = "TestResources\\Users\\Customers\\" + customer.getUsername() + ".json";
         saveFile(yaGson.toJson(customer, Customer.class), filePath);
+    }
+
+    public void saveSupporter(Supporter supporter) throws IOException, FileCantBeSavedException {
+        String filePath = "Resources\\Users\\Supporters\\" + supporter.getUsername() + ".json";
+        saveFile(yaGson.toJson(supporter, Supporter.class), filePath);
     }
 
     public void saveShopBankAccount(ShopBankAccount account) throws IOException, FileCantBeSavedException {
@@ -189,7 +191,7 @@ public class SavingData {
     private void saveFile(String serializedData, String filePath) throws IOException, FileCantBeSavedException {
         File file = new File(filePath);
         if (!file.exists()) {
-            if(!file.createNewFile())
+            if (!file.createNewFile())
                 throw new FileCantBeSavedException();
         }
         FileWriter fileWriter = new FileWriter(file);

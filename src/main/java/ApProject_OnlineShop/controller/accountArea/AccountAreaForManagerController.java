@@ -17,6 +17,7 @@ import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
+import ApProject_OnlineShop.model.persons.Supporter;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
@@ -347,6 +348,15 @@ public class AccountAreaForManagerController extends AccountAreaController {
 //        }
 //        return info;
 //    }
+
+    public void createSupporter(String username, ArrayList<String> details) throws Exception{
+        if (Shop.getInstance().findUser(username) != null) {
+            throw new UsernameIsTakenAlreadyException();
+        }
+        Supporter supporter = new Supporter(username, details.get(0), details.get(1), details.get(2), details.get(3), details.get(4));
+        Shop.getInstance().addPerson(supporter);
+        Database.getInstance().saveItem(supporter);
+    }
 
     public void removeProduct(String productId) throws ProductWithThisIdNotExist, FileCantBeDeletedException, IOException, FileCantBeSavedException {
         Good good = Shop.getInstance().findGoodById(Long.parseLong(productId));

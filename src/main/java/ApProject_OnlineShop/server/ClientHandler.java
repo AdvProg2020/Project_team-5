@@ -365,6 +365,17 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("createSupporterAccount")) {
+            String name = requestForServer.getInputs().get(0);
+            requestForServer.getInputs().remove(0);
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().createSupporter(name, requestForServer.getInputs());
+                dataOutputStream.writeUTF("user created successfully");
+                dataOutputStream.flush();
+            } catch (Exception e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
         } else if (requestForServer.getFunction().equals("removeProduct")) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeProduct(requestForServer.getInputs().get(0));
@@ -388,11 +399,11 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
             dataOutputStream.writeUTF("successfully property added");
             dataOutputStream.flush();
-        }else if(requestForServer.getFunction().equals("setBankingFeePercent")){
+        } else if (requestForServer.getFunction().equals("setBankingFeePercent")) {
             MainController.getInstance().getAccountAreaForManagerController().setBankingFeePercent(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF("percent of banking fee successfully changed");
             dataOutputStream.flush();
-        }else if(requestForServer.getFunction().equals("setMinimumAmountForWallet")){
+        } else if (requestForServer.getFunction().equals("setMinimumAmountForWallet")) {
             MainController.getInstance().getAccountAreaForManagerController().setMinimumAmountForWallet(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF("minimum amount successfully changed");
             dataOutputStream.flush();

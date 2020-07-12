@@ -36,6 +36,7 @@ public class Database {
         loadingData.loadManager();
         loadingData.loadCustomer();
         loadingData.loadSeller();
+        loadingData.loadSupporter();
         loadingData.loadCompany();
         loadingData.loadCategory();
         loadingData.loadSubCategory();
@@ -105,7 +106,9 @@ public class Database {
             savingData.saveCustomer((Customer) item);
         } else if (item instanceof Seller) {
             savingData.saveSeller((Seller) item);
-        } else if (item instanceof Company) {
+        } else if (item instanceof Supporter) {
+            savingData.saveSupporter((Supporter) item);
+        }else if (item instanceof Company) {
             savingData.saveCompany((Company) item);
         } else if (item instanceof Good) {
             savingData.saveProduct((Good) item);

@@ -73,6 +73,7 @@
                         <Font size="14.0" />
                     </font>
                 </TextField>
+            <Label prefHeight="31.0" prefWidth="197.0" text="password :" />
                 <PasswordField fx:id="password" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="18.0" prefWidth="193.0" promptText="password">
                     <font>
                         <Font size="14.0" />
