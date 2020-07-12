@@ -287,9 +287,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().saveItem(category);
     }
 
-    public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
-        return Shop.getInstance().findSubCategoryByName(subcategoryName).getDetails();
-    }
+//    public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
+//        return Shop.getInstance().findSubCategoryByName(subcategoryName).getDetails();
+//    }
 
     public void editSubcategory(String subCategoryName, String property, String newValue) throws PropertyNotFoundException, IOException, FileCantBeSavedException {
         SubCategory subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName);

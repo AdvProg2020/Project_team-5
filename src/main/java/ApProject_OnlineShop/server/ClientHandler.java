@@ -236,8 +236,15 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getFunction().equals("")) {
-
+        } else if (requestForServer.getFunction().equals("editSubcategory")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editSubcategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+                dataOutputStream.writeUTF("subcategory edited successfully");
+                dataOutputStream.flush();
+            } catch (PropertyNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 
