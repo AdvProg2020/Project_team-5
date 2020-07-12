@@ -25,6 +25,9 @@ public class Seller extends Person implements Serializable {
     @Column(name = "BankAccountId")
     private String bankAccountId;
 
+    @Column(name = "Balance", nullable = false)
+    private long balance;
+
     @OneToMany(mappedBy = "seller")
     private ArrayList<Off> activeOffs;
 
@@ -34,6 +37,7 @@ public class Seller extends Person implements Serializable {
         this.activeGoods = new ArrayList<>();
         this.activeOffs = new ArrayList<>();
         this.company = company;
+        this.balance = 0;
     }
 
     public Seller() {
@@ -160,6 +164,14 @@ public class Seller extends Person implements Serializable {
 
     public void setBankAccountId(String bankAccountId) {
         this.bankAccountId = bankAccountId;
+    }
+
+    public long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
     }
 
     public String getBankAccountId() {
