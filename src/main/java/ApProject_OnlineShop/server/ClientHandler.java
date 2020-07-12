@@ -272,8 +272,9 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getInputs().equals("")) {
-
+        } else if (requestForServer.getInputs().equals("getAllCategoriesName")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName()));
+            dataOutputStream.flush();
         }
     }
 

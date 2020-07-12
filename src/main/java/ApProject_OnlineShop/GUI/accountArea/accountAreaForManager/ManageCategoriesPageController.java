@@ -24,6 +24,7 @@ import javafx.scene.text.Font;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -50,7 +51,8 @@ public class ManageCategoriesPageController extends FxmlController implements In
         label.setFont(Font.font(15));
         label.setAlignment(Pos.CENTER);
         allCategoriesVBox.getChildren().add(label);
-        for (String category : MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName()) {
+        List<String> allCategories = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getAllCategoriesName", getToken(), null)));
+        for (String category : allCategories) {
             Hyperlink hyperlink = new Hyperlink("- " + category);
             hyperlink.setOnMouseClicked(e -> {
                 viewSingleCategory(category);
@@ -66,7 +68,7 @@ public class ManageCategoriesPageController extends FxmlController implements In
             hyperlink.setFont(new Font(14));
             allCategoriesVBox.getChildren().add(hyperlink);
         }
-        int size = MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName().size() * 50;
+        int size = allCategories.size() * 50;
         if (size > 422) {
             allCategoriesVBox.setPrefHeight(size);
         }

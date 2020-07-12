@@ -5,6 +5,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.productThings.Comment;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -28,7 +29,7 @@ public class ViewCategoriesController extends FxmlController implements Initiali
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<String> categories = MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName();
+        List<String> categories = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getAllCategoriesName", getToken(), null)));
         for (String category : categories) {
             VBox vBox1 = new VBox();
             HBox cateogryHbox = new HBox();
