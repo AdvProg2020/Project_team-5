@@ -67,4 +67,16 @@ public class BankTransactionsController {
         Seller seller = (Seller)Shop.getInstance().findUser(username);
         seller.setBalance(seller.getBalance() + (Long.parseLong(money) * (100 - Shop.getInstance().getShopBankAccount().getBankingFeePercent())/100));
     }
+
+    public String depositFirstAfterCreating(String username, String password, String money) throws IOException {
+        String token = MainController.getInstance().getBankAccountsController().getToken(username, password);
+        if (token.startsWith("invalid"))
+            return token;
+        Customer user = (Customer) Shop.getInstance().findUser(username);
+        String receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "deposit", money, user.getBankAccountId(), "-1", "");
+        if (!Pattern.matches("[\\d]+", receiptId))
+            return receiptId;
+        String finalResponse = MainController.getInstance().getBankAccountsController().pay(receiptId);
+        return finalResponse;
+    }
 }
