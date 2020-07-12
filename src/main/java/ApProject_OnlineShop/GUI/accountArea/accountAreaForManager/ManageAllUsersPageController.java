@@ -8,6 +8,7 @@ import ApProject_OnlineShop.exception.RequestNotFoundException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -83,8 +85,12 @@ public class ManageAllUsersPageController extends FxmlController implements Init
         Optional<ButtonType> result = new FxmlController().showAlert
                 (Alert.AlertType.CONFIRMATION, "delete", "User Delete", "are you sure to delete this user?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().removeUser(selectedUsername);
+//            try {
+//                MainController.getInstance().getAccountAreaForManagerController().removeUser(selectedUsername);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(selectedUsername);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeUser", getToken(), inputs));
+            if (serverResponse.equals("user removed successfully")) {
                 File file = new File("Resources\\UserImages\\" + selectedUsername + ".jpg");
                 if (file.exists())
                     file.delete();
@@ -93,9 +99,12 @@ public class ManageAllUsersPageController extends FxmlController implements Init
                 removeButton.setDisable(true);
                 clearLabels();
                 SuccessPageFxController.showPage("delete user", "user deleted successfully");
-            } catch (Exception ex) {
-                ErrorPageFxController.showPage("error", ex.getMessage());
+            } else {
+                ErrorPageFxController.showPage("error", serverResponse);
             }
+//            } catch (Exception ex) {
+//                ErrorPageFxController.showPage("error", ex.getMessage());
+//            }
         } else
             e.consume();
     }

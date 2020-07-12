@@ -11,10 +11,7 @@ import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeE
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
-import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
-import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
-import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
-import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
+import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
@@ -242,6 +239,15 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF("subcategory edited successfully");
                 dataOutputStream.flush();
             } catch (PropertyNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("removeUser")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeUser(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("user removed successfully");
+                dataOutputStream.flush();
+            } catch (UsernameNotFoundException | UserCantBeRemovedException | FileCantBeDeletedException e) {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }

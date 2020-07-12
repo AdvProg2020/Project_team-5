@@ -304,21 +304,21 @@ public class AccountAreaForManagerController extends AccountAreaController {
         throw new PropertyNotFoundException();
     }
 
-    public ArrayList<String> getAllUsersList() {
-        ArrayList<String> allUsersList = new ArrayList<>();
-        for (Person person : Shop.getInstance().getAllPersons()) {
-            allUsersList.add(person.getUsername());
-        }
-        Collections.sort(allUsersList, String.CASE_INSENSITIVE_ORDER);
-        return allUsersList;
-    }
+//    public ArrayList<String> getAllUsersList() {
+//        ArrayList<String> allUsersList = new ArrayList<>();
+//        for (Person person : Shop.getInstance().getAllPersons()) {
+//            allUsersList.add(person.getUsername());
+//        }
+//        Collections.sort(allUsersList, String.CASE_INSENSITIVE_ORDER);
+//        return allUsersList;
+//    }
 
-    public String viewUserInfo(String username) throws UsernameNotFoundException {
-        Person person;
-        if ((person = Shop.getInstance().findUser(username)) == null)
-            throw new UsernameNotFoundException();
-        return person.toString();
-    }
+//    public String viewUserInfo(String username) throws UsernameNotFoundException {
+//        Person person;
+//        if ((person = Shop.getInstance().findUser(username)) == null)
+//            throw new UsernameNotFoundException();
+//        return person.toString();
+//    }
 
     public void removeUser(String username)
             throws UsernameNotFoundException, UserCantBeRemovedException, FileCantBeDeletedException, IOException, FileCantBeSavedException {
