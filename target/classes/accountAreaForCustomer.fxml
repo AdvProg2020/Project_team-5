@@ -56,7 +56,7 @@
                     <Insets top="15.0" />
                 </VBox.margin>
             </MenuButton>
-         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="181.0" styleClass="menuButtons" text="increase credit">
+         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#increaseCredit" prefHeight="35.0" prefWidth="181.0" styleClass="menuButtons" text="increase credit">
             <VBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
             </VBox.margin>

@@ -30,20 +30,22 @@ public class BankAccountsControllerHandler {
 
     public void bankAccountsControllerHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("createBankAccount")) {
-           createAccountHandler(requestForServer);
+            createAccountHandler(requestForServer);
         }
     }
 
     private void createAccountHandler(RequestForServer requestForServer) throws IOException {
         String response = MainController.getInstance().getBankAccountsController().createBankAccount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1),
-                requestForServer.getInputs().get(2),requestForServer.getInputs().get(3), requestForServer.getInputs().get(5));
-        if(!response.startsWith("password") &&response.startsWith("username")){
+                requestForServer.getInputs().get(2), requestForServer.getInputs().get(3), requestForServer.getInputs().get(4));
+        if (!response.startsWith("password") && !response.startsWith("username")) {
             Person user = Shop.getInstance().findUser(requestForServer.getInputs().get(2));
             if (user instanceof Customer)
                 ((Customer) user).setBankAccountId(response);
             if (user instanceof Seller)
-                ((Seller)user).setBankAccountId(response);
+                ((Seller) user).setBankAccountId(response);
         }
+        String answer = MainController.getInstance().getBankTransactionsController().depositFirstAfterCreating(requestForServer.getInputs().get(2), requestForServer.getInputs().get(3), "10000000");
+        System.out.println(answer);
         dataOutputStream.writeUTF(response);
         dataOutputStream.flush();
     }

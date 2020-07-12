@@ -420,6 +420,17 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("createSupporterAccount")) {
+            String name = requestForServer.getInputs().get(0);
+            requestForServer.getInputs().remove(0);
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().createSupporter(name, requestForServer.getInputs());
+                dataOutputStream.writeUTF("user created successfully");
+                dataOutputStream.flush();
+            } catch (Exception e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
         } else if (requestForServer.getFunction().equals("removeProduct")) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeProduct(requestForServer.getInputs().get(0));

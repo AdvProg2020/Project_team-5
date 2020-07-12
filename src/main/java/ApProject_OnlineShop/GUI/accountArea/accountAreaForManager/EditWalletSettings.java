@@ -34,7 +34,7 @@ public class EditWalletSettings extends FxmlController {
     }
 
     public void saveBankingFeePercent() {
-        if (Pattern.matches("[\\d]{1,2}", percent.getText())) {
+        if (!Pattern.matches("[\\d]{1,2}", percent.getText())) {
             ErrorPageFxController.showPage("error happened", "invalid input for percent");
         } else {
             ArrayList<String> input = new ArrayList<>();
@@ -47,7 +47,7 @@ public class EditWalletSettings extends FxmlController {
     }
 
     public void saveMinimumAmount() {
-        if (Pattern.matches("[\\d+]", minimumAmount.getText())) {
+        if (!Pattern.matches("[\\d]+", minimumAmount.getText())) {
             ErrorPageFxController.showPage("error happened", "invalid input for minimum amount");
         } else {
             ArrayList<String> input = new ArrayList<>();

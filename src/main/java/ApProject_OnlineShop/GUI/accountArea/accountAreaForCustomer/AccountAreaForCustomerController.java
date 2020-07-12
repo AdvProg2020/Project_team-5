@@ -192,4 +192,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         AccountAreaForCustomerController.pathBack = pathBack;
         AccountAreaForCustomerController.titleBack = titleBack;
     }
+
+    public void increaseCredit() {
+        setScene("increaseCredit.fxml", "increase credit");
+    }
 }

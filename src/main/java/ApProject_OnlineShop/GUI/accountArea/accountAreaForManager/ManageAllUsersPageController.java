@@ -130,4 +130,8 @@ public class ManageAllUsersPageController extends FxmlController implements Init
     public void onAddNewManagerPressed() {
         setScene("addManagerPage.fxml", "add new manager");
     }
+
+    public void addNewSupporter(ActionEvent actionEvent) {
+        setScene("addSupporter.fxml", "add new manager");
+    }
 }

@@ -69,6 +69,13 @@ public class Customer extends Person {
 
     public void setCredit(Long credit) {
         this.credit = credit;
+        try {
+            Database.getInstance().saveItem(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addOrder(OrderForCustomer order) {
