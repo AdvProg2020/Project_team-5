@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.GUI;
 
+import ApProject_OnlineShop.GUI.bankRelated.BankPortalForPurchaseController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
@@ -28,18 +29,25 @@ public class PurchasePageController2 extends FxmlController implements Initializ
         totalPrice1 = 0;
     }
 
-    public void onPurchaseByWallet(ActionEvent actionEvent) {
+    public void onPurchaseByWallet() {
         try {
             MainController.getInstance().getAccountAreaForCustomerController().purchaseByWallet(totalPrice1, PurchasePageController1.getUserInfo(), discountCodeString);
             SuccessPageFxController.showPage("purchase was successful", totalPrice.getText() + " has reduced from your account!");
             setScene("mainMenuLayout.fxml", "main menu");
         } catch (Exception e) {
             ErrorPageFxController.showPage("error happened during purchase", e.getMessage());
-
         }
+
     }
 
-    public void checkDiscountCode(MouseEvent mouseEvent) {
+    public void onPurchaseByBankPortal() {
+        BankPortalForPurchaseController.setTotalPrice(totalPrice1);
+        BankPortalForPurchaseController.setCustomerInfo(PurchasePageController1.getUserInfo());
+        BankPortalForPurchaseController.setUsedDiscountCode(discountCodeString);
+        setScene("bankPortal.fxml", "bank portal");
+    }
+
+    public void checkDiscountCode() {
         String discountCode1 = discountCode.getText();
         if (discountCode1.equals("")) {
             totalPrice1 = MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(Shop.getInstance().getCart());

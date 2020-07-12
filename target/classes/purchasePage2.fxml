@@ -125,7 +125,7 @@
    <MenuButton alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="44.0" prefWidth="146.0" style="-fx-background-color: #dab3ff; -fx-background-radius: 8px; -fx-margin: 4px 2px; -fx-border-radius: 8px; -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color: black;" text="purchase" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
      <items>
        <MenuItem mnemonicParsing="false" onAction="#onPurchaseByWallet" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="electronic wallet" />
-       <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="bank portal" />
+       <MenuItem mnemonicParsing="false" onAction="#onPurchaseByBankPortal" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="bank portal" />
      </items>
       <font>
          <Font size="14.0" />
