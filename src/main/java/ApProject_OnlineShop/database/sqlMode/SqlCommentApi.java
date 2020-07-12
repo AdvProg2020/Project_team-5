@@ -1,7 +1,6 @@
 package ApProject_OnlineShop.database.sqlMode;
 
 import ApProject_OnlineShop.database.sqlMode.entityUtils.EntityManagerProducer;
-import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.productThings.Comment;
 
 import javax.persistence.EntityManager;
