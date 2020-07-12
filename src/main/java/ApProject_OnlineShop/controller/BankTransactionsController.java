@@ -20,7 +20,7 @@ public class BankTransactionsController {
             return token;
         Customer user = (Customer) Shop.getInstance().findUser(username);
         String receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "move", money, user.getBankAccountId(), Shop.getInstance().getShopBankId(), "");
-        if (!Pattern.matches("[\\d+]", receiptId))
+        if (!Pattern.matches("[\\d]+", receiptId))
             return receiptId;
         String finalResponse = MainController.getInstance().getBankAccountsController().pay(receiptId);
         return finalResponse;
@@ -28,7 +28,7 @@ public class BankTransactionsController {
 
     public String increaseCustomerCredit(String username, String password, String money) throws IOException {
         String finalResponse = moveMoneyFromUserToShop(username, password, money);
-        if (moveMoneyFromUserToShop(username, password, money).equals("done successfully")) {
+        if (finalResponse.equals("done successfully")) {
             Customer user = (Customer)Shop.getInstance().findUser(username);
             user.setCredit(user.getCredit() + Long.parseLong(money));
         }
@@ -39,14 +39,14 @@ public class BankTransactionsController {
         String token = MainController.getInstance().getBankAccountsController().getToken("Shop", Shop.getInstance().getShopBankAccount().getPassword());
         if (token.startsWith("invalid"))
             return token;
-        if (Pattern.matches("[\\d+]", money)) {
+        if (Pattern.matches("[\\d]+", money)) {
             long balance = ((Seller)Shop.getInstance().findUser(username)).getBalance();
             if (balance - Long.parseLong(money) < Shop.getInstance().getShopBankAccount().getMinimumAmount())
                 return "not enough money in account";
         }
         Seller user = (Seller) Shop.getInstance().findUser(username);
         String receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "withdraw", money, Shop.getInstance().getShopBankId(),user.getBankAccountId(), "");
-        if (!Pattern.matches("[\\d+]", receiptId))
+        if (!Pattern.matches("[\\d]+", receiptId))
             return receiptId;
         String finalResponse = MainController.getInstance().getBankAccountsController().pay(receiptId);
         if (finalResponse.equals("done successfully"))
