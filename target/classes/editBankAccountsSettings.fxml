@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.EditWalletSettings">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="117.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="10.0" prefWidth="510.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="129.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="128.0" minHeight="6.0" prefHeight="101.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="393.0" minHeight="10.0" prefHeight="344.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+        <children>
+
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton">
+                <graphic>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@./pictures/icons8-back-to-48.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+        </children>
+    </HBox>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+        <children>
+            <ImageView fitHeight="60.0" fitWidth="55.0" onMouseClicked="#onLogoutIconClicked" pickOnBounds="true" preserveRatio="true" styleClass="exitImage">
+                <image>
+                    <Image url="@./pictures/logout.png" />
+                </image>
+            </ImageView>
+        </children>
+    </HBox>
+    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <children>
+            <GridPane prefHeight="364.0" prefWidth="475.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.20001525878905" minWidth="10.0" prefWidth="261.20001525878905" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.0" minWidth="10.0" prefWidth="247.59998474121096" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="154.6" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="190.00003051757812" minHeight="0.0" prefHeight="147.59999999999997" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="167.4000305175781" minHeight="4.0" prefHeight="48.39999999999998" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <Label prefHeight="33.0" prefWidth="131.0" text="banking fees: ">
+                                <font>
+                                    <Font name="Times New Roman" size="14.0" />
+                                </font>
+                                <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                </padding>
+                        <HBox.margin>
+                           <Insets left="10.0" />
+                        </HBox.margin>
+                            </Label>
+                        </children>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                        <children>
+                            <Label prefHeight="36.0" prefWidth="224.0" text="minimum amount in an account:">
+                                <font>
+                                    <Font name="Times New Roman" size="14.0" />
+                                </font>
+                                <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                </padding>
+                        <HBox.margin>
+                           <Insets left="10.0" />
+                        </HBox.margin>
+                            </Label>
+                        </children>
+                    </HBox>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                  <children>
+                     <VBox alignment="CENTER" prefHeight="154.0" prefWidth="183.0">
+                        <children>
+                                <TextField fx:id="percent" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" promptText="percent">
+                              <VBox.margin>
+                                 <Insets bottom="25.0" />
+                              </VBox.margin>
+                           </TextField>
+                            <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveBankingFeePercent" prefHeight="35.0" prefWidth="120.0" styleClass="menuButtons" text="save">
+                                <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                </padding>
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                            </Button>
+                        </children>
+                     </VBox>
+                  </children></HBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <children>
+                          <TextField fx:id="minimumAmount" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" promptText="Rials">
+                        <VBox.margin>
+                           <Insets bottom="25.0" />
+                        </VBox.margin>
+                     </TextField>
+                     <Button mnemonicParsing="false" onAction="#saveMinimumAmount" prefHeight="35.0" prefWidth="120.0" styleClass="menuButtons" text="save">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </Button>
+                  </children>
+               </VBox>
+                </children>
+            </GridPane>
+        </children>
+    </VBox>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="387.0" text="edit bank accounts settings" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+        <font>
+            <Font name="Times New Roman" size="36.0" />
+        </font>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+    </Label>
+</GridPane>
