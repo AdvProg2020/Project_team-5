@@ -1,5 +1,10 @@
 package ApProject_OnlineShop.model;
 
+import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+
+import java.io.IOException;
+
 public class ShopBankAccount {
     private String userName;
     private String password;
@@ -37,9 +42,23 @@ public class ShopBankAccount {
 
     public void setMinimumAmount(int minimumAmount) {
         this.minimumAmount = minimumAmount;
+        try {
+            Database.getInstance().saveItem(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setBankingFeePercent(int bankingFeePercent) {
         this.bankingFeePercent = bankingFeePercent;
+        try {
+            Database.getInstance().saveItem(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
     }
 }
