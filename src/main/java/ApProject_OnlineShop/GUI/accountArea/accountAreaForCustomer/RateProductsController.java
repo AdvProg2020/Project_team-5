@@ -35,7 +35,12 @@ public class RateProductsController extends FxmlController implements Initializa
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Long> productIds = MainController.getInstance().getAccountAreaForCustomerController().getBoughtProducts();
+        List<String> productIdsString = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getBoughtProducts", getToken(), null)));
+        List<Long> productIds = new ArrayList<>();
+        for (String s : productIdsString) {
+            productIds.add(Long.parseLong(s));
+        }
+//        List<Long> productIds = MainController.getInstance().getAccountAreaForCustomerController().getBoughtProducts();
         int num = 0;
         int row = 0;
         if (productIds.size() % 3 == 0) {

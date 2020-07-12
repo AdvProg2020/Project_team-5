@@ -188,8 +188,16 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(exception.getMessage());
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getFunction().equals("")) {
-
+        } else if (requestForServer.getFunction().equals("getBoughtProducts")) {
+            if (user == null)
+                return;
+            List<Long> ids = MainController.getInstance().getAccountAreaForCustomerController().getBoughtProducts(user);
+            ArrayList<String> output = new ArrayList<>();
+            for (Long id : ids) {
+                output.add(id + "");
+            }
+            dataOutputStream.writeUTF(convertArrayListToString(output));
+            dataOutputStream.flush();
         }
     }
 
@@ -573,22 +581,6 @@ public class ClientHandler extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private void bankAccountsControllerHandler(RequestForServer requestForServer) throws IOException {
-        if (requestForServer.getFunction().equals("createBankAccount")) {
-            String response = MainController.getInstance().getBankAccountsController().createBankAccount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1),
-                    requestForServer.getInputs().get(2), requestForServer.getInputs().get(3), requestForServer.getInputs().get(5));
-            if (!response.startsWith("password") && response.startsWith("username")) {
-                Person user = Shop.getInstance().findUser(requestForServer.getInputs().get(2));
-                if (user instanceof Customer)
-                    ((Customer) user).setBankAccountId(response);
-                if (user instanceof Seller)
-                    ((Seller) user).setBankAccountId(response);
-            }
-            dataOutputStream.writeUTF(response);
-            dataOutputStream.flush();
         }
     }
 

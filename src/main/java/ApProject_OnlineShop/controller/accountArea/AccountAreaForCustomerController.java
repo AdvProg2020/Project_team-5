@@ -151,8 +151,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         if (((Customer) person).getCredit() < totalPrice)
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
-            reduceNumberOfDiscountCode(usedDiscountCode,person);
-        finalBuyProcess(totalPrice, customerInfo,person);
+            reduceNumberOfDiscountCode(usedDiscountCode, person);
+        finalBuyProcess(totalPrice, customerInfo, person);
     }
 
     public void purchaseByBankPortal(String bankAccountUsername, String password, String money, String usedDiscountCode, ArrayList<String> customerInfo, Person person) throws Exception {
@@ -210,7 +210,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public long finalPriceOfAList(List<GoodInCart> products) {
         return products.stream().map(GoodInCart::getFinalPrice).reduce(0L, (ans, i) -> ans + i);
-    }
+    } //todo
 
     public void reduceAvailableNumberOfGoodsAfterPurchase() throws IOException, FileCantBeSavedException {
         ArrayList<GoodInCart> cart = Shop.getInstance().getCart();
@@ -226,9 +226,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
     }
 
-
-    public List<Long> getBoughtProducts() {
-        ArrayList<OrderForCustomer> orders = ((Customer) MainController.getInstance().getCurrentPerson()).getPreviousOrders();
+    public List<Long> getBoughtProducts(Person person) {
+        ArrayList<OrderForCustomer> orders = ((Customer) person).getPreviousOrders();
         ArrayList<Long> goods = new ArrayList<>();
         for (OrderForCustomer order : orders) {
             goods.addAll(order.getGoodsDetails().stream().map(goodInCart -> goodInCart.getGood().getGoodId()).collect(Collectors.toList()));

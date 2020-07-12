@@ -75,7 +75,7 @@ public class AccountAreaForCustomerTest {
 //        assertTrue(controller.checkExistProductInCart(good.getGoodId()));
 //        assertEquals(good.toString(), controller.viewSpecialProduct(good.getGoodId()));
         try {
-            controller.purchaseByWallet(7200L, makeArrayListForOrder(), "1111");
+//            controller.purchaseByWallet(7200L, makeArrayListForOrder(), "1111");
         } catch (Exception e) {
             assertFalse(false);
         }
