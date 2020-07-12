@@ -16,6 +16,7 @@ public class Seller extends Person {
     private ArrayList<Long> activeGoodsIds;
     private ArrayList<Long> activeOffsIds;
     private String bankAccountId;
+    private long balance;
 
     public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
         super(username, firstName, lastName, email, phoneNumber, password);
@@ -23,6 +24,14 @@ public class Seller extends Person {
         this.activeGoodsIds = new ArrayList<>();
         this.activeOffsIds = new ArrayList<>();
         this.company = company.getId();
+    }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
+    }
+
+    public long getBalance() {
+        return balance;
     }
 
     public void setBankAccountId(String bankAccountId) {

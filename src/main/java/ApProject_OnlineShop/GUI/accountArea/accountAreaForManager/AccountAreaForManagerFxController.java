@@ -101,4 +101,8 @@ public class AccountAreaForManagerFxController extends FxmlController implements
         AccountAreaForManagerFxController.pathBack = pathBack;
         AccountAreaForManagerFxController.titleBack = titleBack;
     }
+
+    public void bankAccountsSettings() {
+        setScene("editBankAccountsSettings.fxml", "bank accounts settings");
+    }
 }

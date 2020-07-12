@@ -386,4 +386,12 @@ public class AccountAreaForManagerController extends AccountAreaController {
             }
         }
     }
+
+    public void setBankingFeePercent(String percent){
+        Shop.getInstance().getShopBankAccount().setBankingFeePercent(Integer.parseInt(percent));
+    }
+
+    public void setMinimumAmountForWallet(String minimumAmount){
+        Shop.getInstance().getShopBankAccount().setMinimumAmount(Integer.parseInt(minimumAmount));
+    }
 }
