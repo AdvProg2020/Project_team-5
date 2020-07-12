@@ -340,13 +340,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().saveItem(manager);
     }
 
-    public ArrayList<String> getAllGoodsInfo() {
-        ArrayList<String> info = new ArrayList<>();
-        for (Good good : Shop.getInstance().getAllGoods()) {
-            info.add("- good id: " + good.getGoodId() + " name: " + good.getName());
-        }
-        return info;
-    }
+//    public ArrayList<String> getAllGoodsInfo() {
+//        ArrayList<String> info = new ArrayList<>();
+//        for (Good good : Shop.getInstance().getAllGoods()) {
+//            info.add("- good id: " + good.getGoodId() + " name: " + good.getName());
+//        }
+//        return info;
+//    }
 
     public void removeProduct(String productId) throws ProductWithThisIdNotExist, FileCantBeDeletedException, IOException, FileCantBeSavedException {
         Good good = Shop.getInstance().findGoodById(Long.parseLong(productId));

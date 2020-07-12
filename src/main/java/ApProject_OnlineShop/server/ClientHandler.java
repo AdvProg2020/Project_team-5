@@ -11,6 +11,7 @@ import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeE
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
+import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -251,6 +252,28 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("createManagerAccount")) {
+            String name = requestForServer.getInputs().get(0);
+            requestForServer.getInputs().remove(0);
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().createManagerAccount(name, requestForServer.getInputs());
+                dataOutputStream.writeUTF("user created successfully");
+                dataOutputStream.flush();
+            } catch (UsernameIsTakenAlreadyException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getInputs().equals("removeProduct")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeProduct(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("product removed successfully");
+                dataOutputStream.flush();
+            } catch (ProductWithThisIdNotExist | FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getInputs().equals("")) {
+
         }
     }
 
