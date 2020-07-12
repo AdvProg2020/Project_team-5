@@ -278,6 +278,14 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getAllSubCategoriesNamesOfCategory")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getAllSubCategoriesNamesOfCategory(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addPropertyToCategory")) {
+            MainController.getInstance().getAccountAreaForManagerController().addPropertyToCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("successfully property added");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addPropertyToSubCategory")) {
+            MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("successfully property added");
+            dataOutputStream.flush();
         }
     }
 

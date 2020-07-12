@@ -151,15 +151,23 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             newPropertyField.clear();
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory(currentSubCategory, newProperty);
+//        try {
+//            MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory(currentSubCategory, newProperty);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(currentSubCategory);
+        inputs.add(newProperty);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "addPropertyToSubCategory", getToken(), inputs));
+        if (serverResponse.equals("successfully property added")) {
             newPropertyField.clear();
             updatePropertiesBox();
             SuccessPageFxController.showPage("successful edit", "property added successfully");
-        } catch (Exception e) {
-            e.printStackTrace();
-            ErrorPageFxController.showPage("error", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
         }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        }
     }
 
     public static void setCurrentInfo(String currentCategory, String currentSubCategory) {
