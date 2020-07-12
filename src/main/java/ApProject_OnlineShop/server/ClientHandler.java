@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -66,10 +67,17 @@ public class ClientHandler extends Thread {
         RequestForServer requestForServer = new Gson().fromJson(input, RequestForServer.class);
         try {
             handleRequest(requestForServer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
+        } catch (IOException | FileCantBeSavedException e) {
+            try {
+                dataOutputStream.writeUTF(e.getMessage());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                dataOutputStream.flush();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 
@@ -191,9 +199,17 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("isExistCategoryWithThisName")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(requestForServer.getInputs().get(0)));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("isExistSubcategoryWithThisName")){
+        } else if (requestForServer.getFunction().equals("isExistSubcategoryWithThisName")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForManagerController().isExistSubcategoryWithThisName(requestForServer.getInputs().get(0)));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addCategory")) {
+            String name = requestForServer.getInputs().get(0);
+            requestForServer.getInputs().remove(0);
+            MainController.getInstance().getAccountAreaForManagerController().addCategory(name, requestForServer.getInputs());
+            dataOutputStream.writeUTF("category added successfully");
+            dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("")){
+
         }
     }
 

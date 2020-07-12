@@ -82,13 +82,21 @@ public class AddCategoryPageController extends FxmlController implements Initial
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "finish", "Finish adding category process", "are you sure to finish process of creating category?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().addCategory(categoryName, properties);
+//            try {
+//            MainController.getInstance().getAccountAreaForManagerController().addCategory(categoryName, properties);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(categoryName);
+            inputs.addAll(properties);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "addCategory", getToken(), inputs));
+            if (serverResponse.equals("category added successfully")) {
                 SuccessPageFxController.showPage("successfully created", "new category added successfully. please add subcategory to it later.");
                 setScene("manageCategoriesPage.fxml", "manage categories");
-            } catch (Exception e) {
-                ErrorPageFxController.showPage("error", e.getMessage());
+            } else {
+                ErrorPageFxController.showPage("error", serverResponse);
             }
+//            } catch (Exception e) {
+//                ErrorPageFxController.showPage("error", e.getMessage());
+//            }
         } else
             actionEvent.consume();
     }
