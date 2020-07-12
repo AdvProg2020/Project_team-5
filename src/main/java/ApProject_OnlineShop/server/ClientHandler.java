@@ -209,7 +209,7 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().addCategory(name, requestForServer.getInputs());
             dataOutputStream.writeUTF("category added successfully");
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("removeCategory")){
+        } else if (requestForServer.getFunction().equals("removeCategory")) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeCategory(requestForServer.getInputs().get(0));
                 dataOutputStream.writeUTF("category removed successfully");
@@ -218,6 +218,14 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("addSubcategory")) {
+            String categoryName = requestForServer.getInputs().get(0);
+            String subCategoryName = requestForServer.getInputs().get(1);
+            requestForServer.getInputs().remove(1);
+            requestForServer.getInputs().remove(0);
+            MainController.getInstance().getAccountAreaForManagerController().addSubcategory(categoryName, subCategoryName, requestForServer.getInputs());
+            dataOutputStream.writeUTF("subCategory added successfully");
+            dataOutputStream.flush();
         }
     }
 

@@ -84,13 +84,22 @@ public class AddSubCategoryPageController extends FxmlController implements Init
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "finish", "Finish adding sub category process", "are you sure to finish process of creating sub category?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().addSubcategory(currentCategory, subCategoryName, properties);
-                SuccessPageFxController.showPage("successfully created", "new category added successfully");
+//            try {
+//                MainController.getInstance().getAccountAreaForManagerController().addSubcategory(currentCategory, subCategoryName, properties);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(currentCategory);
+            inputs.add(subCategoryName);
+            inputs.addAll(properties);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "addSubcategory", getToken(), inputs));
+            if (serverResponse.equals("subCategory added successfully")) {
+                SuccessPageFxController.showPage("successfully created", "new sub category added successfully");
                 setScene("manageSubCategoriesPage.fxml", "manage sub categories");
-            } catch (Exception e) {
-                ErrorPageFxController.showPage("error", e.getMessage());
+            } else {
+                ErrorPageFxController.showPage("error", serverResponse);
             }
+//            } catch (Exception e) {
+//                ErrorPageFxController.showPage("error", e.getMessage());
+//            }
         } else
             actionEvent.consume();
     }
