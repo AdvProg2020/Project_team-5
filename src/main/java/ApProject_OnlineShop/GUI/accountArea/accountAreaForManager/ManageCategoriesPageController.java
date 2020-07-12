@@ -9,6 +9,7 @@ import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -129,13 +131,21 @@ public class ManageCategoriesPageController extends FxmlController implements In
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "remove", "Remove Category", "are you sure to remove this category?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().removeCategory(selectedCategory);
+//            try {
+//                MainController.getInstance().getAccountAreaForManagerController().removeCategory(selectedCategory);
+
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(selectedCategory);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeCategory", getToken(), inputs));
+            if (serverResponse.equals("category removed successfully")) {
                 resetPage();
                 SuccessPageFxController.showPage("successful remove", "category removed successfully");
-            } catch (Exception e) {
-                ErrorPageFxController.showPage("error in remove category", e.getMessage());
+            } else {
+                ErrorPageFxController.showPage("error in remove category", serverResponse);
             }
+//            } catch (Exception e) {
+//                ErrorPageFxController.showPage("error in remove category", e.getMessage());
+//            }
         } else
             actionEvent.consume();
     }

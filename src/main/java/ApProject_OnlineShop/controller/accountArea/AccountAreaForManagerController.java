@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.controller.accountArea;
 
-import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.*;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;

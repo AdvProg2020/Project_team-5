@@ -5,6 +5,7 @@ import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.PropertyNotFoundException;
 import ApProject_OnlineShop.exception.RequestNotFoundException;
+import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
@@ -208,8 +209,15 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().addCategory(name, requestForServer.getInputs());
             dataOutputStream.writeUTF("category added successfully");
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("")){
-
+        }else if (requestForServer.getFunction().equals("removeCategory")){
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeCategory(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("category removed successfully");
+                dataOutputStream.flush();
+            } catch (CategoryNotFoundException | FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 
