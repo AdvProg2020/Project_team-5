@@ -117,7 +117,7 @@
             </GridPane>
         </children>
     </VBox>
-    <Button mnemonicParsing="false" onAction="#withdrawMoneySeller" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="continue" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+    <Button mnemonicParsing="false" onAction="#depositMoneySeller" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="continue" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
@@ -129,7 +129,7 @@
         </font>
     </Button>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-    <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" text="Withdraw money" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+    <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" text="Deposit money" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
         <font>
             <Font name="Times New Roman" size="36.0" />
         </font>

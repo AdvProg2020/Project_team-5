@@ -18,6 +18,8 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.server.clientHandler.BankAccountsControllerHandler;
+import ApProject_OnlineShop.server.clientHandler.BankTransactionControllerHandler;
 import com.google.gson.Gson;
 
 import java.io.DataInputStream;
@@ -91,9 +93,13 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getController().equals("AccountAreaController")) {
             accountAreaControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("BankAccountsController")) {
+            new BankAccountsControllerHandler(clientSocket,dataOutputStream,dataInputStream,serverSocket,user).
             bankAccountsControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForSellerController")) {
             accountAreaForSellerHandler(requestForServer);
+        }else if(requestForServer.getController().equals("BankTransactionsController")){
+            new BankTransactionControllerHandler(clientSocket,dataOutputStream,dataInputStream,serverSocket,user).
+                    bankTransactionControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForManagerController")) {
             accountAreaForManagerHandler(requestForServer);
         }

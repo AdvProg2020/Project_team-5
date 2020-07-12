@@ -92,7 +92,7 @@ public class LoadingData {
             Shop.getInstance().setShopBankAccount(yaGson.fromJson(readFile(file), ShopBankAccount.class));
         if (!file.exists()){
             String accountId = MainController.getInstance().getBankAccountsController().createBankAccount("Shop","Shop","Shop","Shop1","Shop1");
-            Shop.getInstance().setShopBankAccount(new ShopBankAccount("shop","Shop1", accountId));
+            Shop.getInstance().setShopBankAccount(new ShopBankAccount("Shop","Shop1", accountId));
         }
     }
 

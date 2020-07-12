@@ -1,18 +1,13 @@
 package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.NotEnoughCredit;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 
-import javax.swing.text.html.ImageView;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -33,9 +28,9 @@ public class PurchasePageController2 extends FxmlController implements Initializ
         totalPrice1 = 0;
     }
 
-    public void onPurchase(ActionEvent actionEvent) {
+    public void onPurchaseByWallet(ActionEvent actionEvent) {
         try {
-            MainController.getInstance().getAccountAreaForCustomerController().purchase(totalPrice1, PurchasePageController1.getUserInfo(), discountCodeString);
+            MainController.getInstance().getAccountAreaForCustomerController().purchaseByWallet(totalPrice1, PurchasePageController1.getUserInfo(), discountCodeString);
             SuccessPageFxController.showPage("purchase was successful", totalPrice.getText() + " has reduced from your account!");
             setScene("mainMenuLayout.fxml", "main menu");
         } catch (Exception e) {

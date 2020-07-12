@@ -113,17 +113,6 @@
             </GridPane>
         </children>
     </VBox>
-    <Button fx:id="purchaseButton" disable="true" mnemonicParsing="false" onAction="#onPurchase" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="purchase" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-        <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-        </padding>
-        <GridPane.margin>
-            <Insets left="10.0" />
-        </GridPane.margin>
-        <font>
-            <Font size="14.0" />
-        </font>
-    </Button>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
     <Label alignment="CENTER" contentDisplay="CENTER" text="purchase" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
         <font>
@@ -133,4 +122,16 @@
             <Insets />
         </GridPane.margin>
     </Label>
+   <MenuButton alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="44.0" prefWidth="146.0" style="-fx-background-color: #dab3ff; -fx-background-radius: 8px; -fx-margin: 4px 2px; -fx-border-radius: 8px; -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color: black;" text="purchase" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+     <items>
+       <MenuItem mnemonicParsing="false" onAction="#onPurchaseByWallet" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="electronic wallet" />
+       <MenuItem mnemonicParsing="false" style="-fx-background-color: #dab3ff; -fx-color: black;  -fx-text-fill: black; -fx-font-size:13;" text="bank portal" />
+     </items>
+      <font>
+         <Font size="14.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </MenuButton>
 </GridPane>

@@ -87,6 +87,10 @@ public class Shop {
         }
     }
 
+    public ShopBankAccount getShopBankAccount() {
+        return shopBankAccount;
+    }
+
     public HashMap<Long, GoodInCart> getAllGoodInCarts() {
         return allGoodInCarts;
     }

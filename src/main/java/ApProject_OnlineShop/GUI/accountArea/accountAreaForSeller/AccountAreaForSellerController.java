@@ -81,16 +81,24 @@ public class AccountAreaForSellerController extends FxmlController implements In
         }
     }
 
-    public void backButton(ActionEvent actionEvent) {
+    public void backButton() {
         setScene(pathBack, titleBack);
     }
 
-    public void editField(ActionEvent actionEvent) {
+    public void editField() {
         setScene("editFieldPersons.fxml", "edit field");
     }
 
     public static void setPathBack(String pathBack, String titleBack) {
         AccountAreaForSellerController.pathBack = pathBack;
         AccountAreaForSellerController.titleBack = titleBack;
+    }
+
+    public void withdrawMoney() {
+        setScene("withdrawMoney.fxml", "withdraw money");
+    }
+
+    public void depositMoney(ActionEvent actionEvent) {
+        setScene("depositMoney.fxml", "deposit money");
     }
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.IncreaseCreditController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.bankRelated.BankRelatedController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="117.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="10.0" prefWidth="510.0" />
@@ -20,7 +20,7 @@
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
         <children>
 
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressedCustomer" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton">
                 <graphic>
                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@./pictures/icons8-back-to-48.png" />
@@ -117,7 +117,7 @@
             </GridPane>
         </children>
     </VBox>
-    <Button mnemonicParsing="false" onAction="#increaseCredit" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="continue" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+    <Button mnemonicParsing="false" onAction="#increaseCreditCustomer" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="continue" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
@@ -129,7 +129,7 @@
         </font>
     </Button>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-    <Label alignment="CENTER" contentDisplay="CENTER" text="increase credit" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+    <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" text="Increase balance" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
         <font>
             <Font name="Times New Roman" size="36.0" />
         </font>
