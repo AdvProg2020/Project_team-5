@@ -126,8 +126,9 @@ public class ClientHandler extends Thread {
             }
             dataOutputStream.writeUTF(convertListToString(idsString));
             dataOutputStream.flush();
-        } else if (requestForServer.getFunction().equals("")) {
-
+        } else if (requestForServer.getFunction().equals("isInOff")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAllProductsController().isInOff(Long.parseLong(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
         }
     }
 

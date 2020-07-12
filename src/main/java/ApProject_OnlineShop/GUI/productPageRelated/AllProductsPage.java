@@ -173,14 +173,16 @@ public class AllProductsPage extends FxmlController implements Initializable {
             productsIds.add(Long.parseLong(product));
         }
         for (Long productId : productsIds) {
-            if (MainController.getInstance().getAllProductsController().isInOff(productId)) {
+            ArrayList<String> input = new ArrayList<>();
+            input.add(productId + "");
+            if ((connectToServer(new RequestForServer("AllProductsController", "isInOff", getToken(), input))).equals("true")) {
                 VBox vbox = new ProductBriefSummery().offProductBriefSummery(productId);
                 productsPart.add(vbox, num % 3, row);
                 num++;
                 vbox.setCursor(Cursor.HAND);
                 vbox.setOnMouseClicked(e -> showProduct(productId));
             }
-            if (!MainController.getInstance().getAllProductsController().isInOff(productId)) {
+            if (!((connectToServer(new RequestForServer("AllProductsController", "isInOff", getToken(), input))).equals("true"))) {
                 VBox vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
                 productsPart.add(vbox, num % 3, row);
                 num++;
