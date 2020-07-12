@@ -120,6 +120,9 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getProductController()
                     .getMainInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSellersInfo")) {
+            dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
         }
     }
 

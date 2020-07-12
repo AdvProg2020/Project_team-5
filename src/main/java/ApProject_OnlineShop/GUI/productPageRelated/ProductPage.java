@@ -17,6 +17,7 @@ import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -129,7 +130,10 @@ public class ProductPage extends FxmlController implements Initializable {
     public void makeSellersList() {
         sellers.setAlignment(Pos.CENTER);
         sellers.setSpacing(13);
-        List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
+//        List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        List<SellerRelatedInfoAboutGood> sellersInfo = new Gson().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), List.class);
         for (SellerRelatedInfoAboutGood eachSellerInfo : sellersInfo) {
             HBox sellerHBox = new HBox();
             sellerHBox.setAlignment(Pos.CENTER_LEFT);

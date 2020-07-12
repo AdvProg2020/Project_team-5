@@ -176,7 +176,8 @@ public class ProductController {
         return goodInfo;
     }
 
-    public List<SellerRelatedInfoAboutGood> getSellersInfo() {
+    public List<SellerRelatedInfoAboutGood> getSellersInfo(long id) {
+        Good good=Shop.getInstance().findGoodById(id);
         return good.getSellerRelatedInfoAboutGoods();
     }
 

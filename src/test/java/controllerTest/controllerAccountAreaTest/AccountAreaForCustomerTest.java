@@ -106,11 +106,11 @@ public class AccountAreaForCustomerTest {
     public void increaseAndDecreaseGoodInCart() {
         Shop.getInstance().clearCart();
         MainController.getInstance().getProductController().setGood(good);
-        try {
-            MainController.getInstance().getProductController().addGoodToCart(1,1);
-        } catch (DontHaveEnoughNumberOfThisProduct dontHaveEnoughNumberOfThisProduct) {
-            dontHaveEnoughNumberOfThisProduct.printStackTrace();
-        }
+//        try {
+//            MainController.getInstance().getProductController().addGoodToCart(1,1);
+//        } catch (DontHaveEnoughNumberOfThisProduct dontHaveEnoughNumberOfThisProduct) {
+//            dontHaveEnoughNumberOfThisProduct.printStackTrace();
+//        }
         try {
             controller.increaseInCartProduct(good.getGoodId());
             assertEquals(2, Shop.getInstance().getCart().get(0).getNumber());
