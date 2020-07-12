@@ -77,10 +77,10 @@ public class BankTransactionsController {
         String receiptId = "";
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
-            receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "deposit", money, customer.getBankAccountId(), "-1", "");
-        }else if (user instanceof Seller) {
+            receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "deposit", money, "-1", customer.getBankAccountId(), "");
+        } else if (user instanceof Seller) {
             Seller seller = (Seller) user;
-            receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "deposit", money, seller.getBankAccountId(), "-1", "");
+            receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "deposit", money, "-1", seller.getBankAccountId(), "");
         }
         if (!Pattern.matches("[\\d]+", receiptId))
             return receiptId;
