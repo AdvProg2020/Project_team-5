@@ -33,14 +33,22 @@ public class PurchasePageController2 extends FxmlController implements Initializ
     }
 
     public void onPurchaseByWallet() {
-        try {
-            MainController.getInstance().getAccountAreaForCustomerController().purchaseByWallet(totalPrice1, PurchasePageController1.getUserInfo(), discountCodeString);
+//        try {
+//            MainController.getInstance().getAccountAreaForCustomerController().purchaseByWallet(totalPrice1, PurchasePageController1.getUserInfo(), discountCodeString);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(totalPrice1 + "");
+        inputs.addAll(PurchasePageController1.getUserInfo());
+        inputs.add(discountCodeString);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "purchaseByWallet", getToken(), inputs));
+        if (serverResponse.equals("purchase was successful")) {
             SuccessPageFxController.showPage("purchase was successful", totalPrice.getText() + " has reduced from your account!");
             setScene("mainMenuLayout.fxml", "main menu");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error happened during purchase", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
         }
-
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error happened during purchase", e.getMessage());
+//        }
     }
 
     public void onPurchaseByBankPortal() {

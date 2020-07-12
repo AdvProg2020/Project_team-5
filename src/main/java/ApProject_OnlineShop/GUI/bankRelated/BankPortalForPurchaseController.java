@@ -2,8 +2,10 @@ package ApProject_OnlineShop.GUI.bankRelated;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -37,11 +40,22 @@ public class BankPortalForPurchaseController extends FxmlController implements I
     }
 
     public void purchaseByBankPortal(ActionEvent actionEvent) throws Exception {
-        if (!getCurrentPerson().getUsername().equals(user.getText())){
+        if (!getCurrentPerson().getUsername().equals(user.getText())) {
             ErrorPageFxController.showPage("can not increase credit", "your shop username does not match bank username");
-        }else {
-            MainController.getInstance().getAccountAreaForCustomerController().purchaseByBankPortal(user.getText(), password.getText(), "" + totalPrice, usedDiscountCode, customerInfo);
-            //if clause for proper success and error
+        } else {
+//            MainController.getInstance().getAccountAreaForCustomerController().purchaseByBankPortal(user.getText(), password.getText(), "" + totalPrice, usedDiscountCode, customerInfo);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(user.getText());
+            inputs.add(password.getText());
+            inputs.add("" + totalPrice);
+            inputs.add(usedDiscountCode);
+            inputs.addAll(customerInfo);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "purchaseByBankPortal", getToken(), inputs));
+            if (serverResponse.equals("purchase was successful")) {
+                SuccessPageFxController.showPage("purchase", "purchase was successful");
+            } else {
+                ErrorPageFxController.showPage("error", serverResponse);
+            }
         }
         setScene("accountAreaForCustomer.fxml", "account area for customer");
     }

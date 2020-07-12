@@ -84,7 +84,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 //        return ((Customer) MainController.getInstance().getCurrentPerson()).hasBuyProduct(productId);
 //    }
 
-    public void rateProduct(long productId, int rate,Person person) throws IOException, FileCantBeSavedException, YouRatedThisProductBefore {
+    public void rateProduct(long productId, int rate, Person person) throws IOException, FileCantBeSavedException, YouRatedThisProductBefore {
         for (Rate rate2 : Shop.getInstance().getAllRates()) {
             if (rate2.getCustomer().equals(person) && rate2.getGood().equals(Shop.getInstance().findGoodById(productId))) {
                 throw new YouRatedThisProductBefore();
@@ -100,7 +100,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 //                map(OrderForCustomer::briefString).collect(Collectors.toList());
 //    }
 
-    public List<String> getSortedCustomerOrders(int chosenSort,Person person) {
+    public List<String> getSortedCustomerOrders(int chosenSort, Person person) {
         List<Order> orders = ((Customer) person).getPreviousOrders().stream().map(order -> (Order) order).collect(Collectors.toList());
         return getSortedOrders(chosenSort, orders);
     }
@@ -126,7 +126,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 //        return ((Customer) MainController.getInstance().getCurrentPerson()).findOrderById(orderId).toString();
 //    }
 
-    public boolean checkValidDiscountCode(String discountCode,Person person) throws Exception {
+    public boolean checkValidDiscountCode(String discountCode, Person person) throws Exception {
         if (!Shop.getInstance().checkExistDiscountCode(discountCode))
             throw new DiscountCodeNotFoundException();
         if (((Customer) person).findDiscountCode(discountCode) == null)
@@ -134,7 +134,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return true;
     }
 
-    public long useDiscountCode(String code,Person person) throws Exception {
+    public long useDiscountCode(String code, Person person) throws Exception {
         DiscountCode discountCode = ((Customer) person).findDiscountCode(code);
         if (discountCode.getEndDate().isBefore(LocalDate.now()))
             throw new DiscountCodeExpired();
@@ -147,31 +147,31 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return finalPriceOfAList(Shop.getInstance().getCart()) - discountCode.getMaxDiscountAmount();
     }
 
-    public void purchaseByWallet(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode,Person person) throws Exception { //minimum lahaz shavad
+    public void purchaseByWallet(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode, Person person) throws Exception { //minimum lahaz shavad
         if (((Customer) person).getCredit() < totalPrice)
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
-            reduceNumberOfDiscountCode(usedDiscountCode);
-        finalBuyProcess(totalPrice, customerInfo);
+            reduceNumberOfDiscountCode(usedDiscountCode,person);
+        finalBuyProcess(totalPrice, customerInfo,person);
     }
 
-    public void purchaseByBankPortal(String bankAccountUsername, String password, String money, String usedDiscountCode, ArrayList<String> customerInfo) throws Exception {
+    public void purchaseByBankPortal(String bankAccountUsername, String password, String money, String usedDiscountCode, ArrayList<String> customerInfo, Person person) throws Exception {
         String response = MainController.getInstance().getBankTransactionsController().moveMoneyFromCustomerToShop(bankAccountUsername, password, money);
         if (!response.equals("done successfully"))
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
-            reduceNumberOfDiscountCode(usedDiscountCode);
-        finalBuyProcess(Long.parseLong(money), customerInfo);
+            reduceNumberOfDiscountCode(usedDiscountCode, person);
+        finalBuyProcess(Long.parseLong(money), customerInfo, person);
     }
 
-    public void reduceNumberOfDiscountCode(String discountCode) throws Exception {
-        Customer customer = (Customer) MainController.getInstance().getCurrentPerson();
+    public void reduceNumberOfDiscountCode(String discountCode, Person person) throws Exception {
+        Customer customer = (Customer) person;
         Shop.getInstance().findDiscountCode(discountCode).discountBeUsedForCustomer(customer);
     }
 
-    public void finalBuyProcess(long price, ArrayList<String> customerInfo) throws IOException, FileCantBeSavedException {
+    public void finalBuyProcess(long price, ArrayList<String> customerInfo, Person person) throws IOException, FileCantBeSavedException {
         ArrayList<GoodInCart> cart = new ArrayList<>(Shop.getInstance().getCart());
-        Customer currentUser = (Customer) MainController.getInstance().getCurrentPerson();
+        Customer currentUser = (Customer) person;
         OrderForCustomer orderForCustomer = new OrderForCustomer(cart, price, customerInfo.get(0), customerInfo.get(1),
                 customerInfo.get(2), customerInfo.get(3));
         currentUser.addOrder(orderForCustomer);
@@ -185,7 +185,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         currentUser.setCredit(currentUser.getCredit() - price);
         currentUser.donateDiscountCodeTOBestCustomers();
         Database.getInstance().saveItem(currentUser);
-        makeOrderForSeller(customerInfo.get(0));
+        makeOrderForSeller(person.getUsername());
         reduceAvailableNumberOfGoodsAfterPurchase();
         Shop.getInstance().clearCart();
     }
@@ -198,7 +198,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
         for (Seller seller : sellerSet) {
             List<GoodInCart> sellerProduct = cart.stream().filter(good -> good.getSeller() == seller).collect(Collectors.toList());
-            OrderForSeller orderForSeller = new OrderForSeller(finalPriceOfAList(sellerProduct), seller, MainController.getInstance().getCurrentPerson().getUsername(), sellerProduct);
+            OrderForSeller orderForSeller = new OrderForSeller(finalPriceOfAList(sellerProduct), seller, customerName, sellerProduct);
             MainController.getInstance().getBankTransactionsController().payMoneyToSellerAfterPurchaseByWallet("" + finalPriceOfAList(sellerProduct), seller.getUsername());
             seller.addOrder(orderForSeller);
             Shop.getInstance().addOrder(orderForSeller);

@@ -169,6 +169,25 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(exception.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("purchaseByBankPortal")) {
+            if (user == null)
+                return;
+            String bankUserName = requestForServer.getInputs().get(0);
+            String password = requestForServer.getInputs().get(1);
+            String money = requestForServer.getInputs().get(2);
+            String usedDiscountCode = requestForServer.getInputs().get(3);
+            requestForServer.getInputs().remove(3);
+            requestForServer.getInputs().remove(2);
+            requestForServer.getInputs().remove(1);
+            requestForServer.getInputs().remove(0);
+            try {
+                MainController.getInstance().getAccountAreaForCustomerController().purchaseByBankPortal(bankUserName, password, money, usedDiscountCode, requestForServer.getInputs(), user);
+                dataOutputStream.writeUTF("purchase was successful");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
         } else if (requestForServer.getFunction().equals("")) {
 
         }
