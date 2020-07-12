@@ -120,11 +120,38 @@ public class ClientHandler extends Thread {
             if (user == null)
                 return;
             try {
-                MainController.getInstance().getAccountAreaForCustomerController().rateProduct(Long.parseLong(requestForServer.getInputs().get(0)),Integer.parseInt(requestForServer.getInputs().get(1)),user);
+                MainController.getInstance().getAccountAreaForCustomerController().rateProduct(Long.parseLong(requestForServer.getInputs().get(0)), Integer.parseInt(requestForServer.getInputs().get(1)), user);
                 dataOutputStream.writeUTF("rate was successful");
                 dataOutputStream.flush();
             } catch (YouRatedThisProductBefore e) {
                 dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getSortedCustomerOrders")) {
+            if (user == null)
+                return;
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(Integer.parseInt(requestForServer.getInputs().get(0)), user)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("checkValidDiscountCode")) {
+            if (user == null)
+                return;
+            try {
+                String output = MainController.getInstance().getAccountAreaForCustomerController().checkValidDiscountCode(requestForServer.getInputs().get(0), user) + "";
+                dataOutputStream.writeUTF(output);
+                dataOutputStream.flush();
+            } catch (Exception e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("useDiscountCode")) {
+            if (user == null)
+                return;
+            try {
+                String output = MainController.getInstance().getAccountAreaForCustomerController().useDiscountCode(requestForServer.getInputs().get(0), user) + "";
+                dataOutputStream.writeUTF(output);
+                dataOutputStream.flush();
+            } catch (Exception e) {
+                dataOutputStream.writeUTF("this discount code has expired");
                 dataOutputStream.flush();
             }
         }

@@ -95,13 +95,13 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Database.getInstance().saveItem(Shop.getInstance().findGoodById(productId));
     }
 
-    public List<String> getBriefSummeryOfOrders() {
-        return ((Customer) MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().
-                map(OrderForCustomer::briefString).collect(Collectors.toList());
-    }
+//    public List<String> getBriefSummeryOfOrders() {
+//        return ((Customer) person).getPreviousOrders().stream().
+//                map(OrderForCustomer::briefString).collect(Collectors.toList());
+//    }
 
-    public List<String> getSortedCustomerOrders(int chosenSort) {
-        List<Order> orders = ((Customer) MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().map(order -> (Order) order).collect(Collectors.toList());
+    public List<String> getSortedCustomerOrders(int chosenSort,Person person) {
+        List<Order> orders = ((Customer) person).getPreviousOrders().stream().map(order -> (Order) order).collect(Collectors.toList());
         return getSortedOrders(chosenSort, orders);
     }
 
@@ -117,25 +117,25 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return discountCodeString;
     }
 
-    public boolean existOrderById(long orderId) {
-        return !((Customer) MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().
-                filter(order -> order.getOrderId() == orderId).collect(Collectors.toList()).isEmpty();
-    }
+//    public boolean existOrderById(long orderId) {
+//        return !((Customer) MainController.getInstance().getCurrentPerson()).getPreviousOrders().stream().
+//                filter(order -> order.getOrderId() == orderId).collect(Collectors.toList()).isEmpty();
+//    }
+//
+//    public String viewAnOrder(long orderId) {
+//        return ((Customer) MainController.getInstance().getCurrentPerson()).findOrderById(orderId).toString();
+//    }
 
-    public String viewAnOrder(long orderId) {
-        return ((Customer) MainController.getInstance().getCurrentPerson()).findOrderById(orderId).toString();
-    }
-
-    public boolean checkValidDiscountCode(String discountCode) throws Exception {
+    public boolean checkValidDiscountCode(String discountCode,Person person) throws Exception {
         if (!Shop.getInstance().checkExistDiscountCode(discountCode))
             throw new DiscountCodeNotFoundException();
-        if (((Customer) MainController.getInstance().getCurrentPerson()).findDiscountCode(discountCode) == null)
+        if (((Customer) person).findDiscountCode(discountCode) == null)
             throw new DiscountCodeCannotBeUsed();
         return true;
     }
 
-    public long useDiscountCode(String code) throws Exception {
-        DiscountCode discountCode = ((Customer) MainController.getInstance().getCurrentPerson()).findDiscountCode(code);
+    public long useDiscountCode(String code,Person person) throws Exception {
+        DiscountCode discountCode = ((Customer) person).findDiscountCode(code);
         if (discountCode.getEndDate().isBefore(LocalDate.now()))
             throw new DiscountCodeExpired();
         return calculateFinalPrice(discountCode);
@@ -147,7 +147,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return finalPriceOfAList(Shop.getInstance().getCart()) - discountCode.getMaxDiscountAmount();
     }
 
-    public void purchaseByWallet(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws Exception {
+    public void purchaseByWallet(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws Exception { //minimum lahaz shavad
         if (((Customer) MainController.getInstance().getCurrentPerson()).getCredit() < totalPrice)
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
