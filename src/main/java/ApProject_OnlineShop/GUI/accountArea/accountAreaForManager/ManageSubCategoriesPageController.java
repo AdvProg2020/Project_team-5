@@ -118,12 +118,23 @@ public class ManageSubCategoriesPageController extends FxmlController implements
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "remove", "Remove Sub Category", "are you sure to remove this sub category?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().removeSubCategory(currentCategory, selectedSubCategory);
+//            try {
+//                MainController.getInstance().getAccountAreaForManagerController().removeSubCategory(currentCategory, selectedSubCategory);
+//
+//            resetPage();
+//            SuccessPageFxController.showPage("successful remove", "subcategory removed successfully");
+//            } catch (Exception e) {
+//                ErrorPageFxController.showPage("error in remove subcategory", e.getMessage());
+//            }
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(currentCategory);
+            inputs.add(selectedSubCategory);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeSubCategory", getToken(), inputs));
+            if (serverResponse.equals("subCategory removed successfully")) {
                 resetPage();
-                SuccessPageFxController.showPage("successful remove", "subcategory removed successfully");
-            } catch (Exception e) {
-                ErrorPageFxController.showPage("error in remove subcategory", e.getMessage());
+                SuccessPageFxController.showPage("successful remove", "subCategory removed successfully");
+            } else {
+                ErrorPageFxController.showPage("error in remove subCategory", serverResponse);
             }
         } else
             actionEvent.consume();

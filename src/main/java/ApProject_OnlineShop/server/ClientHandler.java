@@ -6,6 +6,7 @@ import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.PropertyNotFoundException;
 import ApProject_OnlineShop.exception.RequestNotFoundException;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
+import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
@@ -226,6 +227,17 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().addSubcategory(categoryName, subCategoryName, requestForServer.getInputs());
             dataOutputStream.writeUTF("subCategory added successfully");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("removeSubCategory")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeSubCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+                dataOutputStream.writeUTF("subCategory removed successfully");
+                dataOutputStream.flush();
+            } catch (CategoryNotFoundException | FileCantBeDeletedException | SubCategoryNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("")) {
+
         }
     }
 

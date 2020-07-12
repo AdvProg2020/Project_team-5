@@ -133,7 +133,6 @@ public class ManageCategoriesPageController extends FxmlController implements In
         if (result.get() == ButtonType.OK) {
 //            try {
 //                MainController.getInstance().getAccountAreaForManagerController().removeCategory(selectedCategory);
-
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(selectedCategory);
             String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeCategory", getToken(), inputs));
