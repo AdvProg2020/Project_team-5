@@ -5,6 +5,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -109,8 +111,15 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             newValueField.clear();
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().editSubcategory(currentSubCategory, selectedProperty, newValue);
+//        try {
+//            MainController.getInstance().getAccountAreaForManagerController().editSubcategory(currentSubCategory, selectedProperty, newValue);
+
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(currentSubCategory);
+        inputs.add(selectedProperty);
+        inputs.add(newValue);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editSubcategory", getToken(), inputs));
+        if (serverResponse.equals("subcategory edited successfully")) {
             newValueField.clear();
             selectedProperty = "";
             editButton.setDisable(true);
@@ -118,9 +127,12 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             valueLabel.setText("");
             updatePropertiesBox();
             SuccessPageFxController.showPage("successful edit", "property edited successfully");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
         }
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        }
     }
 
     public void onAddPropertyPressed(ActionEvent actionEvent) {
@@ -139,15 +151,23 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             newPropertyField.clear();
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory(currentSubCategory, newProperty);
+//        try {
+//            MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory(currentSubCategory, newProperty);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(currentSubCategory);
+        inputs.add(newProperty);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "addPropertyToSubCategory", getToken(), inputs));
+        if (serverResponse.equals("successfully property added")) {
             newPropertyField.clear();
             updatePropertiesBox();
             SuccessPageFxController.showPage("successful edit", "property added successfully");
-        } catch (Exception e) {
-            e.printStackTrace();
-            ErrorPageFxController.showPage("error", e.getMessage());
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
         }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        }
     }
 
     public static void setCurrentInfo(String currentCategory, String currentSubCategory) {

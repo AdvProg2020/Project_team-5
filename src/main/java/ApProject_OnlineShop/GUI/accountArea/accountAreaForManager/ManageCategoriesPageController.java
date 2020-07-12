@@ -9,6 +9,7 @@ import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,8 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -48,7 +51,8 @@ public class ManageCategoriesPageController extends FxmlController implements In
         label.setFont(Font.font(15));
         label.setAlignment(Pos.CENTER);
         allCategoriesVBox.getChildren().add(label);
-        for (String category : MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName()) {
+        List<String> allCategories = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getAllCategoriesName", getToken(), null)));
+        for (String category : allCategories) {
             Hyperlink hyperlink = new Hyperlink("- " + category);
             hyperlink.setOnMouseClicked(e -> {
                 viewSingleCategory(category);
@@ -64,7 +68,7 @@ public class ManageCategoriesPageController extends FxmlController implements In
             hyperlink.setFont(new Font(14));
             allCategoriesVBox.getChildren().add(hyperlink);
         }
-        int size = MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName().size() * 50;
+        int size = allCategories.size() * 50;
         if (size > 422) {
             allCategoriesVBox.setPrefHeight(size);
         }
@@ -91,7 +95,10 @@ public class ManageCategoriesPageController extends FxmlController implements In
         subCats.setFont(Font.font(13));
         subCats.setAlignment(Pos.CENTER);
         singleCategoryVBox.getChildren().add(subCats);
-        for (String subCategory : MainController.getInstance().getAccountAreaForManagerController().getAllSubCategoriesNamesOfCategory(category)) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(category);
+        List<String> subCategories = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getAllSubCategoriesNamesOfCategory", getToken(), inputs)));
+        for (String subCategory : subCategories) {
             Label label = new Label(subCategory);
             label.setFont(Font.font(12));
             label.setAlignment(Pos.CENTER);
@@ -129,13 +136,20 @@ public class ManageCategoriesPageController extends FxmlController implements In
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "remove", "Remove Category", "are you sure to remove this category?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().removeCategory(selectedCategory);
+//            try {
+//                MainController.getInstance().getAccountAreaForManagerController().removeCategory(selectedCategory);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(selectedCategory);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeCategory", getToken(), inputs));
+            if (serverResponse.equals("category removed successfully")) {
                 resetPage();
                 SuccessPageFxController.showPage("successful remove", "category removed successfully");
-            } catch (Exception e) {
-                ErrorPageFxController.showPage("error in remove category", e.getMessage());
+            } else {
+                ErrorPageFxController.showPage("error in remove category", serverResponse);
             }
+//            } catch (Exception e) {
+//                ErrorPageFxController.showPage("error in remove category", e.getMessage());
+//            }
         } else
             actionEvent.consume();
     }

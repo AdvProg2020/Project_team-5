@@ -10,6 +10,7 @@ import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeE
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -20,6 +21,7 @@ import javafx.scene.text.Font;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -69,24 +71,72 @@ public class EditDiscountCodePageController extends FxmlController implements In
             ErrorPageFxController.showPage("edit discount code error", "please fill at least a field for edit discount");
             return;
         }
-        try {
-            if (!percent.isEmpty()) {
-                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "discountPercent", percent);
+        boolean edited = false;
+//        try {
+        String serverResponse;
+        if (!percent.isEmpty()) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(currentDiscount.getCode());
+            inputs.add("discountPercent");
+            inputs.add(percent);
+            serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editDiscountCode", getToken(), inputs));
+            if (serverResponse.equals("product edited successfully")) {
+                edited = true;
+            } else {
+                ErrorPageFxController.showPage("can not edited field", serverResponse);
+                edited = false;
             }
-            if (!amount.isEmpty()) {
-                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "maxDiscountAmount", amount);
+//            MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "discountPercent", percent);
+        }
+        if (!amount.isEmpty()) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(currentDiscount.getCode());
+            inputs.add("maxDiscountAmount");
+            inputs.add(amount);
+            serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editDiscountCode", getToken(), inputs));
+            if (serverResponse.equals("product edited successfully")) {
+                edited = true;
+            } else {
+                ErrorPageFxController.showPage("can not edited field", serverResponse);
+                edited = false;
             }
-            if (startDate != null) {
-                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "startDate", startDate.toString());
+//            MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "maxDiscountAmount", amount);
+        }
+        if (startDate != null) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(currentDiscount.getCode());
+            inputs.add("startDate");
+            inputs.add(startDate.toString());
+            serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editDiscountCode", getToken(), inputs));
+            if (serverResponse.equals("product edited successfully")) {
+                edited = true;
+            } else {
+                ErrorPageFxController.showPage("can not edited field", serverResponse);
+                edited = false;
             }
-            if (endDate != null) {
-                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "endDate", endDate.toString());
+//            MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "startDate", startDate.toString());
+        }
+        if (endDate != null) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(currentDiscount.getCode());
+            inputs.add("endDate");
+            inputs.add(endDate.toString());
+            serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editDiscountCode", getToken(), inputs));
+            if (serverResponse.equals("product edited successfully")) {
+                edited = true;
+            } else {
+                ErrorPageFxController.showPage("can not edited field", serverResponse);
+                edited = false;
             }
+//            MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(currentDiscount.getCode(), "endDate", endDate.toString());
+        }
+        if (edited) {
             updateFields();
             SuccessPageFxController.showPage("edit", "discount code edited successfully");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
         }
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        }
         clearFields();
     }
 
@@ -108,12 +158,26 @@ public class EditDiscountCodePageController extends FxmlController implements In
             clearAddCustomerFields();
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode(currentDiscount.getCode(), username, numberOfUse);
+//        try {
+//            MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode(currentDiscount.getCode(), username, numberOfUse);
+//            SuccessPageFxController.showPage("successful adding customer", "customer added to code successfully");
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        } finally {
+//            clearAddCustomerFields();
+//            updateCustomers();
+//        }
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(currentDiscount.getCode());
+        inputs.add(username);
+        inputs.add(numberOfUse);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "addIncludedCustomerToDiscountCode", getToken(), inputs));
+        if (serverResponse.equals("customer included successfully")) {
             SuccessPageFxController.showPage("successful adding customer", "customer added to code successfully");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
-        } finally {
+            clearAddCustomerFields();
+            updateCustomers();
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
             clearAddCustomerFields();
             updateCustomers();
         }
@@ -131,15 +195,25 @@ public class EditDiscountCodePageController extends FxmlController implements In
             customerToRemove.clear();
             return;
         }
-        try {
-            MainController.getInstance().getAccountAreaForManagerController().removeCustomerFromDiscount(currentDiscount.getCode(), customer);
+//        try {
+//            MainController.getInstance().getAccountAreaForManagerController().removeCustomerFromDiscount(currentDiscount.getCode(), customer);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(currentDiscount.getCode());
+        inputs.add(customer);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeCustomerFromDiscount", getToken(), inputs));
+        if (serverResponse.equals("customers removed successfully")) {
             SuccessPageFxController.showPage("successful adding customer", "customer removed from code successfully");
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("error", e.getMessage());
-        } finally {
-            customerToRemove.clear();
-            updateCustomers();
+        } else {
+            ErrorPageFxController.showPage("error", serverResponse);
         }
+        customerToRemove.clear();
+        updateCustomers();
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("error", e.getMessage());
+//        } finally {
+//            customerToRemove.clear();
+//            updateCustomers();
+//        }
     }
 
     @Override
@@ -152,7 +226,7 @@ public class EditDiscountCodePageController extends FxmlController implements In
         for (Customer customer : currentDiscount.getIncludedCustomers().keySet()) {
             Label label = new Label();
             label.setText(customer.getUsername());
-            label.setFont(new Font("Times New Roman",16));
+            label.setFont(new Font("Times New Roman", 16));
             label.setAlignment(Pos.CENTER);
             customersVBox.getChildren().add(label);
         }

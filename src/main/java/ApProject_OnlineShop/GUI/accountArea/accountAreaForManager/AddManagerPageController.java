@@ -7,6 +7,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
 import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,13 +38,22 @@ public class AddManagerPageController extends FxmlController implements Initiali
 
     public void addManagerPressed() {
         if (checkBaseInfos()) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().createManagerAccount(username.getText(), addDetails());
+//            try {
+//                MainController.getInstance().getAccountAreaForManagerController().createManagerAccount(username.getText(), addDetails());
+
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(username.getText());
+            inputs.addAll(addDetails());
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "createManagerAccount", getToken(), inputs));
+            if (serverResponse.equals("user created successfully")) {
                 SuccessPageFxController.showPage
                         ("successful add", "new manager registered successfully");
-            } catch (Exception e) {
-                ErrorPageFxController.showPage("Error for registering", e.getMessage());
+            } else {
+                ErrorPageFxController.showPage("error for registering", serverResponse);
             }
+//            } catch (Exception e) {
+//                ErrorPageFxController.showPage("Error for registering", e.getMessage());
+//            }
         }
     }
 

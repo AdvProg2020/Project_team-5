@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.controller.accountArea;
 
-import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.*;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
@@ -66,36 +65,36 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().saveItem(customer);
     }
 
-    public ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
-        ArrayList<String> allDiscountCodes = new ArrayList<>();
-        for (DiscountCode discountCode : discountCodes) {
-            allDiscountCodes.add(discountCode.toString());
-        }
-        return allDiscountCodes;
-    }
+//    public ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
+//        ArrayList<String> allDiscountCodes = new ArrayList<>();
+//        for (DiscountCode discountCode : discountCodes) {
+//            allDiscountCodes.add(discountCode.toString());
+//        }
+//        return allDiscountCodes;
+//    }
+//
+//    public ArrayList<String> getAllDiscountCodeWithSort(int input) {
+//        ArrayList<DiscountCode> discountCodes = new ArrayList<>();
+//        if (input == 0)
+//            discountCodes = Shop.getInstance().getAllDiscountCodes();
+//        if (input == 1)
+//            discountCodes = MainController.getInstance().getSortController().
+//                    sortByDiscountPercent(Shop.getInstance().getAllDiscountCodes());
+//        if (input == 2)
+//            discountCodes = MainController.getInstance().getSortController().
+//                    sortByEndDate(Shop.getInstance().getAllDiscountCodes());
+//        if (input == 3)
+//            discountCodes = MainController.getInstance().getSortController().
+//                    sortByMaxDiscountAmount(Shop.getInstance().getAllDiscountCodes());
+//        return getAllDiscountCodesInfo(discountCodes);
+//    }
 
-    public ArrayList<String> getAllDiscountCodeWithSort(int input) {
-        ArrayList<DiscountCode> discountCodes = new ArrayList<>();
-        if (input == 0)
-            discountCodes = Shop.getInstance().getAllDiscountCodes();
-        if (input == 1)
-            discountCodes = MainController.getInstance().getSortController().
-                    sortByDiscountPercent(Shop.getInstance().getAllDiscountCodes());
-        if (input == 2)
-            discountCodes = MainController.getInstance().getSortController().
-                    sortByEndDate(Shop.getInstance().getAllDiscountCodes());
-        if (input == 3)
-            discountCodes = MainController.getInstance().getSortController().
-                    sortByMaxDiscountAmount(Shop.getInstance().getAllDiscountCodes());
-        return getAllDiscountCodesInfo(discountCodes);
-    }
-
-    public String viewDiscountCode(String code) throws DiscountCodeNotFoundException {
-        DiscountCode discountCode;
-        if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
-            throw new DiscountCodeNotFoundException();
-        return discountCode.getPrintableProperties();
-    }
+//    public String viewDiscountCode(String code) throws DiscountCodeNotFoundException {
+//        DiscountCode discountCode;
+//        if ((discountCode = Shop.getInstance().findDiscountCode(code)) == null)
+//            throw new DiscountCodeNotFoundException();
+//        return discountCode.getPrintableProperties();
+//    }
 
     public void editDiscountCode(String code, String field, String newValue)
             throws DiscountCodeNotFoundException, DiscountCodeCantBeEditedException, IOException, FileCantBeSavedException {
@@ -152,13 +151,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Shop.getInstance().removeDiscountCode(discountCode);
     }
 
-    public ArrayList<String> getAllRequestsInfo() {
-        ArrayList<String> requests = new ArrayList<>();
-        for (Request request : Shop.getInstance().getAllRequest()) {
-            requests.add(request.getBriefInfo());
-        }
-        return requests;
-    }
+//    public ArrayList<String> getAllRequestsInfo() {
+//        ArrayList<String> requests = new ArrayList<>();
+//        for (Request request : Shop.getInstance().getAllRequest()) {
+//            requests.add(request.getBriefInfo());
+//        }
+//        return requests;
+//    }
 
     public String viewRequestDetails(String requestId) throws RequestNotFoundException {
         Request request;
@@ -184,14 +183,14 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().deleteItem(request);
     }
 
-    public ArrayList<String> getAllCategories() {
-        ArrayList<String> categories = new ArrayList<>();
-        for (Category category : Shop.getInstance().getAllCategories()) {
-            categories.add(category.toString());
-        }
-        Collections.sort(categories);
-        return categories;
-    }
+//    public ArrayList<String> getAllCategories() {
+//        ArrayList<String> categories = new ArrayList<>();
+//        for (Category category : Shop.getInstance().getAllCategories()) {
+//            categories.add(category.toString());
+//        }
+//        Collections.sort(categories);
+//        return categories;
+//    }
 
     public ArrayList<String> getCategorySubCatsNames(String categoryName) {
         ArrayList<String> subCategories = new ArrayList<>();
@@ -201,9 +200,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return subCategories;
     }
 
-    public ArrayList<String> getCategoryProperties(String categoryName) {
-        return Shop.getInstance().findCategoryByName(categoryName).getDetails();
-    }
+//    public ArrayList<String> getCategoryProperties(String categoryName) {
+//        return Shop.getInstance().findCategoryByName(categoryName).getDetails();
+//    }
 
     public void editCategory(String name, String property, String newValue)
             throws PropertyNotFoundException, IOException, FileCantBeSavedException {
@@ -288,9 +287,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().saveItem(category);
     }
 
-    public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
-        return Shop.getInstance().findSubCategoryByName(subcategoryName).getDetails();
-    }
+//    public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
+//        return Shop.getInstance().findSubCategoryByName(subcategoryName).getDetails();
+//    }
 
     public void editSubcategory(String subCategoryName, String property, String newValue) throws PropertyNotFoundException, IOException, FileCantBeSavedException {
         SubCategory subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName);
@@ -305,21 +304,21 @@ public class AccountAreaForManagerController extends AccountAreaController {
         throw new PropertyNotFoundException();
     }
 
-    public ArrayList<String> getAllUsersList() {
-        ArrayList<String> allUsersList = new ArrayList<>();
-        for (Person person : Shop.getInstance().getAllPersons()) {
-            allUsersList.add(person.getUsername());
-        }
-        Collections.sort(allUsersList, String.CASE_INSENSITIVE_ORDER);
-        return allUsersList;
-    }
+//    public ArrayList<String> getAllUsersList() {
+//        ArrayList<String> allUsersList = new ArrayList<>();
+//        for (Person person : Shop.getInstance().getAllPersons()) {
+//            allUsersList.add(person.getUsername());
+//        }
+//        Collections.sort(allUsersList, String.CASE_INSENSITIVE_ORDER);
+//        return allUsersList;
+//    }
 
-    public String viewUserInfo(String username) throws UsernameNotFoundException {
-        Person person;
-        if ((person = Shop.getInstance().findUser(username)) == null)
-            throw new UsernameNotFoundException();
-        return person.toString();
-    }
+//    public String viewUserInfo(String username) throws UsernameNotFoundException {
+//        Person person;
+//        if ((person = Shop.getInstance().findUser(username)) == null)
+//            throw new UsernameNotFoundException();
+//        return person.toString();
+//    }
 
     public void removeUser(String username)
             throws UsernameNotFoundException, UserCantBeRemovedException, FileCantBeDeletedException, IOException, FileCantBeSavedException {
@@ -341,13 +340,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().saveItem(manager);
     }
 
-    public ArrayList<String> getAllGoodsInfo() {
-        ArrayList<String> info = new ArrayList<>();
-        for (Good good : Shop.getInstance().getAllGoods()) {
-            info.add("- good id: " + good.getGoodId() + " name: " + good.getName());
-        }
-        return info;
-    }
+//    public ArrayList<String> getAllGoodsInfo() {
+//        ArrayList<String> info = new ArrayList<>();
+//        for (Good good : Shop.getInstance().getAllGoods()) {
+//            info.add("- good id: " + good.getGoodId() + " name: " + good.getName());
+//        }
+//        return info;
+//    }
 
     public void removeProduct(String productId) throws ProductWithThisIdNotExist, FileCantBeDeletedException, IOException, FileCantBeSavedException {
         Good good = Shop.getInstance().findGoodById(Long.parseLong(productId));

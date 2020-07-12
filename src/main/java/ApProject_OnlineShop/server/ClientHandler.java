@@ -3,11 +3,16 @@ package ApProject_OnlineShop.server;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
+import ApProject_OnlineShop.exception.PropertyNotFoundException;
+import ApProject_OnlineShop.exception.RequestNotFoundException;
+import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
+import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
+import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
-import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
-import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
-import ApProject_OnlineShop.exception.userExceptions.UsernameIsTakenAlreadyException;
-import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
+import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
+import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
@@ -20,6 +25,7 @@ import com.google.gson.Gson;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -63,12 +69,21 @@ public class ClientHandler extends Thread {
         RequestForServer requestForServer = new Gson().fromJson(input, RequestForServer.class);
         try {
             handleRequest(requestForServer);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | FileCantBeSavedException e) {
+            try {
+                dataOutputStream.writeUTF(e.getMessage());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                dataOutputStream.flush();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 
-    private void handleRequest(RequestForServer requestForServer) throws IOException {
+    private void handleRequest(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
         if (requestForServer.getToken() != null)
             user = Server.getOnlineUsers().get(requestForServer.getToken());
         if (requestForServer.getController().equals("getCurrentPerson")) {
@@ -85,6 +100,198 @@ public class ClientHandler extends Thread {
         }else if(requestForServer.getController().equals("BankTransactionsController")){
             new BankTransactionControllerHandler(clientSocket,dataOutputStream,dataInputStream,serverSocket,user).
                     bankTransactionControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("AccountAreaForManagerController")) {
+            accountAreaForManagerHandler(requestForServer);
+        }
+    }
+
+    private void accountAreaForManagerHandler(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+        if (requestForServer.getFunction().equals("createNewDiscountCode")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(requestForServer.getInputs());
+                dataOutputStream.writeUTF("discountCode created successfully");
+                dataOutputStream.flush();
+            } catch (DiscountCodeCantCreatedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("addIncludedCustomerToDiscountCode")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().addIncludedCustomerToDiscountCode(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+                dataOutputStream.writeUTF("customer included successfully");
+                dataOutputStream.flush();
+            } catch (DiscountCodeCantCreatedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (UsernameNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (DiscountCodeNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("editDiscountCode")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editDiscountCode(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+                dataOutputStream.writeUTF("discountCode edited successfully");
+                dataOutputStream.flush();
+            } catch (DiscountCodeNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (DiscountCodeCantBeEditedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("removeCustomerFromDiscount")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeCustomerFromDiscount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+                dataOutputStream.writeUTF("customers removed successfully");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("removeDiscountCode")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeDiscountCode(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("discountCode removed successfully");
+                dataOutputStream.flush();
+            } catch (DiscountCodeNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            } catch (FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("viewRequestDetails")) {
+            try {
+                String output = MainController.getInstance().getAccountAreaForManagerController().viewRequestDetails(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF(output);
+                dataOutputStream.flush();
+            } catch (RequestNotFoundException e) {
+                dataOutputStream.writeUTF("#error");
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("acceptRequest")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().acceptRequest(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("request accepted successfully");
+                dataOutputStream.flush();
+            } catch (RequestNotFoundException | FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("declineRequest")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().declineRequest(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("request declined successfully");
+                dataOutputStream.flush();
+            } catch (RequestNotFoundException | FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getCategorySubCatsNames")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getCategorySubCatsNames(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("editCategory")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+                dataOutputStream.writeUTF("category edited successfully");
+                dataOutputStream.flush();
+            } catch (PropertyNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("isExistCategoryWithThisName")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(requestForServer.getInputs().get(0)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isExistSubcategoryWithThisName")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForManagerController().isExistSubcategoryWithThisName(requestForServer.getInputs().get(0)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addCategory")) {
+            String name = requestForServer.getInputs().get(0);
+            requestForServer.getInputs().remove(0);
+            MainController.getInstance().getAccountAreaForManagerController().addCategory(name, requestForServer.getInputs());
+            dataOutputStream.writeUTF("category added successfully");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("removeCategory")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeCategory(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("category removed successfully");
+                dataOutputStream.flush();
+            } catch (CategoryNotFoundException | FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("addSubcategory")) {
+            String categoryName = requestForServer.getInputs().get(0);
+            String subCategoryName = requestForServer.getInputs().get(1);
+            requestForServer.getInputs().remove(1);
+            requestForServer.getInputs().remove(0);
+            MainController.getInstance().getAccountAreaForManagerController().addSubcategory(categoryName, subCategoryName, requestForServer.getInputs());
+            dataOutputStream.writeUTF("subCategory added successfully");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("removeSubCategory")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeSubCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+                dataOutputStream.writeUTF("subCategory removed successfully");
+                dataOutputStream.flush();
+            } catch (CategoryNotFoundException | FileCantBeDeletedException | SubCategoryNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("editSubcategory")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().editSubcategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+                dataOutputStream.writeUTF("subcategory edited successfully");
+                dataOutputStream.flush();
+            } catch (PropertyNotFoundException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("removeUser")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeUser(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("user removed successfully");
+                dataOutputStream.flush();
+            } catch (UsernameNotFoundException | UserCantBeRemovedException | FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("createManagerAccount")) {
+            String name = requestForServer.getInputs().get(0);
+            requestForServer.getInputs().remove(0);
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().createManagerAccount(name, requestForServer.getInputs());
+                dataOutputStream.writeUTF("user created successfully");
+                dataOutputStream.flush();
+            } catch (UsernameIsTakenAlreadyException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("removeProduct")) {
+            try {
+                MainController.getInstance().getAccountAreaForManagerController().removeProduct(requestForServer.getInputs().get(0));
+                dataOutputStream.writeUTF("product removed successfully");
+                dataOutputStream.flush();
+            } catch (ProductWithThisIdNotExist | FileCantBeDeletedException e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getAllCategoriesName")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllSubCategoriesNamesOfCategory")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getAllSubCategoriesNamesOfCategory(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addPropertyToCategory")) {
+            MainController.getInstance().getAccountAreaForManagerController().addPropertyToCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("successfully property added");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addPropertyToSubCategory")) {
+            MainController.getInstance().getAccountAreaForManagerController().addPropertyToSubCategory(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("successfully property added");
+            dataOutputStream.flush();
         }
     }
 
@@ -280,6 +487,23 @@ public class ClientHandler extends Thread {
             }
         }
     }
+
+    private void bankAccountsControllerHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("createBankAccount")) {
+            String response = MainController.getInstance().getBankAccountsController().createBankAccount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1),
+                    requestForServer.getInputs().get(2), requestForServer.getInputs().get(3), requestForServer.getInputs().get(5));
+            if (!response.startsWith("password") && response.startsWith("username")) {
+                Person user = Shop.getInstance().findUser(requestForServer.getInputs().get(2));
+                if (user instanceof Customer)
+                    ((Customer) user).setBankAccountId(response);
+                if (user instanceof Seller)
+                    ((Seller) user).setBankAccountId(response);
+            }
+            dataOutputStream.writeUTF(response);
+            dataOutputStream.flush();
+        }
+    }
+
     private void loginRegisterControllerHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("createAccount")) {
             try {

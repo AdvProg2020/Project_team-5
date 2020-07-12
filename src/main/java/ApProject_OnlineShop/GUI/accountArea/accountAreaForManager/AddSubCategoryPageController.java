@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,6 +59,9 @@ public class AddSubCategoryPageController extends FxmlController implements Init
 
     public void onCreateSubCategoryPressed(ActionEvent actionEvent) {
         String name = nameField.getText();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(name);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "isExistSubcategoryWithThisName", getToken(), inputs));
         if (name.isEmpty()) {
             ErrorPageFxController.showPage("error", "please fill field and then click");
             return;
@@ -67,7 +71,7 @@ public class AddSubCategoryPageController extends FxmlController implements Init
             nameField.clear();
             return;
         }
-        if (MainController.getInstance().getAccountAreaForManagerController().isExistSubcategoryWithThisName(name)) {
+        if (serverResponse.equals("true")) {
             ErrorPageFxController.showPage("error in create sub category", "this category name is already is taken by another sub category");
             nameField.clear();
             return;
@@ -80,13 +84,22 @@ public class AddSubCategoryPageController extends FxmlController implements Init
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "finish", "Finish adding sub category process", "are you sure to finish process of creating sub category?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().addSubcategory(currentCategory, subCategoryName, properties);
-                SuccessPageFxController.showPage("successfully created", "new category added successfully");
+//            try {
+//                MainController.getInstance().getAccountAreaForManagerController().addSubcategory(currentCategory, subCategoryName, properties);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(currentCategory);
+            inputs.add(subCategoryName);
+            inputs.addAll(properties);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "addSubcategory", getToken(), inputs));
+            if (serverResponse.equals("subCategory added successfully")) {
+                SuccessPageFxController.showPage("successfully created", "new sub category added successfully");
                 setScene("manageSubCategoriesPage.fxml", "manage sub categories");
-            } catch (Exception e) {
-                ErrorPageFxController.showPage("error", e.getMessage());
+            } else {
+                ErrorPageFxController.showPage("error", serverResponse);
             }
+//            } catch (Exception e) {
+//                ErrorPageFxController.showPage("error", e.getMessage());
+//            }
         } else
             actionEvent.consume();
     }

@@ -49,11 +49,11 @@ public class EditFieldPersonsController extends FxmlController implements Initia
     }
 
     public void backButtonAction(ActionEvent actionEvent) {
-        if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        if (getCurrentPerson() instanceof Customer) {
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             setScene("accountAreaForManager.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             setScene("accountAreaForSeller.fxml", "account area");
         }
     }

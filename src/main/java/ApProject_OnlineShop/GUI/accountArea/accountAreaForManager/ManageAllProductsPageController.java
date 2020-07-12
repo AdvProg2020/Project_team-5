@@ -10,6 +10,7 @@ import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -23,6 +24,7 @@ import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -49,17 +51,24 @@ public class ManageAllProductsPageController extends FxmlController implements I
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "remove", "Remove Product", "are you sure to remove this product?");
         if (result.get() == ButtonType.OK) {
-            try {
-                MainController.getInstance().getAccountAreaForManagerController().removeProduct("" + selectedGoodId);
+//            try {
+//                MainController.getInstance().getAccountAreaForManagerController().removeProduct("" + selectedGoodId);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add("" + selectedGoodId);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeProduct", getToken(), inputs));
+            if (serverResponse.equals("product removed successfully")) {
                 name.setText("");
                 id.setText("");
                 updatePage();
                 removeButton.setDisable(true);
                 SuccessPageFxController.showPage("successful remove", "product removed successfully");
-            } catch (Exception e) {
-                e.printStackTrace();
-                ErrorPageFxController.showPage("error in removing good", e.getMessage());
+            } else {
+                ErrorPageFxController.showPage("error for removing", serverResponse);
             }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                ErrorPageFxController.showPage("error in removing good", e.getMessage());
+//            }
         }
 
     }
