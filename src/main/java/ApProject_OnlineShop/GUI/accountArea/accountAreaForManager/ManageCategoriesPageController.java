@@ -95,7 +95,10 @@ public class ManageCategoriesPageController extends FxmlController implements In
         subCats.setFont(Font.font(13));
         subCats.setAlignment(Pos.CENTER);
         singleCategoryVBox.getChildren().add(subCats);
-        for (String subCategory : MainController.getInstance().getAccountAreaForManagerController().getAllSubCategoriesNamesOfCategory(category)) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(category);
+        List<String> subCategories = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getAllSubCategoriesNamesOfCategory", getToken(), inputs)));
+        for (String subCategory : subCategories) {
             Label label = new Label(subCategory);
             label.setFont(Font.font(12));
             label.setAlignment(Pos.CENTER);

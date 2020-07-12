@@ -263,7 +263,7 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getInputs().equals("removeProduct")) {
+        } else if (requestForServer.getFunction().equals("removeProduct")) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().removeProduct(requestForServer.getInputs().get(0));
                 dataOutputStream.writeUTF("product removed successfully");
@@ -272,8 +272,11 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getInputs().equals("getAllCategoriesName")) {
+        } else if (requestForServer.getFunction().equals("getAllCategoriesName")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getAllCategoriesName()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllSubCategoriesNamesOfCategory")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getAllSubCategoriesNamesOfCategory(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
         }
     }
