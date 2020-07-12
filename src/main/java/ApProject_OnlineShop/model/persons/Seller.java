@@ -28,6 +28,13 @@ public class Seller extends Person {
 
     public void setBalance(long balance) {
         this.balance = balance;
+        try {
+            Database.getInstance().saveItem(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
     }
 
     public long getBalance() {
