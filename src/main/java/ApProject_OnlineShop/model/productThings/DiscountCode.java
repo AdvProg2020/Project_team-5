@@ -4,6 +4,7 @@ import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -39,7 +40,8 @@ public class DiscountCode implements Serializable {
     @Column(name = "Percent", nullable = false)
     private int discountPercent;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     @CollectionTable(name = "DiscountPerson", joinColumns = @JoinColumn(name = "DiscountId"))
     @Column(name = "RemainingNumber", nullable = false)
     @MapKeyJoinColumn(name = "CustomerId")

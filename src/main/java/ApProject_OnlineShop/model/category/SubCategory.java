@@ -3,6 +3,7 @@ package ApProject_OnlineShop.model.category;
 import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.productThings.Good;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -24,7 +25,10 @@ public class SubCategory implements Serializable {
     @JoinColumn(name = "Category", referencedColumnName = "CategoryId")
     private Category parentCategory;
 
-    @OneToMany
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @CollectionTable(name = "DetailOfEachSubCategory", joinColumns = @JoinColumn(name = "SubCategory"))
+    @Column(name = "Property")
     private ArrayList<String> details;
 
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
