@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.PurchasePageController1">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.EditWalletSettings">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="117.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="10.0" prefWidth="510.0" />
@@ -46,9 +46,9 @@
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.0" minWidth="10.0" prefWidth="247.59998474121096" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="125.19999999999999" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="190.00003051757812" minHeight="0.0" prefHeight="130.79999999999998" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="167.4000305175781" minHeight="4.0" prefHeight="93.60000000000002" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="154.6" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="190.00003051757812" minHeight="0.0" prefHeight="147.59999999999997" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="167.4000305175781" minHeight="4.0" prefHeight="48.39999999999998" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -81,25 +81,44 @@
                             </Label>
                         </children>
                     </HBox>
-                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2" />
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" />
-                    <TextField fx:id="nameField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" promptText="percent" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                    <TextField fx:id="postalCodeField" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" promptText="Rials" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                  <children>
+                     <VBox alignment="CENTER" prefHeight="154.0" prefWidth="183.0">
+                        <children>
+                                <TextField fx:id="percent" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" promptText="percent">
+                              <VBox.margin>
+                                 <Insets bottom="25.0" />
+                              </VBox.margin>
+                           </TextField>
+                            <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveBankingFeePercent" prefHeight="35.0" prefWidth="120.0" styleClass="menuButtons" text="save">
+                                <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                </padding>
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                            </Button>
+                        </children>
+                     </VBox>
+                  </children></HBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <children>
+                          <TextField fx:id="minimumAmount" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" promptText="Rials">
+                        <VBox.margin>
+                           <Insets bottom="25.0" />
+                        </VBox.margin>
+                     </TextField>
+                     <Button mnemonicParsing="false" onAction="#saveMinimumAmount" prefHeight="35.0" prefWidth="120.0" styleClass="menuButtons" text="save">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </Button>
+                  </children>
+               </VBox>
                 </children>
             </GridPane>
         </children>
     </VBox>
-    <Button mnemonicParsing="false" onAction="#onPurchase1" prefHeight="46.0" prefWidth="162.0" styleClass="menuButtons" text="continue" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-        <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-        </padding>
-        <GridPane.margin>
-            <Insets left="10.0" />
-        </GridPane.margin>
-        <font>
-            <Font size="14.0" />
-        </font>
-    </Button>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="387.0" text="edit bank accounts settings" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
         <font>
