@@ -27,6 +27,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.LinkOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -105,10 +106,24 @@ public class ClientHandler extends Thread {
             accountAreaForCustomer(requestForServer);
         } else if (requestForServer.getController().equals("AllProductsController")) {
             allProductsHandler(requestForServer);
+        } else if (requestForServer.getController().equals("ProductController")) {
+            productControllerHandler(requestForServer);
         }
     }
 
-    private void allProductsHandler(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+    private void productControllerHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("compareWithAnotherProductGUI")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getProductController()
+                    .compareWithAnotherProductGUI(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getMainInfo")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getProductController()
+                    .getMainInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        }
+    }
+
+    private void allProductsHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("getProductBrief")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getProductBrief(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();

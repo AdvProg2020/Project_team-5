@@ -35,17 +35,17 @@ public class MainMenuController extends FxmlController implements Initializable 
     public GridPane gridpane;
 
     public void accountAreaButtonPressed(ActionEvent actionEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathBack("mainMenuLayout.fxml", "main menu");
             LoginController.setPathAfterLogin(null, null);
             setScene("login.fxml", "Login or Register");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        } else if (getCurrentPerson() instanceof Customer) {
             AccountAreaForCustomerController.setPathBack("mainMenuLayout.fxml", "main menu");
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             AccountAreaForSellerController.setPathBack("mainMenuLayout.fxml", "main menu");
             setScene("accountAreaForSeller.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("mainMenuLayout.fxml", "main menu");
             setScene("accountAreaForManager.fxml", "account area");
         }

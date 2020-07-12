@@ -75,7 +75,10 @@ public class ProductPageControllerForSeller extends FxmlController implements In
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
-        List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
+//        List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo(productId);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        ArrayList<String> mainInfo = convertStringToArraylist(connectToServer(new RequestForServer("ProductController", "getMainInfo", null, inputs)));
         name.setText(mainInfo.get(0));
         brand.setText(mainInfo.get(1));
         category.setText(mainInfo.get(2) + " category");

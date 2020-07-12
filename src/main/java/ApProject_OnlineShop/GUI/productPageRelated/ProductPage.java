@@ -16,6 +16,7 @@ import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -35,6 +36,7 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -68,7 +70,10 @@ public class ProductPage extends FxmlController implements Initializable {
             cart.setVisible(false);
         }
         image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
-        List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
+//        List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        ArrayList<String> mainInfo = convertStringToArraylist(connectToServer(new RequestForServer("ProductController", "getMainInfo", null, inputs)));
         name.setText(mainInfo.get(0));
         brand.setText(mainInfo.get(1));
         category.setText(mainInfo.get(2) + " category");

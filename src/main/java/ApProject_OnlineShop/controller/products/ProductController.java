@@ -44,32 +44,32 @@ public class ProductController {
         setGood(Shop.getInstance().findGoodById(goodId));
     }
 
-    public String digest() {
-        return good.toString();
-    }
+//    public String digest() {
+//        return good.toString();
+//    }
 
-    public String getSellersOfAGood() {
-        String output = "";
-        int i = 1;
-        for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
-            if (i < good.getSellerRelatedInfoAboutGoods().size())
-                output += ((i++) + "-" + infoAboutGood.getSeller().getUsername() + "\n");
-            else
-                output += ((i++) + "-" + infoAboutGood.getSeller().getUsername());
-        }
-        return output;
-    }
+//    public String getSellersOfAGood() {
+//        String output = "";
+//        int i = 1;
+//        for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+//            if (i < good.getSellerRelatedInfoAboutGoods().size())
+//                output += ((i++) + "-" + infoAboutGood.getSeller().getUsername() + "\n");
+//            else
+//                output += ((i++) + "-" + infoAboutGood.getSeller().getUsername());
+//        }
+//        return output;
+//    }
 
     public int numbersOfSellers(Good product) {
         return product.getSellerRelatedInfoAboutGoods().size();
     }
 
-    public void addGoodToCart(int number, int sellerNumber) throws DontHaveEnoughNumberOfThisProduct {
-        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = good.getSellerRelatedInfoAboutGoods().get(sellerNumber - 1);
-        if (sellerRelatedInfoAboutGood.getAvailableNumber() < number)
-            throw new DontHaveEnoughNumberOfThisProduct();
-        Shop.getInstance().addGoodToCart(good, sellerRelatedInfoAboutGood.getSeller(), number);
-    }
+//    public void addGoodToCart(int number, int sellerNumber) throws DontHaveEnoughNumberOfThisProduct {
+//        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = good.getSellerRelatedInfoAboutGoods().get(sellerNumber - 1);
+//        if (sellerRelatedInfoAboutGood.getAvailableNumber() < number)
+//            throw new DontHaveEnoughNumberOfThisProduct();
+//        Shop.getInstance().addGoodToCart(good, sellerRelatedInfoAboutGood.getSeller(), number);
+//    }
 
     public void addGoodToCartGUI(String seller) throws Exception {
         SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
@@ -96,43 +96,43 @@ public class ProductController {
         }
         if (!flag)
             Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1);
-    }
+    } //todo
 
-    public int getAvailableNumberOfAProductByASeller(int sellerNumber) {
-        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = good.getSellerRelatedInfoAboutGoods().get(sellerNumber - 1);
-        return sellerRelatedInfoAboutGood.getAvailableNumber();
-    }
+//    public int getAvailableNumberOfAProductByASeller(int sellerNumber) {
+//        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = good.getSellerRelatedInfoAboutGoods().get(sellerNumber - 1);
+//        return sellerRelatedInfoAboutGood.getAvailableNumber();
+//    }
 
-    public String attributes() {
-        String output = good.getDetails();
-        HashMap<String, String> categoryProperties = good.getCategoryProperties();
-        for (String s : categoryProperties.keySet()) {
-            output += ("\n" + s + " : " + categoryProperties.get(s).toString());
-        }
-        return output;
-    }
+//    public String attributes() {
+//        String output = good.getDetails();
+//        HashMap<String, String> categoryProperties = good.getCategoryProperties();
+//        for (String s : categoryProperties.keySet()) {
+//            output += ("\n" + s + " : " + categoryProperties.get(s).toString());
+//        }
+//        return output;
+//    }
 
+//    public String compareWithAnotherProduct(long id) throws ProductWithThisIdNotExist {
+//        if (Shop.getInstance().findGoodById(id) == null)
+//            throw new ProductWithThisIdNotExist();
+//        Good good2 = Shop.getInstance().findGoodById(id);
+//        String output = "+---------------------------+---------------------------+---------------------------+\n";
+//        output += "| property                  | good 1                    | good 2                    |\n";
+//        output += "+---------------------------+---------------------------+---------------------------+\n";
+//        output += String.format("| %-25s | %-25s | %-25s |%n", "name", good.getName(), good2.getName());
+//        output += String.format("| %-25s | %-25s | %-25s |%n", "brand", good.getBrand(), good2.getBrand());
+//        output += String.format("| %-25s | %-25s | %-25s |%n", "average rate", good.getAverageRate(), good2.getAverageRate());
+//        output += String.format("| %-25s | %-25s | %-25s |%n", "subCategory", good.getSubCategory().getName(), good2.getSubCategory().getName());
+//        output += String.format("| %-25s | %-25s | %-25s |%n", "modification date", good.getModificationDate(), good2.getModificationDate());
+//        output += String.format("| %-25s | %-25s | %-25s |%n", "seen number", good.getSeenNumber(), good2.getSeenNumber());
+//        output += String.format("| %-25s | %-25s | %-25s |%n", "number of sellers", numbersOfSellers(good), numbersOfSellers(good2));
+//        output += String.format("| %-25s | %-25s | %-25s |%n", "minmum price of product", good.getMinimumPrice(), good2.getMinimumPrice());
+//        output += "+---------------------------+---------------------------+---------------------------+\n";
+//        return output;
+//    }
 
-    public String compareWithAnotherProduct(long id) throws ProductWithThisIdNotExist {
-        if (Shop.getInstance().findGoodById(id) == null)
-            throw new ProductWithThisIdNotExist();
-        Good good2 = Shop.getInstance().findGoodById(id);
-        String output = "+---------------------------+---------------------------+---------------------------+\n";
-        output += "| property                  | good 1                    | good 2                    |\n";
-        output += "+---------------------------+---------------------------+---------------------------+\n";
-        output += String.format("| %-25s | %-25s | %-25s |%n", "name", good.getName(), good2.getName());
-        output += String.format("| %-25s | %-25s | %-25s |%n", "brand", good.getBrand(), good2.getBrand());
-        output += String.format("| %-25s | %-25s | %-25s |%n", "average rate", good.getAverageRate(), good2.getAverageRate());
-        output += String.format("| %-25s | %-25s | %-25s |%n", "subCategory", good.getSubCategory().getName(), good2.getSubCategory().getName());
-        output += String.format("| %-25s | %-25s | %-25s |%n", "modification date", good.getModificationDate(), good2.getModificationDate());
-        output += String.format("| %-25s | %-25s | %-25s |%n", "seen number", good.getSeenNumber(), good2.getSeenNumber());
-        output += String.format("| %-25s | %-25s | %-25s |%n", "number of sellers", numbersOfSellers(good), numbersOfSellers(good2));
-        output += String.format("| %-25s | %-25s | %-25s |%n", "minmum price of product", good.getMinimumPrice(), good2.getMinimumPrice());
-        output += "+---------------------------+---------------------------+---------------------------+\n";
-        return output;
-    }
-
-    public ArrayList<String> compareWithAnotherProductGUI(long id) {
+    public ArrayList<String> compareWithAnotherProductGUI(long id1, long id) {
+        Good good = Shop.getInstance().findGoodById(id1);
         Good good2 = Shop.getInstance().findGoodById(id);
         ArrayList<String> output = new ArrayList<>();
         output.add(good2.getName());
@@ -154,17 +154,18 @@ public class ProductController {
         return output;
     }
 
-    public String showComments() {
-        String output = "--------------------------------------------\n";
-        output += ("average rate of this product is = " + good.getAverageRate());
-        output += "\n--------------------------------------------";
-        for (Comment comment : good.getComments()) {
-            output += ("\n" + comment.toString() + "--------------------------------------------");
-        }
-        return output;
-    }
+//    public String showComments() {
+//        String output = "--------------------------------------------\n";
+//        output += ("average rate of this product is = " + good.getAverageRate());
+//        output += "\n--------------------------------------------";
+//        for (Comment comment : good.getComments()) {
+//            output += ("\n" + comment.toString() + "--------------------------------------------");
+//        }
+//        return output;
+//    }
 
-    public List<String> getMainInfo() {
+    public List<String> getMainInfo(long id) {
+        Good good = Shop.getInstance().findGoodById(id);
         List<String> goodInfo = new ArrayList<>();
         goodInfo.add(good.getName());
         goodInfo.add(good.getBrand());
