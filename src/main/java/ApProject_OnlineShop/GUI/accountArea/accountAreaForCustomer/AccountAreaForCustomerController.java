@@ -75,7 +75,10 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         style.setVBoxStyle(vBox);
         root.add(scrollPane, 1, 2);
-        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(sort);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + sort);
+        List<String> discountCodes = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "viewDiscountCodes", getToken(), inputs)));
+//        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(sort);
         if (discountCodes.size() * 50 > 600) {
             vBox.setPrefHeight((discountCodes.size() * 50) + 20);
         } else {

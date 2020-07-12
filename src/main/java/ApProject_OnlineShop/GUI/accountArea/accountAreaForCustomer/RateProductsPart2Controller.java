@@ -7,6 +7,7 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,21 +46,30 @@ public class RateProductsPart2Controller extends FxmlController {
     }
 
     private void rateProductFinally(int rate) {
-        try {
-            MainController.getInstance().getAccountAreaForCustomerController().rateProduct(productIdForRate, rate);
+//        try {
+//            MainController.getInstance().getAccountAreaForCustomerController().rateProduct(productIdForRate, rate);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productIdForRate + "");
+        inputs.add(rate + "");
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "rateProduct", getToken(), inputs));
+        if (serverResponse.equals("rate was successful")) {
             SuccessPageFxController.showPage("successful rate", "your rate added successfully");
             window.close();
             setScene("rateProducts.fxml", "rate products");
-        } catch (IOException e) {
+        } else {
             window.close();
-            ErrorPageFxController.showPage("error occured during rate", e.getMessage());
-        } catch (FileCantBeSavedException e) {
-            window.close();
-            ErrorPageFxController.showPage("error occured during rate", e.getMessage());
-        } catch (YouRatedThisProductBefore youRatedThisProductBefore) {
-            window.close();
-            ErrorPageFxController.showPage("error occured during rate", youRatedThisProductBefore.getMessage());
+            ErrorPageFxController.showPage("error", serverResponse);
         }
+//        } catch (IOException e) {
+//            window.close();
+//            ErrorPageFxController.showPage("error occured during rate", e.getMessage());
+//        } catch (FileCantBeSavedException e) {
+//            window.close();
+//            ErrorPageFxController.showPage("error occured during rate", e.getMessage());
+//        } catch (YouRatedThisProductBefore youRatedThisProductBefore) {
+//            window.close();
+//            ErrorPageFxController.showPage("error occured during rate", youRatedThisProductBefore.getMessage());
+//        }
     }
 
     public static void setProductIdForRate(long productIdForRate) {
