@@ -42,8 +42,8 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         playMusicBackGround(false, false, true);
 //        ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForCustomerController().getUserPersonalInfo();
         ArrayList<String> personalInfo = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaController", "getUserPersonalInfo", getToken(), null)));
-        Image image = new Image(Paths.get("Resources/UserImages/" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg").toUri().toString());
-        File file = new File("Resources\\UserImages\\" + MainController.getInstance().getCurrentPerson().getUsername() + ".jpg");
+        Image image = new Image(Paths.get("Resources/UserImages/" + getCurrentPerson().getUsername() + ".jpg").toUri().toString());
+        File file = new File("Resources\\UserImages\\" + getCurrentPerson().getUsername() + ".jpg");
         if (!file.exists())
             image = new Image(Paths.get("Resources/UserImages/default1.jpg").toUri().toString());
         photo.setImage(image);
@@ -75,7 +75,10 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         style.setVBoxStyle(vBox);
         root.add(scrollPane, 1, 2);
-        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(sort);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + sort);
+        List<String> discountCodes = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "viewDiscountCodes", getToken(), inputs)));
+//        List<String> discountCodes = MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(sort);
         if (discountCodes.size() * 50 > 600) {
             vBox.setPrefHeight((discountCodes.size() * 50) + 20);
         } else {

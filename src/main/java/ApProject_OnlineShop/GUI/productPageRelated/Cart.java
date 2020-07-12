@@ -6,6 +6,7 @@ import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,6 +23,7 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -46,7 +48,10 @@ public class Cart extends FxmlController implements Initializable {
             imageView.setFitWidth(149);
             imageView.setFitHeight(149);
             productBox.getChildren().add(imageView);
-            List<String> goodInfo = MainController.getInstance().getAccountAreaForCustomerController().viewGoodInCartById(productId);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add("" + productId);
+            List<String> goodInfo = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "viewGoodInCartById", getToken(), inputs)));
+//            List<String> goodInfo = MainController.getInstance().getAccountAreaForCustomerController().viewGoodInCartById(productId);
             VBox textFieldVBox = new VBox();
             textFieldVBox.setMinWidth(380);
             textFieldVBox.setMaxHeight(200);

@@ -12,6 +12,7 @@ import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCre
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
+import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -25,7 +26,6 @@ import com.google.gson.Gson;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -93,15 +93,111 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getController().equals("AccountAreaController")) {
             accountAreaControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("BankAccountsController")) {
-            new BankAccountsControllerHandler(clientSocket,dataOutputStream,dataInputStream,serverSocket,user).
-            bankAccountsControllerHandler(requestForServer);
+            new BankAccountsControllerHandler(clientSocket, dataOutputStream, dataInputStream, serverSocket, user).
+                    bankAccountsControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForSellerController")) {
             accountAreaForSellerHandler(requestForServer);
-        }else if(requestForServer.getController().equals("BankTransactionsController")){
-            new BankTransactionControllerHandler(clientSocket,dataOutputStream,dataInputStream,serverSocket,user).
+        } else if (requestForServer.getController().equals("BankTransactionsController")) {
+            new BankTransactionControllerHandler(clientSocket, dataOutputStream, dataInputStream, serverSocket, user).
                     bankTransactionControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForManagerController")) {
             accountAreaForManagerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("AccountAreaForCustomerController")) {
+            accountAreaForCustomer(requestForServer);
+        }
+    }
+
+    private void accountAreaForCustomer(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+        if (requestForServer.getFunction().equals("viewDiscountCodes")) {
+            if (user == null)
+                return;
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(Integer.parseInt(requestForServer.getInputs().get(0)), user)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("viewGoodInCartById")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().viewGoodInCartById(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("rateProduct")) {
+            if (user == null)
+                return;
+            try {
+                MainController.getInstance().getAccountAreaForCustomerController().rateProduct(Long.parseLong(requestForServer.getInputs().get(0)), Integer.parseInt(requestForServer.getInputs().get(1)), user);
+                dataOutputStream.writeUTF("rate was successful");
+                dataOutputStream.flush();
+            } catch (YouRatedThisProductBefore e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getSortedCustomerOrders")) {
+            if (user == null)
+                return;
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().getSortedCustomerOrders(Integer.parseInt(requestForServer.getInputs().get(0)), user)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("checkValidDiscountCode")) {
+            if (user == null)
+                return;
+            try {
+                String output = MainController.getInstance().getAccountAreaForCustomerController().checkValidDiscountCode(requestForServer.getInputs().get(0), user) + "";
+                dataOutputStream.writeUTF(output);
+                dataOutputStream.flush();
+            } catch (Exception e) {
+                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("useDiscountCode")) {
+            if (user == null)
+                return;
+            try {
+                String output = MainController.getInstance().getAccountAreaForCustomerController().useDiscountCode(requestForServer.getInputs().get(0), user) + "";
+                dataOutputStream.writeUTF(output);
+                dataOutputStream.flush();
+            } catch (Exception e) {
+                dataOutputStream.writeUTF("this discount code has expired");
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("purchaseByWallet")) {
+            if (user == null)
+                return;
+            Long totalPrice = Long.parseLong(requestForServer.getInputs().get(0));
+            String usedDiscountCode = requestForServer.getInputs().get(requestForServer.getInputs().size() - 1);
+            requestForServer.getInputs().remove(0);
+            requestForServer.getInputs().remove(requestForServer.getInputs().size() - 1);
+            try {
+                MainController.getInstance().getAccountAreaForCustomerController().purchaseByWallet(totalPrice, requestForServer.getInputs(), usedDiscountCode, user);
+                dataOutputStream.writeUTF("purchase was successful");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("purchaseByBankPortal")) {
+            if (user == null)
+                return;
+            String bankUserName = requestForServer.getInputs().get(0);
+            String password = requestForServer.getInputs().get(1);
+            String money = requestForServer.getInputs().get(2);
+            String usedDiscountCode = requestForServer.getInputs().get(3);
+            requestForServer.getInputs().remove(3);
+            requestForServer.getInputs().remove(2);
+            requestForServer.getInputs().remove(1);
+            requestForServer.getInputs().remove(0);
+            try {
+                MainController.getInstance().getAccountAreaForCustomerController().purchaseByBankPortal(bankUserName, password, money, usedDiscountCode, requestForServer.getInputs(), user);
+                dataOutputStream.writeUTF("purchase was successful");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getBoughtProducts")) {
+            if (user == null)
+                return;
+            List<Long> ids = MainController.getInstance().getAccountAreaForCustomerController().getBoughtProducts(user);
+            ArrayList<String> output = new ArrayList<>();
+            for (Long id : ids) {
+                output.add(id + "");
+            }
+            dataOutputStream.writeUTF(convertArrayListToString(output));
+            dataOutputStream.flush();
         }
     }
 
@@ -496,22 +592,6 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void bankAccountsControllerHandler(RequestForServer requestForServer) throws IOException {
-        if (requestForServer.getFunction().equals("createBankAccount")) {
-            String response = MainController.getInstance().getBankAccountsController().createBankAccount(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1),
-                    requestForServer.getInputs().get(2), requestForServer.getInputs().get(3), requestForServer.getInputs().get(5));
-            if (!response.startsWith("password") && response.startsWith("username")) {
-                Person user = Shop.getInstance().findUser(requestForServer.getInputs().get(2));
-                if (user instanceof Customer)
-                    ((Customer) user).setBankAccountId(response);
-                if (user instanceof Seller)
-                    ((Seller) user).setBankAccountId(response);
-            }
-            dataOutputStream.writeUTF(response);
-            dataOutputStream.flush();
-        }
-    }
-
     private void loginRegisterControllerHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("createAccount")) {
             try {
@@ -593,7 +673,9 @@ public class ClientHandler extends Thread {
         for (String s : data) {
             output += s + "#";
         }
-        String output2 = output.substring(0, output.lastIndexOf("#"));
+        String output2 = output;
+        if (!data.isEmpty())
+            output2 = output.substring(0, output.lastIndexOf("#"));
         return output2;
     }
 
@@ -602,7 +684,9 @@ public class ClientHandler extends Thread {
         for (String s : data) {
             output += s + "#";
         }
-        String output2 = output.substring(0, output.lastIndexOf("#"));
+        String output2 = output;
+        if (!data.isEmpty())
+            output2 = output.substring(0, output.lastIndexOf("#"));
         return output2;
     }
 }
