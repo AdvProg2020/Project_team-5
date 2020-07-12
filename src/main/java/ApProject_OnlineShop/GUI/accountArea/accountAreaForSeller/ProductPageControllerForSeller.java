@@ -164,7 +164,10 @@ public class ProductPageControllerForSeller extends FxmlController implements In
             goodStatus.setPadding(new Insets(0, 15, 0, 15));
             goodStatusVBox.getChildren().add(goodStatus);
             sellerHBox.getChildren().add(goodStatusVBox);
-            if (!MainController.getInstance().getProductController().isInOffBySeller(eachSellerInfo.getSeller())) {
+            ArrayList<String> inputs2 = new ArrayList<>();
+            inputs2.add(eachSellerInfo.getSeller().getUsername());
+            inputs2.add(productId + "");
+            if (connectToServer(new RequestForServer("ProductController", "isInOffBySeller", null, inputs2)).equals("false")) {
                 HBox priceBox = new HBox();
                 priceBox.setAlignment(Pos.CENTER_LEFT);
                 priceBox.setMaxWidth(200);
@@ -180,7 +183,7 @@ public class ProductPageControllerForSeller extends FxmlController implements In
                 sellerHBox.getChildren().add(priceBox);
 
             }
-            if (MainController.getInstance().getProductController().isInOffBySeller(eachSellerInfo.getSeller())) {
+            if (connectToServer(new RequestForServer("ProductController", "isInOffBySeller", null, inputs2)).equals("true")) {
                 HBox priceBox = new HBox();
                 priceBox.setAlignment(Pos.CENTER_LEFT);
                 priceBox.setMaxWidth(200);

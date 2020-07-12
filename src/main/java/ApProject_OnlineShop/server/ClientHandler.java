@@ -14,6 +14,7 @@ import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundException
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.exception.userExceptions.*;
+import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
@@ -111,7 +112,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void productControllerHandler(RequestForServer requestForServer) throws IOException {
+    private void productControllerHandler(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
         if (requestForServer.getFunction().equals("compareWithAnotherProductGUI")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getProductController()
                     .compareWithAnotherProductGUI(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1)))));
@@ -122,6 +123,16 @@ public class ClientHandler extends Thread {
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getSellersInfo")) {
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isInOffBySeller")) {
+            Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF("" + MainController.getInstance().getProductController().isInOffBySeller(seller, Long.parseLong(requestForServer.getInputs().get(1))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addComment")) {
+            if (user == null)
+                return;
+            MainController.getInstance().getProductController().addComment(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), user, Long.parseLong(requestForServer.getInputs().get(2)));
+            dataOutputStream.writeUTF("comment request created successfully");
             dataOutputStream.flush();
         }
     }

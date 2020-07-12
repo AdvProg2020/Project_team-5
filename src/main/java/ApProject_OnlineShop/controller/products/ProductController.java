@@ -7,6 +7,7 @@ import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfTh
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Comment;
 import ApProject_OnlineShop.model.productThings.Good;
@@ -177,24 +178,26 @@ public class ProductController {
     }
 
     public List<SellerRelatedInfoAboutGood> getSellersInfo(long id) {
-        Good good=Shop.getInstance().findGoodById(id);
+        Good good = Shop.getInstance().findGoodById(id);
         return good.getSellerRelatedInfoAboutGoods();
     }
 
-    public boolean isInOffBySeller(Seller seller) {
+    public boolean isInOffBySeller(Seller seller, long id) {
+        Good good = Shop.getInstance().findGoodById(id);
         if (good.getPriceBySeller(seller) == Shop.getInstance().getFinalPriceOfAGood(good, seller))
             return false;
         return true;
     }
 
-    public void addComment(String title, String content) throws IOException, FileCantBeSavedException {
+    public void addComment(String title, String content, Person person, long id) throws IOException, FileCantBeSavedException {
         boolean didCommenterBoughtThisProduct = false;
-        if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-            if (((Customer) MainController.getInstance().getCurrentPerson()).hasBuyProduct(good.getGoodId()))
+        Good good = Shop.getInstance().findGoodById(id);
+        if (person instanceof Customer) {
+            if (((Customer) person).hasBuyProduct(id))
                 didCommenterBoughtThisProduct = true;
         }
-        AddingCommentRequest addingCommentRequest = new AddingCommentRequest(MainController.getInstance().getCurrentPerson()
-                , this.getGood(), title, content, didCommenterBoughtThisProduct);
+        AddingCommentRequest addingCommentRequest = new AddingCommentRequest(person
+                , good, title, content, didCommenterBoughtThisProduct);
         Shop.getInstance().addRequest(addingCommentRequest);
         Database.getInstance().saveItem(addingCommentRequest);
     }
