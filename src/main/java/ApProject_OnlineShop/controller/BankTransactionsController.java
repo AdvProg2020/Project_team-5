@@ -84,7 +84,6 @@ public class BankTransactionsController {
         }
         if (!Pattern.matches("[\\d]+", receiptId))
             return receiptId;
-        String finalResponse = MainController.getInstance().getBankAccountsController().pay(receiptId);
-        return finalResponse;
+        return MainController.getInstance().getBankAccountsController().pay(receiptId);
     }
 }
