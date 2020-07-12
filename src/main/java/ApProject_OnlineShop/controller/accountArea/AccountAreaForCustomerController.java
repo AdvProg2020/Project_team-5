@@ -147,8 +147,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return finalPriceOfAList(Shop.getInstance().getCart()) - discountCode.getMaxDiscountAmount();
     }
 
-    public void purchaseByWallet(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode) throws Exception { //minimum lahaz shavad
-        if (((Customer) MainController.getInstance().getCurrentPerson()).getCredit() < totalPrice)
+    public void purchaseByWallet(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode,Person person) throws Exception { //minimum lahaz shavad
+        if (((Customer) person).getCredit() < totalPrice)
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
             reduceNumberOfDiscountCode(usedDiscountCode);

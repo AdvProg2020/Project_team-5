@@ -154,6 +154,23 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF("this discount code has expired");
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("purchaseByWallet")) {
+            if (user == null)
+                return;
+            Long totalPrice = Long.parseLong(requestForServer.getInputs().get(0));
+            String usedDiscountCode = requestForServer.getInputs().get(requestForServer.getInputs().size() - 1);
+            requestForServer.getInputs().remove(0);
+            requestForServer.getInputs().remove(requestForServer.getInputs().size() - 1);
+            try {
+                MainController.getInstance().getAccountAreaForCustomerController().purchaseByWallet(totalPrice, requestForServer.getInputs(), usedDiscountCode, user);
+                dataOutputStream.writeUTF("purchase was successful");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("")) {
+
         }
     }
 
