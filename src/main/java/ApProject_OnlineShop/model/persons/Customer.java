@@ -21,6 +21,7 @@ public class Customer extends Person implements Serializable {
     @JoinTable(name = "DiscountPerson", joinColumns = @JoinColumn(name = "CustomerId"), inverseJoinColumns = @JoinColumn(name = "DiscountId"))
     private ArrayList<DiscountCode> discountCodes;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private ArrayList<OrderForCustomer> previousOrders;
 
     @Column(name = "BankAccountId")

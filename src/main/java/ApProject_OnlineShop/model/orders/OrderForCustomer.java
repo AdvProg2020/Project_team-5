@@ -2,6 +2,7 @@ package ApProject_OnlineShop.model.orders;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 
 import javax.persistence.*;
@@ -18,6 +19,10 @@ public class OrderForCustomer extends Order implements Serializable {
             joinColumns = @JoinColumn(name = "OrderId"),
             inverseJoinColumns = @JoinColumn(name = "GoodInCartId"))
     private ArrayList<GoodInCart> goodsDetails;
+
+    @ManyToOne
+    @Column(name = "CustomerID", nullable = false)
+    private Customer customer;
 
     @Column(name = "DiscountAmount", nullable = false)
     private long discountAmount;
@@ -56,6 +61,14 @@ public class OrderForCustomer extends Order implements Serializable {
             goodInCarts.add(Shop.getInstance().getAllGoodInCarts().get(id));
         }
         return goodInCarts;*/
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public long getDiscountAmount() {
