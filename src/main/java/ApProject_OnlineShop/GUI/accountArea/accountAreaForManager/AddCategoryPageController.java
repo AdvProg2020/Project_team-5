@@ -6,6 +6,7 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,7 +36,7 @@ public class AddCategoryPageController extends FxmlController implements Initial
 
     private ArrayList<String> properties = new ArrayList<>();
     private String categoryName;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updatePropertiesBox();
@@ -56,6 +57,9 @@ public class AddCategoryPageController extends FxmlController implements Initial
 
     public void onCreateCategoryPressed(ActionEvent actionEvent) {
         String name = nameField.getText();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(name);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "isExistCategoryWithThisName", getToken(), inputs));
         if (name.isEmpty()) {
             ErrorPageFxController.showPage("error", "please fill field and then click");
             return;
@@ -65,7 +69,7 @@ public class AddCategoryPageController extends FxmlController implements Initial
             nameField.clear();
             return;
         }
-        if (MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(name)) {
+        if (serverResponse.equals("true")) {
             ErrorPageFxController.showPage("error in create category", "this category name is already is taken by another category");
             nameField.clear();
             return;

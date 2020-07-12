@@ -188,6 +188,12 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("isExistCategoryWithThisName")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForManagerController().isExistCategoryWithThisName(requestForServer.getInputs().get(0)));
+            dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("isExistSubcategoryWithThisName")){
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForManagerController().isExistSubcategoryWithThisName(requestForServer.getInputs().get(0)));
+            dataOutputStream.flush();
         }
     }
 

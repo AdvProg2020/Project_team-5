@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,6 +59,9 @@ public class AddSubCategoryPageController extends FxmlController implements Init
 
     public void onCreateSubCategoryPressed(ActionEvent actionEvent) {
         String name = nameField.getText();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(name);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "isExistSubcategoryWithThisName", getToken(), inputs));
         if (name.isEmpty()) {
             ErrorPageFxController.showPage("error", "please fill field and then click");
             return;
@@ -67,7 +71,7 @@ public class AddSubCategoryPageController extends FxmlController implements Init
             nameField.clear();
             return;
         }
-        if (MainController.getInstance().getAccountAreaForManagerController().isExistSubcategoryWithThisName(name)) {
+        if (serverResponse.equals("true")) {
             ErrorPageFxController.showPage("error in create sub category", "this category name is already is taken by another sub category");
             nameField.clear();
             return;
