@@ -209,7 +209,7 @@ public class ProductPageControllerForSeller extends FxmlController implements In
 
     public static void setProductId(long productId) {
         ProductPageControllerForSeller.productId = productId;
-        MainController.getInstance().getProductController().setGoodById(productId);
+//        MainController.getInstance().getProductController().setGoodById(productId);
     }
 
     public void removeProduct(ActionEvent actionEvent) {

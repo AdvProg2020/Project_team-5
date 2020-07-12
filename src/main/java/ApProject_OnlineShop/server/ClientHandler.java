@@ -122,6 +122,7 @@ public class ClientHandler extends Thread {
                     .getMainInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getSellersInfo")) {
+            System.out.println(new Gson().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("isInOffBySeller")) {

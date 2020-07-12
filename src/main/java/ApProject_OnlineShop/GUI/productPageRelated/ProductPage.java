@@ -18,6 +18,7 @@ import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -133,7 +134,7 @@ public class ProductPage extends FxmlController implements Initializable {
 //        List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId + "");
-        List<SellerRelatedInfoAboutGood> sellersInfo = new Gson().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), List.class);
+        List<SellerRelatedInfoAboutGood> sellersInfo = new Gson().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), new TypeToken<List<SellerRelatedInfoAboutGood>>(){}.getType());
         for (SellerRelatedInfoAboutGood eachSellerInfo : sellersInfo) {
             HBox sellerHBox = new HBox();
             sellerHBox.setAlignment(Pos.CENTER_LEFT);
@@ -214,7 +215,7 @@ public class ProductPage extends FxmlController implements Initializable {
 
     public static void setProductId(long productId) {
         ProductPage.productId = productId;
-        MainController.getInstance().getProductController().setGoodById(productId);
+//        MainController.getInstance().getProductController().setGoodById(productId);
     }
 
     public void addToCart(String sellerUsername) {
