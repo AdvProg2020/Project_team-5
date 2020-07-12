@@ -18,7 +18,8 @@ public class Seller extends Person implements Serializable {
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private ArrayList<OrderForSeller> previousSells;
 
-
+    @ManyToMany
+    @JoinTable(name = "ProductAndSeller", joinColumns = @JoinColumn(name = "SellerId"), inverseJoinColumns = @JoinColumn(name = "ProductID"))
     private ArrayList<Good> activeGoods;
 
     @Column(name = "BankAccountId")
