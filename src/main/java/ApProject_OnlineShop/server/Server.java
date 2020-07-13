@@ -4,15 +4,19 @@ import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.persons.Person;
+import ApProject_OnlineShop.model.productThings.GoodInCart;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Server {
     private static ServerSocket serverSocket;
     private static HashMap<String, Person> onlineUsers = new HashMap<String, Person>();
+    private static HashMap<Long, ArrayList<GoodInCart>> carts = new HashMap<>();
+    private static long idForCarts = 1;
 
     public static void main(String[] args) {
         backServerOnline();
@@ -47,15 +51,27 @@ public class Server {
         }
     }
 
-    public static void addOnlineUser(Person person,String token){
-        onlineUsers.put(token,person);
+    public static void addOnlineUser(Person person, String token) {
+        onlineUsers.put(token, person);
     }
 
-    public static void removeOnlineUser(String token){
+    public static void removeOnlineUser(String token) {
         onlineUsers.remove(token);
     }
 
     public static HashMap<String, Person> getOnlineUsers() {
         return onlineUsers;
+    }
+
+    public static HashMap<Long, ArrayList<GoodInCart>> getCarts() {
+        return carts;
+    }
+
+    public static long getIdForCarts() {
+        return idForCarts;
+    }
+
+    public static void setIdForCarts(long idForCarts) {
+        Server.idForCarts = idForCarts;
     }
 }

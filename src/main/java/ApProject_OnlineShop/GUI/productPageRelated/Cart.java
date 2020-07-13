@@ -6,7 +6,10 @@ import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,13 +31,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Cart extends FxmlController implements Initializable {
+    //    private static ArrayList<GoodInCart> cart = new ArrayList<>();
     public VBox items;
     private static String pathBack;
     private static String titleBack;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Long> productIds = MainController.getInstance().getAccountAreaForCustomerController().viewInCartProducts();
+//        List<Long> productIds = MainController.getInstance().getAccountAreaForCustomerController().viewInCartProducts();
+        ArrayList<String> inputs11 = new ArrayList<>();
+        inputs11.add(getId() + "");
+        List<Long> productIds = convertArrayListStringToArrayListLong(convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "viewInCartProducts", null, inputs11))));
         if (productIds == null || productIds.size() == 0) {
             Label isEmpty = new Label("cart is empty!");
             isEmpty.setPadding(new Insets(15, 15, 0, 15));
@@ -50,6 +57,7 @@ public class Cart extends FxmlController implements Initializable {
             productBox.getChildren().add(imageView);
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add("" + productId);
+            inputs.add("" + getId());
             List<String> goodInfo = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "viewGoodInCartById", getToken(), inputs)));
 //            List<String> goodInfo = MainController.getInstance().getAccountAreaForCustomerController().viewGoodInCartById(productId);
             VBox textFieldVBox = new VBox();
@@ -125,7 +133,14 @@ public class Cart extends FxmlController implements Initializable {
             Label text = new Label("total price is");
             text.setFont(Font.font("Times New Roman", 16));
             priceBox.getChildren().add(text);
-            Label finalPrice = new Label(" " + MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(Shop.getInstance().getCart()) + " Rials");
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            List<GoodInCart> cart = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getCart", null, inputs)), new TypeToken<List<GoodInCart>>() {
+            }.getType());
+            ArrayList<String> input2 = new ArrayList<>();
+            input2.add(new Gson().toJson(cart));
+            long totalPrice3 = Long.parseLong(connectToServer(new RequestForServer("AccountAreaForCustomerController", "finalPriceOfAList", null, input2)));
+            Label finalPrice = new Label(" " + totalPrice3 + " Rials");
             finalPrice.setFont(Font.font("Times New Roman", 16));
             finalPrice.setTextFill(Color.RED);
             HBox.setMargin(finalPrice, new Insets(8, 8, 8, 8));
@@ -150,27 +165,42 @@ public class Cart extends FxmlController implements Initializable {
     }
 
     public void decreaseProduct(long productId) {
-        MainController.getInstance().getAccountAreaForCustomerController().decreaseInCartProduct(productId);
+//        MainController.getInstance().getAccountAreaForCustomerController().decreaseInCartProduct(productId);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        inputs.add(getId() + "");
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "decreaseInCartProduct", null, inputs));
         setScene("cart.fxml", "cart");
     }
 
     public void increaseProduct(long productId) {
-        try {
-            MainController.getInstance().getAccountAreaForCustomerController().increaseInCartProduct(productId);
-        } catch (Exception e) {
-            ErrorPageFxController.showPage("Error happened", e.getMessage());
+//        try {
+//            MainController.getInstance().getAccountAreaForCustomerController().increaseInCartProduct(productId);
+//        } catch (Exception e) {
+//            ErrorPageFxController.showPage("Error happened", e.getMessage());
+//        }
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        inputs.add(getId() + "");
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "increaseInCartProduct", null, inputs));
+        if (!serverResponse.equals("Successfully increased")) {
+            ErrorPageFxController.showPage("error", serverResponse);
         }
         setScene("cart.fxml", "cart");
     }
 
     public void purchase() {
-        if (Shop.getInstance().getCart().size() == 0) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(getId() + "");
+        ArrayList<GoodInCart> cart = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getCart", null, inputs)), new TypeToken<List<GoodInCart>>() {
+        }.getType());
+        if (cart.size() == 0) {
             ErrorPageFxController.showPage("error for purchase", "your cart is empty");
             return;
         }
-        if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        if (getCurrentPerson() instanceof Customer) {
             setScene("purchasePage1.fxml", "purchase");
-        } else if (MainController.getInstance().getCurrentPerson() == null) {
+        } else if (getCurrentPerson() == null) {
             LoginController.setPathAfterLogin("purchasePage1.fxml", "purchase");
             LoginController.setPathBack("cart.fxml", "cart");
             setScene("login.fxml", "login");

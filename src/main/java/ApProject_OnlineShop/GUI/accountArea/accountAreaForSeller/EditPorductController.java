@@ -39,9 +39,9 @@ public class EditPorductController extends FxmlController implements Initializab
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Good good = Shop.getInstance().findGoodById(goodId);
-        price.setPromptText(good.getPriceBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
+        price.setPromptText(good.getPriceBySeller((Seller) getCurrentPerson()) + "");
         additionalDetails.setPromptText(good.getDetails());
-        availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
+        availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) getCurrentPerson()) + "");
         int row = 3;
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(good.getSubCategory().getName());
@@ -76,8 +76,14 @@ public class EditPorductController extends FxmlController implements Initializab
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
-            Shop.getInstance().clearCart();
+//            MainController.getInstance().getLoginRegisterController().logoutUser();
+//            Shop.getInstance().clearCart();
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
+            FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
+            setToken(null);
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }

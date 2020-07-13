@@ -41,13 +41,13 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 //        return Shop.getInstance().checkExistProductInCart(productId);
 //    }
 
-    public List<Long> viewInCartProducts() { //ToDo
-        return Shop.getInstance().getCart().stream().map(goodInCart -> goodInCart.getGood().getGoodId()).collect(Collectors.toList());
-    } //todo
+    public List<Long> viewInCartProducts(long id) {
+        return Shop.getInstance().getCart(id).stream().map(goodInCart -> goodInCart.getGood().getGoodId()).collect(Collectors.toList());
+    }
 
-    public List<String> viewGoodInCartById(long productId) {
+    public List<String> viewGoodInCartById(long productId, long id) {
         GoodInCart good = null;
-        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+        for (GoodInCart goodInCart : Shop.getInstance().getCart(id)) {
             if (goodInCart.getGood().getGoodId() == productId)
                 good = goodInCart;
         }
@@ -64,17 +64,17 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 //        return Shop.getInstance().findGoodById(productId).toString();
 //    }
 
-    public void increaseInCartProduct(long productId) throws Exception { //todo
-        Shop.getInstance().increaseGoodInCartNumber(productId);
-    } //todo
+    public void increaseInCartProduct(long productId, long id) throws Exception {
+        Shop.getInstance().increaseGoodInCartNumber(productId, id);
+    }
 
-    public void decreaseInCartProduct(long productId) {
-        Shop.getInstance().reduceGoodInCartNumber(productId);
-    } //todo
+    public void decreaseInCartProduct(long productId, long id) {
+        Shop.getInstance().reduceGoodInCartNumber(productId, id);
+    }
 
-    public long getTotalPriceOfCart() {
-        return finalPriceOfAList(Shop.getInstance().getCart());
-    } //todo
+//    public long getTotalPriceOfCart(long id) {
+//        return finalPriceOfAList(Shop.getInstance().getCart(id));
+//    }
 
 //    public boolean checkExistProduct(long productId) {
 //        return Shop.getInstance().findGoodById(productId) != null;
@@ -134,34 +134,34 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return true;
     }
 
-    public long useDiscountCode(String code, Person person) throws Exception {
+    public long useDiscountCode(String code, Person person, long id) throws Exception {
         DiscountCode discountCode = ((Customer) person).findDiscountCode(code);
         if (discountCode.getEndDate().isBefore(LocalDate.now()))
             throw new DiscountCodeExpired();
-        return calculateFinalPrice(discountCode);
+        return calculateFinalPrice(discountCode, id);
     }
 
-    public long calculateFinalPrice(DiscountCode discountCode) {
-        if (finalPriceOfAList(Shop.getInstance().getCart()) * ((double) discountCode.getDiscountPercent() / 100) <= discountCode.getMaxDiscountAmount())
-            return finalPriceOfAList(Shop.getInstance().getCart()) * (100 - discountCode.getDiscountPercent()) / 100;
-        return finalPriceOfAList(Shop.getInstance().getCart()) - discountCode.getMaxDiscountAmount();
+    public long calculateFinalPrice(DiscountCode discountCode, long id) {
+        if (finalPriceOfAList(Shop.getInstance().getCart(id)) * ((double) discountCode.getDiscountPercent() / 100) <= discountCode.getMaxDiscountAmount())
+            return finalPriceOfAList(Shop.getInstance().getCart(id)) * (100 - discountCode.getDiscountPercent()) / 100;
+        return finalPriceOfAList(Shop.getInstance().getCart(id)) - discountCode.getMaxDiscountAmount();
     }
 
-    public void purchaseByWallet(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode, Person person) throws Exception { //minimum lahaz shavad
+    public void purchaseByWallet(long totalPrice, ArrayList<String> customerInfo, String usedDiscountCode, Person person, long id) throws Exception { //minimum lahaz shavad
         if (((Customer) person).getCredit() < totalPrice)
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
             reduceNumberOfDiscountCode(usedDiscountCode, person);
-        finalBuyProcess(totalPrice, customerInfo, person);
+        finalBuyProcess(totalPrice, customerInfo, person, id);
     }
 
-    public void purchaseByBankPortal(String bankAccountUsername, String password, String money, String usedDiscountCode, ArrayList<String> customerInfo,Person person) throws Exception {
+    public void purchaseByBankPortal(String bankAccountUsername, String password, String money, String usedDiscountCode, ArrayList<String> customerInfo, Person person, long id) throws Exception {
         String response = MainController.getInstance().getBankTransactionsController().moveMoneyFromUserToShop(bankAccountUsername, password, money);
         if (!response.equals("done successfully"))
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
             reduceNumberOfDiscountCode(usedDiscountCode, person);
-        finalBuyProcess(Long.parseLong(money), customerInfo, person);
+        finalBuyProcess(Long.parseLong(money), customerInfo, person, id);
     }
 
     public void reduceNumberOfDiscountCode(String discountCode, Person person) throws Exception {
@@ -169,13 +169,13 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Shop.getInstance().findDiscountCode(discountCode).discountBeUsedForCustomer(customer);
     }
 
-    public void finalBuyProcess(long price, ArrayList<String> customerInfo, Person person) throws IOException, FileCantBeSavedException {
-        ArrayList<GoodInCart> cart = new ArrayList<>(Shop.getInstance().getCart());
+    public void finalBuyProcess(long price, ArrayList<String> customerInfo, Person person, long id) throws IOException, FileCantBeSavedException {
+        ArrayList<GoodInCart> cart = new ArrayList<>(Shop.getInstance().getCart(id));
         Customer currentUser = (Customer) person;
         OrderForCustomer orderForCustomer = new OrderForCustomer(cart, price, customerInfo.get(0), customerInfo.get(1),
-                customerInfo.get(2), customerInfo.get(3));
+                customerInfo.get(2), customerInfo.get(3), id);
         currentUser.addOrder(orderForCustomer);
-        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+        for (GoodInCart goodInCart : Shop.getInstance().getCart(id)) {
             Shop.getInstance().getAllGoodInCarts().put(goodInCart.getGoodInCartId(), goodInCart);
             Database.getInstance().saveItem(goodInCart);
         }
@@ -185,14 +185,14 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         currentUser.setCredit(currentUser.getCredit() - price);
         currentUser.donateDiscountCodeTOBestCustomers();
         Database.getInstance().saveItem(currentUser);
-        makeOrderForSeller(person.getUsername());
-        reduceAvailableNumberOfGoodsAfterPurchase();
-        Shop.getInstance().clearCart();
+        makeOrderForSeller(person.getUsername(), id);
+        reduceAvailableNumberOfGoodsAfterPurchase(id);
+        Shop.getInstance().clearCart(id);
     }
 
-    public void makeOrderForSeller(String customerName) throws IOException, FileCantBeSavedException {
+    public void makeOrderForSeller(String customerName, long id) throws IOException, FileCantBeSavedException {
         Set<Seller> sellerSet = new HashSet<>();
-        ArrayList<GoodInCart> cart = Shop.getInstance().getCart();
+        ArrayList<GoodInCart> cart = Shop.getInstance().getCart(id);
         for (GoodInCart good : cart) {
             sellerSet.add(good.getSeller());
         }
@@ -210,10 +210,10 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public long finalPriceOfAList(List<GoodInCart> products) {
         return products.stream().map(GoodInCart::getFinalPrice).reduce(0L, (ans, i) -> ans + i);
-    } //todo
+    }
 
-    public void reduceAvailableNumberOfGoodsAfterPurchase() throws IOException, FileCantBeSavedException {
-        ArrayList<GoodInCart> cart = Shop.getInstance().getCart();
+    public void reduceAvailableNumberOfGoodsAfterPurchase(long id) throws IOException, FileCantBeSavedException {
+        ArrayList<GoodInCart> cart = Shop.getInstance().getCart(id);
         for (GoodInCart good : cart) {
             good.getGood().reduceAvailableNumber(good.getSeller(), good.getNumber());
             for (SellerRelatedInfoAboutGood infoAboutGood : good.getGood().getSellerRelatedInfoAboutGoods()) {
@@ -234,5 +234,13 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
         HashSet<Long> IDs = new HashSet<>(goods);
         return new ArrayList<>(IDs);
+    }
+
+    public List<GoodInCart> getCart(long id) {
+        return Shop.getInstance().getCart(id);
+    }
+
+    public void clearCart(long id) {
+        Shop.getInstance().clearCart(id);
     }
 }

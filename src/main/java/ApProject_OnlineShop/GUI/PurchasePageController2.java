@@ -3,7 +3,11 @@ package ApProject_OnlineShop.GUI;
 import ApProject_OnlineShop.GUI.bankRelated.BankPortalForPurchaseController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.productThings.GoodInCart;
+import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,6 +43,7 @@ public class PurchasePageController2 extends FxmlController implements Initializ
         inputs.add(totalPrice1 + "");
         inputs.addAll(PurchasePageController1.getUserInfo());
         inputs.add(discountCodeString);
+        inputs.add(FxmlController.getToken() + "");
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "purchaseByWallet", getToken(), inputs));
         if (serverResponse.equals("purchase was successful")) {
             SuccessPageFxController.showPage("purchase was successful", totalPrice.getText() + " has reduced from your account!");
@@ -61,13 +66,21 @@ public class PurchasePageController2 extends FxmlController implements Initializ
     public void checkDiscountCode() {
         String discountCode1 = discountCode.getText();
         if (discountCode1.equals("")) {
-            totalPrice1 = MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(Shop.getInstance().getCart());
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            List<GoodInCart> cart = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getCart", null, inputs)), new TypeToken<List<GoodInCart>>() {
+            }.getType());
+//            totalPrice1 = MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(cart);
+            ArrayList<String> input2 = new ArrayList<>();
+            input2.add(new Gson().toJson(cart));
+            totalPrice1 = Long.parseLong(connectToServer(new RequestForServer("AccountAreaForCustomerController", "finalPriceOfAList", null, input2)));
             discountCodeString = null;
         } else {
 //            try {
 //                MainController.getInstance().getAccountAreaForCustomerController().checkValidDiscountCode(discountCode1);
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(discountCode1);
+            inputs.add(getId() + "");
             String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "checkValidDiscountCode", getToken(), inputs));
             if (serverResponse.equals("true")) {
                 String serverResponse2 = connectToServer(new RequestForServer("AccountAreaForCustomerController", "useDiscountCode", getToken(), inputs));
@@ -99,8 +112,14 @@ public class PurchasePageController2 extends FxmlController implements Initializ
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
-            Shop.getInstance().clearCart();
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
+            FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
+            setToken(null);
+//            MainController.getInstance().getLoginRegisterController().logoutUser();
+//            Shop.getInstance().clearCart();
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }

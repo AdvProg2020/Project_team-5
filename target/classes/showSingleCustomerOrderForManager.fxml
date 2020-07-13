@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.ViewSingleCustomerOrderForManager">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="178.6" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="466.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="436.0" minHeight="10.0" prefHeight="364.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="133.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <VBox fx:id="vBox" maxWidth="-Infinity" minHeight="367.0" minWidth="348.0" prefHeight="367.0" prefWidth="400.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <opaqueInsets>
+            <Insets top="1.0" />
+        </opaqueInsets>
+        <padding>
+            <Insets bottom="10.0" top="20.0" />
+        </padding>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+        <opaqueInsets>
+            <Insets top="1.0" />
+        </opaqueInsets>
+      <HBox prefHeight="53.0" prefWidth="366.0">
+         <children>
+              <Label prefHeight="30.0" prefWidth="140.0" text="order ID:">
+                  <padding>
+                      <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                  </padding>
+                  <font>
+                      <Font name="Times New Roman" size="17.0" />
+                  </font>
+              </Label>
+              <Label fx:id="orderId" prefHeight="18.0" prefWidth="196.0" text=" ">
+                  <padding>
+                      <Insets bottom="5.0" right="5.0" top="5.0" />
+                  </padding>
+                  <font>
+                      <Font name="Times New Roman" size="14.0" />
+                  </font>
+                  <opaqueInsets>
+                      <Insets left="20.0" />
+                  </opaqueInsets>
+              </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="53.0" prefWidth="366.0">
+         <children>
+              <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="140.0" text=" date:">
+                  <padding>
+                      <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                  </padding>
+                  <font>
+                      <Font name="Times New Roman" size="17.0" />
+                  </font>
+              </Label>
+              <Label fx:id="date" prefHeight="18.0" prefWidth="193.0">
+                  <padding>
+                      <Insets bottom="5.0" right="5.0" top="5.0" />
+                  </padding>
+                  <font>
+                      <Font size="14.0" />
+                  </font>
+                  <opaqueInsets>
+                      <Insets left="20.0" />
+                  </opaqueInsets>
+              </Label>
+         </children>
+      </HBox>
+      <HBox prefWidth="366.0">
+         <children>
+            <VBox prefHeight="78.0" prefWidth="366.0">
+               <children>
+                    <Label alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="140.0" text="goods:">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                        <font>
+                            <Font name="Times New Roman" size="17.0" />
+                        </font>
+                    </Label>
+                  <Label fx:id="goods" prefWidth="366.0">
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                     </padding>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="53.0" prefWidth="336.0">
+         <children>
+              <Label prefHeight="20.0" prefWidth="140.0" text="discount amount:">
+                  <padding>
+                      <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                  </padding>
+                  <font>
+                      <Font name="Times New Roman" size="17.0" />
+                  </font>
+              </Label>
+              <Label fx:id="discountAmount" prefHeight="30.0" prefWidth="160.0">
+                  <padding>
+                      <Insets bottom="5.0" right="5.0" top="5.0" />
+                  </padding>
+                  <font>
+                      <Font size="14.0" />
+                  </font>
+                  <opaqueInsets>
+                      <Insets left="20.0" />
+                  </opaqueInsets>
+              </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="53.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="140.0" text="total price:">
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="Times New Roman" size="17.0" />
+               </font></Label>
+            <Label fx:id="totalPrice" prefHeight="30.0" prefWidth="160.0">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+         </children></HBox>
+      <HBox prefHeight="53.0" prefWidth="200.0">
+         <children>
+              <Label prefHeight="20.0" prefWidth="140.0" text="address:">
+                  <opaqueInsets>
+                      <Insets top="10.0" />
+                  </opaqueInsets>
+                  <padding>
+                      <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                  </padding>
+                  <font>
+                      <Font name="Times New Roman" size="17.0" />
+                  </font>
+              </Label>
+              <Label fx:id="address" prefHeight="18.0" prefWidth="181.0">
+                  <padding>
+                      <Insets bottom="5.0" right="5.0" top="5.0" />
+                  </padding>
+                  <font>
+                      <Font size="14.0" />
+                  </font>
+                  <opaqueInsets>
+                      <Insets left="20.0" />
+                  </opaqueInsets>
+              </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="53.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="140.0" text="order status:">
+               <font>
+                  <Font name="Times New Roman" size="17.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label fx:id="orderStatus" prefHeight="18.0" prefWidth="181.0">
+               <padding>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+        <padding>
+            <Insets bottom="10.0" top="20.0" />
+        </padding>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+    </VBox>
+    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
+        <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@pictures/icons8-back-to-48.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label alignment="CENTER" prefHeight="80.0" prefWidth="369.0" text="Customer order" GridPane.columnIndex="1">
+        <font>
+            <Font name="Times New Roman" size="26.0" />
+        </font>
+    </Label>
+    <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="1">
+        <image>
+            <Image url="@pictures/logout.png" />
+        </image>
+        <GridPane.margin>
+            <Insets left="400.0" />
+        </GridPane.margin>
+    </ImageView>
+    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
+      <children>
+         <Label alignment="CENTER" prefHeight="18.0" prefWidth="150.0" text="change order status to:">
+            <VBox.margin>
+               <Insets top="8.0" />
+            </VBox.margin>
+            <font>
+               <Font name="Times New Roman" size="16.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" onAction="#changeOrderStatusToReadyToSend" prefHeight="35.0" prefWidth="150.0" styleClass="menuButtons" text="ready to send">
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin>
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#changeOrderStatusToSent" prefHeight="30.0" prefWidth="150.0" styleClass="menuButtons" text="sent">
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin>
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#changeOrderStatusReceived" prefHeight="30.0" prefWidth="150.0" styleClass="menuButtons" text="received">
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin>
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
+      </children></VBox>
+    <padding>
+        <Insets left="10.0" />
+    </padding>
+</GridPane>

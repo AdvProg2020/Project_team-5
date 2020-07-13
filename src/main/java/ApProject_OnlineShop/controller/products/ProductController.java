@@ -19,31 +19,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductController {
-    private Good good;
+//    private Good good;
+//
+//    public Good getGood() {
+//        return good;
+//    }
+//
+//    public void setGood(Good good) {
+//        this.good = good;
+//        if (good != null) {
+//            if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
+//                good.setSeenNumber(good.getSeenNumber() + 1);
+//            }
+//            try {
+//                Database.getInstance().saveItem(good);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
-    public Good getGood() {
-        return good;
-    }
-
-    public void setGood(Good good) {
-        this.good = good;
-        if (good != null) {
-            if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
-                good.setSeenNumber(good.getSeenNumber() + 1);
-            }
-            try {
-                Database.getInstance().saveItem(good);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void setGoodById(long goodId) {
-        setGood(Shop.getInstance().findGoodById(goodId));
-    }
+//    public void setGoodById(long goodId) {
+//        setGood(Shop.getInstance().findGoodById(goodId));
+//    }
 
 //    public String digest() {
 //        return good.toString();
@@ -72,7 +73,8 @@ public class ProductController {
 //        Shop.getInstance().addGoodToCart(good, sellerRelatedInfoAboutGood.getSeller(), number);
 //    }
 
-    public void addGoodToCartGUI(String seller) throws Exception {
+    public void addGoodToCartGUI(String seller, long productId, long cartId) throws Exception {
+        Good good = Shop.getInstance().findGoodById(productId);
         SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
             if (relatedInfoAboutGood.getSeller().getUsername().equals(seller)) {
@@ -83,21 +85,21 @@ public class ProductController {
         if (sellerRelatedInfoAboutGood.getAvailableNumber() < 1)
             throw new DontHaveEnoughNumberOfThisProduct();
         boolean flag = false;
-        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+        for (GoodInCart goodInCart : Shop.getInstance().getCart(cartId)) {
             if (goodInCart.getGood().equals(good) && !goodInCart.getSeller().getUsername().equals(seller)) {
                 throw new Exception("you can't buy a same product from two different seller!");
             }
         }
-        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+        for (GoodInCart goodInCart : Shop.getInstance().getCart(cartId)) {
             if (goodInCart.getGood().equals(good) && goodInCart.getSeller().getUsername().equals(seller)) {
-                Shop.getInstance().increaseGoodInCartNumber(good.getGoodId());
+                Shop.getInstance().increaseGoodInCartNumber(good.getGoodId(), cartId);
                 flag = true;
                 return;
             }
         }
         if (!flag)
-            Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1);
-    } //todo
+            Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1, cartId);
+    }
 
 //    public int getAvailableNumberOfAProductByASeller(int sellerNumber) {
 //        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = good.getSellerRelatedInfoAboutGoods().get(sellerNumber - 1);
@@ -200,5 +202,17 @@ public class ProductController {
                 , good, title, content, didCommenterBoughtThisProduct);
         Shop.getInstance().addRequest(addingCommentRequest);
         Database.getInstance().saveItem(addingCommentRequest);
+    }
+
+    public List<Long> getAllGoodsIds() {
+        return Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
+    }
+
+    public List<Long> getOffGoods() {
+        return Shop.getInstance().getOffGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
+    }
+
+    public boolean isSubCategoryEquals(long productId1, long productId2) {
+        return Shop.getInstance().findGoodById(productId1).getSubCategory().equals(Shop.getInstance().findGoodById(productId2).getSubCategory());
     }
 }

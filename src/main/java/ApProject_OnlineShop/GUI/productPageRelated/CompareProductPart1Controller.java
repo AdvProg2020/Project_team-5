@@ -11,6 +11,7 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -30,8 +32,14 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
-        productIds.remove(Shop.getInstance().findGoodById(MainController.getInstance().getProductController().getGood().getGoodId()).getGoodId());
+        List<String> productsIdsString = convertStringToArraylist(connectToServer(new RequestForServer("ProductController", "getAllGoodsIds", null, null)));
+        productsIdsString.remove(ProductPage.productId + "");
+        List<Long> productIds = new ArrayList<>();
+        for (String s : productsIdsString) {
+            productIds.add(Long.parseLong(s));
+        }
+//        List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
+//        productIds.remove(Shop.getInstance().findGoodById(MainController.getInstance().getProductController().getGood().getGoodId()).getGoodId());
         int num = 0;
         int row = 0;
         if (productIds.size() % 3 == 0) {
@@ -45,14 +53,18 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
         }
         for (Long productId : productIds) {
             VBox vbox;
-            if (Shop.getInstance().getOffGoods().contains(Shop.getInstance().findGoodById(productId))) {
+            if (convertArrayListStringToArrayListLong(convertStringToArraylist
+                    (connectToServer(new RequestForServer("ProductController", "getOffGoods", null, null)))).contains(productId)) {
+//                if (Shop.getInstance().getOffGoods().contains(Shop.getInstance().findGoodById(productId))) {
                 vbox = new ProductBriefSummery().offProductBriefSummery(productId);
                 root.add(vbox, num % 3, row);
                 num++;
                 vbox.setCursor(Cursor.HAND);
                 vbox.setOnMouseClicked(e -> compare(productId));
             }
-            if (!Shop.getInstance().getOffGoods().contains(Shop.getInstance().findGoodById(productId))) {
+            if (!convertArrayListStringToArrayListLong(convertStringToArraylist
+                    (connectToServer(new RequestForServer("ProductController", "getOffGoods", null, null)))).contains(productId)) {
+//            if (!Shop.getInstance().getOffGoods().contains(Shop.getInstance().findGoodById(productId))) {
                 vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
                 root.add(vbox, num % 3, row);
                 num++;
@@ -65,7 +77,10 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
     }
 
     private void compare(long productId2) {
-        if (Shop.getInstance().findGoodById(productId2).getSubCategory().equals(MainController.getInstance().getProductController().getGood().getSubCategory())) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId2 + "");
+        inputs.add(ProductPage.productId + "");
+        if (connectToServer(new RequestForServer("ProductController", "isSubCategoryEquals", null, inputs)).equals("true")) {
             CompareProductPart2InACategoryController.setProductId1(productId2);
             setScene("compareTwoProductsInACategory.fxml", "compare");
         } else {
@@ -79,17 +94,17 @@ public class CompareProductPart1Controller extends FxmlController implements Ini
     }
 
     public void goToAccountArea(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathAfterLogin(null, null);
             LoginController.setPathBack("allProductsForCompareProduct.fxml", "All products");
             setScene("login.fxml", "login");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        } else if (getCurrentPerson() instanceof Customer) {
             AccountAreaForCustomerController.setPathBack("allProductsForCompareProduct.fxml", "All products");
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             AccountAreaForSellerController.setPathBack("allProductsForCompareProduct.fxml", "All products");
             setScene("accountAreaForSeller.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("allProductsForCompareProduct.fxml", "All products");
             setScene("accountAreaForManager.fxml", "account area");
         }

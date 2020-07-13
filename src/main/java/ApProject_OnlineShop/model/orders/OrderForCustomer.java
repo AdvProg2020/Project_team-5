@@ -15,7 +15,7 @@ public class OrderForCustomer extends Order {
     private String postCode;
     private String name;
 
-    public OrderForCustomer(ArrayList<GoodInCart> goodsDetails, long price, String name, String postCode, String address, String phoneNumber) {
+    public OrderForCustomer(ArrayList<GoodInCart> goodsDetails, long price, String name, String postCode, String address, String phoneNumber,long id) {
         super(price);
         this.goodsDetails = new ArrayList<>();
         for (GoodInCart goodInCart : goodsDetails) {
@@ -26,7 +26,7 @@ public class OrderForCustomer extends Order {
         this.postCode = postCode;
         this.name = name;
         this.discountAmount = MainController.getInstance().getAccountAreaForCustomerController().
-                finalPriceOfAList(Shop.getInstance().getCart()) - price;
+                finalPriceOfAList(Shop.getInstance().getCart(id)) - price;
     }
 
     public ArrayList<GoodInCart> getGoodsDetails() {

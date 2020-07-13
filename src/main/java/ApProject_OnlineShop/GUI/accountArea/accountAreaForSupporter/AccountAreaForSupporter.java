@@ -1,7 +1,6 @@
-package ApProject_OnlineShop.GUI.accountArea;
+package ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter;
 
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
@@ -11,7 +10,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.net.URL;
@@ -38,7 +36,13 @@ public class AccountAreaForSupporter extends FxmlController implements Initializ
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
+            FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
+            setToken(null);
+//            MainController.getInstance().getLoginRegisterController().logoutUser();
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
@@ -62,5 +66,9 @@ public class AccountAreaForSupporter extends FxmlController implements Initializ
     public static void setPathBack(String pathBack, String titleBack) {
         AccountAreaForSupporter.pathBack = pathBack;
         AccountAreaForSupporter.titleBack = titleBack;
+    }
+
+    public void chaWithCustomers(ActionEvent actionEvent) {
+
     }
 }

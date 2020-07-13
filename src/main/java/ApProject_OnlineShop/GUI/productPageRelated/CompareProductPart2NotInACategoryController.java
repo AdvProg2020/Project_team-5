@@ -33,7 +33,8 @@ public class CompareProductPart2NotInACategoryController extends FxmlController 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        productId2 = MainController.getInstance().getProductController().getGood().getGoodId();
+//        productId2 = MainController.getInstance().getProductController().getGood().getGoodId();
+        productId2 = ProductPage.productId;
         image1.setImage(new Image(Paths.get("Resources/productImages/" + productId1 + ".jpg").toUri().toString()));
         image2.setImage(new Image(Paths.get("Resources/productImages/" + productId2 + ".jpg").toUri().toString()));
 //        ArrayList<String> details = MainController.getInstance().getProductController().compareWithAnotherProductGUI(productId1);
@@ -91,17 +92,17 @@ public class CompareProductPart2NotInACategoryController extends FxmlController 
     }
 
     public void goToAccountArea(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathAfterLogin(null, null);
             LoginController.setPathBack("compareTwoProductsNotInACategory.fxml", "compare products");
             setScene("login.fxml", "login");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        } else if (getCurrentPerson() instanceof Customer) {
             AccountAreaForCustomerController.setPathBack("compareTwoProductsNotInACategory.fxml", "compare products");
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             AccountAreaForSellerController.setPathBack("compareTwoProductsNotInACategory.fxml", "compare products");
             setScene("accountAreaForSeller.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("compareTwoProductsNotInACategory.fxml", "compare products");
             setScene("accountAreaForManager.fxml", "account area");
         }

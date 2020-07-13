@@ -16,16 +16,17 @@ import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefor
 import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
+import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.LinkOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,6 +83,10 @@ public class ClientHandler extends Thread {
     }
 
     private void handleRequest(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+        if (requestForServer.getController().equals("###cart")) {
+            cartHandler(requestForServer);
+            return;
+        }
         if (requestForServer.getToken() != null)
             user = Server.getOnlineUsers().get(requestForServer.getToken());
         if (requestForServer.getController().equals("getCurrentPerson")) {
@@ -109,6 +114,13 @@ public class ClientHandler extends Thread {
         }
     }
 
+    private void cartHandler(RequestForServer requestForServer) throws IOException {
+        Server.getCarts().put(Server.getIdForCarts(), new ArrayList<>());
+        dataOutputStream.writeUTF(Server.getIdForCarts() + "");
+        dataOutputStream.flush();
+        Server.setIdForCarts(Server.getIdForCarts() + 1);
+    }
+
     private void productControllerHandler(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
         if (requestForServer.getFunction().equals("compareWithAnotherProductGUI")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getProductController()
@@ -119,7 +131,6 @@ public class ClientHandler extends Thread {
                     .getMainInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getSellersInfo")) {
-            System.out.println(new Gson().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("isInOffBySeller")) {
@@ -132,6 +143,32 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getProductController().addComment(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), user, Long.parseLong(requestForServer.getInputs().get(2)));
             dataOutputStream.writeUTF("comment request created successfully");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllGoodsIds")) {
+            List<String> ids = new ArrayList<>();
+            for (Long goodsId : MainController.getInstance().getProductController().getAllGoodsIds()) {
+                ids.add(goodsId + "");
+            }
+            dataOutputStream.writeUTF(convertListToString(ids));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getOffGoods")) {
+            List<String> ids = new ArrayList<>();
+            for (Long goodsId : MainController.getInstance().getProductController().getOffGoods()) {
+                ids.add(goodsId + "");
+            }
+            dataOutputStream.writeUTF(convertListToString(ids));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isSubCategoryEquals")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getProductController().isSubCategoryEquals(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addGoodToCartGUI")) {
+            try {
+                MainController.getInstance().getProductController().addGoodToCartGUI(requestForServer.getInputs().get(0), Long.parseLong(requestForServer.getInputs().get(1)), Long.parseLong(requestForServer.getInputs().get(2)));
+                dataOutputStream.writeUTF("successfully added to cart");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 
@@ -166,7 +203,7 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().viewDiscountCodes(Integer.parseInt(requestForServer.getInputs().get(0)), user)));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("viewGoodInCartById")) {
-            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().viewGoodInCartById(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().viewGoodInCartById(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("rateProduct")) {
             if (user == null)
@@ -199,7 +236,7 @@ public class ClientHandler extends Thread {
             if (user == null)
                 return;
             try {
-                String output = MainController.getInstance().getAccountAreaForCustomerController().useDiscountCode(requestForServer.getInputs().get(0), user) + "";
+                String output = MainController.getInstance().getAccountAreaForCustomerController().useDiscountCode(requestForServer.getInputs().get(0), user, Long.parseLong(requestForServer.getInputs().get(1))) + "";
                 dataOutputStream.writeUTF(output);
                 dataOutputStream.flush();
             } catch (Exception e) {
@@ -210,11 +247,13 @@ public class ClientHandler extends Thread {
             if (user == null)
                 return;
             Long totalPrice = Long.parseLong(requestForServer.getInputs().get(0));
-            String usedDiscountCode = requestForServer.getInputs().get(requestForServer.getInputs().size() - 1);
+            String usedDiscountCode = requestForServer.getInputs().get(requestForServer.getInputs().size() - 2);
+            Long id = Long.parseLong(requestForServer.getInputs().get(requestForServer.getInputs().size() - 1));
             requestForServer.getInputs().remove(0);
+            requestForServer.getInputs().remove(requestForServer.getInputs().size() - 2);
             requestForServer.getInputs().remove(requestForServer.getInputs().size() - 1);
             try {
-                MainController.getInstance().getAccountAreaForCustomerController().purchaseByWallet(totalPrice, requestForServer.getInputs(), usedDiscountCode, user);
+                MainController.getInstance().getAccountAreaForCustomerController().purchaseByWallet(totalPrice, requestForServer.getInputs(), usedDiscountCode, user, id);
                 dataOutputStream.writeUTF("purchase was successful");
                 dataOutputStream.flush();
             } catch (Exception exception) {
@@ -228,12 +267,14 @@ public class ClientHandler extends Thread {
             String password = requestForServer.getInputs().get(1);
             String money = requestForServer.getInputs().get(2);
             String usedDiscountCode = requestForServer.getInputs().get(3);
+            Long id = Long.parseLong(requestForServer.getInputs().get(4));
+            requestForServer.getInputs().remove(4);
             requestForServer.getInputs().remove(3);
             requestForServer.getInputs().remove(2);
             requestForServer.getInputs().remove(1);
             requestForServer.getInputs().remove(0);
             try {
-                MainController.getInstance().getAccountAreaForCustomerController().purchaseByBankPortal(bankUserName, password, money, usedDiscountCode, requestForServer.getInputs(), user);
+                MainController.getInstance().getAccountAreaForCustomerController().purchaseByBankPortal(bankUserName, password, money, usedDiscountCode, requestForServer.getInputs(), user, id);
                 dataOutputStream.writeUTF("purchase was successful");
                 dataOutputStream.flush();
             } catch (Exception exception) {
@@ -249,6 +290,34 @@ public class ClientHandler extends Thread {
                 output.add(id + "");
             }
             dataOutputStream.writeUTF(convertArrayListToString(output));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("viewInCartProducts")) {
+            List<Long> ids = MainController.getInstance().getAccountAreaForCustomerController().viewInCartProducts(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(convertArrayListToString(convertArrayListLongToString(ids)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("increaseInCartProduct")) {
+            try {
+                MainController.getInstance().getAccountAreaForCustomerController().increaseInCartProduct(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1)));
+                dataOutputStream.writeUTF("Successfully increased");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("decreaseInCartProduct")) {
+            MainController.getInstance().getAccountAreaForCustomerController().decreaseInCartProduct(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1)));
+            dataOutputStream.writeUTF("Successfully decreased");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getCart")) {
+            dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAccountAreaForCustomerController().getCart(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("finalPriceOfAList")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(new Gson().fromJson(requestForServer.getInputs().get(0), new TypeToken<List<GoodInCart>>() {
+            }.getType())));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("clearCart")) {
+            MainController.getInstance().getAccountAreaForCustomerController().clearCart(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF("successfully cleared");
             dataOutputStream.flush();
         }
     }
@@ -459,6 +528,18 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().setMinimumAmountForWallet(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF("minimum amount successfully changed");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getCustomersOrders")) {
+            List<String> data = MainController.getInstance().getAccountAreaForManagerController().getCustomersOrders();
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("viewOrderGUI")){
+            List<String> data = MainController.getInstance().getAccountAreaForManagerController().viewOrderGUI(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("changeOrderStatus")){
+            MainController.getInstance().getAccountAreaForManagerController().changeOrderStatus(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("done successfully");
+            dataOutputStream.flush();
         }
     }
 
@@ -664,7 +745,7 @@ public class ClientHandler extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else if (user instanceof Supporter) {
+        } else if (user instanceof Supporter) {
             try {
                 dataOutputStream.writeUTF("supporter###" + gson.toJson(user, Supporter.class));
                 dataOutputStream.flush();
@@ -770,5 +851,13 @@ public class ClientHandler extends Thread {
         if (!data.isEmpty())
             output2 = output.substring(0, output.lastIndexOf("#"));
         return output2;
+    }
+
+    private ArrayList<String> convertArrayListLongToString(List<Long> inputs) {
+        ArrayList<String> output = new ArrayList<>();
+        for (Long id : inputs) {
+            output.add(id + "");
+        }
+        return output;
     }
 }

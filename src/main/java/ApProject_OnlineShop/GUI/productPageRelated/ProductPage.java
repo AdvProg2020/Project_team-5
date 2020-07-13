@@ -68,7 +68,7 @@ public class ProductPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (MainController.getInstance().getCurrentPerson() instanceof Seller || MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        if (getCurrentPerson() instanceof Seller || getCurrentPerson() instanceof Manager) {
             cart.setVisible(false);
         }
         image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
@@ -134,7 +134,8 @@ public class ProductPage extends FxmlController implements Initializable {
 //        List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId + "");
-        List<SellerRelatedInfoAboutGood> sellersInfo = new Gson().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), new TypeToken<List<SellerRelatedInfoAboutGood>>(){}.getType());
+        List<SellerRelatedInfoAboutGood> sellersInfo = new Gson().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), new TypeToken<List<SellerRelatedInfoAboutGood>>() {
+        }.getType());
         for (SellerRelatedInfoAboutGood eachSellerInfo : sellersInfo) {
             HBox sellerHBox = new HBox();
             sellerHBox.setAlignment(Pos.CENTER_LEFT);
@@ -207,7 +208,7 @@ public class ProductPage extends FxmlController implements Initializable {
             cartImage.setCursor(Cursor.HAND);
             cartImage.setOnMouseClicked(e -> addToCart(eachSellerInfo.getSeller().getUsername()));
             sellerHBox.getChildren().add(cartImage);
-            if (MainController.getInstance().getCurrentPerson() instanceof Manager || MainController.getInstance().getCurrentPerson() instanceof Seller)
+            if (getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Seller)
                 cartImage.setVisible(false);
             sellers.getChildren().add(sellerHBox);
         }
@@ -219,28 +220,38 @@ public class ProductPage extends FxmlController implements Initializable {
     }
 
     public void addToCart(String sellerUsername) {
-        try {
-            MainController.getInstance().getProductController().addGoodToCartGUI(sellerUsername);
-            SuccessPageFxController.showPage("product added to cart", "product added to cart succesfully!");
-        } catch (DontHaveEnoughNumberOfThisProduct | NotEnoughAvailableProduct dontHaveEnoughNumberOfThisProduct) {
-            ErrorPageFxController.showPage("cannot add this product", dontHaveEnoughNumberOfThisProduct.getMessage());
-        } catch (Exception exception) {
-            ErrorPageFxController.showPage("cannot add this product", exception.getMessage());
+//        try {
+//            MainController.getInstance().getProductController().addGoodToCartGUI(sellerUsername,productId,getId());
+//            SuccessPageFxController.showPage("product added to cart", "product added to cart succesfully!");
+//        } catch (DontHaveEnoughNumberOfThisProduct | NotEnoughAvailableProduct dontHaveEnoughNumberOfThisProduct) {
+//            ErrorPageFxController.showPage("cannot add this product", dontHaveEnoughNumberOfThisProduct.getMessage());
+//        } catch (Exception exception) {
+//            ErrorPageFxController.showPage("cannot add this product", exception.getMessage());
+//        }
+        ArrayList<String> inputs2 = new ArrayList<>();
+        inputs2.add(sellerUsername);
+        inputs2.add(productId + "");
+        inputs2.add(getId() + "");
+        String serverResponse = connectToServer(new RequestForServer("ProductController", "addGoodToCartGUI", null, inputs2));
+        if (serverResponse.equals("successfully added to cart")) {
+            SuccessPageFxController.showPage("product added to cart", "product added to cart successfully!");
+        } else {
+            ErrorPageFxController.showPage("cannot add this product", serverResponse);
         }
     }
 
     public void goToAccountArea(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathAfterLogin(null, null);
             LoginController.setPathBack("productPage.fxml", "product page");
             setScene("login.fxml", "login");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        } else if (getCurrentPerson() instanceof Customer) {
             AccountAreaForCustomerController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             AccountAreaForSellerController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForSeller.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForManager.fxml", "account area");
         }
