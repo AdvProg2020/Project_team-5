@@ -29,7 +29,7 @@
         <opaqueInsets>
             <Insets top="1.0" />
         </opaqueInsets>
-        <Label prefHeight="18.0" prefWidth="196.0" text="id :">
+        <Label prefHeight="18.0" prefWidth="196.0" text="id:">
             <padding>
                 <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
             </padding>

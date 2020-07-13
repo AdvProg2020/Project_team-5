@@ -204,5 +204,6 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void chatWithSupportersPage(ActionEvent actionEvent) {
+        setScene("customerChat.fxml", "customer chat");
     }
 }

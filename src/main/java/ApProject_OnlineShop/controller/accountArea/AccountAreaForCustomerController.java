@@ -15,7 +15,9 @@ import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.Supporter;
 import ApProject_OnlineShop.model.productThings.*;
+import ApProject_OnlineShop.server.Server;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -242,5 +244,14 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public void clearCart(long id) {
         Shop.getInstance().clearCart(id);
+    }
+
+    public List<String> getOnlineSupporters(){
+        List<String> onlineSupporters = new ArrayList<>();
+        for (Person person : Server.getOnlineUsers().values()) {
+            if (person instanceof Supporter)
+                onlineSupporters.add(person.getUsername());
+        }
+        return onlineSupporters;
     }
 }

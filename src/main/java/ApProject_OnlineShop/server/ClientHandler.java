@@ -319,6 +319,10 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForCustomerController().clearCart(Long.parseLong(requestForServer.getInputs().get(0)));
             dataOutputStream.writeUTF("successfully cleared");
             dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("getOnlineSupporters")){
+            List<String> data = MainController.getInstance().getAccountAreaForCustomerController().getOnlineSupporters();
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
         }
     }
 
