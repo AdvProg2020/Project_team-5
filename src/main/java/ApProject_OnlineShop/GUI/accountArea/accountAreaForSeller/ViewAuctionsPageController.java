@@ -2,19 +2,21 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.server.RequestForServer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ViewAuctionsPageController extends FxmlController implements Initializable {
@@ -63,5 +65,26 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
 
     private void viewSingleAuction(String auction) {
 
+    }
+
+    public void onLogoutIconClicked(MouseEvent mouseEvent) {
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
+        if (result.get() == ButtonType.OK) {
+            //MainController.getInstance().getLoginRegisterController().logoutUser();
+            //Shop.getInstance().clearCart();
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
+            FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
+            setToken(null);
+            setScene("mainMenuLayout.fxml", "Main menu");
+        }
+    }
+
+
+    public void onBackButtonPressed(ActionEvent actionEvent) {
+        setScene("accountAreaForSeller.fxml", "account area");
     }
 }
