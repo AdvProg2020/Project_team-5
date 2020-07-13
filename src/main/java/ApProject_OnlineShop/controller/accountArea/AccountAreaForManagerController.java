@@ -204,9 +204,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return subCategories;
     }
 
-//    public ArrayList<String> getCategoryProperties(String categoryName) {
-//        return Shop.getInstance().findCategoryByName(categoryName).getDetails();
-//    }
+    public ArrayList<String> getCategoryProperties(String categoryName) {
+        return Shop.getInstance().findCategoryByName(categoryName).getDetails();
+    }
 
     public void editCategory(String name, String property, String newValue)
             throws PropertyNotFoundException, IOException, FileCantBeSavedException {

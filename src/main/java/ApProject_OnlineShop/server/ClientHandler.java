@@ -540,6 +540,9 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().changeOrderStatus(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
             dataOutputStream.writeUTF("done successfully");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getCategoryProperties")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getCategoryProperties(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
         }
     }
 

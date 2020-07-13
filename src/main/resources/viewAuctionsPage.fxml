@@ -52,7 +52,7 @@
     </Label>
     <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" spacing="20.0" GridPane.rowIndex="1">
         <children>
-            <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#onRemoveCategoryPressed" prefHeight="34.0" prefWidth="155.0" styleClass="menuButtons" text="remove auction">
+            <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#onRemoveAuctionPressed" prefHeight="34.0" prefWidth="155.0" styleClass="menuButtons" text="remove auction">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -66,7 +66,7 @@
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </padding>
             </Button>
-            <Button fx:id="endButton" disable="true" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#onEditCategoryPressed" prefHeight="34.0" prefWidth="155.0" styleClass="menuButtons" text="end auction">
+            <Button fx:id="endButton" disable="true" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#onEndAuctionPressed" prefHeight="34.0" prefWidth="155.0" styleClass="menuButtons" text="end auction">
                 <font>
                     <Font size="14.0" />
                 </font>

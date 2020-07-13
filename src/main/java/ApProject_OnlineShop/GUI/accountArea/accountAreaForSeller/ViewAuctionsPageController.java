@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,6 +65,31 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
     }
 
     private void viewSingleAuction(String auction) {
+        singleAuctionVBox.getChildren().clear();
+        Label title = new Label(auction);
+        title.setFont(Font.font(16));
+        title.setAlignment(Pos.CENTER);
+        singleAuctionVBox.getChildren().add(title);
+        Label details = new Label("- Details: ");
+        details.setFont(Font.font(14));
+        details.setAlignment(Pos.CENTER);
+        singleAuctionVBox.getChildren().add(details);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(auction);
+        List<String> detailes = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getAuctionProperties", getToken(), inputs)));
+        for (String detail : detailes) {
+            Label label = new Label(detail);
+            label.setFont(Font.font(13));
+            label.setAlignment(Pos.CENTER);
+            singleAuctionVBox.getChildren().add(label);
+        }
+    }
+
+    public void onRemoveAuctionPressed() {
+
+    }
+
+    public void onEndAuctionPressed() {
 
     }
 
