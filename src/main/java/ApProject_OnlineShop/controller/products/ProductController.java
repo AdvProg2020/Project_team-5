@@ -99,7 +99,7 @@ public class ProductController {
         }
         if (!flag)
             Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1, cartId);
-    } //todo
+    }
 
 //    public int getAvailableNumberOfAProductByASeller(int sellerNumber) {
 //        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = good.getSellerRelatedInfoAboutGoods().get(sellerNumber - 1);

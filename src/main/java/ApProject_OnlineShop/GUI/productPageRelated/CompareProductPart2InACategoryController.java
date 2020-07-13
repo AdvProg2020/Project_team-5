@@ -155,17 +155,17 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
     }
 
     public void goToAccountArea(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathAfterLogin(null, null);
             LoginController.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
             setScene("login.fxml", "login");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        } else if (getCurrentPerson() instanceof Customer) {
             AccountAreaForCustomerController.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             AccountAreaForSellerController.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
             setScene("accountAreaForSeller.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
             setScene("accountAreaForManager.fxml", "account area");
         }

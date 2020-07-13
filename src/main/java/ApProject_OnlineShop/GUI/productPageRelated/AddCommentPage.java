@@ -52,17 +52,17 @@ public class AddCommentPage extends FxmlController {
     }
 
     public void onAccountAreaIconClicked(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathBack("addComment.fxml", "add comment");
             LoginController.setPathAfterLogin(null, null);
             setScene("login.fxml", "login");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        } else if (getCurrentPerson() instanceof Customer) {
             AccountAreaForCustomerController.setPathBack("addComment.fxml", "add comment");
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             AccountAreaForSellerController.setPathBack("addComment.fxml", "add comment");
             setScene("accountAreaForSeller.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("addComment.fxml", "add comment");
             setScene("accountAreaForManager.fxml", "account area");
         }

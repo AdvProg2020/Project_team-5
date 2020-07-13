@@ -198,9 +198,9 @@ public class Cart extends FxmlController implements Initializable {
             ErrorPageFxController.showPage("error for purchase", "your cart is empty");
             return;
         }
-        if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        if (getCurrentPerson() instanceof Customer) {
             setScene("purchasePage1.fxml", "purchase");
-        } else if (MainController.getInstance().getCurrentPerson() == null) {
+        } else if (getCurrentPerson() == null) {
             LoginController.setPathAfterLogin("purchasePage1.fxml", "purchase");
             LoginController.setPathBack("cart.fxml", "cart");
             setScene("login.fxml", "login");

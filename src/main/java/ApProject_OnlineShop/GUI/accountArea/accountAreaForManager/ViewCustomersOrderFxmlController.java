@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -32,7 +33,13 @@ public class ViewCustomersOrderFxmlController extends FxmlController implements 
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
+//            MainController.getInstance().getLoginRegisterController().logoutUser();
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
+            FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
+            setToken(null);
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
