@@ -43,17 +43,17 @@ public class CustomerChatFxmlController extends FxmlController implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<String> onlineSupporters = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomer", "getOnlineSupporters", getToken(), null)));
+        ArrayList<String> onlineSupporters = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getOnlineSupporters", getToken(), null)));
         if (onlineSupporters != null) {
             for (String supporter : onlineSupporters) {
-                Hyperlink hyperlink = new Hyperlink("- " + supporter);
+                Hyperlink hyperlink = new Hyperlink("-  " + supporter);
                 hyperlink.setPrefSize(280, 50);
                 hyperlink.setOnMouseClicked(e -> chatPage(supporter));
                 hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
                 hyperlink.setAlignment(Pos.BOTTOM_LEFT);
                 hyperlink.setPadding(new Insets(8));
                 hyperlink.setUnderline(false);
-                hyperlink.setFont(new Font("Times New Roman", 16));
+                hyperlink.setFont(new Font("Times New Roman", 18));
                 vBox.getChildren().add(hyperlink);
             }
         }
