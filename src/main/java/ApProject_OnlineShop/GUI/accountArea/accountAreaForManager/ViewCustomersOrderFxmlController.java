@@ -59,6 +59,7 @@ public class ViewCustomersOrderFxmlController extends FxmlController implements 
 
     private void viewSingleOrder(String order) {
         long id = Long.parseLong(order.substring("order ID: ".length() , order.indexOf("  ")));
-        System.out.println(id);
+        ViewSingleCustomerOrderForManager.setId(id);
+        setScene("showSingleCustomerOrderForManager.fxml", "view single order");
     }
 }

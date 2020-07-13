@@ -22,6 +22,7 @@ import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Supporter;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.requests.Request;
 
@@ -214,7 +215,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
             if (category.getDetails().get(i).equalsIgnoreCase(property)) {
                 category.getDetails().set(i, newValue);
                 Database.getInstance().saveItem(category);
-                updatePropertyForProducts(Shop.getInstance().findCategoryByName(name),property, newValue);
+                updatePropertyForProducts(Shop.getInstance().findCategoryByName(name), property, newValue);
                 return;
             }
         }
@@ -351,7 +352,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
 //        return info;
 //    }
 
-    public void createSupporter(String username, ArrayList<String> details) throws Exception{
+    public void createSupporter(String username, ArrayList<String> details) throws Exception {
         if (Shop.getInstance().findUser(username) != null) {
             throw new UsernameIsTakenAlreadyException();
         }
@@ -399,21 +400,40 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
     }
 
-    public void setBankingFeePercent(String percent){
+    public void setBankingFeePercent(String percent) {
         Shop.getInstance().getShopBankAccount().setBankingFeePercent(Integer.parseInt(percent));
     }
 
-    public void setMinimumAmountForWallet(String minimumAmount){
+    public void setMinimumAmountForWallet(String minimumAmount) {
         Shop.getInstance().getShopBankAccount().setMinimumAmount(Integer.parseInt(minimumAmount));
     }
 
-    public List<String> getCustomersOrders(){
+    public List<String> getCustomersOrders() {
         HashMap<Long, Order> allOrders = Shop.getInstance().getAllOrders();
         List<String> customersOrder = new ArrayList<>();
         for (Order order : allOrders.values()) {
             if (order instanceof OrderForCustomer)
-                customersOrder.add( order.briefString());
+                customersOrder.add(order.briefString());
         }
         return customersOrder;
+    }
+
+    public List<String> viewOrderGUI(String orderId) {
+        long id = Long.parseLong(orderId);
+        Order order = Shop.getInstance().getAllOrders().get(id);
+        OrderForCustomer orderForCustomer = (OrderForCustomer) order;
+        ArrayList<String> orderInfo = new ArrayList<>();
+        orderInfo.add("" + orderForCustomer.getOrderId());
+        orderInfo.add("" + orderForCustomer.getDate());
+        String goods = "";
+        for (GoodInCart goodsDetail : orderForCustomer.getGoodsDetails()) {
+            goods += "- " + goodsDetail.getBriefString() + "\n\n";
+        }
+        orderInfo.add(goods);
+        orderInfo.add("" + orderForCustomer.getDiscountAmount());
+        orderInfo.add("" + orderForCustomer.getPrice());
+        orderInfo.add("" + orderForCustomer.getAddress());
+        orderInfo.add("" + orderForCustomer.getOrderStatus());
+        return orderInfo;
     }
 }
