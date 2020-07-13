@@ -188,6 +188,15 @@ public class SavingData {
             saveFile(yaGson.toJson(request, RegisteringSellerRequest.class), filePath);
     }
 
+    public void saveAuction(Auction auction) throws IOException, FileCantBeSavedException {
+        String filePath;
+        if (!testMode)
+            filePath = "Resources\\Auctions\\auction_" + auction.getAuctionId() + ".json";
+        else
+            filePath = "TestResources\\Auctions\\auction_" + auction.getAuctionId() + ".json";
+        saveFile(yaGson.toJson(auction, Auction.class), filePath);
+    }
+
     private void saveFile(String serializedData, String filePath) throws IOException, FileCantBeSavedException {
         File file = new File(filePath);
         if (!file.exists()) {
