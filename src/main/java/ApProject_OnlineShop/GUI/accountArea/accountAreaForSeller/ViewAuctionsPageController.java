@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
+import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
@@ -92,7 +94,15 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
     }
 
     public void onRemoveAuctionPressed() {
-
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(selectedAuctionId);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "removeAuction", getToken(), inputs));
+        if (serverResponse.equals("auction successfully removed")) {
+            SuccessPageFxController.showPage("auction removed successfully", "your auction successfully removed.");
+            updateAllAuctionsBos();
+        } else {
+            ErrorPageFxController.showPage("auction cannot be removed", serverResponse);
+        }
     }
 
     public void onEndAuctionPressed() {

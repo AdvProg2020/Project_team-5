@@ -112,7 +112,12 @@ public class Seller extends Person {
     }
 
     public void removeAuction(Auction auction) {
-        this.activeAuctions.remove(auction.getAuctionId());
+        int index = 0;
+        for (;index < this.activeAuctions.size();index++) {
+            if (this.activeAuctions.get(index) == auction.getAuctionId())
+                break;
+        }
+        this.activeAuctions.remove(index);
     }
 
     public ArrayList<String> buyersOfAGood(Good good) {

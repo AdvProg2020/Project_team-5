@@ -705,6 +705,17 @@ public class ClientHandler extends Thread {
             List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
             dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("removeAuction")) {
+            int auctionId = Integer.parseInt(requestForServer.getInputs().get(0));
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().removeAuction(auctionId);
+                dataOutputStream.writeUTF("auction successfully removed");
+            } catch (FileCantBeSavedException | FileCantBeDeletedException e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
         }
     }
 
