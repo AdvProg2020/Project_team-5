@@ -51,6 +51,7 @@ public class Database {
         loadingData.loadOrderForSeller();
         loadingData.loadOrderForCustomer();
         loadingData.loadShopBankAccount();
+        loadingData.loadAuctions();
         for (Request request : Shop.getInstance().getAllRequest()) {
             request.setName();
         }

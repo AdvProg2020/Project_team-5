@@ -192,6 +192,13 @@ public class DeletingData {
         deleteFile(filePath);
     }
 
+    public void deleteAuction(Auction auction) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Auctions\\auction_" + auction.getAuctionId() + ".json";
+        if (testMode)
+            filePath = "Test".concat(filePath);
+        deleteFile(filePath);
+    }
+
     private void deleteFile(String filePath) throws FileCantBeDeletedException {
         File file = new File(filePath);
         if (!file.delete())
