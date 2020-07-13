@@ -15,15 +15,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" prefHeight="502.0" prefWidth="655.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController">
+<GridPane alignment="CENTER" prefHeight="555.0" prefWidth="725.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0" prefWidth="369.79999999999995" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="397.0" minHeight="10.0" prefHeight="386.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="436.0" minHeight="10.0" prefHeight="436.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>
@@ -105,6 +105,11 @@
             </font>
          </MenuButton>
          <Button mnemonicParsing="false" onAction="#onCreateAuctionClicked" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="create auction">
+            <VBox.margin>
+               <Insets top="20.0" />
+            </VBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#onViewAuctionsPressed" prefHeight="30.0" prefWidth="181.0" styleClass="menuButtons" text="view auctions">
             <VBox.margin>
                <Insets top="20.0" />
             </VBox.margin>
