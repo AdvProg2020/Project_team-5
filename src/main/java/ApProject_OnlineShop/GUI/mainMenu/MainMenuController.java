@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.mainMenu;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.accountArea.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
@@ -11,6 +12,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.Supporter;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,6 +50,9 @@ public class MainMenuController extends FxmlController implements Initializable 
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("mainMenuLayout.fxml", "main menu");
             setScene("accountAreaForManager.fxml", "account area");
+        }else if(getCurrentPerson() instanceof Supporter){
+            AccountAreaForSupporter.setPathBack("mainMenuLayout.fxml", "main menu");
+            setScene("accountAreaForSupporter.fxml", "account area");
         }
     }
 

@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.accountArea;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
@@ -30,7 +31,7 @@ public class AccountAreaForSupporter extends FxmlController implements Initializ
     private static String titleBack;
 
     public void onBackButtonPressed() {
-        setScene(pathBack, titleBack);
+        setScene("mainMenuLayout.fxml", "main menu");
     }
 
     public void onLogoutClicked() {
@@ -56,5 +57,10 @@ public class AccountAreaForSupporter extends FxmlController implements Initializ
         lastName.setText(personalInfo.get(2));
         email.setText(personalInfo.get(3));
         phoneNumber.setText(personalInfo.get(4));
+    }
+
+    public static void setPathBack(String pathBack, String titleBack) {
+        AccountAreaForSupporter.pathBack = pathBack;
+        AccountAreaForSupporter.titleBack = titleBack;
     }
 }
