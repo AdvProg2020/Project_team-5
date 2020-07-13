@@ -10,6 +10,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -26,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -58,7 +60,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
             availableProducts.setSelected(true);
         if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter())
             offProductsButton.setSelected(true);
-        List<String> categories = MainController.getInstance().getAllProductsController().getAllCategories();
+        List<String> categories = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getAllCategories", getToken(), null)));
+//       List<String> categories = MainController.getInstance().getAllProductsController().getAllCategories();
         categories.add("none");
         category.setItems(FXCollections.observableList(categories));
         category.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
@@ -164,15 +167,22 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public void setProducts() {
         int num = 0;
         int row = 0;
-        for (Long productId : MainController.getInstance().getAllProductsController().getGoods()) {
-            if (MainController.getInstance().getAllProductsController().isInOff(productId)) {
+        ArrayList<String> products = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getGoods", getToken(), null)));
+        ArrayList<Long> productsIds = new ArrayList<>();
+        for (String product : products) {
+            productsIds.add(Long.parseLong(product));
+        }
+        for (Long productId : productsIds) {
+            ArrayList<String> input = new ArrayList<>();
+            input.add(productId + "");
+            if ((connectToServer(new RequestForServer("AllProductsController", "isInOff", getToken(), input))).equals("true")) {
                 VBox vbox = new ProductBriefSummery().offProductBriefSummery(productId);
                 productsPart.add(vbox, num % 3, row);
                 num++;
                 vbox.setCursor(Cursor.HAND);
                 vbox.setOnMouseClicked(e -> showProduct(productId));
             }
-            if (!MainController.getInstance().getAllProductsController().isInOff(productId)) {
+            if (!((connectToServer(new RequestForServer("AllProductsController", "isInOff", getToken(), input))).equals("true"))) {
                 VBox vbox = new ProductBriefSummery().getProductForAllProductsPage(productId);
                 productsPart.add(vbox, num % 3, row);
                 num++;
@@ -182,15 +192,15 @@ public class AllProductsPage extends FxmlController implements Initializable {
             if (num % 3 == 0)
                 row++;
         }
-        if (MainController.getInstance().getAllProductsController().getGoods().size() == 0)
+        if (productsIds.size() == 0)
             return;
-        if ((MainController.getInstance().getAllProductsController().getGoods().size() % 3 != 0)) {
-            if ((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) > 1067) {
-                mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 1) * 250) + 133);
+        if ((productsIds.size() % 3 != 0)) {
+            if ((((productsIds.size() / 3) + 1) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((productsIds.size() / 3) + 1) * 250) + 133);
             }
         } else {
-            if ((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 0) * 250) > 1067) {
-                mainGridPane.setPrefHeight((((MainController.getInstance().getAllProductsController().getGoods().size() / 3) + 0) * 250) + 133);
+            if ((((productsIds.size() / 3) + 0) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((productsIds.size() / 3) + 0) * 250) + 133);
             }
         }
     }

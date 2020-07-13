@@ -11,10 +11,13 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+
+import java.util.ArrayList;
 
 
 public class AddCommentPage extends FxmlController {
@@ -22,36 +25,45 @@ public class AddCommentPage extends FxmlController {
     public TextField title, content;
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
-        setScene("commentsPage.fxml","comments page");
+        setScene("commentsPage.fxml", "comments page");
     }
 
     public void onAddComment(ActionEvent actionEvent) {
         if (!title.getText().equals("") && !content.getText().equals("")) {
-            try {
-                MainController.getInstance().getProductController().addComment(title.getText(), content.getText());
+//            try {
+//                MainController.getInstance().getProductController().addComment(title.getText(), content.getText());
+            ArrayList<String> inputs2 = new ArrayList<>();
+            inputs2.add(title.getText());
+            inputs2.add(content.getText());
+            inputs2.add(CommentsPage.getGoodId() + "");
+            String serverResponse = connectToServer(new RequestForServer("ProductController", "getMainInfo", getToken(), inputs2));
+            if (serverResponse.equals("comment request created successfully")) {
                 SuccessPageFxController.showPage("comment request sent", "your comment will be added soon if managers accept it");
-                setScene("commentsPage.fxml","comments page");
-            } catch (Exception e) {
-                ErrorPageFxController.showPage("error happened for adding comment", e.getMessage());
+                setScene("commentsPage.fxml", "comments page");
+            } else {
+                ErrorPageFxController.showPage("error happened for adding comment", serverResponse);
             }
+//            } catch (Exception e) {
+//                ErrorPageFxController.showPage("error happened for adding comment", e.getMessage());
+//            }
         } else {
-            ErrorPageFxController.showPage("error happened","fields should be filled!");
+            ErrorPageFxController.showPage("error happened", "fields should be filled!");
         }
     }
 
     public void onAccountAreaIconClicked(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
             LoginController.setPathBack("addComment.fxml", "add comment");
-            LoginController.setPathAfterLogin(null,null);
+            LoginController.setPathAfterLogin(null, null);
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-            AccountAreaForCustomerController.setPathBack("addComment.fxml","add comment");
+            AccountAreaForCustomerController.setPathBack("addComment.fxml", "add comment");
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
-            AccountAreaForSellerController.setPathBack("addComment.fxml","add comment");
+            AccountAreaForSellerController.setPathBack("addComment.fxml", "add comment");
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
-            AccountAreaForManagerFxController.setPathBack("addComment.fxml","add comment");
+            AccountAreaForManagerFxController.setPathBack("addComment.fxml", "add comment");
             setScene("accountAreaForManager.fxml", "account area");
         }
     }

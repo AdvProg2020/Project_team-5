@@ -10,6 +10,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -45,7 +46,11 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
         productId2 = MainController.getInstance().getProductController().getGood().getGoodId();
         image1.setImage(new Image(Paths.get("Resources/productImages/" + productId1 + ".jpg").toUri().toString()));
         image2.setImage(new Image(Paths.get("Resources/productImages/" + productId2 + ".jpg").toUri().toString()));
-        ArrayList<String> details = MainController.getInstance().getProductController().compareWithAnotherProductGUI(productId1);
+//        ArrayList<String> details = MainController.getInstance().getProductController().compareWithAnotherProductGUI(productId2,productId1);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId2 + "");
+        inputs.add(productId1 + "");
+        ArrayList<String> details = convertStringToArraylist(connectToServer(new RequestForServer("ProductController", "compareWithAnotherProductGUI", null, inputs)));
         name1.setText(details.get(0));
         name2.setText(details.get(1));
         brand1.setText(details.get(2));
@@ -57,7 +62,7 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
             star.setFitHeight(20);
             rate1.getChildren().add(star);
         }
-        Label rateDouble = new Label("  " +  (Double.parseDouble(details.get(4)) / 2));
+        Label rateDouble = new Label("  " + (Double.parseDouble(details.get(4)) / 2));
         setLabelStyle(rateDouble);
         rate1.getChildren().add(rateDouble);
         for (int i = 0; i < (int) (Double.parseDouble(details.get(5)) / 2); i++) {
@@ -66,7 +71,7 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
             star.setFitHeight(20);
             rate2.getChildren().add(star);
         }
-        Label rateDouble2 = new Label("  " +  (Double.parseDouble(details.get(5)) / 2));
+        Label rateDouble2 = new Label("  " + (Double.parseDouble(details.get(5)) / 2));
         setLabelStyle(rateDouble2);
         rate2.getChildren().add(rateDouble2);
         subCategory1.setText(details.get(6));
@@ -150,17 +155,17 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
 
     public void goToAccountArea(MouseEvent mouseEvent) {
         if (MainController.getInstance().getCurrentPerson() == null) {
-            LoginController.setPathAfterLogin(null,null);
+            LoginController.setPathAfterLogin(null, null);
             LoginController.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
             setScene("login.fxml", "login");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
-            AccountAreaForCustomerController.setPathBack("compareTwoProductsInACategory.fxml","compare products");
+            AccountAreaForCustomerController.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
             setScene("accountAreaForCustomer.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
-            AccountAreaForSellerController.setPathBack("compareTwoProductsInACategory.fxml","compare products");
+            AccountAreaForSellerController.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
             setScene("accountAreaForSeller.fxml", "account area");
         } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
-            AccountAreaForManagerFxController.setPathBack("compareTwoProductsInACategory.fxml","compare products");
+            AccountAreaForManagerFxController.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
             setScene("accountAreaForManager.fxml", "account area");
         }
     }

@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.server.clientHandler;
+package ApProject_OnlineShop.server.clientHandlerForBank;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;

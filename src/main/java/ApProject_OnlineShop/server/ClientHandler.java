@@ -19,8 +19,8 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
-import ApProject_OnlineShop.server.clientHandler.BankAccountsControllerHandler;
-import ApProject_OnlineShop.server.clientHandler.BankTransactionControllerHandler;
+import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
+import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
 import com.google.gson.Gson;
 
 import java.io.DataInputStream;
@@ -28,6 +28,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.LinkOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,6 +105,60 @@ public class ClientHandler extends Thread {
             accountAreaForManagerHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForCustomerController")) {
             accountAreaForCustomer(requestForServer);
+        } else if (requestForServer.getController().equals("AllProductsController")) {
+            allProductsHandler(requestForServer);
+        } else if (requestForServer.getController().equals("ProductController")) {
+            productControllerHandler(requestForServer);
+        }
+    }
+
+    private void productControllerHandler(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+        if (requestForServer.getFunction().equals("compareWithAnotherProductGUI")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getProductController()
+                    .compareWithAnotherProductGUI(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getMainInfo")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getProductController()
+                    .getMainInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSellersInfo")) {
+            System.out.println(new Gson().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isInOffBySeller")) {
+            Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF("" + MainController.getInstance().getProductController().isInOffBySeller(seller, Long.parseLong(requestForServer.getInputs().get(1))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addComment")) {
+            if (user == null)
+                return;
+            MainController.getInstance().getProductController().addComment(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), user, Long.parseLong(requestForServer.getInputs().get(2)));
+            dataOutputStream.writeUTF("comment request created successfully");
+            dataOutputStream.flush();
+        }
+    }
+
+    private void allProductsHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getProductBrief")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getProductBrief(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getOffProductBriefSummery")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getOffProductBriefSummery(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllCategories")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getAllCategories()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getGoods")) {
+            List<Long> longIds = MainController.getInstance().getAllProductsController().getGoods();
+            ArrayList<String> idsString = new ArrayList<>();
+            for (Long id : longIds) {
+                idsString.add(id + "");
+            }
+            dataOutputStream.writeUTF(convertListToString(idsString));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isInOff")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAllProductsController().isInOff(Long.parseLong(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
         }
     }
 

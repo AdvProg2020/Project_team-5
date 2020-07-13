@@ -1,9 +1,8 @@
-package ApProject_OnlineShop.server.clientHandler;
+package ApProject_OnlineShop.server.clientHandlerForBank;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.server.RequestForServer;
-import com.google.gson.Gson;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

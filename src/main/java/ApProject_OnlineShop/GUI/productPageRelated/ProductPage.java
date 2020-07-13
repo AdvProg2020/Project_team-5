@@ -16,6 +16,9 @@ import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
+import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -35,6 +38,7 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -68,7 +72,10 @@ public class ProductPage extends FxmlController implements Initializable {
             cart.setVisible(false);
         }
         image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
-        List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
+//        List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        ArrayList<String> mainInfo = convertStringToArraylist(connectToServer(new RequestForServer("ProductController", "getMainInfo", null, inputs)));
         name.setText(mainInfo.get(0));
         brand.setText(mainInfo.get(1));
         category.setText(mainInfo.get(2) + " category");
@@ -124,7 +131,10 @@ public class ProductPage extends FxmlController implements Initializable {
     public void makeSellersList() {
         sellers.setAlignment(Pos.CENTER);
         sellers.setSpacing(13);
-        List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
+//        List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        List<SellerRelatedInfoAboutGood> sellersInfo = new Gson().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), new TypeToken<List<SellerRelatedInfoAboutGood>>(){}.getType());
         for (SellerRelatedInfoAboutGood eachSellerInfo : sellersInfo) {
             HBox sellerHBox = new HBox();
             sellerHBox.setAlignment(Pos.CENTER_LEFT);
@@ -150,7 +160,10 @@ public class ProductPage extends FxmlController implements Initializable {
             goodStatus.setPadding(new Insets(0, 15, 0, 15));
             goodStatusVBox.getChildren().add(goodStatus);
             sellerHBox.getChildren().add(goodStatusVBox);
-            if (!MainController.getInstance().getProductController().isInOffBySeller(eachSellerInfo.getSeller())) {
+            ArrayList<String> inputs2 = new ArrayList<>();
+            inputs2.add(eachSellerInfo.getSeller().getUsername());
+            inputs2.add(productId + "");
+            if (connectToServer(new RequestForServer("ProductController", "isInOffBySeller", null, inputs2)).equals("false")) {
                 HBox priceBox = new HBox();
                 priceBox.setAlignment(Pos.CENTER_LEFT);
                 priceBox.setMaxWidth(200);
@@ -166,7 +179,7 @@ public class ProductPage extends FxmlController implements Initializable {
                 sellerHBox.getChildren().add(priceBox);
 
             }
-            if (MainController.getInstance().getProductController().isInOffBySeller(eachSellerInfo.getSeller())) {
+            if (connectToServer(new RequestForServer("ProductController", "isInOffBySeller", null, inputs2)).equals("true")) {
                 HBox priceBox = new HBox();
                 priceBox.setAlignment(Pos.CENTER_LEFT);
                 priceBox.setMaxWidth(200);
@@ -202,7 +215,7 @@ public class ProductPage extends FxmlController implements Initializable {
 
     public static void setProductId(long productId) {
         ProductPage.productId = productId;
-        MainController.getInstance().getProductController().setGoodById(productId);
+//        MainController.getInstance().getProductController().setGoodById(productId);
     }
 
     public void addToCart(String sellerUsername) {

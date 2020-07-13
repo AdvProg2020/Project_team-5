@@ -146,4 +146,8 @@ public class CommentsPage extends FxmlController implements Initializable {
         Cart.setPathBack("commentsPage.fxml", "comments page");
         setScene("cart.fxml", "cart");
     }
+
+    public static long getGoodId() {
+        return goodId;
+    }
 }
