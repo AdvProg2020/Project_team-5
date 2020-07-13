@@ -67,6 +67,10 @@ public class DeletingData {
             Shop.getInstance().removeOff(off);
             Database.getInstance().deleteItem(off);
         }
+        for (Auction auction : seller.getActiveAuctions()) {
+            Shop.getInstance().removeAuction(auction);
+            Database.getInstance().deleteItem(auction);
+        }
         for (OrderForSeller previousSell : seller.getPreviousSells()) {
             Database.getInstance().deleteItem(previousSell);
             Shop.getInstance().getHasMapOfOrders().remove(previousSell.getOrderId());

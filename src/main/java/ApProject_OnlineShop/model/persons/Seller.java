@@ -48,9 +48,7 @@ public class Seller extends Person {
         this.bankAccountId = bankAccountId;
         try {
             Database.getInstance().saveItem(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
+        } catch (IOException | FileCantBeSavedException e) {
             e.printStackTrace();
         }
     }
