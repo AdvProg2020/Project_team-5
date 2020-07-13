@@ -160,6 +160,8 @@ public class FxmlController {
     }
 
     public ArrayList<String> convertStringToArraylist(String data) {
+        if(data.equals(""))
+            return new ArrayList<>();
         String[] split = data.split("#");
         ArrayList<String> output = new ArrayList<>();
         for (String s : split) {

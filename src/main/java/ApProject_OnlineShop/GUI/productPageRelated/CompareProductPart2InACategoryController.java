@@ -43,7 +43,8 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        productId2 = MainController.getInstance().getProductController().getGood().getGoodId();
+//        productId2 = MainController.getInstance().getProductController().getGood().getGoodId();
+        productId2 = ProductPage.productId;
         image1.setImage(new Image(Paths.get("Resources/productImages/" + productId1 + ".jpg").toUri().toString()));
         image2.setImage(new Image(Paths.get("Resources/productImages/" + productId2 + ".jpg").toUri().toString()));
 //        ArrayList<String> details = MainController.getInstance().getProductController().compareWithAnotherProductGUI(productId2,productId1);

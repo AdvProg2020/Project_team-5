@@ -105,7 +105,7 @@ public class AccountAreaForCustomerTest {
     @Test
     public void increaseAndDecreaseGoodInCart() {
         Shop.getInstance().clearCart();
-        MainController.getInstance().getProductController().setGood(good);
+//        MainController.getInstance().getProductController().setGood(good);
 //        try {
 //            MainController.getInstance().getProductController().addGoodToCart(1,1);
 //        } catch (DontHaveEnoughNumberOfThisProduct dontHaveEnoughNumberOfThisProduct) {

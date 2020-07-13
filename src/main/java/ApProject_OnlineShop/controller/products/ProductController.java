@@ -22,25 +22,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductController {
-    private Good good;
-
-    public Good getGood() {
-        return good;
-    }
-
-    public void setGood(Good good) {
-        this.good = good;
-        if (good != null) {
-            if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
-                good.setSeenNumber(good.getSeenNumber() + 1);
-            }
-            try {
-                Database.getInstance().saveItem(good);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    private Good good;
+//
+//    public Good getGood() {
+//        return good;
+//    }
+//
+//    public void setGood(Good good) {
+//        this.good = good;
+//        if (good != null) {
+//            if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
+//                good.setSeenNumber(good.getSeenNumber() + 1);
+//            }
+//            try {
+//                Database.getInstance().saveItem(good);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
 //    public void setGoodById(long goodId) {
 //        setGood(Shop.getInstance().findGoodById(goodId));
@@ -73,32 +73,32 @@ public class ProductController {
 //        Shop.getInstance().addGoodToCart(good, sellerRelatedInfoAboutGood.getSeller(), number);
 //    }
 
-    public void addGoodToCartGUI(String seller) throws Exception {
-        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
-        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
-            if (relatedInfoAboutGood.getSeller().getUsername().equals(seller)) {
-                sellerRelatedInfoAboutGood = relatedInfoAboutGood;
-                break;
-            }
-        }
-        if (sellerRelatedInfoAboutGood.getAvailableNumber() < 1)
-            throw new DontHaveEnoughNumberOfThisProduct();
-        boolean flag = false;
-        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
-            if (goodInCart.getGood().equals(good) && !goodInCart.getSeller().getUsername().equals(seller)) {
-                throw new Exception("you can't buy a same product from two different seller!");
-            }
-        }
-        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
-            if (goodInCart.getGood().equals(good) && goodInCart.getSeller().getUsername().equals(seller)) {
-                Shop.getInstance().increaseGoodInCartNumber(good.getGoodId());
-                flag = true;
-                return;
-            }
-        }
-        if (!flag)
-            Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1);
-    } //todo
+//    public void addGoodToCartGUI(String seller) throws Exception {
+//        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
+//        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+//            if (relatedInfoAboutGood.getSeller().getUsername().equals(seller)) {
+//                sellerRelatedInfoAboutGood = relatedInfoAboutGood;
+//                break;
+//            }
+//        }
+//        if (sellerRelatedInfoAboutGood.getAvailableNumber() < 1)
+//            throw new DontHaveEnoughNumberOfThisProduct();
+//        boolean flag = false;
+//        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+//            if (goodInCart.getGood().equals(good) && !goodInCart.getSeller().getUsername().equals(seller)) {
+//                throw new Exception("you can't buy a same product from two different seller!");
+//            }
+//        }
+//        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
+//            if (goodInCart.getGood().equals(good) && goodInCart.getSeller().getUsername().equals(seller)) {
+//                Shop.getInstance().increaseGoodInCartNumber(good.getGoodId());
+//                flag = true;
+//                return;
+//            }
+//        }
+//        if (!flag)
+//            Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1);
+//    } //todo
 
 //    public int getAvailableNumberOfAProductByASeller(int sellerNumber) {
 //        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = good.getSellerRelatedInfoAboutGoods().get(sellerNumber - 1);
