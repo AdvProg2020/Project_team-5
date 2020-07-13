@@ -93,16 +93,28 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
         }
     }
 
-    public void onRemoveAuctionPressed() {
-        ArrayList<String> inputs = new ArrayList<>();
-        inputs.add(selectedAuctionId);
-        String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "removeAuction", getToken(), inputs));
-        if (serverResponse.equals("auction successfully removed")) {
-            SuccessPageFxController.showPage("auction removed successfully", "your auction successfully removed.");
-            updateAllAuctionsBos();
-        } else {
-            ErrorPageFxController.showPage("auction cannot be removed", serverResponse);
-        }
+    public void onRemoveAuctionPressed(ActionEvent actionEvent) {
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "remove", "Remove Category", "are you sure to remove this category?");
+        if (result.get() == ButtonType.OK) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(selectedAuctionId);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "removeAuction", getToken(), inputs));
+            if (serverResponse.equals("auction successfully removed")) {
+                SuccessPageFxController.showPage("auction removed successfully", "your auction successfully removed.");
+                resetPage();
+            } else {
+                ErrorPageFxController.showPage("auction cannot be removed", serverResponse);
+            }
+        } else actionEvent.consume();
+    }
+
+    private void resetPage() {
+        this.selectedAuctionId = "";
+        singleAuctionVBox.getChildren().clear();
+        removeButton.setDisable(true);
+        endButton.setDisable(true);
+        updateAllAuctionsBos();
     }
 
     public void onEndAuctionPressed() {
