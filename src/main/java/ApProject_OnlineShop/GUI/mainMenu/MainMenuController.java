@@ -75,7 +75,6 @@ public class MainMenuController extends FxmlController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
         playMusicBackGround(true, false, false);
         if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
             ImageView imageView = new ImageView(new Image("/pictures/shoppingBag.png"));

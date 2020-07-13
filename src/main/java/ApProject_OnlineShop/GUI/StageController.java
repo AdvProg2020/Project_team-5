@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,11 +16,12 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
-public class StageController {
+public class StageController extends FxmlController{
     private static Stage stage;
 
     public StageController() {
         StageController.stage = new Stage();
+        FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
         StageController.stage.setOnCloseRequest(e -> {
             Optional<ButtonType> result = new FxmlController().showAlert
                     (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
