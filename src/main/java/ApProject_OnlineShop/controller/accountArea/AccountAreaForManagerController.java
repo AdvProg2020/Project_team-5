@@ -436,4 +436,14 @@ public class AccountAreaForManagerController extends AccountAreaController {
         orderInfo.add("" + orderForCustomer.getOrderStatus());
         return orderInfo;
     }
+
+    public void changeOrderStatus(String id, String newStatus){
+        long orderId = Long.parseLong(id);
+        if (newStatus.equals("READYTOSEND"))
+            Shop.getInstance().getAllOrders().get(orderId).setOrderStatus(Order.OrderStatus.READYTOSEND);
+        else if (newStatus.equals("SENT"))
+            Shop.getInstance().getAllOrders().get(orderId).setOrderStatus(Order.OrderStatus.SENT);
+        else if (newStatus.equals("RECEIVED"))
+            Shop.getInstance().getAllOrders().get(orderId).setOrderStatus(Order.OrderStatus.RECEIVED);
+    }
 }

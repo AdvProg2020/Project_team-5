@@ -41,13 +41,27 @@ public class ViewSingleCustomerOrderForManager extends FxmlController implements
     }
 
     public void changeOrderStatusToReadyToSend() {
-
+        ArrayList<String> input = new ArrayList<>();
+        input.add("" + Id);
+        input.add("READYTOSEND");
+        String response = connectToServer(new RequestForServer("AccountAreaForManagerController", "changeOrderStatus", getToken(), input));
+        setScene("showSingleCustomerOrderForManager.fxml", "view single order");
     }
 
     public void changeOrderStatusToSent() {
+        ArrayList<String> input = new ArrayList<>();
+        input.add("" + Id);
+        input.add("SENT");
+        String response = connectToServer(new RequestForServer("AccountAreaForManagerController", "changeOrderStatus", getToken(), input));
+        setScene("showSingleCustomerOrderForManager.fxml", "view single order");
     }
 
     public void changeOrderStatusReceived() {
+        ArrayList<String> input = new ArrayList<>();
+        input.add("" + Id);
+        input.add("RECEIVED");
+        String response = connectToServer(new RequestForServer("AccountAreaForManagerController", "changeOrderStatus", getToken(), input));
+        setScene("showSingleCustomerOrderForManager.fxml", "view single order");
     }
 
     public static void setId(Long id) {
