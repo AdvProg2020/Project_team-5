@@ -10,6 +10,7 @@ import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.Request;
+import ApProject_OnlineShop.server.Server;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ public class Shop {
     private ArrayList<Request> allRequest;
     private HashMap<Long, DiscountCode> allDiscountCodes;
     private ArrayList<Rate> allRates;
-    private ArrayList<GoodInCart> cart;
+    //    private ArrayList<GoodInCart> cart;
     private HashMap<Long, Good> allGoods;
     private HashMap<Long, Order> allOrders;
     private HashMap<Long, GoodInCart> allGoodInCarts;
@@ -48,7 +49,7 @@ public class Shop {
         this.allSubCategories = new HashMap<>();
         this.allRequest = new ArrayList<>();
         this.offs = new HashMap<>();
-        this.cart = new ArrayList<>();
+//        this.cart = new ArrayList<>();
         this.allGoods = new HashMap<>();
         this.allOrders = new HashMap<>();
         this.allGoodInCarts = new HashMap<>();
@@ -74,7 +75,7 @@ public class Shop {
         return allSellerRelatedInfoAboutGood;
     }
 
-    public String getShopBankId(){
+    public String getShopBankId() {
         return shopBankAccount.getAccountID();
     }
 
@@ -190,10 +191,6 @@ public class Shop {
 
     public void addGoodToAllGoods(Good good) {
         allGoods.put(good.getGoodId(), good);
-    }
-
-    public void removeGoodFromAllGoods(Good good) {
-        allGoods.remove(good.getGoodId());
     }
 
     public void removeProduct(Good good) throws IOException, FileCantBeSavedException {
@@ -320,31 +317,31 @@ public class Shop {
         allRates.add(rate);
     }
 
-    public ArrayList<GoodInCart> getCart() {
-        return cart;
+    public ArrayList<GoodInCart> getCart(long id) {
+        return Server.getCarts().get(id);
     }
 
-    public boolean checkExistProductInCart(long productId) {
-        return !cart.stream().filter(goodInCart -> goodInCart.getGood().getGoodId() == productId).findAny().isEmpty();
-    }
+//    public boolean checkExistProductInCart(long productId) {
+//        return !cart.stream().filter(goodInCart -> goodInCart.getGood().getGoodId() == productId).findAny().isEmpty();
+//    }
 
-    public void addGoodToCart(Good good, Seller seller, int number) {
-        cart.add(new GoodInCart(good, seller, number));
-    }
+//    public void addGoodToCart(Good good, Seller seller, int number, long id) {
+//        getCart(id).add(new GoodInCart(good, seller, number));
+//    }
 
-    public void reduceGoodInCartNumber(long productId) {
-        for (GoodInCart goodInCart : cart) {
+    public void reduceGoodInCartNumber(long productId, long id) {
+        for (GoodInCart goodInCart : getCart(id)) {
             if (goodInCart.getGood().getGoodId() == productId) {
                 goodInCart.setNumber(goodInCart.getNumber() - 1);
                 if (goodInCart.getNumber() == 0)
-                    cart.remove(goodInCart);
+                    getCart(id).remove(goodInCart);
                 return;
             }
         }
     }
 
-    public void increaseGoodInCartNumber(long productId) throws NotEnoughAvailableProduct {
-        for (GoodInCart goodInCart : cart) {
+    public void increaseGoodInCartNumber(long productId, long id) throws NotEnoughAvailableProduct {
+        for (GoodInCart goodInCart : getCart(id)) {
             if (goodInCart.getGood().getGoodId() == productId) {
                 if (goodInCart.getNumber() >= goodInCart.getGood().getAvailableNumberBySeller(goodInCart.getSeller()))
                     throw new NotEnoughAvailableProduct();
@@ -447,8 +444,9 @@ public class Shop {
         return allDiscountCodes.values().stream().filter(discountCode -> discountCode.getCode().equals(code)).count() != 0;
     }
 
-    public void clearCart() {
-        this.cart.clear();
+    public void clearCart(long id) {
+        getCart(id).clear();
+        Server.getCarts().remove(id);
     }
 
     public ArrayList<Off> getOffs() {

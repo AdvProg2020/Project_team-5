@@ -27,6 +27,7 @@ public class FxmlController {
     private static boolean isAccountAreaPlay;
     private static boolean isAllProductPlay;
     private static String token;
+    private static long id;
 
     public void setScene(String address, String title) {
         playButtonMusic();
@@ -176,5 +177,13 @@ public class FxmlController {
             productIds.add(Long.parseLong(s));
         }
         return productIds;
+    }
+
+    public static long getId() {
+        return id;
+    }
+
+    public static void setId(long id) {
+        FxmlController.id = id;
     }
 }

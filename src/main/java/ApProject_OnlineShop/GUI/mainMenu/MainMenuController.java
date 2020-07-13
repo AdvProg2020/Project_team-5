@@ -12,6 +12,7 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.persons.Supporter;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,7 +50,7 @@ public class MainMenuController extends FxmlController implements Initializable 
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("mainMenuLayout.fxml", "main menu");
             setScene("accountAreaForManager.fxml", "account area");
-        }else if(getCurrentPerson() instanceof Supporter){
+        } else if (getCurrentPerson() instanceof Supporter) {
             AccountAreaForSupporter.setPathBack("mainMenuLayout.fxml", "main menu");
             setScene("accountAreaForSupporter.fxml", "account area");
         }
@@ -74,6 +75,7 @@ public class MainMenuController extends FxmlController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
         playMusicBackGround(true, false, false);
         if (MainController.getInstance().getCurrentPerson() instanceof Customer || MainController.getInstance().getCurrentPerson() == null) {
             ImageView imageView = new ImageView(new Image("/pictures/shoppingBag.png"));

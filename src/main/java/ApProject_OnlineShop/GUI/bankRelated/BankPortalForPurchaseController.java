@@ -33,8 +33,14 @@ public class BankPortalForPurchaseController extends FxmlController implements I
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
-            Shop.getInstance().clearCart();
+//            MainController.getInstance().getLoginRegisterController().logoutUser();
+//            Shop.getInstance().clearCart();
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
+            FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
+            setToken(null);
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
@@ -49,6 +55,7 @@ public class BankPortalForPurchaseController extends FxmlController implements I
             inputs.add(password.getText());
             inputs.add("" + totalPrice);
             inputs.add(usedDiscountCode);
+            inputs.add(getId() + "");
             inputs.addAll(customerInfo);
             String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "purchaseByBankPortal", getToken(), inputs));
             if (serverResponse.equals("purchase was successful")) {
