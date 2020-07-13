@@ -13,9 +13,9 @@
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.40000000000003" minWidth="10.0" prefWidth="369.79999999999995" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="27.20000762939455" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="345.5999923706055" minHeight="10.0" prefHeight="345.5999923706055" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="415.0" minHeight="10.0" prefHeight="382.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="76.0" minHeight="7.0" prefHeight="47.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>
@@ -34,7 +34,7 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
                 <VBox.margin>
-                    <Insets top="15.0" />
+                    <Insets />
                 </VBox.margin>
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -116,6 +116,14 @@
             <padding>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#viewOrders" prefHeight="35.0" prefWidth="180.0" styleClass="menuButtons" text="view customer orders">
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
             <font>
                <Font size="14.0" />
             </font>

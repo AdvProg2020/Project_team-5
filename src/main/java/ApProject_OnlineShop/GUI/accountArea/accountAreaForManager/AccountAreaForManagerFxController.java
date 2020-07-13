@@ -105,4 +105,8 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     public void bankAccountsSettings() {
         setScene("editBankAccountsSettings.fxml", "bank accounts settings");
     }
+
+    public void viewOrders() {
+        setScene("viewCustomerOrdersForManager.fxml", "view customers' orders");
+    }
 }

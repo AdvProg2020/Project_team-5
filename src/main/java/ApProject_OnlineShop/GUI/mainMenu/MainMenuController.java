@@ -1,13 +1,12 @@
 package ApProject_OnlineShop.GUI.mainMenu;
 
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.GUI.accountArea.AccountAreaForSupporter;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.GUI.productPageRelated.Cart;
-import ApProject_OnlineShop.GUI.productPageRelated.CommentsPage;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
