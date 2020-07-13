@@ -65,6 +65,6 @@ public class ViewSingleCustomerOrderForManager extends FxmlController implements
         discountAmount.setText(offDetails.get(3));
         totalPrice.setText(offDetails.get(4));
         address.setText(offDetails.get(5));
-        address.setText(offDetails.get(6));
+        orderStatus.setText(offDetails.get(6));
     }
 }
