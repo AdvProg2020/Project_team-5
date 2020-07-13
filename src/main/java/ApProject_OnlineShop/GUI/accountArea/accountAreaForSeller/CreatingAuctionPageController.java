@@ -19,6 +19,10 @@ public class CreatingAuctionPageController extends FxmlController implements Ini
 
     }
 
+    public void onCreateAuctionPressed() {
+
+    }
+
     public void onLogoutIconClicked(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");

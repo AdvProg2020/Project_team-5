@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.geometry.Insets?>
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.CreatingAuctionPageController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.CreatingAuctionPageController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="68.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="528.0" minWidth="10.0" prefWidth="494.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="185.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="128.0" minHeight="6.0" prefHeight="101.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="393.0" minHeight="10.0" prefHeight="344.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="128.0" minHeight="6.0" prefHeight="84.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="393.0" minHeight="10.0" prefHeight="377.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -52,18 +58,18 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                         <children>
-                            <TextField fx:id="codeTextField" prefHeight="30.0" prefWidth="180.0" promptText="code" />
+                            <TextField fx:id="titleTextField" prefHeight="30.0" prefWidth="180.0" promptText="title" />
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                         <children>
-                            <Label text="Code :" />
+                            <Label text="Title :" />
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -83,22 +89,22 @@
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                         <children>
-                            <Label text="Discount Amount :" />
+                            <Label text="Description :" />
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                        <children>
-                            <TextField fx:id="discountAmountTextField" prefHeight="30.0" prefWidth="180.0" promptText="amount" />
-                        </children>
+                  <children>
+                     <TextArea fx:id="descriptionTextArea" prefHeight="73.0" prefWidth="225.0" promptText="description" />
+                  </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
                         <children>
-                            <Label text="Discount Percent :" />
+                            <Label text="Product id for auction:" />
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                         <children>
-                            <TextField fx:id="discountPercentTextField" prefHeight="30.0" prefWidth="70.0" promptText="percent" />
+                            <TextField fx:id="productTextField" prefHeight="30.0" prefWidth="102.0" promptText="product id" />
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -110,36 +116,7 @@
             </GridPane>
         </children>
     </VBox>
-    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
-        <children>
-            <HBox alignment="CENTER" prefHeight="92.0" prefWidth="137.0">
-                <children>
-                    <Button mnemonicParsing="false" onAction="#onAddCustomerButtonPressed" prefHeight="41.0" prefWidth="124.0" style="-fx-padding: 1px;" styleClass="menuButtons" text="Add Customer" />
-                </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="92.0" prefWidth="365.0">
-                <children>
-                    <Label text="username :" />
-                    <TextField fx:id="customerToAddField" prefHeight="25.0" prefWidth="135.0" promptText="username to add">
-                        <HBox.margin>
-                            <Insets left="5.0" />
-                        </HBox.margin>
-                    </TextField>
-                    <Label text="number of use :">
-                        <HBox.margin>
-                            <Insets left="10.0" />
-                        </HBox.margin>
-                    </Label>
-                    <TextField fx:id="numberOfUseField" prefHeight="25.0" prefWidth="29.0" promptText="00">
-                        <HBox.margin>
-                            <Insets left="5.0" />
-                        </HBox.margin>
-                    </TextField>
-                </children>
-            </HBox>
-        </children>
-    </HBox>
-    <Button mnemonicParsing="false" onAction="#onCreateDiscountCodePressed" prefHeight="49.0" prefWidth="168.0" styleClass="menuButtons" text="Create Discount" GridPane.columnIndex="2" GridPane.rowIndex="1">
+    <Button mnemonicParsing="false" onAction="#onCreateAuctionPressed" prefHeight="49.0" prefWidth="168.0" styleClass="menuButtons" text="Create Auction" GridPane.columnIndex="2" GridPane.rowIndex="1">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
@@ -147,9 +124,13 @@
             <Insets left="10.0" />
         </GridPane.margin>
     </Button>
-    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-        <children>
-            <Button mnemonicParsing="false" onAction="#onFinishButtonPressed" prefHeight="40.0" prefWidth="150.0" styleClass="menuButtons" text="Finish" />
-        </children>
-    </HBox>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+      <children>
+         <Label alignment="CENTER" prefHeight="61.0" prefWidth="398.0" text="Create Auction">
+             <font>
+                 <Font size="24.0" />
+             </font>
+         </Label>
+      </children>
+   </HBox>
 </GridPane>
