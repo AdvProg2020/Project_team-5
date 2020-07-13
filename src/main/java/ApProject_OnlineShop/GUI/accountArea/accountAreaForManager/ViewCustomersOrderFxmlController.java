@@ -42,7 +42,7 @@ public class ViewCustomersOrderFxmlController extends FxmlController implements 
         List<String> orders = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getCustomersOrders", getToken(), null)));
         for (String order : orders) {
             Hyperlink hyperlink = new Hyperlink("- " + order);
-            hyperlink.setPrefSize(200, 50);
+            hyperlink.setPrefSize(350, 50);
             hyperlink.setOnMouseClicked(e -> viewSingleOrder(order));
             hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
             hyperlink.setAlignment(Pos.BOTTOM_LEFT);
@@ -59,5 +59,6 @@ public class ViewCustomersOrderFxmlController extends FxmlController implements 
 
     private void viewSingleOrder(String order) {
         long id = Long.parseLong(order.substring("order ID: ".length() , order.indexOf("  ")));
+        System.out.println(id);
     }
 }
