@@ -19,7 +19,7 @@ public class CreatingAuctionPageController extends FxmlController implements Ini
 
     }
 
-    public void logout(MouseEvent mouseEvent) {
+    public void onLogoutIconClicked(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
@@ -30,7 +30,7 @@ public class CreatingAuctionPageController extends FxmlController implements Ini
     }
 
 
-    public void backButton(ActionEvent actionEvent) {
+    public void onBackButtonPressed(ActionEvent actionEvent) {
         setScene("accountAreaForSeller.fxml", "account area");
     }
 }
