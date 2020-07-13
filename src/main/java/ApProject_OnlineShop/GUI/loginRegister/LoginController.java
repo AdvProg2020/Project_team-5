@@ -62,7 +62,7 @@ public class LoginController extends FxmlController {
                 AccountAreaForSellerController.setPathBack(pathBack, titleBack);
                 setScene("accountAreaForSeller.fxml", "Account area for seller");
             } else if(getCurrentPerson() instanceof Supporter){
-
+                setScene("accountAreaForSupporter.fxml", "Account area for supporter");
             }
         } else {
             ErrorPageFxController.showPage("Error happened", serverResponse);

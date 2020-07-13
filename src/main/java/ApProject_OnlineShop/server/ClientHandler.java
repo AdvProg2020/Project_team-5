@@ -15,10 +15,7 @@ import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExis
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.persons.Customer;
-import ApProject_OnlineShop.model.persons.Manager;
-import ApProject_OnlineShop.model.persons.Person;
-import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
 import com.google.gson.Gson;
@@ -651,6 +648,13 @@ public class ClientHandler extends Thread {
         } else if (user instanceof Manager) {
             try {
                 dataOutputStream.writeUTF("manager###" + gson.toJson(user, Manager.class));
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else if (user instanceof Supporter) {
+            try {
+                dataOutputStream.writeUTF("supporter###" + gson.toJson(user, Supporter.class));
                 dataOutputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();
