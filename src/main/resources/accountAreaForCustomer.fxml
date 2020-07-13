@@ -63,11 +63,20 @@
             <font>
                <Font size="14.0" />
             </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
          </Button>
-         <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="181.0" styleClass="menuButtons" text="chat with supporters">
+         <Button mnemonicParsing="false" onAction="#chatWithSupportersPage" prefHeight="35.0" prefWidth="181.0" styleClass="menuButtons" text="chat with supporters">
             <VBox.margin>
                <Insets top="15.0" />
             </VBox.margin>
+            <font>
+               <Font size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
          </Button>
         </children>
     </VBox>

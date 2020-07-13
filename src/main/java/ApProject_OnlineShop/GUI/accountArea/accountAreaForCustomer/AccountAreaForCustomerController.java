@@ -196,4 +196,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     public void increaseCredit() {
         setScene("increaseCredit.fxml", "increase credit");
     }
+
+    public void chatWithSupportersPage(ActionEvent actionEvent) {
+    }
 }
