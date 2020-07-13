@@ -1,15 +1,12 @@
 package ApProject_OnlineShop.GUI;
 
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Person;
-import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -19,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -39,8 +35,8 @@ public class StageController extends FxmlController {
         });
         Parent root = null;
         try {
-            ArrayList<Person> allPersons = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)), new TypeToken<ArrayList<Person>>() {
-            }.getType());
+            ArrayList<String> allPersonsString = convertJsonToArrayOfString(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)));
+            ArrayList<Person> allPersons = convertArrayListOfJsonToArrayListPersons(allPersonsString);
             if (allPersons.size() == 0) {
                 root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("registerManager.fxml")));
             } else
@@ -49,8 +45,18 @@ public class StageController extends FxmlController {
             e.printStackTrace();
         }
         stage.setTitle("Shop");
-        stage.setScene(new Scene(root, 1000, 800));
-        stage.getIcons().add(new Image(getClass().getClassLoader().getResource("pictures/iconcopy.png").toString()));
+        stage.setScene(new
+
+                Scene(root, 1000, 800));
+        stage.getIcons().
+
+                add(new Image(getClass().
+
+                        getClassLoader().
+
+                        getResource("pictures/iconcopy.png").
+
+                        toString()));
         stage.show();
     }
 

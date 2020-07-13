@@ -7,7 +7,7 @@ public abstract class Person {
     private String email;
     private String phoneNumber;
     private String password;
-    private transient String role = this.getClass().getSimpleName();
+    private  String role = this.getClass().getSimpleName();
 
     public Person(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
         this.username = username;

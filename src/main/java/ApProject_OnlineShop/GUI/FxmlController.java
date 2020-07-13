@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -161,7 +162,7 @@ public class FxmlController {
     }
 
     public ArrayList<String> convertStringToArraylist(String data) {
-        if(data.equals(""))
+        if (data.equals(""))
             return new ArrayList<>();
         String[] split = data.split("#");
         ArrayList<String> output = new ArrayList<>();
@@ -185,5 +186,36 @@ public class FxmlController {
 
     public static void setId(long id) {
         FxmlController.id = id;
+    }
+
+    public ArrayList<String> convertJsonToArrayOfString(String string) {
+        ArrayList<String> output = new ArrayList<>();
+        int first = 0;
+        int end = 0;
+        while (true) {
+            first = string.indexOf("{");
+            end = string.indexOf("}");
+            if (first == -1 || end == -1)
+                break;
+            output.add(string.substring(first, end + 1));
+            string = string.substring(0, first) + string.substring(end + 1);
+        }
+        return output;
+    }
+
+    public ArrayList<Person> convertArrayListOfJsonToArrayListPersons(ArrayList<String> inputs) {
+        ArrayList<Person> persons = new ArrayList<>();
+        for (String input : inputs) {
+            Person person;
+            if (input.contains("discountCodesIds")) {
+                person = new Gson().fromJson(input, Customer.class);
+            } else if (input.contains("activeGoodsIds")) {
+                person = new Gson().fromJson(input, Seller.class);
+            } else {
+                person = new Gson().fromJson(input, Manager.class);
+            }
+            persons.add(person);
+        }
+        return persons;
     }
 }

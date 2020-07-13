@@ -139,8 +139,8 @@ public class RegisterController extends FxmlController {
     }
 
     public void backButtonAction(ActionEvent actionEvent) {
-        ArrayList<Person> allPersons = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)), new TypeToken<ArrayList<Person>>() {
-        }.getType());
+        ArrayList<String> allPersonsString = convertJsonToArrayOfString(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)));
+        ArrayList<Person> allPersons = convertArrayListOfJsonToArrayListPersons(allPersonsString);
         if (allPersons.size() == 0) {
             Optional<ButtonType> result = new FxmlController().showAlert
                     (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");

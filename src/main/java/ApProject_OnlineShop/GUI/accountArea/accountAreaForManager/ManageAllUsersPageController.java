@@ -53,8 +53,8 @@ public class ManageAllUsersPageController extends FxmlController implements Init
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<Person> allPersons = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)), new TypeToken<ArrayList<Person>>() {
-        }.getType());
+        ArrayList<String> allPersonsString = convertJsonToArrayOfString(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)));
+        ArrayList<Person> allPersons = convertArrayListOfJsonToArrayListPersons(allPersonsString);
         updateTableView(allPersons);
     }
 
@@ -105,8 +105,8 @@ public class ManageAllUsersPageController extends FxmlController implements Init
                 if (file.exists())
                     file.delete();
                 this.selectedUsername = "";
-                ArrayList<Person> allPersons = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)), new TypeToken<ArrayList<Person>>() {
-                }.getType());
+                ArrayList<String> allPersonsString = convertJsonToArrayOfString(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)));
+                ArrayList<Person> allPersons = convertArrayListOfJsonToArrayListPersons(allPersonsString);
                 updateTableView(allPersons);
                 removeButton.setDisable(true);
                 clearLabels();
