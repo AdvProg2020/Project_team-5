@@ -73,32 +73,33 @@ public class ProductController {
 //        Shop.getInstance().addGoodToCart(good, sellerRelatedInfoAboutGood.getSeller(), number);
 //    }
 
-//    public void addGoodToCartGUI(String seller) throws Exception {
-//        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
-//        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
-//            if (relatedInfoAboutGood.getSeller().getUsername().equals(seller)) {
-//                sellerRelatedInfoAboutGood = relatedInfoAboutGood;
-//                break;
-//            }
-//        }
-//        if (sellerRelatedInfoAboutGood.getAvailableNumber() < 1)
-//            throw new DontHaveEnoughNumberOfThisProduct();
-//        boolean flag = false;
-//        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
-//            if (goodInCart.getGood().equals(good) && !goodInCart.getSeller().getUsername().equals(seller)) {
-//                throw new Exception("you can't buy a same product from two different seller!");
-//            }
-//        }
-//        for (GoodInCart goodInCart : Shop.getInstance().getCart()) {
-//            if (goodInCart.getGood().equals(good) && goodInCart.getSeller().getUsername().equals(seller)) {
-//                Shop.getInstance().increaseGoodInCartNumber(good.getGoodId());
-//                flag = true;
-//                return;
-//            }
-//        }
-//        if (!flag)
-//            Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1);
-//    } //todo
+    public void addGoodToCartGUI(String seller, long productId, long cartId) throws Exception {
+        Good good = Shop.getInstance().findGoodById(productId);
+        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = null;
+        for (SellerRelatedInfoAboutGood relatedInfoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+            if (relatedInfoAboutGood.getSeller().getUsername().equals(seller)) {
+                sellerRelatedInfoAboutGood = relatedInfoAboutGood;
+                break;
+            }
+        }
+        if (sellerRelatedInfoAboutGood.getAvailableNumber() < 1)
+            throw new DontHaveEnoughNumberOfThisProduct();
+        boolean flag = false;
+        for (GoodInCart goodInCart : Shop.getInstance().getCart(cartId)) {
+            if (goodInCart.getGood().equals(good) && !goodInCart.getSeller().getUsername().equals(seller)) {
+                throw new Exception("you can't buy a same product from two different seller!");
+            }
+        }
+        for (GoodInCart goodInCart : Shop.getInstance().getCart(cartId)) {
+            if (goodInCart.getGood().equals(good) && goodInCart.getSeller().getUsername().equals(seller)) {
+                Shop.getInstance().increaseGoodInCartNumber(good.getGoodId(), cartId);
+                flag = true;
+                return;
+            }
+        }
+        if (!flag)
+            Shop.getInstance().addGoodToCart(good, (Seller) Shop.getInstance().findUser(seller), 1, cartId);
+    } //todo
 
 //    public int getAvailableNumberOfAProductByASeller(int sellerNumber) {
 //        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = good.getSellerRelatedInfoAboutGoods().get(sellerNumber - 1);

@@ -160,6 +160,15 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("isSubCategoryEquals")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getProductController().isSubCategoryEquals(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addGoodToCartGUI")) {
+            try {
+                MainController.getInstance().getProductController().addGoodToCartGUI(requestForServer.getInputs().get(0), Long.parseLong(requestForServer.getInputs().get(1)), Long.parseLong(requestForServer.getInputs().get(2)));
+                dataOutputStream.writeUTF("successfully added to cart");
+                dataOutputStream.flush();
+            } catch (Exception exception) {
+                dataOutputStream.writeUTF(exception.getMessage());
+                dataOutputStream.flush();
+            }
         }
     }
 
@@ -519,7 +528,7 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().setMinimumAmountForWallet(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF("minimum amount successfully changed");
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("getCustomersOrders")) {
+        } else if (requestForServer.getFunction().equals("getCustomersOrders")) {
             List<String> data = MainController.getInstance().getAccountAreaForManagerController().getCustomersOrders();
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();

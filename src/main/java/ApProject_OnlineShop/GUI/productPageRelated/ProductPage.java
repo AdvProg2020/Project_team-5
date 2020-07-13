@@ -134,7 +134,8 @@ public class ProductPage extends FxmlController implements Initializable {
 //        List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId + "");
-        List<SellerRelatedInfoAboutGood> sellersInfo = new Gson().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), new TypeToken<List<SellerRelatedInfoAboutGood>>(){}.getType());
+        List<SellerRelatedInfoAboutGood> sellersInfo = new Gson().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), new TypeToken<List<SellerRelatedInfoAboutGood>>() {
+        }.getType());
         for (SellerRelatedInfoAboutGood eachSellerInfo : sellersInfo) {
             HBox sellerHBox = new HBox();
             sellerHBox.setAlignment(Pos.CENTER_LEFT);
@@ -220,13 +221,23 @@ public class ProductPage extends FxmlController implements Initializable {
 
     public void addToCart(String sellerUsername) {
 //        try {
-//            MainController.getInstance().getProductController().addGoodToCartGUI(sellerUsername);
+//            MainController.getInstance().getProductController().addGoodToCartGUI(sellerUsername,productId,getId());
 //            SuccessPageFxController.showPage("product added to cart", "product added to cart succesfully!");
 //        } catch (DontHaveEnoughNumberOfThisProduct | NotEnoughAvailableProduct dontHaveEnoughNumberOfThisProduct) {
 //            ErrorPageFxController.showPage("cannot add this product", dontHaveEnoughNumberOfThisProduct.getMessage());
 //        } catch (Exception exception) {
 //            ErrorPageFxController.showPage("cannot add this product", exception.getMessage());
 //        }
+        ArrayList<String> inputs2 = new ArrayList<>();
+        inputs2.add(sellerUsername);
+        inputs2.add(productId + "");
+        inputs2.add(getId() + "");
+        String serverResponse = connectToServer(new RequestForServer("ProductController", "addGoodToCartGUI", null, inputs2));
+        if (serverResponse.equals("successfully added to cart")) {
+            SuccessPageFxController.showPage("product added to cart", "product added to cart successfully!");
+        } else {
+            ErrorPageFxController.showPage("cannot add this product", serverResponse);
+        }
     }
 
     public void goToAccountArea(MouseEvent mouseEvent) {

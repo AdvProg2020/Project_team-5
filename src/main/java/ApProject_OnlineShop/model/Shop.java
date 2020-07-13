@@ -325,9 +325,9 @@ public class Shop {
 //        return !cart.stream().filter(goodInCart -> goodInCart.getGood().getGoodId() == productId).findAny().isEmpty();
 //    }
 
-//    public void addGoodToCart(Good good, Seller seller, int number, long id) {
-//        getCart(id).add(new GoodInCart(good, seller, number));
-//    }
+    public void addGoodToCart(Good good, Seller seller, int number, long id) {
+        getCart(id).add(new GoodInCart(good, seller, number));
+    }
 
     public void reduceGoodInCartNumber(long productId, long id) {
         for (GoodInCart goodInCart : getCart(id)) {
