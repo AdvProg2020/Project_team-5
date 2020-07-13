@@ -44,6 +44,9 @@ public class LoadingData {
         file = new File("Resources\\BankAccounts");
         if (!file.exists())
             file.mkdir();
+        file = new File("Resources\\Auctions");
+        if (!file.exists())
+            file.mkdir();
     }
 
     public void loadManager() throws IOException {
@@ -257,6 +260,22 @@ public class LoadingData {
         } else if (name.startsWith("request_RegisteringSellerRequest")) {
             Shop.getInstance().addRequest(yaGson.fromJson(readFile(file), RegisteringSellerRequest.class));
         } else throw new IOException();
+    }
+
+    public void loadAuctions() throws IOException {
+        File[] files = loadFolder("Resources\\Auctions");
+        if (files != null) {
+            for (File file : files) {
+                Shop.getInstance().addAuction(yaGson.fromJson(readFile(file), Auction.class));
+            }
+            if (Shop.getInstance().getAllAuctions().size() != 0) {
+                List<Long> ids = new ArrayList<>();
+                for (Integer id : Shop.getInstance().getAllAuctions().keySet()) {
+                    ids.add(Long.valueOf(id));
+                }
+                Auction.setAuctionsCount((int)getMaximumOfNumbers(ids) + 1);
+            }
+        }
     }
 
     private File[] loadFolder(String folderPath) {

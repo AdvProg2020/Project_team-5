@@ -25,6 +25,14 @@ public class Auction {
         this.customersOfferedPrices = new HashMap<>();
     }
 
+    public static int getAuctionsCount() {
+        return auctionsCount;
+    }
+
+    public static void setAuctionsCount(int auctionsCount) {
+        Auction.auctionsCount = auctionsCount;
+    }
+
     public int getAuctionId() {
         return auctionId;
     }
