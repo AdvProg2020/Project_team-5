@@ -64,7 +64,7 @@ public class ViewSingleCustomerOrderForManager extends FxmlController implements
         setScene("showSingleCustomerOrderForManager.fxml", "view single order");
     }
 
-    public static void setId(Long id) {
+    public static void setOrderId(Long id) {
         Id = id;
     }
 

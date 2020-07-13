@@ -445,5 +445,12 @@ public class AccountAreaForManagerController extends AccountAreaController {
             Shop.getInstance().getAllOrders().get(orderId).setOrderStatus(Order.OrderStatus.SENT);
         else if (newStatus.equals("RECEIVED"))
             Shop.getInstance().getAllOrders().get(orderId).setOrderStatus(Order.OrderStatus.RECEIVED);
+        try {
+            Database.getInstance().saveItem(Shop.getInstance().getAllOrders().get(orderId));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
     }
 }
