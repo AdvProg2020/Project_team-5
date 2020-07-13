@@ -275,4 +275,8 @@ public class AccountAreaForSellerController extends AccountAreaController {
             Database.getInstance().saveItem(auction);
         } else throw new ProductNotFoundExceptionForSeller();
     }
+
+    public ArrayList<String> getAllAuctionsTitle() {
+        return new ArrayList<>(Shop.getInstance().getAllAuctionsList().stream().map(Auction::getTitle).collect(Collectors.toList()));
+    }
 }

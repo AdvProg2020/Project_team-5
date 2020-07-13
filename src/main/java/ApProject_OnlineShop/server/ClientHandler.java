@@ -680,6 +680,9 @@ public class ClientHandler extends Thread {
             } finally {
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("getAllAuctionsTitle")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().getAllAuctionsTitle()));
+            dataOutputStream.flush();
         }
     }
 
