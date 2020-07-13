@@ -34,6 +34,12 @@ public class CreatingAuctionPageController extends FxmlController implements Ini
 
     }
 
+    private void clearFields() {
+        productTextField.clear();
+        titleTextField.clear();
+        descriptionTextArea.clear();
+    }
+
     public void onCreateAuctionPressed() {
 
     }

@@ -13,6 +13,7 @@ import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.Auction;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
@@ -262,5 +263,14 @@ public class AccountAreaForSellerController extends AccountAreaController {
             return false;
         }
         return true;
+    }
+
+    public void createAuction(ArrayList<String> fields, long goodId, Person person) throws IOException, FileCantBeSavedException {
+        Auction auction = new Auction(Shop.getInstance().findGoodById(goodId), (Seller)person,  fields.get(0), fields.get(1),
+                LocalDate.parse(fields.get(2)), LocalDate.parse(fields.get(3)));
+        ((Seller)person).addAuction(auction);
+        Shop.getInstance().addAuction(auction);
+        Database.getInstance().saveItem(person);
+        Database.getInstance().saveItem(auction);
     }
 }
