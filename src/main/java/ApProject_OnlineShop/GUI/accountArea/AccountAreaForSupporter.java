@@ -63,4 +63,8 @@ public class AccountAreaForSupporter extends FxmlController implements Initializ
         AccountAreaForSupporter.pathBack = pathBack;
         AccountAreaForSupporter.titleBack = titleBack;
     }
+
+    public void chaWithCustomers(ActionEvent actionEvent) {
+
+    }
 }

@@ -25,7 +25,7 @@
     </Button>
     <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
       <children>
-         <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="menuButtons" text="chat with customer">
+         <Button mnemonicParsing="false" onAction="#chaWithCustomers" prefHeight="35.0" prefWidth="180.0" styleClass="menuButtons" text="chat with customer">
             <VBox.margin>
                <Insets top="10.0" />
             </VBox.margin>
