@@ -12,6 +12,7 @@ import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.Supporter;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,6 +61,8 @@ public class LoginController extends FxmlController {
             } else if (getCurrentPerson() instanceof Seller) {
                 AccountAreaForSellerController.setPathBack(pathBack, titleBack);
                 setScene("accountAreaForSeller.fxml", "Account area for seller");
+            } else if(getCurrentPerson() instanceof Supporter){
+
             }
         } else {
             ErrorPageFxController.showPage("Error happened", serverResponse);
