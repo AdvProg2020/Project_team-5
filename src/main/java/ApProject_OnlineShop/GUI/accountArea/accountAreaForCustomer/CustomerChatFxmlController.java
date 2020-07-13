@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.accountArea.ChatPageController;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -60,6 +61,10 @@ public class CustomerChatFxmlController extends FxmlController implements Initia
     }
 
     public void chatPage(String supporterUsername) {
-
+        ChatPageController.setOwner(getCurrentPerson().getUsername());
+        ChatPageController.setGuest(supporterUsername);
+        ChatPageController.setPath("customerChat.fxml");
+        ChatPageController.setBackTitle("customer chat");
+        setScene("chatPage.fxml", "chat Page");
     }
 }
