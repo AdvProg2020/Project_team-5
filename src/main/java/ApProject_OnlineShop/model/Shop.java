@@ -231,7 +231,7 @@ public class Shop {
         return allGoods.get(id);
     }
 
-    public Good findGoodById(long goodId) { //TODo
+    public Good findGoodById(long goodId) { 
         for (Category category : this.getAllCategories()) {
             if (category.findGoodInSubCategories(goodId) != null)
                 return category.findGoodInSubCategories(goodId);

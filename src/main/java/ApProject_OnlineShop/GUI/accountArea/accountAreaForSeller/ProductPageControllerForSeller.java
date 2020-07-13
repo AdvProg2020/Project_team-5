@@ -107,7 +107,10 @@ public class ProductPageControllerForSeller extends FxmlController implements In
     }
 
     private void makeProperties() {
-        Good good = Shop.getInstance().findGoodById(productId);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+//        Good good = Shop.getInstance().findGoodById(productId);
         detailsLabel.setText(good.getDetails());
         HashMap<String, String> categoryProperties = good.getCategoryProperties();
         properties.setAlignment(Pos.CENTER);
@@ -201,7 +204,10 @@ public class ProductPageControllerForSeller extends FxmlController implements In
                 primaryPrice.setStroke(Color.LIGHTSLATEGREY);
                 primaryPrice.setStrokeType(StrokeType.INSIDE);
                 priceBox.getChildren().add(primaryPrice);
-                Label finalPrice = new Label("" + Shop.getInstance().getFinalPriceOfAGood(Shop.getInstance().findGoodById(productId), eachSellerInfo.getSeller()));
+                ArrayList<String> inputs22 = new ArrayList<>();
+                inputs22.add(productId + "");
+                Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+                Label finalPrice = new Label("" + Shop.getInstance().getFinalPriceOfAGood(good, eachSellerInfo.getSeller()));
                 finalPrice.setFont(Font.font("Times New Roman", 16));
                 finalPrice.setPadding(new Insets(0, 7, 0, 7));
                 priceBox.getChildren().add(finalPrice);

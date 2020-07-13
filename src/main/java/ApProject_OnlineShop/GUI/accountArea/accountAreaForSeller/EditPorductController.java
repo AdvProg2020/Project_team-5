@@ -8,6 +8,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,7 +39,9 @@ public class EditPorductController extends FxmlController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Good good = Shop.getInstance().findGoodById(goodId);
+        ArrayList<String> inputs2 = new ArrayList<>();
+        inputs2.add(goodId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs2)), Good.class);
         price.setPromptText(good.getPriceBySeller((Seller) getCurrentPerson()) + "");
         additionalDetails.setPromptText(good.getDetails());
         availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) getCurrentPerson()) + "");
@@ -46,7 +49,7 @@ public class EditPorductController extends FxmlController implements Initializab
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(good.getSubCategory().getName());
         ArrayList<String> subCategoryDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSubcategoryDetails", getToken(), inputs)));
-        for (String detail : subCategoryDetails){
+        for (String detail : subCategoryDetails) {
             Label text = new Label(detail + " :");
             text.setFont(Font.font("Times New Roman", 14));
             text.setPadding(new Insets(20));

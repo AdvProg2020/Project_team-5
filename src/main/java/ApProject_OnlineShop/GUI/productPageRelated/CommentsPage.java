@@ -11,6 +11,9 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Comment;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
@@ -46,7 +49,10 @@ public class CommentsPage extends FxmlController implements Initializable {
         if (getCurrentPerson() instanceof Seller || getCurrentPerson() instanceof Manager) {
             cart.setVisible(false);
         }
-        ArrayList<Comment> comments = Shop.getInstance().findGoodById(goodId).getComments();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(goodId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+        ArrayList<Comment> comments = good.getComments();
         int size1 = (comments.size() * (110));
         if (size1 > 577) {
             vbox.setPrefWidth(size1 + 20);

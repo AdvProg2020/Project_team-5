@@ -126,6 +126,9 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getAllRequest")) {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllRequest()));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findGoodById")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
         }
     }
 

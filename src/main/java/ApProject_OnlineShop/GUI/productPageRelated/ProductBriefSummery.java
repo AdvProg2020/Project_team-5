@@ -6,6 +6,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -34,7 +35,10 @@ public class ProductBriefSummery extends FxmlController {
         VBox mainVBox = new VBox();
         setStyleForVBox(mainVBox);
         mainVBox.setAlignment(Pos.CENTER);
-        if (Shop.getInstance().findGoodById(productId).getGoodStatus() != Good.GoodStatus.CONFIRMED) {
+        ArrayList<String> inputs22 = new ArrayList<>();
+        inputs22.add(productId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+        if (good.getGoodStatus() != Good.GoodStatus.CONFIRMED) {
             HBox box = new HBox();
             box.setMaxHeight(25);
             box.setAlignment(Pos.CENTER);
@@ -44,7 +48,7 @@ public class ProductBriefSummery extends FxmlController {
             mainVBox.getChildren().add(box);
         }
         ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
-        if (Shop.getInstance().findGoodById(productId).getGoodStatus() != Good.GoodStatus.CONFIRMED)
+        if (good.getGoodStatus() != Good.GoodStatus.CONFIRMED)
             imageView.setOpacity(0.5);
         VBox image = new VBox();
         image.getChildren().add(imageView);
@@ -103,16 +107,19 @@ public class ProductBriefSummery extends FxmlController {
         mainVBox.setAlignment(Pos.CENTER);
         HBox offBox = new HBox();
         offBox.setMaxHeight(30);
-        Label percent = new Label("" + Shop.getInstance().findGoodById(productId).getThisGoodOff().getDiscountPercent() + "%");
+        ArrayList<String> inputs22 = new ArrayList<>();
+        inputs22.add(productId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+        Label percent = new Label("" + good.getThisGoodOff().getDiscountPercent() + "%");
         percent.setTextFill(Color.RED);
         HBox.setMargin(percent, new Insets(0, 20, 0, 5));
         offBox.getChildren().add(percent);
-        LocalDate date = Shop.getInstance().findGoodById(productId).getThisGoodOff().getEndDate();
+        LocalDate date = good.getThisGoodOff().getEndDate();
         Label days = new Label("" + ChronoUnit.DAYS.between(LocalDate.now(), date) + " days left");
         days.setTextFill(Color.RED);
         days.setUnderline(true);
         offBox.getChildren().add(days);
-        if (Shop.getInstance().findGoodById(productId).getGoodStatus() != Good.GoodStatus.CONFIRMED) {
+        if (good.getGoodStatus() != Good.GoodStatus.CONFIRMED) {
             Label available = new Label("not available");
             available.setTextFill(Color.RED);
             HBox.setMargin(available, new Insets(0, 0, 0, 10));
@@ -120,7 +127,7 @@ public class ProductBriefSummery extends FxmlController {
         }
         mainVBox.getChildren().add(offBox);
         ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
-        if (Shop.getInstance().findGoodById(productId).getGoodStatus() != Good.GoodStatus.CONFIRMED)
+        if (good.getGoodStatus() != Good.GoodStatus.CONFIRMED)
             imageView.setOpacity(0.5);
         VBox image = new VBox();
         image.getChildren().add(imageView);

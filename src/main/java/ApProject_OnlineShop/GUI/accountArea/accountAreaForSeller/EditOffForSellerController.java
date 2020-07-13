@@ -5,8 +5,10 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -193,7 +195,10 @@ public class EditOffForSellerController extends FxmlController implements Initia
             return false;
         } else if (removeProduct.getText().matches("[\\d]+")) {
             long productId = Long.parseLong(removeProduct.getText());
-            if (!Shop.getInstance().findOffById(ViewSpecificOffController.getOffId()).doesHaveThisProduct(Shop.getInstance().findGoodById(productId))) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(productId + "");
+            Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+            if (!Shop.getInstance().findOffById(ViewSpecificOffController.getOffId()).doesHaveThisProduct(good)) {
                 ErrorPageFxController.showPage("error for edit off", "you don't have this product in your off");
                 return false;
             }
@@ -201,13 +206,14 @@ public class EditOffForSellerController extends FxmlController implements Initia
             long productId = Long.parseLong(addProduct.getText());
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(productId + "");
-            if (Shop.getInstance().findGoodById(productId) == null) {
+            Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+            if (good == null) {
                 ErrorPageFxController.showPage("error for edit off", "doesn't exist a product with this id");
                 return false;
             } else if (connectToServer(new RequestForServer("AccountAreaForSellerController", "checkValidProductId", getToken(), inputs)).equals("false")) {
                 ErrorPageFxController.showPage("error for edit off", "This product does not exist your active goods");
                 return false;
-            } else if (Shop.getInstance().findOffById(ViewSpecificOffController.getOffId()).doesHaveThisProduct(Shop.getInstance().findGoodById(productId))) {
+            } else if (Shop.getInstance().findOffById(ViewSpecificOffController.getOffId()).doesHaveThisProduct(good)) {
                 ErrorPageFxController.showPage("error for edit off", "you have this product in your off already");
                 return false;
             }

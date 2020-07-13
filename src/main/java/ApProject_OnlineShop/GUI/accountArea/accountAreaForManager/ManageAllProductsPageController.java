@@ -11,6 +11,7 @@ import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExis
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -119,7 +120,10 @@ public class ManageAllProductsPageController extends FxmlController implements I
 
     private void onSelectProduct(Long productId) {
         this.selectedGoodId = productId;
-        name.setText(Shop.getInstance().findGoodById(productId).getName());
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+        name.setText(good.getName());
         id.setText("" + productId);
         removeButton.setDisable(false);
     }
