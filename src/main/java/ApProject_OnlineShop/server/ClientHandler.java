@@ -545,6 +545,9 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getCategoryProperties")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getCategoryProperties(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSubCategoryProperties")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getSubCategoryProperties(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
         }
     }
 
