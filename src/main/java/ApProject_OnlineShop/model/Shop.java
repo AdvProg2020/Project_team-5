@@ -252,6 +252,10 @@ public class Shop {
         return null;
     }
 
+    public HashMap<Long, Order> getAllOrders() {
+        return allOrders;
+    }
+
     public HashMap<Long, Off> getHashMapOfOffs() {
         return this.offs;
     }

@@ -475,6 +475,10 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().setMinimumAmountForWallet(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF("minimum amount successfully changed");
             dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("getCustomersOrders")) {
+            List<String> data = MainController.getInstance().getAccountAreaForManagerController().getCustomersOrders();
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
         }
     }
 
