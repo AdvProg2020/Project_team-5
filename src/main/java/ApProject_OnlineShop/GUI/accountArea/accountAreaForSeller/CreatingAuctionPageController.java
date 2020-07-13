@@ -2,8 +2,10 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,6 +49,19 @@ public class CreatingAuctionPageController extends FxmlController implements Ini
         if (checkInformationValidation()) {
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(productTextField.getText());
+            inputs.add(titleTextField.getText());
+            inputs.add((descriptionTextArea.getText().isEmpty())?"":descriptionTextArea.getText());
+            inputs.add(startDateChooser.getValue().toString());
+            inputs.add(endDateChooser.getValue().toString());
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "createAuction", getToken(), inputs));
+            if (serverResponse.equals("auction successfully created")) {
+                SuccessPageFxController.showPage("auction created successfully", "your auction successfully created.");
+                clearFields();
+                setScene("accountAreaForSeller.fxml", "account area for seller");
+            } else {
+                ErrorPageFxController.showPage("auction cannot be created", serverResponse);
+                clearFields();
+            }
         }
     }
 
