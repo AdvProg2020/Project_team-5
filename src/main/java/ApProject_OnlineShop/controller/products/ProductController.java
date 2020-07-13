@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductController {
     private Good good;
@@ -41,9 +42,9 @@ public class ProductController {
         }
     }
 
-    public void setGoodById(long goodId) {
-        setGood(Shop.getInstance().findGoodById(goodId));
-    }
+//    public void setGoodById(long goodId) {
+//        setGood(Shop.getInstance().findGoodById(goodId));
+//    }
 
 //    public String digest() {
 //        return good.toString();
@@ -200,5 +201,17 @@ public class ProductController {
                 , good, title, content, didCommenterBoughtThisProduct);
         Shop.getInstance().addRequest(addingCommentRequest);
         Database.getInstance().saveItem(addingCommentRequest);
+    }
+
+    public List<Long> getAllGoodsIds() {
+        return Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
+    }
+
+    public List<Long> getOffGoods() {
+        return Shop.getInstance().getOffGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
+    }
+
+    public boolean isSubCategoryEquals(long productId1, long productId2) {
+        return Shop.getInstance().findGoodById(productId1).getSubCategory().equals(Shop.getInstance().findGoodById(productId2).getSubCategory());
     }
 }

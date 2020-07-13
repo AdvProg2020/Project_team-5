@@ -131,6 +131,23 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getProductController().addComment(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1), user, Long.parseLong(requestForServer.getInputs().get(2)));
             dataOutputStream.writeUTF("comment request created successfully");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllGoodsIds")) {
+            List<String> ids = new ArrayList<>();
+            for (Long goodsId : MainController.getInstance().getProductController().getAllGoodsIds()) {
+                ids.add(goodsId + "");
+            }
+            dataOutputStream.writeUTF(convertListToString(ids));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getOffGoods")) {
+            List<String> ids = new ArrayList<>();
+            for (Long goodsId : MainController.getInstance().getProductController().getOffGoods()) {
+                ids.add(goodsId + "");
+            }
+            dataOutputStream.writeUTF(convertListToString(ids));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isSubCategoryEquals")) {
+            dataOutputStream.writeUTF("" + MainController.getInstance().getProductController().isSubCategoryEquals(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1))));
+            dataOutputStream.flush();
         }
     }
 
@@ -651,7 +668,7 @@ public class ClientHandler extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else if (user instanceof Supporter) {
+        } else if (user instanceof Supporter) {
             try {
                 dataOutputStream.writeUTF("supporter###" + gson.toJson(user, Supporter.class));
                 dataOutputStream.flush();
