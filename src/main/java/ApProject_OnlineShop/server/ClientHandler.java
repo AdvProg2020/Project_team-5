@@ -587,6 +587,18 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("isInOff")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForSellerController().isInOff(Long.parseLong(requestForServer.getInputs().get(0)), person));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("createAuction")) {
+            int goodId = Integer.parseInt(requestForServer.getInputs().get(0));
+            ArrayList<String> fields = new ArrayList<>(requestForServer.getInputs().subList(1, 5));
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().createAuction(fields, goodId, person);
+                dataOutputStream.writeUTF("auction successfully created");
+            } catch (FileCantBeSavedException e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
         }
     }
 
