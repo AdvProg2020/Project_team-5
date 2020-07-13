@@ -67,6 +67,10 @@ public class DeletingData {
             Shop.getInstance().removeOff(off);
             Database.getInstance().deleteItem(off);
         }
+        for (Auction auction : seller.getActiveAuctions()) {
+            Shop.getInstance().removeAuction(auction);
+            Database.getInstance().deleteItem(auction);
+        }
         for (OrderForSeller previousSell : seller.getPreviousSells()) {
             Database.getInstance().deleteItem(previousSell);
             Shop.getInstance().getHasMapOfOrders().remove(previousSell.getOrderId());
@@ -187,6 +191,13 @@ public class DeletingData {
 
     public void deleteRequest(Request request) throws FileCantBeDeletedException {
         String filePath = "Resources\\Requests\\request_" + request.getClass().getSimpleName() + "_" + request.getRequestId() + ".json";
+        if (testMode)
+            filePath = "Test".concat(filePath);
+        deleteFile(filePath);
+    }
+
+    public void deleteAuction(Auction auction) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Auctions\\auction_" + auction.getAuctionId() + ".json";
         if (testMode)
             filePath = "Test".concat(filePath);
         deleteFile(filePath);

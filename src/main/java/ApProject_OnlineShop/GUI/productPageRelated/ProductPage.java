@@ -219,14 +219,14 @@ public class ProductPage extends FxmlController implements Initializable {
     }
 
     public void addToCart(String sellerUsername) {
-        try {
-            MainController.getInstance().getProductController().addGoodToCartGUI(sellerUsername);
-            SuccessPageFxController.showPage("product added to cart", "product added to cart succesfully!");
-        } catch (DontHaveEnoughNumberOfThisProduct | NotEnoughAvailableProduct dontHaveEnoughNumberOfThisProduct) {
-            ErrorPageFxController.showPage("cannot add this product", dontHaveEnoughNumberOfThisProduct.getMessage());
-        } catch (Exception exception) {
-            ErrorPageFxController.showPage("cannot add this product", exception.getMessage());
-        }
+//        try {
+//            MainController.getInstance().getProductController().addGoodToCartGUI(sellerUsername);
+//            SuccessPageFxController.showPage("product added to cart", "product added to cart succesfully!");
+//        } catch (DontHaveEnoughNumberOfThisProduct | NotEnoughAvailableProduct dontHaveEnoughNumberOfThisProduct) {
+//            ErrorPageFxController.showPage("cannot add this product", dontHaveEnoughNumberOfThisProduct.getMessage());
+//        } catch (Exception exception) {
+//            ErrorPageFxController.showPage("cannot add this product", exception.getMessage());
+//        }
     }
 
     public void goToAccountArea(MouseEvent mouseEvent) {

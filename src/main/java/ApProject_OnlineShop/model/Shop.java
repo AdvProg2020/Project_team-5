@@ -32,6 +32,7 @@ public class Shop {
     private HashMap<Long, Comment> allComments;
     private HashMap<Long, SellerRelatedInfoAboutGood> allSellerRelatedInfoAboutGood;
     private HashMap<Long, Company> allCompanies;
+    private HashMap<Integer, Auction> allAuctions;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
     private ShopBankAccount shopBankAccount;
 
@@ -54,6 +55,7 @@ public class Shop {
         this.allComments = new HashMap<>();
         this.allSellerRelatedInfoAboutGood = new HashMap<>();
         this.allCompanies = new HashMap<>();
+        this.allAuctions = new HashMap<>();
     }
 
     public HashMap<Long, Company> getAllCompanies() {
@@ -85,6 +87,30 @@ public class Shop {
         } catch (FileCantBeSavedException e) {
             e.printStackTrace();
         }
+    }
+
+    public HashMap<Integer, Auction> getAllAuctions() {
+        return allAuctions;
+    }
+
+    public void addAuction(Auction auction) {
+        this.allAuctions.put(auction.getAuctionId(), auction);
+    }
+
+    public void removeAuction(Auction auction) {
+        this.allAuctions.remove(auction.getAuctionId());
+    }
+
+    public Auction findAuctionById(int auctionId) {
+        return this.allAuctions.get(auctionId);
+    }
+
+    public List<Auction> getAllAuctionsList() {
+        List<Auction> auctions = new ArrayList<>();
+        for (Integer id : this.allAuctions.keySet()) {
+            auctions.add(this.allAuctions.get(id));
+        }
+        return auctions;
     }
 
     public ShopBankAccount getShopBankAccount() {
