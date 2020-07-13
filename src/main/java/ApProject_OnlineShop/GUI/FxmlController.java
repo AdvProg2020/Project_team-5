@@ -1,9 +1,6 @@
 package ApProject_OnlineShop.GUI;
 
-import ApProject_OnlineShop.model.persons.Customer;
-import ApProject_OnlineShop.model.persons.Manager;
-import ApProject_OnlineShop.model.persons.Person;
-import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
@@ -155,6 +152,8 @@ public class FxmlController {
             person = new Gson().fromJson(input.split("###")[1], Seller.class);
         } else if (input.startsWith("manager")) {
             person = new Gson().fromJson(input.split("###")[1], Manager.class);
+        } else if(input.startsWith("supporter")){
+            person = new Gson().fromJson(input.split("###")[1], Supporter.class);
         }
         return person;
     }
