@@ -208,7 +208,7 @@ public class ProductPage extends FxmlController implements Initializable {
             cartImage.setCursor(Cursor.HAND);
             cartImage.setOnMouseClicked(e -> addToCart(eachSellerInfo.getSeller().getUsername()));
             sellerHBox.getChildren().add(cartImage);
-            if (MainController.getInstance().getCurrentPerson() instanceof Manager || MainController.getInstance().getCurrentPerson() instanceof Seller)
+            if (getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Seller)
                 cartImage.setVisible(false);
             sellers.getChildren().add(sellerHBox);
         }
@@ -241,17 +241,17 @@ public class ProductPage extends FxmlController implements Initializable {
     }
 
     public void goToAccountArea(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathAfterLogin(null, null);
             LoginController.setPathBack("productPage.fxml", "product page");
             setScene("login.fxml", "login");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        } else if (getCurrentPerson() instanceof Customer) {
             AccountAreaForCustomerController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             AccountAreaForSellerController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForSeller.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForManager.fxml", "account area");
         }

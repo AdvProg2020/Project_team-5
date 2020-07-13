@@ -39,9 +39,9 @@ public class EditPorductController extends FxmlController implements Initializab
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Good good = Shop.getInstance().findGoodById(goodId);
-        price.setPromptText(good.getPriceBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
+        price.setPromptText(good.getPriceBySeller((Seller) getCurrentPerson()) + "");
         additionalDetails.setPromptText(good.getDetails());
-        availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) MainController.getInstance().getCurrentPerson()) + "");
+        availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) getCurrentPerson()) + "");
         int row = 3;
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(good.getSubCategory().getName());

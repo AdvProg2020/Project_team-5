@@ -53,7 +53,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playMusicBackGround(false, true, false);
-        if (MainController.getInstance().getCurrentPerson() instanceof Manager || MainController.getInstance().getCurrentPerson() instanceof Seller)
+        if (getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Seller)
             shoppingBag.setVisible(false);
         handleSorts();
         if (MainController.getInstance().getControllerForFiltering().isAvailableProduct())
@@ -329,17 +329,17 @@ public class AllProductsPage extends FxmlController implements Initializable {
     }
 
     public void onAccountArea(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathBack("allProducts.fxml", "All products");
             LoginController.setPathAfterLogin(null, null);
             setScene("login.fxml", "login");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        } else if (getCurrentPerson() instanceof Customer) {
             AccountAreaForCustomerController.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             AccountAreaForSellerController.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForSeller.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForManager.fxml", "account area");
         }

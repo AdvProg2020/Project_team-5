@@ -43,7 +43,7 @@ public class CommentsPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (MainController.getInstance().getCurrentPerson() instanceof Seller || MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        if (getCurrentPerson() instanceof Seller || getCurrentPerson() instanceof Manager) {
             cart.setVisible(false);
         }
         ArrayList<Comment> comments = Shop.getInstance().findGoodById(goodId).getComments();
@@ -107,7 +107,7 @@ public class CommentsPage extends FxmlController implements Initializable {
 
 
     public void addComment(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathAfterLogin("addComment.fxml", "add comment");
             LoginController.setPathBack("commentsPage.fxml", "comments");
             setScene("login.fxml", "login");
@@ -125,13 +125,13 @@ public class CommentsPage extends FxmlController implements Initializable {
             LoginController.setPathBack("commentsPage.fxml", "comments page");
             LoginController.setPathAfterLogin(null, null);
             setScene("login.fxml", "login");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Customer) {
+        } else if (getCurrentPerson() instanceof Customer) {
             AccountAreaForCustomerController.setPathBack("commentsPage.fxml", "comments");
             setScene("accountAreaForCustomer.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Seller) {
+        } else if (getCurrentPerson() instanceof Seller) {
             AccountAreaForSellerController.setPathBack("commentsPage.fxml", "comments");
             setScene("accountAreaForSeller.fxml", "account area");
-        } else if (MainController.getInstance().getCurrentPerson() instanceof Manager) {
+        } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("commentsPage.fxml", "comments");
             setScene("accountAreaForManager.fxml", "account area");
         }
