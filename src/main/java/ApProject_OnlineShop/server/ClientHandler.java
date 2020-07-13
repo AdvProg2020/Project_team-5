@@ -532,6 +532,14 @@ public class ClientHandler extends Thread {
             List<String> data = MainController.getInstance().getAccountAreaForManagerController().getCustomersOrders();
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("viewOrderGUI")){
+            List<String> data = MainController.getInstance().getAccountAreaForManagerController().viewOrderGUI(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("changeOrderStatus")){
+            MainController.getInstance().getAccountAreaForManagerController().changeOrderStatus(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("done successfully");
+            dataOutputStream.flush();
         }
     }
 
