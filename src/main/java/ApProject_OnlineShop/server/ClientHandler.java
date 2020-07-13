@@ -111,6 +111,17 @@ public class ClientHandler extends Thread {
             allProductsHandler(requestForServer);
         } else if (requestForServer.getController().equals("ProductController")) {
             productControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("Shop")) {
+            ShopHandler(requestForServer);
+        }
+    }
+
+    private void ShopHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getAllPersons")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("")) {
+
         }
     }
 
@@ -532,11 +543,11 @@ public class ClientHandler extends Thread {
             List<String> data = MainController.getInstance().getAccountAreaForManagerController().getCustomersOrders();
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("viewOrderGUI")){
+        } else if (requestForServer.getFunction().equals("viewOrderGUI")) {
             List<String> data = MainController.getInstance().getAccountAreaForManagerController().viewOrderGUI(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("changeOrderStatus")){
+        } else if (requestForServer.getFunction().equals("changeOrderStatus")) {
             MainController.getInstance().getAccountAreaForManagerController().changeOrderStatus(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
             dataOutputStream.writeUTF("done successfully");
             dataOutputStream.flush();

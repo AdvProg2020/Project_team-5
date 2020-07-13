@@ -9,6 +9,8 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,7 +53,9 @@ public class ManageAllUsersPageController extends FxmlController implements Init
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateTableView(Shop.getInstance().getAllPersons());
+        ArrayList<Person> allPersons = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)), new TypeToken<ArrayList<Person>>() {
+        }.getType());
+        updateTableView(allPersons);
     }
 
     private void updateTableView(List<Person> persons) {
@@ -101,7 +105,9 @@ public class ManageAllUsersPageController extends FxmlController implements Init
                 if (file.exists())
                     file.delete();
                 this.selectedUsername = "";
-                updateTableView(Shop.getInstance().getAllPersons());
+                ArrayList<Person> allPersons = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)), new TypeToken<ArrayList<Person>>() {
+                }.getType());
+                updateTableView(allPersons);
                 removeButton.setDisable(true);
                 clearLabels();
                 SuccessPageFxController.showPage("delete user", "user deleted successfully");
