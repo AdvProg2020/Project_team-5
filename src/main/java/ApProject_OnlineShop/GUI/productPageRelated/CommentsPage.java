@@ -121,7 +121,7 @@ public class CommentsPage extends FxmlController implements Initializable {
     }
 
     public void accountArea(MouseEvent mouseEvent) {
-        if (MainController.getInstance().getCurrentPerson() == null) {
+        if (getCurrentPerson() == null) {
             LoginController.setPathBack("commentsPage.fxml", "comments page");
             LoginController.setPathAfterLogin(null, null);
             setScene("login.fxml", "login");
