@@ -30,6 +30,8 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
     @FXML
     private Button endButton;
 
+    private String selectedAuctionId;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateAllAuctionsBos();
@@ -41,9 +43,12 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
         label.setFont(Font.font(15));
         label.setAlignment(Pos.CENTER);
         allAuctionsVBox.getChildren().add(label);
-        List<String> allAuctions = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getAllAuctionsTitle", getToken(), null)));
-        for (String auction : allAuctions) {
-            Hyperlink hyperlink = new Hyperlink("- " + auction);
+        List<String> allAuctionsId = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getAllAuctionsId", getToken(), null)));
+        List<String> allAuctionsTitle = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getAllAuctionsTitle", getToken(), null)));
+        int i = 0;
+        for (String auction : allAuctionsId) {
+            Hyperlink hyperlink = new Hyperlink(auction + "- " + allAuctionsTitle.get(i));
+            i++;
             hyperlink.setOnMouseClicked(e -> {
                 viewSingleAuction(auction);
                 removeButton.setDisable(false);
@@ -58,7 +63,7 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
             hyperlink.setFont(new Font(14));
             allAuctionsVBox.getChildren().add(hyperlink);
         }
-        int size = allAuctions.size() * 50;
+        int size = allAuctionsId.size() * 50;
         if (size > 422) {
             allAuctionsVBox.setPrefHeight(size);
         }
@@ -66,6 +71,7 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
 
     private void viewSingleAuction(String auction) {
         singleAuctionVBox.getChildren().clear();
+        this.selectedAuctionId = auction;
         Label title = new Label(auction);
         title.setFont(Font.font(16));
         title.setAlignment(Pos.CENTER);

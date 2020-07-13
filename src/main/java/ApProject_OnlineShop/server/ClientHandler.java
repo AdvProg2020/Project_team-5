@@ -16,6 +16,7 @@ import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefor
 import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
+import ApProject_OnlineShop.model.productThings.Auction;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
@@ -30,6 +31,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ClientHandler extends Thread {
     private Socket clientSocket;
@@ -685,6 +687,23 @@ public class ClientHandler extends Thread {
             }
         } else if (requestForServer.getFunction().equals("getAllAuctionsTitle")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().getAllAuctionsTitle()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAuctionProperties")) {
+            Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
+            ArrayList<String> auctionProperties = new ArrayList<>();
+            auctionProperties.add("auction id: " + auction.getAuctionId());
+            auctionProperties.add("title: " + auction.getTitle());
+            auctionProperties.add("description: " + auction.getDescription());
+            auctionProperties.add("start date: " + auction.getStartDate().toString());
+            auctionProperties.add("end date: " + auction.getEndDate().toString());
+            auctionProperties.add("seller: " + auction.getSeller().getUsername());
+            auctionProperties.add("good id: " + auction.getGood().getGoodId());
+            auctionProperties.add("good name: " + auction.getGood().getName());
+            dataOutputStream.writeUTF(convertArrayListToString(auctionProperties));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllAuctionsId")) {
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
+            dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
             dataOutputStream.flush();
         }
     }
