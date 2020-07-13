@@ -4,6 +4,7 @@ import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
+import ApProject_OnlineShop.model.productThings.Auction;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 
@@ -15,6 +16,7 @@ public class Seller extends Person {
     private ArrayList<Long> previousSellsIds;
     private ArrayList<Long> activeGoodsIds;
     private ArrayList<Long> activeOffsIds;
+    private ArrayList<Integer> activeAuctions;
     private String bankAccountId;
     private long balance;
 
@@ -23,6 +25,7 @@ public class Seller extends Person {
         this.previousSellsIds = new ArrayList<>();
         this.activeGoodsIds = new ArrayList<>();
         this.activeOffsIds = new ArrayList<>();
+        this.activeAuctions = new ArrayList<>();
         this.company = company.getId();
     }
 
@@ -45,9 +48,7 @@ public class Seller extends Person {
         this.bankAccountId = bankAccountId;
         try {
             Database.getInstance().saveItem(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
+        } catch (IOException | FileCantBeSavedException e) {
             e.printStackTrace();
         }
     }
@@ -96,6 +97,22 @@ public class Seller extends Person {
 
     public void addOff(long id) {
         this.activeOffsIds.add(id);
+    }
+
+    public ArrayList<Auction> getActiveAuctions() {
+        ArrayList<Auction> auctions = new ArrayList<>();
+        for (Integer auction : this.activeAuctions) {
+            auctions.add(Shop.getInstance().findAuctionById(auction));
+        }
+        return auctions;
+    }
+
+    public void addAuction(Auction auction) {
+        this.activeAuctions.add(auction.getAuctionId());
+    }
+
+    public void removeAuction(Auction auction) {
+        this.activeAuctions.remove(auction.getAuctionId());
     }
 
     public ArrayList<String> buyersOfAGood(Good good) {

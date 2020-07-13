@@ -51,6 +51,7 @@ public class Database {
         loadingData.loadOrderForSeller();
         loadingData.loadOrderForCustomer();
         loadingData.loadShopBankAccount();
+        loadingData.loadAuctions();
         for (Request request : Shop.getInstance().getAllRequest()) {
             request.setName();
         }
@@ -92,6 +93,8 @@ public class Database {
             deletingData.deleteOrderForCustomer((OrderForCustomer) item);
         } else if (item instanceof Request) {
             deletingData.deleteRequest((Request) item);
+        } else if (item instanceof Auction) {
+            deletingData.deleteAuction((Auction) item);
         } else throw new FileCantBeDeletedException();
     }
 
@@ -108,7 +111,7 @@ public class Database {
             savingData.saveSeller((Seller) item);
         } else if (item instanceof Supporter) {
             savingData.saveSupporter((Supporter) item);
-        }else if (item instanceof Company) {
+        } else if (item instanceof Company) {
             savingData.saveCompany((Company) item);
         } else if (item instanceof Good) {
             savingData.saveProduct((Good) item);
@@ -132,10 +135,11 @@ public class Database {
             savingData.saveOrderForCustomer((OrderForCustomer) item);
         } else if (item instanceof Request) {
             savingData.saveRequest((Request) item);
-        }else if(item instanceof ShopBankAccount){
+        } else if(item instanceof ShopBankAccount){
             savingData.saveShopBankAccount((ShopBankAccount)item);
-        }
-        else throw new FileCantBeSavedException();
+        } else if (item instanceof Auction) {
+            savingData.saveAuction((Auction) item);
+        } else throw new FileCantBeSavedException();
     }
 
     public void saveItem(SellerRelatedInfoAboutGood infoAboutGood, long goodId) throws IOException, FileCantBeSavedException {
@@ -164,6 +168,7 @@ public class Database {
         loadFolder("TestResources\\Users\\Sellers");
         loadFolder("TestResources\\Users\\Customers");
         loadFolder("TestResources\\Users\\Managers");
+        loadFolder("TestResources\\Auctions");
     }
 
     private void loadFolder(String folderPath) {
