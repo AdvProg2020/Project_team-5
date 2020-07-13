@@ -4,9 +4,9 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -14,6 +14,21 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CreatingAuctionPageController extends FxmlController implements Initializable {
+    @FXML
+    private TextField titleTextField;
+
+    @FXML
+    private TextField productTextField;
+
+    @FXML
+    private TextArea descriptionTextArea;
+
+    @FXML
+    private DatePicker startDateChooser;
+
+    @FXML
+    private DatePicker endDateChooser;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
