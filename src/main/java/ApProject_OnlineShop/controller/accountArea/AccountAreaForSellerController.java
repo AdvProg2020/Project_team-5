@@ -265,12 +265,14 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return true;
     }
 
-    public void createAuction(ArrayList<String> fields, long goodId, Person person) throws IOException, FileCantBeSavedException {
-        Auction auction = new Auction(Shop.getInstance().findGoodById(goodId), (Seller)person,  fields.get(0), fields.get(1),
-                LocalDate.parse(fields.get(2)), LocalDate.parse(fields.get(3)));
-        ((Seller)person).addAuction(auction);
-        Shop.getInstance().addAuction(auction);
-        Database.getInstance().saveItem(person);
-        Database.getInstance().saveItem(auction);
+    public void createAuction(ArrayList<String> fields, long goodId, Person person) throws IOException, FileCantBeSavedException, ProductNotFoundExceptionForSeller {
+        if (checkValidProductId(goodId, person)) {
+            Auction auction = new Auction(Shop.getInstance().findGoodById(goodId), (Seller) person, fields.get(0), fields.get(1),
+                    LocalDate.parse(fields.get(2)), LocalDate.parse(fields.get(3)));
+            ((Seller) person).addAuction(auction);
+            Shop.getInstance().addAuction(auction);
+            Database.getInstance().saveItem(person);
+            Database.getInstance().saveItem(auction);
+        } else throw new ProductNotFoundExceptionForSeller();
     }
 }

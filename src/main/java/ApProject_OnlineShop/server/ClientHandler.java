@@ -593,7 +593,7 @@ public class ClientHandler extends Thread {
             try {
                 MainController.getInstance().getAccountAreaForSellerController().createAuction(fields, goodId, person);
                 dataOutputStream.writeUTF("auction successfully created");
-            } catch (FileCantBeSavedException e) {
+            } catch (FileCantBeSavedException | ProductNotFoundExceptionForSeller e) {
                 e.printStackTrace();
                 dataOutputStream.writeUTF(e.getMessage());
             } finally {
