@@ -46,7 +46,9 @@ public class ManageRequestsPageController extends FxmlController implements Init
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateTableView(Shop.getInstance().getAllRequest());
+        ArrayList<String> requestsJson = convertJsonToArrayOfStringForRequest(connectToServer(new RequestForServer("Shop", "getAllRequest", null, null)));
+        ArrayList<Request> allRequests = convertArrayListOfJsonToArrayListRequests(requestsJson);
+        updateTableView(allRequests);
     }
 
     private void updateTableView(ArrayList<Request> requests) {
@@ -109,7 +111,9 @@ public class ManageRequestsPageController extends FxmlController implements Init
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "acceptRequest", getToken(), inputs));
         if (serverResponse.equals("request accepted successfully")) {
             this.selectedRequest = 0L;
-            updateTableView(Shop.getInstance().getAllRequest());
+            ArrayList<String> requestsJson = convertJsonToArrayOfStringForRequest(connectToServer(new RequestForServer("Shop", "getAllRequest", null, null)));
+            ArrayList<Request> allRequests = convertArrayListOfJsonToArrayListRequests(requestsJson);
+            updateTableView(allRequests);
             acceptButton.setDisable(true);
             declineButton.setDisable(true);
             detailsLabel.setText("");
@@ -130,7 +134,9 @@ public class ManageRequestsPageController extends FxmlController implements Init
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "declineRequest", getToken(), inputs));
         if (serverResponse.equals("request declined successfully")) {
             this.selectedRequest = 0L;
-            updateTableView(Shop.getInstance().getAllRequest());
+            ArrayList<String> requestsJson = convertJsonToArrayOfStringForRequest(connectToServer(new RequestForServer("Shop", "getAllRequest", null, null)));
+            ArrayList<Request> allRequests = convertArrayListOfJsonToArrayListRequests(requestsJson);
+            updateTableView(allRequests);
             acceptButton.setDisable(true);
             declineButton.setDisable(true);
             detailsLabel.setText("");

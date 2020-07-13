@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.model.persons.*;
+import ApProject_OnlineShop.model.requests.*;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -217,5 +218,54 @@ public class FxmlController {
             persons.add(person);
         }
         return persons;
+    }
+
+    public ArrayList<String> convertJsonToArrayOfStringForRequest(String string) {
+        ArrayList<String> output = new ArrayList<>();
+        int first = 0;
+        int end = 0;
+        while (true) {
+            first = string.indexOf("{");
+            end = string.indexOf("}");
+            if (first == -1 || end == -1)
+                break;
+            char[] array = string.toCharArray();
+            int i = first + 1;
+            int numOpen = 1;
+            int numClose = 0;
+            while (true) {
+                if (array[i] == '{') numOpen++;
+                if (array[i] == '}') numClose++;
+                if (numClose == numOpen)
+                    break;
+                i++;
+            }
+            end = i;
+            output.add(string.substring(first, end + 1));
+            string = string.substring(0, first) + string.substring(end + 1);
+        }
+        return output;
+    }
+
+    public ArrayList<Request> convertArrayListOfJsonToArrayListRequests(ArrayList<String> inputs) {
+        ArrayList<Request> requests = new ArrayList<>();
+        for (String input : inputs) {
+            Request request = null;
+            if (input.contains("comment")) {
+                request = new Gson().fromJson(input, AddingCommentRequest.class);
+            } else if (input.contains("brandOfGood")) {
+                request = new Gson().fromJson(input, AddingGoodRequest.class);
+            } else if (input.contains("offGoods")) {
+                request = new Gson().fromJson(input, AddingOffRequest.class);
+            } else if (input.contains("goodId") && input.contains("editedFields")) {
+                request = new Gson().fromJson(input, EditingGoodRequest.class);
+            } else if (input.contains("offId") && input.contains("editedFields")) {
+                request = new Gson().fromJson(input, EditingOffRequest.class);
+            } else if (input.contains("companyName")) {
+                request = new Gson().fromJson(input, RegisteringSellerRequest.class);
+            }
+            requests.add(request);
+        }
+        return requests;
     }
 }
