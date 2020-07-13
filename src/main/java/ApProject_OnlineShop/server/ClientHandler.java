@@ -118,11 +118,13 @@ public class ClientHandler extends Thread {
 
     private void ShopHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("getAllPersons")) {
-            System.out.println(new Gson().toJson(Shop.getInstance().getAllPersons()));
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllDiscountCodes")) {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllDiscountCodes()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllRequest")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllRequest()));
             dataOutputStream.flush();
         }
     }

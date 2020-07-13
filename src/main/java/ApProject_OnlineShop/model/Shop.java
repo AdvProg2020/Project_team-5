@@ -231,7 +231,7 @@ public class Shop {
         return allGoods.get(id);
     }
 
-    public Good findGoodById(long goodId) {
+    public Good findGoodById(long goodId) { //TODo
         for (Category category : this.getAllCategories()) {
             if (category.findGoodInSubCategories(goodId) != null)
                 return category.findGoodInSubCategories(goodId);
@@ -239,7 +239,7 @@ public class Shop {
         return null;
     }
 
-    public DiscountCode findDiscountCode(String code) {
+    public DiscountCode findDiscountCode(String code) { //todo
         for (DiscountCode discountCode : allDiscountCodes.values()) {
             if (discountCode.getCode().equals(code))
                 return discountCode;
@@ -286,7 +286,6 @@ public class Shop {
     public void addCategory(Category category) {
         allCategories.put(category.getName(), category);
     }
-
 
     public void removeCategory(Category category) {
         allCategories.remove(category.getName());
@@ -349,7 +348,7 @@ public class Shop {
         }
     }
 
-    public Off findOffById(long offId) {
+    public Off findOffById(long offId) { //todo
         for (Off off : offs.values()) {
             if (off.getOffId() == offId)
                 return off;
@@ -390,7 +389,7 @@ public class Shop {
         return randomCustomers;
     }
 
-    public long getFinalPriceOfAGood(Good good, Seller seller) {
+    public long getFinalPriceOfAGood(Good good, Seller seller) { //todo
         if (seller == null)
             seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
         for (Off off : offs.values()) {
@@ -404,7 +403,7 @@ public class Shop {
         return allSubCategories.get(name);
     }
 
-    public SubCategory findSubCategoryByName(String name) {
+    public SubCategory findSubCategoryByName(String name) { //todo
         for (Category category : this.getAllCategories()) {
             for (SubCategory subCategory : category.getSubCategories()) {
                 if (subCategory.getName().equalsIgnoreCase(name))
@@ -414,7 +413,7 @@ public class Shop {
         return null;
     }
 
-    public Category findCategoryByName(String name) {
+    public Category findCategoryByName(String name) { //todo
         for (Category category : this.getAllCategories()) {
             if (category.getName().equalsIgnoreCase(name))
                 return category;
@@ -422,7 +421,7 @@ public class Shop {
         return null;
     }
 
-    public Good getGoodByNameAndBrandAndSubCategory(String name, String brand, SubCategory subCategory) {
+    public Good getGoodByNameAndBrandAndSubCategory(String name, String brand, SubCategory subCategory) { //todo
         for (Good good : subCategory.getGoods()) {
             if (good.getBrand().equalsIgnoreCase(brand) && good.getName().equalsIgnoreCase(name))
                 return good;
