@@ -13,6 +13,7 @@ import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.productThings.Auction;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
@@ -262,5 +263,28 @@ public class AccountAreaForSellerController extends AccountAreaController {
             return false;
         }
         return true;
+    }
+
+    public void createAuction(ArrayList<String> fields, long goodId, Person person) throws IOException, FileCantBeSavedException, ProductNotFoundExceptionForSeller {
+        if (checkValidProductId(goodId, person)) {
+            Auction auction = new Auction(Shop.getInstance().findGoodById(goodId), (Seller) person, fields.get(0), fields.get(1),
+                    LocalDate.parse(fields.get(2)), LocalDate.parse(fields.get(3)));
+            ((Seller) person).addAuction(auction);
+            Shop.getInstance().addAuction(auction);
+            Database.getInstance().saveItem(person);
+            Database.getInstance().saveItem(auction);
+        } else throw new ProductNotFoundExceptionForSeller();
+    }
+
+    public ArrayList<String> getAllAuctionsTitle() {
+        return Shop.getInstance().getAllAuctionsList().stream().map(Auction::getTitle).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void removeAuction(int auctionId) throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
+        Auction auction = Shop.getInstance().findAuctionById(auctionId);
+        auction.getSeller().removeAuction(auction);
+        Shop.getInstance().removeAuction(auction);
+        Database.getInstance().saveItem(auction.getSeller());
+        Database.getInstance().deleteItem(auction);
     }
 }

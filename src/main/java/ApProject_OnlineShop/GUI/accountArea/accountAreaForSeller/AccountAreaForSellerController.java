@@ -71,6 +71,14 @@ public class AccountAreaForSellerController extends FxmlController implements In
         setScene("viewOffsForSeller.fxml", "Offs");
     }
 
+    public void onCreateAuctionClicked() {
+        setScene("creatingAuctionPage.fxml", "Create Auction");
+    }
+
+    public void onViewAuctionsPressed() {
+        setScene("viewAuctionsPage.fxml", "View Auction");
+    }
+
     public void logout(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");

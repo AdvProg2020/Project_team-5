@@ -83,9 +83,7 @@ public class Shop {
         this.shopBankAccount = shopBankAccount;
         try {
             Database.getInstance().saveItem(shopBankAccount);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
+        } catch (IOException | FileCantBeSavedException e) {
             e.printStackTrace();
         }
     }

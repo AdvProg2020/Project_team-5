@@ -10,14 +10,18 @@ import java.util.HashMap;
 public class Auction {
     private static int auctionsCount = 1;
     private int auctionId;
+    private String title;
+    private String description;
     private long good;
     private String seller;
     private LocalDate startDate;
     private LocalDate endDate;
     private HashMap<String, Long> customersOfferedPrices;
 
-    public Auction(Good good, Seller seller, LocalDate startDate, LocalDate endDate) {
+    public Auction(Good good, Seller seller, String title, String description, LocalDate startDate, LocalDate endDate) {
         this.auctionId = auctionsCount++;
+        this.title = title;
+        this.description = description;
         this.good = good.getGoodId();
         this.seller = seller.getUsername();
         this.startDate = startDate;
@@ -67,6 +71,22 @@ public class Auction {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void addOffer(Customer customer, long price) {
