@@ -693,7 +693,7 @@ public class ClientHandler extends Thread {
                 dataOutputStream.flush();
             }
         } else if (requestForServer.getFunction().equals("getAllAuctionsTitle")) {
-            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().getAllAuctionsTitle()));
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().getAllAuctionsTitle(person)));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAuctionProperties")) {
             Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
@@ -709,7 +709,7 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(convertArrayListToString(auctionProperties));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllAuctionsId")) {
-            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().filter(auction -> auction.getSeller().equals(person)).map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
             dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("removeAuction")) {
