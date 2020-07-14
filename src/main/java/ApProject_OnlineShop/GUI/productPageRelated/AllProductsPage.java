@@ -7,10 +7,13 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaFor
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -49,9 +52,15 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public Label dateSort;
     public ImageView shoppingBag;
     public GridPane mainGridPane;
+//    private ControllerForSorting controllerForSorting;
+//    private ControllerForFiltering controllerForFiltering;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        ArrayList<String> inputs11 = new ArrayList<>();
+//        inputs11.add(getId() + "");
+//        controllerForFiltering = new Gson().fromJson(connectToServer(new RequestForServer("FilteringController", "getController", null, inputs11)), ControllerForFiltering.class);
+//        controllerForSorting = new Gson().fromJson(connectToServer(new RequestForServer("SortingController", "getController", null, inputs11)), ControllerForSorting.class);
         playMusicBackGround(false, true, false);
         if (getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Seller)
             shoppingBag.setVisible(false);
@@ -167,7 +176,9 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public void setProducts() {
         int num = 0;
         int row = 0;
-        ArrayList<String> products = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getGoods", getToken(), null)));
+        ArrayList<String> inputs0 = new ArrayList<>();
+        inputs0.add(getId() + "");
+        ArrayList<String> products = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getGoods", getToken(), inputs0)));
         ArrayList<Long> productsIds = new ArrayList<>();
         for (String product : products) {
             productsIds.add(Long.parseLong(product));
@@ -209,16 +220,23 @@ public class AllProductsPage extends FxmlController implements Initializable {
         viewsSort.setOnMouseClicked(e -> sort(1));
         rateSort.setOnMouseClicked(e -> sort(2));
         dateSort.setOnMouseClicked(e -> sort(3));
-        if (MainController.getInstance().getControllerForSorting().getCurrentSort().equals("visit number"))
+        ArrayList<String> inputs11 = new ArrayList<>();
+        inputs11.add(getId() + "");
+        String currentSort1 = connectToServer(new RequestForServer("SortingController", "getCurrentSort", null, inputs11));
+        if (currentSort1.equals("visit number"))
             viewsSort.setTextFill(Color.BLUE);
-        if (MainController.getInstance().getControllerForSorting().getCurrentSort().equals("average rate"))
+        if (currentSort1.equals("average rate"))
             rateSort.setTextFill(Color.BLUE);
-        if (MainController.getInstance().getControllerForSorting().getCurrentSort().equals("date"))
+        if (currentSort1.equals("date"))
             dateSort.setTextFill(Color.BLUE);
     }
 
     public void sort(int chosenSort) {
-        MainController.getInstance().getControllerForSorting().sortASort(chosenSort);
+        ArrayList<String> inputs11 = new ArrayList<>();
+        inputs11.add(getId() + "");
+        inputs11.add(chosenSort + "");
+        connectToServer(new RequestForServer("SortingController", "sortASort", null, inputs11));
+//        MainController.getInstance().getControllerForSorting().sortASort(chosenSort);
         setScene("allProducts.fxml", "all products page");
     }
 

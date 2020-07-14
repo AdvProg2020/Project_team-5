@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.server;
 
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.PropertyNotFoundException;
@@ -121,6 +123,35 @@ public class ClientHandler extends Thread {
             othersHandler(requestForServer);
         } else if (requestForServer.getController().equals("Good")) {
             goodHandler(requestForServer);
+        } else if (requestForServer.getController().equals("FilteringController")) {
+            filteringControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("SortingController")) {
+            sortingHandler(requestForServer);
+        }
+    }
+
+    private void sortingHandler(RequestForServer requestForServer) throws IOException {
+//        if (requestForServer.getFunction().equals("getController")) {
+//            dataOutputStream.writeUTF(new Gson().toJson(Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0)))));
+//            dataOutputStream.flush();
+//        } else if (requestForServer.getFunction().equals("setController")) {
+//        }
+        if(requestForServer.getFunction().equals("sortASort")){
+            Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).sortASort(Integer.parseInt(requestForServer.getInputs().get(1)));
+            System.out.println("hiii");
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("getCurrentSort")){
+            System.out.println("hiii22");
+            dataOutputStream.writeUTF(Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).getCurrentSort());
+            dataOutputStream.flush();
+        }
+    }
+
+    private void filteringControllerHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getController")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Server.getControllerForFilteringHashMap().get(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
         }
     }
 
@@ -190,6 +221,8 @@ public class ClientHandler extends Thread {
 
     private void cartHandler(RequestForServer requestForServer) throws IOException {
         Server.getCarts().put(Server.getIdForCarts(), new ArrayList<>());
+        Server.getControllerForFilteringHashMap().put(Server.getIdForCarts(), new ControllerForFiltering());
+        Server.getControllerForSortingHashMap().put(Server.getIdForCarts(), new ControllerForSorting());
         dataOutputStream.writeUTF(Server.getIdForCarts() + "");
         dataOutputStream.flush();
         Server.setIdForCarts(Server.getIdForCarts() + 1);
@@ -257,7 +290,7 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getAllCategories()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getGoods")) {
-            List<Long> longIds = MainController.getInstance().getAllProductsController().getGoods();
+            List<Long> longIds = MainController.getInstance().getAllProductsController().getGoods(Long.parseLong(requestForServer.getInputs().get(0)));
             ArrayList<String> idsString = new ArrayList<>();
             for (Long id : longIds) {
                 idsString.add(id + "");
@@ -393,7 +426,7 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForCustomerController().clearCart(Long.parseLong(requestForServer.getInputs().get(0)));
             dataOutputStream.writeUTF("successfully cleared");
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("getOnlineSupporters")){
+        } else if (requestForServer.getFunction().equals("getOnlineSupporters")) {
             List<String> data = MainController.getInstance().getAccountAreaForCustomerController().getOnlineSupporters();
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();

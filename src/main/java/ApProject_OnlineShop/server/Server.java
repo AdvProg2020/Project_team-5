@@ -1,5 +1,7 @@
 package ApProject_OnlineShop.server;
 
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
@@ -16,6 +18,8 @@ public class Server {
     private static ServerSocket serverSocket;
     private static HashMap<String, Person> onlineUsers = new HashMap<String, Person>();
     private static HashMap<Long, ArrayList<GoodInCart>> carts = new HashMap<>();
+    private static HashMap<Long, ControllerForFiltering> controllerForFilteringHashMap = new HashMap<>();
+    private static HashMap<Long, ControllerForSorting> controllerForSortingHashMap = new HashMap<>();
     private static long idForCarts = 1;
 
     public static void main(String[] args) {
@@ -73,5 +77,13 @@ public class Server {
 
     public static void setIdForCarts(long idForCarts) {
         Server.idForCarts = idForCarts;
+    }
+
+    public static HashMap<Long, ControllerForFiltering> getControllerForFilteringHashMap() {
+        return controllerForFilteringHashMap;
+    }
+
+    public static HashMap<Long, ControllerForSorting> getControllerForSortingHashMap() {
+        return controllerForSortingHashMap;
     }
 }
