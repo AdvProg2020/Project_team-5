@@ -18,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
