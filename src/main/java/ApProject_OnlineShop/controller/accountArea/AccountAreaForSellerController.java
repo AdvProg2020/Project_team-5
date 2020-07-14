@@ -304,7 +304,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
             Database.getInstance().saveItem(goodInCart);
             winner.addOrder(orderForCustomer);
             Shop.getInstance().addOrder(orderForCustomer);
-            orderForCustomer.setOrderStatus(Order.OrderStatus.PROCESSING);
+            orderForCustomer.setOrderStatus(Order.OrderStatus.SENT);
             Database.getInstance().saveItem(orderForCustomer);
             winner.setCredit(winner.getCredit() - price);
             Database.getInstance().saveItem(winner);
@@ -312,7 +312,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
             MainController.getInstance().getBankTransactionsController().payMoneyToSellerAfterPurchaseByWallet("" + price, auction.getSeller().getUsername());
             auction.getSeller().addOrder(orderForSeller);
             Shop.getInstance().addOrder(orderForSeller);
-            orderForSeller.setOrderStatus(Order.OrderStatus.READYTOSEND);
+            orderForSeller.setOrderStatus(Order.OrderStatus.SENT);
             Database.getInstance().saveItem(orderForSeller);
             Database.getInstance().saveItem(auction.getSeller());
             auction.getGood().reduceAvailableNumber(auction.getSeller(), 1);
