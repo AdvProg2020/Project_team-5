@@ -745,6 +745,9 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(exception.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("getOrderDetails")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().getOrderDetails(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2))));
+            dataOutputStream.flush();
         }
     }
 

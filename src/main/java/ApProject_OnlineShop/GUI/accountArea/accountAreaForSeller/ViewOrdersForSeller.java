@@ -77,7 +77,12 @@ public class ViewOrdersForSeller extends FxmlController {
         int index = orderString.indexOf("  ");
         String code = orderString.substring("order ID: ".length(), index);
         long orderId = Long.parseLong(code);
-        List<String> orderDetails = ((Seller) FxmlController.getCurrentPerson()).findOrderById(orderId).getDetails();
+        ArrayList<String> inputs0 = new ArrayList<>();
+        inputs0.add(orderId + "");
+        inputs0.add(getCurrentPerson().getUsername());
+        inputs0.add("seller");
+        List<String> orderDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaController", "getOrderDetails", getToken(), inputs0)));
+//        List<String> orderDetails = ((Seller) FxmlController.getCurrentPerson()).findOrderById(orderId).getDetails();
         GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Seller Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));

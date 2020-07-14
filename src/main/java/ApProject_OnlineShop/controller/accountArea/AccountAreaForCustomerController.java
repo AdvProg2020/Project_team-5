@@ -243,4 +243,6 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     public void clearCart(long id) {
         Shop.getInstance().clearCart(id);
     }
+
+
 }
