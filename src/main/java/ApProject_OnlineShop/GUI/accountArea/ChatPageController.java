@@ -32,26 +32,28 @@ public class ChatPageController extends FxmlController implements Initializable 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         title.setText("chat with " + guest);
         Massage massage = new Massage("kure","hale", "hi babe");
-        vBox.getChildren().add(getMassageVBox(massage));
+        VBox massageBox = getMassageVBox(massage);
+        VBox.setMargin(massageBox, new Insets(10,5,5,10));
+        vBox.getChildren().add(massageBox);
     }
 
     public VBox getMassageVBox(Massage massage) {
         VBox vBox = new VBox();
-        vBox.setStyle("-fx-border-color:#8600b3; -fx-border-width: 1;" +
-                "-fx-border-style: solid; -fx-background-color: linear-gradient(to bottom right, #ffb3ff, #ffffff);");
+        vBox.setStyle("-fx-border-color:#8600b3; -fx-border-width: 1;-fx-border-style: solid;");
         vBox.setAlignment(Pos.CENTER_LEFT);
         Label senderName = new Label(massage.getSenderUserName());
+        VBox.setMargin(senderName,new Insets(6,0,0,10));
         senderName.setFont(Font.font("Times New Roman", 15));
         senderName.setStyle("-fx-text-color: # #600080");
         vBox.getChildren().add(senderName);
         Label body = new Label(massage.getMassage());
-        VBox.setMargin(body,new Insets(6,0,0,0));
+        VBox.setMargin(body,new Insets(6,0,0,10));
         body.setFont(Font.font("Times New Roman", 13));
         vBox.getChildren().add(body);
         String time = "" + massage.getTime();
         Label timeText = new Label(time.substring(0,2) + ":" + time.substring(3,5));
         timeText.setFont(Font.font("Times New Roman", 13));
-        timeText.setPadding(new Insets(7,5,5,4));
+        timeText.setPadding(new Insets(7,5,5,15));
         vBox.getChildren().add(timeText);
         return vBox;
     }
