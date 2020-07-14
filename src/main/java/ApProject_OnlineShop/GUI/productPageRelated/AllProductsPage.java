@@ -6,12 +6,10 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaFo
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
-import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.RequestForServer;
-import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -248,7 +246,11 @@ public class AllProductsPage extends FxmlController implements Initializable {
     }
 
     public void removeCategoryProperty(String property) {
-        MainController.getInstance().getControllerForFiltering().removeProperty(property);
+//        MainController.getInstance().getControllerForFiltering().removeProperty(property);
+        ArrayList<String> inputs11 = new ArrayList<>();
+        inputs11.add(getId() + "");
+        inputs11.add(property);
+        connectToServer(new RequestForServer("FilteringController", "removeProperty", null, inputs11));
         setScene("allProducts.fxml", "all products page");
     }
 
@@ -269,7 +271,11 @@ public class AllProductsPage extends FxmlController implements Initializable {
 //            MainController.getInstance().getControllerForFiltering().disableSubcategoryFilter();
             connectToServer(new RequestForServer("FilteringController", "disableSubcategoryFilter", null, getInputsForServer()));
         } else {
-            MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(subCategory);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            inputs.add(subCategory);
+            connectToServer(new RequestForServer("FilteringController", "addSubCategoryFilter", null, inputs));
+//            MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(subCategory);
         }
         setScene("allProducts.fxml", "all products page");
     }
@@ -279,7 +285,11 @@ public class AllProductsPage extends FxmlController implements Initializable {
             //            MainController.getInstance().getControllerForFiltering().disableCategoryFilter();
             connectToServer(new RequestForServer("FilteringController", "disableCategoryFilter", null, getInputsForServer()));
         } else {
-            MainController.getInstance().getControllerForFiltering().addCategoryFilter(category);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            inputs.add(category);
+            connectToServer(new RequestForServer("FilteringController", "addCategoryFilter", null, inputs));
+//            MainController.getInstance().getControllerForFiltering().addCategoryFilter(category);
         }
         setScene("allProducts.fxml", "all products page");
     }
@@ -311,7 +321,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
         ArrayList<String> inputs11 = new ArrayList<>();
         inputs11.add(getId() + "");
         inputs11.add(nameFilterValue.getText());
-        connectToServer(new RequestForServer("SortingController", "addNameFiltering", null, inputs11));
+        connectToServer(new RequestForServer("FilteringController", "addNameFiltering", null, inputs11));
         setScene("allProducts.fxml", "all products page");
     }
 
@@ -320,7 +330,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
         ArrayList<String> inputs11 = new ArrayList<>();
         inputs11.add(getId() + "");
         inputs11.add("");
-        connectToServer(new RequestForServer("SortingController", "addNameFiltering", null, inputs11));
+        connectToServer(new RequestForServer("FilteringController", "addNameFiltering", null, inputs11));
         setScene("allProducts.fxml", "all products page");
     }
 
