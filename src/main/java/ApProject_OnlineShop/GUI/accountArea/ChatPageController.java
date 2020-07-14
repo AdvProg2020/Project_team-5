@@ -3,6 +3,8 @@ package ApProject_OnlineShop.GUI.accountArea;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -36,11 +38,16 @@ public class ChatPageController extends FxmlController implements Initializable 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         title.setText("chat with " + guest);
-        Massage massage = new Massage("kure","hale", "hi babe");
-        VBox massageBox = getMassageVBox(massage);
-        VBox.setMargin(massageBox, new Insets(10,5,5,10));
-        vBox.getChildren().add(massageBox);
-        vBox.getChildren().add(getAnswerBox());
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(owner);
+        inputs.add(guest);
+        ArrayList<Massage> massages = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getMassages", getToken(),inputs)), new TypeToken<ArrayList<Massage>>() {}.getType());
+        for (Massage massage : massages) {
+            VBox massageBox = getMassageVBox(massage);
+            VBox.setMargin(massageBox, new Insets(10,5,5,10));
+            vBox.getChildren().add(massageBox);
+            vBox.getChildren().add(getAnswerBox());
+        }
     }
 
     public VBox getMassageVBox(Massage massage) {
@@ -89,7 +96,10 @@ public class ChatPageController extends FxmlController implements Initializable 
     }
 
     private void sendMassage() {
-
+        Massage massage = new Massage(owner, guest,massageTextField.getText());
+        ArrayList<String> input = new ArrayList<>();
+        input.add(new Gson().toJson(massage));
+        connectToServer(new RequestForServer("AccountAreaController", "sendMassage",getToken(), input));
     }
 
     public void backButton(ActionEvent actionEvent) {

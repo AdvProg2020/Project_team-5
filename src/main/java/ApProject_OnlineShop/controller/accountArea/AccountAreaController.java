@@ -3,6 +3,7 @@ package ApProject_OnlineShop.controller.accountArea;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.productExceptions.FieldCantBeEditedException;
+import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -90,5 +91,9 @@ public class AccountAreaController {
             return seller.findOrderById(id).getDetails();
         }
         return null;
+    }
+
+    public void sendMassage(Massage massage){
+        Shop.getInstance().addMassage(massage);
     }
 }

@@ -36,6 +36,7 @@ public class Shop {
     private HashMap<Integer, Auction> allAuctions;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
     private ShopBankAccount shopBankAccount;
+    private ArrayList<Massage> massages;
 
     public static Shop getInstance() {
         return ourInstance;
@@ -57,6 +58,7 @@ public class Shop {
         this.allSellerRelatedInfoAboutGood = new HashMap<>();
         this.allCompanies = new HashMap<>();
         this.allAuctions = new HashMap<>();
+        this.massages = new ArrayList<>();
     }
 
     public HashMap<Long, Company> getAllCompanies() {
@@ -293,6 +295,14 @@ public class Shop {
             category.deleteSubCategory(subCategory);
             allSubCategories.remove(subCategory.getName());
         }
+    }
+
+    public ArrayList<Massage> getMassages() {
+        return massages;
+    }
+
+    public void addMassage(Massage massage){
+        this.massages.add(massage);
     }
 
     public ArrayList<Rate> getRatesOfAGood(Good good) {

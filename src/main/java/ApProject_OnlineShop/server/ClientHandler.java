@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.server;
 
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
@@ -17,6 +18,7 @@ import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundException
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.exception.userExceptions.*;
+import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.RequestForServer;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
@@ -562,6 +564,9 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF("you do not have enough credit to offer this price.");
             }
             dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("getMassages")){
+            dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAccountAreaForCustomerController().getMassages(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1))));
+            dataOutputStream.flush();
         }
     }
 
@@ -994,6 +999,10 @@ public class ClientHandler extends Thread {
             }
         } else if (requestForServer.getFunction().equals("getOrderDetails")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().getOrderDetails(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2))));
+            dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("sendMassage")){
+            MainController.getInstance().getAccountAreaController().sendMassage(new Gson().fromJson(requestForServer.getInputs().get(0), Massage.class));
+            dataOutputStream.writeUTF("done successfully");
             dataOutputStream.flush();
         }
     }

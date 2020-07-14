@@ -9,6 +9,7 @@ import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeExpired
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
 import ApProject_OnlineShop.exception.NotEnoughCredit;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
+import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
@@ -247,7 +248,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Shop.getInstance().clearCart(id);
     }
 
-    public List<String> getOnlineSupporters(){
+    public List<String> getOnlineSupporters() {
         List<Person> onlineSupporters = new ArrayList<>();
         for (Person person : Server.getOnlineUsers().values()) {
             if (person instanceof Supporter)
@@ -263,5 +264,14 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         throw new CustomerNotFoundInAuctionException();
     }
 
+    public List<Massage> getMassages(String owner, String guest) {
+        ArrayList<Massage> massages = new ArrayList<>();
+        for (Massage massage : Shop.getInstance().getMassages()) {
+            if ((massage.getSenderUserName().equals(owner) && massage.getReceiverUserName().equals(guest)) ||
+                    (massage.getSenderUserName().equals(guest) && massage.getReceiverUserName().equals(owner)))
+                massages.add(massage);
+        }
+        return massages;
+    }
 
 }
