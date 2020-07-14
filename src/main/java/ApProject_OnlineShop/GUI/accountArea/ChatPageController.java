@@ -10,11 +10,15 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -25,6 +29,7 @@ public class ChatPageController extends FxmlController implements Initializable 
     private static String guest;
     private static String path;
     private static String backTitle;
+    public TextField massageTextField;
     public VBox vBox;
     public Label title;
 
@@ -35,10 +40,13 @@ public class ChatPageController extends FxmlController implements Initializable 
         VBox massageBox = getMassageVBox(massage);
         VBox.setMargin(massageBox, new Insets(10,5,5,10));
         vBox.getChildren().add(massageBox);
+        vBox.getChildren().add(getAnswerBox());
     }
 
     public VBox getMassageVBox(Massage massage) {
         VBox vBox = new VBox();
+        vBox.setMaxWidth(240);
+        vBox.setMinWidth(240);
         vBox.setStyle("-fx-border-color:#8600b3; -fx-border-width: 1;-fx-border-style: solid;");
         vBox.setAlignment(Pos.CENTER_LEFT);
         Label senderName = new Label(massage.getSenderUserName());
@@ -56,6 +64,25 @@ public class ChatPageController extends FxmlController implements Initializable 
         timeText.setPadding(new Insets(7,5,5,15));
         vBox.getChildren().add(timeText);
         return vBox;
+    }
+
+    public HBox getAnswerBox(){
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.setPrefHeight(40);
+        hBox.setPrefWidth(442);
+        this.massageTextField = new TextField("type your massage");
+        this.massageTextField.setFont(Font.font(14));
+        this.massageTextField.setPrefWidth(390);
+        this.massageTextField.setMinHeight(30);
+        this.massageTextField.setAlignment(Pos.CENTER_LEFT);
+        hBox.getChildren().add(massageTextField);
+        ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/sendIcon.png").toString()));
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
+        HBox.setMargin(imageView, new Insets(0,5,0,7));
+        hBox.getChildren().add(imageView);
+        return hBox;
     }
 
     public void backButton(ActionEvent actionEvent) {
