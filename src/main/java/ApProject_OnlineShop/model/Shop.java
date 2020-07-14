@@ -389,7 +389,7 @@ public class Shop {
         return randomCustomers;
     }
 
-    public long getFinalPriceOfAGood(Good good, Seller seller) { //todo
+    public long getFinalPriceOfAGood(Good good, Seller seller) {
         if (seller == null)
             seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
         for (Off off : offs.values()) {
@@ -397,6 +397,10 @@ public class Shop {
                 return off.getPriceAfterOff(good, seller);
         }
         return good.getPriceBySeller(seller);
+    }
+
+    public long getFinalPriceOfAGood(long good, String seller) {
+        return getFinalPriceOfAGood(Shop.getInstance().findGoodById(good), (Seller) Shop.getInstance().findUser(seller));
     }
 
     public SubCategory getSubCategory(String name) {

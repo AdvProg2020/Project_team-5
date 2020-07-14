@@ -207,7 +207,11 @@ public class ProductPageControllerForSeller extends FxmlController implements In
                 ArrayList<String> inputs22 = new ArrayList<>();
                 inputs22.add(productId + "");
                 Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
-                Label finalPrice = new Label("" + Shop.getInstance().getFinalPriceOfAGood(good, eachSellerInfo.getSeller()));
+                ArrayList<String> inputs44 = new ArrayList<>();
+                inputs44.add(good.getGoodId() + "");
+                inputs44.add(eachSellerInfo.getSellerUserName());
+                String finalPrice1 = connectToServer(new RequestForServer("Shop", "getFinalPriceOfAGood", null, inputs44));
+                Label finalPrice = new Label(finalPrice1);
                 finalPrice.setFont(Font.font("Times New Roman", 16));
                 finalPrice.setPadding(new Insets(0, 7, 0, 7));
                 priceBox.getChildren().add(finalPrice);
