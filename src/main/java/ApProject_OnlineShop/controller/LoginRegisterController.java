@@ -9,6 +9,7 @@ import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.requests.RegisteringSellerRequest;
+import ApProject_OnlineShop.server.Server;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,8 +54,8 @@ public class LoginRegisterController {
         return person;
     }
 
-    public void logoutUser() {
+    public void logoutUser(long id) {
         MainController.getInstance().setCurrentPerson(null);
-        MainController.getInstance().getControllerForFiltering().clearAllFilters();
+        Server.getControllerForFilteringHashMap().get(id).clearAllFilters();
     }
 }

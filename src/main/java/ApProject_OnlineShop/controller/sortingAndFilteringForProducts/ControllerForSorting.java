@@ -9,14 +9,6 @@ import java.util.List;
 public class ControllerForSorting {
     private String currentSort = "visit number";
 
-    public String getCurrentSort() {
-        return currentSort;
-    }
-
-    public void disableSort() {
-        currentSort = " visit number";
-    }
-
     public void sortASort(int chosenSort) {
         if (chosenSort == 1)
             currentSort = "visit number";
@@ -24,6 +16,10 @@ public class ControllerForSorting {
             currentSort = "average rate";
         if (chosenSort == 3)
             currentSort = "date";
+    }
+
+    public String getCurrentSort() {
+        return currentSort;
     }
 
     public List<Good> showProducts(List<Good> allGoods) {

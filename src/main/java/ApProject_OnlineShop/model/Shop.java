@@ -287,7 +287,6 @@ public class Shop {
         allCategories.put(category.getName(), category);
     }
 
-
     public void removeCategory(Category category) {
         allCategories.remove(category.getName());
         for (SubCategory subCategory : category.getSubCategories()) {
@@ -398,6 +397,10 @@ public class Shop {
                 return off.getPriceAfterOff(good, seller);
         }
         return good.getPriceBySeller(seller);
+    }
+
+    public long getFinalPriceOfAGood(long good, String seller) {
+        return getFinalPriceOfAGood(Shop.getInstance().findGoodById(good), (Seller) Shop.getInstance().findUser(seller));
     }
 
     public SubCategory getSubCategory(String name) {

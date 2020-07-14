@@ -1,15 +1,10 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
 
-import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.productPageRelated.ProductBriefSummery;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -104,7 +98,7 @@ public class RateProductsController extends FxmlController implements Initializa
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
 //            Shop.getInstance().clearCart();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));

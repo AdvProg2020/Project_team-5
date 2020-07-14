@@ -1,9 +1,7 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.ViewSpecificOffController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -34,7 +32,7 @@ public class ViewCustomersOrderFxmlController extends FxmlController implements 
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));

@@ -1,8 +1,6 @@
 package ApProject_OnlineShop.GUI;
 
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +30,7 @@ public class PurchasePageController1 extends FxmlController implements Initializ
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
 //            Shop.getInstance().clearCart();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));

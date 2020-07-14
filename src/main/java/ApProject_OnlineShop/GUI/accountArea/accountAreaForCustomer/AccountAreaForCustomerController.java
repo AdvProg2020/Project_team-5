@@ -4,13 +4,12 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.accountArea.Styles;
 import ApProject_OnlineShop.GUI.productPageRelated.Cart;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.productThings.DiscountCode;
+import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
-import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -116,7 +115,10 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         playButtonMusic();
         int index = summeryOfDiscountCode.indexOf("  ");
         String code = summeryOfDiscountCode.substring("discount code:".length(), index);
-        List<String> discountCodeDetails = Shop.getInstance().findDiscountCode(code).getAllDetails();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(code);
+        DiscountCode discountCode = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findDiscountCode", null, inputs)), DiscountCode.class);
+        List<String> discountCodeDetails = discountCode.getAllDetails();
         GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Discount Code Information");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
@@ -179,7 +181,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
 //            Shop.getInstance().clearCart();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
@@ -205,5 +207,9 @@ public class AccountAreaForCustomerController extends FxmlController implements 
 
     public void chatWithSupportersPage(ActionEvent actionEvent) {
         setScene("customerChat.fxml", "customer chat");
+    }
+
+    public void onViewAuctionsPressed(ActionEvent actionEvent) {
+        setScene("viewAllAuctionsForCustomerPage.fxml", "view auctions");
     }
 }

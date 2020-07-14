@@ -60,6 +60,10 @@ public class Comment {
         return didCommenterBoughtThisProduct;
     }
 
+    public String getPersonString(){
+        return person;
+    }
+
     @Override
     public String toString() {
             return String.format("Commenter Username : %s\nProduct Id : %d\n" +

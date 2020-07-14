@@ -25,7 +25,7 @@ public class Category {
     }
 
     public ArrayList<SubCategory> getSubCategories() {
-        ArrayList<SubCategory> subCategories2=new ArrayList<>();
+        ArrayList<SubCategory> subCategories2 = new ArrayList<>();
         for (String subCategory : this.subCategories) {
             subCategories2.add(Shop.getInstance().getSubCategory(subCategory));
         }
@@ -59,6 +59,10 @@ public class Category {
                 return subCategory;
         }
         return null;
+    }
+
+    public ArrayList<String> getSubCategoriesString() {
+        return this.subCategories;
     }
 
     @Override

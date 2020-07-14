@@ -3,16 +3,11 @@ package ApProject_OnlineShop.GUI.bankRelated;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.requests.Request;
-import ApProject_OnlineShop.server.RequestForServer;
-import javafx.event.ActionEvent;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -37,7 +32,7 @@ public class BankRelatedController extends FxmlController {
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
 //            Shop.getInstance().clearCart();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));

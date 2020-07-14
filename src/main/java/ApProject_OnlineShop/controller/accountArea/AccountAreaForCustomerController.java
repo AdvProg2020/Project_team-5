@@ -2,6 +2,7 @@ package ApProject_OnlineShop.controller.accountArea;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.exception.CustomerNotFoundInAuctionException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeExpired;
@@ -254,4 +255,12 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
         return onlineSupporters;
     }
+
+    public long getLastOfferedPriceOfCustomer(Auction auction, Customer customer) throws CustomerNotFoundInAuctionException {
+        if (auction.getAllCustomersOffers().containsKey(customer))
+            return auction.getAllCustomersOffers().get(customer);
+        throw new CustomerNotFoundInAuctionException();
+    }
+
+
 }

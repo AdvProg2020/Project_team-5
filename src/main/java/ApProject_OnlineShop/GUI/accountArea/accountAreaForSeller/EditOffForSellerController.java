@@ -3,10 +3,10 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -88,7 +88,10 @@ public class EditOffForSellerController extends FxmlController implements Initia
 //                    edited = false;
 //                }
             }
-            if (!startDateChooser.getValue().equals(Shop.getInstance().findOffById(id).getStartDate())) {
+            ArrayList<String> inputs2 = new ArrayList<>();
+            inputs2.add(id + "");
+            Off off1 = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findOffById", null, inputs2)), Off.class);
+            if (!startDateChooser.getValue().equals(off1.getStartDate())) {
                 ArrayList<String> inputs = new ArrayList<>();
                 inputs.add("start date");
                 inputs.add(startDateChooser.getValue().toString());
@@ -109,7 +112,7 @@ public class EditOffForSellerController extends FxmlController implements Initia
 //                    edited = false;
 //                }
             }
-            if (!endDateChooser.getValue().equals(Shop.getInstance().findOffById(id).getEndDate())) {
+            if (!endDateChooser.getValue().equals(off1.getEndDate())) {
                 ArrayList<String> inputs = new ArrayList<>();
                 inputs.add("end date");
                 inputs.add(endDateChooser.getValue().toString());
@@ -193,7 +196,13 @@ public class EditOffForSellerController extends FxmlController implements Initia
             return false;
         } else if (removeProduct.getText().matches("[\\d]+")) {
             long productId = Long.parseLong(removeProduct.getText());
-            if (!Shop.getInstance().findOffById(ViewSpecificOffController.getOffId()).doesHaveThisProduct(Shop.getInstance().findGoodById(productId))) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(productId + "");
+            Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+            ArrayList<String> inputs2 = new ArrayList<>();
+            inputs2.add(ViewSpecificOffController.getOffId() + "");
+            Off off1 = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findOffById", null, inputs2)), Off.class);
+            if (!off1.doesHaveThisProduct(good)) {
                 ErrorPageFxController.showPage("error for edit off", "you don't have this product in your off");
                 return false;
             }
@@ -201,13 +210,17 @@ public class EditOffForSellerController extends FxmlController implements Initia
             long productId = Long.parseLong(addProduct.getText());
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(productId + "");
-            if (Shop.getInstance().findGoodById(productId) == null) {
+            Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+            ArrayList<String> inputs2 = new ArrayList<>();
+            inputs2.add(ViewSpecificOffController.getOffId() + "");
+            Off off1 = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findOffById", null, inputs2)), Off.class);
+            if (good == null) {
                 ErrorPageFxController.showPage("error for edit off", "doesn't exist a product with this id");
                 return false;
             } else if (connectToServer(new RequestForServer("AccountAreaForSellerController", "checkValidProductId", getToken(), inputs)).equals("false")) {
                 ErrorPageFxController.showPage("error for edit off", "This product does not exist your active goods");
                 return false;
-            } else if (Shop.getInstance().findOffById(ViewSpecificOffController.getOffId()).doesHaveThisProduct(Shop.getInstance().findGoodById(productId))) {
+            } else if (off1.doesHaveThisProduct(good)) {
                 ErrorPageFxController.showPage("error for edit off", "you have this product in your off already");
                 return false;
             }
@@ -221,7 +234,7 @@ public class EditOffForSellerController extends FxmlController implements Initia
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
 //            Shop.getInstance().clearCart();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));

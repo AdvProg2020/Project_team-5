@@ -3,13 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.Main;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
-import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
-import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -17,7 +11,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -52,7 +45,7 @@ public class CreatingDiscountCodePageController extends FxmlController implement
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));

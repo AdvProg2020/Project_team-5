@@ -3,12 +3,8 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
-import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,13 +25,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
@@ -99,7 +91,12 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         }
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "addProduct", getToken(), inputs));
         if (serverResponse.equals("successfully created!")) {
-            Good.setGoodsCount(Good.getGoodsCount() + 1);
+            long goodCount = Long.parseLong(connectToServer(new RequestForServer("Others", "Good.getGoodsCount", null, null)));
+            goodCount++;
+            ArrayList<String> inputs00 = new ArrayList<>();
+            inputs00.add(goodCount + "");
+            connectToServer(new RequestForServer("Others", "Good.setGoodsCount", null, inputs00));
+//            Good.setGoodsCount(Good.getGoodsCount() + 1);
             SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
             setScene("manageProductsForSeller.fxml", "manage product");
         } else {
@@ -120,7 +117,7 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
 //            Shop.getInstance().clearCart();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
@@ -147,7 +144,8 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("jpg", "*.jpg");
         fileChooser.getExtensionFilters().addAll(png, jpg);
         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
-        path = "./Resources/productImages/" + Good.getGoodsCount() + ".jpg";
+        long goodCount = Long.parseLong(connectToServer(new RequestForServer("Others", "Good.getGoodsCount", null, null)));
+        path = "./Resources/productImages/" + goodCount + ".jpg";
         BufferedImage bi = null;
         try {
             bi = ImageIO.read(selectedFile.toURL());

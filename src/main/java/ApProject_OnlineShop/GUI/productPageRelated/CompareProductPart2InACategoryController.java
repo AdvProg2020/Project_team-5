@@ -5,12 +5,12 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaFo
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -103,8 +103,14 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
     }
 
     private void addCategoryProperties() {
-        HashMap<String, String> categoryPropertiesGood2 = Shop.getInstance().findGoodById(productId2).getCategoryProperties();
-        HashMap<String, String> categoryPropertiesGood1 = Shop.getInstance().findGoodById(productId1).getCategoryProperties();
+        ArrayList<String> inputs22 = new ArrayList<>();
+        inputs22.add(productId2 + "");
+        Good good2 = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+        ArrayList<String> inputs23 = new ArrayList<>();
+        inputs23.add(productId1 + "");
+        Good good1 = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs23)), Good.class);
+        HashMap<String, String> categoryPropertiesGood2 = good2.getCategoryProperties();
+        HashMap<String, String> categoryPropertiesGood1 = good1.getCategoryProperties();
         if ((categoryPropertiesGood1.keySet().size() + 8) * 50 > 425) {
             gridpane.setPrefHeight((categoryPropertiesGood1.keySet().size() + 8) * 50);
             vbox1.setPrefHeight((categoryPropertiesGood1.keySet().size() + 8) * 50);

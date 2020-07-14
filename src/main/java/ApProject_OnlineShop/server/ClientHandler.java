@@ -1,10 +1,13 @@
 package ApProject_OnlineShop.server;
 
 import ApProject_OnlineShop.controller.MainController;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
+import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.PropertyNotFoundException;
 import ApProject_OnlineShop.exception.RequestNotFoundException;
+import ApProject_OnlineShop.exception.*;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
@@ -14,9 +17,11 @@ import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundException
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.exception.userExceptions.*;
+import ApProject_OnlineShop.model.RequestForServer;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.Auction;
+import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
@@ -86,7 +91,7 @@ public class ClientHandler extends Thread {
 
     private void handleRequest(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
         if (requestForServer.getController().equals("###cart")) {
-            cartHandler(requestForServer);
+            cartHandler();
             return;
         }
         if (requestForServer.getToken() != null)
@@ -113,11 +118,192 @@ public class ClientHandler extends Thread {
             allProductsHandler(requestForServer);
         } else if (requestForServer.getController().equals("ProductController")) {
             productControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("Shop")) {
+            ShopHandler(requestForServer);
+        } else if (requestForServer.getController().equals("Others")) {
+            othersHandler(requestForServer);
+        } else if (requestForServer.getController().equals("Good")) {
+            goodHandler(requestForServer);
+        } else if (requestForServer.getController().equals("FilteringController")) {
+            filteringControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("SortingController")) {
+            sortingHandler(requestForServer);
         }
     }
 
-    private void cartHandler(RequestForServer requestForServer) throws IOException {
+    private void sortingHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("sortASort")) {
+            Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).sortASort(Integer.parseInt(requestForServer.getInputs().get(1)));
+            System.out.println("hiii");
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getCurrentSort")) {
+            System.out.println("hiii22");
+            dataOutputStream.writeUTF(Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).getCurrentSort());
+            dataOutputStream.flush();
+        }
+    }
+
+    private void filteringControllerHandler(RequestForServer requestForServer) throws IOException {
+        ControllerForFiltering controllerForFiltering = Server.getControllerForFilteringHashMap().get(Long.parseLong(requestForServer.getInputs().get(0)));
+        if (requestForServer.getFunction().equals("isOffProductsFilter")) {
+            dataOutputStream.writeUTF(controllerForFiltering.isOffProductsFilter() + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("setOffProductsFilter")) {
+            controllerForFiltering.setOffProductsFilter();
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("removeOffProductsFilter")) {
+            controllerForFiltering.removeOffProductsFilter();
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSeller")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getSeller());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getName")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getName());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getCategory")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getCategory());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSubCategory")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getSubCategory());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getBrand")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getBrand());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isAvailableProduct")) {
+            dataOutputStream.writeUTF(controllerForFiltering.isAvailableProduct() + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addBrandFiltering")) {
+            controllerForFiltering.addBrandFiltering(requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("disablePriceFiltering")) {
+            controllerForFiltering.disablePriceFiltering();
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getStartPrice")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getStartPrice());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getEndPrice")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getEndPrice());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addPriceFiltering")) {
+            controllerForFiltering.addPriceFiltering(requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addSellerFilter")) {
+            controllerForFiltering.addSellerFilter(requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addNameFiltering")) {
+            controllerForFiltering.addNameFiltering(requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addAvailableProduct")) {
+            controllerForFiltering.addAvailableProduct();
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("disableCategoryFilter")) {
+            controllerForFiltering.disableCategoryFilter();
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSubcategories")) {
+            dataOutputStream.writeUTF(convertListToString(controllerForFiltering.getSubcategories()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("disableSubcategoryFilter")) {
+            controllerForFiltering.disableSubcategoryFilter();
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getCategoryProperties")) {
+            dataOutputStream.writeUTF(convertListToString(controllerForFiltering.getCategoryProperties()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSubCategoryProperties")) {
+            dataOutputStream.writeUTF(convertListToString(controllerForFiltering.getSubCategoryProperties()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getValueOfProperty")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getValueOfProperty(requestForServer.getInputs().get(1)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addPropertiesFilter")) {
+            controllerForFiltering.addPropertiesFilter(requestForServer.getInputs().get(1), requestForServer.getInputs().get(2));
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("removeAvailableProductsFilter")) {
+            controllerForFiltering.removeAvailableProductsFilter();
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        }
+    }
+
+    private void goodHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getPriceBySeller")) {
+            Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(1));
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(good.getPriceBySeller(seller) + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAvailableNumberBySeller")) {
+            Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(1));
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(good.getAvailableNumberBySeller(seller) + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getComments")) {
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(new Gson().toJson(good.getComments()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getThisGoodOff")) {
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(new Gson().toJson(good.getThisGoodOff()));
+            dataOutputStream.flush();
+        }
+    }
+
+    private void othersHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("Good.getGoodsCount")) {
+            dataOutputStream.writeUTF(Good.getGoodsCount() + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("Good.setGoodsCount")) {
+            Good.setGoodsCount(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF("successfully set");
+            dataOutputStream.flush();
+        }
+    }
+
+    private void ShopHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getAllPersons")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllDiscountCodes")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllDiscountCodes()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllRequest")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllRequest()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findGoodById")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findDiscountCode")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findDiscountCode((requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findOffById")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findOffById(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findSubCategoryByName")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findSubCategoryByName((requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findCategoryByName")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findCategoryByName((requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getFinalPriceOfAGood")) {
+            dataOutputStream.writeUTF("" + Shop.getInstance().getFinalPriceOfAGood(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1)));
+            dataOutputStream.flush();
+        }
+    }
+
+    private void cartHandler() throws IOException {
         Server.getCarts().put(Server.getIdForCarts(), new ArrayList<>());
+        Server.getControllerForFilteringHashMap().put(Server.getIdForCarts(), new ControllerForFiltering());
+        Server.getControllerForSortingHashMap().put(Server.getIdForCarts(), new ControllerForSorting());
         dataOutputStream.writeUTF(Server.getIdForCarts() + "");
         dataOutputStream.flush();
         Server.setIdForCarts(Server.getIdForCarts() + 1);
@@ -185,7 +371,7 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getAllCategories()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getGoods")) {
-            List<Long> longIds = MainController.getInstance().getAllProductsController().getGoods();
+            List<Long> longIds = MainController.getInstance().getAllProductsController().getGoods(Long.parseLong(requestForServer.getInputs().get(0)));
             ArrayList<String> idsString = new ArrayList<>();
             for (Long id : longIds) {
                 idsString.add(id + "");
@@ -321,9 +507,48 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForCustomerController().clearCart(Long.parseLong(requestForServer.getInputs().get(0)));
             dataOutputStream.writeUTF("successfully cleared");
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("getOnlineSupporters")){
+        } else if (requestForServer.getFunction().equals("getOnlineSupporters")) {
             List<String> data = MainController.getInstance().getAccountAreaForCustomerController().getOnlineSupporters();
             dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllAuctionsId")) {
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
+            dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllAuctionsTitle")) {
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getTitle).collect(Collectors.toList());
+            dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getLastOfferedPriceOfCustomer")) {
+            Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
+            try {
+                dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForCustomerController().getLastOfferedPriceOfCustomer(auction, (Customer)user));
+            } catch (CustomerNotFoundInAuctionException e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("offerNewPrice")) {
+            Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
+            Customer customer = (Customer)user;
+            long offeredPrice = Long.parseLong(requestForServer.getInputs().get(1));
+            if (customer.getCredit() >= offeredPrice) {
+                if (auction.getAllCustomersOffers().containsKey(customer)) {
+                    if (auction.getAllCustomersOffers().get(customer) < offeredPrice) {
+                        auction.removeOffer(customer);
+                        auction.addOffer(customer, offeredPrice);
+                        dataOutputStream.writeUTF("your price offered successfully");
+                    } else {
+                        dataOutputStream.writeUTF("your price offered should be more than previous one.");
+                    }
+                } else {
+                    auction.addOffer(customer, offeredPrice);
+                    dataOutputStream.writeUTF("your price offered successfully");
+                }
+            } else {
+                dataOutputStream.writeUTF("you do not have enough credit to offer this price.");
+            }
             dataOutputStream.flush();
         }
     }
@@ -538,11 +763,11 @@ public class ClientHandler extends Thread {
             List<String> data = MainController.getInstance().getAccountAreaForManagerController().getCustomersOrders();
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("viewOrderGUI")){
+        } else if (requestForServer.getFunction().equals("viewOrderGUI")) {
             List<String> data = MainController.getInstance().getAccountAreaForManagerController().viewOrderGUI(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("changeOrderStatus")){
+        } else if (requestForServer.getFunction().equals("changeOrderStatus")) {
             MainController.getInstance().getAccountAreaForManagerController().changeOrderStatus(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
             dataOutputStream.writeUTF("done successfully");
             dataOutputStream.flush();
@@ -692,8 +917,8 @@ public class ClientHandler extends Thread {
             } finally {
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getFunction().equals("getAllAuctionsTitle")) {
-            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().getAllAuctionsTitle()));
+        } else if (requestForServer.getFunction().equals("getSellerAllAuctionsTitle")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().getAllAuctionsTitle(person)));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAuctionProperties")) {
             Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
@@ -708,8 +933,8 @@ public class ClientHandler extends Thread {
             auctionProperties.add("good name: " + auction.getGood().getName());
             dataOutputStream.writeUTF(convertArrayListToString(auctionProperties));
             dataOutputStream.flush();
-        } else if (requestForServer.getFunction().equals("getAllAuctionsId")) {
-            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
+        } else if (requestForServer.getFunction().equals("getSellerAllAuctionsId")) {
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().filter(auction -> auction.getSeller().equals(person)).map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
             dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("removeAuction")) {
@@ -755,6 +980,9 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(exception.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("getOrderDetails")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().getOrderDetails(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2))));
+            dataOutputStream.flush();
         }
     }
 
@@ -857,7 +1085,7 @@ public class ClientHandler extends Thread {
                 e.printStackTrace();
             }
         } else if (requestForServer.getFunction().equals("logoutUser")) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
+            MainController.getInstance().getLoginRegisterController().logoutUser(Long.parseLong(requestForServer.getInputs().get(0)));
             Server.removeOnlineUser(requestForServer.getToken());
             dataOutputStream.writeUTF("logout successfully");
             dataOutputStream.flush();

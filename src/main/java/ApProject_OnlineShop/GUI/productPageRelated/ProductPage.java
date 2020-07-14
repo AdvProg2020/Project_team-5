@@ -7,16 +7,12 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaFo
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
-import ApProject_OnlineShop.exception.productExceptions.NotEnoughAvailableProduct;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
@@ -96,8 +92,9 @@ public class ProductPage extends FxmlController implements Initializable {
     }
 
     private void makeProperties() {
-        Good good = Shop.getInstance().findGoodById(productId);
-        detailsLabel.setText(good.getDetails());
+        ArrayList<String> inputs22 = new ArrayList<>();
+        inputs22.add(productId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);        detailsLabel.setText(good.getDetails());
         HashMap<String, String> categoryProperties = good.getCategoryProperties();
         properties.setAlignment(Pos.CENTER);
         properties.setSpacing(13);
@@ -143,7 +140,7 @@ public class ProductPage extends FxmlController implements Initializable {
             usernameVBox.setAlignment(Pos.CENTER_LEFT);
             usernameVBox.setMinWidth(150);
             usernameVBox.setMaxWidth(150);
-            Label username = new Label(eachSellerInfo.getSeller().getUsername());
+            Label username = new Label(eachSellerInfo.getSellerUserName());
             username.setFont(Font.font("Times New Roman", 16));
             username.setPadding(new Insets(0, 15, 0, 15));
             usernameVBox.getChildren().add(username);
@@ -162,7 +159,7 @@ public class ProductPage extends FxmlController implements Initializable {
             goodStatusVBox.getChildren().add(goodStatus);
             sellerHBox.getChildren().add(goodStatusVBox);
             ArrayList<String> inputs2 = new ArrayList<>();
-            inputs2.add(eachSellerInfo.getSeller().getUsername());
+            inputs2.add(eachSellerInfo.getSellerUserName());
             inputs2.add(productId + "");
             if (connectToServer(new RequestForServer("ProductController", "isInOffBySeller", null, inputs2)).equals("false")) {
                 HBox priceBox = new HBox();
@@ -190,7 +187,14 @@ public class ProductPage extends FxmlController implements Initializable {
                 primaryPrice.setStroke(Color.LIGHTSLATEGREY);
                 primaryPrice.setStrokeType(StrokeType.INSIDE);
                 priceBox.getChildren().add(primaryPrice);
-                Label finalPrice = new Label("" + Shop.getInstance().getFinalPriceOfAGood(Shop.getInstance().findGoodById(productId), eachSellerInfo.getSeller()));
+                ArrayList<String> inputs22 = new ArrayList<>();
+                inputs22.add(productId + "");
+                Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+                ArrayList<String> inputs44 = new ArrayList<>();
+                inputs44.add(good.getGoodId() + "");
+                inputs44.add(eachSellerInfo.getSellerUserName());
+                String finalPrice1 = connectToServer(new RequestForServer("Shop", "getFinalPriceOfAGood", null, inputs44));
+                Label finalPrice = new Label(finalPrice1);
                 finalPrice.setFont(Font.font("Times New Roman", 16));
                 finalPrice.setPadding(new Insets(0, 7, 0, 7));
                 priceBox.getChildren().add(finalPrice);
@@ -206,7 +210,7 @@ public class ProductPage extends FxmlController implements Initializable {
             cartImage.setFitHeight(35);
             cartImage.setFitWidth(35);
             cartImage.setCursor(Cursor.HAND);
-            cartImage.setOnMouseClicked(e -> addToCart(eachSellerInfo.getSeller().getUsername()));
+            cartImage.setOnMouseClicked(e -> addToCart(eachSellerInfo.getSellerUserName()));
             sellerHBox.getChildren().add(cartImage);
             if (getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Seller)
                 cartImage.setVisible(false);

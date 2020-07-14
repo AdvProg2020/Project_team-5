@@ -1,7 +1,8 @@
 package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.model.persons.*;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.requests.*;
+import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,6 @@ import javafx.scene.media.AudioClip;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -161,7 +161,7 @@ public class FxmlController {
     }
 
     public ArrayList<String> convertStringToArraylist(String data) {
-        if(data.equals(""))
+        if (data.equals(""))
             return new ArrayList<>();
         String[] split = data.split("#");
         ArrayList<String> output = new ArrayList<>();
@@ -185,5 +185,91 @@ public class FxmlController {
 
     public static void setId(long id) {
         FxmlController.id = id;
+    }
+
+    public ArrayList<String> convertJsonToArrayOfString(String string) {
+        ArrayList<String> output = new ArrayList<>();
+        int first = 0;
+        int end = 0;
+        while (true) {
+            first = string.indexOf("{");
+            end = string.indexOf("}");
+            if (first == -1 || end == -1)
+                break;
+            output.add(string.substring(first, end + 1));
+            string = string.substring(0, first) + string.substring(end + 1);
+        }
+        return output;
+    }
+
+    public ArrayList<Person> convertArrayListOfJsonToArrayListPersons(ArrayList<String> inputs) {
+        ArrayList<Person> persons = new ArrayList<>();
+        for (String input : inputs) {
+            Person person;
+            if (input.contains("discountCodesIds")) {
+                person = new Gson().fromJson(input, Customer.class);
+            } else if (input.contains("activeGoodsIds")) {
+                person = new Gson().fromJson(input, Seller.class);
+            } else {
+                person = new Gson().fromJson(input, Manager.class);
+            }
+            persons.add(person);
+        }
+        return persons;
+    }
+
+    public ArrayList<String> convertJsonToArrayOfStringForRequest(String string) {
+        ArrayList<String> output = new ArrayList<>();
+        int first = 0;
+        int end = 0;
+        while (true) {
+            first = string.indexOf("{");
+            end = string.indexOf("}");
+            if (first == -1 || end == -1)
+                break;
+            char[] array = string.toCharArray();
+            int i = first + 1;
+            int numOpen = 1;
+            int numClose = 0;
+            while (true) {
+                if (array[i] == '{') numOpen++;
+                if (array[i] == '}') numClose++;
+                if (numClose == numOpen)
+                    break;
+                i++;
+            }
+            end = i;
+            output.add(string.substring(first, end + 1));
+            string = string.substring(0, first) + string.substring(end + 1);
+        }
+        return output;
+    }
+
+    public ArrayList<Request> convertArrayListOfJsonToArrayListRequests(ArrayList<String> inputs) {
+        ArrayList<Request> requests = new ArrayList<>();
+        for (String input : inputs) {
+            Request request = null;
+            if (input.contains("comment")) {
+                request = new Gson().fromJson(input, AddingCommentRequest.class);
+            } else if (input.contains("brandOfGood")) {
+                request = new Gson().fromJson(input, AddingGoodRequest.class);
+            } else if (input.contains("offGoods")) {
+                request = new Gson().fromJson(input, AddingOffRequest.class);
+            } else if (input.contains("goodId") && input.contains("editedFields")) {
+                request = new Gson().fromJson(input, EditingGoodRequest.class);
+            } else if (input.contains("offId") && input.contains("editedFields")) {
+                request = new Gson().fromJson(input, EditingOffRequest.class);
+            } else if (input.contains("companyName")) {
+                request = new Gson().fromJson(input, RegisteringSellerRequest.class);
+            }
+            requests.add(request);
+        }
+        return requests;
+    }
+
+    public ArrayList<String> getInputsForServer() {
+        ArrayList<String> input = new ArrayList<>();
+        input.add(getId() + "");
+        return input;
     }
 }

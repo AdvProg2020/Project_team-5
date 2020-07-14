@@ -276,8 +276,8 @@ public class AccountAreaForSellerController extends AccountAreaController {
         } else throw new ProductNotFoundExceptionForSeller();
     }
 
-    public ArrayList<String> getAllAuctionsTitle() {
-        return Shop.getInstance().getAllAuctionsList().stream().map(Auction::getTitle).collect(Collectors.toCollection(ArrayList::new));
+    public ArrayList<String> getAllAuctionsTitle(Person person) {
+        return Shop.getInstance().getAllAuctionsList().stream().filter(auction -> auction.getSeller().equals(person)).map(Auction::getTitle).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void removeAuction(int auctionId) throws IOException, FileCantBeSavedException, FileCantBeDeletedException {

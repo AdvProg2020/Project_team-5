@@ -3,14 +3,10 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeDeletedException;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
-import ApProject_OnlineShop.server.RequestForServer;
-import javafx.application.Platform;
+import ApProject_OnlineShop.model.RequestForServer;
+import com.gilecode.yagson.com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,9 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
@@ -54,14 +48,16 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateTableView(Shop.getInstance().getAllDiscountCodes());
+        ArrayList<DiscountCode> allDiscounts = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)), new TypeToken<ArrayList<DiscountCode>>() {
+        }.getType());
+        updateTableView(allDiscounts);
     }
 
     public void onLogoutIconClicked() {
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
@@ -84,7 +80,10 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
     }
 
     public void onEditDiscountPressed() {
-        EditDiscountCodePageController.setCurrentDiscount(Shop.getInstance().findDiscountCode(selectedDiscount));
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(selectedDiscount);
+        DiscountCode discountCode = new com.google.gson.Gson().fromJson(connectToServer(new RequestForServer("Shop", "findDiscountCode", null, inputs)), DiscountCode.class);
+        EditDiscountCodePageController.setCurrentDiscount(discountCode);
         setScene("editDiscountPage.fxml", "edit discount");
     }
 
@@ -108,7 +107,9 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
             String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "removeDiscountCode", getToken(), inputs));
             if (serverResponse.equals("discountCode removed successfully")) {
                 this.selectedDiscount = "";
-                updateTableView(Shop.getInstance().getAllDiscountCodes());
+                ArrayList<DiscountCode> allDiscounts = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)), new TypeToken<ArrayList<DiscountCode>>() {
+                }.getType());
+                updateTableView(allDiscounts);
                 editButton.setDisable(true);
                 removeButton.setDisable(true);
                 clearLabels();
@@ -135,7 +136,9 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
     }
 
     public void onEndDateSort() {
-        List<DiscountCode> discountCodes = Shop.getInstance().getAllDiscountCodes();
+        ArrayList<DiscountCode> allDiscounts = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)), new TypeToken<ArrayList<DiscountCode>>() {
+        }.getType());
+        List<DiscountCode> discountCodes = allDiscounts;
         discountCodes.sort((d1, d2) -> {
             if (d1.getEndDate().isBefore(d2.getEndDate()))
                 return 1;
@@ -148,13 +151,17 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
     }
 
     public void onPercentSort() {
-        List<DiscountCode> discountCodes = Shop.getInstance().getAllDiscountCodes();
+        ArrayList<DiscountCode> allDiscounts = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)), new TypeToken<ArrayList<DiscountCode>>() {
+        }.getType());
+        List<DiscountCode> discountCodes = allDiscounts;
         discountCodes.sort((d1, d2) -> (int) (d1.getMaxDiscountAmount() - d2.getMaxDiscountAmount()));
         updateTableView(discountCodes);
     }
 
     public void onMaxAmountSort() {
-        List<DiscountCode> discountCodes = Shop.getInstance().getAllDiscountCodes();
+        ArrayList<DiscountCode> allDiscounts = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)), new TypeToken<ArrayList<DiscountCode>>() {
+        }.getType());
+        List<DiscountCode> discountCodes = allDiscounts;
         discountCodes.sort(Comparator.comparingInt(DiscountCode::getDiscountPercent));
         updateTableView(discountCodes);
     }

@@ -1,14 +1,11 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.server.RequestForServer;
-import javafx.event.ActionEvent;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -36,7 +33,7 @@ public class ViewSingleCustomerOrderForManager extends FxmlController implements
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));

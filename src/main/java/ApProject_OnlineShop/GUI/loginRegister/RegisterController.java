@@ -2,7 +2,8 @@ package ApProject_OnlineShop.GUI.loginRegister;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Person;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -90,12 +91,11 @@ public class RegisterController extends FxmlController {
             ErrorPageFxController.showPage("Error for registering", "password is invalid!");
             return false;
         }
-        if (role.equals("customer") || role.equals("seller")){
-            if (!bankPassword.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")){
+        if (role.equals("customer") || role.equals("seller")) {
+            if (!bankPassword.getText().matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,16})")) {
                 ErrorPageFxController.showPage("Error for registering", "bank password is invalid!");
                 return false;
-            }
-            else if (!bankPassword.getText().equals(repeatPassword.getText())){
+            } else if (!bankPassword.getText().equals(repeatPassword.getText())) {
                 ErrorPageFxController.showPage("Error for registering", "passwords do not match");
                 return false;
             }
@@ -136,7 +136,9 @@ public class RegisterController extends FxmlController {
     }
 
     public void backButtonAction(ActionEvent actionEvent) {
-        if (Shop.getInstance().getAllPersons().size() == 0) {
+        ArrayList<String> allPersonsString = convertJsonToArrayOfString(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)));
+        ArrayList<Person> allPersons = convertArrayListOfJsonToArrayListPersons(allPersonsString);
+        if (allPersons.size() == 0) {
             Optional<ButtonType> result = new FxmlController().showAlert
                     (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
             if (result.get() == ButtonType.OK) {

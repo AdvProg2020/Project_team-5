@@ -1,8 +1,6 @@
-package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
+package ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
 
-import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,39 +19,36 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ViewAuctionsPageController extends FxmlController implements Initializable {
+public class ViewAllAuctionsForCustomerPageController extends FxmlController implements Initializable {
     @FXML
     private VBox allAuctionsVBox;
     @FXML
     private VBox singleAuctionVBox;
     @FXML
-    private Button removeButton;
-    @FXML
-    private Button endButton;
+    private Button participateButton;
 
     private String selectedAuctionId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateAllAuctionsBos();
+        updateAllAuctionsBox();
     }
 
-    private void updateAllAuctionsBos() {
+    private void updateAllAuctionsBox() {
         allAuctionsVBox.getChildren().clear();
         Label label = new Label("All Auctions List");
         label.setFont(Font.font(15));
         label.setAlignment(Pos.CENTER);
         allAuctionsVBox.getChildren().add(label);
-        List<String> allAuctionsId = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSellerAllAuctionsId", getToken(), null)));
-        List<String> allAuctionsTitle = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSellerAllAuctionsTitle", getToken(), null)));
+        List<String> allAuctionsId = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getAllAuctionsId", getToken(), null)));
+        List<String> allAuctionsTitle = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getAllAuctionsTitle", getToken(), null)));
         int i = 0;
         for (String auction : allAuctionsId) {
             Hyperlink hyperlink = new Hyperlink(auction + "- " + allAuctionsTitle.get(i));
             i++;
             hyperlink.setOnMouseClicked(e -> {
                 viewSingleAuction(auction);
-                removeButton.setDisable(false);
-                endButton.setDisable(false);
+                participateButton.setDisable(false);
             });
             hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
             hyperlink.setAlignment(Pos.BOTTOM_LEFT);
@@ -92,40 +87,23 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
         }
     }
 
-    public void onRemoveAuctionPressed(ActionEvent actionEvent) {
-        Optional<ButtonType> result = showAlert
-                (Alert.AlertType.CONFIRMATION, "remove", "Remove Auction", "are you sure to remove this auction?");
-        if (result.get() == ButtonType.OK) {
-            ArrayList<String> inputs = new ArrayList<>();
-            inputs.add(selectedAuctionId);
-            String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "removeAuction", getToken(), inputs));
-            if (serverResponse.equals("auction successfully removed")) {
-                SuccessPageFxController.showPage("auction removed successfully", "your auction successfully removed.");
-                resetPage();
-            } else {
-                ErrorPageFxController.showPage("auction cannot be removed", serverResponse);
-            }
-        } else actionEvent.consume();
-    }
-
     private void resetPage() {
         this.selectedAuctionId = "";
         singleAuctionVBox.getChildren().clear();
-        removeButton.setDisable(true);
-        endButton.setDisable(true);
-        updateAllAuctionsBos();
+        participateButton.setDisable(true);
+        updateAllAuctionsBox();
     }
 
-    public void onEndAuctionPressed() {
-
+    public void onBackButtonPressed(ActionEvent actionEvent) {
+        setScene("accountAreaForCustomer.fxml", "account area");
     }
 
     public void onLogoutIconClicked(MouseEvent mouseEvent) {
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
-            //MainController.getInstance().getLoginRegisterController().logoutUser();
-            //Shop.getInstance().clearCart();
+//            MainController.getInstance().getLoginRegisterController().logoutUser();
+//            Shop.getInstance().clearCart();
             connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
@@ -136,8 +114,9 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
         }
     }
 
-
-    public void onBackButtonPressed(ActionEvent actionEvent) {
-        setScene("accountAreaForSeller.fxml", "account area");
+    public void onParticipateAuctionPressed() {
+        AuctionPageController.setSelectedAuctionId(selectedAuctionId);
+        resetPage();
+        setScene("auctionPage.fxml", "Auction Page");
     }
 }

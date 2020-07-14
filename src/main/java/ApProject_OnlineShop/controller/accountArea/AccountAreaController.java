@@ -9,6 +9,7 @@ import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Person;
+import ApProject_OnlineShop.model.persons.Seller;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -78,5 +79,16 @@ public class AccountAreaController {
         if (chosenSort == 2)
             ordersString = MainController.getInstance().getSortController().sortByPrice(orders).stream().map(order -> order.briefString()).collect(Collectors.toList());
         return ordersString;
+    }
+
+    public List<String> getOrderDetails(long id, String username, String role) {
+        if (role.equals("customer")) {
+            Customer customer = (Customer) Shop.getInstance().findUser(username);
+            return customer.findOrderById(id).getDetails();
+        } else if (role.equals("seller")) {
+            Seller seller = (Seller) Shop.getInstance().findUser(username);
+            return seller.findOrderById(id).getDetails();
+        }
+        return null;
     }
 }

@@ -3,9 +3,10 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -55,7 +55,10 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
         details.setFont(Font.font(16));
         details.setAlignment(Pos.CENTER);
         allFieldsVBox.getChildren().add(details);
-        for (String detail : Shop.getInstance().findSubCategoryByName(currentSubCategory).getDetails()) {
+        ArrayList<String> inputs33 = new ArrayList<>();
+        inputs33.add(currentSubCategory);
+        SubCategory subCat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findSubCategoryByName", null, inputs33)), SubCategory.class);
+        for (String detail : subCat.getDetails()) {
             Hyperlink hyperlink = new Hyperlink("- " + detail);
             hyperlink.setOnMouseClicked(e -> {
                 singlePropertyVBox.setDisable(false);
@@ -71,7 +74,7 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             hyperlink.setFont(new Font(14));
             allFieldsVBox.getChildren().add(hyperlink);
         }
-        int size = Shop.getInstance().findSubCategoryByName(currentSubCategory).getDetails().size() * 50;
+        int size = subCat.getDetails().size() * 50;
         if (size > 355) {
             allFieldsVBox.setPrefHeight(size);
         }
@@ -91,7 +94,7 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
                 (Alert.AlertType.CONFIRMATION, "Logout", "Logout", "are you sure to logout?");
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
@@ -112,7 +115,13 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             newValueField.clear();
             return;
         }
-        if (Shop.getInstance().findSubCategoryByName(currentSubCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newValue)) || Shop.getInstance().findCategoryByName(currentCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newValue))) {
+        ArrayList<String> inputs31 = new ArrayList<>();
+        inputs31.add(currentCategory);
+        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs31)), Category.class);
+        ArrayList<String> inputs33 = new ArrayList<>();
+        inputs33.add(currentSubCategory);
+        SubCategory subCat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findSubCategoryByName", null, inputs33)), SubCategory.class);
+        if (subCat.getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newValue)) || cat.getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newValue))) {
             ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
             newValueField.clear();
             return;
@@ -152,7 +161,13 @@ public class EditSubCategoryPageController extends FxmlController implements Ini
             newPropertyField.clear();
             return;
         }
-        if (Shop.getInstance().findSubCategoryByName(currentSubCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty)) || Shop.getInstance().findCategoryByName(currentCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty))) {
+        ArrayList<String> inputs31 = new ArrayList<>();
+        inputs31.add(currentCategory);
+        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs31)), Category.class);
+        ArrayList<String> inputs33 = new ArrayList<>();
+        inputs33.add(currentSubCategory);
+        SubCategory subCat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findSubCategoryByName", null, inputs33)), SubCategory.class);
+        if (subCat.getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty)) || cat.getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty))) {
             ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
             newPropertyField.clear();
             return;

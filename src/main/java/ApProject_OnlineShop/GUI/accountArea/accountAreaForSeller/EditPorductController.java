@@ -3,11 +3,9 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,15 +36,22 @@ public class EditPorductController extends FxmlController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Good good = Shop.getInstance().findGoodById(goodId);
-        price.setPromptText(good.getPriceBySeller((Seller) getCurrentPerson()) + "");
+        ArrayList<String> inputs2 = new ArrayList<>();
+        inputs2.add(goodId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs2)), Good.class);
+        ArrayList<String> inputs3 = new ArrayList<>();
+        inputs3.add(goodId + "");
+        inputs3.add(getCurrentPerson().getUsername());
+        String finalPriceBySeller = connectToServer(new RequestForServer("Good", "getPriceBySeller", null, inputs3));
+        price.setPromptText(finalPriceBySeller);
         additionalDetails.setPromptText(good.getDetails());
-        availableNumber.setPromptText(good.getAvailableNumberBySeller((Seller) getCurrentPerson()) + "");
+        String availableNumberString= connectToServer(new RequestForServer("Good", "getAvailableNumberBySeller", null, inputs3));
+        availableNumber.setPromptText(availableNumberString);
         int row = 3;
         ArrayList<String> inputs = new ArrayList<>();
-        inputs.add(good.getSubCategory().getName());
+        inputs.add(good.getSubCategoryNameString());
         ArrayList<String> subCategoryDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSubcategoryDetails", getToken(), inputs)));
-        for (String detail : subCategoryDetails){
+        for (String detail : subCategoryDetails) {
             Label text = new Label(detail + " :");
             text.setFont(Font.font("Times New Roman", 14));
             text.setPadding(new Insets(20));
@@ -78,7 +83,7 @@ public class EditPorductController extends FxmlController implements Initializab
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
 //            Shop.getInstance().clearCart();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));

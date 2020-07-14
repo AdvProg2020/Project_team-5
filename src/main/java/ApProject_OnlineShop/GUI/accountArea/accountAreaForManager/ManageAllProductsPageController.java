@@ -4,13 +4,10 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.productPageRelated.ProductBriefSummery;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeDeletedException;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
-import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.GUI.productPageRelated.ProductPage;
 import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -21,14 +18,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class ManageAllProductsPageController extends FxmlController implements Initializable {
     @FXML
@@ -83,7 +78,7 @@ public class ManageAllProductsPageController extends FxmlController implements I
         if (result.get() == ButtonType.OK) {
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
             setScene("mainMenuLayout.fxml", "Main menu");
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
@@ -94,7 +89,13 @@ public class ManageAllProductsPageController extends FxmlController implements I
 
     private void updatePage() {
         root.getChildren().clear();
-        List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
+        List<String> productsIdsString = convertStringToArraylist(connectToServer(new RequestForServer("ProductController", "getAllGoodsIds", null, null)));
+        productsIdsString.remove(ProductPage.productId + "");
+        List<Long> productIds = new ArrayList<>();
+        for (String s : productsIdsString) {
+            productIds.add(Long.parseLong(s));
+        }
+//        List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
         int num = 0;
         int row = 0;
         int size1;
@@ -119,7 +120,10 @@ public class ManageAllProductsPageController extends FxmlController implements I
 
     private void onSelectProduct(Long productId) {
         this.selectedGoodId = productId;
-        name.setText(Shop.getInstance().findGoodById(productId).getName());
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+        name.setText(good.getName());
         id.setText("" + productId);
         removeButton.setDisable(false);
     }
