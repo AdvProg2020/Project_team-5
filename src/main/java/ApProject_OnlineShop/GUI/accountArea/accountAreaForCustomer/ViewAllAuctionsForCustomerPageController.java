@@ -115,6 +115,8 @@ public class ViewAllAuctionsForCustomerPageController extends FxmlController imp
     }
 
     public void onParticipateAuctionPressed() {
-
+        resetPage();
+        AuctionPageController.setSelectedAuctionId(selectedAuctionId);
+        setScene("auctionPage.fxml", "Auction Page");
     }
 }
