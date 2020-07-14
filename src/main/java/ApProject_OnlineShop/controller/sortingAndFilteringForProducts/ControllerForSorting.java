@@ -13,10 +13,6 @@ public class ControllerForSorting {
         return currentSort;
     }
 
-    public void disableSort() {
-        currentSort = " visit number";
-    }
-
     public void sortASort(int chosenSort) {
         if (chosenSort == 1)
             currentSort = "visit number";
