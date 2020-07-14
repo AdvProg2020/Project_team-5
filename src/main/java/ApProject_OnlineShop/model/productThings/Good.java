@@ -242,6 +242,10 @@ public class Good {
         return null;
     }
 
+    public String getSubCategoryNameString(){
+        return subCategory;
+    }
+
     @Override
     public String toString() {
         StringBuilder sellerRelatedInfo = new StringBuilder();

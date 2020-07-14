@@ -1,11 +1,7 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
-import ApProject_OnlineShop.model.category.SubCategory;
-import ApProject_OnlineShop.model.productThings.Comment;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
@@ -15,10 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -56,8 +50,8 @@ public class ViewCategoriesController extends FxmlController implements Initiali
             ArrayList<String> inputs31 = new ArrayList<>();
             inputs31.add(category);
             Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs31)), Category.class);
-            for (SubCategory subCategory : cat.getSubCategories()) {
-                Label sub = new Label((i++) + "-" + subCategory.getName());
+            for (String subCategory : cat.getSubCategoriesString()) {
+                Label sub = new Label((i++) + "-" + subCategory);
                 sub.setFont(javafx.scene.text.Font.font("Arial", 12));
                 sub.setPadding(new javafx.geometry.Insets(10));
                 subCateogryHbox.getChildren().add(sub);

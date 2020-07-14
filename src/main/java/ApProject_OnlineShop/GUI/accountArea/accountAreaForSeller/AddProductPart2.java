@@ -4,7 +4,6 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -96,7 +95,12 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         }
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "addProduct", getToken(), inputs));
         if (serverResponse.equals("successfully created!")) {
-            Good.setGoodsCount(Good.getGoodsCount() + 1);
+            long goodCount = Long.parseLong(connectToServer(new RequestForServer("Others", "Good.getGoodsCount", null, null)));
+            goodCount++;
+            ArrayList<String> inputs00 = new ArrayList<>();
+            inputs00.add(goodCount + "");
+            connectToServer(new RequestForServer("Others", "Good.setGoodsCount", null, inputs00));
+//            Good.setGoodsCount(Good.getGoodsCount() + 1);
             SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
             setScene("manageProductsForSeller.fxml", "manage product");
         } else {
@@ -144,7 +148,8 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("jpg", "*.jpg");
         fileChooser.getExtensionFilters().addAll(png, jpg);
         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
-        path = "./Resources/productImages/" + Good.getGoodsCount() + ".jpg";
+        long goodCount = Long.parseLong(connectToServer(new RequestForServer("Others", "Good.getGoodsCount", null, null)));
+        path = "./Resources/productImages/" + goodCount + ".jpg";
         BufferedImage bi = null;
         try {
             bi = ImageIO.read(selectedFile.toURL());

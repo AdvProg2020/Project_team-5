@@ -1,9 +1,6 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.OffNotFoundException;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;

@@ -16,6 +16,7 @@ import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefor
 import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
+import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
@@ -113,6 +114,35 @@ public class ClientHandler extends Thread {
             productControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("Shop")) {
             ShopHandler(requestForServer);
+        } else if (requestForServer.getController().equals("Others")) {
+            othersHandler(requestForServer);
+        } else if (requestForServer.getController().equals("Good")) {
+            goodHandler(requestForServer);
+        }
+    }
+
+    private void goodHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getPriceBySeller")) {
+            Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(1));
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(good.getPriceBySeller(seller) + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAvailableNumberBySeller")) {
+            Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(1));
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(good.getAvailableNumberBySeller(seller)+"");
+            dataOutputStream.flush();
+        }
+    }
+
+    private void othersHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("Good.getGoodsCount")) {
+            dataOutputStream.writeUTF(Good.getGoodsCount() + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("Good.setGoodsCount")) {
+            Good.setGoodsCount(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF("successfully set");
+            dataOutputStream.flush();
         }
     }
 
