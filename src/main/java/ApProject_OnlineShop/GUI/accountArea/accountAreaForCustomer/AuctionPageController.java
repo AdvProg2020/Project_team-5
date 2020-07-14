@@ -2,6 +2,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,6 +75,7 @@ public class AuctionPageController extends FxmlController implements Initializab
         if (offeredPriceTextField.getText().isEmpty() || !offeredPriceTextField.getText().matches("\\d+")) {
             ErrorPageFxController.showPage("error in offer price", "invalid format for offered price.");
             updateLastPriceLabel();
+            offeredPriceTextField.clear();
             return;
         }
         String offeredPrice = offeredPriceTextField.getText();
@@ -82,8 +84,12 @@ public class AuctionPageController extends FxmlController implements Initializab
         inputs.add(offeredPrice);
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "offerNewPrice", getToken(), inputs));
         if (serverResponse.equals("your price offered successfully")) {
-
+            SuccessPageFxController.showPage("price offer", "your price successfully offered.");
+            updateLastPriceLabel();
+        } else {
+            ErrorPageFxController.showPage("price cannot be offered", serverResponse);
         }
+        offeredPriceTextField.clear();
     }
 
     public void onLogoutIconClicked(MouseEvent mouseEvent) {
