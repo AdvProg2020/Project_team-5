@@ -25,6 +25,7 @@ import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.requests.Request;
+import ApProject_OnlineShop.server.Server;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -204,9 +205,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return subCategories;
     }
 
-//    public ArrayList<String> getCategoryProperties(String categoryName) {
-//        return Shop.getInstance().findCategoryByName(categoryName).getDetails();
-//    }
+    public ArrayList<String> getCategoryProperties(String categoryName) {
+        return Shop.getInstance().findCategoryByName(categoryName).getDetails();
+    }
 
     public void editCategory(String name, String property, String newValue)
             throws PropertyNotFoundException, IOException, FileCantBeSavedException {
@@ -291,9 +292,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().saveItem(category);
     }
 
-//    public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
-//        return Shop.getInstance().findSubCategoryByName(subcategoryName).getDetails();
-//    }
+    public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
+        return Shop.getInstance().findSubCategoryByName(subcategoryName).getDetails();
+    }
 
     public void editSubcategory(String subCategoryName, String property, String newValue) throws PropertyNotFoundException, IOException, FileCantBeSavedException {
         SubCategory subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName);

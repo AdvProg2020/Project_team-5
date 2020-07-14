@@ -275,4 +275,16 @@ public class AccountAreaForSellerController extends AccountAreaController {
             Database.getInstance().saveItem(auction);
         } else throw new ProductNotFoundExceptionForSeller();
     }
+
+    public ArrayList<String> getAllAuctionsTitle(Person person) {
+        return Shop.getInstance().getAllAuctionsList().stream().filter(auction -> auction.getSeller().equals(person)).map(Auction::getTitle).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void removeAuction(int auctionId) throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
+        Auction auction = Shop.getInstance().findAuctionById(auctionId);
+        auction.getSeller().removeAuction(auction);
+        Shop.getInstance().removeAuction(auction);
+        Database.getInstance().saveItem(auction.getSeller());
+        Database.getInstance().deleteItem(auction);
+    }
 }

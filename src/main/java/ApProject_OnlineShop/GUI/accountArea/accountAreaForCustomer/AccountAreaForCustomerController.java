@@ -206,5 +206,10 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     }
 
     public void chatWithSupportersPage(ActionEvent actionEvent) {
+        setScene("customerChat.fxml", "customer chat");
+    }
+
+    public void onViewAuctionsPressed(ActionEvent actionEvent) {
+        setScene("viewAllAuctionsForCustomerPage.fxml", "view auctions");
     }
 }

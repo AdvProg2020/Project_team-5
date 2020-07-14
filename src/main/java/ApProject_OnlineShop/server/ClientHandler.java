@@ -16,6 +16,7 @@ import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefor
 import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
+import ApProject_OnlineShop.model.productThings.Auction;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
@@ -31,6 +32,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ClientHandler extends Thread {
     private Socket clientSocket;
@@ -390,6 +392,18 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForCustomerController().clearCart(Long.parseLong(requestForServer.getInputs().get(0)));
             dataOutputStream.writeUTF("successfully cleared");
             dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("getOnlineSupporters")){
+            List<String> data = MainController.getInstance().getAccountAreaForCustomerController().getOnlineSupporters();
+            dataOutputStream.writeUTF(convertListToString(data));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllAuctionsId")) {
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
+            dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllAuctionsTitle")) {
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getTitle).collect(Collectors.toList());
+            dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
+            dataOutputStream.flush();
         }
     }
 
@@ -611,6 +625,12 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaForManagerController().changeOrderStatus(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
             dataOutputStream.writeUTF("done successfully");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getCategoryProperties")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getCategoryProperties(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSubCategoryProperties")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getSubCategoryProperties(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
         }
     }
 
@@ -746,6 +766,37 @@ public class ClientHandler extends Thread {
                 MainController.getInstance().getAccountAreaForSellerController().createAuction(fields, goodId, person);
                 dataOutputStream.writeUTF("auction successfully created");
             } catch (FileCantBeSavedException | ProductNotFoundExceptionForSeller e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("getSellerAllAuctionsTitle")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().getAllAuctionsTitle(person)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAuctionProperties")) {
+            Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
+            ArrayList<String> auctionProperties = new ArrayList<>();
+            auctionProperties.add("auction id: " + auction.getAuctionId());
+            auctionProperties.add("title: " + auction.getTitle());
+            auctionProperties.add("description: " + auction.getDescription());
+            auctionProperties.add("start date: " + auction.getStartDate().toString());
+            auctionProperties.add("end date: " + auction.getEndDate().toString());
+            auctionProperties.add("seller: " + auction.getSeller().getUsername());
+            auctionProperties.add("good id: " + auction.getGood().getGoodId());
+            auctionProperties.add("good name: " + auction.getGood().getName());
+            dataOutputStream.writeUTF(convertArrayListToString(auctionProperties));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSellerAllAuctionsId")) {
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().filter(auction -> auction.getSeller().equals(person)).map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
+            dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("removeAuction")) {
+            int auctionId = Integer.parseInt(requestForServer.getInputs().get(0));
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().removeAuction(auctionId);
+                dataOutputStream.writeUTF("auction successfully removed");
+            } catch (FileCantBeSavedException | FileCantBeDeletedException e) {
                 e.printStackTrace();
                 dataOutputStream.writeUTF(e.getMessage());
             } finally {
