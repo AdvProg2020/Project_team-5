@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.model;
 
+import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
@@ -502,6 +503,11 @@ public class Shop {
                 Database.getInstance().saveItem(customer);
             }
             Database.getInstance().deleteItem(discountCode);
+        }
+        for (Auction auction : this.getAllAuctionsList()) {
+            if (LocalDate.now().isAfter(auction.getEndDate())) {
+                MainController.getInstance().getAccountAreaForSellerController().endAuction(auction.getAuctionId());
+            }
         }
     }
 }
