@@ -231,7 +231,7 @@ public class Shop {
         return allGoods.get(id);
     }
 
-    public Good findGoodById(long goodId) { 
+    public Good findGoodById(long goodId) {
         for (Category category : this.getAllCategories()) {
             if (category.findGoodInSubCategories(goodId) != null)
                 return category.findGoodInSubCategories(goodId);
@@ -239,7 +239,7 @@ public class Shop {
         return null;
     }
 
-    public DiscountCode findDiscountCode(String code) { //todo
+    public DiscountCode findDiscountCode(String code) {
         for (DiscountCode discountCode : allDiscountCodes.values()) {
             if (discountCode.getCode().equals(code))
                 return discountCode;
@@ -348,7 +348,7 @@ public class Shop {
         }
     }
 
-    public Off findOffById(long offId) { //todo
+    public Off findOffById(long offId) {
         for (Off off : offs.values()) {
             if (off.getOffId() == offId)
                 return off;

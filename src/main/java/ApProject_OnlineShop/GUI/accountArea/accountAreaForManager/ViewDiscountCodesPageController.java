@@ -88,7 +88,10 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
     }
 
     public void onEditDiscountPressed() {
-        EditDiscountCodePageController.setCurrentDiscount(Shop.getInstance().findDiscountCode(selectedDiscount));
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(selectedDiscount);
+        DiscountCode discountCode = new com.google.gson.Gson().fromJson(connectToServer(new RequestForServer("Shop", "findDiscountCode", null, inputs)), DiscountCode.class);
+        EditDiscountCodePageController.setCurrentDiscount(discountCode);
         setScene("editDiscountPage.fxml", "edit discount");
     }
 

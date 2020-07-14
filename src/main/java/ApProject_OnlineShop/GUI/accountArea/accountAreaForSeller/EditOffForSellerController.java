@@ -90,7 +90,10 @@ public class EditOffForSellerController extends FxmlController implements Initia
 //                    edited = false;
 //                }
             }
-            if (!startDateChooser.getValue().equals(Shop.getInstance().findOffById(id).getStartDate())) {
+            ArrayList<String> inputs2 = new ArrayList<>();
+            inputs2.add(id + "");
+            Off off1 = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findOffById", null, inputs2)), Off.class);
+            if (!startDateChooser.getValue().equals(off1.getStartDate())) {
                 ArrayList<String> inputs = new ArrayList<>();
                 inputs.add("start date");
                 inputs.add(startDateChooser.getValue().toString());
@@ -111,7 +114,7 @@ public class EditOffForSellerController extends FxmlController implements Initia
 //                    edited = false;
 //                }
             }
-            if (!endDateChooser.getValue().equals(Shop.getInstance().findOffById(id).getEndDate())) {
+            if (!endDateChooser.getValue().equals(off1.getEndDate())) {
                 ArrayList<String> inputs = new ArrayList<>();
                 inputs.add("end date");
                 inputs.add(endDateChooser.getValue().toString());
@@ -198,7 +201,10 @@ public class EditOffForSellerController extends FxmlController implements Initia
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(productId + "");
             Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
-            if (!Shop.getInstance().findOffById(ViewSpecificOffController.getOffId()).doesHaveThisProduct(good)) {
+            ArrayList<String> inputs2 = new ArrayList<>();
+            inputs2.add(ViewSpecificOffController.getOffId() + "");
+            Off off1 = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findOffById", null, inputs2)), Off.class);
+            if (!off1.doesHaveThisProduct(good)) {
                 ErrorPageFxController.showPage("error for edit off", "you don't have this product in your off");
                 return false;
             }
@@ -207,13 +213,16 @@ public class EditOffForSellerController extends FxmlController implements Initia
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(productId + "");
             Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+            ArrayList<String> inputs2 = new ArrayList<>();
+            inputs2.add(ViewSpecificOffController.getOffId() + "");
+            Off off1 = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findOffById", null, inputs2)), Off.class);
             if (good == null) {
                 ErrorPageFxController.showPage("error for edit off", "doesn't exist a product with this id");
                 return false;
             } else if (connectToServer(new RequestForServer("AccountAreaForSellerController", "checkValidProductId", getToken(), inputs)).equals("false")) {
                 ErrorPageFxController.showPage("error for edit off", "This product does not exist your active goods");
                 return false;
-            } else if (Shop.getInstance().findOffById(ViewSpecificOffController.getOffId()).doesHaveThisProduct(good)) {
+            } else if (off1.doesHaveThisProduct(good)) {
                 ErrorPageFxController.showPage("error for edit off", "you have this product in your off already");
                 return false;
             }
