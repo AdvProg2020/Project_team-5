@@ -3,14 +3,8 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.RequestNotFoundException;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Person;
-import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.server.RequestForServer;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.net.URL;
@@ -47,7 +40,7 @@ public class ManageAllUsersPageController extends FxmlController implements Init
     @FXML
     private Button removeButton;
 
-    private ObservableList<DiscountCode> usernameData;
+    private ObservableList<String> usernameData;
     private ObservableList<String> roleData;
     private String selectedUsername;
 
