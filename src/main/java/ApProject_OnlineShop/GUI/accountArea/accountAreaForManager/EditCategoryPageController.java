@@ -7,7 +7,10 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.PropertyNotFoundException;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,7 +59,10 @@ public class EditCategoryPageController extends FxmlController implements Initia
         details.setFont(Font.font(16));
         details.setAlignment(Pos.CENTER);
         allFieldsVBox.getChildren().add(details);
-        for (String detail : Shop.getInstance().findCategoryByName(currentCategory).getDetails()) {
+        ArrayList<String> inputs33 = new ArrayList<>();
+        inputs33.add(currentCategory);
+        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs33)), Category.class);
+        for (String detail : cat.getDetails()) {
             Hyperlink hyperlink = new Hyperlink("- " + detail);
             hyperlink.setOnMouseClicked(e -> {
                 singlePropertyVBox.setDisable(false);
@@ -112,7 +118,10 @@ public class EditCategoryPageController extends FxmlController implements Initia
             newValueField.clear();
             return;
         }
-        if (Shop.getInstance().findCategoryByName(currentCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newValue))) {
+        ArrayList<String> inputs33 = new ArrayList<>();
+        inputs33.add(currentCategory);
+        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs33)), Category.class);
+        if (cat.getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newValue))) {
             ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
             newValueField.clear();
             return;
@@ -156,7 +165,10 @@ public class EditCategoryPageController extends FxmlController implements Initia
             newPropertyField.clear();
             return;
         }
-        if (Shop.getInstance().findCategoryByName(currentCategory).getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty))) {
+        ArrayList<String> inputs33 = new ArrayList<>();
+        inputs33.add(currentCategory);
+        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs33)), Category.class);
+        if (cat.getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty))) {
             ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
             newPropertyField.clear();
             return;

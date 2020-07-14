@@ -9,7 +9,9 @@ import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.server.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -85,7 +87,10 @@ public class ManageCategoriesPageController extends FxmlController implements In
         details.setFont(Font.font(14));
         details.setAlignment(Pos.CENTER);
         singleCategoryVBox.getChildren().add(details);
-        for (String detail : Shop.getInstance().findCategoryByName(category).getDetails()) {
+        ArrayList<String> inputs31 = new ArrayList<>();
+        inputs31.add(category);
+        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs31)), Category.class);
+        for (String detail : cat.getDetails()) {
             Label label = new Label(detail);
             label.setFont(Font.font(13));
             label.setAlignment(Pos.CENTER);
