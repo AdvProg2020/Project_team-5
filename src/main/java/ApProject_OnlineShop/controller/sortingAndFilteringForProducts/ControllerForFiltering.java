@@ -38,13 +38,13 @@ public class ControllerForFiltering {
         offProductsFilter = false;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
+//    public void setCategory(String category) {
+//        this.category = category;
+//    }
+//
+//    public void setSubCategory(String subCategory) {
+//        this.subCategory = subCategory;
+//    }
 
     public String getSeller() {
         return seller;
@@ -54,9 +54,9 @@ public class ControllerForFiltering {
         return name;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+//    public void setBrand(String brand) {
+//        this.brand = brand;
+//    }
 
     public String getCategory() {
         return category;
@@ -128,7 +128,7 @@ public class ControllerForFiltering {
         this.subCategory = subcategoryName;
     }
 
-    public void addBrandFiltering(String brandName) {
+        public void addBrandFiltering(String brandName) {
         this.brand = brandName;
     }
 
@@ -171,9 +171,9 @@ public class ControllerForFiltering {
         availableProduct = true;
     }
 
-    public List<String> getProperties() throws Exception {
-        return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
-    }
+//    public List<String> getProperties() {
+//        return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
+//    }
 
     public void disableCategoryFilter() {
         categoryProperties = new HashMap<>();

@@ -5,6 +5,7 @@ import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExis
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.server.Server;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +66,8 @@ public class AllProductsController {
         return Shop.getInstance().getAllCategories().stream().map(category -> category.getName()).collect(Collectors.toList());
     }
 
-    public List<Long> getGoods(){
-        return MainController.getInstance().getControllerForSorting().showProducts(MainController.getInstance().getControllerForFiltering().showProducts()).
+    public List<Long> getGoods(long id){
+        return Server.getControllerForSortingHashMap().get(id).showProducts(Server.getControllerForFilteringHashMap().get(id).showProducts()).
                 stream().map(Good::getGoodId).collect(Collectors.toList());
     }
 
