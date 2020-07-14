@@ -29,7 +29,7 @@
     </rowConstraints>
     <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="447.0" vbarPolicy="ALWAYS" GridPane.columnIndex="2" GridPane.rowIndex="1">
         <content>
-            <VBox fx:id="chatBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="415.0" minWidth="230.0" prefHeight="419.0" prefWidth="452.0" spacing="4.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+            <VBox fx:id="chatBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="414.0" minWidth="230.0" prefHeight="414.0" prefWidth="452.0" spacing="4.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
                 <opaqueInsets>
                     <Insets top="1.0" />
                 </opaqueInsets>
@@ -78,7 +78,7 @@
                <Label fx:id="lastPriceLabel" prefHeight="25.0" prefWidth="142.0" text="Label" />
             </children>
          </HBox>
-         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" styleClass="menuButtons" text="submit">
+         <Button mnemonicParsing="false" onAction="#onSubmitPricePressed" prefHeight="25.0" prefWidth="105.0" styleClass="menuButtons" text="submit">
             <VBox.margin>
                <Insets top="10.0" />
             </VBox.margin>
