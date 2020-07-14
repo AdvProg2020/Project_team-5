@@ -38,13 +38,13 @@ public class ControllerForFiltering {
         offProductsFilter = false;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
+//    public void setCategory(String category) {
+//        this.category = category;
+//    }
+//
+//    public void setSubCategory(String subCategory) {
+//        this.subCategory = subCategory;
+//    }
 
     public String getSeller() {
         return seller;
@@ -54,9 +54,9 @@ public class ControllerForFiltering {
         return name;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+//    public void setBrand(String brand) {
+//        this.brand = brand;
+//    }
 
     public String getCategory() {
         return category;

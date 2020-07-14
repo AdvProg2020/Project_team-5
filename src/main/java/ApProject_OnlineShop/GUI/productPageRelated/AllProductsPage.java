@@ -7,8 +7,6 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaFor
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
-import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
@@ -52,36 +50,30 @@ public class AllProductsPage extends FxmlController implements Initializable {
     public Label dateSort;
     public ImageView shoppingBag;
     public GridPane mainGridPane;
-//    private ControllerForSorting controllerForSorting;
-//    private ControllerForFiltering controllerForFiltering;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        ArrayList<String> inputs11 = new ArrayList<>();
-//        inputs11.add(getId() + "");
-//        controllerForFiltering = new Gson().fromJson(connectToServer(new RequestForServer("FilteringController", "getController", null, inputs11)), ControllerForFiltering.class);
-//        controllerForSorting = new Gson().fromJson(connectToServer(new RequestForServer("SortingController", "getController", null, inputs11)), ControllerForSorting.class);
         playMusicBackGround(false, true, false);
         if (getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Seller)
             shoppingBag.setVisible(false);
         handleSorts();
-        if (MainController.getInstance().getControllerForFiltering().isAvailableProduct())
+        if (connectToServer(new RequestForServer("FilteringController", "isAvailableProduct", null, getInputsForServer())).equals("true"))
             availableProducts.setSelected(true);
-        if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter())
+        if (connectToServer(new RequestForServer("FilteringController", "isOffProductsFilter", null, getInputsForServer())).equals("true"))
             offProductsButton.setSelected(true);
         List<String> categories = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getAllCategories", getToken(), null)));
 //       List<String> categories = MainController.getInstance().getAllProductsController().getAllCategories();
         categories.add("none");
         category.setItems(FXCollections.observableList(categories));
         category.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
-        category.setValue(MainController.getInstance().getControllerForFiltering().getCategory());
+        category.setValue(connectToServer(new RequestForServer("FilteringController", "getCategory", null, getInputsForServer())));
         category.setOnAction(e -> setCategory(category.getValue().toString()));
-        nameFilterValue.setPromptText(MainController.getInstance().getControllerForFiltering().getName());
-        sellerValueFilter.setPromptText(MainController.getInstance().getControllerForFiltering().getSeller());
-        brandValueFilter.setPromptText(MainController.getInstance().getControllerForFiltering().getBrand());
+        nameFilterValue.setPromptText(connectToServer(new RequestForServer("FilteringController", "getName", null, getInputsForServer())));
+        sellerValueFilter.setPromptText(connectToServer(new RequestForServer("FilteringController", "getSeller", null, getInputsForServer())));
+        brandValueFilter.setPromptText(connectToServer(new RequestForServer("FilteringController", "getBrand", null, getInputsForServer())));
         startPriceValue.setPromptText(MainController.getInstance().getControllerForFiltering().getStartPrice());
         endPriceValue.setPromptText(MainController.getInstance().getControllerForFiltering().getEndPrice());
-        if (!MainController.getInstance().getControllerForFiltering().getCategory().equals("")) {
+        if (!connectToServer(new RequestForServer("FilteringController", "getCategory", null, getInputsForServer())).equals("")) {
             Label subCategoryText = new Label("subcategory:");
             subCategoryText.setPrefWidth(150);
             subCategoryText.setFont(Font.font("Times New Roman", 14));
@@ -96,7 +88,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
             subcategories.add("none");
             subCategory.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
             subCategory.setItems(FXCollections.observableArrayList(subcategories));
-            subCategory.setValue(MainController.getInstance().getControllerForFiltering().getSubCategory());
+            subCategory.setValue(connectToServer(new RequestForServer("FilteringController", "getSubCategory", null, getInputsForServer())));
             subCategory.setOnAction(e -> setSubCategory(subCategory.getValue().toString()));
             categoryRelatedVBox.getChildren().add(subCategory);
             for (String property : MainController.getInstance().getControllerForFiltering().getCategoryProperties()) {
@@ -135,7 +127,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
                 propertyHBox.getChildren().add(search);
                 categoryRelatedVBox.getChildren().add(propertyHBox);
             }
-            if (!MainController.getInstance().getControllerForFiltering().getSubCategory().equals("")) {
+            if (!connectToServer(new RequestForServer("FilteringController", "getSubCategory", null, getInputsForServer())).equals("")) {
                 for (String property : MainController.getInstance().getControllerForFiltering().getSubCategoryProperties()) {
                     Label propertyText = new Label(property + ":");
                     propertyText.setPrefWidth(150);
@@ -277,19 +269,21 @@ public class AllProductsPage extends FxmlController implements Initializable {
     }
 
     public void availableProductsFilter() {
-        if (MainController.getInstance().getControllerForFiltering().isAvailableProduct()) {
+        if (connectToServer(new RequestForServer("FilteringController", "isAvailableProduct", null, getInputsForServer())).equals("true")) {
             MainController.getInstance().getControllerForFiltering().removeAvailableProductsFilter();
-        } else if (!MainController.getInstance().getControllerForFiltering().isAvailableProduct()) {
+        } else if (connectToServer(new RequestForServer("FilteringController", "isAvailableProduct", null, getInputsForServer())).equals("true")) {
             MainController.getInstance().getControllerForFiltering().addAvailableProduct();
         }
         setScene("allProducts.fxml", "all products page");
     }
 
     public void offProductsFilter() {
-        if (MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
-            MainController.getInstance().getControllerForFiltering().removeOffProductsFilter();
-        } else if (!MainController.getInstance().getControllerForFiltering().isOffProductsFilter()) {
-            MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
+        if (connectToServer(new RequestForServer("FilteringController", "isOffProductsFilter", null, getInputsForServer())).equals("true")) {
+//            MainController.getInstance().getControllerForFiltering().removeOffProductsFilter();
+            connectToServer(new RequestForServer("FilteringController", "removeOffProductsFilter", null, getInputsForServer()));
+        } else if (connectToServer(new RequestForServer("FilteringController", "isOffProductsFilter", null, getInputsForServer())).equals("false")) {
+            connectToServer(new RequestForServer("FilteringController", "setOffProductsFilter", null, getInputsForServer()));
+//            MainController.getInstance().getControllerForFiltering().setOffProductsFilter();
         }
         setScene("allProducts.fxml", "all products page");
     }
@@ -361,5 +355,11 @@ public class AllProductsPage extends FxmlController implements Initializable {
             AccountAreaForManagerFxController.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForManager.fxml", "account area");
         }
+    }
+
+    private ArrayList<String> getInputsForServer() {
+        ArrayList<String> input = new ArrayList<>();
+        input.add(getId() + "");
+        return input;
     }
 }

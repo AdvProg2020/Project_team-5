@@ -131,17 +131,12 @@ public class ClientHandler extends Thread {
     }
 
     private void sortingHandler(RequestForServer requestForServer) throws IOException {
-//        if (requestForServer.getFunction().equals("getController")) {
-//            dataOutputStream.writeUTF(new Gson().toJson(Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0)))));
-//            dataOutputStream.flush();
-//        } else if (requestForServer.getFunction().equals("setController")) {
-//        }
-        if(requestForServer.getFunction().equals("sortASort")){
+        if (requestForServer.getFunction().equals("sortASort")) {
             Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).sortASort(Integer.parseInt(requestForServer.getInputs().get(1)));
             System.out.println("hiii");
             dataOutputStream.writeUTF("done");
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("getCurrentSort")){
+        } else if (requestForServer.getFunction().equals("getCurrentSort")) {
             System.out.println("hiii22");
             dataOutputStream.writeUTF(Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).getCurrentSort());
             dataOutputStream.flush();
@@ -149,8 +144,35 @@ public class ClientHandler extends Thread {
     }
 
     private void filteringControllerHandler(RequestForServer requestForServer) throws IOException {
-        if (requestForServer.getFunction().equals("getController")) {
-            dataOutputStream.writeUTF(new Gson().toJson(Server.getControllerForFilteringHashMap().get(Long.parseLong(requestForServer.getInputs().get(0)))));
+        ControllerForFiltering controllerForFiltering = Server.getControllerForFilteringHashMap().get(Long.parseLong(requestForServer.getInputs().get(0)));
+        if (requestForServer.getFunction().equals("isOffProductsFilter")) {
+            dataOutputStream.writeUTF(controllerForFiltering.isOffProductsFilter() + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("setOffProductsFilter")) {
+            controllerForFiltering.setOffProductsFilter();
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("removeOffProductsFilter")) {
+            controllerForFiltering.removeOffProductsFilter();
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSeller")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getSeller());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getName")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getName());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getCategory")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getCategory());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getSubCategory")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getSubCategory());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getBrand")) {
+            dataOutputStream.writeUTF(controllerForFiltering.getBrand());
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isAvailableProduct")) {
+            dataOutputStream.writeUTF(controllerForFiltering.isAvailableProduct() + "");
             dataOutputStream.flush();
         }
     }
