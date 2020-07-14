@@ -1,10 +1,7 @@
 package ApProject_OnlineShop.server;
 
 import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeDeletedException;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.PropertyNotFoundException;
-import ApProject_OnlineShop.exception.RequestNotFoundException;
+import ApProject_OnlineShop.exception.*;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
@@ -333,6 +330,16 @@ public class ClientHandler extends Thread {
             List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getTitle).collect(Collectors.toList());
             dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getLastOfferedPriceOfCustomer")) {
+            Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
+            try {
+                dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForCustomerController().getLastOfferedPriceOfCustomer(auction, (Customer)user));
+            } catch (CustomerNotFoundInAuctionException e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
         }
     }
 

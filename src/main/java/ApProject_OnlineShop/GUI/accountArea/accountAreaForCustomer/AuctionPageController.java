@@ -34,6 +34,7 @@ public class AuctionPageController extends FxmlController implements Initializab
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewSingleAuction();
+        updateLastPriceLabel();
     }
 
     private void viewSingleAuction() {
@@ -55,6 +56,13 @@ public class AuctionPageController extends FxmlController implements Initializab
             label.setAlignment(Pos.CENTER);
             singleAuctionVBox.getChildren().add(label);
         }
+    }
+
+    private void updateLastPriceLabel() {
+        ArrayList<String> input = new ArrayList<>();
+        input.add(selectedAuctionId);
+        String lastPrice = connectToServer(new RequestForServer("AccountAreaForCustomerController", "getLastOfferedPriceOfCustomer", getToken(), input));
+        lastPriceLabel.setText(lastPrice);
     }
 
     public static void setSelectedAuctionId(String selectedAuctionId) {
