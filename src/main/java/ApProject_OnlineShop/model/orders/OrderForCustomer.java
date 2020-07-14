@@ -25,8 +25,10 @@ public class OrderForCustomer extends Order {
         this.phoneNumber = phoneNumber;
         this.postCode = postCode;
         this.name = name;
-        this.discountAmount = MainController.getInstance().getAccountAreaForCustomerController().
-                finalPriceOfAList(Shop.getInstance().getCart(id)) - price;
+        if (id != -1) {
+            this.discountAmount = MainController.getInstance().getAccountAreaForCustomerController().
+                    finalPriceOfAList(Shop.getInstance().getCart(id)) - price;
+        } else this.discountAmount = 0L;
     }
 
     public ArrayList<GoodInCart> getGoodsDetails() {

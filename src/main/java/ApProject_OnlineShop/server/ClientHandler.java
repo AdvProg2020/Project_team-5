@@ -959,7 +959,18 @@ public class ClientHandler extends Thread {
             try {
                 MainController.getInstance().getAccountAreaForSellerController().removeAuction(auctionId);
                 dataOutputStream.writeUTF("auction successfully removed");
-            } catch (FileCantBeSavedException | FileCantBeDeletedException e) {
+            } catch (Exception e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("endAuction")) {
+            int auctionId = Integer.parseInt(requestForServer.getInputs().get(0));
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().endAuction(auctionId);
+                dataOutputStream.writeUTF("auction successfully ended");
+            } catch (Exception e) {
                 e.printStackTrace();
                 dataOutputStream.writeUTF(e.getMessage());
             } finally {
