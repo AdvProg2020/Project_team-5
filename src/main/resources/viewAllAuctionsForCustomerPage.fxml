@@ -6,9 +6,89 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ViewAllAuctionsForCustomerPage"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Font?>
+<GridPane alignment="CENTER" prefHeight="579.0" prefWidth="864.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.ViewAllAuctionsForCustomerPageController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="190.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="301.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="235.0" prefWidth="235.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="161.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="27.20000762939455" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="422.0" minHeight="10.0" prefHeight="422.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="76.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="245.0" vbarPolicy="ALWAYS" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <content>
+            <VBox fx:id="allAuctionsVBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="420.0" minWidth="230.0" prefHeight="420.0" prefWidth="230.0" spacing="4.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+                <opaqueInsets>
+                    <Insets top="1.0" />
+                </opaqueInsets>
+                <padding>
+                    <Insets bottom="10.0" top="20.0" />
+                </padding>
+            </VBox>
+        </content>
+    </ScrollPane>
+    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
+        <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@pictures/icons8-back-to-48.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label alignment="CENTER" prefHeight="80.0" prefWidth="369.0" text="Auctions" GridPane.columnIndex="1">
+        <font>
+            <Font name="Times New Roman" size="26.0" />
+        </font>
+    </Label>
+    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" spacing="20.0" GridPane.rowIndex="1">
+        <children>
+            <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#onRemoveAuctionPressed" prefHeight="34.0" prefWidth="155.0" styleClass="menuButtons" text="remove auction">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+                <VBox.margin>
+                    <Insets top="10.0" />
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+            </Button>
+            <Button fx:id="endButton" disable="true" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#onEndAuctionPressed" prefHeight="34.0" prefWidth="155.0" styleClass="menuButtons" text="end auction">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+            </Button>
+        </children>
+    </VBox>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
+        <children>
+            <ImageView fitHeight="68.0" fitWidth="70.0" onMouseClicked="#onLogoutIconClicked" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@pictures/logout.png" />
+                </image>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </ImageView>
+        </children>
+    </HBox>
+    <VBox fx:id="singleAuctionVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="4.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <padding>
+        <Insets left="10.0" />
+    </padding>
+</GridPane>
