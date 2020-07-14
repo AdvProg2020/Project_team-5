@@ -1053,7 +1053,7 @@ public class ClientHandler extends Thread {
                 e.printStackTrace();
             }
         } else if (requestForServer.getFunction().equals("logoutUser")) {
-            MainController.getInstance().getLoginRegisterController().logoutUser();
+            MainController.getInstance().getLoginRegisterController().logoutUser(Long.parseLong(requestForServer.getInputs().get(0)));
             Server.removeOnlineUser(requestForServer.getToken());
             dataOutputStream.writeUTF("logout successfully");
             dataOutputStream.flush();
