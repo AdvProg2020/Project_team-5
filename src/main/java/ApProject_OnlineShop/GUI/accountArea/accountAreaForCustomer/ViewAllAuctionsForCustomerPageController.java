@@ -87,6 +87,13 @@ public class ViewAllAuctionsForCustomerPageController extends FxmlController imp
         }
     }
 
+    private void resetPage() {
+        this.selectedAuctionId = "";
+        singleAuctionVBox.getChildren().clear();
+        participateButton.setDisable(true);
+        updateAllAuctionsBox();
+    }
+
     public void onBackButtonPressed(ActionEvent actionEvent) {
         setScene("accountAreaForCustomer.fxml", "account area");
     }
@@ -105,5 +112,9 @@ public class ViewAllAuctionsForCustomerPageController extends FxmlController imp
             setToken(null);
             setScene("mainMenuLayout.fxml", "Main menu");
         }
+    }
+
+    public void onParticipateAuctionPressed() {
+
     }
 }
