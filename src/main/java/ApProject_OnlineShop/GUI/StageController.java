@@ -27,6 +27,9 @@ public class StageController extends FxmlController {
             Optional<ButtonType> result = new FxmlController().showAlert
                     (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
             if (result.get() == ButtonType.OK) {
+                if (getCurrentPerson() != null) {
+                    connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
+                }
                 Platform.exit();
             } else
                 e.consume();
