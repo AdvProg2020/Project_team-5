@@ -248,12 +248,13 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public List<String> getOnlineSupporters(){
-        List<String> onlineSupporters = new ArrayList<>();
+        List<Person> onlineSupporters = new ArrayList<>();
         for (Person person : Server.getOnlineUsers().values()) {
             if (person instanceof Supporter)
-                onlineSupporters.add(person.getUsername());
+                onlineSupporters.add(person);
         }
-        return onlineSupporters;
+        ArrayList<Person> supporters = new ArrayList<>(new HashSet<>(onlineSupporters));
+        return supporters.stream().map(person -> person.getUsername()).collect(Collectors.toList());
     }
 
     public long getLastOfferedPriceOfCustomer(Auction auction, Customer customer) throws CustomerNotFoundInAuctionException {
