@@ -1,7 +1,7 @@
 package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.model.persons.Person;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

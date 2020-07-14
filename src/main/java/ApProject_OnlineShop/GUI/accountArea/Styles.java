@@ -1,6 +1,6 @@
 package ApProject_OnlineShop.GUI.accountArea;
 
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.geometry.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;

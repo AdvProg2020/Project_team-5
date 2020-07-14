@@ -2,7 +2,7 @@ package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.requests.*;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

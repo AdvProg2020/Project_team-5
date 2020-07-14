@@ -5,7 +5,7 @@ import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.accountArea.Styles;
 import ApProject_OnlineShop.GUI.productPageRelated.Cart;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;

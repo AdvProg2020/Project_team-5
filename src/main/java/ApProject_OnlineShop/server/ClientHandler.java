@@ -14,6 +14,7 @@ import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundException
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.exception.userExceptions.*;
+import ApProject_OnlineShop.model.RequestForServer;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.Auction;

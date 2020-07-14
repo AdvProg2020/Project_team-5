@@ -6,7 +6,7 @@ import ApProject_OnlineShop.GUI.productPageRelated.ProductBriefSummery;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.productPageRelated.ProductPage;
 import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
