@@ -298,7 +298,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
         if (connectToServer(new RequestForServer("FilteringController", "isAvailableProduct", null, getInputsForServer())).equals("true")) {
 //            MainController.getInstance().getControllerForFiltering().removeAvailableProductsFilter();
             connectToServer(new RequestForServer("FilteringController", "removeAvailableProductsFilter", null, getInputsForServer()));
-        } else if (connectToServer(new RequestForServer("FilteringController", "isAvailableProduct", null, getInputsForServer())).equals("true")) {
+        } else if (connectToServer(new RequestForServer("FilteringController", "isAvailableProduct", null, getInputsForServer())).equals("false")) {
 //            MainController.getInstance().getControllerForFiltering().addAvailableProduct();
             connectToServer(new RequestForServer("FilteringController", "addAvailableProduct", null, getInputsForServer()));
         }
