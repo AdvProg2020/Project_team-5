@@ -3,14 +3,8 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.Main;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
-import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
-import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -18,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -229,9 +222,9 @@ public class EditDiscountCodePageController extends FxmlController implements In
     }
 
     private void updateCustomers() {
-        for (Customer customer : currentDiscount.getIncludedCustomers().keySet()) {
+        for (String customer : currentDiscount.getIncludedCustomersString().keySet()) {
             Label label = new Label();
-            label.setText(customer.getUsername());
+            label.setText(customer);
             label.setFont(new Font("Times New Roman", 16));
             label.setAlignment(Pos.CENTER);
             customersVBox.getChildren().add(label);

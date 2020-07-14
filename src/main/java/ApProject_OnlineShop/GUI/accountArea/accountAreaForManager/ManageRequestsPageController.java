@@ -3,14 +3,8 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeDeletedException;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.RequestNotFoundException;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.requests.Request;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,9 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -40,13 +32,15 @@ public class ManageRequestsPageController extends FxmlController implements Init
     @FXML
     private Label detailsLabel;
 
-    private ObservableList<DiscountCode> requestsData;
+    private ObservableList<String> requestsData;
     private ObservableList<Long> idData;
     private long selectedRequest;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateTableView(Shop.getInstance().getAllRequest());
+        ArrayList<String> requestsJson = convertJsonToArrayOfStringForRequest(connectToServer(new RequestForServer("Shop", "getAllRequest", null, null)));
+        ArrayList<Request> allRequests = convertArrayListOfJsonToArrayListRequests(requestsJson);
+        updateTableView(allRequests);
     }
 
     private void updateTableView(ArrayList<Request> requests) {
@@ -109,7 +103,9 @@ public class ManageRequestsPageController extends FxmlController implements Init
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "acceptRequest", getToken(), inputs));
         if (serverResponse.equals("request accepted successfully")) {
             this.selectedRequest = 0L;
-            updateTableView(Shop.getInstance().getAllRequest());
+            ArrayList<String> requestsJson = convertJsonToArrayOfStringForRequest(connectToServer(new RequestForServer("Shop", "getAllRequest", null, null)));
+            ArrayList<Request> allRequests = convertArrayListOfJsonToArrayListRequests(requestsJson);
+            updateTableView(allRequests);
             acceptButton.setDisable(true);
             declineButton.setDisable(true);
             detailsLabel.setText("");
@@ -130,7 +126,9 @@ public class ManageRequestsPageController extends FxmlController implements Init
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "declineRequest", getToken(), inputs));
         if (serverResponse.equals("request declined successfully")) {
             this.selectedRequest = 0L;
-            updateTableView(Shop.getInstance().getAllRequest());
+            ArrayList<String> requestsJson = convertJsonToArrayOfStringForRequest(connectToServer(new RequestForServer("Shop", "getAllRequest", null, null)));
+            ArrayList<Request> allRequests = convertArrayListOfJsonToArrayListRequests(requestsJson);
+            updateTableView(allRequests);
             acceptButton.setDisable(true);
             declineButton.setDisable(true);
             detailsLabel.setText("");

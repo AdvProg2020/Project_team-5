@@ -3,9 +3,9 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -81,10 +81,10 @@ public class ManageSubCategoriesPageController extends FxmlController implements
         details.setFont(Font.font(14));
         details.setAlignment(Pos.CENTER);
         singleSubCategoryVBox.getChildren().add(details);
-        ArrayList<String> inputs = new ArrayList<>();
-        inputs.add(selectedSubCategory);
-        ArrayList<String> detailes = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getSubCategoryProperties", getToken(), inputs)));
-        for (String detail : detailes) {
+        ArrayList<String> inputs33 = new ArrayList<>();
+        inputs33.add(subCategory);
+        SubCategory subCat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findSubCategoryByName", null, inputs33)), SubCategory.class);
+        for (String detail : subCat.getDetails()) {
             Label label = new Label(detail);
             label.setFont(Font.font(13));
             label.setAlignment(Pos.CENTER);

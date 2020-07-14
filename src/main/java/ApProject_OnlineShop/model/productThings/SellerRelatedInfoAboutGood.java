@@ -45,6 +45,10 @@ public class SellerRelatedInfoAboutGood {
         this.availableNumber = availableNumber;
     }
 
+    public String getSellerUserName() {
+        return this.seller;
+    }
+
     @Override
     public String toString() {
         return "seller = " + seller +

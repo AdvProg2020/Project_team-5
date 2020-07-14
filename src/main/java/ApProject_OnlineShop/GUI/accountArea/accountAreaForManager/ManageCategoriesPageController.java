@@ -3,13 +3,9 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.Main;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeDeletedException;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
-import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,11 +13,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,10 +79,10 @@ public class ManageCategoriesPageController extends FxmlController implements In
         details.setFont(Font.font(14));
         details.setAlignment(Pos.CENTER);
         singleCategoryVBox.getChildren().add(details);
-        ArrayList<String> inputs = new ArrayList<>();
-        inputs.add(category);
-        List<String> detailes = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getCategoryProperties", getToken(), inputs)));
-        for (String detail : detailes) {
+        ArrayList<String> inputs31 = new ArrayList<>();
+        inputs31.add(category);
+        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs31)), Category.class);
+        for (String detail : cat.getDetails()) {
             Label label = new Label(detail);
             label.setFont(Font.font(13));
             label.setAlignment(Pos.CENTER);
@@ -98,6 +92,8 @@ public class ManageCategoriesPageController extends FxmlController implements In
         subCats.setFont(Font.font(13));
         subCats.setAlignment(Pos.CENTER);
         singleCategoryVBox.getChildren().add(subCats);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(category);
         List<String> subCategories = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getAllSubCategoriesNamesOfCategory", getToken(), inputs)));
         for (String subCategory : subCategories) {
             Label label = new Label(subCategory);

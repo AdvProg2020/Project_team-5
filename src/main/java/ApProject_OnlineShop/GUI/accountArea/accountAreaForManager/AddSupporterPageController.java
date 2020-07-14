@@ -3,12 +3,9 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.server.RequestForServer;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 

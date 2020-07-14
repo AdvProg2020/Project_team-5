@@ -1,8 +1,7 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter;
 
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;

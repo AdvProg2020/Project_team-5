@@ -3,16 +3,10 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.RateProductsPart2Controller;
 import ApProject_OnlineShop.GUI.productPageRelated.CommentsPage;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.FileCantBeDeletedException;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
@@ -38,7 +32,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -107,7 +100,10 @@ public class ProductPageControllerForSeller extends FxmlController implements In
     }
 
     private void makeProperties() {
-        Good good = Shop.getInstance().findGoodById(productId);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(productId + "");
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+//        Good good = Shop.getInstance().findGoodById(productId);
         detailsLabel.setText(good.getDetails());
         HashMap<String, String> categoryProperties = good.getCategoryProperties();
         properties.setAlignment(Pos.CENTER);
@@ -154,7 +150,7 @@ public class ProductPageControllerForSeller extends FxmlController implements In
             usernameVBox.setAlignment(Pos.CENTER_LEFT);
             usernameVBox.setMinWidth(150);
             usernameVBox.setMaxWidth(150);
-            Label username = new Label(eachSellerInfo.getSeller().getUsername());
+            Label username = new Label(eachSellerInfo.getSellerUserName());
             username.setFont(Font.font("Times New Roman", 16));
             username.setPadding(new Insets(0, 15, 0, 15));
             usernameVBox.getChildren().add(username);
@@ -173,7 +169,7 @@ public class ProductPageControllerForSeller extends FxmlController implements In
             goodStatusVBox.getChildren().add(goodStatus);
             sellerHBox.getChildren().add(goodStatusVBox);
             ArrayList<String> inputs2 = new ArrayList<>();
-            inputs2.add(eachSellerInfo.getSeller().getUsername());
+            inputs2.add(eachSellerInfo.getSellerUserName());
             inputs2.add(productId + "");
             if (connectToServer(new RequestForServer("ProductController", "isInOffBySeller", null, inputs2)).equals("false")) {
                 HBox priceBox = new HBox();
@@ -201,7 +197,14 @@ public class ProductPageControllerForSeller extends FxmlController implements In
                 primaryPrice.setStroke(Color.LIGHTSLATEGREY);
                 primaryPrice.setStrokeType(StrokeType.INSIDE);
                 priceBox.getChildren().add(primaryPrice);
-                Label finalPrice = new Label("" + Shop.getInstance().getFinalPriceOfAGood(Shop.getInstance().findGoodById(productId), eachSellerInfo.getSeller()));
+                ArrayList<String> inputs22 = new ArrayList<>();
+                inputs22.add(productId + "");
+                Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+                ArrayList<String> inputs44 = new ArrayList<>();
+                inputs44.add(good.getGoodId() + "");
+                inputs44.add(eachSellerInfo.getSellerUserName());
+                String finalPrice1 = connectToServer(new RequestForServer("Shop", "getFinalPriceOfAGood", null, inputs44));
+                Label finalPrice = new Label(finalPrice1);
                 finalPrice.setFont(Font.font("Times New Roman", 16));
                 finalPrice.setPadding(new Insets(0, 7, 0, 7));
                 priceBox.getChildren().add(finalPrice);

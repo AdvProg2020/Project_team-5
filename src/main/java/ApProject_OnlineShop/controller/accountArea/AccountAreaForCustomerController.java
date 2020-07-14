@@ -261,4 +261,6 @@ public class AccountAreaForCustomerController extends AccountAreaController {
             return auction.getAllCustomersOffers().get(customer);
         throw new CustomerNotFoundInAuctionException();
     }
+
+
 }

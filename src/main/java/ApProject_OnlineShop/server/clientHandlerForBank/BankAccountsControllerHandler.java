@@ -5,7 +5,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

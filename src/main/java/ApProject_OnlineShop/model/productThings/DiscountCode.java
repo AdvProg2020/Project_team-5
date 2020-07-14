@@ -88,6 +88,10 @@ public class DiscountCode {
         return includedCustomers2;
     }
 
+    public HashMap<String, Integer> getIncludedCustomersString() {
+        return includedCustomers;
+    }
+
     public void removeCustomer(String username) {
         this.includedCustomers.remove(username);
     }
@@ -112,9 +116,10 @@ public class DiscountCode {
         for (Customer customers : this.getIncludedCustomers().keySet()) {
             if (customers.getUsername().equals(customer.getUsername())) {
                 includedCustomers.put(customers.getUsername(), includedCustomers.get(customers.getUsername()) - 1);
-                if (includedCustomers.get(customers.getUsername()) == 0){
+                if (includedCustomers.get(customers.getUsername()) == 0) {
                     customer.removeDiscountCode(this);
-                    includedCustomers.remove(customers.getUsername());}
+                    includedCustomers.remove(customers.getUsername());
+                }
                 Database.getInstance().saveItem(this);
                 Database.getInstance().saveItem(customer);
             }
@@ -146,7 +151,7 @@ public class DiscountCode {
                 } else {
                     includedCustomers.remove(includedCustomer.getUsername());
                     includedCustomer.removeDiscountCode(this);
-                    if(includedCustomers.size() == 0) {
+                    if (includedCustomers.size() == 0) {
                         Database.getInstance().deleteItem(this);
                         Shop.getInstance().removeDiscountCode(this);
                         Database.getInstance().saveItem(customer);

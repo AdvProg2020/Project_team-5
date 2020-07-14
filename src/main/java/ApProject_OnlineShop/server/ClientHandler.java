@@ -11,9 +11,11 @@ import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundException
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.exception.userExceptions.*;
+import ApProject_OnlineShop.model.RequestForServer;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.Auction;
+import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
@@ -110,6 +112,76 @@ public class ClientHandler extends Thread {
             allProductsHandler(requestForServer);
         } else if (requestForServer.getController().equals("ProductController")) {
             productControllerHandler(requestForServer);
+        } else if (requestForServer.getController().equals("Shop")) {
+            ShopHandler(requestForServer);
+        } else if (requestForServer.getController().equals("Others")) {
+            othersHandler(requestForServer);
+        } else if (requestForServer.getController().equals("Good")) {
+            goodHandler(requestForServer);
+        }
+    }
+
+    private void goodHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getPriceBySeller")) {
+            Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(1));
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(good.getPriceBySeller(seller) + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAvailableNumberBySeller")) {
+            Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(1));
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(good.getAvailableNumberBySeller(seller) + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getComments")) {
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(new Gson().toJson(good.getComments()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getThisGoodOff")) {
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(new Gson().toJson(good.getThisGoodOff()));
+            dataOutputStream.flush();
+        }
+    }
+
+    private void othersHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("Good.getGoodsCount")) {
+            dataOutputStream.writeUTF(Good.getGoodsCount() + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("Good.setGoodsCount")) {
+            Good.setGoodsCount(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF("successfully set");
+            dataOutputStream.flush();
+        }
+    }
+
+    private void ShopHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getAllPersons")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllDiscountCodes")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllDiscountCodes()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllRequest")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllRequest()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findGoodById")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findDiscountCode")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findDiscountCode((requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findOffById")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findOffById(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findSubCategoryByName")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findSubCategoryByName((requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findCategoryByName")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findCategoryByName((requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getFinalPriceOfAGood")) {
+            dataOutputStream.writeUTF("" + Shop.getInstance().getFinalPriceOfAGood(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1)));
+            dataOutputStream.flush();
         }
     }
 
@@ -553,11 +625,11 @@ public class ClientHandler extends Thread {
             List<String> data = MainController.getInstance().getAccountAreaForManagerController().getCustomersOrders();
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("viewOrderGUI")){
+        } else if (requestForServer.getFunction().equals("viewOrderGUI")) {
             List<String> data = MainController.getInstance().getAccountAreaForManagerController().viewOrderGUI(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("changeOrderStatus")){
+        } else if (requestForServer.getFunction().equals("changeOrderStatus")) {
             MainController.getInstance().getAccountAreaForManagerController().changeOrderStatus(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
             dataOutputStream.writeUTF("done successfully");
             dataOutputStream.flush();
@@ -770,6 +842,9 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(exception.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("getOrderDetails")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().getOrderDetails(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2))));
+            dataOutputStream.flush();
         }
     }
 

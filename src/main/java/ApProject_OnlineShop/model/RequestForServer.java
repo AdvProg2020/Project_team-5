@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.server;
+package ApProject_OnlineShop.model;
 
 import java.util.ArrayList;
 

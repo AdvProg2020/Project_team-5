@@ -3,11 +3,9 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
-import ApProject_OnlineShop.server.RequestForServer;
+import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.fxml.Initializable;
@@ -31,7 +29,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Cart extends FxmlController implements Initializable {
-    //    private static ArrayList<GoodInCart> cart = new ArrayList<>();
     public VBox items;
     private static String pathBack;
     private static String titleBack;
