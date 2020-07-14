@@ -3,7 +3,6 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,8 +44,8 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
         label.setFont(Font.font(15));
         label.setAlignment(Pos.CENTER);
         allAuctionsVBox.getChildren().add(label);
-        List<String> allAuctionsId = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getAllAuctionsId", getToken(), null)));
-        List<String> allAuctionsTitle = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getAllAuctionsTitle", getToken(), null)));
+        List<String> allAuctionsId = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSellerAllAuctionsId", getToken(), null)));
+        List<String> allAuctionsTitle = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSellerAllAuctionsTitle", getToken(), null)));
         int i = 0;
         for (String auction : allAuctionsId) {
             Hyperlink hyperlink = new Hyperlink(auction + "- " + allAuctionsTitle.get(i));

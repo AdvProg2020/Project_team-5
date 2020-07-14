@@ -692,7 +692,7 @@ public class ClientHandler extends Thread {
             } finally {
                 dataOutputStream.flush();
             }
-        } else if (requestForServer.getFunction().equals("getAllAuctionsTitle")) {
+        } else if (requestForServer.getFunction().equals("getSellerAllAuctionsTitle")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForSellerController().getAllAuctionsTitle(person)));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAuctionProperties")) {
@@ -708,7 +708,7 @@ public class ClientHandler extends Thread {
             auctionProperties.add("good name: " + auction.getGood().getName());
             dataOutputStream.writeUTF(convertArrayListToString(auctionProperties));
             dataOutputStream.flush();
-        } else if (requestForServer.getFunction().equals("getAllAuctionsId")) {
+        } else if (requestForServer.getFunction().equals("getSellerAllAuctionsId")) {
             List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().filter(auction -> auction.getSeller().equals(person)).map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
             dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
             dataOutputStream.flush();
