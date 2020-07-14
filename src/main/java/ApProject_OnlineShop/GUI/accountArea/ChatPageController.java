@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -73,16 +74,23 @@ public class ChatPageController extends FxmlController implements Initializable 
         hBox.setPrefWidth(442);
         this.massageTextField = new TextField("type your massage");
         this.massageTextField.setFont(Font.font(14));
-        this.massageTextField.setPrefWidth(390);
+        this.massageTextField.setPrefWidth(388);
         this.massageTextField.setMinHeight(30);
         this.massageTextField.setAlignment(Pos.CENTER_LEFT);
         hBox.getChildren().add(massageTextField);
+        HBox.setMargin(massageTextField, new Insets(0,0,0,2));
         ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/sendIcon.png").toString()));
+        imageView.setCursor(Cursor.HAND);
+        imageView.setOnMouseClicked(e -> sendMassage());
         imageView.setFitWidth(30);
         imageView.setFitHeight(30);
-        HBox.setMargin(imageView, new Insets(0,5,0,7));
+        HBox.setMargin(imageView, new Insets(0,3,0,7));
         hBox.getChildren().add(imageView);
         return hBox;
+    }
+
+    private void sendMassage() {
+        
     }
 
     public void backButton(ActionEvent actionEvent) {
