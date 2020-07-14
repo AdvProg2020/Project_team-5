@@ -1,9 +1,12 @@
 package ApProject_OnlineShop.model.productThings;
 
+import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Seller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 
@@ -89,12 +92,14 @@ public class Auction {
         this.description = description;
     }
 
-    public void addOffer(Customer customer, long price) {
+    public void addOffer(Customer customer, long price) throws IOException, FileCantBeSavedException {
         this.customersOfferedPrices.put(customer.getUsername(), price);
+        Database.getInstance().saveItem(this);
     }
 
-    public void removeOffer(Customer customer) {
+    public void removeOffer(Customer customer) throws IOException, FileCantBeSavedException {
         this.customersOfferedPrices.remove(customer.getUsername());
+        Database.getInstance().saveItem(this);
     }
 
     public HashMap<Customer, Long> getAllCustomersOffers() {

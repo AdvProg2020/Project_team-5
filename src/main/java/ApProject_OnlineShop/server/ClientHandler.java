@@ -7,6 +7,7 @@ import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.PropertyNotFoundException;
 import ApProject_OnlineShop.exception.RequestNotFoundException;
+import ApProject_OnlineShop.exception.*;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
@@ -517,6 +518,37 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getAllAuctionsTitle")) {
             List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getTitle).collect(Collectors.toList());
             dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getLastOfferedPriceOfCustomer")) {
+            Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
+            try {
+                dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForCustomerController().getLastOfferedPriceOfCustomer(auction, (Customer)user));
+            } catch (CustomerNotFoundInAuctionException e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("offerNewPrice")) {
+            Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
+            Customer customer = (Customer)user;
+            long offeredPrice = Long.parseLong(requestForServer.getInputs().get(1));
+            if (customer.getCredit() >= offeredPrice) {
+                if (auction.getAllCustomersOffers().containsKey(customer)) {
+                    if (auction.getAllCustomersOffers().get(customer) < offeredPrice) {
+                        auction.removeOffer(customer);
+                        auction.addOffer(customer, offeredPrice);
+                        dataOutputStream.writeUTF("your price offered successfully");
+                    } else {
+                        dataOutputStream.writeUTF("your price offered should be more than previous one.");
+                    }
+                } else {
+                    auction.addOffer(customer, offeredPrice);
+                    dataOutputStream.writeUTF("your price offered successfully");
+                }
+            } else {
+                dataOutputStream.writeUTF("you do not have enough credit to offer this price.");
+            }
             dataOutputStream.flush();
         }
     }
