@@ -4,6 +4,7 @@ import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.productPageRelated.ProductBriefSummery;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
+import ApProject_OnlineShop.GUI.productPageRelated.ProductPage;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
@@ -95,7 +96,13 @@ public class ManageAllProductsPageController extends FxmlController implements I
 
     private void updatePage() {
         root.getChildren().clear();
-        List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
+        List<String> productsIdsString = convertStringToArraylist(connectToServer(new RequestForServer("ProductController", "getAllGoodsIds", null, null)));
+        productsIdsString.remove(ProductPage.productId + "");
+        List<Long> productIds = new ArrayList<>();
+        for (String s : productsIdsString) {
+            productIds.add(Long.parseLong(s));
+        }
+//        List<Long> productIds = Shop.getInstance().getAllGoods().stream().map(Good::getGoodId).collect(Collectors.toList());
         int num = 0;
         int row = 0;
         int size1;
