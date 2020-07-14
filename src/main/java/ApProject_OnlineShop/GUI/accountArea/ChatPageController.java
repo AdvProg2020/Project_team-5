@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
@@ -50,7 +51,8 @@ public class ChatPageController extends FxmlController implements Initializable 
             else
                 hBox.setAlignment(Pos.CENTER_LEFT);
             VBox massageBox = getMassageVBox(massage);
-            VBox.setMargin(hBox, new Insets(10, 5, 5, 10));
+            VBox.setMargin(hBox, new Insets(5, 15, 5, 10));
+            hBox.getChildren().add(massageBox);
             vBox.getChildren().add(hBox);
         }
         vBox.getChildren().add(getAnswerBox());
@@ -60,12 +62,12 @@ public class ChatPageController extends FxmlController implements Initializable 
         VBox vBox = new VBox();
         vBox.setMaxWidth(240);
         vBox.setMinWidth(240);
-        vBox.setStyle("-fx-border-color:#8600b3; -fx-border-width: 1;-fx-border-style: solid;");
+        vBox.setStyle("-fx-border-color:#8600b3; -fx-border-width: 1;-fx-border-style: solid; -fx-border-radius: 10px;");
         vBox.setAlignment(Pos.CENTER_LEFT);
         Label senderName = new Label(massage.getSenderUserName());
         VBox.setMargin(senderName, new Insets(6, 0, 0, 10));
         senderName.setFont(Font.font("Times New Roman", 15));
-        senderName.setStyle("-fx-text-color: # #600080");
+        senderName.setTextFill(Color.BLUE);
         vBox.getChildren().add(senderName);
         Label body = new Label(massage.getMassage());
         VBox.setMargin(body, new Insets(6, 0, 0, 10));
@@ -73,9 +75,12 @@ public class ChatPageController extends FxmlController implements Initializable 
         vBox.getChildren().add(body);
         String time = "" + massage.getTime();
         Label timeText = new Label(time.substring(0, 2) + ":" + time.substring(3, 5));
+        HBox timeHBox = new HBox();
         timeText.setFont(Font.font("Times New Roman", 13));
-        timeText.setPadding(new Insets(7, 5, 5, 15));
-        vBox.getChildren().add(timeText);
+        timeText.setPadding(new Insets(7, 10, 5, 15));
+        timeHBox.setAlignment(Pos.CENTER_RIGHT);
+        timeHBox.getChildren().add(timeText);
+        vBox.getChildren().add(timeHBox);
         return vBox;
     }
 
@@ -91,9 +96,11 @@ public class ChatPageController extends FxmlController implements Initializable 
         this.massageTextField.setMinHeight(30);
         this.massageTextField.setAlignment(Pos.CENTER_LEFT);
         hBox.getChildren().add(massageTextField);
-        HBox.setMargin(massageTextField, new Insets(0, 0, 0, 2));
+        HBox.setMargin(massageTextField, new Insets(7, 0, 1, 2));
         ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/sendIcon.png").toString()));
         imageView.setCursor(Cursor.HAND);
+        imageView.setPickOnBounds(true);
+        imageView.setPreserveRatio(true);
         imageView.setOnMouseClicked(e -> sendMassage());
         imageView.setFitWidth(30);
         imageView.setFitHeight(30);
