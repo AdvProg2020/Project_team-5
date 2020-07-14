@@ -233,6 +233,18 @@ public class ClientHandler extends Thread {
             controllerForFiltering.removeAvailableProductsFilter();
             dataOutputStream.writeUTF("done");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("removeProperty")) {
+            controllerForFiltering.removeProperty(requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addSubCategoryFilter")) {
+            controllerForFiltering.addSubCategoryFilter(requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("addCategoryFilter")) {
+            controllerForFiltering.addCategoryFilter(requestForServer.getInputs().get(1));
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
         }
     }
 
@@ -522,7 +534,7 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getLastOfferedPriceOfCustomer")) {
             Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
             try {
-                dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForCustomerController().getLastOfferedPriceOfCustomer(auction, (Customer)user));
+                dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForCustomerController().getLastOfferedPriceOfCustomer(auction, (Customer) user));
             } catch (CustomerNotFoundInAuctionException e) {
                 e.printStackTrace();
                 dataOutputStream.writeUTF(e.getMessage());
@@ -531,7 +543,7 @@ public class ClientHandler extends Thread {
             }
         } else if (requestForServer.getFunction().equals("offerNewPrice")) {
             Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
-            Customer customer = (Customer)user;
+            Customer customer = (Customer) user;
             long offeredPrice = Long.parseLong(requestForServer.getInputs().get(1));
             if (customer.getCredit() >= offeredPrice) {
                 if (auction.getAllCustomersOffers().containsKey(customer)) {
