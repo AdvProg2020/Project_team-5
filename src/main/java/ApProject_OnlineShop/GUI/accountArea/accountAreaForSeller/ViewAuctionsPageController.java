@@ -116,8 +116,20 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
         updateAllAuctionsBos();
     }
 
-    public void onEndAuctionPressed() {
-
+    public void onEndAuctionPressed(ActionEvent actionEvent) {
+        Optional<ButtonType> result = showAlert
+                (Alert.AlertType.CONFIRMATION, "remove", "Remove Auction", "are you sure to remove this auction?");
+        if (result.get() == ButtonType.OK) {
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(selectedAuctionId);
+            String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "endAuction", getToken(), inputs));
+            if (serverResponse.equals("auction successfully ended")) {
+                SuccessPageFxController.showPage("auction ended successfully", "your auction successfully ended.");
+                resetPage();
+            } else {
+                ErrorPageFxController.showPage("auction cannot be ended", serverResponse);
+            }
+        } else actionEvent.consume();
     }
 
     public void onLogoutIconClicked(MouseEvent mouseEvent) {

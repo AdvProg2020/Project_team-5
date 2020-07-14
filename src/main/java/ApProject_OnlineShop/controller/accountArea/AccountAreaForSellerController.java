@@ -9,25 +9,22 @@ import ApProject_OnlineShop.exception.OffNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.Order;
+import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
-import ApProject_OnlineShop.model.productThings.Auction;
-import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.model.productThings.Off;
-import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
+import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.AddingGoodRequest;
 import ApProject_OnlineShop.model.requests.AddingOffRequest;
 import ApProject_OnlineShop.model.requests.EditingGoodRequest;
 import ApProject_OnlineShop.model.requests.EditingOffRequest;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -286,5 +283,47 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Shop.getInstance().removeAuction(auction);
         Database.getInstance().saveItem(auction.getSeller());
         Database.getInstance().deleteItem(auction);
+    }
+
+    public void endAuction(int auctionId) throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
+        Auction auction = Shop.getInstance().findAuctionById(auctionId);
+        if (auction.getAllCustomersOffers().size() > 0) {
+            Map<Customer, Long> sortedAuctionOffers =
+                    auction.getAllCustomersOffers().entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, ((aLong, aLong2) -> aLong - aLong2), LinkedHashMap::new));
+            Customer winner = null;
+            for (Customer customer : sortedAuctionOffers.keySet()) {
+                winner = customer;
+                break;
+            }
+            long price = auction.getAllCustomersOffers().get(winner);
+            GoodInCart goodInCart = new GoodInCart(auction.getGood(), auction.getSeller(), 1);
+            ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
+            goodInCarts.add(goodInCart);
+            OrderForCustomer orderForCustomer = new OrderForCustomer(goodInCarts, price, winner.getFirstName() + " " + winner.getLastName(), "default", winner.getEmail(), winner.getPhoneNumber(), -1);
+            Shop.getInstance().getAllGoodInCarts().put(goodInCart.getGoodInCartId(), goodInCart);
+            Database.getInstance().saveItem(goodInCart);
+            winner.addOrder(orderForCustomer);
+            Shop.getInstance().addOrder(orderForCustomer);
+            orderForCustomer.setOrderStatus(Order.OrderStatus.PROCESSING);
+            Database.getInstance().saveItem(orderForCustomer);
+            winner.setCredit(winner.getCredit() - price);
+            Database.getInstance().saveItem(winner);
+            OrderForSeller orderForSeller = new OrderForSeller(price, auction.getSeller(), winner.getUsername(), goodInCarts);
+            MainController.getInstance().getBankTransactionsController().payMoneyToSellerAfterPurchaseByWallet("" + price, auction.getSeller().getUsername());
+            auction.getSeller().addOrder(orderForSeller);
+            Shop.getInstance().addOrder(orderForSeller);
+            orderForSeller.setOrderStatus(Order.OrderStatus.READYTOSEND);
+            Database.getInstance().saveItem(orderForSeller);
+            Database.getInstance().saveItem(auction.getSeller());
+            auction.getGood().reduceAvailableNumber(auction.getSeller(), 1);
+            for (SellerRelatedInfoAboutGood infoAboutGood : auction.getGood().getSellerRelatedInfoAboutGoods()) {
+                if (infoAboutGood.getSeller().equals(auction.getSeller())) {
+                    Database.getInstance().saveItem(infoAboutGood, auction.getGood().getGoodId());
+                    break;
+                }
+            }
+            Database.getInstance().saveItem(auction.getGood());
+        }
+        removeAuction(auctionId);
     }
 }
