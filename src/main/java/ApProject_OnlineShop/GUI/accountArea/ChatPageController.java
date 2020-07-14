@@ -46,8 +46,8 @@ public class ChatPageController extends FxmlController implements Initializable 
             VBox massageBox = getMassageVBox(massage);
             VBox.setMargin(massageBox, new Insets(10,5,5,10));
             vBox.getChildren().add(massageBox);
-            vBox.getChildren().add(getAnswerBox());
         }
+        vBox.getChildren().add(getAnswerBox());
     }
 
     public VBox getMassageVBox(Massage massage) {
