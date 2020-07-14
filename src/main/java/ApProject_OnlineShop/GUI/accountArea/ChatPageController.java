@@ -90,7 +90,7 @@ public class ChatPageController extends FxmlController implements Initializable 
     }
 
     private void sendMassage() {
-        
+
     }
 
     public void backButton(ActionEvent actionEvent) {
