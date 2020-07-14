@@ -325,6 +325,14 @@ public class ClientHandler extends Thread {
             List<String> data = MainController.getInstance().getAccountAreaForCustomerController().getOnlineSupporters();
             dataOutputStream.writeUTF(convertListToString(data));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllAuctionsId")) {
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getAuctionId).map(integer -> "" + integer).collect(Collectors.toList());
+            dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getAllAuctionsTitle")) {
+            List<String> auctions = Shop.getInstance().getAllAuctionsList().stream().map(Auction::getTitle).collect(Collectors.toList());
+            dataOutputStream.writeUTF(convertArrayListToString(new ArrayList<>(auctions)));
+            dataOutputStream.flush();
         }
     }
 
