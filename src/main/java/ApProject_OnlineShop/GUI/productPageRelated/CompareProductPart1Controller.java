@@ -5,12 +5,9 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaFo
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
-import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +21,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class CompareProductPart1Controller extends FxmlController implements Initializable {
     @FXML

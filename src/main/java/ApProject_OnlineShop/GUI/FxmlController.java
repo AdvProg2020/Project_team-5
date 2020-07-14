@@ -4,7 +4,6 @@ import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.requests.*;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,7 +14,6 @@ import javafx.scene.media.AudioClip;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;

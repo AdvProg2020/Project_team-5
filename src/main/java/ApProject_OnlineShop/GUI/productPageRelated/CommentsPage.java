@@ -5,35 +5,24 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaFo
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Comment;
-import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
-import javafx.geometry.Insets;
-import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
-import java.awt.*;
 import java.net.URL;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CommentsPage extends FxmlController implements Initializable {
@@ -51,8 +40,9 @@ public class CommentsPage extends FxmlController implements Initializable {
         }
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(goodId + "");
-        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
-        ArrayList<Comment> comments = good.getComments();
+//        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+//        ArrayList<Comment> comments = good.getComments();
+        ArrayList<Comment> comments = new Gson().fromJson(connectToServer(new RequestForServer("Good", "getComments", null, inputs)),new TypeToken<ArrayList<Comment>>() {}.getType());
         int size1 = (comments.size() * (110));
         if (size1 > 577) {
             vbox.setPrefWidth(size1 + 20);
@@ -63,7 +53,7 @@ public class CommentsPage extends FxmlController implements Initializable {
             writer.setPrefHeight(50);
             writer.setPrefWidth(100);
             writer.setAlignment(Pos.BOTTOM_LEFT);
-            Label label = new Label(comment.getPerson().getUsername() + " :");
+            Label label = new Label(comment.getPersonString() + " :");
             label.setFont(javafx.scene.text.Font.font("Times New Roman", 14));
             label.setPadding(new javafx.geometry.Insets(10));
             label.setStyle("-fx-font-weight: bold;");

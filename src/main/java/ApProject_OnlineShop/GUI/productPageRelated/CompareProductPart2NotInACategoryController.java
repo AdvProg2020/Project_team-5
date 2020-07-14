@@ -5,7 +5,6 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaFo
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
-import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;

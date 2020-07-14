@@ -2,9 +2,8 @@ package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
+import ApProject_OnlineShop.model.productThings.Off;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
 import javafx.geometry.Insets;
@@ -110,11 +109,12 @@ public class ProductBriefSummery extends FxmlController {
         ArrayList<String> inputs22 = new ArrayList<>();
         inputs22.add(productId + "");
         Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
-        Label percent = new Label("" + good.getThisGoodOff().getDiscountPercent() + "%");
+        Off off = new Gson().fromJson(connectToServer(new RequestForServer("Good", "getThisGoodOff", null, inputs22)), Off.class);
+        Label percent = new Label("" + off.getDiscountPercent() + "%");
         percent.setTextFill(Color.RED);
         HBox.setMargin(percent, new Insets(0, 20, 0, 5));
         offBox.getChildren().add(percent);
-        LocalDate date = good.getThisGoodOff().getEndDate();
+        LocalDate date = off.getEndDate();
         Label days = new Label("" + ChronoUnit.DAYS.between(LocalDate.now(), date) + " days left");
         days.setTextFill(Color.RED);
         days.setUnderline(true);

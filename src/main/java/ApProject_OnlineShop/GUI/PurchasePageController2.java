@@ -1,10 +1,7 @@
 package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.GUI.bankRelated.BankPortalForPurchaseController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
-import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

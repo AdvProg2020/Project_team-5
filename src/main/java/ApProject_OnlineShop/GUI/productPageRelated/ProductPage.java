@@ -7,10 +7,6 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaFo
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.exception.productExceptions.DontHaveEnoughNumberOfThisProduct;
-import ApProject_OnlineShop.exception.productExceptions.NotEnoughAvailableProduct;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
@@ -144,7 +140,7 @@ public class ProductPage extends FxmlController implements Initializable {
             usernameVBox.setAlignment(Pos.CENTER_LEFT);
             usernameVBox.setMinWidth(150);
             usernameVBox.setMaxWidth(150);
-            Label username = new Label(eachSellerInfo.getSeller().getUsername());
+            Label username = new Label(eachSellerInfo.getSellerUserName());
             username.setFont(Font.font("Times New Roman", 16));
             username.setPadding(new Insets(0, 15, 0, 15));
             usernameVBox.getChildren().add(username);
@@ -163,7 +159,7 @@ public class ProductPage extends FxmlController implements Initializable {
             goodStatusVBox.getChildren().add(goodStatus);
             sellerHBox.getChildren().add(goodStatusVBox);
             ArrayList<String> inputs2 = new ArrayList<>();
-            inputs2.add(eachSellerInfo.getSeller().getUsername());
+            inputs2.add(eachSellerInfo.getSellerUserName());
             inputs2.add(productId + "");
             if (connectToServer(new RequestForServer("ProductController", "isInOffBySeller", null, inputs2)).equals("false")) {
                 HBox priceBox = new HBox();
@@ -214,7 +210,7 @@ public class ProductPage extends FxmlController implements Initializable {
             cartImage.setFitHeight(35);
             cartImage.setFitWidth(35);
             cartImage.setCursor(Cursor.HAND);
-            cartImage.setOnMouseClicked(e -> addToCart(eachSellerInfo.getSeller().getUsername()));
+            cartImage.setOnMouseClicked(e -> addToCart(eachSellerInfo.getSellerUserName()));
             sellerHBox.getChildren().add(cartImage);
             if (getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Seller)
                 cartImage.setVisible(false);

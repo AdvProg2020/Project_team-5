@@ -130,7 +130,15 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getAvailableNumberBySeller")) {
             Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(1));
             Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
-            dataOutputStream.writeUTF(good.getAvailableNumberBySeller(seller)+"");
+            dataOutputStream.writeUTF(good.getAvailableNumberBySeller(seller) + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getComments")) {
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(new Gson().toJson(good.getComments()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getThisGoodOff")) {
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.writeUTF(new Gson().toJson(good.getThisGoodOff()));
             dataOutputStream.flush();
         }
     }

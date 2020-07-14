@@ -3,7 +3,6 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.server.RequestForServer;
 import com.google.gson.Gson;

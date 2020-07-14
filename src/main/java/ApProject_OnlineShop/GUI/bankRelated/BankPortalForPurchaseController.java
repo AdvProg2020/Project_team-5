@@ -3,8 +3,6 @@ package ApProject_OnlineShop.GUI.bankRelated;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.server.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
