@@ -71,8 +71,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
         nameFilterValue.setPromptText(connectToServer(new RequestForServer("FilteringController", "getName", null, getInputsForServer())));
         sellerValueFilter.setPromptText(connectToServer(new RequestForServer("FilteringController", "getSeller", null, getInputsForServer())));
         brandValueFilter.setPromptText(connectToServer(new RequestForServer("FilteringController", "getBrand", null, getInputsForServer())));
-        startPriceValue.setPromptText(MainController.getInstance().getControllerForFiltering().getStartPrice());
-        endPriceValue.setPromptText(MainController.getInstance().getControllerForFiltering().getEndPrice());
+        startPriceValue.setPromptText(connectToServer(new RequestForServer("FilteringController", "getStartPrice", null, getInputsForServer())));
+        endPriceValue.setPromptText(connectToServer(new RequestForServer("FilteringController", "getEndPrice", null, getInputsForServer())));
         if (!connectToServer(new RequestForServer("FilteringController", "getCategory", null, getInputsForServer())).equals("")) {
             Label subCategoryText = new Label("subcategory:");
             subCategoryText.setPrefWidth(150);
@@ -84,14 +84,16 @@ public class AllProductsPage extends FxmlController implements Initializable {
             VBox.setMargin(subCategory, new Insets(2, 0, 0, 0));
             subCategory.setPrefWidth(150);
             subCategory.setPrefHeight(32);
-            List<String> subcategories = MainController.getInstance().getControllerForFiltering().getSubcategories();
+//            List<String> subcategories = MainController.getInstance().getControllerForFiltering().getSubcategories();
+            List<String> subcategories = convertStringToArraylist(connectToServer(new RequestForServer("FilteringController", "getSubcategories", null, getInputsForServer())));
             subcategories.add("none");
             subCategory.setStyle("-fx-background-color: #dab3ff;   -fx-background-radius: 8px;   -fx-margin: 4px 2px;  -fx-border-radius: 8px;  -fx-border-color: #600080; -fx-border-width: 2 2 2 2; -fx-text-color:#000000;");
             subCategory.setItems(FXCollections.observableArrayList(subcategories));
             subCategory.setValue(connectToServer(new RequestForServer("FilteringController", "getSubCategory", null, getInputsForServer())));
             subCategory.setOnAction(e -> setSubCategory(subCategory.getValue().toString()));
             categoryRelatedVBox.getChildren().add(subCategory);
-            for (String property : MainController.getInstance().getControllerForFiltering().getCategoryProperties()) {
+            List<String> categoryProperties = convertStringToArraylist(connectToServer(new RequestForServer("FilteringController", "getCategoryProperties", null, getInputsForServer())));
+            for (String property : categoryProperties) {
                 Label propertyText = new Label(property);
                 propertyText.setPrefWidth(150);
                 propertyText.setFont(Font.font("Times New Roman", 14));
@@ -115,7 +117,10 @@ public class AllProductsPage extends FxmlController implements Initializable {
                 propertyValue.setMinWidth(150);
                 propertyValue.setMaxWidth(150);
                 propertyValue.setMaxWidth(30);
-                propertyValue.setPromptText(MainController.getInstance().getControllerForFiltering().getValueOfProperty(property));
+                ArrayList<String> inputs22 = new ArrayList<>();
+                inputs22.add(getId() + "");
+                inputs22.add(property);
+                propertyValue.setPromptText(connectToServer(new RequestForServer("FilteringController", "getValueOfProperty", null, inputs22)));
                 propertyHBox.getChildren().add(propertyValue);
                 ImageView search = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/search.png").toString()));
                 search.setPickOnBounds(true);
@@ -128,7 +133,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
                 categoryRelatedVBox.getChildren().add(propertyHBox);
             }
             if (!connectToServer(new RequestForServer("FilteringController", "getSubCategory", null, getInputsForServer())).equals("")) {
-                for (String property : MainController.getInstance().getControllerForFiltering().getSubCategoryProperties()) {
+                List<String> subCategoryProperties = convertStringToArraylist(connectToServer(new RequestForServer("FilteringController", "getSubCategoryProperties", null, getInputsForServer())));
+                for (String property : subCategoryProperties) {
                     Label propertyText = new Label(property + ":");
                     propertyText.setPrefWidth(150);
                     propertyText.setFont(Font.font("Times New Roman", 14));
@@ -150,7 +156,10 @@ public class AllProductsPage extends FxmlController implements Initializable {
                     propertyValue.setMinWidth(150);
                     propertyValue.setMaxWidth(150);
                     propertyValue.setMaxWidth(30);
-                    propertyValue.setPromptText(MainController.getInstance().getControllerForFiltering().getValueOfProperty(property));
+                    ArrayList<String> inputs22 = new ArrayList<>();
+                    inputs22.add(getId() + "");
+                    inputs22.add(property);
+                    propertyValue.setPromptText(connectToServer(new RequestForServer("FilteringController", "getValueOfProperty", null, inputs22)));
                     propertyHBox.getChildren().add(propertyValue);
                     ImageView search = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/search.png").toString()));
                     search.setFitHeight(30);
@@ -245,24 +254,31 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     public void addCategoryProperty(String property, String value) {
         if (!value.equals("")) {
-            MainController.getInstance().getControllerForFiltering().addPropertiesFilter(property, value);
+//            MainController.getInstance().getControllerForFiltering().addPropertiesFilter(property, value);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            inputs.add(property);
+            inputs.add(value);
+            connectToServer(new RequestForServer("FilteringController", "addPropertiesFilter", null, inputs));
             setScene("allProducts.fxml", "all products page");
         }
     }
 
     public void setSubCategory(String subCategory) {
-        if (subCategory.equals("none"))
-            MainController.getInstance().getControllerForFiltering().disableSubcategoryFilter();
-        else {
+        if (subCategory.equals("none")) {
+//            MainController.getInstance().getControllerForFiltering().disableSubcategoryFilter();
+            connectToServer(new RequestForServer("FilteringController", "disableSubcategoryFilter", null, getInputsForServer()));
+        } else {
             MainController.getInstance().getControllerForFiltering().addSubCategoryFilter(subCategory);
         }
         setScene("allProducts.fxml", "all products page");
     }
 
     public void setCategory(String category) {
-        if (category.equals("none"))
-            MainController.getInstance().getControllerForFiltering().disableCategoryFilter();
-        else {
+        if (category.equals("none")) {
+            //            MainController.getInstance().getControllerForFiltering().disableCategoryFilter();
+            connectToServer(new RequestForServer("FilteringController", "disableCategoryFilter", null, getInputsForServer()));
+        } else {
             MainController.getInstance().getControllerForFiltering().addCategoryFilter(category);
         }
         setScene("allProducts.fxml", "all products page");
@@ -270,9 +286,11 @@ public class AllProductsPage extends FxmlController implements Initializable {
 
     public void availableProductsFilter() {
         if (connectToServer(new RequestForServer("FilteringController", "isAvailableProduct", null, getInputsForServer())).equals("true")) {
-            MainController.getInstance().getControllerForFiltering().removeAvailableProductsFilter();
+//            MainController.getInstance().getControllerForFiltering().removeAvailableProductsFilter();
+            connectToServer(new RequestForServer("FilteringController", "removeAvailableProductsFilter", null, getInputsForServer()));
         } else if (connectToServer(new RequestForServer("FilteringController", "isAvailableProduct", null, getInputsForServer())).equals("true")) {
-            MainController.getInstance().getControllerForFiltering().addAvailableProduct();
+//            MainController.getInstance().getControllerForFiltering().addAvailableProduct();
+            connectToServer(new RequestForServer("FilteringController", "addAvailableProduct", null, getInputsForServer()));
         }
         setScene("allProducts.fxml", "all products page");
     }
@@ -289,45 +307,75 @@ public class AllProductsPage extends FxmlController implements Initializable {
     }
 
     public void ableNameFilter() {
-        MainController.getInstance().getControllerForFiltering().addNameFiltering(nameFilterValue.getText());
+//        MainController.getInstance().getControllerForFiltering().addNameFiltering(nameFilterValue.getText());
+        ArrayList<String> inputs11 = new ArrayList<>();
+        inputs11.add(getId() + "");
+        inputs11.add(nameFilterValue.getText());
+        connectToServer(new RequestForServer("SortingController", "addNameFiltering", null, inputs11));
         setScene("allProducts.fxml", "all products page");
     }
 
     public void disableNameFilter() {
-        MainController.getInstance().getControllerForFiltering().addNameFiltering("");
+//        MainController.getInstance().getControllerForFiltering().addNameFiltering("");
+        ArrayList<String> inputs11 = new ArrayList<>();
+        inputs11.add(getId() + "");
+        inputs11.add("");
+        connectToServer(new RequestForServer("SortingController", "addNameFiltering", null, inputs11));
         setScene("allProducts.fxml", "all products page");
     }
 
     public void filterBySeller() {
-        MainController.getInstance().getControllerForFiltering().addSellerFilter(sellerValueFilter.getText());
+//        MainController.getInstance().getControllerForFiltering().addSellerFilter(sellerValueFilter.getText());
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(getId() + "");
+        inputs.add(sellerValueFilter.getText());
+        connectToServer(new RequestForServer("FilteringController", "addSellerFilter", null, inputs));
         setScene("allProducts.fxml", "all products page");
     }
 
     public void filterByBrand() {
-        MainController.getInstance().getControllerForFiltering().addBrandFiltering(brandValueFilter.getText());
+//        MainController.getInstance().getControllerForFiltering().addBrandFiltering(brandValueFilter.getText());
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(getId() + "");
+        inputs.add(brandValueFilter.getText());
+        connectToServer(new RequestForServer("FilteringController", "addBrandFiltering", null, inputs));
         setScene("allProducts.fxml", "all products page");
     }
 
     public void disableBrandFilter() {
-        MainController.getInstance().getControllerForFiltering().addBrandFiltering("");
+//        MainController.getInstance().getControllerForFiltering().addBrandFiltering("");
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(getId() + "");
+        inputs.add("");
+        connectToServer(new RequestForServer("FilteringController", "addBrandFiltering", null, inputs));
         setScene("allProducts.fxml", "all products page");
     }
 
     public void disableSellerFilter() {
-        MainController.getInstance().getControllerForFiltering().addSellerFilter("");
+//        MainController.getInstance().getControllerForFiltering().addSellerFilter("");
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(getId() + "");
+        inputs.add("");
+        connectToServer(new RequestForServer("FilteringController", "addSellerFilter", null, inputs));
         setScene("allProducts.fxml", "all products page");
     }
 
     public void filterByPrice() {
-        if (Pattern.matches("[\\d]+", startPriceValue.getText()) && Pattern.matches("[\\d]+", endPriceValue.getText()))
-            MainController.getInstance().getControllerForFiltering().addPriceFiltering(startPriceValue.getText(), endPriceValue.getText());
-        else
+        if (Pattern.matches("[\\d]+", startPriceValue.getText()) && Pattern.matches("[\\d]+", endPriceValue.getText())) {
+//            MainController.getInstance().getControllerForFiltering().addPriceFiltering(startPriceValue.getText(), endPriceValue.getText());
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(getId() + "");
+            inputs.add(startPriceValue.getText());
+            inputs.add(endPriceValue.getText());
+            connectToServer(new RequestForServer("FilteringController", "addPriceFiltering", null, inputs));
+        } else
             ErrorPageFxController.showPage("wrong price value", "price value must be number");
         setScene("allProducts.fxml", "all products page");
     }
 
     public void disablePriceFilter() {
-        MainController.getInstance().getControllerForFiltering().disablePriceFiltering();
+        connectToServer(new RequestForServer("FilteringController", "disablePriceFiltering", null, getInputsForServer()));
+//        MainController.getInstance().getControllerForFiltering().disablePriceFiltering();
         setScene("allProducts.fxml", "all products page");
     }
 
@@ -357,9 +405,5 @@ public class AllProductsPage extends FxmlController implements Initializable {
         }
     }
 
-    private ArrayList<String> getInputsForServer() {
-        ArrayList<String> input = new ArrayList<>();
-        input.add(getId() + "");
-        return input;
-    }
+
 }

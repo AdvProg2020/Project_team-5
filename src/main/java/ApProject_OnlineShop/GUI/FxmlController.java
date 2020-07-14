@@ -266,4 +266,10 @@ public class FxmlController {
         }
         return requests;
     }
+
+    public ArrayList<String> getInputsForServer() {
+        ArrayList<String> input = new ArrayList<>();
+        input.add(getId() + "");
+        return input;
+    }
 }

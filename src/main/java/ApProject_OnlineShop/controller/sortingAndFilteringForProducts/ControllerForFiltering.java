@@ -128,7 +128,7 @@ public class ControllerForFiltering {
         this.subCategory = subcategoryName;
     }
 
-    public void addBrandFiltering(String brandName) {
+        public void addBrandFiltering(String brandName) {
         this.brand = brandName;
     }
 
@@ -171,9 +171,9 @@ public class ControllerForFiltering {
         availableProduct = true;
     }
 
-    public List<String> getProperties() throws Exception {
-        return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
-    }
+//    public List<String> getProperties() {
+//        return Shop.getInstance().findCategoryByName(getCategory()).getDetails();
+//    }
 
     public void disableCategoryFilter() {
         categoryProperties = new HashMap<>();
