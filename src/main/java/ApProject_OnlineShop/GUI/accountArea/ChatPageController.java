@@ -41,11 +41,17 @@ public class ChatPageController extends FxmlController implements Initializable 
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(owner);
         inputs.add(guest);
-        ArrayList<Massage> massages = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getMassages", getToken(),inputs)), new TypeToken<ArrayList<Massage>>() {}.getType());
+        ArrayList<Massage> massages = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getMassages", getToken(), inputs)), new TypeToken<ArrayList<Massage>>() {
+        }.getType());
         for (Massage massage : massages) {
+            HBox hBox = new HBox();
+            if (massage.getSenderUserName().equals(owner))
+                hBox.setAlignment(Pos.CENTER_RIGHT);
+            else
+                hBox.setAlignment(Pos.CENTER_LEFT);
             VBox massageBox = getMassageVBox(massage);
-            VBox.setMargin(massageBox, new Insets(10,5,5,10));
-            vBox.getChildren().add(massageBox);
+            VBox.setMargin(hBox, new Insets(10, 5, 5, 10));
+            vBox.getChildren().add(hBox);
         }
         vBox.getChildren().add(getAnswerBox());
     }
@@ -57,49 +63,51 @@ public class ChatPageController extends FxmlController implements Initializable 
         vBox.setStyle("-fx-border-color:#8600b3; -fx-border-width: 1;-fx-border-style: solid;");
         vBox.setAlignment(Pos.CENTER_LEFT);
         Label senderName = new Label(massage.getSenderUserName());
-        VBox.setMargin(senderName,new Insets(6,0,0,10));
+        VBox.setMargin(senderName, new Insets(6, 0, 0, 10));
         senderName.setFont(Font.font("Times New Roman", 15));
         senderName.setStyle("-fx-text-color: # #600080");
         vBox.getChildren().add(senderName);
         Label body = new Label(massage.getMassage());
-        VBox.setMargin(body,new Insets(6,0,0,10));
+        VBox.setMargin(body, new Insets(6, 0, 0, 10));
         body.setFont(Font.font("Times New Roman", 13));
         vBox.getChildren().add(body);
         String time = "" + massage.getTime();
-        Label timeText = new Label(time.substring(0,2) + ":" + time.substring(3,5));
+        Label timeText = new Label(time.substring(0, 2) + ":" + time.substring(3, 5));
         timeText.setFont(Font.font("Times New Roman", 13));
-        timeText.setPadding(new Insets(7,5,5,15));
+        timeText.setPadding(new Insets(7, 5, 5, 15));
         vBox.getChildren().add(timeText);
         return vBox;
     }
 
-    public HBox getAnswerBox(){
+    public HBox getAnswerBox() {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPrefHeight(40);
         hBox.setPrefWidth(442);
-        this.massageTextField = new TextField("type your massage");
+        this.massageTextField = new TextField();
+        this.massageTextField.setPromptText("type your massage");
         this.massageTextField.setFont(Font.font(14));
         this.massageTextField.setPrefWidth(388);
         this.massageTextField.setMinHeight(30);
         this.massageTextField.setAlignment(Pos.CENTER_LEFT);
         hBox.getChildren().add(massageTextField);
-        HBox.setMargin(massageTextField, new Insets(0,0,0,2));
+        HBox.setMargin(massageTextField, new Insets(0, 0, 0, 2));
         ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/sendIcon.png").toString()));
         imageView.setCursor(Cursor.HAND);
         imageView.setOnMouseClicked(e -> sendMassage());
         imageView.setFitWidth(30);
         imageView.setFitHeight(30);
-        HBox.setMargin(imageView, new Insets(0,3,0,7));
+        HBox.setMargin(imageView, new Insets(0, 3, 0, 7));
         hBox.getChildren().add(imageView);
         return hBox;
     }
 
     private void sendMassage() {
-        Massage massage = new Massage(owner, guest,massageTextField.getText());
+        Massage massage = new Massage(owner, guest, massageTextField.getText());
         ArrayList<String> input = new ArrayList<>();
         input.add(new Gson().toJson(massage));
-        connectToServer(new RequestForServer("AccountAreaController", "sendMassage",getToken(), input));
+        connectToServer(new RequestForServer("AccountAreaController", "sendMassage", getToken(), input));
+        setScene("chatPage.fxml", "chat page");
     }
 
     public void backButton(ActionEvent actionEvent) {
