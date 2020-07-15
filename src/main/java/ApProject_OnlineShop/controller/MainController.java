@@ -1,9 +1,6 @@
 package ApProject_OnlineShop.controller;
 
-import ApProject_OnlineShop.controller.accountArea.AccountAreaController;
-import ApProject_OnlineShop.controller.accountArea.AccountAreaForCustomerController;
-import ApProject_OnlineShop.controller.accountArea.AccountAreaForManagerController;
-import ApProject_OnlineShop.controller.accountArea.AccountAreaForSellerController;
+import ApProject_OnlineShop.controller.accountArea.*;
 import ApProject_OnlineShop.controller.products.AllProductsController;
 import ApProject_OnlineShop.controller.products.OffsController;
 import ApProject_OnlineShop.controller.products.ProductController;
@@ -32,6 +29,7 @@ public class MainController {
     private BankAccountsController bankAccountsController;
     private BankTransactionsController bankTransactionsController;
     private AccountAreaController accountAreaController;
+    private AccountAreaForSupporter accountAreaForSupporter;
 
     public static MainController getInstance() {
         return ourInstance;
@@ -53,10 +51,15 @@ public class MainController {
         this.bankAccountsController = new BankAccountsController(8090);
         this.bankTransactionsController = new BankTransactionsController(8090);
         this.accountAreaController = new AccountAreaController();
+        this.accountAreaForSupporter = new AccountAreaForSupporter();
     }
 
     public AccountAreaController getAccountAreaController() {
         return accountAreaController;
+    }
+
+    public AccountAreaForSupporter getAccountAreaForSupporter() {
+        return accountAreaForSupporter;
     }
 
     public BankAccountsController getBankAccountsController() {
