@@ -2,6 +2,7 @@ package ApProject_OnlineShop.controller;
 
 import ApProject_OnlineShop.controller.accountArea.*;
 import ApProject_OnlineShop.controller.products.AllProductsController;
+import ApProject_OnlineShop.controller.products.AuctionsController;
 import ApProject_OnlineShop.controller.products.OffsController;
 import ApProject_OnlineShop.controller.products.ProductController;
 import ApProject_OnlineShop.controller.sorting.SortController;
@@ -30,6 +31,7 @@ public class MainController {
     private BankTransactionsController bankTransactionsController;
     private AccountAreaController accountAreaController;
     private AccountAreaForSupporterController accountAreaForSupporter;
+    private AuctionsController auctionsController;
 
     public static MainController getInstance() {
         return ourInstance;
@@ -52,10 +54,15 @@ public class MainController {
         this.bankTransactionsController = new BankTransactionsController(8090);
         this.accountAreaController = new AccountAreaController();
         this.accountAreaForSupporter = new AccountAreaForSupporterController();
+        this.auctionsController = new AuctionsController();
     }
 
     public AccountAreaController getAccountAreaController() {
         return accountAreaController;
+    }
+
+    public AuctionsController getAuctionsController() {
+        return auctionsController;
     }
 
     public AccountAreaForSupporterController getAccountAreaForSupporter() {
