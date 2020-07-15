@@ -70,4 +70,8 @@ public class ViewCustomersChatController extends FxmlController implements Initi
         ChatPageController.setBackTitle("chat with customers");
         setScene("chatPage.fxml", "chat Page");
     }
+
+    public void refreshPage(MouseEvent mouseEvent) {
+        setScene("viewCustomers'ChatForSupporter.fxml", "chat with customers");
+    }
 }

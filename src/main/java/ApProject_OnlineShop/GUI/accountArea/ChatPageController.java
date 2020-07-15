@@ -152,4 +152,8 @@ public class ChatPageController extends FxmlController implements Initializable 
     public static void setBackTitle(String backTitle) {
         ChatPageController.backTitle = backTitle;
     }
+
+    public void refreshPage(MouseEvent mouseEvent) {
+        setScene("chatPage.fxml", "chat page");
+    }
 }
