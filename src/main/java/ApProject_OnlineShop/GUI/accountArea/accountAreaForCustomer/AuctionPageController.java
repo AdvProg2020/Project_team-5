@@ -127,7 +127,7 @@ public class AuctionPageController extends FxmlController implements Initializab
     private void updateChatBox() {
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add("auction_" + selectedAuctionId);
-        ArrayList<Massage> massages = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getMassages", getToken(), inputs)), new TypeToken<ArrayList<Massage>>() {
+        ArrayList<Massage> massages = new Gson().fromJson(connectToServer(new RequestForServer("AuctionsController", "getMassages", getToken(), inputs)), new TypeToken<ArrayList<Massage>>() {
         }.getType());
         for (Massage massage : massages) {
             HBox hBox = new HBox();
