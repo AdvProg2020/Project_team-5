@@ -96,7 +96,7 @@ public class ChatPageController extends FxmlController implements Initializable 
         this.massageTextField.setMinHeight(30);
         this.massageTextField.setAlignment(Pos.CENTER_LEFT);
         hBox.getChildren().add(massageTextField);
-        HBox.setMargin(massageTextField, new Insets(7, 0, 1, 2));
+        HBox.setMargin(massageTextField, new Insets(7, 0, 1, 7));
         ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/sendIcon.png").toString()));
         imageView.setCursor(Cursor.HAND);
         imageView.setPickOnBounds(true);
