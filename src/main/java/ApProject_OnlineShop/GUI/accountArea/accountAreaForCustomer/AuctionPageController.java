@@ -48,6 +48,7 @@ public class AuctionPageController extends FxmlController implements Initializab
     public void initialize(URL location, ResourceBundle resources) {
         viewSingleAuction();
         updateLastPriceLabel();
+        updateChatBox();
     }
 
     private void viewSingleAuction() {
@@ -124,6 +125,7 @@ public class AuctionPageController extends FxmlController implements Initializab
         setScene("viewAllAuctionsForCustomerPage.fxml", "view auctions");
     }
 
+    @FXML
     private void updateChatBox() {
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add("auction_" + selectedAuctionId);
