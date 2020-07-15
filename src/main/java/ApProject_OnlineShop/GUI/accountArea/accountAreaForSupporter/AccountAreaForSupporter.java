@@ -68,6 +68,6 @@ public class AccountAreaForSupporter extends FxmlController implements Initializ
     }
 
     public void chaWithCustomers(ActionEvent actionEvent) {
-
+        setScene("viewCustomers'ChatForSupporter.fxml", "chat with customers");
     }
 }

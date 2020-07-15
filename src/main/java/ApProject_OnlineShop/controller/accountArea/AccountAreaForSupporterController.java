@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class AccountAreaForSupporter extends AccountAreaController {
+public class AccountAreaForSupporterController extends AccountAreaController {
     public List<String> getCustomersChat(String supporter){
         HashSet<String> customers = new HashSet<>();
         for (Massage massage : Shop.getInstance().getMassages()) {

@@ -29,7 +29,7 @@ public class MainController {
     private BankAccountsController bankAccountsController;
     private BankTransactionsController bankTransactionsController;
     private AccountAreaController accountAreaController;
-    private AccountAreaForSupporter accountAreaForSupporter;
+    private AccountAreaForSupporterController accountAreaForSupporter;
 
     public static MainController getInstance() {
         return ourInstance;
@@ -51,14 +51,14 @@ public class MainController {
         this.bankAccountsController = new BankAccountsController(8090);
         this.bankTransactionsController = new BankTransactionsController(8090);
         this.accountAreaController = new AccountAreaController();
-        this.accountAreaForSupporter = new AccountAreaForSupporter();
+        this.accountAreaForSupporter = new AccountAreaForSupporterController();
     }
 
     public AccountAreaController getAccountAreaController() {
         return accountAreaController;
     }
 
-    public AccountAreaForSupporter getAccountAreaForSupporter() {
+    public AccountAreaForSupporterController getAccountAreaForSupporter() {
         return accountAreaForSupporter;
     }
 

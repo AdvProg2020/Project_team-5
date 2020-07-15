@@ -45,12 +45,14 @@ public class ViewCustomersChatController extends FxmlController implements Initi
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<String> onlineSupporters = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getOnlineSupporters", getToken(), null)));
-        if (onlineSupporters != null) {
-            for (String supporter : onlineSupporters) {
-                Hyperlink hyperlink = new Hyperlink("-  " + supporter);
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(getCurrentPerson().getUsername());
+        ArrayList<String> customers = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSupporterController", "getCustomersChat", getToken(), inputs)));
+        if (customers != null) {
+            for (String customer : customers) {
+                Hyperlink hyperlink = new Hyperlink("-  " + customer);
                 hyperlink.setPrefSize(280, 50);
-                hyperlink.setOnMouseClicked(e -> chatPage(supporter));
+                hyperlink.setOnMouseClicked(e -> chatPage(customer));
                 hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
                 hyperlink.setAlignment(Pos.BOTTOM_LEFT);
                 hyperlink.setPadding(new Insets(8));

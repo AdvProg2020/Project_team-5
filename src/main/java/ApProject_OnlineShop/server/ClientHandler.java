@@ -130,6 +130,8 @@ public class ClientHandler extends Thread {
             filteringControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("SortingController")) {
             sortingHandler(requestForServer);
+        } else if (requestForServer.getController().equals("AccountAreaForSupporterController")){
+            accountAreaForSupporterHandler(requestForServer);
         }
     }
 
@@ -1120,6 +1122,13 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getLoginRegisterController().logoutUser(Long.parseLong(requestForServer.getInputs().get(0)));
             Server.removeOnlineUser(requestForServer.getToken());
             dataOutputStream.writeUTF("logout successfully");
+            dataOutputStream.flush();
+        }
+    }
+
+    private void accountAreaForSupporterHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getCustomersChat")){
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSupporter().getCustomersChat(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
         }
     }
