@@ -2,6 +2,9 @@ package ApProject_OnlineShop.controller.products;
 
 import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Person;
+import ApProject_OnlineShop.model.productThings.Auction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,5 +17,10 @@ public class AuctionsController {
                 massages.add(massage);
         }
         return massages;
+    }
+
+    public boolean isCustomerOfferedAPriceInAuction(Person person, int auctionId) {
+        Auction auction = Shop.getInstance().findAuctionById(auctionId);
+        return auction.getAllCustomersOffers().containsKey(person);
     }
 }

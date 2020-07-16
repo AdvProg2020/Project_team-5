@@ -27,17 +27,14 @@
         <RowConstraints maxHeight="422.0" minHeight="10.0" prefHeight="409.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="106.0" minHeight="0.0" prefHeight="106.0" vgrow="SOMETIMES" />
     </rowConstraints>
-    <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="447.0" vbarPolicy="ALWAYS" GridPane.columnIndex="2" GridPane.rowIndex="1">
-        <content>
-            <VBox fx:id="chatBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="414.0" minWidth="230.0" prefHeight="414.0" prefWidth="452.0" spacing="4.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
-                <opaqueInsets>
-                    <Insets top="1.0" />
-                </opaqueInsets>
-                <padding>
-                    <Insets bottom="10.0" top="20.0" />
-                </padding>
-            </VBox>
-        </content>
+    <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="447.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <content>
+         <VBox fx:id="chatBox" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="407.0" prefWidth="433.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+            <opaqueInsets>
+               <Insets top="1.0" />
+            </opaqueInsets>
+         </VBox>
+      </content>
     </ScrollPane>
     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>

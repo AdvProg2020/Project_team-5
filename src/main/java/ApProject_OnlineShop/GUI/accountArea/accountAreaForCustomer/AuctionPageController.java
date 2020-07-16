@@ -120,6 +120,12 @@ public class AuctionPageController extends FxmlController implements Initializab
         }
     }
 
+    private boolean isPersonOfferedPriceInAuction() {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(selectedAuctionId);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "offerNewPrice", getToken(), inputs));
+    }
+
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
         setScene("viewAllAuctionsForCustomerPage.fxml", "view auctions");
