@@ -1027,6 +1027,10 @@ public class ClientHandler extends Thread {
         if (requestForServer.getFunction().equals("getMassages")){
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAuctionsController().getMassages(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isCustomerOfferedAPriceInAuction")) {
+            int auctionId = Integer.parseInt(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF(MainController.getInstance().getAuctionsController().isCustomerOfferedAPriceInAuction(user, auctionId)?"true":"false");
+            dataOutputStream.flush();
         }
     }
 

@@ -49,6 +49,8 @@ public class AuctionPageController extends FxmlController implements Initializab
         viewSingleAuction();
         updateLastPriceLabel();
         updateChatBox();
+        if (!isPersonOfferedPriceInAuction())
+            SuccessPageFxController.showPage("offer price", "please first offer a price to participate in auction and chat with other participants");
     }
 
     private void viewSingleAuction() {
@@ -87,6 +89,7 @@ public class AuctionPageController extends FxmlController implements Initializab
         if (offeredPriceTextField.getText().isEmpty() || !offeredPriceTextField.getText().matches("\\d+")) {
             ErrorPageFxController.showPage("error in offer price", "invalid format for offered price.");
             updateLastPriceLabel();
+            updateChatBox();
             offeredPriceTextField.clear();
             return;
         }
@@ -123,7 +126,8 @@ public class AuctionPageController extends FxmlController implements Initializab
     private boolean isPersonOfferedPriceInAuction() {
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(selectedAuctionId);
-        String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "offerNewPrice", getToken(), inputs));
+        String serverResponse = connectToServer(new RequestForServer("AuctionsController", "isCustomerOfferedAPriceInAuction", getToken(), inputs));
+        return serverResponse.equals("true");
     }
 
 
@@ -133,23 +137,25 @@ public class AuctionPageController extends FxmlController implements Initializab
 
     @FXML
     private void updateChatBox() {
-        chatBox.getChildren().clear();
-        ArrayList<String> inputs = new ArrayList<>();
-        inputs.add(selectedAuctionId);
-        ArrayList<Massage> massages = new Gson().fromJson(connectToServer(new RequestForServer("AuctionsController", "getMassages", getToken(), inputs)), new TypeToken<ArrayList<Massage>>() {
-        }.getType());
-        for (Massage massage : massages) {
-            HBox hBox = new HBox();
-            if (massage.getSenderUserName().equals(getCurrentPerson().getUsername()))
-                hBox.setAlignment(Pos.CENTER_RIGHT);
-            else
-                hBox.setAlignment(Pos.CENTER_LEFT);
-            VBox massageBox = getMassageVBox(massage);
-            VBox.setMargin(hBox, new Insets(5, 15, 5, 10));
-            hBox.getChildren().add(massageBox);
-            chatBox.getChildren().add(hBox);
+        if (isPersonOfferedPriceInAuction()) {
+            chatBox.getChildren().clear();
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(selectedAuctionId);
+            ArrayList<Massage> massages = new Gson().fromJson(connectToServer(new RequestForServer("AuctionsController", "getMassages", getToken(), inputs)), new TypeToken<ArrayList<Massage>>() {
+            }.getType());
+            for (Massage massage : massages) {
+                HBox hBox = new HBox();
+                if (massage.getSenderUserName().equals(getCurrentPerson().getUsername()))
+                    hBox.setAlignment(Pos.CENTER_RIGHT);
+                else
+                    hBox.setAlignment(Pos.CENTER_LEFT);
+                VBox massageBox = getMassageVBox(massage);
+                VBox.setMargin(hBox, new Insets(5, 15, 5, 10));
+                hBox.getChildren().add(massageBox);
+                chatBox.getChildren().add(hBox);
+            }
+            chatBox.getChildren().add(getAnswerBox());
         }
-        chatBox.getChildren().add(getAnswerBox());
     }
 
     public VBox getMassageVBox(Massage massage) {
