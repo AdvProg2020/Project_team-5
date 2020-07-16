@@ -14,6 +14,7 @@ import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundExce
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
+import ApProject_OnlineShop.exception.productExceptions.ProductIsAlreadyInAuctionException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
@@ -932,7 +933,7 @@ public class ClientHandler extends Thread {
             try {
                 MainController.getInstance().getAccountAreaForSellerController().createAuction(fields, goodId, person);
                 dataOutputStream.writeUTF("auction successfully created");
-            } catch (FileCantBeSavedException | ProductNotFoundExceptionForSeller e) {
+            } catch (FileCantBeSavedException | ProductNotFoundExceptionForSeller | ProductIsAlreadyInAuctionException e) {
                 e.printStackTrace();
                 dataOutputStream.writeUTF(e.getMessage());
             } finally {
