@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -83,10 +84,11 @@ public class AccountAreaForManagerFxController extends FxmlController implements
         playMusicBackGround(false, false, true);
 //        ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForManagerController().getUserPersonalInfo();
         ArrayList<String> personalInfo = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaController", "getUserPersonalInfo", getToken(), null)));
-        Image image = new Image(Paths.get("Resources/UserImages/" + getCurrentPerson().getUsername() + ".jpg").toUri().toString());
-        File file = new File("Resources\\UserImages\\" + getCurrentPerson().getUsername() + ".jpg");
-        if (!file.exists())
-            image = new Image(Paths.get("Resources/UserImages/default1.jpg").toUri().toString());
+//        Image image = new Image(Paths.get("Resources/UserImages/" + getCurrentPerson().getUsername() + ".jpg").toUri().toString());
+//        File file = new File("Resources\\UserImages\\" + getCurrentPerson().getUsername() + ".jpg");
+//        if (!file.exists())
+//            image = new Image(Paths.get("Resources/UserImages/default1.jpg").toUri().toString());
+        Image image = new Image(new ByteArrayInputStream(connectToServerBytes(new RequestForServer("AccountAreaController", "getUserPhoto", getToken(), null))));
         photo.setImage(image);
         userName.setText(personalInfo.get(0));
         name.setText(personalInfo.get(1));

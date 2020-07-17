@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -35,16 +36,18 @@ public class AccountAreaForCustomerController extends FxmlController implements 
     private Styles style = new Styles();
     private static String pathBack;
     private static String titleBack;
+    private Image image;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playMusicBackGround(false, false, true);
 //        ArrayList<String> personalInfo = MainController.getInstance().getAccountAreaForCustomerController().getUserPersonalInfo();
         ArrayList<String> personalInfo = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaController", "getUserPersonalInfo", getToken(), null)));
-        Image image = new Image(Paths.get("Resources/UserImages/" + getCurrentPerson().getUsername() + ".jpg").toUri().toString());
-        File file = new File("Resources\\UserImages\\" + getCurrentPerson().getUsername() + ".jpg");
-        if (!file.exists())
-            image = new Image(Paths.get("Resources/UserImages/default1.jpg").toUri().toString());
+//        Image image = new Image(Paths.get("Resources/UserImages/" + getCurrentPerson().getUsername() + ".jpg").toUri().toString());
+        Image image = new Image(new ByteArrayInputStream(connectToServerBytes(new RequestForServer("AccountAreaController", "getUserPhoto", getToken(), null))));
+//        File file = new File("Resources\\UserImages\\" + getCurrentPerson().getUsername() + ".jpg");
+//        if (!file.exists())
+//            image = new Image(Paths.get("Resources/UserImages/default1.jpg").toUri().toString());
         photo.setImage(image);
         userName.setText(personalInfo.get(0));
         name.setText(personalInfo.get(1));

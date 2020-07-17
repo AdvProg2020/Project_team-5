@@ -38,6 +38,8 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -1052,6 +1054,16 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("sendMassage")) {
             MainController.getInstance().getAccountAreaController().sendMassage(new Gson().fromJson(requestForServer.getInputs().get(0), Massage.class));
             dataOutputStream.writeUTF("done successfully");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getUserPhoto")) {
+            File file = new File("Resources\\UserImages\\" + person.getUsername() + ".jpg");
+            byte[] imageBytes;
+            if (file.exists()) {
+                imageBytes = Files.readAllBytes(Paths.get("Resources/UserImages/" + person.getUsername() + ".jpg"));
+            } else {
+                imageBytes = Files.readAllBytes(Paths.get("Resources/UserImages/default1.jpg"));
+            }
+            dataOutputStream.write(imageBytes);
             dataOutputStream.flush();
         }
     }
