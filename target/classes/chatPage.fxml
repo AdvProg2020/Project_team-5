@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -23,11 +24,6 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label fx:id="title" alignment="CENTER" prefHeight="80.0" prefWidth="409.0" GridPane.columnIndex="1">
-        <font>
-            <Font name="Times New Roman" size="26.0" />
-        </font>
-    </Label>
     <ImageView fitHeight="61.0" fitWidth="55.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" styleClass="exitImage" GridPane.columnIndex="2">
         <image>
             <Image url="@pictures/logout.png" />
@@ -49,6 +45,26 @@
             </VBox>
         </content>
     </ScrollPane>
+   <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+      <children>
+          <Label fx:id="title" alignment="CENTER" prefHeight="80.0" prefWidth="409.0">
+              <font>
+                  <Font name="Times New Roman" size="26.0" />
+              </font>
+          </Label>
+         <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#refreshPage" pickOnBounds="true" preserveRatio="true">
+            <HBox.margin>
+               <Insets bottom="5.0" />
+            </HBox.margin>
+            <image>
+               <Image url="@pictures/refreshIcon.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+      </children>
+   </HBox>
     <padding>
         <Insets left="10.0" />
     </padding>
