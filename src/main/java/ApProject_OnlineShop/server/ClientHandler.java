@@ -131,7 +131,7 @@ public class ClientHandler extends Thread {
             filteringControllerHandler(requestForServer);
         } else if (requestForServer.getController().equals("SortingController")) {
             sortingHandler(requestForServer);
-        } else if (requestForServer.getController().equals("AccountAreaForSupporterController")){
+        } else if (requestForServer.getController().equals("AccountAreaForSupporterController")) {
             accountAreaForSupporterHandler(requestForServer);
         } else if (requestForServer.getController().equals("AuctionsController")) {
             auctionControllerHandler(requestForServer);
@@ -569,7 +569,7 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF("you do not have enough credit to offer this price.");
             }
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("getMassages")){
+        } else if (requestForServer.getFunction().equals("getMassages")) {
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAccountAreaForCustomerController().getMassages(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1))));
             dataOutputStream.flush();
         }
@@ -799,6 +799,9 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getSubCategoryProperties")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getSubCategoryProperties(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getOnlineUsers")) {
+            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getOnlineCustomers()));
+            dataOutputStream.flush();
         }
     }
 
@@ -1016,7 +1019,7 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getOrderDetails")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().getOrderDetails(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2))));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("sendMassage")){
+        } else if (requestForServer.getFunction().equals("sendMassage")) {
             MainController.getInstance().getAccountAreaController().sendMassage(new Gson().fromJson(requestForServer.getInputs().get(0), Massage.class));
             dataOutputStream.writeUTF("done successfully");
             dataOutputStream.flush();
@@ -1024,12 +1027,12 @@ public class ClientHandler extends Thread {
     }
 
     private void auctionControllerHandler(RequestForServer requestForServer) throws IOException {
-        if (requestForServer.getFunction().equals("getMassages")){
+        if (requestForServer.getFunction().equals("getMassages")) {
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAuctionsController().getMassages(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("isCustomerOfferedAPriceInAuction")) {
             int auctionId = Integer.parseInt(requestForServer.getInputs().get(0));
-            dataOutputStream.writeUTF(MainController.getInstance().getAuctionsController().isCustomerOfferedAPriceInAuction(user, auctionId)?"true":"false");
+            dataOutputStream.writeUTF(MainController.getInstance().getAuctionsController().isCustomerOfferedAPriceInAuction(user, auctionId) ? "true" : "false");
             dataOutputStream.flush();
         }
     }
@@ -1141,7 +1144,7 @@ public class ClientHandler extends Thread {
     }
 
     private void accountAreaForSupporterHandler(RequestForServer requestForServer) throws IOException {
-        if (requestForServer.getFunction().equals("getCustomersChat")){
+        if (requestForServer.getFunction().equals("getCustomersChat")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSupporter().getCustomersChat(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
         }

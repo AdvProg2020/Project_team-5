@@ -438,7 +438,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return orderInfo;
     }
 
-    public void changeOrderStatus(String id, String newStatus){
+    public void changeOrderStatus(String id, String newStatus) {
         long orderId = Long.parseLong(id);
         if (newStatus.equals("READYTOSEND"))
             Shop.getInstance().getAllOrders().get(orderId).setOrderStatus(Order.OrderStatus.READYTOSEND);
@@ -454,4 +454,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<String> getOnlineCustomers() {
+        ArrayList<String> onlineCustomers = new ArrayList<>();
+        for (Person value : Server.getOnlineUsers().values()) {
+            onlineCustomers.add("- " + value.getUsername() + "       " + "role : " + value.getRole());
+        }
+        return onlineCustomers;
+    }
+
 }
