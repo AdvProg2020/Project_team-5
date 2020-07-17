@@ -31,9 +31,13 @@ import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControlle
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -285,6 +289,23 @@ public class ClientHandler extends Thread {
             Good.setGoodsCount(Long.parseLong(requestForServer.getInputs().get(0)));
             dataOutputStream.writeUTF("successfully set");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("photo")) {
+            File file = new Gson().fromJson(requestForServer.getInputs().get(1), File.class);
+            BufferedImage bi = null;
+            try {
+                bi = ImageIO.read(file.toURL());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                ImageIO.write(bi, "jpg", new File(requestForServer.getInputs().get(2)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (requestForServer.getFunction().equals("getPhoto")) {
+
         }
     }
 

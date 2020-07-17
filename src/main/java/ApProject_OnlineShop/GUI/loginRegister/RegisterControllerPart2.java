@@ -5,6 +5,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class RegisterControllerPart2 extends FxmlController {
     private static ArrayList<String> details;
@@ -46,14 +48,20 @@ public class RegisterControllerPart2 extends FxmlController {
             bankAccountInfo.add(details.get(0));
             bankAccountInfo.add(details.get(1));
             bankAccountInfo.add(userName);
-            bankAccountInfo.add(details.get(details.size() -2));
-            bankAccountInfo.add(details.get(details.size() -1));
-            RequestForServer bankAccountRequest = new RequestForServer("BankAccountsController", "createBankAccount", null,bankAccountInfo);
+            bankAccountInfo.add(details.get(details.size() - 2));
+            bankAccountInfo.add(details.get(details.size() - 1));
+            RequestForServer bankAccountRequest = new RequestForServer("BankAccountsController", "createBankAccount", null, bankAccountInfo);
             String bankAccountResponse = connectToServer(bankAccountRequest);
             SuccessPageFxController.showPage("Register was successful",
                     "bank account created by ID " + bankAccountResponse);
-            if (selectedFile != null)
-                copyPhoto();
+            if (selectedFile != null) {
+//                copyPhoto();
+                ArrayList<String> input2 = new ArrayList<>();
+                input2.add(userName);
+                input2.add(new Gson().toJson(selectedFile));
+                input2.add(path);
+                connectToServer(new RequestForServer("Others","photo",null,input2));
+            }
             setScene("login.fxml", "Login");
         } else {
             ErrorPageFxController.showPage("Error for registering", serverResponse);
@@ -63,7 +71,7 @@ public class RegisterControllerPart2 extends FxmlController {
                 setScene("registerManager.fxml", "register manager");
             else if (role.equals("customer"))
                 setScene("registerCustomer.fxml", "register customer");
-            else if (role.equals("supporter")){
+            else if (role.equals("supporter")) {
 
             }
         }
