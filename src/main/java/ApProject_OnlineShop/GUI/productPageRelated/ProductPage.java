@@ -32,6 +32,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -67,7 +68,11 @@ public class ProductPage extends FxmlController implements Initializable {
         if (getCurrentPerson() instanceof Seller || getCurrentPerson() instanceof Manager) {
             cart.setVisible(false);
         }
-        image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
+        ArrayList<String> input32 = new ArrayList<>();
+        input32.add("" + productId);
+        RequestForServer requestForServer2 = new RequestForServer("ProductController", "getProductImage", getToken(), input32);
+        image.setImage(new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer2))));
+//        image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
 //        List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId + "");

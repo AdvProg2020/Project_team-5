@@ -22,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -48,7 +49,11 @@ public class Cart extends FxmlController implements Initializable {
         for (Long productId : productIds) {
             HBox productBox = new HBox();
             setHBoxStyle(productBox);
-            ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
+//            ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
+            ArrayList<String> input33 = new ArrayList<>();
+            input33.add("" + productId);
+            RequestForServer requestForServer = new RequestForServer("ProductController", "getProductImage", getToken(), input33);
+            ImageView imageView = new ImageView(new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer))));
             imageView.setFitWidth(149);
             imageView.setFitHeight(149);
             productBox.getChildren().add(imageView);

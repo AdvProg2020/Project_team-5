@@ -25,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -45,8 +46,16 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
     public void initialize(URL location, ResourceBundle resources) {
 //        productId2 = MainController.getInstance().getProductController().getGood().getGoodId();
         productId2 = ProductPage.productId;
-        image1.setImage(new Image(Paths.get("Resources/productImages/" + productId1 + ".jpg").toUri().toString()));
-        image2.setImage(new Image(Paths.get("Resources/productImages/" + productId2 + ".jpg").toUri().toString()));
+//        image1.setImage(new Image(Paths.get("Resources/productImages/" + productId1 + ".jpg").toUri().toString()));
+//        image2.setImage(new Image(Paths.get("Resources/productImages/" + productId2 + ".jpg").toUri().toString()));
+        ArrayList<String> input33 = new ArrayList<>();
+        input33.add("" + productId1);
+        RequestForServer requestForServer = new RequestForServer("ProductController", "getProductImage", getToken(), input33);
+        image1.setImage(new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer))));
+        ArrayList<String> input32 = new ArrayList<>();
+        input32.add("" + productId2);
+        RequestForServer requestForServer2 = new RequestForServer("ProductController", "getProductImage", getToken(), input32);
+        image2.setImage(new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer2))));
 //        ArrayList<String> details = MainController.getInstance().getProductController().compareWithAnotherProductGUI(productId2,productId1);
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId2 + "");
