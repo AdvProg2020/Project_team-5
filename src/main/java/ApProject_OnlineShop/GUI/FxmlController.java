@@ -137,6 +137,22 @@ public class FxmlController {
         return null;
     }
 
+    public static byte[] connectToServerBytes(RequestForServer requestForServer) {
+        try {
+            Socket socket = new Socket("127.0.0.1", 8888);
+            System.out.println("Successfully connected to server!");
+            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            Gson gson = new Gson();
+            dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
+            dataOutputStream.flush();
+            return dataInputStream.readAllBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String getToken() {
         return token;
     }

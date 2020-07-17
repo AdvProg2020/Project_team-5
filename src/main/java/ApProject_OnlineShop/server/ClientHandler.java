@@ -30,6 +30,7 @@ import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHa
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -397,6 +398,10 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(exception.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("getProductImage")) {
+            byte[] imageBytes = MainController.getInstance().getProductController().getProductImage(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.write(imageBytes);
+            dataOutputStream.flush();
         }
     }
 
