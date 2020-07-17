@@ -24,7 +24,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label alignment="CENTER" prefHeight="80.0" prefWidth="409.0" text="Customers" GridPane.columnIndex="1">
+    <Label alignment="CENTER" prefHeight="80.0" prefWidth="409.0" text="Online users" GridPane.columnIndex="1">
         <font>
             <Font name="Times New Roman" size="26.0" />
         </font>

@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -27,7 +28,7 @@ public class ViewOnlineUsers extends FxmlController implements Initializable {
         ArrayList<String> onlineUsers = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getOnlineUsers", getToken(), null)));
         if (onlineUsers != null) {
             for (String user : onlineUsers) {
-                Hyperlink hyperlink = new Hyperlink(user);
+                Label hyperlink = new Label(user);
                 hyperlink.setPrefSize(280, 50);
                 hyperlink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
                 hyperlink.setAlignment(Pos.BOTTOM_LEFT);

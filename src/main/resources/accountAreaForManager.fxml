@@ -24,7 +24,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
+    <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="246.0" prefWidth="170.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
         <children>
             <Button mnemonicParsing="false" onAction="#onViewDiscountCodesPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="view discount codes">
                 <font>
@@ -154,7 +154,7 @@
             <Insets left="400.0" />
         </GridPane.margin>
     </ImageView>
-    <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="385.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="385.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="151.0" prefWidth="151.0" />
