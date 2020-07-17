@@ -6,6 +6,7 @@ import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.OffNotFoundException;
+import ApProject_OnlineShop.exception.productExceptions.ProductIsAlreadyInAuctionException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.Order;
@@ -262,15 +263,27 @@ public class AccountAreaForSellerController extends AccountAreaController {
         return true;
     }
 
-    public void createAuction(ArrayList<String> fields, long goodId, Person person) throws IOException, FileCantBeSavedException, ProductNotFoundExceptionForSeller {
+    public void createAuction(ArrayList<String> fields, long goodId, Person person) throws IOException, FileCantBeSavedException, ProductNotFoundExceptionForSeller, ProductIsAlreadyInAuctionException {
         if (checkValidProductId(goodId, person)) {
-            Auction auction = new Auction(Shop.getInstance().findGoodById(goodId), (Seller) person, fields.get(0), fields.get(1),
-                    LocalDate.parse(fields.get(2)), LocalDate.parse(fields.get(3)));
-            ((Seller) person).addAuction(auction);
-            Shop.getInstance().addAuction(auction);
-            Database.getInstance().saveItem(person);
-            Database.getInstance().saveItem(auction);
+            if (!isThisGoodInAnyAuction(goodId, person)) {
+                Auction auction = new Auction(Shop.getInstance().findGoodById(goodId), (Seller) person, fields.get(0), fields.get(1),
+                        LocalDate.parse(fields.get(2)), LocalDate.parse(fields.get(3)));
+                ((Seller) person).addAuction(auction);
+                Shop.getInstance().addAuction(auction);
+                Database.getInstance().saveItem(person);
+                Database.getInstance().saveItem(auction);
+            } else throw new ProductIsAlreadyInAuctionException();
         } else throw new ProductNotFoundExceptionForSeller();
+    }
+
+    public boolean isThisGoodInAnyAuction(long goodId, Person person) {
+        Good good = Shop.getInstance().findGoodById(goodId);
+        Seller seller = (Seller)person;
+        for (Auction auction : Shop.getInstance().getAllAuctionsList()) {
+            if (auction.getGood().equals(good) && auction.getSeller().getUsername().equals(seller.getUsername()))
+                return true;
+        }
+        return false;
     }
 
     public ArrayList<String> getAllAuctionsTitle(Person person) {

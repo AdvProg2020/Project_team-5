@@ -19,25 +19,22 @@
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="57.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="201.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.0" minWidth="235.0" prefWidth="436.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="161.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="446.0" minWidth="235.0" prefWidth="446.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="151.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="422.0" minHeight="10.0" prefHeight="409.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="106.0" minHeight="0.0" prefHeight="106.0" vgrow="SOMETIMES" />
     </rowConstraints>
-    <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="447.0" vbarPolicy="ALWAYS" GridPane.columnIndex="2" GridPane.rowIndex="1">
-        <content>
-            <VBox fx:id="chatBox" alignment="TOP_CENTER" maxWidth="-Infinity" minHeight="414.0" minWidth="230.0" prefHeight="414.0" prefWidth="452.0" spacing="4.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
-                <opaqueInsets>
-                    <Insets top="1.0" />
-                </opaqueInsets>
-                <padding>
-                    <Insets bottom="10.0" top="20.0" />
-                </padding>
-            </VBox>
-        </content>
+    <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="447.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <content>
+         <VBox fx:id="chatBox" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="407.0" prefWidth="433.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css">
+            <opaqueInsets>
+               <Insets top="1.0" />
+            </opaqueInsets>
+         </VBox>
+      </content>
     </ScrollPane>
     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="40.0" prefWidth="40.0" styleClass="roundButton" GridPane.columnIndex="0">
         <graphic>
@@ -83,6 +80,15 @@
                <Insets top="10.0" />
             </VBox.margin>
          </Button>
+      </children>
+   </VBox>
+   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+      <children>
+         <ImageView fitHeight="36.0" fitWidth="40.0" onMouseClicked="#updateChatBox" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@pictures/refreshIcon.png" />
+            </image>
+         </ImageView>
       </children>
    </VBox>
     <padding>
