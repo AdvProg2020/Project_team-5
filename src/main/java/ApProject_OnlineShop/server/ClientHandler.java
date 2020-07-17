@@ -408,6 +408,11 @@ public class ClientHandler extends Thread {
             byte[] imageBytes = MainController.getInstance().getProductController().getProductImage(Long.parseLong(requestForServer.getInputs().get(0)));
             dataOutputStream.write(imageBytes);
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("increaseSeenNumber")) {
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            good.setSeenNumber(good.getSeenNumber() + 1);
+            dataOutputStream.writeUTF("done");
+            dataOutputStream.flush();
         }
     }
 

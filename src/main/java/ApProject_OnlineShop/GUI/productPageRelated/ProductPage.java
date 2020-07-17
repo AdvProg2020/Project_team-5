@@ -10,6 +10,7 @@ import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.Supporter;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.RequestForServer;
@@ -65,8 +66,12 @@ public class ProductPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (getCurrentPerson() instanceof Seller || getCurrentPerson() instanceof Manager) {
+        if (getCurrentPerson() instanceof Seller || getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Supporter) {
             cart.setVisible(false);
+        } else {
+            ArrayList<String> input35 = new ArrayList<>();
+            input35.add("" + productId);
+            connectToServer(new RequestForServer("ProductController", "increaseSeenNumber", null, input35));
         }
         ArrayList<String> input32 = new ArrayList<>();
         input32.add("" + productId);
@@ -99,7 +104,8 @@ public class ProductPage extends FxmlController implements Initializable {
     private void makeProperties() {
         ArrayList<String> inputs22 = new ArrayList<>();
         inputs22.add(productId + "");
-        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);        detailsLabel.setText(good.getDetails());
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+        detailsLabel.setText(good.getDetails());
         HashMap<String, String> categoryProperties = good.getCategoryProperties();
         properties.setAlignment(Pos.CENTER);
         properties.setSpacing(13);
