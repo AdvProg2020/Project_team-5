@@ -24,7 +24,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <VBox alignment="TOP_CENTER" prefHeight="246.0" prefWidth="170.0" GridPane.rowIndex="1">
+    <VBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="382.0" prefWidth="171.0" GridPane.rowIndex="1">
         <children>
             <Button mnemonicParsing="false" onAction="#onViewDiscountCodesPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="view discount codes">
                 <font>
@@ -160,7 +160,7 @@
        <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="151.0" prefWidth="151.0" />
      </columnConstraints>
      <rowConstraints>
-       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+       <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="382.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
           <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="265.0" stylesheets="@styelsheets/loginRegisterstyle.css">
