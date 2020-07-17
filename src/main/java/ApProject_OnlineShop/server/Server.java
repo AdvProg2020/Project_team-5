@@ -34,11 +34,7 @@ public class Server {
         }
         try {
             Database.getInstance().initializeShop();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
-        } catch (FileCantBeDeletedException e) {
+        } catch (IOException | FileCantBeDeletedException | FileCantBeSavedException e) {
             e.printStackTrace();
         }
         System.out.println("Server backs online!");

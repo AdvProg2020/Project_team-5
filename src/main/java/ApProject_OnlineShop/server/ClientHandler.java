@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.server;
 
-import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
@@ -33,11 +32,9 @@ import com.google.gson.reflect.TypeToken;
 import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
+import javax.swing.text.html.ImageView;
 import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -291,20 +288,27 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF("successfully set");
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("photo")) {
-            File file = new Gson().fromJson(requestForServer.getInputs().get(1), File.class);
-            BufferedImage bi = null;
-            try {
-                bi = ImageIO.read(file.toURL());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                ImageIO.write(bi, "jpg", new File(requestForServer.getInputs().get(2)));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            String path = requestForServer.getInputs().get(0);
+            dataOutputStream.writeUTF("ready to receive");
+            dataOutputStream.flush();
+//            Image file = new Image(new ByteArrayInputStream(dataInputStream.readAllBytes()));
+            File file = new File(path);
+            OutputStream os = new FileOutputStream(file);
+            os.write(dataInputStream.readAllBytes());
+            os.close();
+//            BufferedImage bi = null;
+//            try {
+//                bi = ImageIO.read(file.toURL());
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                ImageIO.write(bi, "jpg", new File(requestForServer.getInputs().get(2)));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         } else if (requestForServer.getFunction().equals("getPhoto")) {
 
         }

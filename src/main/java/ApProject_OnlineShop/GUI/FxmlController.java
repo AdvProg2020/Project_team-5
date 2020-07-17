@@ -14,6 +14,7 @@ import javafx.scene.media.AudioClip;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -281,6 +282,21 @@ public class FxmlController {
             requests.add(request);
         }
         return requests;
+    }
+
+    public String sendImageToServer(File file) {
+        Socket socket = null;
+        try {
+            socket = new Socket("127.0.0.1", 8888);
+            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            System.out.println("Successfully connected to server!");
+            dataOutputStream.write(Files.readAllBytes(file.toPath()));
+            return dataInputStream.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public ArrayList<String> getInputsForServer() {

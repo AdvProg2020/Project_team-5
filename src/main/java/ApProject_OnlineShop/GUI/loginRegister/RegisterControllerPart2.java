@@ -57,10 +57,11 @@ public class RegisterControllerPart2 extends FxmlController {
             if (selectedFile != null) {
 //                copyPhoto();
                 ArrayList<String> input2 = new ArrayList<>();
-                input2.add(userName);
-                input2.add(new Gson().toJson(selectedFile));
                 input2.add(path);
-                connectToServer(new RequestForServer("Others","photo",null,input2));
+                String serverResponse2 = connectToServer(new RequestForServer("Others", "photo", null, input2));
+                if (serverResponse2.equals("ready to receive")) {
+                    sendImageToServer(selectedFile);
+                }
             }
             setScene("login.fxml", "Login");
         } else {
@@ -71,9 +72,6 @@ public class RegisterControllerPart2 extends FxmlController {
                 setScene("registerManager.fxml", "register manager");
             else if (role.equals("customer"))
                 setScene("registerCustomer.fxml", "register customer");
-            else if (role.equals("supporter")) {
-
-            }
         }
 //        } catch (UsernameIsTakenAlreadyException | FileCantBeSavedException | MainManagerAlreadyRegistered | IOException e) {
 //            ErrorPageFxController.showPage("Error for registering", e.getMessage());
