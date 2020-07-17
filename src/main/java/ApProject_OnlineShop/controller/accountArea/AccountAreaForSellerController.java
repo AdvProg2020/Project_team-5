@@ -339,4 +339,10 @@ public class AccountAreaForSellerController extends AccountAreaController {
         }
         removeAuction(auctionId);
     }
+
+    public void addFileProduct(ArrayList<String> properties, Person person) throws IOException, FileCantBeSavedException {
+        FileProduct fileProduct = new FileProduct(properties.get(0), (Seller)person, Long.parseLong(properties.get(1)), properties.get(2));
+        Shop.getInstance().addFileProduct(fileProduct);
+        Database.getInstance().saveItem(fileProduct);
+    }
 }
