@@ -56,12 +56,13 @@ public class RegisterControllerPart2 extends FxmlController {
                     "bank account created by ID " + bankAccountResponse);
             if (selectedFile != null) {
 //                copyPhoto();
-                ArrayList<String> input2 = new ArrayList<>();
-                input2.add(path);
-                String serverResponse2 = connectToServer(new RequestForServer("Others", "photo", null, input2));
-                if (serverResponse2.equals("ready to receive")) {
-                    sendImageToServer(selectedFile);
-                }
+//                ArrayList<String> input2 = new ArrayList<>();
+//                input2.add(path);
+//                String serverResponse2 = connectToServer(new RequestForServer("Others", "photo", null, input2));
+//                if (serverResponse2.equals("ready to receive")) {
+//                    sendImageToServer(selectedFile, path);
+//                }
+                sendImageToServer(selectedFile, path);
             }
             setScene("login.fxml", "Login");
         } else {

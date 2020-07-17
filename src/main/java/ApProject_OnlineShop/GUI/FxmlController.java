@@ -284,14 +284,22 @@ public class FxmlController {
         return requests;
     }
 
-    public String sendImageToServer(File file) {
+    public String sendImageToServer(File file, String path) {
         Socket socket = null;
         try {
             socket = new Socket("127.0.0.1", 8888);
             DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             System.out.println("Successfully connected to server!");
+            Gson gson = new Gson();
+            ArrayList<String> input2 = new ArrayList<>();
+            input2.add(path);
+            RequestForServer requestForServer = new RequestForServer("Others", "photo", null, input2);
+            dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
+            dataOutputStream.flush();
+            dataInputStream.readUTF();
             dataOutputStream.write(Files.readAllBytes(file.toPath()));
+            dataOutputStream.flush();
             return dataInputStream.readUTF();
         } catch (IOException e) {
             e.printStackTrace();

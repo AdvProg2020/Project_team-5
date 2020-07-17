@@ -145,11 +145,9 @@ public class ClientHandler extends Thread {
     private void sortingHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("sortASort")) {
             Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).sortASort(Integer.parseInt(requestForServer.getInputs().get(1)));
-            System.out.println("hiii");
             dataOutputStream.writeUTF("done");
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getCurrentSort")) {
-            System.out.println("hiii22");
             dataOutputStream.writeUTF(Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).getCurrentSort());
             dataOutputStream.flush();
         }
