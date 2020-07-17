@@ -14,6 +14,7 @@ import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundExce
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
+import ApProject_OnlineShop.exception.productExceptions.ProductIsAlreadyInAuctionException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
@@ -132,6 +133,8 @@ public class ClientHandler extends Thread {
             sortingHandler(requestForServer);
         } else if (requestForServer.getController().equals("AccountAreaForSupporterController")){
             accountAreaForSupporterHandler(requestForServer);
+        } else if (requestForServer.getController().equals("AuctionsController")) {
+            auctionControllerHandler(requestForServer);
         }
     }
 
@@ -930,7 +933,7 @@ public class ClientHandler extends Thread {
             try {
                 MainController.getInstance().getAccountAreaForSellerController().createAuction(fields, goodId, person);
                 dataOutputStream.writeUTF("auction successfully created");
-            } catch (FileCantBeSavedException | ProductNotFoundExceptionForSeller e) {
+            } catch (FileCantBeSavedException | ProductNotFoundExceptionForSeller | ProductIsAlreadyInAuctionException e) {
                 e.printStackTrace();
                 dataOutputStream.writeUTF(e.getMessage());
             } finally {
@@ -1016,6 +1019,17 @@ public class ClientHandler extends Thread {
         }else if (requestForServer.getFunction().equals("sendMassage")){
             MainController.getInstance().getAccountAreaController().sendMassage(new Gson().fromJson(requestForServer.getInputs().get(0), Massage.class));
             dataOutputStream.writeUTF("done successfully");
+            dataOutputStream.flush();
+        }
+    }
+
+    private void auctionControllerHandler(RequestForServer requestForServer) throws IOException {
+        if (requestForServer.getFunction().equals("getMassages")){
+            dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAuctionsController().getMassages(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isCustomerOfferedAPriceInAuction")) {
+            int auctionId = Integer.parseInt(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF(MainController.getInstance().getAuctionsController().isCustomerOfferedAPriceInAuction(user, auctionId)?"true":"false");
             dataOutputStream.flush();
         }
     }
