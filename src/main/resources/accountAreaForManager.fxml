@@ -39,95 +39,95 @@
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </padding></Button>
-         <Button mnemonicParsing="false" onAction="#onManageUsersPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage users">
-             <font>
-                 <Font size="14.0" />
-             </font>
-            <VBox.margin>
-               <Insets top="15.0" />
-            </VBox.margin>
-            <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-         <Button mnemonicParsing="false" onAction="#onManageRequestsPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage requests">
-             <font>
-                 <Font size="14.0" />
-             </font>
-            <VBox.margin>
-               <Insets top="15.0" />
-            </VBox.margin>
-            <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-         <Button mnemonicParsing="false" onAction="#onManageAllProductsPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage all products">
-             <font>
-                 <Font size="14.0" />
-             </font>
-            <VBox.margin>
-               <Insets top="15.0" />
-            </VBox.margin>
-            <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-         <Button mnemonicParsing="false" onAction="#onManageCategoriesPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage categories">
-             <font>
-                 <Font size="14.0" />
-             </font>
-            <VBox.margin>
-               <Insets top="15.0" />
-            </VBox.margin>
-            <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-         <Button mnemonicParsing="false" onAction="#onCreateNewDiscountPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="create new discount">
-             <font>
-                 <Font size="14.0" />
-             </font>
-            <VBox.margin>
-               <Insets top="15.0" />
-            </VBox.margin>
-            <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-         <Button mnemonicParsing="false" onAction="#bankAccountsSettings" prefHeight="35.0" prefWidth="180.0" styleClass="menuButtons" text="bank accounts settings">
-            <VBox.margin>
-               <Insets top="15.0" />
-            </VBox.margin>
-            <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Button>
-         <Button mnemonicParsing="false" onAction="#viewOrders" prefHeight="35.0" prefWidth="180.0" styleClass="menuButtons" text="view customer orders">
-            <VBox.margin>
-               <Insets top="15.0" />
-            </VBox.margin>
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Button>
+            <Button mnemonicParsing="false" onAction="#onManageUsersPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage users">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <VBox.margin>
+                    <Insets top="15.0" />
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onManageRequestsPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage requests">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <VBox.margin>
+                    <Insets top="15.0" />
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onManageAllProductsPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage all products">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <VBox.margin>
+                    <Insets top="15.0" />
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onManageCategoriesPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="manage categories">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <VBox.margin>
+                    <Insets top="15.0" />
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onCreateNewDiscountPressed" prefHeight="30.0" prefWidth="180.0" styleClass="menuButtons" text="create new discount">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <VBox.margin>
+                    <Insets top="15.0" />
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#bankAccountsSettings" prefHeight="35.0" prefWidth="180.0" styleClass="menuButtons" text="bank accounts settings">
+                <VBox.margin>
+                    <Insets top="15.0" />
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#viewOrders" prefHeight="35.0" prefWidth="180.0" styleClass="menuButtons" text="view customer orders">
+                <VBox.margin>
+                    <Insets top="15.0" />
+                </VBox.margin>
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
         </children>
     </VBox>
     <Label alignment="CENTER" prefHeight="84.0" prefWidth="363.0" text="Manager Personal Information" GridPane.columnIndex="1">
@@ -154,142 +154,142 @@
             <Insets left="400.0" />
         </GridPane.margin>
     </ImageView>
-   <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="385.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
-     <columnConstraints>
-       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="151.0" prefWidth="151.0" />
-     </columnConstraints>
-     <rowConstraints>
-       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-     </rowConstraints>
-      <children>
-          <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="265.0" stylesheets="@styelsheets/loginRegisterstyle.css">
-              <opaqueInsets>
-                  <Insets top="1.0" />
-              </opaqueInsets>
-              <Label prefHeight="25.0" prefWidth="196.0" text="username:">
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font name="Times New Roman" size="18.0" />
-                  </font>
-            </Label>
-              <Label fx:id="userName" prefHeight="25.0" prefWidth="196.0" text=" ">
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font name="Times New Roman" size="14.0" />
-                  </font>
-                  <opaqueInsets>
-                      <Insets left="20.0" />
-                  </opaqueInsets>
-            </Label>
-              <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="25.0" prefWidth="195.0" text="first name:">
-                  <VBox.margin>
-                      <Insets top="10.0" />
-                  </VBox.margin>
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font name="Times New Roman" size="17.0" />
-                  </font>
-              </Label>
-              <Label fx:id="name" prefHeight="25.0" prefWidth="193.0">
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font size="14.0" />
-                  </font>
-                  <opaqueInsets>
-                      <Insets left="20.0" />
-                  </opaqueInsets>
-            </Label>
-              <Label alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="200.0" text="lastname:">
-                  <VBox.margin>
-                      <Insets top="10.0" />
-                  </VBox.margin>
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font name="Times New Roman" size="17.0" />
-                  </font>
-              </Label>
-              <Label fx:id="lastName" prefHeight="25.0" prefWidth="190.0">
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font size="14.0" />
-                  </font>
-                  <opaqueInsets>
-                      <Insets left="20.0" />
-                  </opaqueInsets>
-            </Label>
-              <Label prefHeight="25.0" prefWidth="195.0" text="email:">
-                  <VBox.margin>
-                      <Insets top="10.0" />
-                  </VBox.margin>
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font name="Times New Roman" size="17.0" />
-                  </font>
-              </Label>
-              <Label fx:id="email" prefHeight="25.0" prefWidth="252.0">
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font size="14.0" />
-                  </font>
-                  <opaqueInsets>
-                      <Insets left="20.0" />
-                  </opaqueInsets>
-            </Label>
-              <Label prefHeight="25.0" prefWidth="207.0" text="phone number:">
-                  <opaqueInsets>
-                      <Insets top="10.0" />
-                  </opaqueInsets>
-                  <VBox.margin>
-                      <Insets top="10.0" />
-                  </VBox.margin>
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font name="Times New Roman" size="17.0" />
-                  </font>
-              </Label>
-              <Label fx:id="phoneNumber" prefHeight="25.0" prefWidth="181.0">
-                  <padding>
-                      <Insets left="10.0" />
-                  </padding>
-                  <font>
-                      <Font size="14.0" />
-                  </font>
-                  <opaqueInsets>
-                      <Insets left="20.0" />
-                  </opaqueInsets>
-            </Label>
-              <padding>
-                  <Insets bottom="10.0" top="20.0" />
-              </padding>
-              <GridPane.margin>
-                  <Insets />
-              </GridPane.margin>
-          </VBox>
-         <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="151.0" prefWidth="151.0" styleClass="backgroundStyle" GridPane.columnIndex="1" GridPane.valignment="TOP">
-            <children>
-               <ImageView fx:id="photo" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-            </children></VBox>
-      </children>
-   </GridPane>
+    <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="385.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="151.0" prefWidth="151.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <children>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="265.0" stylesheets="@styelsheets/loginRegisterstyle.css">
+                <opaqueInsets>
+                    <Insets top="1.0" />
+                </opaqueInsets>
+                <Label prefHeight="25.0" prefWidth="196.0" text="username:">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font name="Times New Roman" size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="userName" prefHeight="25.0" prefWidth="196.0" text=" ">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font name="Times New Roman" size="14.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="20.0" />
+                    </opaqueInsets>
+                </Label>
+                <Label alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" prefHeight="25.0" prefWidth="195.0" text="first name:">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font name="Times New Roman" size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="name" prefHeight="25.0" prefWidth="193.0">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="20.0" />
+                    </opaqueInsets>
+                </Label>
+                <Label alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="200.0" text="lastname:">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font name="Times New Roman" size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lastName" prefHeight="25.0" prefWidth="190.0">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="20.0" />
+                    </opaqueInsets>
+                </Label>
+                <Label prefHeight="25.0" prefWidth="195.0" text="email:">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font name="Times New Roman" size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="email" prefHeight="25.0" prefWidth="252.0">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="20.0" />
+                    </opaqueInsets>
+                </Label>
+                <Label prefHeight="25.0" prefWidth="207.0" text="phone number:">
+                    <opaqueInsets>
+                        <Insets top="10.0" />
+                    </opaqueInsets>
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font name="Times New Roman" size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="phoneNumber" prefHeight="25.0" prefWidth="181.0">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="20.0" />
+                    </opaqueInsets>
+                </Label>
+                <padding>
+                    <Insets bottom="10.0" top="20.0" />
+                </padding>
+                <GridPane.margin>
+                    <Insets />
+                </GridPane.margin>
+            </VBox>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="151.0" prefWidth="151.0" styleClass="backgroundStyle" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                <children>
+                    <ImageView fx:id="photo" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                </children></VBox>
+        </children>
+    </GridPane>
     <padding>
         <Insets left="10.0" />
     </padding>

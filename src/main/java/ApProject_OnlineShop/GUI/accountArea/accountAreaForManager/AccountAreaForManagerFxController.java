@@ -112,4 +112,5 @@ public class AccountAreaForManagerFxController extends FxmlController implements
     public void viewOrders() {
         setScene("viewCustomerOrdersForManager.fxml", "view customers' orders");
     }
+
 }

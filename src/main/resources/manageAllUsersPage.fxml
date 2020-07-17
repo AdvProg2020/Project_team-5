@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -51,14 +50,6 @@
           </content>
           </ScrollPane>
   </children>
-</VBox>
-<VBox alignment="CENTER_LEFT" prefHeight="400.0" prefWidth="300.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-      <children>
-         <Button mnemonicParsing="false" onAction="#addNewSupporter" prefHeight="40.0" prefWidth="150.0" styleClass="menuButtons" text="add new supporter">
-            <VBox.margin>
-               <Insets left="8.0" />
-            </VBox.margin></Button>
-      </children>
 </VBox>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" styleClass="backgroundStyle" stylesheets="@styelsheets/loginRegisterstyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
   <columnConstraints>
@@ -131,4 +122,10 @@
          <Button mnemonicParsing="false" onAction="#onAddNewManagerPressed" prefHeight="40.0" prefWidth="150.0" styleClass="menuButtons" text="add new manager" />
   </children>
 </HBox>
+   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <children>
+         <Button mnemonicParsing="false" onAction="#addNewSupporter" prefHeight="40.0" prefWidth="150.0" styleClass="menuButtons" text="add new supporter" />
+        <Button mnemonicParsing="false" onAction="#viewOnlineUsers" prefHeight="45.0" prefWidth="154.0" styleClass="menuButtons" text="view online users" />
+      </children>
+   </HBox>
 </GridPane>
