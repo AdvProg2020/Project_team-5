@@ -4,10 +4,12 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.Supporter;
 import ApProject_OnlineShop.model.productThings.Comment;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
@@ -130,6 +132,9 @@ public class CommentsPage extends FxmlController implements Initializable {
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("commentsPage.fxml", "comments");
             setScene("accountAreaForManager.fxml", "account area");
+        }else if (getCurrentPerson() instanceof Supporter){
+            AccountAreaForSupporter.setPathBack("commentsPage.fxml", "comments");
+            setScene("accountAreaForSupporter.fxml", "account area");
         }
     }
 

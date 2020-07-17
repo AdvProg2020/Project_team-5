@@ -4,11 +4,13 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.RequestForServer;
+import ApProject_OnlineShop.model.persons.Supporter;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -113,6 +115,9 @@ public class CompareProductPart2NotInACategoryController extends FxmlController 
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("compareTwoProductsNotInACategory.fxml", "compare products");
             setScene("accountAreaForManager.fxml", "account area");
+        } else if (getCurrentPerson() instanceof Supporter) {
+            AccountAreaForSupporter.setPathBack("compareTwoProductsNotInACategory.fxml", "compare products");
+            setScene("accountAreaForSupporter.fxml", "account area");
         }
     }
 

@@ -6,6 +6,7 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
@@ -269,6 +270,9 @@ public class ProductPage extends FxmlController implements Initializable {
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForManager.fxml", "account area");
+        } else if (getCurrentPerson() instanceof Supporter) {
+            AccountAreaForSupporter.setPathBack("productPage.fxml", "product page");
+            setScene("accountAreaForSupporter.fxml", "account area");
         }
     }
 
