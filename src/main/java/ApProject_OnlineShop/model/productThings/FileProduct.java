@@ -19,11 +19,11 @@ public class FileProduct {
     private ArrayList<Long> comments;
     private LocalDate modificationDate;
 
-    public FileProduct(String name, SubCategory subCategory, Seller seller, long price, String description) {
+    public FileProduct(String name, Seller seller, long price, String description) {
         fileProductId = Good.getGoodsCount() + 1;
         Good.setGoodsCount(fileProductId);
         this.name = name;
-        this.subCategory = subCategory.getName();
+        this.subCategory = "file";
         this.seller = seller.getUsername();
         this.price = price;
         this.description = description;
