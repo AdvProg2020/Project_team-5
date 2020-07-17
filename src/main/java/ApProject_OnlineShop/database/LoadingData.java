@@ -47,6 +47,12 @@ public class LoadingData {
         file = new File("Resources\\Auctions");
         if (!file.exists())
             file.mkdir();
+        file = new File("Resources\\fileProductsInfo");
+        if (!file.exists())
+            file.mkdir();
+        file = new File("Resources\\fileProducts");
+        if (!file.exists())
+            file.mkdir();
     }
 
     public void loadManager() throws IOException {
