@@ -153,6 +153,24 @@ public class FxmlController {
         return null;
     }
 
+    public static String connectToFileTransferServer(RequestForServer requestForServer, byte[] file) {
+        try {
+            Socket socket = new Socket("127.0.0.1", 4444);
+            System.out.println("Successfully connected to file server!");
+            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            Gson gson = new Gson();
+            dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
+            dataOutputStream.flush();
+            dataOutputStream.write(file);
+            dataOutputStream.flush();
+            return dataInputStream.readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String getToken() {
         return token;
     }

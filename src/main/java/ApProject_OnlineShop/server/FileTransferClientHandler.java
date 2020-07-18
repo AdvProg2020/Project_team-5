@@ -48,6 +48,7 @@ public class FileTransferClientHandler extends Thread {
             try {
                 dataOutputStream.writeUTF("upload failed.");
                 dataOutputStream.flush();
+                return;
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -61,6 +62,7 @@ public class FileTransferClientHandler extends Thread {
             try {
                 dataOutputStream.writeUTF("upload failed.");
                 dataOutputStream.flush();
+                return;
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -72,9 +74,16 @@ public class FileTransferClientHandler extends Thread {
             try {
                 dataOutputStream.writeUTF("upload failed.");
                 dataOutputStream.flush();
+                return;
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+        }
+        try {
+            dataOutputStream.writeUTF("file successfully uploaded.");
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
