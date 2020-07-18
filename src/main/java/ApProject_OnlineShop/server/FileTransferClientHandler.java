@@ -5,12 +5,12 @@ import ApProject_OnlineShop.model.RequestForServer;
 import ApProject_OnlineShop.model.persons.Person;
 import com.google.gson.Gson;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FileTransferClientHandler extends Thread {
     private Socket clientSocket;
@@ -53,14 +53,26 @@ public class FileTransferClientHandler extends Thread {
                 ex.printStackTrace();
             }
         }
-        Person person = Server.getOnlineUsers().get(requestForServer.getToken());
         try {
             dataOutputStream.writeUTF("request received.");
             dataOutputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        byte[] file = null;
+        File file = new File("Resources\\fileProducts\\" + requestForServer.getInputs().get(0) +"." + requestForServer.getInputs().get(1));
+        try {
+            file.createNewFile();
+            OutputStream outputStream = new FileOutputStream("Resources\\fileProducts\\" + requestForServer.getInputs().get(0) +"." + requestForServer.getInputs().get(1));
+            byte[] bytes = new byte[16*1024];
+            int count;
+            while ((count = dataInputStream.read(bytes)) > 0) {
+                outputStream.write(bytes, 0, count);
+            }
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /*byte[] file = null;
         try {
             file = dataInputStream.readAllBytes();
             System.out.println(file.length);
@@ -75,7 +87,8 @@ public class FileTransferClientHandler extends Thread {
             }
         }
         try {
-            MainController.getInstance().getAccountAreaForSellerController().uploadFileProductOnServer(file, requestForServer.getInputs().get(0), requestForServer.getInputs().get(1));
+            File fileDest = File.createTempFile(requestForServer.getInputs().get(0), "." + requestForServer.getInputs().get(1), new File("Resources\\fileProducts"));
+            Files.write(fileDest.toPath(), file);
         } catch (IOException e) {
             e.printStackTrace();
             try {
@@ -85,12 +98,12 @@ public class FileTransferClientHandler extends Thread {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }
-        try {
+        }*/
+        /*try {
             dataOutputStream.writeUTF("file successfully uploaded.");
             dataOutputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

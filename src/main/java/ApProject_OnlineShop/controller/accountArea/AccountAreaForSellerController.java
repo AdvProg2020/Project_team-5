@@ -355,9 +355,4 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Shop.getInstance().addFileProduct(fileProduct);
         Database.getInstance().saveItem(fileProduct);
     }
-
-    public void uploadFileProductOnServer(byte[] fileBytes, String name, String extension) throws IOException {
-        File file = File.createTempFile(name, "." + extension, new File("Resources\\fileProducts"));
-        Files.write(file.toPath(), fileBytes);
-    }
 }

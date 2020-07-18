@@ -154,24 +154,52 @@ public class FxmlController {
         return null;
     }
 
-    public static String connectToFileTransferServer(RequestForServer requestForServer, byte[] file) {
+    public static String connectToFileTransferServer(RequestForServer requestForServer, File file) {
         try {
             Socket socket = new Socket("127.0.0.1", 4444);
+            System.out.println(firstRequestToFileTransferServer(socket, requestForServer));
+            String response = secondRequestToFileTransferServer(socket, file);
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    private static String firstRequestToFileTransferServer(Socket socket, RequestForServer requestForServer) {
+        try {
+
             System.out.println("Successfully connected to file server!");
             DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             Gson gson = new Gson();
             dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
             dataOutputStream.flush();
-            System.out.println(dataInputStream.readUTF());
-            dataOutputStream.write(Objects.requireNonNull(file));
-            dataOutputStream.flush();
-            String response = dataInputStream.readUTF();
-            return response;
+            return dataInputStream.readUTF();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
+    }
+
+    private static String secondRequestToFileTransferServer(Socket socket, File file) {
+        try {
+            System.out.println("Successfully connected to file server!");
+            long length = file.length();
+            byte[] bytes = new byte[16 * 1024];
+            InputStream inputStream = new FileInputStream(file);
+            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            int count;
+            while ((count = inputStream.read(bytes)) > 0) {
+                dataOutputStream.write(bytes, 0, count);
+            }
+            inputStream.close();
+            return "file successfully uploaded.";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static String getToken() {

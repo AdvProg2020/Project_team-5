@@ -107,20 +107,17 @@ public class AddFileProductForSellerController extends FxmlController implements
         fileName = fileName.substring(0, fileName.lastIndexOf('.'));
         inputs2.add(fileName);
         inputs2.add(extension);
-        byte[] file;
-        try {
-            file = Files.readAllBytes(selectedFile.toPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-            ErrorPageFxController.showPage("can not add good", e.getMessage());
-            return;
-        }
-        String serverResponse2 = connectToFileTransferServer(new RequestForServer("fileTransfer", "uploadFile", getToken(), inputs2), file);
+        String serverResponse2 = connectToFileTransferServer(new RequestForServer("fileTransfer", "uploadFile", getToken(), inputs2), selectedFile);
         if (serverResponse2.equals("file successfully uploaded.")) {
             SuccessPageFxController.showPage("adding file product was successful", serverResponse2);
             setScene("accountAreaForSeller.fxml", "account area");
         } else {
             ErrorPageFxController.showPage("can not add good", serverResponse2);
+            this.price.clear();
+            this.description.clear();
+            this.name.clear();
+            this.selectedFile = null;
+            this.submitButton.setDisable(true);
         }
     }
 }
