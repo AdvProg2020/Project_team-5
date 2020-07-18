@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
+import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -115,5 +116,11 @@ public class AddFileProductForSellerController extends FxmlController implements
             return;
         }
         String serverResponse2 = connectToFileTransferServer(new RequestForServer("fileTransfer", "uploadFile", getToken(), inputs2), file);
+        if (serverResponse2.equals("file successfully uploaded.")) {
+            SuccessPageFxController.showPage("adding file product was successful", serverResponse2);
+            setScene("accountAreaForSeller.fxml", "account area");
+        } else {
+            ErrorPageFxController.showPage("can not add good", serverResponse2);
+        }
     }
 }
