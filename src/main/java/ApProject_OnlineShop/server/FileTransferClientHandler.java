@@ -54,9 +54,16 @@ public class FileTransferClientHandler extends Thread {
             }
         }
         Person person = Server.getOnlineUsers().get(requestForServer.getToken());
+        try {
+            dataOutputStream.writeUTF("request received.");
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         byte[] file = null;
         try {
             file = dataInputStream.readAllBytes();
+            System.out.println(file.length);
         } catch (IOException e) {
             e.printStackTrace();
             try {

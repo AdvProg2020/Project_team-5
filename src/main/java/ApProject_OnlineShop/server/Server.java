@@ -16,7 +16,6 @@ import java.util.HashMap;
 
 public class Server {
     private static ServerSocket serverSocket;
-    private static ServerSocket serverSocketForFile;
     private static HashMap<String, Person> onlineUsers = new HashMap<String, Person>();
     private static HashMap<Long, ArrayList<GoodInCart>> carts = new HashMap<>();
     private static HashMap<Long, ControllerForFiltering> controllerForFilteringHashMap = new HashMap<>();
@@ -25,7 +24,6 @@ public class Server {
 
     public static void main(String[] args) {
         backServerOnline();
-        fileTransferServerOnline();
     }
 
     private static void backServerOnline() {
@@ -51,25 +49,6 @@ public class Server {
                 DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
                 DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(clientSocket.getInputStream()));
                 new ClientHandler(clientSocket, dataOutputStream, dataInputStream, serverSocket).start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private static void fileTransferServerOnline() {
-        try {
-            serverSocketForFile = new ServerSocket(4444);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("server for transfer files is online...");
-        while (true) {
-            try {
-                Socket clientSocket = serverSocketForFile.accept();
-                DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
-                DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(clientSocket.getInputStream()));
-                new FileTransferClientHandler(clientSocket, dataOutputStream, dataInputStream, serverSocketForFile).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }

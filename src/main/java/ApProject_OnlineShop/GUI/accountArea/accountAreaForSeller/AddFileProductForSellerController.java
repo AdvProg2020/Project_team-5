@@ -107,7 +107,7 @@ public class AddFileProductForSellerController extends FxmlController implements
         fileName = fileName.substring(0, fileName.lastIndexOf('.'));
         inputs2.add(fileName);
         inputs2.add(extension);
-        byte[] file = null;
+        byte[] file;
         try {
             file = Files.readAllBytes(selectedFile.toPath());
         } catch (IOException e) {

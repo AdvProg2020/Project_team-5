@@ -17,6 +17,7 @@ import java.net.Socket;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -162,9 +163,11 @@ public class FxmlController {
             Gson gson = new Gson();
             dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
             dataOutputStream.flush();
-            dataOutputStream.write(file);
+            System.out.println(dataInputStream.readUTF());
+            dataOutputStream.write(Objects.requireNonNull(file));
             dataOutputStream.flush();
-            return dataInputStream.readUTF();
+            String response = dataInputStream.readUTF();
+            return response;
         } catch (IOException e) {
             e.printStackTrace();
         }
