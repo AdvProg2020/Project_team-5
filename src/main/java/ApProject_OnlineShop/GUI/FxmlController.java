@@ -15,6 +15,7 @@ import javafx.scene.media.AudioClip;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -284,7 +285,7 @@ public class FxmlController {
         return requests;
     }
 
-    public String sendImageToServer(File file, String path) {
+    public void sendImageToServer(File file, String path) {
         Socket socket = null;
         try {
             socket = new Socket("127.0.0.1", 8888);
@@ -298,13 +299,17 @@ public class FxmlController {
             dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
             dataOutputStream.flush();
             dataInputStream.readUTF();
-            dataOutputStream.write(Files.readAllBytes(file.toPath()));
+            System.out.println(file.getAbsolutePath());
+            System.out.println(Files.readAllBytes(Paths.get(file.getAbsolutePath())).length);
+            dataOutputStream.write(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
             dataOutputStream.flush();
-            return dataInputStream.readUTF();
+            System.out.println("hi");
+            System.out.println(dataInputStream.readUTF());
+//            return dataInputStream.readUTF();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+//        return null;
     }
 
     public ArrayList<String> getInputsForServer() {

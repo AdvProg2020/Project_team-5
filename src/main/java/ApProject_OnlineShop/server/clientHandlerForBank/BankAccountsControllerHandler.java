@@ -45,7 +45,6 @@ public class BankAccountsControllerHandler {
                 ((Seller) user).setBankAccountId(response);
         }
         String answer = MainController.getInstance().getBankTransactionsController().depositFirstAfterCreating(requestForServer.getInputs().get(2), requestForServer.getInputs().get(3), "10000000");
-        System.out.println(answer);
         dataOutputStream.writeUTF(response);
         dataOutputStream.flush();
     }

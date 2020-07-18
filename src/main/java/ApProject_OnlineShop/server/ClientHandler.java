@@ -288,14 +288,24 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF("successfully set");
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("photo")) {
+            File file1 = new File("Resources\\UserImages");
+            if (!file1.exists())
+                file1.mkdir();
             String path = requestForServer.getInputs().get(0);
             dataOutputStream.writeUTF("ready to receive");
             dataOutputStream.flush();
 //            Image file = new Image(new ByteArrayInputStream(dataInputStream.readAllBytes()));
             File file = new File(path);
-            OutputStream os = new FileOutputStream(file);
-            os.write(dataInputStream.readAllBytes());
+            System.out.println("hi1");
+            FileOutputStream os = new FileOutputStream(file);
+            System.out.println("hi2");
+            byte[] fileBytes = dataInputStream.readAllBytes();
+            System.out.println("hi3");
+            System.out.println(fileBytes.length);
+            os.write(fileBytes);
+            System.out.println("hi4");
             os.close();
+            System.out.println("hi server");
 //            BufferedImage bi = null;
 //            try {
 //                bi = ImageIO.read(file.toURL());

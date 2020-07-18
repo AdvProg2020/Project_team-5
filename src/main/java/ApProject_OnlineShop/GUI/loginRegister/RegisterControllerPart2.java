@@ -103,9 +103,9 @@ public class RegisterControllerPart2 extends FxmlController {
     }
 
     public void onSelectPhoto(ActionEvent actionEvent) {
-        File file = new File("Resources\\UserImages");
-        if (!file.exists())
-            file.mkdir();
+//        File file = new File("Resources\\UserImages");
+//        if (!file.exists())
+//            file.mkdir();
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter png = new FileChooser.ExtensionFilter("png", "*.png");
         FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("jpg", "*.jpg");
