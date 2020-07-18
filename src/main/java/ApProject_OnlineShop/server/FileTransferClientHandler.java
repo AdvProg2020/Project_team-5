@@ -59,11 +59,11 @@ public class FileTransferClientHandler extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        File file = new File("Resources\\fileProducts\\" + requestForServer.getInputs().get(0) +"." + requestForServer.getInputs().get(1));
+        File file = new File("Resources\\fileProducts\\" + requestForServer.getInputs().get(0) + "." + requestForServer.getInputs().get(1));
         try {
             file.createNewFile();
-            OutputStream outputStream = new FileOutputStream("Resources\\fileProducts\\" + requestForServer.getInputs().get(0) +"." + requestForServer.getInputs().get(1));
-            byte[] bytes = new byte[16*1024];
+            OutputStream outputStream = new FileOutputStream("Resources\\fileProducts\\" + requestForServer.getInputs().get(0) + "." + requestForServer.getInputs().get(1));
+            byte[] bytes = new byte[16 * 2048 * 4];
             int count;
             while ((count = dataInputStream.read(bytes)) > 0) {
                 outputStream.write(bytes, 0, count);

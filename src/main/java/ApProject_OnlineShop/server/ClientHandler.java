@@ -285,24 +285,40 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF("successfully set");
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("photo")) {
+            File file2 = new File("Resources\\productImages");
+            if (!file2.exists())
+                file2.mkdir();
             File file1 = new File("Resources\\UserImages");
             if (!file1.exists())
                 file1.mkdir();
             String path = requestForServer.getInputs().get(0);
             dataOutputStream.writeUTF("ready to receive");
             dataOutputStream.flush();
-//            Image file = new Image(new ByteArrayInputStream(dataInputStream.readAllBytes()));
             File file = new File(path);
-            System.out.println("hi1");
-            FileOutputStream os = new FileOutputStream(file);
-            System.out.println("hi2");
-            byte[] fileBytes = dataInputStream.readAllBytes();
-            System.out.println("hi3");
-            System.out.println(fileBytes.length);
-            os.write(fileBytes);
-            System.out.println("hi4");
-            os.close();
-            System.out.println("hi server");
+            try {
+                file.createNewFile();
+                OutputStream outputStream = new FileOutputStream(path);
+                byte[] bytes = new byte[16 * 2048 * 4];
+                int count;
+                while ((count = dataInputStream.read(bytes)) > 0) {
+                    outputStream.write(bytes, 0, count);
+                }
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            Image file = new Image(new ByteArrayInputStream(dataInputStream.readAllBytes()));
+//            File file = new File(path);
+//            System.out.println("hi1");
+//            FileOutputStream os = new FileOutputStream(file);
+//            System.out.println("hi2");
+//            byte[] fileBytes = dataInputStream.readAllBytes();
+//            System.out.println("hi3");
+//            System.out.println(fileBytes.length);
+//            os.write(fileBytes);
+//            System.out.println("hi4");
+//            os.close();
+//            System.out.println("hi server");
 //            BufferedImage bi = null;
 //            try {
 //                bi = ImageIO.read(file.toURL());

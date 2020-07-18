@@ -44,7 +44,6 @@ public class AddProductPart2 extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        HashMap<String, String> detailValues = new HashMap<>();
         int row = 1;
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productDetails.get(5));
@@ -98,6 +97,7 @@ public class AddProductPart2 extends FxmlController implements Initializable {
             connectToServer(new RequestForServer("Others", "Good.setGoodsCount", null, inputs00));
 //            Good.setGoodsCount(Good.getGoodsCount() + 1);
             SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
+            sendPhoto();
             setScene("manageProductsForSeller.fxml", "manage product");
         } else {
             ErrorPageFxController.showPage("can not add good", serverResponse);
@@ -105,6 +105,12 @@ public class AddProductPart2 extends FxmlController implements Initializable {
 //        } catch (Exception e) {
 //            ErrorPageFxController.showPage("can not add good", e.getMessage());
 //        }
+    }
+
+    private void sendPhoto() {
+        long goodCount = Long.parseLong(connectToServer(new RequestForServer("Others", "Good.getGoodsCount", null, null)));
+        String path2 = "Resources\\productImages\\" + goodCount + ".jpg";
+        sendImageToServer(selectedFile, path2);
     }
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
@@ -136,29 +142,26 @@ public class AddProductPart2 extends FxmlController implements Initializable {
     }
 
     public void selectPhoto(ActionEvent actionEvent) {
-        File file = new File("Resources\\productImages");
-        if (!file.exists())
-            file.mkdir();
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter png = new FileChooser.ExtensionFilter("png", "*.png");
         FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("jpg", "*.jpg");
         fileChooser.getExtensionFilters().addAll(png, jpg);
         selectedFile = fileChooser.showOpenDialog(StageController.getStage());
-        long goodCount = Long.parseLong(connectToServer(new RequestForServer("Others", "Good.getGoodsCount", null, null)));
-        path = "./Resources/productImages/" + goodCount + ".jpg";
-        BufferedImage bi = null;
-        try {
-            bi = ImageIO.read(selectedFile.toURL());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            ImageIO.write(bi, "jpg", new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        long goodCount = Long.parseLong(connectToServer(new RequestForServer("Others", "Good.getGoodsCount", null, null)));
+//        path = "./Resources/productImages/" + goodCount + ".jpg";
+//        BufferedImage bi = null;
+//        try {
+//            bi = ImageIO.read(selectedFile.toURL());
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            ImageIO.write(bi, "jpg", new File(path));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

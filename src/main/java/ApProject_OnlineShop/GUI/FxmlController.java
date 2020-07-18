@@ -188,7 +188,7 @@ public class FxmlController {
         try {
             System.out.println("Successfully connected to file server!");
             long length = file.length();
-            byte[] bytes = new byte[16 * 1024];
+            byte[] bytes = new byte[16 * 2048 * 4];
             InputStream inputStream = new FileInputStream(file);
             DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -348,12 +348,13 @@ public class FxmlController {
             dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
             dataOutputStream.flush();
             dataInputStream.readUTF();
-            System.out.println(file.getAbsolutePath());
-            System.out.println(Files.readAllBytes(Paths.get(file.getAbsolutePath())).length);
-            dataOutputStream.write(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
-            dataOutputStream.flush();
-            System.out.println("hi");
-            System.out.println(dataInputStream.readUTF());
+            secondRequestToFileTransferServer(socket, file);
+//            System.out.println(file.getAbsolutePath());
+//            System.out.println(Files.readAllBytes(Paths.get(file.getAbsolutePath())).length);
+//            dataOutputStream.write(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
+//            dataOutputStream.flush();
+//            System.out.println("hi");
+//            System.out.println(dataInputStream.readUTF());
 //            return dataInputStream.readUTF();
         } catch (IOException e) {
             e.printStackTrace();

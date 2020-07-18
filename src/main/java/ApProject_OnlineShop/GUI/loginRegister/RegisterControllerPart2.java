@@ -62,7 +62,8 @@ public class RegisterControllerPart2 extends FxmlController {
 //                if (serverResponse2.equals("ready to receive")) {
 //                    sendImageToServer(selectedFile, path);
 //                }
-                sendImageToServer(selectedFile, path);
+                String path2 = "Resources\\UserImages\\" + userName + ".jpg";
+                sendImageToServer(selectedFile, path2);
             }
             setScene("login.fxml", "Login");
         } else {
