@@ -5,6 +5,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.RequestForServer;
+import ApProject_OnlineShop.model.productThings.Good;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -83,6 +84,8 @@ public class AddProductPart2 extends FxmlController implements Initializable {
 //            MainController.getInstance().getAccountAreaForSellerController().addProduct(productDetails, detailValues);
         ArrayList<String> inputs = new ArrayList<>();
         inputs.addAll(productDetails);
+        long goodCount = Long.parseLong(connectToServer(new RequestForServer("Others", "Good.getGoodsCount", null, null)));
+        inputs.add(goodCount + "");
         inputs.add("###");
         for (String s : detailValues.keySet()) {
             inputs.add(s);
@@ -90,14 +93,13 @@ public class AddProductPart2 extends FxmlController implements Initializable {
         }
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "addProduct", getToken(), inputs));
         if (serverResponse.equals("successfully created!")) {
-            long goodCount = Long.parseLong(connectToServer(new RequestForServer("Others", "Good.getGoodsCount", null, null)));
             goodCount++;
             ArrayList<String> inputs00 = new ArrayList<>();
             inputs00.add(goodCount + "");
-            connectToServer(new RequestForServer("Others", "Good.setGoodsCount", null, inputs00));
 //            Good.setGoodsCount(Good.getGoodsCount() + 1);
             SuccessPageFxController.showPage("adding good was successful", "adding good request successfully sent to manager!");
             sendPhoto();
+            connectToServer(new RequestForServer("Others", "Good.setGoodsCount", null, inputs00));
             setScene("manageProductsForSeller.fxml", "manage product");
         } else {
             ErrorPageFxController.showPage("can not add good", serverResponse);

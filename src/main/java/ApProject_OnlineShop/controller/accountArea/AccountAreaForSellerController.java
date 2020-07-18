@@ -154,7 +154,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         AddingGoodRequest addingGoodRequest = new AddingGoodRequest(productInfo.get(0), productInfo.get(1),
                 Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
                 productInfo.get(4), subcategoryDetailsValue, Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)),
-                person.getUsername());
+                person.getUsername(),productInfo.get(6));
         Shop.getInstance().addRequest(addingGoodRequest);
         Database.getInstance().saveItem(addingGoodRequest);
     }

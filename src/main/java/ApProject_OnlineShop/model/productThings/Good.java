@@ -63,7 +63,7 @@ public class Good {
         return goodId;
     }
 
-    public static long getGoodsCount() {
+    synchronized public static long getGoodsCount() {
         return goodsCount;
     }
 
@@ -177,7 +177,7 @@ public class Good {
         return allComments;
     }
 
-    public static void setGoodsCount(long goodsCount) {
+    synchronized public static void setGoodsCount(long goodsCount) {
         Good.goodsCount = goodsCount;
     }
 
