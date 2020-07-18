@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 public class Server {
     private static ServerSocket serverSocket;
+    private static ServerSocket serverSocketForFile;
     private static HashMap<String, Person> onlineUsers = new HashMap<String, Person>();
     private static HashMap<Long, ArrayList<GoodInCart>> carts = new HashMap<>();
     private static HashMap<Long, ControllerForFiltering> controllerForFilteringHashMap = new HashMap<>();
@@ -57,7 +58,6 @@ public class Server {
     }
 
     private static void fileTransferServerOnline() {
-        ServerSocket serverSocketForFile = null;
         try {
             serverSocketForFile = new ServerSocket(4444);
         } catch (IOException e) {
