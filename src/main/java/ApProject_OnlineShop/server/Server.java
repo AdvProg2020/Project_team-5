@@ -69,6 +69,7 @@ public class Server {
                 Socket clientSocket = serverSocketForFile.accept();
                 DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
                 DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(clientSocket.getInputStream()));
+                new FileTransferClientHandler(clientSocket, dataOutputStream, dataInputStream, serverSocketForFile).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
