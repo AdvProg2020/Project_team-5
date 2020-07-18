@@ -1184,9 +1184,7 @@ public class ClientHandler extends Thread {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (FileCantBeSavedException e) {
+            } catch (IOException | FileCantBeSavedException e) {
                 e.printStackTrace();
             }
         } else if (requestForServer.getFunction().equals("loginUser")) {
