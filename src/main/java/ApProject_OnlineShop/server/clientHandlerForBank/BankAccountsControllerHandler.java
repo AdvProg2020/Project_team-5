@@ -41,8 +41,9 @@ public class BankAccountsControllerHandler {
             Person user = Shop.getInstance().findUser(requestForServer.getInputs().get(2));
             if (user instanceof Customer)
                 ((Customer) user).setBankAccountId(response);
-            if (user instanceof Seller)
-                ((Seller) user).setBankAccountId(response);
+            if (user == null) {
+                Shop.getInstance().findRegisteringSellerRequestForServer(requestForServer.getInputs().get(2)).setBankAccountId(response);
+            }
         }
         String answer = MainController.getInstance().getBankTransactionsController().depositFirstAfterCreating(requestForServer.getInputs().get(2), requestForServer.getInputs().get(3), "10000000");
         dataOutputStream.writeUTF(response);

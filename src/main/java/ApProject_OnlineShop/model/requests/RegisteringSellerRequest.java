@@ -20,6 +20,7 @@ public class RegisteringSellerRequest extends Request {
     private String companyPhoneNumber;
     private String companyFaxNumber;
     private String companyAddress;
+    private String bankAccountId;
 
 
     public RegisteringSellerRequest(String username, String firstName, String lastName, String email, String phoneNumber,
@@ -38,6 +39,18 @@ public class RegisteringSellerRequest extends Request {
         this.companyAddress = companyAddress;
     }
 
+    public void setBankAccountId(String bankAccountId) {
+        this.bankAccountId = bankAccountId;
+        try {
+            Database.getInstance().saveItem(this);
+        } catch (IOException | FileCantBeSavedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getUsername() {
+        return username;
+    }
 
     @Override
     public String toString() {
@@ -50,6 +63,7 @@ public class RegisteringSellerRequest extends Request {
     public void acceptRequest() throws IOException, FileCantBeSavedException {
         Company company = new Company(companyName, companyWebsite, companyPhoneNumber, companyFaxNumber, companyAddress);
         Seller seller = new Seller(username, firstName, lastName, email, phoneNumber, password, company);
+        seller.setBankAccountId(this.bankAccountId);
         Shop.getInstance().addPerson(seller);
         Shop.getInstance().addCompany(company);
         Database.getInstance().saveItem(seller);
