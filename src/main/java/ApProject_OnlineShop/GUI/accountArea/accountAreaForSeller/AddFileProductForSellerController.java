@@ -87,6 +87,11 @@ public class AddFileProductForSellerController extends FxmlController implements
         String price = this.price.getText();
         if (description.isEmpty())
             description = "empty!!";
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(selectedFile.getName());
+        inputs.add(price);
+        inputs.add(description);
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "addFileProduct", getToken(), inputs));
 
     }
 }

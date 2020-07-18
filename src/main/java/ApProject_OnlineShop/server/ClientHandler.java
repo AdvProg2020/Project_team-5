@@ -990,6 +990,8 @@ public class ClientHandler extends Thread {
             } finally {
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("addFileProduct")) {
+
         }
     }
 
