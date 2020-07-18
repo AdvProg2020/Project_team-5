@@ -14,10 +14,7 @@ import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundExce
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
-import ApProject_OnlineShop.exception.productExceptions.ProductIsAlreadyInAuctionException;
-import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
-import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
-import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
+import ApProject_OnlineShop.exception.productExceptions.*;
 import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.RequestForServer;
@@ -991,7 +988,15 @@ public class ClientHandler extends Thread {
                 dataOutputStream.flush();
             }
         } else if (requestForServer.getFunction().equals("addFileProduct")) {
-
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().addFileProduct(requestForServer.getInputs(), person);
+                dataOutputStream.writeUTF("file product successfully added");
+            } catch (FileCantBeSavedException | FileIsAlreadyAddedToActiveProductsException e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
         }
     }
 

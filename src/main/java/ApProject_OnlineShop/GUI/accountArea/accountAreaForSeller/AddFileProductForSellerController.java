@@ -15,7 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -92,6 +94,26 @@ public class AddFileProductForSellerController extends FxmlController implements
         inputs.add(price);
         inputs.add(description);
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForSellerController", "addFileProduct", getToken(), inputs));
-
+        if (serverResponse.equals("file product successfully added")) {
+            System.out.println(serverResponse);
+        } else {
+            ErrorPageFxController.showPage("can not add good", serverResponse);
+            return;
+        }
+        ArrayList<String> inputs2 = new ArrayList<>();
+        String fileName = selectedFile.getName();
+        String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+        inputs2.add(fileName);
+        inputs2.add(extension);
+        byte[] file = null;
+        try {
+            file = Files.readAllBytes(selectedFile.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+            ErrorPageFxController.showPage("can not add good", e.getMessage());
+            return;
+        }
+        String serverResponse2 = connectToFileTransferServer(new RequestForServer("fileTransfer", "uploadFile", getToken(), inputs2), file);
     }
 }
