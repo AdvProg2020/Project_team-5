@@ -35,6 +35,7 @@ public class Shop {
     private HashMap<Long, SellerRelatedInfoAboutGood> allSellerRelatedInfoAboutGood;
     private HashMap<Long, Company> allCompanies;
     private HashMap<Integer, Auction> allAuctions;
+    private HashMap<Long, FileProduct> allFileProducts;
     private LocalDate lastRandomPeriodDiscountCodeCreatedDate;
     private ShopBankAccount shopBankAccount;
     private ArrayList<Massage> massages;
@@ -59,6 +60,7 @@ public class Shop {
         this.allSellerRelatedInfoAboutGood = new HashMap<>();
         this.allCompanies = new HashMap<>();
         this.allAuctions = new HashMap<>();
+        this.allFileProducts = new HashMap<>();
         this.massages = new ArrayList<>();
     }
 
@@ -89,6 +91,30 @@ public class Shop {
         } catch (IOException | FileCantBeSavedException e) {
             e.printStackTrace();
         }
+    }
+
+    public HashMap<Long, FileProduct> getAllFileProducts() {
+        return allFileProducts;
+    }
+
+    public void addFileProduct(FileProduct fileProduct) {
+        this.allFileProducts.put(fileProduct.getFileProductId(), fileProduct);
+    }
+
+    public void removeFileProduct(FileProduct fileProduct) {
+        this.allFileProducts.remove(fileProduct.getFileProductId());
+    }
+
+    public FileProduct findFileProductById(long fileProductId) {
+        return this.allFileProducts.get(fileProductId);
+    }
+
+    public List<FileProduct> getAllFileProductsList() {
+        List<FileProduct> fileProducts = new ArrayList<>();
+        for (Long id : this.allFileProducts.keySet()) {
+            fileProducts.add(this.allFileProducts.get(id));
+        }
+        return fileProducts;
     }
 
     public HashMap<Integer, Auction> getAllAuctions() {

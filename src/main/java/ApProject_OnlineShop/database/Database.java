@@ -41,6 +41,7 @@ public class Database {
         loadingData.loadCategory();
         loadingData.loadSubCategory();
         loadingData.loadRequests();
+        loadingData.loadFileProduct();
         loadingData.loadProduct();
         loadingData.loadInfoAboutGood();
         loadingData.loadComment();
@@ -95,6 +96,8 @@ public class Database {
             deletingData.deleteRequest((Request) item);
         } else if (item instanceof Auction) {
             deletingData.deleteAuction((Auction) item);
+        } else if (item instanceof FileProduct) {
+          deletingData.deleteFileProduct((FileProduct)item);
         } else throw new FileCantBeDeletedException();
     }
 
@@ -139,6 +142,8 @@ public class Database {
             savingData.saveShopBankAccount((ShopBankAccount)item);
         } else if (item instanceof Auction) {
             savingData.saveAuction((Auction) item);
+        } else if (item instanceof FileProduct) {
+            savingData.saveFileProduct((FileProduct)item);
         } else throw new FileCantBeSavedException();
     }
 

@@ -5,6 +5,7 @@ import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.productThings.Auction;
+import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 
@@ -17,6 +18,7 @@ public class Seller extends Person {
     private ArrayList<Long> activeGoodsIds;
     private ArrayList<Long> activeOffsIds;
     private ArrayList<Integer> activeAuctions;
+    private ArrayList<Long> activeFileProducts;
     private String bankAccountId;
     private long balance;
 
@@ -26,6 +28,7 @@ public class Seller extends Person {
         this.activeGoodsIds = new ArrayList<>();
         this.activeOffsIds = new ArrayList<>();
         this.activeAuctions = new ArrayList<>();
+        this.activeFileProducts = new ArrayList<>();
         this.company = company.getId();
     }
 
@@ -97,6 +100,27 @@ public class Seller extends Person {
 
     public void addOff(long id) {
         this.activeOffsIds.add(id);
+    }
+
+    public ArrayList<FileProduct> getActiveFileProducts() {
+        ArrayList<FileProduct> fileProducts = new ArrayList<>();
+        for (Long fileProduct : this.activeFileProducts) {
+            fileProducts.add(Shop.getInstance().findFileProductById(fileProduct));
+        }
+        return fileProducts;
+    }
+
+    public void addFileProduct(FileProduct fileProduct) {
+        this.activeFileProducts.add(fileProduct.getFileProductId());
+    }
+
+    public void removeActiveFileProduct(FileProduct fileProduct) {
+        int index = 0;
+        for (;index < this.activeFileProducts.size();index++) {
+            if (this.activeFileProducts.get(index) == fileProduct.getFileProductId())
+                break;
+        }
+        this.activeFileProducts.remove(index);
     }
 
     public ArrayList<Auction> getActiveAuctions() {

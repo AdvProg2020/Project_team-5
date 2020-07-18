@@ -197,6 +197,15 @@ public class SavingData {
         saveFile(yaGson.toJson(auction, Auction.class), filePath);
     }
 
+    public void saveFileProduct(FileProduct fileProduct) throws IOException, FileCantBeSavedException {
+        String filePath;
+        if (!testMode)
+            filePath = "Resources\\fileProductsInfo\\fileProduct_" + fileProduct.getFileProductId() + ".json";
+        else
+            filePath = "TestResources\\fileProductsInfo\\fileProduct_" + fileProduct.getFileProductId() + ".json";
+        saveFile(yaGson.toJson(fileProduct, FileProduct.class), filePath);
+    }
+
     private void saveFile(String serializedData, String filePath) throws IOException, FileCantBeSavedException {
         File file = new File(filePath);
         if (!file.exists()) {

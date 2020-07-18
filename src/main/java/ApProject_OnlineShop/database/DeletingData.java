@@ -203,6 +203,13 @@ public class DeletingData {
         deleteFile(filePath);
     }
 
+    public void deleteFileProduct(FileProduct fileProduct) throws FileCantBeDeletedException {
+        String filePath = "Resources\\fileProductsInfo\\fileProduct_" + fileProduct.getFileProductId() + ".json";
+        if (testMode)
+            filePath = "Test".concat(filePath);
+        deleteFile(filePath);
+    }
+
     private void deleteFile(String filePath) throws FileCantBeDeletedException {
         File file = new File(filePath);
         if (!file.delete())
