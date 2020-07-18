@@ -73,15 +73,6 @@
                         <Font size="14.0" />
                     </font>
                 </TextField>
-                <Label prefHeight="31.0" prefWidth="197.0" text="credit :" />
-                <TextField fx:id="credit" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.9" prefHeight="21.0" prefWidth="195.0" promptText="credit">
-                    <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                    </padding>
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </TextField>
                 <Label fx:id="passwordLabel" onMouseEntered="#PasswordHint" prefHeight="31.0" prefWidth="197.0" text="password :">
                     <VBox.margin>
                         <Insets />
