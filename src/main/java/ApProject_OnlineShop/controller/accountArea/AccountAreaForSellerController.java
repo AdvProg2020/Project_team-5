@@ -23,7 +23,12 @@ import ApProject_OnlineShop.model.requests.EditingGoodRequest;
 import ApProject_OnlineShop.model.requests.EditingOffRequest;
 
 import javax.swing.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -342,7 +347,14 @@ public class AccountAreaForSellerController extends AccountAreaController {
 
     public void addFileProduct(ArrayList<String> properties, Person person) throws IOException, FileCantBeSavedException {
         FileProduct fileProduct = new FileProduct(properties.get(0), (Seller)person, Long.parseLong(properties.get(1)), properties.get(2));
+        ((Seller)person).addFileProduct(fileProduct);
+        Database.getInstance().saveItem(person);
         Shop.getInstance().addFileProduct(fileProduct);
         Database.getInstance().saveItem(fileProduct);
+    }
+
+    public void uploadFileProductOnServer(byte[] fileBytes, String name, String extension) throws IOException {
+        File file = File.createTempFile(name, "." + extension, new File("Resources\\fileProducts"));
+        Files.write(file.toPath(), fileBytes);
     }
 }
