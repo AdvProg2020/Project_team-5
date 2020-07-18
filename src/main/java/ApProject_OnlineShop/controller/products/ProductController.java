@@ -14,8 +14,12 @@ import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.requests.AddingCommentRequest;
+import javafx.scene.image.Image;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -214,5 +218,9 @@ public class ProductController {
 
     public boolean isSubCategoryEquals(long productId1, long productId2) {
         return Shop.getInstance().findGoodById(productId1).getSubCategory().equals(Shop.getInstance().findGoodById(productId2).getSubCategory());
+    }
+
+    public byte[] getProductImage(long productId) throws IOException {
+        return Files.readAllBytes(Paths.get("Resources/productImages/" + productId + ".jpg"));
     }
 }

@@ -6,6 +6,7 @@ import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.OffNotFoundException;
+import ApProject_OnlineShop.exception.productExceptions.FileIsAlreadyAddedToActiveProductsException;
 import ApProject_OnlineShop.exception.productExceptions.ProductIsAlreadyInAuctionException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.model.Shop;
@@ -23,7 +24,12 @@ import ApProject_OnlineShop.model.requests.EditingGoodRequest;
 import ApProject_OnlineShop.model.requests.EditingOffRequest;
 
 import javax.swing.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -338,5 +344,15 @@ public class AccountAreaForSellerController extends AccountAreaController {
             Database.getInstance().saveItem(auction.getGood());
         }
         removeAuction(auctionId);
+    }
+
+    public void addFileProduct(ArrayList<String> properties, Person person) throws IOException, FileCantBeSavedException, FileIsAlreadyAddedToActiveProductsException {
+        if (((Seller)person).getActiveFileProducts().stream().map(FileProduct::getName).anyMatch(file -> file.equals(properties.get(0))))
+            throw new FileIsAlreadyAddedToActiveProductsException();
+        FileProduct fileProduct = new FileProduct(properties.get(0), (Seller)person, Long.parseLong(properties.get(1)), properties.get(2));
+        ((Seller)person).addFileProduct(fileProduct);
+        Database.getInstance().saveItem(person);
+        Shop.getInstance().addFileProduct(fileProduct);
+        Database.getInstance().saveItem(fileProduct);
     }
 }

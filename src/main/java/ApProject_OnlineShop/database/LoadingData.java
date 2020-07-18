@@ -47,6 +47,12 @@ public class LoadingData {
         file = new File("Resources\\Auctions");
         if (!file.exists())
             file.mkdir();
+        file = new File("Resources\\fileProductsInfo");
+        if (!file.exists())
+            file.mkdir();
+        file = new File("Resources\\fileProducts");
+        if (!file.exists())
+            file.mkdir();
     }
 
     public void loadManager() throws IOException {
@@ -124,13 +130,26 @@ public class LoadingData {
                 Shop.getInstance().addGoodToAllGoods(yaGson.fromJson(readFile(file), Good.class));
             }
             if (Shop.getInstance().getAllGoods().size() != 0) {
-                if (Shop.getInstance().getAllRequest().size() != 0) {
-                    Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
-                            .collect(Collectors.toList())) + getMaximumOfNumbers(Shop.getInstance()
-                            .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
+                if (Shop.getInstance().getAllFileProductsList().size() != 0) {
+                    if (Shop.getInstance().getAllRequest().size() != 0) {
+                        Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
+                                .collect(Collectors.toList())) + getMaximumOfNumbers(Shop.getInstance()
+                                .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList()))
+                                + getMaximumOfNumbers(Shop.getInstance().getAllFileProductsList().stream().map(FileProduct::getFileProductId).collect(Collectors.toList())) + 1);
+                    } else {
+                        Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
+                                .collect(Collectors.toList()))
+                                + getMaximumOfNumbers(Shop.getInstance().getAllFileProductsList().stream().map(FileProduct::getFileProductId).collect(Collectors.toList())) + 1);
+                    }
                 } else {
-                    Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
-                            .collect(Collectors.toList())) + 1);
+                    if (Shop.getInstance().getAllRequest().size() != 0) {
+                        Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
+                                .collect(Collectors.toList())) + getMaximumOfNumbers(Shop.getInstance()
+                                .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
+                    } else {
+                        Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
+                                .collect(Collectors.toList())) + 1);
+                    }
                 }
             }
         }
@@ -274,6 +293,15 @@ public class LoadingData {
                     ids.add(Long.valueOf(id));
                 }
                 Auction.setAuctionsCount((int)getMaximumOfNumbers(ids) + 1);
+            }
+        }
+    }
+
+    public void loadFileProduct() throws IOException {
+        File[] files = loadFolder("Resources\\fileProductsInfo");
+        if (files != null) {
+            for (File file : files) {
+                Shop.getInstance().addFileProduct(yaGson.fromJson(readFile(file), FileProduct.class));
             }
         }
     }

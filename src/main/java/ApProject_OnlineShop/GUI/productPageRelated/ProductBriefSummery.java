@@ -19,6 +19,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.ByteArrayInputStream;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -46,7 +47,12 @@ public class ProductBriefSummery extends FxmlController {
             box.getChildren().add(available);
             mainVBox.getChildren().add(box);
         }
-        ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
+        ArrayList<String> input = new ArrayList<>();
+        input.add("" + productId);
+        RequestForServer requestForServer = new RequestForServer("ProductController", "getProductImage", getToken(), input);
+        Image image1 = new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer)));
+        //new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString())
+        ImageView imageView = new ImageView(image1);
         if (good.getGoodStatus() != Good.GoodStatus.CONFIRMED)
             imageView.setOpacity(0.5);
         VBox image = new VBox();
@@ -126,7 +132,12 @@ public class ProductBriefSummery extends FxmlController {
             offBox.getChildren().add(available);
         }
         mainVBox.getChildren().add(offBox);
-        ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
+        ArrayList<String> input = new ArrayList<>();
+        input.add("" + productId);
+        RequestForServer requestForServer = new RequestForServer("ProductController", "getProductImage", getToken(), input);
+        Image image1 = new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer)));
+        ImageView imageView = new ImageView(image1);
+        //ImageView imageView = new ImageView(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
         if (good.getGoodStatus() != Good.GoodStatus.CONFIRMED)
             imageView.setOpacity(0.5);
         VBox image = new VBox();

@@ -14,10 +14,7 @@ import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundExce
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantBeEditedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCantCreatedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeNotFoundException;
-import ApProject_OnlineShop.exception.productExceptions.ProductIsAlreadyInAuctionException;
-import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
-import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
-import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
+import ApProject_OnlineShop.exception.productExceptions.*;
 import ApProject_OnlineShop.exception.userExceptions.*;
 import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.RequestForServer;
@@ -30,9 +27,11 @@ import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHa
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.scene.image.Image;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -376,6 +375,10 @@ public class ClientHandler extends Thread {
                 dataOutputStream.writeUTF(exception.getMessage());
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("getProductImage")) {
+            byte[] imageBytes = MainController.getInstance().getProductController().getProductImage(Long.parseLong(requestForServer.getInputs().get(0)));
+            dataOutputStream.write(imageBytes);
+            dataOutputStream.flush();
         }
     }
 
@@ -979,6 +982,16 @@ public class ClientHandler extends Thread {
                 MainController.getInstance().getAccountAreaForSellerController().endAuction(auctionId);
                 dataOutputStream.writeUTF("auction successfully ended");
             } catch (Exception e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("addFileProduct")) {
+            try {
+                MainController.getInstance().getAccountAreaForSellerController().addFileProduct(requestForServer.getInputs(), person);
+                dataOutputStream.writeUTF("file product successfully added");
+            } catch (FileCantBeSavedException | FileIsAlreadyAddedToActiveProductsException e) {
                 e.printStackTrace();
                 dataOutputStream.writeUTF(e.getMessage());
             } finally {
