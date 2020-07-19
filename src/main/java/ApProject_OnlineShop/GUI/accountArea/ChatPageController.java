@@ -1,15 +1,19 @@
 package ApProject_OnlineShop.GUI.accountArea;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,10 +23,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ChatPageController extends FxmlController implements Initializable {
     private static String owner;
@@ -34,10 +37,68 @@ public class ChatPageController extends FxmlController implements Initializable 
     public Label title;
     public ScrollPane scrollPane;
     private static double vValue;
+    public ArrayList<Massage> massages;
+    Timer t;
+    static Timer previousTimer;
+    int numberOfChats;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        if (previousTimer != null) {
+//            previousTimer.cancel();
+//            System.out.println("previous canceled");
+//        }
         title.setText("chat with " + guest);
+        loadChats();
+        new Thread(new ChatPageThread(this, owner, guest, scrollPane)).start();
+//        t = new Timer();
+//        previousTimer = t;
+//        t.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                vValue = scrollPane.getVvalue();
+//                System.out.println("hi");
+////                setScene("chatPage.fxml", "chat page");
+//                Parent rootParent = null;
+//                try {
+//                    rootParent = FXMLLoader.load(getClass().getClassLoader().getResource("chatPage.fxml"));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                StageController.getStage().setScene(new Scene(rootParent, 1000, 800));
+//            }
+//        }, 200, 3000);
+//        new Thread(new Runnable() {
+//            public void run() {
+////                long pastTime = System.currentTimeMillis();
+////                while (true) {
+////                    long test = System.currentTimeMillis();
+////                    if (test >= (pastTime + 5 * 1000)) { //multiply by 1000 to get milliseconds
+////                        ArrayList<String> inputs = new ArrayList<>();
+////                        inputs.add(owner);
+////                        inputs.add(guest);
+////                        ArrayList<Massage> massages = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getMassages", getToken(), inputs)), new TypeToken<ArrayList<Massage>>() {
+////                        }.getType());
+////                        if (massages.size() > numberOfChats) {
+////                            pastTime = test;
+////                            vValue = scrollPane.getVvalue();
+////                            System.out.println("hi");
+////                            Parent rootParent = null;
+////                            try {
+////                                rootParent = FXMLLoader.load(getClass().getClassLoader().getResource("chatPage.fxml"));
+////                            } catch (IOException e) {
+////                                e.printStackTrace();
+////                            }
+////                            StageController.getStage().setScene(new Scene(rootParent, 1000, 800));
+////                        }
+////                    }
+////                }
+//            }
+//        }).start();
+    }
+
+    synchronized public void loadChats() {
+        vBox.getChildren().clear();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(owner);
         inputs.add(guest);
@@ -55,7 +116,7 @@ public class ChatPageController extends FxmlController implements Initializable 
             vBox.getChildren().add(hBox);
         }
         vBox.getChildren().add(getAnswerBox());
-        scrollPane.setVvalue(1);
+        scrollPane.setVvalue(vValue);
     }
 
     public VBox getMassageVBox(Massage massage) {
@@ -118,6 +179,8 @@ public class ChatPageController extends FxmlController implements Initializable 
     }
 
     public void backButton(ActionEvent actionEvent) {
+        t.cancel();
+        System.out.println("canceled");
         setScene(path, backTitle);
     }
 
@@ -133,6 +196,7 @@ public class ChatPageController extends FxmlController implements Initializable 
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
             FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
             setToken(null);
+            t.cancel();
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
@@ -155,5 +219,9 @@ public class ChatPageController extends FxmlController implements Initializable 
 
     public void refreshPage(MouseEvent mouseEvent) {
         setScene("chatPage.fxml", "chat page");
+    }
+
+    public static void setvValue(double vValue) {
+        ChatPageController.vValue = vValue;
     }
 }
