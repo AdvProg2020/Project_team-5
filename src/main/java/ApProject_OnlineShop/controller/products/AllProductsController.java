@@ -4,6 +4,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.server.Server;
 
@@ -52,6 +53,15 @@ public class AllProductsController {
         return goodInfo;
     }
 
+    public List<String> getFileProductBrief(long fileProductId) {
+        FileProduct fileProduct = Shop.getInstance().findFileProductById(fileProductId);
+        ArrayList<String> goodInfo = new ArrayList<>();
+        goodInfo.add(fileProduct.getName());
+        goodInfo.add("" + fileProduct.getDownloadNumber());
+        goodInfo.add("" + fileProduct.getPrice() + " Rials");
+        return goodInfo;
+    }
+
     public List<String> getOffProductBriefSummery(long productId) {
         Good good = Shop.getInstance().findGoodById(productId);
         ArrayList<String> goodInfo = new ArrayList<>();
@@ -69,6 +79,10 @@ public class AllProductsController {
     public List<Long> getGoods(long id){
         return Server.getControllerForSortingHashMap().get(id).showProducts(Server.getControllerForFilteringHashMap().get(id).showProducts()).
                 stream().map(Good::getGoodId).collect(Collectors.toList());
+    }
+
+    public List<Long> getFileProducts() {
+        return Shop.getInstance().getAllFileProductsList().stream().map(FileProduct::getFileProductId).collect(Collectors.toList());
     }
 
     public boolean isInOff(long goodId){

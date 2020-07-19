@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.database;
 
 import ApProject_OnlineShop.model.ShopBankAccount;
+import ApProject_OnlineShop.model.orders.OrderFileProductForCustomer;
+import ApProject_OnlineShop.model.orders.OrderFileProductForSeller;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.category.Category;
@@ -166,6 +168,20 @@ public class SavingData {
         if (testMode)
             filePath = "Test".concat(filePath);
         saveFile(yaGson.toJson(orderForCustomer, OrderForCustomer.class), filePath);
+    }
+
+    public void saveOrderFileProductForSeller(OrderFileProductForSeller orderFileProductForSeller) throws IOException, FileCantBeSavedException {
+        String filePath = "Resources\\Orders\\OrderFileProductForSellers\\order_" + orderFileProductForSeller.getOrderId() + ".json";
+        if (testMode)
+            filePath = "Test".concat(filePath);
+        saveFile(yaGson.toJson(orderFileProductForSeller, OrderFileProductForSeller.class), filePath);
+    }
+
+    public void saveOrderFileProductForCustomer(OrderFileProductForCustomer orderFileProductForCustomer) throws IOException, FileCantBeSavedException {
+        String filePath = "Resources\\Orders\\OrderFileProductForCustomers\\order_" + orderFileProductForCustomer.getOrderId() + ".json";
+        if (testMode)
+            filePath = "Test".concat(filePath);
+        saveFile(yaGson.toJson(orderFileProductForCustomer, OrderFileProductForCustomer.class), filePath);
     }
 
     public void saveRequest(Request request) throws IOException, FileCantBeSavedException {

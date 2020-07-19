@@ -1,7 +1,8 @@
-package ApProject_OnlineShop.GUI.productPageRelated;
+package ApProject_OnlineShop.GUI.ProductPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
+import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 import ApProject_OnlineShop.model.RequestForServer;
@@ -193,5 +194,71 @@ public class ProductBriefSummery extends FxmlController {
         long id = 7;
         gridPane.getChildren().add(offProductBriefSummery(id));
         StageController.setSceneJavaFx(gridPane);
+    }
+
+
+    public VBox getFileProductForAllProductsPage(long fileProductId) {
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add("" + fileProductId);
+        List<String> goodInfo = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getFileProductBrief", getToken(), inputs)));
+//        List<String> goodInfo = MainController.getInstance().getAllProductsController().getProductBrief(productId);
+        VBox mainVBox = new VBox();
+        setStyleForVBox(mainVBox);
+        mainVBox.setAlignment(Pos.CENTER);
+        ArrayList<String> inputs22 = new ArrayList<>();
+        inputs22.add(fileProductId + "");
+        FileProduct good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findFileProductById", null, inputs22)), FileProduct.class);
+        /*if (good.getGoodStatus() != Good.GoodStatus.CONFIRMED) {
+            HBox box = new HBox();
+            box.setMaxHeight(25);
+            box.setAlignment(Pos.CENTER);
+            Label available = new Label("not available");
+            available.setTextFill(Color.RED);
+            box.getChildren().add(available);
+            mainVBox.getChildren().add(box);
+        }*/
+        ArrayList<String> input = new ArrayList<>();
+        input.add("0");
+        RequestForServer requestForServer = new RequestForServer("ProductController", "getProductImage", getToken(), input);
+        Image image1 = new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer)));
+        //new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString())
+        ImageView imageView = new ImageView(image1);
+        /*if (good.getGoodStatus() != Good.GoodStatus.CONFIRMED)
+            imageView.setOpacity(0.5);*/
+        VBox image = new VBox();
+        image.getChildren().add(imageView);
+        mainVBox.getChildren().add(image);
+        image.setMaxSize(150, 150);
+        imageView.setFitHeight(130);
+        imageView.setFitWidth(130);
+        VBox nameVBox = new VBox();
+        nameVBox.setAlignment(Pos.CENTER_LEFT);
+        Label name = new Label(goodInfo.get(0));
+        name.setFont(Font.font("Times New Roman", 16));
+        name.setPadding(new Insets(0, 15, 0, 15));
+        nameVBox.getChildren().add(name);
+        mainVBox.getChildren().add(nameVBox);
+        HBox rateHBox = new HBox();
+        rateHBox.setAlignment(Pos.CENTER_LEFT);
+        int rateInteger = 5;
+        Label rate = new Label("  " + goodInfo.get(1));
+        rateHBox.setPadding(new Insets(0, 15, 0, 15));
+        for (int i = 0; i < rateInteger; i++) {
+            ImageView star = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/star.png").toString()));
+            star.setFitWidth(20);
+            star.setFitHeight(20);
+            rateHBox.getChildren().add(star);
+        }
+        rateHBox.getChildren().add(rate);
+        mainVBox.getChildren().add(rateHBox);
+        rate.setFont(Font.font("Times New Roman", 16));
+        VBox priceVBox = new VBox();
+        priceVBox.setAlignment(Pos.CENTER_LEFT);
+        priceVBox.setPadding(new Insets(0, 15, 0, 15));
+        Label price = new Label(goodInfo.get(2));
+        priceVBox.getChildren().add(price);
+        mainVBox.getChildren().add(priceVBox);
+        price.setFont(Font.font("Times New Roman", 16));
+        return mainVBox;
     }
 }
