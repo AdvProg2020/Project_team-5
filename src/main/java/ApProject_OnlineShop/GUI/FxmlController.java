@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.model.persons.*;
+import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.requests.*;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
@@ -201,6 +202,31 @@ public class FxmlController {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static String connectToServerDownload(RequestForServer requestForServer) {
+        try {
+            Socket socket = new Socket("127.0.0.1", 8888);
+            System.out.println("Successfully connected to server!");
+            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            Gson gson = new Gson();
+            dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
+            dataOutputStream.flush();
+            File file = new File("Downloads\\" + requestForServer.getInputs().get(1));
+            file.createNewFile();
+            OutputStream outputStream = new FileOutputStream("Downloads\\" + requestForServer.getInputs().get(1));
+            byte[] bytes = new byte[16 * 2048 * 4];
+            int count;
+            while ((count = dataInputStream.read(bytes)) > 0) {
+                outputStream.write(bytes, 0, count);
+            }
+            outputStream.close();
+            return "file successfully downloaded.";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static String getToken() {

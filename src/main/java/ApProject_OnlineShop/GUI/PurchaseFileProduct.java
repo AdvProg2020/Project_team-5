@@ -30,6 +30,7 @@ public class PurchaseFileProduct extends FxmlController implements Initializable
 
     private String code;
     private long finalPrice = -1L;
+    private String fileName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,7 +66,9 @@ public class PurchaseFileProduct extends FxmlController implements Initializable
         ArrayList<String> inputs1 = new ArrayList<>();
         inputs1.add("" + fileProductId);
         FileProduct fileProduct = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findFileProductById", null, inputs1)), FileProduct.class);
+        fileName = fileProduct.getName();
         if (discountCode1.isEmpty()) {
+            code = "";
             finalPrice = fileProduct.getPrice();
             priceLabel.setText(fileProduct.getPrice() + " Rials");
         } else {
@@ -113,7 +116,18 @@ public class PurchaseFileProduct extends FxmlController implements Initializable
         inputs.add(finalPrice + "");
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "purchaseFileProductByWallet", getToken(), inputs));
         if (serverResponse.equals("purchase successful")) {
-
+            ArrayList<String> input = new ArrayList<>();
+            input.add(fileProductId + "");
+            input.add(fileName);
+            String serverRes = connectToServerDownload(new RequestForServer("AccountAreaForCustomerController", "downloadFile", getToken(),input ));
+            if (serverRes.equals("file successfully downloaded.")) {
+                SuccessPageFxController.showPage("purchase completed", serverRes);
+                setScene("mainMenuLayout.fxml", "Main menu");
+            } else {
+                ErrorPageFxController.showPage("purchase failed", "error in download");
+                discountCode.clear();
+                phoneNumberField.clear();
+            }
         } else {
             ErrorPageFxController.showPage("error for purchase", serverResponse);
             discountCode.clear();

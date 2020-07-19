@@ -658,6 +658,15 @@ public class ClientHandler extends Thread {
             } finally {
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("downloadFile")) {
+            File file = Shop.getInstance().findFileProductById(Long.parseLong(requestForServer.getInputs().get(0))).getFile();
+            byte[] bytes = new byte[16 * 2048 * 4];
+            InputStream inputStream = new FileInputStream(file);
+            int count;
+            while ((count = inputStream.read(bytes)) > 0) {
+                dataOutputStream.write(bytes, 0, count);
+            }
+            inputStream.close();
         }
     }
 

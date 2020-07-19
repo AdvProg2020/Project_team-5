@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI.ProductPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.PurchaseFileProduct;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
@@ -222,6 +223,7 @@ public class FileProductPageController extends FxmlController implements Initial
     }
 
     public void onDownloadButtonPressed() {
-        //TODO
+        PurchaseFileProduct.setFileProductId(productId);
+        setScene("purchasePage.fxml", "purchase file product");
     }
 }
