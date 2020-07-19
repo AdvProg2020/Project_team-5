@@ -204,15 +204,29 @@ public class AllProductsPage extends FxmlController implements Initializable {
             if (num % 3 == 0)
                 row++;
         }
-        if (productsIds.size() == 0)
+
+        ArrayList<String> fileProducts = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getFileProducts", getToken(), null)));
+        ArrayList<Long> fileProductsIds = new ArrayList<>();
+        for (String product : fileProducts) {
+            fileProductsIds.add(Long.parseLong(product));
+        }
+        for (Long fileProductsId : fileProductsIds) {
+            VBox vbox = new ProductBriefSummery().getFileProductForAllProductsPage(fileProductsId);
+            productsPart.add(vbox, num % 3, row);
+            num++;
+            vbox.setCursor(Cursor.HAND);
+            vbox.setOnMouseClicked(e -> showProduct(fileProductsId));
+        }
+        int size = productsIds.size() + fileProductsIds.size();
+        if (size == 0)
             return;
-        if ((productsIds.size() % 3 != 0)) {
-            if ((((productsIds.size() / 3) + 1) * 250) > 1067) {
-                mainGridPane.setPrefHeight((((productsIds.size() / 3) + 1) * 250) + 133);
+        if ((size % 3 != 0)) {
+            if ((((size / 3) + 1) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((size / 3) + 1) * 250) + 133);
             }
         } else {
-            if ((((productsIds.size() / 3) + 0) * 250) > 1067) {
-                mainGridPane.setPrefHeight((((productsIds.size() / 3) + 0) * 250) + 133);
+            if ((((size / 3) + 0) * 250) > 1067) {
+                mainGridPane.setPrefHeight((((size / 3) + 0) * 250) + 133);
             }
         }
     }
@@ -245,6 +259,10 @@ public class AllProductsPage extends FxmlController implements Initializable {
         ProductPage.setProductId(productId);
         ProductPage.setPathBack("allProducts.fxml", "all products");
         setScene("productPage.fxml", "product page");
+    }
+
+    private void showFileProduct(Long productId) {
+        //TODO
     }
 
     public void removeCategoryProperty(String property) {
