@@ -1,6 +1,10 @@
 package ApProject_OnlineShop.bank.DateBaseForBank;
 
 
+import ApProject_OnlineShop.bank.model.BankAccount;
+import ApProject_OnlineShop.bank.model.Receipt;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+
 import java.io.IOException;
 
 public class DataBaseForBank {
@@ -24,5 +28,13 @@ public class DataBaseForBank {
     public void initializeBankServer() throws IOException {
         loadingData.loadAccounts();
         loadingData.loadReceipts();
+    }
+
+    public void saveItem(Object item) throws IOException, FileCantBeSavedException {
+        if (item instanceof BankAccount) {
+            savingData.saveAccount((BankAccount) item);
+        } else if (item instanceof Receipt) {
+            savingData.saveReceipts((Receipt) item);
+        }
     }
 }
