@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.bank.DateBaseForBank;
 
-import ApProject_OnlineShop.bank.Bank;
 import ApProject_OnlineShop.bank.BankServer;
 import ApProject_OnlineShop.bank.model.BankAccount;
 import ApProject_OnlineShop.bank.model.Receipt;

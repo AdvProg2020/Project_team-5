@@ -12,7 +12,7 @@ public class Client {
      * This class handles initiating connection to bankAPI ,sending requests to Bank server
      * and also responses from Bank server.
      */
-    public static final int PORT = 2222;
+    public static final int PORT = 8090;
     public static final String IP = "127.0.0.1";
 
     private static DataOutputStream outputStream;
@@ -58,6 +58,7 @@ public class Client {
     public static void SendMessage(String msg) throws IOException {
         try {
             outputStream.writeUTF(msg);
+            outputStream.flush();
         } catch (IOException e) {
             throw new IOException("Exception while sending message:");
         }

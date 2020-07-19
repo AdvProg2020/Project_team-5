@@ -1,5 +1,7 @@
 package ApProject_OnlineShop.bank;
 
+import ApProject_OnlineShop.bank.DateBaseForBank.DataBaseForBank;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import com.google.gson.Gson;
 import ApProject_OnlineShop.bank.model.*;
 
@@ -8,10 +10,11 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class BankServer extends Thread {
     private static BankServer bankServer = new BankServer();
-    private int port = 8090;
+    private static final int port = 8090;
     private ServerSocket serverSocket;
     private ArrayList<BankAccount> accounts;
     private ArrayList<Token> tokens;
@@ -57,7 +60,11 @@ public class BankServer extends Thread {
 
     public void addBankAccount(BankAccount account) {
         accounts.add(account);
-        //save account;
+        try {
+            DataBaseForBank.getInstance().saveItem(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isUsernameAvailable(String username) {
@@ -123,10 +130,16 @@ public class BankServer extends Thread {
 
     public void addReceipt(Receipt receipt) {
         receipts.add(receipt);
+        try {
+            DataBaseForBank.getInstance().saveItem(receipt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getTransactions(String username, String type) {
         long accountId = Long.parseLong(findAccountByUsername(username).getAccountNumber());
+        System.out.println(type);
         String transactions = "";
         if (type.equals("*")) {
             for (Receipt receipt : receipts) {
@@ -143,10 +156,11 @@ public class BankServer extends Thread {
                 if (receipt.getSourceAccountID() == accountId && receipt.getPaid() == 1)
                     transactions += new Gson().toJson(receipt) + "*";
             }
-        } else {
+        } else if (Pattern.matches("[\\d]+", type)) {
             for (Receipt receipt : receipts) {
-                if (receipt.getId() == Long.parseLong(type))
+                if (receipt.getId() == Long.parseLong(type)) {
                     transactions += new Gson().toJson(receipt) + "*";
+                }
             }
         }
         if (transactions.length() > 0)
