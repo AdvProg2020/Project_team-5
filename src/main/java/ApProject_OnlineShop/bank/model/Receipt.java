@@ -1,6 +1,11 @@
 package ApProject_OnlineShop.bank.model;
 
 
+import ApProject_OnlineShop.bank.DateBaseForBank.DataBaseForBank;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+
+import java.io.IOException;
+
 public class Receipt {
     Long id;
     String receiptType;
@@ -42,6 +47,11 @@ public class Receipt {
 
     public void setPaid(){
         this.paid = 1;
+        try {
+            DataBaseForBank.getInstance().saveItem(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static String getRandomReceiptId(){
