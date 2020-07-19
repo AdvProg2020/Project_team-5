@@ -5,9 +5,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.ShopBankAccount;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
-import ApProject_OnlineShop.model.orders.Order;
-import ApProject_OnlineShop.model.orders.OrderForCustomer;
-import ApProject_OnlineShop.model.orders.OrderForSeller;
+import ApProject_OnlineShop.model.orders.*;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.*;
@@ -247,6 +245,24 @@ public class LoadingData {
             if (Shop.getInstance().getHasMapOfOrders().size() != 0) {
                 List<Long> ids = new ArrayList<>(Shop.getInstance().getHasMapOfOrders().keySet());
                 Order.setOrdersCount(getMaximumOfNumbers(ids) + 1);
+            }
+        }
+    }
+
+    public void loadOrderFileProductForSeller() throws IOException {
+        File[] files = loadFolder("Resources\\Orders\\OrderFileProductForSellers");
+        if (files != null) {
+            for (File file : files) {
+                Shop.getInstance().addOrder(yaGson.fromJson(readFile(file), OrderFileProductForSeller.class));
+            }
+        }
+    }
+
+    public void loadOrderFileProductForCustomer() throws IOException {
+        File[] files = loadFolder("Resources\\Orders\\OrderFileProductForCustomers");
+        if (files != null) {
+            for (File file : files) {
+                Shop.getInstance().addOrder(yaGson.fromJson(readFile(file), OrderFileProductForCustomer.class));
             }
         }
     }
