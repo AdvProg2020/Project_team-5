@@ -645,6 +645,11 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getMassages")) {
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAccountAreaForCustomerController().getMassages(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("purchaseFileProductByWallet")) {
+            MainController.getInstance().getAccountAreaForCustomerController().purchaseFileProductByWallet(
+                    Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2),
+                    Long.parseLong(requestForServer.getInputs().get(3)), user
+            );
         }
     }
 

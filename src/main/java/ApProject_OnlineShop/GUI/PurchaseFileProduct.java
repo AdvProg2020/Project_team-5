@@ -29,7 +29,7 @@ public class PurchaseFileProduct extends FxmlController implements Initializable
     private Label priceLabel;
 
     private String code;
-    private long finalPrice;
+    private long finalPrice = -1L;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -92,6 +92,31 @@ public class PurchaseFileProduct extends FxmlController implements Initializable
     }
 
     public void onPurchase(ActionEvent actionEvent) {
+        if (phoneNumberField.getText().isEmpty() || !phoneNumberField.getText().matches("\\d+")) {
+            ErrorPageFxController.showPage("error for purchase", "invalid or empty phone number");
+            discountCode.clear();
+            phoneNumberField.clear();
+            return;
+        }
+        if (this.finalPrice == -1) {
+            ErrorPageFxController.showPage("error for purchase", "please first click on discountCode check box.");
+            discountCode.clear();
+            phoneNumberField.clear();
+            return;
+        }
+        String phoneNumber = phoneNumberField.getText();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(fileProductId + "");
+        inputs.add(phoneNumber);
+        inputs.add(this.code);
+        inputs.add(finalPrice + "");
+        String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "purchaseFileProductByWallet", getToken(), inputs));
+        if (serverResponse.equals("purchase successful")) {
 
+        } else {
+            ErrorPageFxController.showPage("error for purchase", serverResponse);
+            discountCode.clear();
+            phoneNumberField.clear();
+        }
     }
 }
