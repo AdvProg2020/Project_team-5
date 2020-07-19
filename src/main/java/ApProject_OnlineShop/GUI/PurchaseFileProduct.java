@@ -84,6 +84,7 @@ public class PurchaseFileProduct extends FxmlController implements Initializable
                     priceLabel.setText(finalPrice + "Rials");
                 }
             } else {
+                this.code = "";
                 ErrorPageFxController.showPage("error for accept discountCode", serverResponse);
                 discountCode.clear();
                 phoneNumberField.clear();

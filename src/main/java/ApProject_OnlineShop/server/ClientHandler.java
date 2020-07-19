@@ -646,10 +646,18 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAccountAreaForCustomerController().getMassages(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("purchaseFileProductByWallet")) {
-            MainController.getInstance().getAccountAreaForCustomerController().purchaseFileProductByWallet(
-                    Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2),
-                    Long.parseLong(requestForServer.getInputs().get(3)), user
-            );
+            try {
+                MainController.getInstance().getAccountAreaForCustomerController().purchaseFileProductByWallet(
+                        Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2),
+                        Long.parseLong(requestForServer.getInputs().get(3)), user
+                );
+                dataOutputStream.writeUTF("purchase successful");
+            } catch (Exception e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
         }
     }
 
