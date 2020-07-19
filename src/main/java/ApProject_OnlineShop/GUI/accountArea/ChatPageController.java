@@ -49,7 +49,8 @@ public class ChatPageController extends FxmlController implements Initializable 
     }
 
     synchronized public void loadChats() {
-        textOfTextField = massageTextField.getText();
+        if (massageTextField != null)
+            textOfTextField = massageTextField.getText();
         vBox.getChildren().clear();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(owner);
@@ -130,6 +131,8 @@ public class ChatPageController extends FxmlController implements Initializable 
         ArrayList<String> input = new ArrayList<>();
         input.add(new Gson().toJson(massage));
         connectToServer(new RequestForServer("AccountAreaController", "sendMassage", getToken(), input));
+        this.textOfTextField = "";
+        this.massageTextField.setText("");
 //        setScene("chatPage.fxml", "chat page");
     }
 
