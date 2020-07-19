@@ -52,7 +52,7 @@
                   <Font name="Times New Roman" size="26.0" />
               </font>
           </Label>
-         <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#refreshPage" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#refreshPage" pickOnBounds="true" preserveRatio="true" visible="false">
             <HBox.margin>
                <Insets bottom="5.0" />
             </HBox.margin>

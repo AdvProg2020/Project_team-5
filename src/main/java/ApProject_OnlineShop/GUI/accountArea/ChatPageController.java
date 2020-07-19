@@ -36,65 +36,14 @@ public class ChatPageController extends FxmlController implements Initializable 
     public VBox vBox;
     public Label title;
     public ScrollPane scrollPane;
-    private static double vValue;
-    public ArrayList<Massage> massages;
-    Timer t;
-    static Timer previousTimer;
-    int numberOfChats;
+    private ChatPageThread chatPageThread;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        if (previousTimer != null) {
-//            previousTimer.cancel();
-//            System.out.println("previous canceled");
-//        }
         title.setText("chat with " + guest);
         loadChats();
-        new Thread(new ChatPageThread(this, owner, guest, scrollPane)).start();
-//        t = new Timer();
-//        previousTimer = t;
-//        t.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                vValue = scrollPane.getVvalue();
-//                System.out.println("hi");
-////                setScene("chatPage.fxml", "chat page");
-//                Parent rootParent = null;
-//                try {
-//                    rootParent = FXMLLoader.load(getClass().getClassLoader().getResource("chatPage.fxml"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                StageController.getStage().setScene(new Scene(rootParent, 1000, 800));
-//            }
-//        }, 200, 3000);
-//        new Thread(new Runnable() {
-//            public void run() {
-////                long pastTime = System.currentTimeMillis();
-////                while (true) {
-////                    long test = System.currentTimeMillis();
-////                    if (test >= (pastTime + 5 * 1000)) { //multiply by 1000 to get milliseconds
-////                        ArrayList<String> inputs = new ArrayList<>();
-////                        inputs.add(owner);
-////                        inputs.add(guest);
-////                        ArrayList<Massage> massages = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getMassages", getToken(), inputs)), new TypeToken<ArrayList<Massage>>() {
-////                        }.getType());
-////                        if (massages.size() > numberOfChats) {
-////                            pastTime = test;
-////                            vValue = scrollPane.getVvalue();
-////                            System.out.println("hi");
-////                            Parent rootParent = null;
-////                            try {
-////                                rootParent = FXMLLoader.load(getClass().getClassLoader().getResource("chatPage.fxml"));
-////                            } catch (IOException e) {
-////                                e.printStackTrace();
-////                            }
-////                            StageController.getStage().setScene(new Scene(rootParent, 1000, 800));
-////                        }
-////                    }
-////                }
-//            }
-//        }).start();
+        chatPageThread = new ChatPageThread(this, owner, guest);
+        new Thread(chatPageThread).start();
     }
 
     synchronized public void loadChats() {
@@ -116,7 +65,7 @@ public class ChatPageController extends FxmlController implements Initializable 
             vBox.getChildren().add(hBox);
         }
         vBox.getChildren().add(getAnswerBox());
-        scrollPane.setVvalue(vValue);
+        scrollPane.setVvalue(1);
     }
 
     public VBox getMassageVBox(Massage massage) {
@@ -175,12 +124,11 @@ public class ChatPageController extends FxmlController implements Initializable 
         ArrayList<String> input = new ArrayList<>();
         input.add(new Gson().toJson(massage));
         connectToServer(new RequestForServer("AccountAreaController", "sendMassage", getToken(), input));
-        setScene("chatPage.fxml", "chat page");
+//        setScene("chatPage.fxml", "chat page");
     }
 
     public void backButton(ActionEvent actionEvent) {
-        t.cancel();
-        System.out.println("canceled");
+        chatPageThread.setExit(true);
         setScene(path, backTitle);
     }
 
@@ -193,10 +141,10 @@ public class ChatPageController extends FxmlController implements Initializable 
             connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
+            chatPageThread.setExit(true);
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
             FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
             setToken(null);
-            t.cancel();
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
@@ -221,7 +169,4 @@ public class ChatPageController extends FxmlController implements Initializable 
         setScene("chatPage.fxml", "chat page");
     }
 
-    public static void setvValue(double vValue) {
-        ChatPageController.vValue = vValue;
-    }
 }
