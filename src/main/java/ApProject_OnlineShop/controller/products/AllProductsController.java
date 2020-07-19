@@ -4,6 +4,7 @@ import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.exception.productExceptions.ProductWithThisIdNotExist;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
+import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.server.Server;
 
@@ -49,6 +50,15 @@ public class AllProductsController {
         goodInfo.add(good.getName() + " " + good.getBrand());
         goodInfo.add("" + (good.getAverageRate() / (float) 2));
         goodInfo.add("" + good.getMinimumPrice() + " Rials");
+        return goodInfo;
+    }
+
+    public List<String> getFileProductBrief(long fileProductId) {
+        FileProduct fileProduct = Shop.getInstance().findFileProductById(fileProductId);
+        ArrayList<String> goodInfo = new ArrayList<>();
+        goodInfo.add(fileProduct.getName());
+        goodInfo.add("" + fileProduct.getDownloadNumber());
+        goodInfo.add("" + fileProduct.getPrice() + " Rials");
         return goodInfo;
     }
 

@@ -444,6 +444,9 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getOffProductBriefSummery")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getOffProductBriefSummery(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getFileProductBrief")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getFileProductBrief(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllCategories")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getAllCategories()));
             dataOutputStream.flush();
