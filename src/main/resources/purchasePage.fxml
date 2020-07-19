@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.PurchasePageController1">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="757.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.PurchaseFileProduct">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="117.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="10.0" prefWidth="510.0" />
@@ -99,11 +99,16 @@
                   </children>
                </HBox>
                <Label prefHeight="54.0" prefWidth="362.0" text="   if you don't want to use discount code click on empty check box ." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                  <children>
+                     <Label fx:id="priceLabel" />
+                  </children>
+               </HBox>
                 </children>
             </GridPane>
         </children>
     </VBox>
-    <Button mnemonicParsing="false" onAction="#onPurchase1" prefHeight="46.0" prefWidth="240.0" styleClass="menuButtons" text="purchase and download" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+    <Button mnemonicParsing="false" onAction="#onPurchase" prefHeight="46.0" prefWidth="240.0" styleClass="menuButtons" text="purchase and download" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
@@ -115,7 +120,7 @@
         </font>
     </Button>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-    <Label alignment="CENTER" contentDisplay="CENTER" text="personal infromation" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+    <Label alignment="CENTER" contentDisplay="CENTER" text="purchase file product" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
         <font>
             <Font name="Times New Roman" size="36.0" />
         </font>
