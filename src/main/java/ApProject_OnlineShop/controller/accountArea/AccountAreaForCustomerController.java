@@ -274,4 +274,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         return massages;
     }
 
+    public void purchaseFileProductByWallet(long fileProductId, String phoneNumber, String discountCode, long price, Person person) {
+
+    }
+
 }
