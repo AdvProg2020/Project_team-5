@@ -6,6 +6,8 @@ import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.orders.OrderFileProductForCustomer;
+import ApProject_OnlineShop.model.orders.OrderFileProductForSeller;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Company;
@@ -186,6 +188,16 @@ public class DeletingData {
         for (GoodInCart goodsDetail : orderForCustomer.getGoodsDetails()) {
             deleteGoodsInCarts(goodsDetail);
         }
+        deleteFile(filePath);
+    }
+
+    public void deleteOrderFileProductForSeller(OrderFileProductForSeller orderFileProductForSeller) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Orders\\OrderFileProductForSellers\\order_" + orderFileProductForSeller.getOrderId() + ".json";
+        deleteFile(filePath);
+    }
+
+    public void deleteOrderFileProductForCustomer(OrderFileProductForCustomer orderFileProductForCustomer) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Orders\\OrderFileProductForCustomers\\order_" + orderFileProductForCustomer.getOrderId() + ".json";
         deleteFile(filePath);
     }
 
