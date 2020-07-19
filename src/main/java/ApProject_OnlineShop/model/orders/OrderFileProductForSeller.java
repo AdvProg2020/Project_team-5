@@ -4,6 +4,9 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.FileProduct;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderFileProductForSeller extends Order {
     private String seller;
     private String customerName;
@@ -38,5 +41,17 @@ public class OrderFileProductForSeller extends Order {
 
     public void setFileProduct(FileProduct fileProduct) {
         this.fileProduct = fileProduct.getFileProductId();
+    }
+
+    public List<String> getDetails() {
+        ArrayList<String> orderDetails = new ArrayList<>();
+        orderDetails.add("" + getOrderId());
+        orderDetails.add(getDate().toString());
+        String goods = "";
+        goods += "name: " + getFileProduct().getName() + "\ndescription: " + getFileProduct().getDescription() + "\nseller: " + getFileProduct().getSeller().getUsername();
+        orderDetails.add(goods);
+        orderDetails.add("" + getPrice());
+        orderDetails.add(getOrderStatus().toString());
+        return orderDetails;
     }
 }
