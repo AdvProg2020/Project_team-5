@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 @Entity
 @Table(name = "Product")
+@SecondaryTable(name = "ValueOfEachCategoryProperty", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ProductID", referencedColumnName = "ProductID"))
 public class Good implements Serializable {
     @Transient
     private static long goodsCount = 1;
@@ -54,6 +55,9 @@ public class Good implements Serializable {
     @Column(name = "ModificationDate")
     private LocalDateTime modificationDate;
 
+    @ElementCollection
+    @MapKeyColumn(name = "Property", table = "ValueOfEachCategoryProperty")
+    @Column(name = "Value", table = "ValueOfEachCategoryProperty")
     private HashMap<String, String> categoryProperties;
 
     public enum GoodStatus {
