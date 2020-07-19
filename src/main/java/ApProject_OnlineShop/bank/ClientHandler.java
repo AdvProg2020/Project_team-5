@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.bank;
 
 import ApProject_OnlineShop.bank.model.*;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
 
 
 import java.io.DataInputStream;
@@ -37,7 +38,7 @@ public class ClientHandler extends Thread {
                     getBalance(input);
                 else if (Pattern.matches("pay [\\d]+", input))
                     pay(input);
-                else if (Pattern.matches("get_transactions [\\S]+ .", input))
+                else if (Pattern.matches("get_transactions [\\S]+ .+", input))
                     getTransactions(input);
                 else if (input.equals("exit")) {
                     dataOutputStream.writeUTF("disconnected successfully");
@@ -112,16 +113,12 @@ public class ClientHandler extends Thread {
         else if ((splitInput[1].equals("deposit") && !splitInput[3].equals("-1")) || (splitInput[1].equals("withdraw") && !splitInput[4].equals("-1")))
             dataOutputStream.writeUTF("invalid account id");
         else {
-            System.out.println("hi");
             String inputsWithoutDescription = "create-receipt " + splitInput[0] + " " + splitInput[1] + " " + splitInput[2] + " " + splitInput[3] + " " + splitInput[4] + " ";
             String description = input.substring(inputsWithoutDescription.length());
             if (!Pattern.matches("[\\w|\\s]*", description))
                 dataOutputStream.writeUTF("your input contains invalid characters");
             else {
-                String id = Receipt.getRandomReceiptId();
-//                while (bank.getReceiptById(id) != null){
-//                    id = Receipt.getRandomReceiptId();
-//                }
+                String id;
                 do {
                     id = Receipt.getRandomReceiptId();
                 } while (bank.getReceiptById(id) != null);
@@ -181,7 +178,7 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF("token expired");
         else if (!Pattern.matches("[*|+|-]", splitInput[1])) {
             if (bank.getReceiptById(splitInput[1]) == null || (!bank.findTokenByString(splitInput[0]).getUserName().equals(bank.findAccountByNumber("" + bank.getReceiptById(splitInput[1]).getSourceAccountID()).getUserName())
-            && !bank.findTokenByString(splitInput[0]).getUserName().equals(bank.findAccountByNumber("" + bank.getReceiptById(splitInput[1]).getDestAccountID()).getUserName())))
+                    && !bank.findTokenByString(splitInput[0]).getUserName().equals(bank.findAccountByNumber("" + bank.getReceiptById(splitInput[1]).getDestAccountID()).getUserName())))
                 dataOutputStream.writeUTF("invalid receipt Id");
         } else {
             dataOutputStream.writeUTF(bank.getTransactions(bank.findTokenByString(splitInput[0]).getUserName(), splitInput[1]));

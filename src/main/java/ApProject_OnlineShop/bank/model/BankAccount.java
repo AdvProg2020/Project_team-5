@@ -1,5 +1,10 @@
 package ApProject_OnlineShop.bank.model;
 
+import ApProject_OnlineShop.bank.DateBaseForBank.DataBaseForBank;
+import ApProject_OnlineShop.exception.FileCantBeSavedException;
+
+import java.io.IOException;
+
 public class BankAccount {
     String firstName;
     String lastName;
@@ -35,6 +40,11 @@ public class BankAccount {
 
     public synchronized void setMoney(long money) {
         this.money = money;
+        try {
+            DataBaseForBank.getInstance().saveItem(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static String createAccountNumber(){
