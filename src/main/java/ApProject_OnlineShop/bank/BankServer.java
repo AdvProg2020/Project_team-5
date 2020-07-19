@@ -1,7 +1,8 @@
+package ApProject_OnlineShop.bank;
+
 import com.google.gson.Gson;
-import model.BankAccount;
-import model.Receipt;
-import model.Token;
+import ApProject_OnlineShop.bank.model.*;
+
 
 import java.io.*;
 import java.net.ServerSocket;

@@ -10,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,6 +32,8 @@ public class ChatPageController extends FxmlController implements Initializable 
     public TextField massageTextField;
     public VBox vBox;
     public Label title;
+    public ScrollPane scrollPane;
+    private static double vValue;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,6 +55,7 @@ public class ChatPageController extends FxmlController implements Initializable 
             vBox.getChildren().add(hBox);
         }
         vBox.getChildren().add(getAnswerBox());
+        scrollPane.setVvalue(1);
     }
 
     public VBox getMassageVBox(Massage massage) {

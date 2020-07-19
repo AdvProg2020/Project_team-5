@@ -1,4 +1,4 @@
-package model;
+package ApProject_OnlineShop.bank.model;
 
 public class BankAccount {
     String firstName;

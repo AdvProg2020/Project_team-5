@@ -1,4 +1,4 @@
-package model;
+package ApProject_OnlineShop.bank.model;
 
 import java.time.LocalTime;
 

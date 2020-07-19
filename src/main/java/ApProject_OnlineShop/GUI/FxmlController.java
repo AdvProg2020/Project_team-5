@@ -187,7 +187,6 @@ public class FxmlController {
     private static String secondRequestToFileTransferServer(Socket socket, File file) {
         try {
             System.out.println("Successfully connected to file server!");
-            long length = file.length();
             byte[] bytes = new byte[16 * 2048 * 4];
             InputStream inputStream = new FileInputStream(file);
             DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));

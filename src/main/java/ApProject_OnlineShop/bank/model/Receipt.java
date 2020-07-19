@@ -1,4 +1,5 @@
-package model;
+package ApProject_OnlineShop.bank.model;
+
 
 public class Receipt {
     Long id;
