@@ -132,14 +132,13 @@ public class LoadingData {
             if (Shop.getInstance().getAllGoods().size() != 0) {
                 if (Shop.getInstance().getAllFileProductsList().size() != 0) {
                     if (Shop.getInstance().getAllRequest().size() != 0) {
-                        Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
-                                .collect(Collectors.toList())) + getMaximumOfNumbers(Shop.getInstance()
-                                .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList()))
-                                + getMaximumOfNumbers(Shop.getInstance().getAllFileProductsList().stream().map(FileProduct::getFileProductId).collect(Collectors.toList())) + 1);
+                        Good.setGoodsCount(Math.max(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
+                                .collect(Collectors.toList())), getMaximumOfNumbers(Shop.getInstance().getAllFileProductsList().stream().map(FileProduct::getFileProductId).collect(Collectors.toList()))) + getMaximumOfNumbers(Shop.getInstance()
+                                .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
                     } else {
-                        Good.setGoodsCount(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
-                                .collect(Collectors.toList()))
-                                + getMaximumOfNumbers(Shop.getInstance().getAllFileProductsList().stream().map(FileProduct::getFileProductId).collect(Collectors.toList())) + 1);
+                        Good.setGoodsCount(Math.max(getMaximumOfNumbers(Shop.getInstance().getAllGoods().stream().map(Good::getGoodId)
+                                .collect(Collectors.toList())), getMaximumOfNumbers(Shop.getInstance().getAllFileProductsList().stream().map(FileProduct::getFileProductId).collect(Collectors.toList()))) + getMaximumOfNumbers(Shop.getInstance()
+                                .getAllRequest().stream().map(Request::getRequestId).collect(Collectors.toList())) + 1);
                     }
                 } else {
                     if (Shop.getInstance().getAllRequest().size() != 0) {
