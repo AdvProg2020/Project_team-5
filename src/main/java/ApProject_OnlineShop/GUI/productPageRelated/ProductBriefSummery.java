@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.GUI.productPageRelated;
+package ApProject_OnlineShop.GUI.ProductPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;

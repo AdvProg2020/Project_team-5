@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.GUI.productPageRelated;
+package ApProject_OnlineShop.GUI.ProductPageRelated;
 
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
@@ -215,7 +215,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
             productsPart.add(vbox, num % 3, row);
             num++;
             vbox.setCursor(Cursor.HAND);
-            vbox.setOnMouseClicked(e -> showProduct(fileProductsId));
+            vbox.setOnMouseClicked(e -> showFileProduct(fileProductsId));
         }
         int size = productsIds.size() + fileProductsIds.size();
         if (size == 0)
@@ -262,7 +262,9 @@ public class AllProductsPage extends FxmlController implements Initializable {
     }
 
     private void showFileProduct(Long productId) {
-        //TODO
+        FileProductPageController.setProductId(productId);
+        FileProductPageController.setPathBack("allProducts.fxml", "all products");
+        setScene("fileProductPage.fxml", "file product page");
     }
 
     public void removeCategoryProperty(String property) {
