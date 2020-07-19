@@ -5,11 +5,13 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.RequestForServer;
+import ApProject_OnlineShop.model.persons.Supporter;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -52,7 +54,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playMusicBackGround(false, true, false);
-        if (getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Seller)
+        if (getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Seller || getCurrentPerson() instanceof Supporter)
             shoppingBag.setVisible(false);
         handleSorts();
         if (connectToServer(new RequestForServer("FilteringController", "isAvailableProduct", null, getInputsForServer())).equals("true"))
@@ -412,6 +414,9 @@ public class AllProductsPage extends FxmlController implements Initializable {
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForManager.fxml", "account area");
+        }else if (getCurrentPerson() instanceof Supporter){
+            AccountAreaForSupporter.setPathBack("allProducts.fxml", "all products");
+            setScene("accountAreaForSupporter.fxml", "account area");
         }
     }
 

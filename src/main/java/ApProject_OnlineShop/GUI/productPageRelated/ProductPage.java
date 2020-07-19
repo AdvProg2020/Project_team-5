@@ -6,10 +6,12 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.Supporter;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.RequestForServer;
@@ -32,6 +34,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -64,10 +67,18 @@ public class ProductPage extends FxmlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (getCurrentPerson() instanceof Seller || getCurrentPerson() instanceof Manager) {
+        if (getCurrentPerson() instanceof Seller || getCurrentPerson() instanceof Manager || getCurrentPerson() instanceof Supporter) {
             cart.setVisible(false);
+        } else {
+            ArrayList<String> input35 = new ArrayList<>();
+            input35.add("" + productId);
+            connectToServer(new RequestForServer("ProductController", "increaseSeenNumber", null, input35));
         }
-        image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
+        ArrayList<String> input32 = new ArrayList<>();
+        input32.add("" + productId);
+        RequestForServer requestForServer2 = new RequestForServer("ProductController", "getProductImage", getToken(), input32);
+        image.setImage(new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer2))));
+//        image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
 //        List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId + "");
@@ -94,7 +105,8 @@ public class ProductPage extends FxmlController implements Initializable {
     private void makeProperties() {
         ArrayList<String> inputs22 = new ArrayList<>();
         inputs22.add(productId + "");
-        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);        detailsLabel.setText(good.getDetails());
+        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+        detailsLabel.setText(good.getDetails());
         HashMap<String, String> categoryProperties = good.getCategoryProperties();
         properties.setAlignment(Pos.CENTER);
         properties.setSpacing(13);
@@ -258,6 +270,9 @@ public class ProductPage extends FxmlController implements Initializable {
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("productPage.fxml", "product page");
             setScene("accountAreaForManager.fxml", "account area");
+        } else if (getCurrentPerson() instanceof Supporter) {
+            AccountAreaForSupporter.setPathBack("productPage.fxml", "product page");
+            setScene("accountAreaForSupporter.fxml", "account area");
         }
     }
 

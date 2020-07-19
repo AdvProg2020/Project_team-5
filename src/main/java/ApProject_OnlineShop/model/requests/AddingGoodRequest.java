@@ -23,8 +23,8 @@ public class AddingGoodRequest extends Request {
     private long goodId;
 
     public AddingGoodRequest(String nameOfGood, String brandOfGood, SubCategory subCategoryOfGood, String detailsOfGood,
-                             HashMap<String, String> categoryPropertiesOfGood, long priceOfGood, int availableNumberOfGood, String seller) {
-        this.goodId = Good.getGoodsCount();
+                             HashMap<String, String> categoryPropertiesOfGood, long priceOfGood, int availableNumberOfGood, String seller,String id) {
+        this.goodId = Long.parseLong(id);
         this.nameOfGood = nameOfGood;
         this.brandOfGood = brandOfGood;
         this.subCategoryOfGood = subCategoryOfGood.getName();

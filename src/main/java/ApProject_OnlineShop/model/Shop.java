@@ -10,6 +10,7 @@ import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
+import ApProject_OnlineShop.model.requests.RegisteringSellerRequest;
 import ApProject_OnlineShop.model.requests.Request;
 import ApProject_OnlineShop.server.Server;
 
@@ -328,7 +329,7 @@ public class Shop {
         return massages;
     }
 
-    public void addMassage(Massage massage){
+    public void addMassage(Massage massage) {
         this.massages.add(massage);
     }
 
@@ -545,5 +546,16 @@ public class Shop {
                 MainController.getInstance().getAccountAreaForSellerController().endAuction(auction.getAuctionId());
             }
         }
+    }
+
+    public RegisteringSellerRequest findRegisteringSellerRequestForServer(String userName) {
+        for (Request request : allRequest) {
+            if (request instanceof RegisteringSellerRequest) {
+                RegisteringSellerRequest registeringSellerRequest = (RegisteringSellerRequest) request;
+                if (registeringSellerRequest.getUsername().equals(userName))
+                    return registeringSellerRequest;
+            }
+        }
+        return null;
     }
 }

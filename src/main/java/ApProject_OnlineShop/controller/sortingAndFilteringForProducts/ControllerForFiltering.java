@@ -79,15 +79,15 @@ public class ControllerForFiltering {
     }
 
     public List<Good> filterByCategory(String category, List<Good> allGoods) {
-        return allGoods.stream().filter(good -> good.getSubCategory().getParentCategory().getName().equals(category)).collect(Collectors.toList());
+        return allGoods.stream().filter(good -> good.getSubCategory().getParentCategory().getName().equalsIgnoreCase(category)).collect(Collectors.toList());
     }
 
     public List<Good> filterBySubCategory(String subcategoryName, List<Good> allGoods) {
-        return allGoods.stream().filter(good -> good.getSubCategory().getName().equals(subcategoryName)).collect(Collectors.toList());
+        return allGoods.stream().filter(good -> good.getSubCategory().getName().equalsIgnoreCase(subcategoryName)).collect(Collectors.toList());
     }
 
     private List<Good> filterByBrand(String brandName, List<Good> allGoods) {
-        return allGoods.stream().filter(good -> good.getBrand().equals(brandName)).collect(Collectors.toList());
+        return allGoods.stream().filter(good -> good.getBrand().equalsIgnoreCase(brandName)).collect(Collectors.toList());
     }
 
     private List<Good> filterByPrice(BinaryFilters priceRange, List<Good> allGoods) {

@@ -6,11 +6,13 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.RequestForServer;
+import ApProject_OnlineShop.model.persons.Supporter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -64,6 +66,9 @@ public class AddCommentPage extends FxmlController {
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("addComment.fxml", "add comment");
             setScene("accountAreaForManager.fxml", "account area");
+        }else if (getCurrentPerson() instanceof Supporter){
+            AccountAreaForSupporter.setPathBack("addComment.fxml", "add comment");
+            setScene("accountAreaForSupporter.fxml", "account area");
         }
     }
 }

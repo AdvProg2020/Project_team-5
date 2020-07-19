@@ -5,6 +5,7 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.RequestForServer;
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class RegisterControllerPart2 extends FxmlController {
     private static ArrayList<String> details;
@@ -46,14 +48,23 @@ public class RegisterControllerPart2 extends FxmlController {
             bankAccountInfo.add(details.get(0));
             bankAccountInfo.add(details.get(1));
             bankAccountInfo.add(userName);
-            bankAccountInfo.add(details.get(details.size() -2));
-            bankAccountInfo.add(details.get(details.size() -1));
-            RequestForServer bankAccountRequest = new RequestForServer("BankAccountsController", "createBankAccount", null,bankAccountInfo);
+            bankAccountInfo.add(details.get(details.size() - 2));
+            bankAccountInfo.add(details.get(details.size() - 1));
+            RequestForServer bankAccountRequest = new RequestForServer("BankAccountsController", "createBankAccount", null, bankAccountInfo);
             String bankAccountResponse = connectToServer(bankAccountRequest);
             SuccessPageFxController.showPage("Register was successful",
                     "bank account created by ID " + bankAccountResponse);
-            if (selectedFile != null)
-                copyPhoto();
+            if (selectedFile != null) {
+//                copyPhoto();
+//                ArrayList<String> input2 = new ArrayList<>();
+//                input2.add(path);
+//                String serverResponse2 = connectToServer(new RequestForServer("Others", "photo", null, input2));
+//                if (serverResponse2.equals("ready to receive")) {
+//                    sendImageToServer(selectedFile, path);
+//                }
+                String path2 = "Resources\\UserImages\\" + userName + ".jpg";
+                sendImageToServer(selectedFile, path2);
+            }
             setScene("login.fxml", "Login");
         } else {
             ErrorPageFxController.showPage("Error for registering", serverResponse);
@@ -63,9 +74,6 @@ public class RegisterControllerPart2 extends FxmlController {
                 setScene("registerManager.fxml", "register manager");
             else if (role.equals("customer"))
                 setScene("registerCustomer.fxml", "register customer");
-            else if (role.equals("supporter")){
-
-            }
         }
 //        } catch (UsernameIsTakenAlreadyException | FileCantBeSavedException | MainManagerAlreadyRegistered | IOException e) {
 //            ErrorPageFxController.showPage("Error for registering", e.getMessage());
@@ -96,9 +104,9 @@ public class RegisterControllerPart2 extends FxmlController {
     }
 
     public void onSelectPhoto(ActionEvent actionEvent) {
-        File file = new File("Resources\\UserImages");
-        if (!file.exists())
-            file.mkdir();
+//        File file = new File("Resources\\UserImages");
+//        if (!file.exists())
+//            file.mkdir();
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter png = new FileChooser.ExtensionFilter("png", "*.png");
         FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("jpg", "*.jpg");

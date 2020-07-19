@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.server;
 
-import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
@@ -29,12 +28,15 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.scene.image.Image;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.text.html.ImageView;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -140,11 +142,9 @@ public class ClientHandler extends Thread {
     private void sortingHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("sortASort")) {
             Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).sortASort(Integer.parseInt(requestForServer.getInputs().get(1)));
-            System.out.println("hiii");
             dataOutputStream.writeUTF("done");
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getCurrentSort")) {
-            System.out.println("hiii22");
             dataOutputStream.writeUTF(Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).getCurrentSort());
             dataOutputStream.flush();
         }
@@ -284,6 +284,56 @@ public class ClientHandler extends Thread {
             Good.setGoodsCount(Long.parseLong(requestForServer.getInputs().get(0)));
             dataOutputStream.writeUTF("successfully set");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("photo")) {
+            File file2 = new File("Resources\\productImages");
+            if (!file2.exists())
+                file2.mkdir();
+            File file1 = new File("Resources\\UserImages");
+            if (!file1.exists())
+                file1.mkdir();
+            String path = requestForServer.getInputs().get(0);
+            dataOutputStream.writeUTF("ready to receive");
+            dataOutputStream.flush();
+            File file = new File(path);
+            try {
+                file.createNewFile();
+                OutputStream outputStream = new FileOutputStream(path);
+                byte[] bytes = new byte[16 * 2048 * 4];
+                int count;
+                while ((count = dataInputStream.read(bytes)) > 0) {
+                    outputStream.write(bytes, 0, count);
+                }
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            Image file = new Image(new ByteArrayInputStream(dataInputStream.readAllBytes()));
+//            File file = new File(path);
+//            System.out.println("hi1");
+//            FileOutputStream os = new FileOutputStream(file);
+//            System.out.println("hi2");
+//            byte[] fileBytes = dataInputStream.readAllBytes();
+//            System.out.println("hi3");
+//            System.out.println(fileBytes.length);
+//            os.write(fileBytes);
+//            System.out.println("hi4");
+//            os.close();
+//            System.out.println("hi server");
+//            BufferedImage bi = null;
+//            try {
+//                bi = ImageIO.read(file.toURL());
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                ImageIO.write(bi, "jpg", new File(requestForServer.getInputs().get(2)));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+        } else if (requestForServer.getFunction().equals("getPhoto")) {
+
         }
     }
 
@@ -378,6 +428,11 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getProductImage")) {
             byte[] imageBytes = MainController.getInstance().getProductController().getProductImage(Long.parseLong(requestForServer.getInputs().get(0)));
             dataOutputStream.write(imageBytes);
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("increaseSeenNumber")) {
+            Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
+            good.setSeenNumber(good.getSeenNumber() + 1);
+            dataOutputStream.writeUTF("done");
             dataOutputStream.flush();
         }
     }
@@ -1036,6 +1091,16 @@ public class ClientHandler extends Thread {
             MainController.getInstance().getAccountAreaController().sendMassage(new Gson().fromJson(requestForServer.getInputs().get(0), Massage.class));
             dataOutputStream.writeUTF("done successfully");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getUserPhoto")) {
+            File file = new File("Resources\\UserImages\\" + person.getUsername() + ".jpg");
+            byte[] imageBytes;
+            if (file.exists()) {
+                imageBytes = Files.readAllBytes(Paths.get("Resources/UserImages/" + person.getUsername() + ".jpg"));
+            } else {
+                imageBytes = Files.readAllBytes(Paths.get("Resources/UserImages/default1.jpg"));
+            }
+            dataOutputStream.write(imageBytes);
+            dataOutputStream.flush();
         }
     }
 
@@ -1119,9 +1184,7 @@ public class ClientHandler extends Thread {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (FileCantBeSavedException e) {
+            } catch (IOException | FileCantBeSavedException e) {
                 e.printStackTrace();
             }
         } else if (requestForServer.getFunction().equals("loginUser")) {

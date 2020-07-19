@@ -32,6 +32,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -75,7 +76,12 @@ public class ProductPageControllerForSeller extends FxmlController implements In
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
+        ArrayList<String> input = new ArrayList<>();
+        input.add("" + productId);
+        RequestForServer requestForServer = new RequestForServer("ProductController", "getProductImage", getToken(), input);
+        Image image1 = new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer)));
+        image.setImage(image1);
+//        image.setImage(new Image(Paths.get("Resources/productImages/" + productId + ".jpg").toUri().toString()));
 //        List<String> mainInfo = MainController.getInstance().getProductController().getMainInfo(productId);
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId + "");

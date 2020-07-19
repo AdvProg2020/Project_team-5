@@ -24,21 +24,15 @@ public class RegisterController extends FxmlController {
     @FXML
     TextField username, email, phoneNumber, firstName, lastName;
     @FXML
-    TextField credit;
-    @FXML
     TextField companyName, companyAddress, companyWebsite, companyPhoneNumber, companyFaxNumber;
 
 
     public void RegisterForCustomerPressed(ActionEvent actionEvent) {
         if (checkBaseInfos("customer")) {
-            if (!credit.getText().matches("\\d\\d\\d\\d+")) {
-                ErrorPageFxController.showPage("Error for registering", "credit is invalid!");
-            } else {
-                RegisterControllerPart2.setDetails2(addDetails("customer"));
-                RegisterControllerPart2.setRole("customer");
-                RegisterControllerPart2.setUserName(username.getText());
-                setScene("getPhotoForUsers.fxml", "register");
-            }
+            RegisterControllerPart2.setDetails2(addDetails("customer"));
+            RegisterControllerPart2.setRole("customer");
+            RegisterControllerPart2.setUserName(username.getText());
+            setScene("getPhotoForUsers.fxml", "register");
         }
     }
 
@@ -120,7 +114,7 @@ public class RegisterController extends FxmlController {
         details.add(phoneNumber.getText());
         details.add(password.getText());
         if (role.equals("customer")) {
-            details.add(credit.getText());
+            details.add(0 + "");
             details.add(bankPassword.getText());
             details.add(repeatPassword.getText());
         } else if (role.equals("seller")) {

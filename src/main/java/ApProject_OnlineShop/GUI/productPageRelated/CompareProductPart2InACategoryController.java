@@ -4,10 +4,12 @@ import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaForManagerFxController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
+import ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.Supporter;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
@@ -25,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -45,8 +48,16 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
     public void initialize(URL location, ResourceBundle resources) {
 //        productId2 = MainController.getInstance().getProductController().getGood().getGoodId();
         productId2 = ProductPage.productId;
-        image1.setImage(new Image(Paths.get("Resources/productImages/" + productId1 + ".jpg").toUri().toString()));
-        image2.setImage(new Image(Paths.get("Resources/productImages/" + productId2 + ".jpg").toUri().toString()));
+//        image1.setImage(new Image(Paths.get("Resources/productImages/" + productId1 + ".jpg").toUri().toString()));
+//        image2.setImage(new Image(Paths.get("Resources/productImages/" + productId2 + ".jpg").toUri().toString()));
+        ArrayList<String> input33 = new ArrayList<>();
+        input33.add("" + productId1);
+        RequestForServer requestForServer = new RequestForServer("ProductController", "getProductImage", getToken(), input33);
+        image1.setImage(new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer))));
+        ArrayList<String> input32 = new ArrayList<>();
+        input32.add("" + productId2);
+        RequestForServer requestForServer2 = new RequestForServer("ProductController", "getProductImage", getToken(), input32);
+        image2.setImage(new Image(new ByteArrayInputStream(connectToServerBytes(requestForServer2))));
 //        ArrayList<String> details = MainController.getInstance().getProductController().compareWithAnotherProductGUI(productId2,productId1);
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId2 + "");
@@ -174,6 +185,9 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
             setScene("accountAreaForManager.fxml", "account area");
+        } else if (getCurrentPerson() instanceof Supporter) {
+            AccountAreaForSupporter.setPathBack("compareTwoProductsInACategory.fxml", "compare products");
+            setScene("accountAreaForSupporter.fxml", "account area");
         }
     }
 
