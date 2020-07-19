@@ -1,6 +1,7 @@
-import model.BankAccount;
-import model.Receipt;
-import model.Token;
+package ApProject_OnlineShop.bank;
+
+import ApProject_OnlineShop.bank.model.*;
+
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

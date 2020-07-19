@@ -1,19 +1,20 @@
 package ApProject_OnlineShop.GUI.accountArea;
 
 import ApProject_OnlineShop.GUI.FxmlController;
+import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,10 +23,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ChatPageController extends FxmlController implements Initializable {
     private static String owner;
@@ -35,10 +35,19 @@ public class ChatPageController extends FxmlController implements Initializable 
     public TextField massageTextField;
     public VBox vBox;
     public Label title;
+    public ScrollPane scrollPane;
+    private ChatPageThread chatPageThread;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         title.setText("chat with " + guest);
+        loadChats();
+        chatPageThread = new ChatPageThread(this, owner, guest);
+        new Thread(chatPageThread).start();
+    }
+
+    synchronized public void loadChats() {
+        vBox.getChildren().clear();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(owner);
         inputs.add(guest);
@@ -56,6 +65,8 @@ public class ChatPageController extends FxmlController implements Initializable 
             vBox.getChildren().add(hBox);
         }
         vBox.getChildren().add(getAnswerBox());
+//        scrollPane.setVvalue(1);
+        scrollPane.vvalueProperty().bind(vBox.heightProperty());
     }
 
     public VBox getMassageVBox(Massage massage) {
@@ -95,6 +106,7 @@ public class ChatPageController extends FxmlController implements Initializable 
         this.massageTextField.setPrefWidth(388);
         this.massageTextField.setMinHeight(30);
         this.massageTextField.setAlignment(Pos.CENTER_LEFT);
+        this.massageTextField.setOnAction(e -> sendMassage());
         hBox.getChildren().add(massageTextField);
         HBox.setMargin(massageTextField, new Insets(7, 0, 1, 7));
         ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/sendIcon.png").toString()));
@@ -114,10 +126,11 @@ public class ChatPageController extends FxmlController implements Initializable 
         ArrayList<String> input = new ArrayList<>();
         input.add(new Gson().toJson(massage));
         connectToServer(new RequestForServer("AccountAreaController", "sendMassage", getToken(), input));
-        setScene("chatPage.fxml", "chat page");
+//        setScene("chatPage.fxml", "chat page");
     }
 
     public void backButton(ActionEvent actionEvent) {
+        chatPageThread.setExit(true);
         setScene(path, backTitle);
     }
 
@@ -130,6 +143,7 @@ public class ChatPageController extends FxmlController implements Initializable 
             connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
+            chatPageThread.setExit(true);
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
             FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
             setToken(null);
@@ -156,4 +170,5 @@ public class ChatPageController extends FxmlController implements Initializable 
     public void refreshPage(MouseEvent mouseEvent) {
         setScene("chatPage.fxml", "chat page");
     }
+
 }

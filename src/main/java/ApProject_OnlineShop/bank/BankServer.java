@@ -1,7 +1,8 @@
+package ApProject_OnlineShop.bank;
+
 import com.google.gson.Gson;
-import model.BankAccount;
-import model.Receipt;
-import model.Token;
+import ApProject_OnlineShop.bank.model.*;
+
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -9,18 +10,34 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class BankServer extends Thread {
-    private int port;
+    private static BankServer bankServer = new BankServer();
+    private int port = 8090;
     private ServerSocket serverSocket;
     private ArrayList<BankAccount> accounts;
     private ArrayList<Token> tokens;
     private ArrayList<Receipt> receipts;
 
-    public BankServer(int port) throws IOException {
-        this.port = port;
-        this.serverSocket = new ServerSocket(this.port);
+    //    public BankServer(int port) throws IOException {
+//        this.port = port;
+//        this.serverSocket = new ServerSocket(this.port);
+//        this.accounts = new ArrayList<>();
+//        this.tokens = new ArrayList<>();
+//        this.receipts = new ArrayList<>();
+//    }
+
+    private BankServer() {
+        try {
+            this.serverSocket = new ServerSocket(this.port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.accounts = new ArrayList<>();
         this.tokens = new ArrayList<>();
         this.receipts = new ArrayList<>();
+    }
+
+    public static BankServer getInstance() {
+        return bankServer;
     }
 
     @Override
@@ -30,7 +47,7 @@ public class BankServer extends Thread {
                 Socket clientSocket = serverSocket.accept();
                 DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(clientSocket.getInputStream()));
                 DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
-                new ClientHandler(dataOutputStream, dataInputStream, clientSocket, this).start();
+                new ClientHandler(dataOutputStream, dataInputStream, clientSocket, bankServer).start();
 
             } catch (IOException e) {
                 e.printStackTrace();
