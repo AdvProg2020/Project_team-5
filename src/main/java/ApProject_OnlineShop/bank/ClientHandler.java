@@ -184,10 +184,9 @@ public class ClientHandler extends Thread {
             else {
                 dataOutputStream.writeUTF(bank.getTransactions(bank.findTokenByString(splitInput[0]).getUserName(), splitInput[1]));
             }
-        }else {
+        } else {
             dataOutputStream.writeUTF(bank.getTransactions(bank.findTokenByString(splitInput[0]).getUserName(), splitInput[1]));
         }
         dataOutputStream.flush();
-        //invalid receipt Id
     }
 }
