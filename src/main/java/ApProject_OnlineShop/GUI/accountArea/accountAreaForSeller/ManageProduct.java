@@ -1,7 +1,7 @@
 package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 
 import ApProject_OnlineShop.GUI.FxmlController;
-import ApProject_OnlineShop.GUI.productPageRelated.ProductBriefSummery;
+import ApProject_OnlineShop.GUI.ProductPageRelated.ProductBriefSummery;
 import ApProject_OnlineShop.model.RequestForServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.productPageRelated.Cart">
+<GridPane alignment="CENTER" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="mainLayout" stylesheets="@styelsheets/baseStyles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApProject_OnlineShop.GUI.ProductPageRelated.Cart">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="483.0" minWidth="10.0" prefWidth="270.3999847412109" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="540.0" prefWidth="540.0" />

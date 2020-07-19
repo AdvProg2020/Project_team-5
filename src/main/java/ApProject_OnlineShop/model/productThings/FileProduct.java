@@ -55,8 +55,8 @@ public class FileProduct {
         this.name = name;
     }
 
-    public SubCategory getSubCategory() {
-        return Shop.getInstance().findSubCategoryByName(subCategory);
+    public String getSubCategory() {
+        return subCategory;
     }
 
     public void setSubCategory(SubCategory subCategory) {
