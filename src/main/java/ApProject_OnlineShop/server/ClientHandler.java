@@ -20,6 +20,7 @@ import ApProject_OnlineShop.model.RequestForServer;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.Auction;
+import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
@@ -355,6 +356,9 @@ public class ClientHandler extends Thread {
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("findOffById")) {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findOffById(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("findFileProductById")) {
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findFileProductById(Long.parseLong(requestForServer.getInputs().get(0))), FileProduct.class));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("findSubCategoryByName")) {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findSubCategoryByName((requestForServer.getInputs().get(0)))));
