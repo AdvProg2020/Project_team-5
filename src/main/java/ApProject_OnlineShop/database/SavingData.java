@@ -1,9 +1,7 @@
 package ApProject_OnlineShop.database;
 
-import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.ShopBankAccount;
 import ApProject_OnlineShop.model.persons.*;
-import com.gilecode.yagson.YaGson;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
