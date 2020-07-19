@@ -462,6 +462,14 @@ public class ClientHandler extends Thread {
             }
             dataOutputStream.writeUTF(convertListToString(idsString));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getFileProducts")) {
+            List<Long> longIds = MainController.getInstance().getAllProductsController().getFileProducts();
+            ArrayList<String> idsString = new ArrayList<>();
+            for (Long id : longIds) {
+                idsString.add(id + "");
+            }
+            dataOutputStream.writeUTF(convertListToString(idsString));
+            dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("isInOff")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getAllProductsController().isInOff(Long.parseLong(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();

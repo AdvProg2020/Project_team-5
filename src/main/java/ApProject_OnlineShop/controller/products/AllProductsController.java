@@ -81,6 +81,10 @@ public class AllProductsController {
                 stream().map(Good::getGoodId).collect(Collectors.toList());
     }
 
+    public List<Long> getFileProducts() {
+        return Shop.getInstance().getAllFileProductsList().stream().map(FileProduct::getFileProductId).collect(Collectors.toList());
+    }
+
     public boolean isInOff(long goodId){
         if (Shop.getInstance().findGoodById(goodId).getSellerThatPutsThisGoodOnOff() == null)
             return false;
