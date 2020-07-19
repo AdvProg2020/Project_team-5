@@ -16,7 +16,7 @@ public class FileProduct {
     private long price;
     private String description;
     private int downloadNumber;
-    private ArrayList<Long> comments;
+    /*private ArrayList<Long> comments;*/
     private LocalDate modificationDate;
 
     public FileProduct(String name, Seller seller, long price, String description) {
@@ -28,7 +28,7 @@ public class FileProduct {
         this.price = price;
         this.description = description;
         this.downloadNumber = 0;
-        this.comments = new ArrayList<>();
+        /*this.comments = new ArrayList<>();*/
         this.modificationDate = LocalDate.now();
     }
 
@@ -95,7 +95,7 @@ public class FileProduct {
         this.downloadNumber++;
     }
 
-    public ArrayList<Comment> getComments() {
+    /*public ArrayList<Comment> getComments() {
         ArrayList<Comment> allComments = new ArrayList<>();
         for (Long commentId : comments) {
             allComments.add(Shop.getInstance().getAllComments().get(commentId));
@@ -105,7 +105,7 @@ public class FileProduct {
 
     public void addComment(Comment comment) {
         this.comments.add(comment.getId());
-    }
+    }*/
 
     public LocalDate getModificationDate() {
         return modificationDate;

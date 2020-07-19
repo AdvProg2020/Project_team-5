@@ -69,28 +69,6 @@
                             <Insets left="15.0" />
                         </padding>
                     </Label>
-                    <Label fx:id="brand" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="280.0">
-                        <font>
-                            <Font name="Times New Roman" size="18.0" />
-                        </font>
-                        <VBox.margin>
-                            <Insets left="15.0" />
-                        </VBox.margin>
-                        <padding>
-                            <Insets left="15.0" />
-                        </padding>
-                    </Label>
-                    <Label fx:id="category" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="280.0">
-                        <font>
-                            <Font name="Times New Roman" size="14.0" />
-                        </font>
-                        <padding>
-                            <Insets left="15.0" />
-                        </padding>
-                        <VBox.margin>
-                            <Insets left="15.0" />
-                        </VBox.margin>
-                    </Label>
                     <Label fx:id="subcategory" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="280.0">
                         <font>
                             <Font name="Times New Roman" size="14.0" />
@@ -102,7 +80,7 @@
                             <Insets left="15.0" />
                         </padding>
                     </Label>
-                    <Label fx:id="views" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="280.0">
+                    <Label fx:id="downloadNumber" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="280.0">
                         <font>
                             <Font name="Times New Roman" size="14.0" />
                         </font>
