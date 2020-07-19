@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class BankServer extends Thread {
     private static BankServer bankServer = new BankServer();
-    private int port = 8090;
+    private static final int port = 8090;
     private ServerSocket serverSocket;
     private ArrayList<BankAccount> accounts;
     private ArrayList<Token> tokens;
@@ -156,10 +156,11 @@ public class BankServer extends Thread {
                 if (receipt.getSourceAccountID() == accountId && receipt.getPaid() == 1)
                     transactions += new Gson().toJson(receipt) + "*";
             }
-        } else if (Pattern.matches("[\\d]+",type)){
+        } else if (Pattern.matches("[\\d]+", type)) {
             for (Receipt receipt : receipts) {
-                if (receipt.getId() == Long.parseLong(type)){
-                    transactions += new Gson().toJson(receipt) + "*";}
+                if (receipt.getId() == Long.parseLong(type)) {
+                    transactions += new Gson().toJson(receipt) + "*";
+                }
             }
         }
         if (transactions.length() > 0)
