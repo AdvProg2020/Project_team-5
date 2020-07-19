@@ -6,7 +6,6 @@ import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
-import javafx.scene.control.ScrollPane;
 
 import java.util.ArrayList;
 

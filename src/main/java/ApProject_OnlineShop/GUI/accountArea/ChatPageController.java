@@ -65,7 +65,8 @@ public class ChatPageController extends FxmlController implements Initializable 
             vBox.getChildren().add(hBox);
         }
         vBox.getChildren().add(getAnswerBox());
-        scrollPane.setVvalue(1);
+//        scrollPane.setVvalue(1);
+        scrollPane.vvalueProperty().bind(vBox.heightProperty());
     }
 
     public VBox getMassageVBox(Massage massage) {
@@ -105,6 +106,7 @@ public class ChatPageController extends FxmlController implements Initializable 
         this.massageTextField.setPrefWidth(388);
         this.massageTextField.setMinHeight(30);
         this.massageTextField.setAlignment(Pos.CENTER_LEFT);
+        this.massageTextField.setOnAction(e -> sendMassage());
         hBox.getChildren().add(massageTextField);
         HBox.setMargin(massageTextField, new Insets(7, 0, 1, 7));
         ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/sendIcon.png").toString()));
