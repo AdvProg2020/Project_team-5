@@ -290,6 +290,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         MainController.getInstance().getBankTransactionsController().payMoneyToSellerAfterPurchaseByWallet(fileProduct.getPrice() + "", fileProduct.getSeller().getUsername());
         Database.getInstance().saveItem(customer);
         Database.getInstance().saveItem(fileProduct.getSeller());
+        fileProduct.increaseDownloadNumber();
+        Database.getInstance().saveItem(fileProduct);
     }
 
 }

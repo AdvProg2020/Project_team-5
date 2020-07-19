@@ -223,7 +223,14 @@ public class FileProductPageController extends FxmlController implements Initial
     }
 
     public void onDownloadButtonPressed() {
-        PurchaseFileProduct.setFileProductId(productId);
-        setScene("purchasePage.fxml", "purchase file product");
+        if (getCurrentPerson() instanceof Customer) {
+            PurchaseFileProduct.setFileProductId(productId);
+            setScene("purchasePage.fxml", "purchase file product");
+        } else if (getCurrentPerson() == null) {
+            PurchaseFileProduct.setFileProductId(productId);
+            LoginController.setPathAfterLogin("purchasePage.fxml", "purchase file product");
+            LoginController.setPathBack("mainMenuLayout.fxml", "Main menu");
+            setScene("login.fxml", "login");
+        }
     }
 }
