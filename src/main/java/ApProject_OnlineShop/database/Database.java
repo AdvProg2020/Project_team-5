@@ -6,6 +6,8 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.ShopBankAccount;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
+import ApProject_OnlineShop.model.orders.OrderFileProductForCustomer;
+import ApProject_OnlineShop.model.orders.OrderFileProductForSeller;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.*;
@@ -50,6 +52,8 @@ public class Database {
         loadingData.loadOff();
         loadingData.loadGoodsInCarts();
         loadingData.loadOrderForSeller();
+        loadingData.loadOrderFileProductForSeller();
+        loadingData.loadOrderFileProductForCustomer();
         loadingData.loadOrderForCustomer();
         loadingData.loadShopBankAccount();
         loadingData.loadAuctions();
@@ -92,6 +96,10 @@ public class Database {
             deletingData.deleteOrderForSeller((OrderForSeller) item);
         } else if (item instanceof OrderForCustomer) {
             deletingData.deleteOrderForCustomer((OrderForCustomer) item);
+        } else if (item instanceof OrderFileProductForSeller) {
+            deletingData.deleteOrderFileProductForSeller((OrderFileProductForSeller) item);
+        } else if (item instanceof OrderFileProductForCustomer) {
+            deletingData.deleteOrderFileProductForCustomer((OrderFileProductForCustomer) item);
         } else if (item instanceof Request) {
             deletingData.deleteRequest((Request) item);
         } else if (item instanceof Auction) {
@@ -136,6 +144,10 @@ public class Database {
             savingData.saveOrderForSeller((OrderForSeller) item);
         } else if (item instanceof OrderForCustomer) {
             savingData.saveOrderForCustomer((OrderForCustomer) item);
+        } else if (item instanceof OrderFileProductForSeller) {
+            savingData.saveOrderFileProductForSeller((OrderFileProductForSeller) item);
+        } else if (item instanceof OrderFileProductForCustomer) {
+            savingData.saveOrderFileProductForCustomer((OrderFileProductForCustomer) item);
         } else if (item instanceof Request) {
             savingData.saveRequest((Request) item);
         } else if(item instanceof ShopBankAccount){
