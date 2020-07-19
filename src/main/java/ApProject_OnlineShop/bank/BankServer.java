@@ -139,6 +139,7 @@ public class BankServer extends Thread {
 
     public String getTransactions(String username, String type) {
         long accountId = Long.parseLong(findAccountByUsername(username).getAccountNumber());
+        System.out.println(type);
         String transactions = "";
         if (type.equals("*")) {
             for (Receipt receipt : receipts) {
@@ -156,10 +157,9 @@ public class BankServer extends Thread {
                     transactions += new Gson().toJson(receipt) + "*";
             }
         } else if (Pattern.matches("[\\d]+",type)){
-            System.out.println("hi");
             for (Receipt receipt : receipts) {
-                if (receipt.getId() == Long.parseLong(type))
-                    transactions += new Gson().toJson(receipt) + "*";
+                if (receipt.getId() == Long.parseLong(type)){
+                    transactions += new Gson().toJson(receipt) + "*";}
             }
         }
         if (transactions.length() > 0)

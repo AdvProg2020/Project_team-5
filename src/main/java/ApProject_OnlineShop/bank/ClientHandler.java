@@ -171,6 +171,7 @@ public class ClientHandler extends Thread {
     }
 
     public void getTransactions(String input) throws IOException {
+        System.out.println("get_transactions");
         String[] splitInput = input.substring("get_transactions ".length()).split(" ");
         if (bank.findTokenByString(splitInput[0]) == null)
             dataOutputStream.writeUTF("token is invalid");
@@ -178,9 +179,12 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF("token expired");
         else if (!Pattern.matches("[*|+|-]", splitInput[1])) {
             if (bank.getReceiptById(splitInput[1]) == null || (!bank.findTokenByString(splitInput[0]).getUserName().equals(bank.findAccountByNumber("" + bank.getReceiptById(splitInput[1]).getSourceAccountID()).getUserName())
-                    && !bank.findTokenByString(splitInput[0]).getUserName().equals(bank.findAccountByNumber("" + bank.getReceiptById(splitInput[1]).getDestAccountID()).getUserName())))
+                    && !bank.findTokenByString(splitInput[0]).getUserName().equals(bank.findAccountByNumber("" + bank.getReceiptById(splitInput[1]).getDestAccountID()).getUserName())) || bank.getReceiptById(splitInput[1]).getPaid() == 0)
                 dataOutputStream.writeUTF("invalid receipt Id");
-        } else {
+            else {
+                dataOutputStream.writeUTF(bank.getTransactions(bank.findTokenByString(splitInput[0]).getUserName(), splitInput[1]));
+            }
+        }else {
             dataOutputStream.writeUTF(bank.getTransactions(bank.findTokenByString(splitInput[0]).getUserName(), splitInput[1]));
         }
         dataOutputStream.flush();
