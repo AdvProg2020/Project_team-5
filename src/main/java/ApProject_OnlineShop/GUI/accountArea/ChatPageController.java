@@ -32,6 +32,7 @@ public class ChatPageController extends FxmlController implements Initializable 
     private static String guest;
     private static String path;
     private static String backTitle;
+    private String textOfTextField;
     public TextField massageTextField;
     public VBox vBox;
     public Label title;
@@ -41,12 +42,15 @@ public class ChatPageController extends FxmlController implements Initializable 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         title.setText("chat with " + guest);
+        textOfTextField = "";
         loadChats();
         chatPageThread = new ChatPageThread(this, owner, guest);
         new Thread(chatPageThread).start();
     }
 
     synchronized public void loadChats() {
+        if (massageTextField != null)
+            textOfTextField = massageTextField.getText();
         vBox.getChildren().clear();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(owner);
@@ -107,6 +111,7 @@ public class ChatPageController extends FxmlController implements Initializable 
         this.massageTextField.setMinHeight(30);
         this.massageTextField.setAlignment(Pos.CENTER_LEFT);
         this.massageTextField.setOnAction(e -> sendMassage());
+        this.massageTextField.setText(textOfTextField);
         hBox.getChildren().add(massageTextField);
         HBox.setMargin(massageTextField, new Insets(7, 0, 1, 7));
         ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("pictures/sendIcon.png").toString()));
@@ -126,6 +131,8 @@ public class ChatPageController extends FxmlController implements Initializable 
         ArrayList<String> input = new ArrayList<>();
         input.add(new Gson().toJson(massage));
         connectToServer(new RequestForServer("AccountAreaController", "sendMassage", getToken(), input));
+        this.textOfTextField = "";
+        this.massageTextField.setText("");
 //        setScene("chatPage.fxml", "chat page");
     }
 

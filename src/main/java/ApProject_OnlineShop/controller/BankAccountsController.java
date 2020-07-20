@@ -5,13 +5,14 @@ import java.net.Socket;
 
 public class BankAccountsController {
     int bankPort;
+    private static final String host="127.0.0.1";
 
     public BankAccountsController(int bankPort) {
         this.bankPort = bankPort;
     }
 
     public String createBankAccount(String firstName, String lastName, String userName, String password, String repeatPassword) throws IOException {
-        Socket socket = new Socket("127.0.0.1", bankPort);
+        Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dataOutputStream.writeUTF("create_account " + firstName + " " + lastName + " " + userName + " " + password + " " + repeatPassword);
@@ -23,7 +24,7 @@ public class BankAccountsController {
     }
 
     public String getToken(String username, String password) throws IOException {
-        Socket socket = new Socket("127.0.0.1", bankPort);
+        Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dataOutputStream.writeUTF("get_token " + username + " " + password);
@@ -35,7 +36,7 @@ public class BankAccountsController {
     }
 
     public String createReceipt(String token, String type, String money, String sourceId, String destinationID, String description) throws IOException {
-        Socket socket = new Socket("127.0.0.1", bankPort);
+        Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dataOutputStream.writeUTF("create_receipt " + token + " " + type + " " + money + " " + sourceId + " " + destinationID + " " + description);
@@ -47,7 +48,7 @@ public class BankAccountsController {
     }
 
     public String getTransactions(String token, String type) throws IOException {
-        Socket socket = new Socket("127.0.0.1", bankPort);
+        Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dataOutputStream.writeUTF("get_transactions " + token + " " + type);
@@ -59,7 +60,7 @@ public class BankAccountsController {
     }
 
     public String pay(String receiptID) throws IOException {
-        Socket socket = new Socket("127.0.0.1", bankPort);
+        Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dataOutputStream.writeUTF("pay " + receiptID );
@@ -71,7 +72,7 @@ public class BankAccountsController {
     }
 
     public String getBalance(String token) throws IOException {
-        Socket socket = new Socket("127.0.0.1", bankPort);
+        Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dataOutputStream.writeUTF("get_balance " + token );

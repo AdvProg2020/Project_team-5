@@ -645,6 +645,28 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getMassages")) {
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAccountAreaForCustomerController().getMassages(requestForServer.getInputs().get(0), requestForServer.getInputs().get(1))));
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("purchaseFileProductByWallet")) {
+            try {
+                MainController.getInstance().getAccountAreaForCustomerController().purchaseFileProductByWallet(
+                        Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1), requestForServer.getInputs().get(2),
+                        Long.parseLong(requestForServer.getInputs().get(3)), user
+                );
+                dataOutputStream.writeUTF("purchase successful");
+            } catch (Exception e) {
+                e.printStackTrace();
+                dataOutputStream.writeUTF(e.getMessage());
+            } finally {
+                dataOutputStream.flush();
+            }
+        } else if (requestForServer.getFunction().equals("downloadFile")) {
+            File file = Shop.getInstance().findFileProductById(Long.parseLong(requestForServer.getInputs().get(0))).getFile();
+            byte[] bytes = new byte[16 * 2048 * 4];
+            InputStream inputStream = new FileInputStream(file);
+            int count;
+            while ((count = inputStream.read(bytes)) > 0) {
+                dataOutputStream.write(bytes, 0, count);
+            }
+            inputStream.close();
         }
     }
 
@@ -874,6 +896,12 @@ public class ClientHandler extends Thread {
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getOnlineUsers")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getOnlineCustomers()));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("isOrderForFileProduct")) {
+            dataOutputStream.writeUTF(MainController.getInstance().getAccountAreaForManagerController().isOrderForFileProduct(Long.parseLong(requestForServer.getInputs().get(0))) + "");
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getFileOrderInfoGUI")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getFileOrderInfoGUI(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         }
     }

@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.GUI;
 
 import ApProject_OnlineShop.model.persons.*;
+import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.requests.*;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
@@ -14,12 +15,9 @@ import javafx.scene.media.AudioClip;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +29,8 @@ public class FxmlController {
     private static boolean isAllProductPlay;
     private static String token;
     private static long id;
+    private static final int port = 14464;
+    private static final String ip = "0.tcp.ngrok.io";
 
     public void setScene(String address, String title) {
         playButtonMusic();
@@ -126,7 +126,7 @@ public class FxmlController {
 
     public static String connectToServer(RequestForServer requestForServer) {
         try {
-            Socket socket = new Socket("127.0.01", 8888);
+            Socket socket = new Socket(ip, port);
             System.out.println("Successfully connected to server!");
             DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -142,7 +142,7 @@ public class FxmlController {
 
     public static byte[] connectToServerBytes(RequestForServer requestForServer) {
         try {
-            Socket socket = new Socket("127.0.0.1", 8888);
+            Socket socket = new Socket(ip, port);
             System.out.println("Successfully connected to server!");
             DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -158,7 +158,7 @@ public class FxmlController {
 
     public static String connectToFileTransferServer(RequestForServer requestForServer, File file) {
         try {
-            Socket socket = new Socket("127.0.0.1", 4444);
+            Socket socket = new Socket(ip, port);
             System.out.println(firstRequestToFileTransferServer(socket, requestForServer));
             String response = secondRequestToFileTransferServer(socket, file);
             return response;
@@ -201,6 +201,31 @@ public class FxmlController {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static String connectToServerDownload(RequestForServer requestForServer) {
+        try {
+            Socket socket = new Socket("127.0.0.1", 8888);
+            System.out.println("Successfully connected to server!");
+            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            Gson gson = new Gson();
+            dataOutputStream.writeUTF(gson.toJson(requestForServer, RequestForServer.class));
+            dataOutputStream.flush();
+            File file = new File("Downloads\\" + requestForServer.getInputs().get(1));
+            file.createNewFile();
+            OutputStream outputStream = new FileOutputStream("Downloads\\" + requestForServer.getInputs().get(1));
+            byte[] bytes = new byte[16 * 2048 * 4];
+            int count;
+            while ((count = dataInputStream.read(bytes)) > 0) {
+                outputStream.write(bytes, 0, count);
+            }
+            outputStream.close();
+            return "file successfully downloaded.";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static String getToken() {
@@ -336,7 +361,7 @@ public class FxmlController {
     public void sendImageToServer(File file, String path) {
         Socket socket = null;
         try {
-            socket = new Socket("127.0.0.1", 8888);
+            socket = new Socket(ip, port);
             DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             System.out.println("Successfully connected to server!");

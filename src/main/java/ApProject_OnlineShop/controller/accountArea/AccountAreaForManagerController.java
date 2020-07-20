@@ -15,6 +15,7 @@ import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.model.orders.Order;
+import ApProject_OnlineShop.model.orders.OrderFileProductForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
@@ -413,7 +414,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         HashMap<Long, Order> allOrders = Shop.getInstance().getAllOrders();
         List<String> customersOrder = new ArrayList<>();
         for (Order order : allOrders.values()) {
-            if (order instanceof OrderForCustomer)
+            if (order instanceof OrderForCustomer || order instanceof OrderFileProductForCustomer)
                 customersOrder.add(order.briefString());
         }
         return customersOrder;
@@ -461,6 +462,22 @@ public class AccountAreaForManagerController extends AccountAreaController {
             onlineCustomers.add("- " + value.getUsername() + "       " + "role : " + value.getRole());
         }
         return onlineCustomers;
+    }
+
+    public boolean isOrderForFileProduct(long orderId) {
+        return Shop.getInstance().getAllOrders().get(orderId) instanceof OrderFileProductForCustomer;
+    }
+
+    public List<String> getFileOrderInfoGUI(long orderId) {
+        List<String> details = new ArrayList<>();
+        OrderFileProductForCustomer order = (OrderFileProductForCustomer) Shop.getInstance().getAllOrders().get(orderId);
+        details.add(order.getOrderId() + "");
+        details.add(order.getDate().toString());
+        details.add(order.getFileProduct().getName());
+        details.add(order.getDiscountAmount() + "");
+        details.add(order.getPrice() + "");
+        details.add(order.getOrderStatus().toString());
+        return details;
     }
 
 }

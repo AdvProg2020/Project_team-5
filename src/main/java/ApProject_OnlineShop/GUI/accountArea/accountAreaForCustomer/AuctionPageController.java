@@ -13,10 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -40,15 +37,22 @@ public class AuctionPageController extends FxmlController implements Initializab
     private VBox singleAuctionVBox;
     @FXML
     private VBox chatBox;
+    @FXML
+    private ScrollPane scrollPane;
 
     public TextField messageTextField;
 
     private static String selectedAuctionId;
+
+    private AuctionPageChatThread auctionPageChatThread;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewSingleAuction();
         updateLastPriceLabel();
         updateChatBox();
+        auctionPageChatThread = new AuctionPageChatThread(this, selectedAuctionId);
+        new Thread(auctionPageChatThread).start();
         if (!isPersonOfferedPriceInAuction())
             SuccessPageFxController.showPage("offer price", "please first offer a price to participate in auction and chat with other participants");
     }
@@ -119,6 +123,7 @@ public class AuctionPageController extends FxmlController implements Initializab
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
             FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
             setToken(null);
+            auctionPageChatThread.setExit(true);
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
@@ -130,13 +135,13 @@ public class AuctionPageController extends FxmlController implements Initializab
         return serverResponse.equals("true");
     }
 
-
     public void onBackButtonPressed(ActionEvent actionEvent) {
+        auctionPageChatThread.setExit(true);
         setScene("viewAllAuctionsForCustomerPage.fxml", "view auctions");
     }
 
     @FXML
-    private void updateChatBox() {
+    public void updateChatBox() {
         if (isPersonOfferedPriceInAuction()) {
             chatBox.getChildren().clear();
             ArrayList<String> inputs = new ArrayList<>();
@@ -155,6 +160,7 @@ public class AuctionPageController extends FxmlController implements Initializab
                 chatBox.getChildren().add(hBox);
             }
             chatBox.getChildren().add(getAnswerBox());
+            scrollPane.vvalueProperty().bind(chatBox.heightProperty());
         }
     }
 

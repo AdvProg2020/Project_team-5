@@ -1,5 +1,6 @@
 package ApProject_OnlineShop.controller.accountArea;
 
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.CustomerNotFoundInAuctionException;
@@ -11,9 +12,7 @@ import ApProject_OnlineShop.exception.NotEnoughCredit;
 import ApProject_OnlineShop.exception.productExceptions.YouRatedThisProductBefore;
 import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.orders.Order;
-import ApProject_OnlineShop.model.orders.OrderForCustomer;
-import ApProject_OnlineShop.model.orders.OrderForSeller;
+import ApProject_OnlineShop.model.orders.*;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.persons.Seller;
@@ -272,6 +271,29 @@ public class AccountAreaForCustomerController extends AccountAreaController {
                 massages.add(massage);
         }
         return massages;
+    }
+
+    public void purchaseFileProductByWallet(long fileProductId, String phoneNumber, String discountCode, long price, Person person) throws Exception {
+        FileProduct fileProduct = Shop.getInstance().findFileProductById(fileProductId);
+        Customer customer = (Customer)person;
+        if (!discountCode.equals("")) {
+            DiscountCode discountCode1 = Shop.getInstance().findDiscountCode(discountCode);
+            discountCode1.discountBeUsedForCustomer(customer);
+        }
+        OrderFileProductForSeller orderFileProductForSeller = new OrderFileProductForSeller(price, fileProduct.getSeller(), customer.getUsername(), fileProduct);
+        Shop.getInstance().addOrder(orderFileProductForSeller);
+        orderFileProductForSeller.setOrderStatus(Order.OrderStatus.RECEIVED);
+        Database.getInstance().saveItem(orderFileProductForSeller);
+        OrderFileProductForCustomer orderFileProductForCustomer = new OrderFileProductForCustomer(fileProduct, price, phoneNumber, fileProduct.getPrice() - price);
+        Shop.getInstance().addOrder(orderFileProductForCustomer);
+        orderFileProductForCustomer.setOrderStatus(Order.OrderStatus.RECEIVED);
+        Database.getInstance().saveItem(orderFileProductForCustomer);
+        customer.setCredit(customer.getCredit() - price);
+        MainController.getInstance().getBankTransactionsController().payMoneyToSellerAfterPurchaseByWallet(fileProduct.getPrice() + "", fileProduct.getSeller().getUsername());
+        Database.getInstance().saveItem(customer);
+        Database.getInstance().saveItem(fileProduct.getSeller());
+        fileProduct.increaseDownloadNumber();
+        Database.getInstance().saveItem(fileProduct);
     }
 
 }
