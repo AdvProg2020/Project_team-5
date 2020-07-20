@@ -1,7 +1,7 @@
 package ApProject_OnlineShop.controller.accountArea;
 
 import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.productExceptions.FieldCantBeEditedException;
 import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.Shop;
@@ -10,7 +10,6 @@ import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Person;
-import ApProject_OnlineShop.model.persons.Seller;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,11 +73,11 @@ public class AccountAreaController {
     public List<String> getSortedOrders(int chosenSort, List<Order> orders) {
         List<String> ordersString = new ArrayList<>();
         if (chosenSort == 0)
-            ordersString = orders.stream().map(order -> order.briefString()).collect(Collectors.toList());
+            ordersString = orders.stream().map(Order::briefString).collect(Collectors.toList());
         if (chosenSort == 1)
-            ordersString = MainController.getInstance().getSortController().sortByDate(orders).stream().map(order -> order.briefString()).collect(Collectors.toList());
+            ordersString = MainController.getInstance().getSortController().sortByDate(orders).stream().map(Order::briefString).collect(Collectors.toList());
         if (chosenSort == 2)
-            ordersString = MainController.getInstance().getSortController().sortByPrice(orders).stream().map(order -> order.briefString()).collect(Collectors.toList());
+            ordersString = MainController.getInstance().getSortController().sortByPrice(orders).stream().map(Order::briefString).collect(Collectors.toList());
         return ordersString;
     }
 

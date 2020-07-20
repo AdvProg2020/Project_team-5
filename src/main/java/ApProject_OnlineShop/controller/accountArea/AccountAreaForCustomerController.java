@@ -2,7 +2,7 @@ package ApProject_OnlineShop.controller.accountArea;
 
 import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.CustomerNotFoundInAuctionException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
@@ -22,6 +22,7 @@ import ApProject_OnlineShop.server.Server;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -139,7 +140,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public long useDiscountCode(String code, Person person, long id) throws Exception {
         DiscountCode discountCode = ((Customer) person).findDiscountCode(code);
-        if (discountCode.getEndDate().isBefore(LocalDate.now()))
+        if (discountCode.getEndDate().isBefore(LocalDateTime.now()))
             throw new DiscountCodeExpired();
         return calculateFinalPrice(discountCode, id);
     }
@@ -212,7 +213,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public long finalPriceOfAList(List<GoodInCart> products) {
-        return products.stream().map(GoodInCart::getFinalPrice).reduce(0L, (ans, i) -> ans + i);
+        return products.stream().map(GoodInCart::getFinalPrice).reduce(0L, Long::sum);
     }
 
     public void reduceAvailableNumberOfGoodsAfterPurchase(long id) throws IOException, FileCantBeSavedException {

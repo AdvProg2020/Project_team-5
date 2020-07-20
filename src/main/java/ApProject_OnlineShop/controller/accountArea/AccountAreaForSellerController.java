@@ -2,7 +2,7 @@ package ApProject_OnlineShop.controller.accountArea;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.OffNotFoundException;
@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,7 +59,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
                 }
             }
             good.removeSeller(seller);
-            seller.removeFromActiveGoods(good.getGoodId());
+            seller.removeFromActiveGoods(good);
             Database.getInstance().saveItem(seller);
             Database.getInstance().saveItem(good);
         }
@@ -182,7 +182,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
 
     public void addOff(ArrayList<String> offDetails, ArrayList<Long> offProducts, Person person) throws IOException, FileCantBeSavedException {
         AddingOffRequest addingOffRequest = new AddingOffRequest(getProductsByIds(offProducts),
-                LocalDate.parse(offDetails.get(0)), LocalDate.parse(offDetails.get(1)),
+                LocalDateTime.parse(offDetails.get(0)), LocalDateTime.parse(offDetails.get(1)),
                 Long.parseLong(offDetails.get(2)), Integer.parseInt(offDetails.get(3)),
                 ((Seller) person));
         Shop.getInstance().addRequest(addingOffRequest);

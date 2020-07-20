@@ -1,13 +1,37 @@
 package ApProject_OnlineShop.model.persons;
 
-public abstract class Person {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "Persons")
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Person implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PersonId", nullable = false,  unique = true)
+    private long personId; //TODO
+
+    @Column(name = "UserName", unique = true, nullable = false)
     private String username;
+
+    @Column(name = "FirstName")
     private String firstName;
+
+    @Column(name = "LastName")
     private String lastName;
+
+    @Column(name = "Email")
     private String email;
+
+    @Column(name = "PhoneNumber")
     private String phoneNumber;
+
+    @Column(name = "Password", nullable = false)
     private String password;
-    private  String role = this.getClass().getSimpleName();
+
+    @Transient
+    private String role = this.getClass().getSimpleName();
 
     public Person(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
         this.username = username;
@@ -16,6 +40,9 @@ public abstract class Person {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
+    }
+
+    public Person() {
     }
 
     public String getUsername() {
@@ -72,6 +99,14 @@ public abstract class Person {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(long personId) {
+        this.personId = personId;
     }
 
     @Override

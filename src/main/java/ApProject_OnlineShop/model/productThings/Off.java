@@ -3,20 +3,47 @@ package ApProject_OnlineShop.model.productThings;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Off {
+@Entity
+@Table(name = "Off")
+public class Off implements Serializable {
+    @Transient
     private static long offsCount = 1;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "OffID")
     private long offId;
-    private List<Long> offGoods;
+
+    @ManyToMany
+    @JoinTable(name = "OffAndGoods", joinColumns = @JoinColumn(name = "OffId"), inverseJoinColumns = @JoinColumn(name = "ProductId"))
+    private List<Good> offGoods;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "OffStatus", nullable = false)
     private OffStatus offStatus;
-    private LocalDate startDate;
-    private LocalDate endDate;
+
+    @Column(name = "StartFrom", nullable = false)
+    private LocalDateTime startDate;
+
+    @Column(name = "EndTo", nullable = false)
+    private LocalDateTime endDate;
+
+    @Column(name = "MaxDiscount", nullable = false)
     private long maxDiscount;
+
+    @Column(name = "DiscountPercent", nullable = false)
     private int discountPercent;
-    private String seller;
+
+    @ManyToOne
+    @JoinColumn(name = "SellerId", referencedColumnName = "PersonId")
+    private Seller seller;
 
     public enum OffStatus {
         VALIDATING,
@@ -24,18 +51,19 @@ public class Off {
         EDITING
     }
 
-    public Off(List<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
-        this.offId = offsCount++;
-        this.offGoods = new ArrayList<>();
-        for (Good offGood : offGoods) {
-            this.offGoods.add(offGood.getGoodId());
-        }
+    public Off(List<Good> offGoods, LocalDateTime startDate, LocalDateTime endDate, long maxDiscount, int discountPercent, Seller seller) {
+        offsCount++;
+        this.offGoods = offGoods;
         this.offStatus = OffStatus.VALIDATING;
         this.startDate = startDate;
         this.endDate = endDate;
         this.maxDiscount = maxDiscount;
         this.discountPercent = discountPercent;
-        this.seller = seller.getUsername();
+        this.seller = seller;
+    }
+
+    public Off() {
+        this.offGoods = new ArrayList<>();
     }
 
     public long getOffId() {
@@ -47,22 +75,23 @@ public class Off {
     }
 
     public List<Good> getOffGoods() {
-        List<Good> activeGoods = new ArrayList<>();
+        return this.offGoods;
+        /*List<Good> activeGoods = new ArrayList<>();
         for (Long offGood : this.offGoods) {
             activeGoods.add(Shop.getInstance().findGoodById(offGood));
         }
-        return activeGoods;
+        return activeGoods;*/
     }
 
     public OffStatus getOffStatus() {
         return offStatus;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
@@ -75,18 +104,18 @@ public class Off {
     }
 
     public Seller getSeller() {
-        return (Seller) Shop.getInstance().findUser(seller);
+        return this.seller;
     }
 
     public void setOffStatus(OffStatus offStatus) {
         this.offStatus = offStatus;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -99,7 +128,7 @@ public class Off {
     }
 
     public long getPriceAfterOff(Good good, Seller productSeller) {
-        if (!productSeller.getUsername().equals(seller))
+        if (!productSeller.getUsername().equals(seller.getUsername()))
             return 0L;
         long price = this.getOffGoods().stream().filter(offGood -> offGood.equals(good))
                 .map(offGood -> offGood.getPriceBySeller(getSeller())).findAny().orElse(0L);
@@ -110,16 +139,19 @@ public class Off {
     }
 
     public void addGood(Good good) {
-        offGoods.add(good.getGoodId());
+        this.offGoods.add(good);
+        //offGoods.add(good.getGoodId());
     }
 
     public void removeGood(Good good) {
-        offGoods.remove(good.getGoodId());
+        offGoods.remove(good);
+        //offGoods.remove(good.getGoodId());
     }
 
     public boolean doesHaveThisProduct(Good good) {
         if (good == null) return false;
-        return offGoods.contains(good.getGoodId());
+        return offGoods.contains(good);
+        //return offGoods.contains(good.getGoodId());
     }
 
     public static void setOffsCount(long offsCount) {
@@ -131,7 +163,19 @@ public class Off {
     }
 
     public boolean isOffExpired() {
-        return LocalDate.now().isAfter(this.endDate);
+        return LocalDateTime.now().isAfter(this.endDate);
+    }
+
+    public void setOffId(long offId) {
+        this.offId = offId;
+    }
+
+    public void setOffGoods(List<Good> offGoods) {
+        this.offGoods = offGoods;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 
     @Override

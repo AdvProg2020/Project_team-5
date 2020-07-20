@@ -4,23 +4,60 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Seller;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Good {
+@Entity
+@Table(name = "Product")
+@SecondaryTable(name = "ValueOfEachCategoryProperty", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ProductID", referencedColumnName = "ProductID"))
+public class Good implements Serializable {
+    @Transient
     private static long goodsCount = 1;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ProductID", nullable = false, unique = true)
     private long goodId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ProductStatus", nullable = false)
     private GoodStatus goodStatus;
+
+    @Column(name = "Name", nullable = false)
     private String name;
+
+    @Column(name = "Brand")
     private String brand;
+
+    @Column(name = "AverageRate", nullable = false)
     private double averageRate;
-    private String subCategory;
-    private ArrayList<Long> sellerRelatedInfoAboutGoods = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "SubCategoryId", referencedColumnName = "SubCategoryId")
+    private SubCategory subCategory;
+
+    @OneToMany(mappedBy = "good", cascade = CascadeType.PERSIST)
+    private ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods;
+
+    @Column(name = "Description")
     private String details;
-    private ArrayList<Long> comments;
+
+    @OneToMany(mappedBy = "good", cascade = CascadeType.ALL)
+    private ArrayList<Comment> comments;
+
+    @Column(name = "SeenNumber", nullable = false)
     private int seenNumber;
-    private LocalDate modificationDate;
+
+    @Column(name = "ModificationDate")
+    private LocalDateTime modificationDate;
+
+    @ElementCollection
+    @MapKeyColumn(name = "Property", table = "ValueOfEachCategoryProperty")
+    @Column(name = "Value", table = "ValueOfEachCategoryProperty")
     private HashMap<String, String> categoryProperties;
 
     public enum GoodStatus {
@@ -36,15 +73,21 @@ public class Good {
                 HashMap<String, String> categoryProperties, Seller seller, long price, int availableNumber) {
         this.name = name;
         this.brand = brand;
-        this.subCategory = subCategory.getName();
+        this.subCategory = subCategory;
         this.details = details;
         this.categoryProperties = categoryProperties;
         this.goodStatus = GoodStatus.BUILTPROCESSING;
-        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = new SellerRelatedInfoAboutGood(seller, price, availableNumber);
+        SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = new SellerRelatedInfoAboutGood(seller,this, price, availableNumber);
         Shop.getInstance().addSellerRelatedInfoAboutGood(sellerRelatedInfoAboutGood);
-        sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
+        sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
+        this.sellerRelatedInfoAboutGoods = new ArrayList<>();
         this.comments = new ArrayList<>();
-        this.modificationDate = LocalDate.now();
+        this.modificationDate = LocalDateTime.now();
+    }
+
+    public Good() {
+        this.sellerRelatedInfoAboutGoods = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public String getName() {
@@ -78,19 +121,21 @@ public class Good {
     }
 
     public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
-        ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods1 = new ArrayList<>();
+        return this.sellerRelatedInfoAboutGoods;
+        /*ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods1 = new ArrayList<>();
         for (Long infoAboutGoodId : this.sellerRelatedInfoAboutGoods) {
             sellerRelatedInfoAboutGoods1.add(Shop.getInstance().getAllSellerRelatedInfoAboutGood().get(infoAboutGoodId));
         }
-        return sellerRelatedInfoAboutGoods1;
+        return sellerRelatedInfoAboutGoods1;*/
     }
 
     public SubCategory getSubCategory() {
-        return Shop.getInstance().getAllSubCategories().get(subCategory);
+        return this.subCategory;
     }
 
     public void addSeller(SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood) {
-        this.sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
+        this.sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
+        //this.sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
     }
 
     public void removeSeller(Seller seller) {
@@ -100,7 +145,7 @@ public class Good {
                 sellerRelatedInfoAboutGood = relatedInfoAboutGood;
         }
         if (sellerRelatedInfoAboutGood != null)
-            this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfoAboutGood.getSellerRelatedInfoAboutGoodId());
+            this.sellerRelatedInfoAboutGoods.remove(sellerRelatedInfoAboutGood);
     }
 
     public void setAverageRate(double averageRate) {
@@ -129,7 +174,7 @@ public class Good {
     }
 
     public void setSubCategory(SubCategory subCategory) {
-        this.subCategory = subCategory.getName();
+        this.subCategory = subCategory;
     }
 
     public void setDetails(String details) {
@@ -156,7 +201,7 @@ public class Good {
         return averageRate;
     }
 
-    public LocalDate getModificationDate() {
+    public LocalDateTime getModificationDate() {
         return modificationDate;
     }
 
@@ -170,11 +215,12 @@ public class Good {
     }
 
     public ArrayList<Comment> getComments() {
-        ArrayList<Comment> allComments = new ArrayList<>();
+        return this.comments;
+        /*ArrayList<Comment> allComments = new ArrayList<>();
         for (Long commentId : comments) {
             allComments.add(Shop.getInstance().getAllComments().get(commentId));
         }
-        return allComments;
+        return allComments;*/
     }
 
     synchronized public static void setGoodsCount(long goodsCount) {
@@ -182,7 +228,8 @@ public class Good {
     }
 
     public void addComment(Comment comment) {
-        this.comments.add(comment.getId());
+        this.comments.add(comment);
+        //this.comments.add(comment.getId());
     }
 
     public void reduceAvailableNumber(Seller seller, int reductionNumber) {

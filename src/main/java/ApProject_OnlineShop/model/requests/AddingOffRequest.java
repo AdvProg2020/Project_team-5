@@ -1,6 +1,6 @@
 package ApProject_OnlineShop.model.requests;
 
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
@@ -9,18 +9,19 @@ import ApProject_OnlineShop.model.productThings.Off;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddingOffRequest extends Request {
     private List<Long> offGoods;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private long maxDiscount;
     private int discountPercent;
     private String seller;
 
-    public AddingOffRequest(List<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
+    public AddingOffRequest(List<Good> offGoods, LocalDateTime startDate, LocalDateTime endDate, long maxDiscount, int discountPercent, Seller seller) {
         this.offGoods = new ArrayList<>();
         for (Good good : offGoods) {
             this.offGoods.add(good.getGoodId());
@@ -40,7 +41,7 @@ public class AddingOffRequest extends Request {
         }
         Off off = new Off(offGoods2, startDate, endDate, maxDiscount, discountPercent, (Seller) Shop.getInstance().findUser(seller));
         Shop.getInstance().addOff(off);
-        off.getSeller().addOff(off.getOffId());
+        off.getSeller().addOff(off);
         off.setOffStatus(Off.OffStatus.ACCEPTED);
         Database.getInstance().saveItem(off);
         Database.getInstance().saveItem(off.getSeller());

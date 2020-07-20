@@ -2,25 +2,46 @@ package ApProject_OnlineShop.model.orders;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;
+import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderForCustomer extends Order {
-    private ArrayList<Long> goodsDetails;
+@Entity
+@Table(name = "OrderForCustomer")
+public class OrderForCustomer extends Order implements Serializable {
+    @ManyToMany
+    @JoinTable(
+            name = "OrderAndGoodInCart",
+            joinColumns = @JoinColumn(name = "OrderId"),
+            inverseJoinColumns = @JoinColumn(name = "GoodInCartId"))
+    private ArrayList<GoodInCart> goodsDetails;
+
+    @ManyToOne
+    @Column(name = "CustomerID", nullable = false)
+    private Customer customer;
+
+    @Column(name = "DiscountAmount", nullable = false)
     private long discountAmount;
+
+    @Column(name = "Address", nullable = false)
     private String address;
+
+    @Column(name = "PhoneNumber", nullable = false)
     private String phoneNumber;
+
+    @Column(name = "PostalCode", nullable = false)
     private String postCode;
+
+    @Column(name = "Name")
     private String name;
 
     public OrderForCustomer(ArrayList<GoodInCart> goodsDetails, long price, String name, String postCode, String address, String phoneNumber,long id) {
         super(price);
-        this.goodsDetails = new ArrayList<>();
-        for (GoodInCart goodInCart : goodsDetails) {
-            this.goodsDetails.add(goodInCart.getGoodInCartId());
-        }
+        this.goodsDetails = goodsDetails;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.postCode = postCode;
@@ -31,12 +52,25 @@ public class OrderForCustomer extends Order {
         } else this.discountAmount = 0L;
     }
 
+    public OrderForCustomer() {
+        this.goodsDetails = new ArrayList<>();
+    }
+
     public ArrayList<GoodInCart> getGoodsDetails() {
-        ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
+        return this.goodsDetails;
+        /*ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
         for (Long id : goodsDetails) {
             goodInCarts.add(Shop.getInstance().getAllGoodInCarts().get(id));
         }
-        return goodInCarts;
+        return goodInCarts;*/
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public long getDiscountAmount() {
@@ -51,6 +85,37 @@ public class OrderForCustomer extends Order {
         return phoneNumber;
     }
 
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setGoodsDetails(ArrayList<GoodInCart> goodsDetails) {
+        this.goodsDetails = goodsDetails;
+    }
+
+    public void setDiscountAmount(long discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {

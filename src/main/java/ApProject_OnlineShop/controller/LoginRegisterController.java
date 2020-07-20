@@ -1,6 +1,6 @@
 package ApProject_OnlineShop.controller;
 
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;

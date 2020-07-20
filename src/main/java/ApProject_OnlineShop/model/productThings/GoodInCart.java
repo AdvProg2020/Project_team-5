@@ -3,20 +3,41 @@ package ApProject_OnlineShop.model.productThings;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
 
-public class GoodInCart {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "GoodInCart")
+public class GoodInCart implements Serializable {
+    @Transient
     private static long goodInCartCounter = 1;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "GoodInCartId", nullable = false, unique = true)
     private long goodInCartId;
-    private long goodId;
-    private String seller;
+
+    @ManyToOne
+    @JoinColumn(name = "ProductId", referencedColumnName = "ProductID", nullable = false)
+    private Good good;
+
+    @ManyToOne
+    @JoinColumn(name = "SellerId", referencedColumnName = "PersonId", nullable = false)
+    private Seller seller;
+
+    @Column(name = "numberOfProducts", nullable = false)
     private int number;
 
     public GoodInCart(Good good, Seller seller, int number) {
         if (seller == null)
             seller = good.getSellerRelatedInfoAboutGoods().get(0).getSeller();
-        this.goodId = good.getGoodId();
-        this.seller = seller.getUsername();
+        this.good = good;
+        this.seller = seller;
         this.number = number;
-        this.goodInCartId = goodInCartCounter++;
+        goodInCartCounter++;
+    }
+
+    public GoodInCart() {
     }
 
     public long getFinalPrice() {
@@ -32,11 +53,11 @@ public class GoodInCart {
     }
 
     public Good getGood() {
-        return Shop.getInstance().findGoodById(goodId);
+        return this.good;
     }
 
     public Seller getSeller() {
-        return (Seller) Shop.getInstance().findUser(seller);
+        return this.seller;
     }
 
     public int getNumber() {
@@ -45,6 +66,18 @@ public class GoodInCart {
 
     public long getGoodInCartId() {
         return goodInCartId;
+    }
+
+    public void setGoodInCartId(long goodInCartId) {
+        this.goodInCartId = goodInCartId;
+    }
+
+    public void setGood(Good good) {
+        this.good = good;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 
     @Override

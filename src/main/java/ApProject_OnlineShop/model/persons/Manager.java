@@ -1,9 +1,18 @@
 package ApProject_OnlineShop.model.persons;
 
-public class Manager extends Person {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "Manager")
+public class Manager extends Person implements Serializable {
 
     public Manager(String username, String firstName, String lastName, String email, String phoneNumber, String password) {
         super(username, firstName, lastName, email, phoneNumber, password);
+    }
+
+    public Manager() {
     }
 
     @Override

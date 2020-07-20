@@ -1,26 +1,44 @@
 package ApProject_OnlineShop.model.persons;
 
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 
+import javax.persistence.*;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Customer extends Person {
-    private ArrayList<Long> discountCodesIds;
-    private ArrayList<Long> previousOrders;
+@Entity
+@Table(name = "Customer")
+public class Customer extends Person implements Serializable {
+
+    @ManyToMany
+    @JoinTable(name = "DiscountPerson", joinColumns = @JoinColumn(name = "CustomerId"), inverseJoinColumns = @JoinColumn(name = "DiscountId"))
+    private ArrayList<DiscountCode> discountCodes;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private ArrayList<OrderForCustomer> previousOrders;
+
+    @Column(name = "BankAccountId")
     private String bankAccountId;
+
+    @Column(name = "Credit", nullable = false)
     private long credit;
 
     public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password, long credit) {
         super(username, firstName, lastName, email, phoneNumber, password);
         this.credit = credit;
-        this.discountCodesIds = new ArrayList<>();
+        this.discountCodes = new ArrayList<>();
+        this.previousOrders = new ArrayList<>();
+    }
+
+    public Customer() {
+        this.discountCodes = new ArrayList<>();
         this.previousOrders = new ArrayList<>();
     }
 
@@ -40,27 +58,42 @@ public class Customer extends Person {
     }
 
     public void addDiscountCode(DiscountCode discountCode) {
-        this.discountCodesIds.add(discountCode.getId());
+        this.discountCodes.add(discountCode);
+        //this.discountCodes.add(discountCode.getId());
     }
 
     public void removeDiscountCode(DiscountCode discountCode) {
-        this.discountCodesIds.remove(discountCode.getId());
+        this.discountCodes.remove(discountCode);
     }
 
     public ArrayList<DiscountCode> getDiscountCodes() {
-        ArrayList<DiscountCode> discountCodes=new ArrayList<>();
-        for (Long discountCodesId : this.discountCodesIds) {
+        return this.discountCodes;
+        /*ArrayList<DiscountCode> discountCodes=new ArrayList<>();
+        for (Long discountCodesId : this.discountCodes) {
             discountCodes.add(Shop.getInstance().getHashMapOfDiscountCodes().get(discountCodesId));
         }
-        return discountCodes;
+        return discountCodes;*/
     }
 
     public ArrayList<OrderForCustomer> getPreviousOrders() {
-        ArrayList<OrderForCustomer> previousOrders=new ArrayList<>();
+        return this.previousOrders;
+        /*ArrayList<OrderForCustomer> previousOrders=new ArrayList<>();
         for (Long id : this.previousOrders) {
             previousOrders.add((OrderForCustomer) Shop.getInstance().getHasMapOfOrders().get(id));
         }
-        return previousOrders;
+        return previousOrders;*/
+    }
+
+    public void setDiscountCodes(ArrayList<DiscountCode> discountCodes) {
+        this.discountCodes = discountCodes;
+    }
+
+    public void setPreviousOrders(ArrayList<OrderForCustomer> previousOrders) {
+        this.previousOrders = previousOrders;
+    }
+
+    public void setCredit(long credit) {
+        this.credit = credit;
     }
 
     public Long getCredit() {
@@ -69,17 +102,19 @@ public class Customer extends Person {
 
     public void setCredit(Long credit) {
         this.credit = credit;
-        try {
-            Database.getInstance().saveItem(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
-        }
+    }
+
+    public void setBankAccountId(String bankAccountId) {
+        this.bankAccountId = bankAccountId;
+    }
+
+    public String getBankAccountId() {
+        return bankAccountId;
     }
 
     public void addOrder(OrderForCustomer order) {
-        previousOrders.add(order.getOrderId());
+        previousOrders.add(order);
+        //previousOrders.add(order.getOrderId());
     }
 
     public OrderForCustomer findOrderById(long orderId) {
@@ -118,7 +153,7 @@ public class Customer extends Person {
         if (((allPricesOfOrdersWithOutLastOne + this.getPreviousOrders().get(this.getPreviousOrders().size() - 1).getPrice()) / 1000000)
                 - (allPricesOfOrdersWithOutLastOne / 1000000) > 0){
             DiscountCode discountCode=new DiscountCode(DiscountCode.generateRandomDiscountCode()
-                    , LocalDate.now(),LocalDate.now().plusMonths(1), 10000L,30);
+                    , LocalDateTime.now(),LocalDateTime.now().plusMonths(1), 10000L,30);
             discountCode.addCustomerToCode(this,1);
             Shop.getInstance().addDiscountCode(discountCode);
             Database.getInstance().saveItem(discountCode);

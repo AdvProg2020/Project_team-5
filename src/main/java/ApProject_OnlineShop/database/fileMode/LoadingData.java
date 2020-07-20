@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.database;
+package ApProject_OnlineShop.database.fileMode;
 
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.model.Shop;

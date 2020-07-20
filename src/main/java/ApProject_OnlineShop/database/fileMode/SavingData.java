@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.database;
+package ApProject_OnlineShop.database.fileMode;
 
 import ApProject_OnlineShop.model.ShopBankAccount;
 import ApProject_OnlineShop.model.orders.OrderFileProductForCustomer;
@@ -9,6 +9,10 @@ import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
+import ApProject_OnlineShop.model.persons.Company;
+import ApProject_OnlineShop.model.persons.Customer;
+import ApProject_OnlineShop.model.persons.Manager;
+import ApProject_OnlineShop.model.persons.Seller;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.*;
 import com.google.gson.Gson;

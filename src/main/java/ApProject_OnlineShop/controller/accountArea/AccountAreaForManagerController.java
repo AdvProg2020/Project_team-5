@@ -13,7 +13,7 @@ import ApProject_OnlineShop.exception.userExceptions.UsernameNotFoundException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.orders.OrderFileProductForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
@@ -30,6 +30,7 @@ import ApProject_OnlineShop.server.Server;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeCantCreatedException("end date");
         if (Integer.parseInt(fields.get(4)) > 100 || Integer.parseInt(fields.get(4)) <= 0)
             throw new DiscountCodeCantCreatedException("discount percent");
-        DiscountCode discountCode = new DiscountCode(fields.get(0), LocalDate.parse(fields.get(1)), LocalDate.parse(fields.get(2)),
+        DiscountCode discountCode = new DiscountCode(fields.get(0), LocalDateTime.parse(fields.get(1)), LocalDateTime.parse(fields.get(2)),
                 Long.parseLong(fields.get(3)), Integer.parseInt(fields.get(4)));
         Shop.getInstance().addDiscountCode(discountCode);
         Database.getInstance().saveItem(discountCode);
@@ -107,13 +108,13 @@ public class AccountAreaForManagerController extends AccountAreaController {
         DiscountCode discountCode;
         if ((discountCode = Shop.getInstance().findDiscountCode(code)) != null) {
             if (field.equalsIgnoreCase("startDate")) {
-                if (!newValue.matches("\\d{4}.\\d{2}.\\d{2}") || LocalDate.parse(newValue).isBefore(LocalDate.now()) || LocalDate.parse(newValue).isAfter(discountCode.getEndDate()))
+                if (!newValue.matches("\\d{4}.\\d{2}.\\d{2}") || LocalDate.parse(newValue).isBefore(LocalDate.now()) || LocalDateTime.parse(newValue).isAfter(discountCode.getEndDate()))
                     throw new DiscountCodeCantBeEditedException("new start date value");
-                discountCode.setStartDate(LocalDate.parse(newValue));
+                discountCode.setStartDate(LocalDateTime.parse(newValue));
             } else if (field.equalsIgnoreCase("endDate")) {
-                if (!newValue.matches("\\d{4}.\\d{2}.\\d{2}") || LocalDate.parse(newValue).isBefore(discountCode.getStartDate()))
+                if (!newValue.matches("\\d{4}.\\d{2}.\\d{2}") || LocalDateTime.parse(newValue).isBefore(discountCode.getStartDate()))
                     throw new DiscountCodeCantBeEditedException("new end date value");
-                discountCode.setEndDate(LocalDate.parse(newValue));
+                discountCode.setEndDate(LocalDateTime.parse(newValue));
             } else if (field.equalsIgnoreCase("maxDiscountAmount")) {
                 if (!newValue.matches("\\d{1,15}"))
                     throw new DiscountCodeCantBeEditedException("new discount code amount value");
