@@ -10,6 +10,7 @@ import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Person;
+import ApProject_OnlineShop.model.persons.Seller;
 
 import java.util.ArrayList;
 import java.util.Collections;

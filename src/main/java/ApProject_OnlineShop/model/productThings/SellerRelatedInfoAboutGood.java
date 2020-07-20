@@ -82,7 +82,7 @@ public class SellerRelatedInfoAboutGood {
     }
 
     public String getSellerUserName() {
-        return this.seller;
+        return this.seller.getUsername();
     }
 
     @Override

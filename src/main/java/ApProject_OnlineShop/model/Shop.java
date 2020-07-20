@@ -15,6 +15,7 @@ import ApProject_OnlineShop.model.requests.Request;
 import ApProject_OnlineShop.server.Server;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -82,7 +83,7 @@ public class Shop {
     }
 
     public String getShopBankId() {
-        return shopBankAccount.getAccountID();
+        return shopBankAccount.getAccountId();
     }
 
     public void setShopBankAccount(ShopBankAccount shopBankAccount) {

@@ -37,7 +37,9 @@ public class Seller extends Person implements Serializable {
     @OneToMany(mappedBy = "seller")
     private ArrayList<Off> activeOffs;
 
+    @Transient
     private ArrayList<Integer> activeAuctions;
+    @Transient
     private ArrayList<Long> activeFileProducts;
 
     public Seller(String username, String firstName, String lastName, String email, String phoneNumber, String password, Company company) {
@@ -57,7 +59,7 @@ public class Seller extends Person implements Serializable {
         this.activeOffs = new ArrayList<>();
     }
 
-    public void setBalance(long balance) {
+   /* public void setBalance(long balance) {
         this.balance = balance;
         try {
             Database.getInstance().saveItem(this);
@@ -70,9 +72,9 @@ public class Seller extends Person implements Serializable {
 
     public long getBalance() {
         return balance;
-    }
+    }*/
 
-    public void setBankAccountId(String bankAccountId) {
+    /*public void setBankAccountId(String bankAccountId) {
         this.bankAccountId = bankAccountId;
         try {
             Database.getInstance().saveItem(this);
@@ -83,7 +85,7 @@ public class Seller extends Person implements Serializable {
 
     public String getBankAccountId() {
         return bankAccountId;
-    }
+    }*/
 
     public Company getCompany() {
         return this.company;

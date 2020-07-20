@@ -270,12 +270,12 @@ public class Good implements Serializable {
     public Seller getSellerThatPutsThisGoodOnOff() {
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : getSellerRelatedInfoAboutGoods()) {
             for (Off off : relatedInfoAboutGood.getSeller().getActiveOffs()) {
-                if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDate.now()) && !off.getStartDate().isAfter(LocalDate.now()))
+                if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDateTime.now()) && !off.getStartDate().isAfter(LocalDateTime.now()))
                     return relatedInfoAboutGood.getSeller();
             }
         }
         for (Off off : Shop.getInstance().getOffs()) {
-            if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDate.now()) && !off.getStartDate().isAfter(LocalDate.now()))
+            if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDateTime.now()) && !off.getStartDate().isAfter(LocalDateTime.now()))
                 return off.getSeller();
         }
         return null;
@@ -290,7 +290,7 @@ public class Good implements Serializable {
     }
 
     public String getSubCategoryNameString(){
-        return subCategory;
+        return subCategory.getName();
     }
 
     @Override

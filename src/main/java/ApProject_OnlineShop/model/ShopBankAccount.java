@@ -36,6 +36,10 @@ public class ShopBankAccount implements Serializable {
     public ShopBankAccount() {
     }
 
+    public int getBankingFeePercent() {
+        return bankingFeePercent;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -62,23 +66,10 @@ public class ShopBankAccount implements Serializable {
 
     public int getMinimumAmount() {
         return minimumAmount;
-    public int getMinimumAmount() {
-        return minimumAmount;
-    }
-
-    public int getBankingFeePercent() {
-        return bankingFeePercent;
     }
 
     public void setMinimumAmount(int minimumAmount) {
         this.minimumAmount = minimumAmount;
-        try {
-            Database.getInstance().saveItem(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void setBankingFeePercent(int bankingFeePercent) {

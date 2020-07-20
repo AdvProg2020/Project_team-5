@@ -42,7 +42,7 @@ public class Customer extends Person implements Serializable {
         this.previousOrders = new ArrayList<>();
     }
 
-    public void setBankAccountId(String bankAccountId) {
+    /*public void setBankAccountId(String bankAccountId) {
         this.bankAccountId = bankAccountId;
         try {
             Database.getInstance().saveItem(this);
@@ -55,7 +55,7 @@ public class Customer extends Person implements Serializable {
 
     public String getBankAccountId() {
         return bankAccountId;
-    }
+    }*/
 
     public void addDiscountCode(DiscountCode discountCode) {
         this.discountCodes.add(discountCode);

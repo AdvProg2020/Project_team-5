@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Category")
@@ -105,7 +106,7 @@ public class Category implements Serializable {
     }
 
     public ArrayList<String> getSubCategoriesString() {
-        return this.subCategories;
+        return this.subCategories.stream().map(SubCategory::getName).collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override

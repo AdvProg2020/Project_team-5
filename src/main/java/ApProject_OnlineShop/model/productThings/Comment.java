@@ -122,7 +122,7 @@ public class Comment implements Serializable {
     }
 
     public String getPersonString(){
-        return person;
+        return person.getUsername();
     }
 
     @Override
