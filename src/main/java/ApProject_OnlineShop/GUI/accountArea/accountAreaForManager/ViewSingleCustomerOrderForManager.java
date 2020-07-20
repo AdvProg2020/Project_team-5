@@ -2,10 +2,12 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.model.RequestForServer;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -23,6 +25,10 @@ public class ViewSingleCustomerOrderForManager extends FxmlController implements
     public Label address;
     public Label orderStatus;
     public Label totalPrice;
+    @FXML
+    private VBox changeStatusBox;
+    @FXML
+    private HBox addressHBox;
 
     public void backButton() {
         setScene("viewCustomerOrdersForManager.fxml", "view customers' orders");

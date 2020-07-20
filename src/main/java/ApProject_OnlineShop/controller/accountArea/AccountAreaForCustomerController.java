@@ -282,9 +282,11 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         }
         OrderFileProductForSeller orderFileProductForSeller = new OrderFileProductForSeller(price, fileProduct.getSeller(), customer.getUsername(), fileProduct);
         Shop.getInstance().addOrder(orderFileProductForSeller);
+        orderFileProductForSeller.setOrderStatus(Order.OrderStatus.RECEIVED);
         Database.getInstance().saveItem(orderFileProductForSeller);
         OrderFileProductForCustomer orderFileProductForCustomer = new OrderFileProductForCustomer(fileProduct, price, phoneNumber, fileProduct.getPrice() - price);
         Shop.getInstance().addOrder(orderFileProductForCustomer);
+        orderFileProductForCustomer.setOrderStatus(Order.OrderStatus.RECEIVED);
         Database.getInstance().saveItem(orderFileProductForCustomer);
         customer.setCredit(customer.getCredit() - price);
         MainController.getInstance().getBankTransactionsController().payMoneyToSellerAfterPurchaseByWallet(fileProduct.getPrice() + "", fileProduct.getSeller().getUsername());
