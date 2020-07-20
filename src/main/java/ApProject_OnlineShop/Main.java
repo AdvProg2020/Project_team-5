@@ -14,11 +14,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         try {
             Database.getInstance().initializeShop();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
-        } catch (FileCantBeDeletedException e) {
+        } catch (IOException | FileCantBeDeletedException | FileCantBeSavedException e) {
             e.printStackTrace();
         }
         launch(args);
