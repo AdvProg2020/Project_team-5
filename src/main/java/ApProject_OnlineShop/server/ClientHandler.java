@@ -901,7 +901,8 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(MainController.getInstance().getAccountAreaForManagerController().isOrderForFileProduct(Long.parseLong(requestForServer.getInputs().get(0))) + "");
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getFileOrderInfoGUI")) {
-
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getFileOrderInfoGUI(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
         }
     }
 

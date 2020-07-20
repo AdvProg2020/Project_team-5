@@ -83,7 +83,15 @@ public class ViewSingleCustomerOrderForManager extends FxmlController implements
         inputs.add("" + Id);
         String isFileOrder = connectToServer(new RequestForServer("AccountAreaForManagerController", "isOrderForFileProduct", getToken(), inputs));
         if (isFileOrder.equals("true")) {
-
+            ArrayList<String> orderDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "getFileOrderInfoGUI", getToken(), inputs)));
+            orderId.setText(orderDetails.get(0));
+            date.setText(orderDetails.get(1));
+            goods.setText(orderDetails.get(2));
+            discountAmount.setText(orderDetails.get(3));
+            totalPrice.setText(orderDetails.get(4));
+            orderStatus.setText(orderDetails.get(5));
+            addressHBox.setVisible(false);
+            changeStatusBox.setVisible(false);
         } else {
             ArrayList<String> offDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "viewOrderGUI", getToken(), inputs)));
             orderId.setText(offDetails.get(0));
