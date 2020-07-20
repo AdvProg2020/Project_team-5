@@ -468,4 +468,16 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return Shop.getInstance().getAllOrders().get(orderId) instanceof OrderFileProductForCustomer;
     }
 
+    public List<String> getFileOrderInfoGUI(long orderId) {
+        List<String> details = new ArrayList<>();
+        OrderFileProductForCustomer order = (OrderFileProductForCustomer) Shop.getInstance().getAllOrders().get(orderId);
+        details.add(order.getOrderId() + "");
+        details.add(order.getDate().toString());
+        details.add(order.getFileProduct().getName());
+        details.add(order.getDiscountAmount() + "");
+        details.add(order.getPrice() + "");
+        details.add(order.getOrderStatus().toString());
+        return details;
+    }
+
 }

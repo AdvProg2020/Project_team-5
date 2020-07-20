@@ -81,13 +81,18 @@ public class ViewSingleCustomerOrderForManager extends FxmlController implements
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add("" + Id);
-        ArrayList<String> offDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "viewOrderGUI", getToken(), inputs)));
-        orderId.setText(offDetails.get(0));
-        date.setText(offDetails.get(1));
-        goods.setText(offDetails.get(2));
-        discountAmount.setText(offDetails.get(3));
-        totalPrice.setText(offDetails.get(4));
-        address.setText(offDetails.get(5));
-        orderStatus.setText(offDetails.get(6));
+        String isFileOrder = connectToServer(new RequestForServer("AccountAreaForManagerController", "isOrderForFileProduct", getToken(), inputs));
+        if (isFileOrder.equals("true")) {
+
+        } else {
+            ArrayList<String> offDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForManagerController", "viewOrderGUI", getToken(), inputs)));
+            orderId.setText(offDetails.get(0));
+            date.setText(offDetails.get(1));
+            goods.setText(offDetails.get(2));
+            discountAmount.setText(offDetails.get(3));
+            totalPrice.setText(offDetails.get(4));
+            address.setText(offDetails.get(5));
+            orderStatus.setText(offDetails.get(6));
+        }
     }
 }
