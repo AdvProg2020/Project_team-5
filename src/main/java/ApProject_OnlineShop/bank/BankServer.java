@@ -139,7 +139,6 @@ public class BankServer extends Thread {
 
     public String getTransactions(String username, String type) {
         long accountId = Long.parseLong(findAccountByUsername(username).getAccountNumber());
-        System.out.println(type);
         String transactions = "";
         if (type.equals("*")) {
             for (Receipt receipt : receipts) {

@@ -60,7 +60,7 @@ public class ClientHandler extends Thread {
         String[] splitInput = input.substring("create_account ".length()).split(" ");
         if (!splitInput[3].equals(splitInput[4]))
             dataOutputStream.writeUTF("passwords do not match");
-        if (!bank.isUsernameAvailable(splitInput[2]))
+        else if (!bank.isUsernameAvailable(splitInput[2]))
             dataOutputStream.writeUTF("username is not available");
         else {
             String accountNumber;
@@ -98,10 +98,10 @@ public class ClientHandler extends Thread {
             // invalid parameters passed
         else if (bank.findTokenByString(splitInput[0]).isExpired())
             dataOutputStream.writeUTF("token expired");
-        else if ((splitInput[1].equals("move") || splitInput[1].equals("withdraw")) && (bank.findTokenByString(splitInput[0]) == null || !bank.findTokenByString(splitInput[0]).getUserName().equals(bank.findAccountByNumber(splitInput[3]).getUserName())))
-            dataOutputStream.writeUTF("token is invalid");
         else if ((splitInput[1].equals("move") || splitInput[1].equals("withdraw")) && bank.findAccountByNumber(splitInput[3]) == null)
             dataOutputStream.writeUTF("source account id is invalid");
+        else if ((splitInput[1].equals("move") || splitInput[1].equals("withdraw")) && (bank.findTokenByString(splitInput[0]) == null || !bank.findTokenByString(splitInput[0]).getUserName().equals(bank.findAccountByNumber(splitInput[3]).getUserName())))
+            dataOutputStream.writeUTF("token is invalid");
         else if (splitInput[1].equals("move") && bank.findAccountByNumber(splitInput[4]) == null)
             dataOutputStream.writeUTF("dest account id is invalid");
         else if (splitInput[1].equals("move") && splitInput[3].equals(splitInput[4]))
@@ -171,7 +171,6 @@ public class ClientHandler extends Thread {
     }
 
     public void getTransactions(String input) throws IOException {
-        System.out.println("get_transactions");
         String[] splitInput = input.substring("get_transactions ".length()).split(" ");
         if (bank.findTokenByString(splitInput[0]) == null)
             dataOutputStream.writeUTF("token is invalid");

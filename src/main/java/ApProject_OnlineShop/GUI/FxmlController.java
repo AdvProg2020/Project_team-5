@@ -126,7 +126,7 @@ public class FxmlController {
 
     public static String connectToServer(RequestForServer requestForServer) {
         try {
-            Socket socket = new Socket("0.tcp.ngrok.io", 14643);
+            Socket socket = new Socket("127.0.01", 8888);
             System.out.println("Successfully connected to server!");
             DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
