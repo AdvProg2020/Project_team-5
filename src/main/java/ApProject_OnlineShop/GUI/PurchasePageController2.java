@@ -44,6 +44,10 @@ public class PurchasePageController2 extends FxmlController implements Initializ
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "purchaseByWallet", getToken(), inputs));
         if (serverResponse.equals("purchase was successful")) {
             SuccessPageFxController.showPage("purchase was successful", totalPrice.getText() + " has reduced from your account!");
+            ArrayList<String> inputs222 = new ArrayList<>();
+            inputs222.add(getId() + "");
+            connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs222));
+            FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
             setScene("mainMenuLayout.fxml", "main menu");
         } else {
             ErrorPageFxController.showPage("error", serverResponse);
