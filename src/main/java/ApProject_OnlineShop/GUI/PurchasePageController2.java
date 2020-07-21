@@ -22,8 +22,8 @@ public class PurchasePageController2 extends FxmlController implements Initializ
     public TextField discountCode;
     @FXML
     public Label totalPrice, label1;
-    @FXML
     public MenuButton purchaseButton;
+    @FXML
     private String discountCodeString;
     private long totalPrice1;
 
