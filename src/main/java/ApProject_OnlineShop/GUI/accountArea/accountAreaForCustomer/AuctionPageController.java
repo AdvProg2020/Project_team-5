@@ -104,6 +104,7 @@ public class AuctionPageController extends FxmlController implements Initializab
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "offerNewPrice", getToken(), inputs));
         if (serverResponse.equals("your price offered successfully")) {
             SuccessPageFxController.showPage("price offer", "your price successfully offered.");
+            setScene("auctionPage.fxml", "Auction Page");
             updateLastPriceLabel();
         } else {
             ErrorPageFxController.showPage("price cannot be offered", serverResponse);
