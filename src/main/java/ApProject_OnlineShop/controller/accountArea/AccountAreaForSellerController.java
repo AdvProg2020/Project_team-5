@@ -298,14 +298,21 @@ public class AccountAreaForSellerController extends AccountAreaController {
     public void endAuction(int auctionId) throws IOException, FileCantBeSavedException, FileCantBeDeletedException {
         Auction auction = Shop.getInstance().findAuctionById(auctionId);
         if (auction.getAllCustomersOffers().size() > 0) {
-            Map<Customer, Long> sortedAuctionOffers =
+            /*Map<Customer, Long> sortedAuctionOffers =
                     auction.getAllCustomersOffers().entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, ((aLong, aLong2) -> aLong2 - aLong), LinkedHashMap::new));
             Customer winner = null;
             for (Customer customer : sortedAuctionOffers.keySet()) {
                 winner = customer;
                 break;
+            }*/
+            long price = MainController.getInstance().getAuctionsController().getBestPriceOfAuction(auctionId);
+            Customer winner = null;
+            for (Customer customer : auction.getAllCustomersOffers().keySet()) {
+                if (auction.getAllCustomersOffers().get(customer) == price) {
+                    winner = customer;
+                    break;
+                }
             }
-            long price = auction.getAllCustomersOffers().get(winner);
             GoodInCart goodInCart = new GoodInCart(auction.getGood(), auction.getSeller(), 1);
             ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
             goodInCarts.add(goodInCart);
