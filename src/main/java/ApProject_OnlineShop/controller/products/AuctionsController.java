@@ -35,6 +35,6 @@ public class AuctionsController {
             return values.get(values.size() - 1);
         }
         else
-            return 0L;
+            return auction.getGood().getPriceBySeller(auction.getSeller());
     }
 }
