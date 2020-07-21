@@ -59,7 +59,7 @@ public class BankTransactionsController {
 
     public String depositMoneySeller(String username, String password, String money) throws IOException {
         String finalResponse = moveMoneyFromUserToShop(username, password, money);
-        if (moveMoneyFromUserToShop(username, password, money).equals("done successfully")) {
+        if (finalResponse.equals("done successfully")) {
             Seller user = (Seller) Shop.getInstance().findUser(username);
             user.setBalance(user.getBalance() + Long.parseLong(money));
         }
