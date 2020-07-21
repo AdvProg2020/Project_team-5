@@ -50,7 +50,7 @@ public class MainController {
         this.offsController=new OffsController();
         this.productController = new ProductController();
         this.sortController = new SortController();
-        this.bankAccountsController = new BankAccountsController(173339);
+        this.bankAccountsController = new BankAccountsController(17339);
         this.bankTransactionsController = new BankTransactionsController(17339);
         this.accountAreaController = new AccountAreaController();
         this.accountAreaForSupporter = new AccountAreaForSupporterController();

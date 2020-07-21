@@ -79,7 +79,7 @@ public class EditDiscountCodePageController extends FxmlController implements In
             inputs.add("discountPercent");
             inputs.add(percent);
             serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editDiscountCode", getToken(), inputs));
-            if (serverResponse.equals("product edited successfully")) {
+            if (serverResponse.equals("discountCode edited successfully")) {
                 edited = true;
             } else {
                 ErrorPageFxController.showPage("can not edited field", serverResponse);
@@ -93,7 +93,7 @@ public class EditDiscountCodePageController extends FxmlController implements In
             inputs.add("maxDiscountAmount");
             inputs.add(amount);
             serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editDiscountCode", getToken(), inputs));
-            if (serverResponse.equals("product edited successfully")) {
+            if (serverResponse.equals("discountCode edited successfully")) {
                 edited = true;
             } else {
                 ErrorPageFxController.showPage("can not edited field", serverResponse);
@@ -107,7 +107,7 @@ public class EditDiscountCodePageController extends FxmlController implements In
             inputs.add("startDate");
             inputs.add(startDate.toString());
             serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editDiscountCode", getToken(), inputs));
-            if (serverResponse.equals("product edited successfully")) {
+            if (serverResponse.equals("discountCode edited successfully")) {
                 edited = true;
             } else {
                 ErrorPageFxController.showPage("can not edited field", serverResponse);
@@ -121,7 +121,7 @@ public class EditDiscountCodePageController extends FxmlController implements In
             inputs.add("endDate");
             inputs.add(endDate.toString());
             serverResponse = connectToServer(new RequestForServer("AccountAreaForManagerController", "editDiscountCode", getToken(), inputs));
-            if (serverResponse.equals("product edited successfully")) {
+            if (serverResponse.equals("discountCode edited successfully")) {
                 edited = true;
             } else {
                 ErrorPageFxController.showPage("can not edited field", serverResponse);
