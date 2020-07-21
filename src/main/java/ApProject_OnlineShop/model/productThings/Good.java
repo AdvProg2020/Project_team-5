@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "Product")
@@ -41,13 +43,13 @@ public class Good implements Serializable {
     private SubCategory subCategory;
 
     @OneToMany(mappedBy = "good", cascade = CascadeType.PERSIST)
-    private ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods;
+    private List<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods;
 
     @Column(name = "Description")
     private String details;
 
     @OneToMany(mappedBy = "good", cascade = CascadeType.ALL)
-    private ArrayList<Comment> comments;
+    private List<Comment> comments;
 
     @Column(name = "SeenNumber", nullable = false)
     private int seenNumber;
@@ -58,7 +60,7 @@ public class Good implements Serializable {
     @ElementCollection
     @MapKeyColumn(name = "Property", table = "ValueOfEachCategoryProperty")
     @Column(name = "Value", table = "ValueOfEachCategoryProperty")
-    private HashMap<String, String> categoryProperties;
+    private Map<String, String> categoryProperties;
 
     public enum GoodStatus {
         BUILTPROCESSING, CONFIRMED, NOTAVAILABLE,
@@ -120,7 +122,7 @@ public class Good implements Serializable {
         return 0L;
     }
 
-    public ArrayList<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
+    public List<SellerRelatedInfoAboutGood> getSellerRelatedInfoAboutGoods() {
         return this.sellerRelatedInfoAboutGoods;
         /*ArrayList<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods1 = new ArrayList<>();
         for (Long infoAboutGoodId : this.sellerRelatedInfoAboutGoods) {
@@ -181,7 +183,7 @@ public class Good implements Serializable {
         this.details = details;
     }
 
-    public HashMap<String, String> getCategoryProperties() {
+    public Map<String, String> getCategoryProperties() {
         return categoryProperties;
     }
 
@@ -214,7 +216,7 @@ public class Good implements Serializable {
         return min;
     }
 
-    public ArrayList<Comment> getComments() {
+    public List<Comment> getComments() {
         return this.comments;
         /*ArrayList<Comment> allComments = new ArrayList<>();
         for (Long commentId : comments) {

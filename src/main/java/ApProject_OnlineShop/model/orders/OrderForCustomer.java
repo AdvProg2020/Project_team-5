@@ -18,10 +18,10 @@ public class OrderForCustomer extends Order implements Serializable {
             name = "OrderAndGoodInCart",
             joinColumns = @JoinColumn(name = "OrderId"),
             inverseJoinColumns = @JoinColumn(name = "GoodInCartId"))
-    private ArrayList<GoodInCart> goodsDetails;
+    private List<GoodInCart> goodsDetails;
 
     @ManyToOne
-    @Column(name = "CustomerID", nullable = false)
+    @JoinColumn(name = "CustomerID", referencedColumnName = "PersonID", nullable = false)
     private Customer customer;
 
     @Column(name = "DiscountAmount", nullable = false)
@@ -56,7 +56,7 @@ public class OrderForCustomer extends Order implements Serializable {
         this.goodsDetails = new ArrayList<>();
     }
 
-    public ArrayList<GoodInCart> getGoodsDetails() {
+    public List<GoodInCart> getGoodsDetails() {
         return this.goodsDetails;
         /*ArrayList<GoodInCart> goodInCarts = new ArrayList<>();
         for (Long id : goodsDetails) {

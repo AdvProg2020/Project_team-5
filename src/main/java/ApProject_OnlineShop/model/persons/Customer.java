@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Customer")
@@ -19,10 +20,10 @@ public class Customer extends Person implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "DiscountPerson", joinColumns = @JoinColumn(name = "CustomerId"), inverseJoinColumns = @JoinColumn(name = "DiscountId"))
-    private ArrayList<DiscountCode> discountCodes;
+    private List<DiscountCode> discountCodes;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private ArrayList<OrderForCustomer> previousOrders;
+    private List<OrderForCustomer> previousOrders;
 
     @Column(name = "BankAccountId")
     private String bankAccountId;
@@ -66,7 +67,7 @@ public class Customer extends Person implements Serializable {
         this.discountCodes.remove(discountCode);
     }
 
-    public ArrayList<DiscountCode> getDiscountCodes() {
+    public List<DiscountCode> getDiscountCodes() {
         return this.discountCodes;
         /*ArrayList<DiscountCode> discountCodes=new ArrayList<>();
         for (Long discountCodesId : this.discountCodes) {
@@ -75,7 +76,7 @@ public class Customer extends Person implements Serializable {
         return discountCodes;*/
     }
 
-    public ArrayList<OrderForCustomer> getPreviousOrders() {
+    public List<OrderForCustomer> getPreviousOrders() {
         return this.previousOrders;
         /*ArrayList<OrderForCustomer> previousOrders=new ArrayList<>();
         for (Long id : this.previousOrders) {

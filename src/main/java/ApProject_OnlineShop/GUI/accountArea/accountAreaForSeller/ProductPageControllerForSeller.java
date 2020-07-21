@@ -111,7 +111,7 @@ public class ProductPageControllerForSeller extends FxmlController implements In
         Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
 //        Good good = Shop.getInstance().findGoodById(productId);
         detailsLabel.setText(good.getDetails());
-        HashMap<String, String> categoryProperties = good.getCategoryProperties();
+        HashMap<String, String> categoryProperties = new HashMap<>(good.getCategoryProperties());
         properties.setAlignment(Pos.CENTER);
         properties.setSpacing(13);
         for (String detailKey : categoryProperties.keySet()) {

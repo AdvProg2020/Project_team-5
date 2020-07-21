@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "Discount")
@@ -45,7 +46,7 @@ public class DiscountCode implements Serializable {
     @CollectionTable(name = "DiscountPerson", joinColumns = @JoinColumn(name = "DiscountId"))
     @Column(name = "RemainingNumber", nullable = false)
     @MapKeyJoinColumn(name = "CustomerId")
-    private HashMap<Customer, Integer> includedCustomers;
+    private Map<Customer, Integer> includedCustomers;
 
     public DiscountCode(String code, LocalDateTime startDate, LocalDateTime endDate, Long maxDiscountAmount, int discountPercent) {
         discountCodeCount++;
@@ -121,7 +122,7 @@ public class DiscountCode implements Serializable {
         return discountPercent;
     }
 
-    public HashMap<Customer, Integer> getIncludedCustomers() {
+    public Map<Customer, Integer> getIncludedCustomers() {
         return this.includedCustomers;
         /*HashMap<Customer, Integer> includedCustomers2 = new HashMap<>();
         for (Customer customer : this.includedCustomers.keySet()) {

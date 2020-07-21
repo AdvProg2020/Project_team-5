@@ -110,7 +110,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public List<String> getSortedDiscountCode(int chosenSort, Person person) {
-        ArrayList<DiscountCode> discountCodes = ((Customer) person).getDiscountCodes();
+        ArrayList<DiscountCode> discountCodes = new ArrayList<>(((Customer) person).getDiscountCodes());
         List<String> discountCodeString = new ArrayList<>();
         if (chosenSort == 1)
             discountCodeString = MainController.getInstance().getSortController().sortByDiscountPercent(discountCodes).stream().map(DiscountCode::toString).collect(Collectors.toList());
@@ -231,7 +231,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     }
 
     public List<Long> getBoughtProducts(Person person) {
-        ArrayList<OrderForCustomer> orders = ((Customer) person).getPreviousOrders();
+        ArrayList<OrderForCustomer> orders = new ArrayList<>(((Customer) person).getPreviousOrders());
         ArrayList<Long> goods = new ArrayList<>();
         for (OrderForCustomer order : orders) {
             goods.addAll(order.getGoodsDetails().stream().map(goodInCart -> goodInCart.getGood().getGoodId()).collect(Collectors.toList()));

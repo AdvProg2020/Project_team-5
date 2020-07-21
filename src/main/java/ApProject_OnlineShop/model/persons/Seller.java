@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Seller")
@@ -22,11 +23,11 @@ public class Seller extends Person implements Serializable {
     private Company company;
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
-    private ArrayList<OrderForSeller> previousSells;
+    private List<OrderForSeller> previousSells;
 
     @ManyToMany
     @JoinTable(name = "ProductAndSeller", joinColumns = @JoinColumn(name = "SellerId"), inverseJoinColumns = @JoinColumn(name = "ProductID"))
-    private ArrayList<Good> activeGoods;
+    private List<Good> activeGoods;
 
     @Column(name = "BankAccountId")
     private String bankAccountId;
@@ -35,7 +36,7 @@ public class Seller extends Person implements Serializable {
     private long balance;
 
     @OneToMany(mappedBy = "seller")
-    private ArrayList<Off> activeOffs;
+    private List<Off> activeOffs;
 
     @Transient
     private ArrayList<Integer> activeAuctions;
@@ -91,7 +92,7 @@ public class Seller extends Person implements Serializable {
         return this.company;
     }
 
-    public ArrayList<OrderForSeller> getPreviousSells() {
+    public List<OrderForSeller> getPreviousSells() {
         return this.previousSells;
         /*
         ArrayList<OrderForSeller> ordersForSeller= new ArrayList<>();
@@ -103,7 +104,7 @@ public class Seller extends Person implements Serializable {
          */
     }
 
-    public ArrayList<Good> getActiveGoods() {
+    public List<Good> getActiveGoods() {
         return this.activeGoods;
         /*
         ArrayList<Good> activeGoods= new ArrayList<>();
@@ -130,7 +131,7 @@ public class Seller extends Person implements Serializable {
         //this.activeOffsIds.remove(id);
     }
 
-    public ArrayList<Off> getActiveOffs() {
+    public List<Off> getActiveOffs() {
         return this.activeOffs;
         /*
         ArrayList<Off> offs=new ArrayList<>();
