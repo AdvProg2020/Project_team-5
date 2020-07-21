@@ -148,9 +148,11 @@ public class ClientHandler extends Thread {
             Receipt receipt = bank.getReceiptById(receiptId);
             if (receipt.getPaid() == 1)
                 dataOutputStream.writeUTF("receipt is paid before");
-            else if (receipt.getSourceAccountID() != -1 && bank.findAccountByNumber("" + receipt.getSourceAccountID()).getMoney() < receipt.getMoney())
+            else if (receipt.getSourceAccountID() != -1 && bank.findAccountByNumber("" + receipt.getSourceAccountID()).getMoney() < receipt.getMoney()) {
+                System.out.println(bank.findAccountByNumber("" + receipt.getSourceAccountID()).getMoney());
+                System.out.println(receipt.getMoney());
                 dataOutputStream.writeUTF("source account does not have enough money");
-            else if ((receipt.getSourceAccountID() != -1 && bank.findAccountByNumber("" + receipt.getSourceAccountID()) == null) ||
+            } else if ((receipt.getSourceAccountID() != -1 && bank.findAccountByNumber("" + receipt.getSourceAccountID()) == null) ||
                     (receipt.getDestAccountID() != -1 && bank.findAccountByNumber("" + receipt.getDestAccountID()) == null))
                 dataOutputStream.writeUTF("invalid account id");
             else {
