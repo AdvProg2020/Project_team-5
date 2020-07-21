@@ -1,4 +1,4 @@
-package ApProject_OnlineShop.GUI.ProductPageRelated;
+package ApProject_OnlineShop.GUI.productPageRelated;
 
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer.AccountAreaForCustomerController;
