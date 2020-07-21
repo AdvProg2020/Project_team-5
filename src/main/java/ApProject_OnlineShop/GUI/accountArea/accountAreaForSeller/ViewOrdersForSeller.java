@@ -55,6 +55,7 @@ public class ViewOrdersForSeller extends FxmlController {
             discountLink.setUnderline(false);
             vBox.getChildren().add(discountLink);
         }
+        List<String> fileOrders = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getFileOrderOfSeller", getToken(), null)));
         root.add(topic, 1, 1);
         MenuItem sortByDiscountPercent = new MenuItem("sort by date");
         MenuItem sortByEndDate = new MenuItem("sort by price");
