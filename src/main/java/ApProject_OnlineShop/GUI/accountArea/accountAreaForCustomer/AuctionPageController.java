@@ -49,6 +49,8 @@ public class AuctionPageController extends FxmlController implements Initializab
 
     private AuctionPageChatThread auctionPageChatThread;
 
+    private AuctionPageBestPriceThread auctionPageBestPriceThread;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewSingleAuction();
@@ -56,12 +58,15 @@ public class AuctionPageController extends FxmlController implements Initializab
         updateBestPrice();
         updateChatBox();
         auctionPageChatThread = new AuctionPageChatThread(this, selectedAuctionId);
+        auctionPageBestPriceThread = new AuctionPageBestPriceThread(this, selectedAuctionId);
+        new Thread(auctionPageBestPriceThread).start();
         new Thread(auctionPageChatThread).start();
         if (!isPersonOfferedPriceInAuction())
             SuccessPageFxController.showPage("offer price", "please first offer a price to participate in auction and chat with other participants");
     }
 
-    private void updateBestPrice() {
+    @FXML
+    public void updateBestPrice() {
         ArrayList<String> input = new ArrayList<>();
         input.add(selectedAuctionId);
         String bestPrice = connectToServer(new RequestForServer("AuctionsController", "getBestPriceOfAuction", getToken(), input));
@@ -115,7 +120,8 @@ public class AuctionPageController extends FxmlController implements Initializab
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "offerNewPrice", getToken(), inputs));
         if (serverResponse.equals("your price offered successfully")) {
             SuccessPageFxController.showPage("price offer", "your price successfully offered.");
-            setScene("auctionPage.fxml", "Auction Page");
+//            setScene("auctionPage.fxml", "Auction Page");
+            updateChatBox();
             updateLastPriceLabel();
         } else {
             ErrorPageFxController.showPage("price cannot be offered", serverResponse);
@@ -136,6 +142,7 @@ public class AuctionPageController extends FxmlController implements Initializab
             FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
             setToken(null);
             auctionPageChatThread.setExit(true);
+            auctionPageBestPriceThread.setExit(true);
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }
@@ -149,6 +156,7 @@ public class AuctionPageController extends FxmlController implements Initializab
 
     public void onBackButtonPressed(ActionEvent actionEvent) {
         auctionPageChatThread.setExit(true);
+        auctionPageBestPriceThread.setExit(true);
         setScene("viewAllAuctionsForCustomerPage.fxml", "view auctions");
     }
 
