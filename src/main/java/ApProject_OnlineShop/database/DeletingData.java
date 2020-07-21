@@ -10,10 +10,7 @@ import ApProject_OnlineShop.model.orders.OrderFileProductForCustomer;
 import ApProject_OnlineShop.model.orders.OrderFileProductForSeller;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
-import ApProject_OnlineShop.model.persons.Company;
-import ApProject_OnlineShop.model.persons.Customer;
-import ApProject_OnlineShop.model.persons.Manager;
-import ApProject_OnlineShop.model.persons.Seller;
+import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.Request;
 
@@ -32,6 +29,11 @@ public class DeletingData {
         String filePath = "Resources\\Users\\Managers\\" + manager.getUsername() + ".json";
         if (testMode)
             filePath = "Test".concat(filePath);
+        deleteFile(filePath);
+    }
+
+    public void deleteSupporter(Supporter supporter) throws FileCantBeDeletedException {
+        String filePath = "Resources\\Users\\Supporters\\" + supporter.getUsername() + ".json";
         deleteFile(filePath);
     }
 
