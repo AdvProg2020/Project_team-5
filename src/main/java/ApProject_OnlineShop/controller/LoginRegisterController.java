@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 public class LoginRegisterController {
 
-    SqlCustomerApi sqlCustomerApi = (SqlCustomerApi) SqlApiContainer.getInstance().getSqlApi("customer");
-    SqlManagerApi sqlManagerApi = (SqlManagerApi) SqlApiContainer.getInstance().getSqlApi("manager");
+    private SqlCustomerApi sqlCustomerApi = (SqlCustomerApi) SqlApiContainer.getInstance().getSqlApi("customer");
+    private SqlManagerApi sqlManagerApi = (SqlManagerApi) SqlApiContainer.getInstance().getSqlApi("manager");
 
     public void createAccount(String role, String username, ArrayList<String> details)
             throws UsernameIsTakenAlreadyException, MainManagerAlreadyRegistered, IOException, FileCantBeSavedException {

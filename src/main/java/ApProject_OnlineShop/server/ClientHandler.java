@@ -889,10 +889,10 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF("done successfully");
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getCategoryProperties")) {
-            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getCategoryProperties(requestForServer.getInputs().get(0))));
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getCategoryProperties(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getSubCategoryProperties")) {
-            dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getSubCategoryProperties(requestForServer.getInputs().get(0))));
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getSubCategoryProperties(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getOnlineUsers")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getAccountAreaForManagerController().getOnlineCustomers()));

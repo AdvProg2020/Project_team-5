@@ -7,10 +7,12 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Category")
+//@SecondaryTable(name = "DetailOfEachCategory", pkJoinColumns = @PrimaryKeyJoinColumn(name = "Category", referencedColumnName = "CategoryId"))
 public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +23,13 @@ public class Category implements Serializable {
     private String name;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
-    @CollectionTable(name = "DetailOfEachCategory", joinColumns = @JoinColumn(name = "Category"))
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Column(name = "Property")
-    private ArrayList<String> details;
+    @CollectionTable(name = "DetailOfEachCategory", joinColumns = @JoinColumn(name = "Category", referencedColumnName = "CategoryId"))
+    private List<String> details;
 
     @OneToMany(mappedBy = "parentCategory")
-    private ArrayList<SubCategory> subCategories;
+    private List<SubCategory> subCategories;
 
     public Category(String name, ArrayList<String> details) {
         this.name = name;
@@ -42,11 +44,11 @@ public class Category implements Serializable {
         return name;
     }
 
-    public ArrayList<String> getDetails() {
+    public List<String> getDetails() {
         return details;
     }
 
-    public ArrayList<SubCategory> getSubCategories() {
+    public List<SubCategory> getSubCategories() {
         return subCategories;
         /*ArrayList<SubCategory> subCategories2=new ArrayList<>();
         for (String subCategory : this.subCategories) {

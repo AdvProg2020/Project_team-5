@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "SubCategory")
@@ -29,10 +30,10 @@ public class SubCategory implements Serializable {
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     @CollectionTable(name = "DetailOfEachSubCategory", joinColumns = @JoinColumn(name = "SubCategory"))
     @Column(name = "Property")
-    private ArrayList<String> details;
+    private List<String> details;
 
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
-    private ArrayList<Good> goods;
+    private List<Good> goods;
 
     public SubCategory(String name, ArrayList<String> details) {
         this.name = name;
@@ -56,11 +57,11 @@ public class SubCategory implements Serializable {
         return this.parentCategory;
     }
 
-    public ArrayList<String> getDetails() {
+    public List<String> getDetails() {
         return details;
     }
 
-    public ArrayList<Good> getGoods() {
+    public List<Good> getGoods() {
         return this.goods;
         /*ArrayList<Good> goods1=new ArrayList<>();
         for (Long id : goods) {

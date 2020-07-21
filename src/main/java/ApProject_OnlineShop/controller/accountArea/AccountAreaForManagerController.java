@@ -207,7 +207,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return subCategories;
     }
 
-    public ArrayList<String> getCategoryProperties(String categoryName) {
+    public List<String> getCategoryProperties(String categoryName) {
         return Shop.getInstance().findCategoryByName(categoryName).getDetails();
     }
 
@@ -294,7 +294,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Database.getInstance().saveItem(category);
     }
 
-    public ArrayList<String> getSubCategoryProperties(String subcategoryName) {
+    public List<String> getSubCategoryProperties(String subcategoryName) {
         return Shop.getInstance().findSubCategoryByName(subcategoryName).getDetails();
     }
 
