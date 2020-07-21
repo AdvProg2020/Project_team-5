@@ -3,7 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
-import ApProject_OnlineShop.GUI.ProductPageRelated.CommentsPage;
+import ApProject_OnlineShop.GUI.productPageRelated.CommentsPage;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.RequestForServer;
@@ -35,7 +35,6 @@ import javafx.stage.Stage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class ProductPageControllerForSeller extends FxmlController implements Initializable {

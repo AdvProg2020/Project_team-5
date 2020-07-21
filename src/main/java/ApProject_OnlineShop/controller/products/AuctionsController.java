@@ -31,7 +31,7 @@ public class AuctionsController {
         Auction auction = Shop.getInstance().findAuctionById(auctionId);
         if (auction.getAllCustomersOffers().size() > 0) {
             Map<Customer, Long> sortedAuctionOffers =
-                    auction.getAllCustomersOffers().entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, ((aLong, aLong2) -> aLong2 - aLong), LinkedHashMap::new));
+                    auction.getAllCustomersOffers().entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, ((aLong, aLong2) -> aLong - aLong2), LinkedHashMap::new));
             Customer winner = null;
             for (Customer customer : sortedAuctionOffers.keySet()) {
                 winner = customer;
