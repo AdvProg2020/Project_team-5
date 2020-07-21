@@ -1,6 +1,5 @@
 package ApProject_OnlineShop.controller.accountArea;
 
-import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.CustomerNotFoundInAuctionException;
@@ -276,7 +275,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public void purchaseFileProductByWallet(long fileProductId, String phoneNumber, String discountCode, long price, Person person) throws Exception {
         FileProduct fileProduct = Shop.getInstance().findFileProductById(fileProductId);
-        Customer customer = (Customer)person;
+        Customer customer = (Customer) person;
         if (!discountCode.equals("")) {
             DiscountCode discountCode1 = Shop.getInstance().findDiscountCode(discountCode);
             discountCode1.discountBeUsedForCustomer(customer);
@@ -295,6 +294,16 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Database.getInstance().saveItem(fileProduct.getSeller());
         fileProduct.increaseDownloadNumber();
         Database.getInstance().saveItem(fileProduct);
+    }
+
+    public List<String> getFileOrdersOfCustomer(Person person) {
+        Customer customer = (Customer) person;
+        List<String> orders = new ArrayList<>();
+        for (Order order : Shop.getInstance().getAllOrders().values()) {
+            if (order instanceof OrderFileProductForSeller && ((OrderFileProductForSeller) order).getCustomerName().equals(customer.getUsername()))
+                orders.add("file order Id: " + order.getOrderId() + "     date: " + order.getDate());
+        }
+        return orders;
     }
 
 }

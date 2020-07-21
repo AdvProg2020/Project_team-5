@@ -39,11 +39,6 @@ public class ViewOrdersForSeller extends FxmlController {
         inputs.add("" + sort);
         List<String> orders = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getSortedLogs", getToken(), inputs)));
 //        List<String> orders = MainController.getInstance().getAccountAreaForSellerController().getSortedLogs(sort);
-        if (orders.size() * 50 > 600) {
-            vBox.setPrefHeight((orders.size() * 50) + 20);
-        } else {
-            vBox.setPrefHeight(600);
-        }
         for (String order : orders) {
             Hyperlink discountLink = new Hyperlink(order);
             discountLink.setFont(new Font("Times New Roman", 16));
@@ -66,6 +61,11 @@ public class ViewOrdersForSeller extends FxmlController {
             discountLink.setPadding(new Insets(8));
             discountLink.setUnderline(false);
             vBox.getChildren().add(discountLink);
+        }
+        if (((orders.size() + fileOrders.size())) * 50 > 600) {
+            vBox.setPrefHeight(((orders.size() + fileOrders.size()) * 50) + 20);
+        } else {
+            vBox.setPrefHeight(600);
         }
         root.add(topic, 1, 1);
         MenuItem sortByDiscountPercent = new MenuItem("sort by date");
@@ -152,7 +152,7 @@ public class ViewOrdersForSeller extends FxmlController {
         StageController.setSceneJavaFx(root);
     }
 
-    public void addDetailToFileOrderVBox(List<String> orderDetails, VBox vBox){
+    public void addDetailToFileOrderVBox(List<String> orderDetails, VBox vBox) {
         Label id = new Label("order ID:     " + orderDetails.get(0));
         Label date = new Label("date:     " + orderDetails.get(1));
         Label goodsList = new Label("file name:     " + orderDetails.get(2));

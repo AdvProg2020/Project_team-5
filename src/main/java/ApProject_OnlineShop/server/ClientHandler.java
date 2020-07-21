@@ -671,6 +671,11 @@ public class ClientHandler extends Thread {
                 dataOutputStream.write(bytes, 0, count);
             }
             inputStream.close();
+        } else if (requestForServer.getFunction().equals("getFileOrdersOfCustomer")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().getFileOrdersOfCustomer(user)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("")) {
+
         }
     }
 
@@ -1102,7 +1107,7 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getFileOrdersOfSeller")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSellerController().getFileOrdersOfSeller(user)));
             dataOutputStream.flush();
-        }else if (requestForServer.getFunction().equals("getFileOrderInfoGUI")) {
+        } else if (requestForServer.getFunction().equals("getFileOrderInfoGUI")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSellerController().getFileOrderInfoGUI(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         }
