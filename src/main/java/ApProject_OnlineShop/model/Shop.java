@@ -263,8 +263,9 @@ public class Shop {
 
     public Good findGoodById(long goodId) {
         for (Category category : this.getAllCategories()) {
-            if (category.findGoodInSubCategories(goodId) != null)
+            if (category.findGoodInSubCategories(goodId) != null) {
                 return category.findGoodInSubCategories(goodId);
+            }
         }
         return null;
     }
