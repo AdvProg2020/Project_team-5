@@ -204,7 +204,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
             if (num % 3 == 0)
                 row++;
         }
-
+        if (availableProducts.isSelected() || offProductsButton.isSelected())
+            return;
         ArrayList<String> fileProducts = convertStringToArraylist(connectToServer(new RequestForServer("AllProductsController", "getFileProducts", getToken(), null)));
         ArrayList<Long> fileProductsIds = new ArrayList<>();
         for (String product : fileProducts) {
@@ -216,6 +217,8 @@ public class AllProductsPage extends FxmlController implements Initializable {
             num++;
             vbox.setCursor(Cursor.HAND);
             vbox.setOnMouseClicked(e -> showFileProduct(fileProductsId));
+            if (num % 3 == 0)
+                row++;
         }
         int size = productsIds.size() + fileProductsIds.size();
         if (size == 0)
@@ -434,7 +437,7 @@ public class AllProductsPage extends FxmlController implements Initializable {
         } else if (getCurrentPerson() instanceof Manager) {
             AccountAreaForManagerFxController.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForManager.fxml", "account area");
-        }else if (getCurrentPerson() instanceof Supporter){
+        } else if (getCurrentPerson() instanceof Supporter) {
             AccountAreaForSupporter.setPathBack("allProducts.fxml", "all products");
             setScene("accountAreaForSupporter.fxml", "account area");
         }
