@@ -8,10 +8,7 @@ import ApProject_OnlineShop.exception.productExceptions.FileIsAlreadyAddedToActi
 import ApProject_OnlineShop.exception.productExceptions.ProductIsAlreadyInAuctionException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.model.Shop;
-import ApProject_OnlineShop.model.orders.Order;
-import ApProject_OnlineShop.model.orders.OrderFileProductForSeller;
-import ApProject_OnlineShop.model.orders.OrderForCustomer;
-import ApProject_OnlineShop.model.orders.OrderForSeller;
+import ApProject_OnlineShop.model.orders.*;
 import ApProject_OnlineShop.model.persons.Company;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Person;
@@ -356,12 +353,24 @@ public class AccountAreaForSellerController extends AccountAreaController {
     }
 
     public List<String> getFileOrdersOfSeller(Person person) {
-        Seller seller = (Seller)person;
+        Seller seller = (Seller) person;
         List<String> orders = new ArrayList<>();
         for (Order order : Shop.getInstance().getAllOrders().values()) {
             if (order instanceof OrderFileProductForSeller && ((OrderFileProductForSeller) order).getSeller().equals(seller))
-                orders.add("file order Id: "+order.getOrderId() + "     date: " + order.getDate());
+                orders.add("file order Id: " + order.getOrderId() + "     date: " + order.getDate());
         }
         return orders;
+    }
+
+    public List<String> getFileOrderInfoGUI(long orderId) {
+        List<String> details = new ArrayList<>();
+        OrderFileProductForSeller order = (OrderFileProductForSeller) Shop.getInstance().getAllOrders().get(orderId);
+        details.add(order.getOrderId() + "");
+        details.add(order.getDate().toString());
+        details.add(order.getFileProduct().getName());
+        details.add(order.getCustomerName() + "");
+        details.add(order.getPrice() + "");
+        details.add(order.getOrderStatus().toString());
+        return details;
     }
 }

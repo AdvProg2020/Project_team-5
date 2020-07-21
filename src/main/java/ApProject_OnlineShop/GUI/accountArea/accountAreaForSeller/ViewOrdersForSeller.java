@@ -133,22 +133,45 @@ public class ViewOrdersForSeller extends FxmlController {
         playButtonMusic();
         ArrayList<String> inputs0 = new ArrayList<>();
         inputs0.add(orderId + "");
-        inputs0.add(getCurrentPerson().getUsername());
-        inputs0.add("seller");
-        List<String> orderDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaController", "getOrderDetails", getToken(), inputs0)));
-//        List<String> orderDetails = ((Seller) FxmlController.getCurrentPerson()).findOrderById(orderId).getDetails();
+//        inputs0.add(getCurrentPerson().getUsername());
+//        inputs0.add("seller");
+        List<String> orderDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getFileOrderInfoGUI", getToken(), inputs0)));
         GridPane root = style.makeGridPane();
-        Label discountCodeInfo = new Label("Seller Order");
+        Label discountCodeInfo = new Label("Seller File Order");
         discountCodeInfo.setFont(Font.font("Times New Roman", 26));
         discountCodeInfo.setPadding(new Insets(7));
         GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
         root.add(discountCodeInfo, 1, 1);
         VBox vBox = new VBox();
-        addDetailsToVBox(orderDetails, vBox);
+        addDetailToFileOrderVBox(orderDetails, vBox);
         style.setVBoxStyle(vBox);
+        vBox.setMinHeight(500);
+        vBox.setMaxHeight(500);
         root.add(vBox, 1, 2);
         root.getChildren().get(0).setOnMouseClicked(e -> viewSortedOrders(0));
         StageController.setSceneJavaFx(root);
+    }
+
+    public void addDetailToFileOrderVBox(List<String> orderDetails, VBox vBox){
+        Label id = new Label("order ID:     " + orderDetails.get(0));
+        Label date = new Label("date:     " + orderDetails.get(1));
+        Label goodsList = new Label("file name:     " + orderDetails.get(2));
+        Label discountAmount = new Label("customer name:     " + orderDetails.get(3));
+        Label totalAmount = new Label("total price:     " + orderDetails.get(4));
+        Label orderStatus = new Label("order status:     " + orderDetails.get(5));
+        goodsList.setPadding(new Insets(7));
+        style.setTextFont(totalAmount);
+        style.setTextFont(id);
+        style.setTextFont(date);
+        style.setTextFont(goodsList);
+        style.setTextFont(discountAmount);
+        style.setTextFont(orderStatus);
+        vBox.getChildren().add(id);
+        vBox.getChildren().add(date);
+        vBox.getChildren().add(goodsList);
+        vBox.getChildren().add(discountAmount);
+        vBox.getChildren().add(totalAmount);
+        vBox.getChildren().add(orderStatus);
     }
 
     public void backToAccountAreaSeller() {

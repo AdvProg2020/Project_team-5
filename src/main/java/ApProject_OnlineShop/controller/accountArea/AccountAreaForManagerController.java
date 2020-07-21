@@ -480,4 +480,5 @@ public class AccountAreaForManagerController extends AccountAreaController {
         return details;
     }
 
+
 }
