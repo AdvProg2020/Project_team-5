@@ -1099,6 +1099,9 @@ public class ClientHandler extends Thread {
             } finally {
                 dataOutputStream.flush();
             }
+        } else if (requestForServer.getFunction().equals("getFileOrdersOfSeller")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSellerController().getFileOrdersOfSeller(user)));
+            dataOutputStream.flush();
         }
     }
 
