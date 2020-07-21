@@ -1155,6 +1155,10 @@ public class ClientHandler extends Thread {
             int auctionId = Integer.parseInt(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF(MainController.getInstance().getAuctionsController().isCustomerOfferedAPriceInAuction(user, auctionId) ? "true" : "false");
             dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getBestPriceOfAuction")) {
+            int auctionId = Integer.parseInt(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF(MainController.getInstance().getAuctionsController().getBestPriceOfAuction(auctionId) + "");
+            dataOutputStream.flush();
         }
     }
 
