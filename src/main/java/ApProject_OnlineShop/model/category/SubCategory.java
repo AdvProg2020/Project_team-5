@@ -21,7 +21,7 @@ public class SubCategory {
     }
 
     public void setParentCategory(Category parentCategory) {
-        this.parentCategory= parentCategory.getName();
+        this.parentCategory = parentCategory.getName();
     }
 
     public String getName() {
@@ -37,7 +37,7 @@ public class SubCategory {
     }
 
     public ArrayList<Good> getGoods() {
-        ArrayList<Good> goods1=new ArrayList<>();
+        ArrayList<Good> goods1 = new ArrayList<>();
         for (Long id : goods) {
             goods1.add(Shop.getInstance().getAvailableGood(id));
         }
@@ -54,6 +54,8 @@ public class SubCategory {
     }
 
     public Good findGoodById(long goodId) {
+        if (getGoods().size() == 0)
+            return null;
         for (Good good : getGoods()) {
             if (good.getGoodId() == goodId)
                 return good;

@@ -161,7 +161,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
     public void purchaseByBankPortal(String bankAccountUsername, String password, String money, String usedDiscountCode, ArrayList<String> customerInfo, Person person, long id) throws Exception {
         String response = MainController.getInstance().getBankTransactionsController().moveMoneyFromUserToShop(bankAccountUsername, password, money);
         if (!response.equals("done successfully"))
-            throw new NotEnoughCredit();
+            throw new Exception(response);
         if (usedDiscountCode != null)
             reduceNumberOfDiscountCode(usedDiscountCode, person);
         finalBuyProcess(Long.parseLong(money), customerInfo, person, id);
