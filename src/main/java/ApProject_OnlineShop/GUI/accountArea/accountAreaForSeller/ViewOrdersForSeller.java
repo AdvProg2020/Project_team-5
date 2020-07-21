@@ -55,7 +55,18 @@ public class ViewOrdersForSeller extends FxmlController {
             discountLink.setUnderline(false);
             vBox.getChildren().add(discountLink);
         }
-        List<String> fileOrders = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getFileOrderOfSeller", getToken(), null)));
+        List<String> fileOrders = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaForSellerController", "getFileOrdersOfSeller", getToken(), null)));
+        for (String fileOrder : fileOrders) {
+            Hyperlink discountLink = new Hyperlink(fileOrder);
+            discountLink.setFont(new Font("Times New Roman", 16));
+            discountLink.setPrefSize(400, 50);
+            discountLink.setOnMouseClicked(e -> viewSingleFileOrder(fileOrder));
+            discountLink.setStyle("-fx-text-fill: #250033; -fx-text-color: #250033;");
+            discountLink.setAlignment(Pos.BOTTOM_LEFT);
+            discountLink.setPadding(new Insets(8));
+            discountLink.setUnderline(false);
+            vBox.getChildren().add(discountLink);
+        }
         root.add(topic, 1, 1);
         MenuItem sortByDiscountPercent = new MenuItem("sort by date");
         MenuItem sortByEndDate = new MenuItem("sort by price");
@@ -118,7 +129,26 @@ public class ViewOrdersForSeller extends FxmlController {
     }
 
     public void viewSingleFileOrder(String order) {
-
+        Long orderId = Long.parseLong(order.substring("file order Id: ".length(), order.indexOf("  ")));
+        playButtonMusic();
+        ArrayList<String> inputs0 = new ArrayList<>();
+        inputs0.add(orderId + "");
+        inputs0.add(getCurrentPerson().getUsername());
+        inputs0.add("seller");
+        List<String> orderDetails = convertStringToArraylist(connectToServer(new RequestForServer("AccountAreaController", "getOrderDetails", getToken(), inputs0)));
+//        List<String> orderDetails = ((Seller) FxmlController.getCurrentPerson()).findOrderById(orderId).getDetails();
+        GridPane root = style.makeGridPane();
+        Label discountCodeInfo = new Label("Seller Order");
+        discountCodeInfo.setFont(Font.font("Times New Roman", 26));
+        discountCodeInfo.setPadding(new Insets(7));
+        GridPane.setHalignment(discountCodeInfo, HPos.CENTER);
+        root.add(discountCodeInfo, 1, 1);
+        VBox vBox = new VBox();
+        addDetailsToVBox(orderDetails, vBox);
+        style.setVBoxStyle(vBox);
+        root.add(vBox, 1, 2);
+        root.getChildren().get(0).setOnMouseClicked(e -> viewSortedOrders(0));
+        StageController.setSceneJavaFx(root);
     }
 
     public void backToAccountAreaSeller() {

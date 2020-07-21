@@ -360,7 +360,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         List<String> orders = new ArrayList<>();
         for (Order order : Shop.getInstance().getAllOrders().values()) {
             if (order instanceof OrderFileProductForSeller && ((OrderFileProductForSeller) order).getSeller().equals(seller))
-                orders.add(order.getOrderId() + "");
+                orders.add("file order Id: "+order.getOrderId() + "     date: " + order.getDate());
         }
         return orders;
     }
