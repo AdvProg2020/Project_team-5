@@ -155,6 +155,8 @@ public class AccountAreaForCustomerController extends AccountAreaController {
             throw new NotEnoughCredit();
         if (usedDiscountCode != null)
             reduceNumberOfDiscountCode(usedDiscountCode, person);
+        Customer currentUser = (Customer) person;
+        currentUser.setCredit(currentUser.getCredit() - totalPrice);
         finalBuyProcess(totalPrice, customerInfo, person, id);
     }
 
@@ -185,7 +187,6 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         Shop.getInstance().addOrder(orderForCustomer);
         orderForCustomer.setOrderStatus(Order.OrderStatus.PROCESSING);
         Database.getInstance().saveItem(orderForCustomer);
-        currentUser.setCredit(currentUser.getCredit() - price);
         currentUser.donateDiscountCodeTOBestCustomers();
         Database.getInstance().saveItem(currentUser);
         makeOrderForSeller(person.getUsername(), id);

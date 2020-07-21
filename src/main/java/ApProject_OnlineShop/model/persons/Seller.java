@@ -176,7 +176,8 @@ public class Seller extends Person {
     }
 
     public long balance() {
-        return this.getPreviousSells().stream().mapToLong(OrderForSeller::getPrice).sum();
+//        return this.getPreviousSells().stream().mapToLong(OrderForSeller::getPrice).sum();
+        return getBalance();
     }
 
     @Override
