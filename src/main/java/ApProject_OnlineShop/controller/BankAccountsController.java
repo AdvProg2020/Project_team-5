@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class BankAccountsController {
     int bankPort;
-    private static final String host = "127.0.0.1";
+    private static final String host = "2.tcp.ngrok.io";
 
     public BankAccountsController(int bankPort) {
         this.bankPort = bankPort;
