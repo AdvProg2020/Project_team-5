@@ -1102,6 +1102,9 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getFileOrdersOfSeller")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSellerController().getFileOrdersOfSeller(user)));
             dataOutputStream.flush();
+        }else if (requestForServer.getFunction().equals("getFileOrderInfoGUI")) {
+            dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSellerController().getFileOrderInfoGUI(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.flush();
         }
     }
 
