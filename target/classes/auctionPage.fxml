@@ -63,8 +63,8 @@
          </HBox>
          <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="201.0" spacing="5.0">
             <children>
-               <Label prefHeight="23.0" prefWidth="51.0" text="last price:" />
-               <Label fx:id="lastPriceLabel" prefHeight="25.0" prefWidth="142.0" text="Label" />
+               <Label prefHeight="23.0" prefWidth="87.0" text="your last price:" />
+               <Label fx:id="lastPriceLabel" prefHeight="25.0" prefWidth="121.0" text="Label" />
             </children>
          </HBox>
          <Button mnemonicParsing="false" onAction="#onSubmitPricePressed" prefHeight="25.0" prefWidth="105.0" styleClass="menuButtons" text="submit">
@@ -83,6 +83,15 @@
          </ImageView>
       </children>
    </VBox>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <children>
+         <Label text="best price :">
+            <padding>
+               <Insets right="10.0" />
+            </padding></Label>
+         <Label fx:id="bestPrice" prefHeight="40.0" prefWidth="189.0" text="  Label" />
+      </children>
+   </HBox>
     <padding>
         <Insets left="10.0" />
     </padding>
