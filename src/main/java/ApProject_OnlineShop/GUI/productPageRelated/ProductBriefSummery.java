@@ -23,6 +23,7 @@ import javafx.scene.text.Text;
 import java.io.ByteArrayInputStream;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +122,7 @@ public class ProductBriefSummery extends FxmlController {
         percent.setTextFill(Color.RED);
         HBox.setMargin(percent, new Insets(0, 20, 0, 5));
         offBox.getChildren().add(percent);
-        LocalDate date = off.getEndDate();
+        LocalDateTime date = off.getEndDate();
         Label days = new Label("" + ChronoUnit.DAYS.between(LocalDate.now(), date) + " days left");
         days.setTextFill(Color.RED);
         days.setUnderline(true);

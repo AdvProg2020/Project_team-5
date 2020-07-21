@@ -4,13 +4,30 @@
     <persistence-unit name="Project_team-5">
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>ApProject_OnlineShop.database.Student</class>
+        <class>ApProject_OnlineShop.model.category.Category</class>
+        <class>ApProject_OnlineShop.model.category.SubCategory</class>
+        <class>ApProject_OnlineShop.model.persons.Person</class>
+        <class>ApProject_OnlineShop.model.persons.Customer</class>
+        <class>ApProject_OnlineShop.model.persons.Manager</class>
+        <class>ApProject_OnlineShop.model.persons.Seller</class>
+        <class>ApProject_OnlineShop.model.persons.Company</class>
+        <class>ApProject_OnlineShop.model.productThings.Good</class>
+        <class>ApProject_OnlineShop.model.productThings.GoodInCart</class>
+        <class>ApProject_OnlineShop.model.productThings.DiscountCode</class>
+        <class>ApProject_OnlineShop.model.productThings.Off</class>
+        <class>ApProject_OnlineShop.model.productThings.Comment</class>
+        <class>ApProject_OnlineShop.model.productThings.Rate</class>
+        <class>ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood</class>
+        <class>ApProject_OnlineShop.model.orders.Order</class>
+        <class>ApProject_OnlineShop.model.orders.OrderForCustomer</class>
+        <class>ApProject_OnlineShop.model.orders.OrderForSeller</class>
+        <class>ApProject_OnlineShop.model.ShopBankAccount</class>
 
         <properties>
 
         <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 
-        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/testdb"/>
+        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/OnlineShopProject"/>
 
         <property name="javax.persistence.jdbc.user" value="projectAdmin@team5"/>
 

@@ -15,6 +15,7 @@ import org.junit.Test;
 import ApProject_OnlineShop.testThings.TestShop;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OffTest {
@@ -40,7 +41,7 @@ public class OffTest {
         good = new Good("sosise", "gooshtiran", subCategory, "vanak sosise", null, seller, 50000L, 4);
         ArrayList<Good> offGoods = new ArrayList<>();
         offGoods.add(good);
-        off = new Off(offGoods, LocalDate.parse("2020-05-06"), LocalDate.parse("2020-07-06"), 100000L, 25, seller);
+        off = new Off(offGoods, LocalDateTime.parse("2020-05-06"), LocalDateTime.parse("2020-07-06"), 100000L, 25, seller);
         Shop.getInstance().addOff(off);
         Shop.getInstance().addSubCategory(subCategory);
         Shop.getInstance().addCategory(category);

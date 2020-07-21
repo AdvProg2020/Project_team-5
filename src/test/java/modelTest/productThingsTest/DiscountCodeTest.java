@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.Assert;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class DiscountCodeTest {
 
@@ -17,7 +18,7 @@ public class DiscountCodeTest {
         Customer customer = new Customer("admin", "sadegh", "majidi",
                 "sadegh@gmail.com", "09360000000", "1234", 12212);
         DiscountCode discountCode = new DiscountCode("asdSDhjk43iu3tr",
-                LocalDate.parse("2020-06-09"), LocalDate.parse("2020-07-10"), 300L, 20);
+                LocalDateTime.parse("2020-06-09"), LocalDateTime.parse("2020-07-10"), 300L, 20);
         Shop.getInstance().getAllDiscountCodes().add(discountCode);
         Shop.getInstance().getAllPersons().add(customer);
         discountCode.addCustomerToCode(customer,4);

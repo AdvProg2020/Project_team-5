@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -58,9 +59,9 @@ public class SortingTest {
         ArrayList<Off> offs = new ArrayList<>();
         Company company=new Company("salam","asfs","asdasd","addasd","999");
         Seller seller = new Seller("hi", "seller", "seller", "", "", "aa",company);
-        Off off1 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-08-15"),8000L, 15, seller);
-        Off off2 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-07-15"),9000L, 20, seller);
-        Off off3 = new Off(new ArrayList<>(), LocalDate.parse("2020-02-13"), LocalDate.parse("2020-08-27"),6000L, 30, seller);
+        Off off1 = new Off(new ArrayList<>(), LocalDateTime.parse("2020-02-13"), LocalDateTime.parse("2020-08-15"),8000L, 15, seller);
+        Off off2 = new Off(new ArrayList<>(), LocalDateTime.parse("2020-02-13"), LocalDateTime.parse("2020-07-15"),9000L, 20, seller);
+        Off off3 = new Off(new ArrayList<>(), LocalDateTime.parse("2020-02-13"), LocalDateTime.parse("2020-08-27"),6000L, 30, seller);
         offs.add(off1);
         offs.add(off2);
         offs.add(off3);

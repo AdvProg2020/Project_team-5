@@ -15,6 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +26,7 @@ public class GoodTest {
     static Customer customer = new Customer("customer","","","","","aa",90000L);
     static Category category = new Category("cat", new ArrayList<>());
     static SubCategory subCategory = new SubCategory("sub", new ArrayList<>());
-    static DiscountCode discountCode = new DiscountCode("1111", LocalDate.parse("2020-03-15"), LocalDate.parse("2020-07-17"),200L, 22);
+    static DiscountCode discountCode = new DiscountCode("1111", LocalDateTime.parse("2020-03-15"), LocalDateTime.parse("2020-07-17"),200L, 22);
     static Good good2 = new Good("phone", "samsung", subCategory,"",new HashMap<>(),seller,9000L,3);
     static Good good = new Good("phone", "samsung", subCategory,"",new HashMap<>(),seller,9000L,3);
 
@@ -39,7 +40,7 @@ public class GoodTest {
         customer = new Customer("customer","","","","","aa",90000L);
         category = new Category("cat", new ArrayList<>());
         subCategory = new SubCategory("sub", new ArrayList<>());
-        discountCode = new DiscountCode("1111", LocalDate.parse("2020-03-15"), LocalDate.parse("2020-07-17"),200L, 22);
+        discountCode = new DiscountCode("1111", LocalDateTime.parse("2020-03-15"), LocalDateTime.parse("2020-07-17"),200L, 22);
         good2 = new Good("phone", "samsung", subCategory,"",new HashMap<>(),seller,9000L,3);
         good = new Good("phone", "samsung", subCategory,"",new HashMap<>(),seller,9000L,3);
         Shop.getInstance().addCategory(category);
