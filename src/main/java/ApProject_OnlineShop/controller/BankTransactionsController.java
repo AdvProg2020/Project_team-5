@@ -15,8 +15,14 @@ public class BankTransactionsController {
         String token = MainController.getInstance().getBankAccountsController().getToken(username, password);
         if (token.startsWith("invalid"))
             return token;
-        Customer user = (Customer) Shop.getInstance().findUser(username);
-        String receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "move", money, user.getBankAccountId(), Shop.getInstance().getShopBankId(), "");
+        String receiptId = "";
+        if (Shop.getInstance().findUser(username) instanceof Customer) {
+            Customer user = (Customer) Shop.getInstance().findUser(username);
+            receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "move", money, user.getBankAccountId(), Shop.getInstance().getShopBankId(), "");
+        }else if (Shop.getInstance().findUser(username) instanceof Seller) {
+            Seller user = (Seller) Shop.getInstance().findUser(username);
+            receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "move", money, user.getBankAccountId(), Shop.getInstance().getShopBankId(), "");
+        }
         if (!Pattern.matches("[\\d]+", receiptId))
             return receiptId;
         String finalResponse = MainController.getInstance().getBankAccountsController().pay(receiptId);
