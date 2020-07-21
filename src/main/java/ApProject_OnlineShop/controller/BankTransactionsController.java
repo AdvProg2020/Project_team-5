@@ -42,7 +42,7 @@ public class BankTransactionsController {
                 return "not enough money in account";
         }
         Seller user = (Seller) Shop.getInstance().findUser(username);
-        String receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "withdraw", money, Shop.getInstance().getShopBankId(), user.getBankAccountId(), "");
+        String receiptId = MainController.getInstance().getBankAccountsController().createReceipt(token, "move", money, Shop.getInstance().getShopBankId(), user.getBankAccountId(), "");
         if (!Pattern.matches("[\\d]+", receiptId))
             return receiptId;
         String finalResponse = MainController.getInstance().getBankAccountsController().pay(receiptId);
