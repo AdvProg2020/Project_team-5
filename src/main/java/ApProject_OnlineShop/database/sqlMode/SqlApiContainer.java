@@ -5,9 +5,10 @@ import ApProject_OnlineShop.model.ShopBankAccount;
 import java.util.HashMap;
 
 public class SqlApiContainer {
-    HashMap<String, SqlAPIs> apisList;
+    protected static SqlApiContainer sqlApiContainer = null;
+    protected HashMap<String, SqlAPIs> apisList;
 
-    public SqlApiContainer() {
+    protected SqlApiContainer() {
         apisList = new HashMap<>();
         apisList.put("category", new SqlCategoryApi());
         apisList.put("comment", new SqlCommentApi());
@@ -26,6 +27,12 @@ public class SqlApiContainer {
         apisList.put("sellerRelatedInfoAboutGood", new SqlSellerRelatedInfoAboutGood());
         apisList.put("subCategory", new SqlSubCategoryApi());
         apisList.put("ShopBankAccount", new SqlShopBankAccountApi());
+    }
+
+    public static SqlApiContainer getInstance() {
+        if (sqlApiContainer == null)
+            sqlApiContainer = new SqlApiContainer();
+        return sqlApiContainer;
     }
 
     public SqlAPIs<?> getSqlApi(String name) {

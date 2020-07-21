@@ -1,6 +1,9 @@
 package ApProject_OnlineShop.controller;
 
 import ApProject_OnlineShop.database.fileMode.Database;
+import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
+import ApProject_OnlineShop.database.sqlMode.SqlCustomerApi;
+import ApProject_OnlineShop.database.sqlMode.SqlManagerApi;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.userExceptions.MainManagerAlreadyRegistered;
 import ApProject_OnlineShop.exception.userExceptions.PasswordIncorrectException;
@@ -16,6 +19,9 @@ import java.util.ArrayList;
 
 public class LoginRegisterController {
 
+    SqlCustomerApi sqlCustomerApi = (SqlCustomerApi) SqlApiContainer.getInstance().getSqlApi("customer");
+    SqlManagerApi sqlManagerApi = (SqlManagerApi) SqlApiContainer.getInstance().getSqlApi("manager");
+
     public void createAccount(String role, String username, ArrayList<String> details)
             throws UsernameIsTakenAlreadyException, MainManagerAlreadyRegistered, IOException, FileCantBeSavedException {
         if (Shop.getInstance().findUser(username) != null) {
@@ -25,7 +31,8 @@ public class LoginRegisterController {
             Customer customer = new Customer(username, details.get(0), details.get(1), details.get(2),
                     details.get(3), details.get(4), Long.parseLong(details.get(5)));
             Shop.getInstance().addPerson(customer);
-            Database.getInstance().saveItem(customer);
+            //Database.getInstance().saveItem(customer);
+            sqlCustomerApi.save(customer);
         } else if (role.equals("seller")) {
             RegisteringSellerRequest seller = new RegisteringSellerRequest(username, details.get(0), details.get(1)
                     , details.get(2), details.get(3), details.get(4),
@@ -39,7 +46,8 @@ public class LoginRegisterController {
                 Manager manager = new Manager(username, details.get(0), details.get(1)
                         , details.get(2), details.get(3), details.get(4));
                 Shop.getInstance().addPerson(manager);
-                Database.getInstance().saveItem(manager);
+                //Database.getInstance().saveItem(manager);
+                sqlManagerApi.save(manager);
             }
         }
     }

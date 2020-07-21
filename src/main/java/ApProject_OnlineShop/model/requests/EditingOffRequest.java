@@ -7,6 +7,7 @@ import ApProject_OnlineShop.model.productThings.Off;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class EditingOffRequest extends Request {
@@ -23,9 +24,9 @@ public class EditingOffRequest extends Request {
         Off off = Shop.getInstance().findOffById(offId);
         for (String field : editedFields.keySet()) {
             if (field.equalsIgnoreCase("start date")) {
-                off.setStartDate(LocalDate.parse(editedFields.get(field)));
+                off.setStartDate(LocalDateTime.parse(editedFields.get(field)));
             } else if (field.equalsIgnoreCase("end date")) {
-                off.setEndDate(LocalDate.parse(editedFields.get(field)));
+                off.setEndDate(LocalDateTime.parse(editedFields.get(field)));
             } else if (field.equalsIgnoreCase("max discount")) {
                 off.setMaxDiscount(Long.parseLong(editedFields.get(field)));
             } else if (field.equalsIgnoreCase("discount percent")) {

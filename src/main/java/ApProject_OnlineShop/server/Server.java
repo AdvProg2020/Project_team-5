@@ -2,7 +2,7 @@ package ApProject_OnlineShop.server;
 
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForFiltering;
 import ApProject_OnlineShop.controller.sortingAndFilteringForProducts.ControllerForSorting;
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.persons.Person;

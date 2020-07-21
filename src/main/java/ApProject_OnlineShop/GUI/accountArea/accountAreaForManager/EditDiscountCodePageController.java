@@ -3,6 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForManager;
 import ApProject_OnlineShop.GUI.ErrorPageFxController;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.SuccessPageFxController;
+import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.RequestForServer;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class EditDiscountCodePageController extends FxmlController implements Initializable {
     @FXML
@@ -222,7 +224,7 @@ public class EditDiscountCodePageController extends FxmlController implements In
     }
 
     private void updateCustomers() {
-        for (String customer : currentDiscount.getIncludedCustomersString().keySet()) {
+        for (String customer : currentDiscount.getIncludedCustomers().keySet().stream().map(Person::getUsername).collect(Collectors.toList())) {
             Label label = new Label();
             label.setText(customer);
             label.setFont(new Font("Times New Roman", 16));

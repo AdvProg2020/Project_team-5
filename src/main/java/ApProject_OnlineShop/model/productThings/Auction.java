@@ -1,6 +1,6 @@
 package ApProject_OnlineShop.model.productThings;
 
-import ApProject_OnlineShop.database.Database;
+import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
