@@ -3,7 +3,7 @@ package ApProject_OnlineShop.GUI.accountArea.accountAreaForCustomer;
 import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.GUI.StageController;
 import ApProject_OnlineShop.GUI.accountArea.Styles;
-import ApProject_OnlineShop.GUI.ProductPageRelated.Cart;
+import ApProject_OnlineShop.GUI.productPageRelated.Cart;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
@@ -68,7 +68,7 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         GridPane.setHalignment(topic, HPos.CENTER);
         VBox vBox = new VBox();
         ScrollPane scrollPane = new ScrollPane(vBox);
-        scrollPane.setPrefWidth(410);
+        scrollPane.setPrefWidth(500);
         scrollPane.setMaxHeight(600);
         scrollPane.setMinHeight(600);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
