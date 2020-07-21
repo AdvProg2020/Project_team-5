@@ -1021,7 +1021,7 @@ public class ClientHandler extends Thread {
                 dataOutputStream.flush();
             }
         } else if (requestForServer.getFunction().equals("viewProducts")) {
-            List<Long> products = MainController.getInstance().getAccountAreaForSellerController().viewProducts(Integer.parseInt(requestForServer.getInputs().get(0)));
+            List<Long> products = MainController.getInstance().getAccountAreaForSellerController().viewProducts(Integer.parseInt(requestForServer.getInputs().get(0)), person);
             ArrayList<String> output = new ArrayList<>();
             for (Long product : products) {
                 output.add(product + "");

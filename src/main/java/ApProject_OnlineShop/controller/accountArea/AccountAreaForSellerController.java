@@ -1,11 +1,9 @@
 package ApProject_OnlineShop.controller.accountArea;
 
-import ApProject_OnlineShop.GUI.FxmlController;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.Database;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
-import ApProject_OnlineShop.exception.OffNotFoundException;
 import ApProject_OnlineShop.exception.productExceptions.FileIsAlreadyAddedToActiveProductsException;
 import ApProject_OnlineShop.exception.productExceptions.ProductIsAlreadyInAuctionException;
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
@@ -23,17 +21,9 @@ import ApProject_OnlineShop.model.requests.AddingOffRequest;
 import ApProject_OnlineShop.model.requests.EditingGoodRequest;
 import ApProject_OnlineShop.model.requests.EditingOffRequest;
 
-import javax.swing.*;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class AccountAreaForSellerController extends AccountAreaController {
@@ -154,7 +144,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
         AddingGoodRequest addingGoodRequest = new AddingGoodRequest(productInfo.get(0), productInfo.get(1),
                 Shop.getInstance().findSubCategoryByName(productInfo.get(5)),
                 productInfo.get(4), subcategoryDetailsValue, Long.parseLong(productInfo.get(2)), Integer.parseInt(productInfo.get(3)),
-                person.getUsername(),productInfo.get(6));
+                person.getUsername(), productInfo.get(6));
         Shop.getInstance().addRequest(addingGoodRequest);
         Database.getInstance().saveItem(addingGoodRequest);
     }
@@ -227,8 +217,9 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Database.getInstance().saveItem(editingGoodRequest);
     }
 
-    public List<Good> sort(int chosenSort) {
-        Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
+    public List<Good> sort(Person person, int chosenSort) {
+        Seller seller = (Seller) person;
+//        Seller seller = (Seller) MainController.getInstance().getCurrentPerson();
         List<Good> goods = null;
         if (chosenSort == 0) {
             goods = seller.getActiveGoods();
@@ -257,8 +248,8 @@ public class AccountAreaForSellerController extends AccountAreaController {
 //        return output;
 //    }
 
-    public List<Long> viewProducts(int chosenSort) {
-        return sort(chosenSort).stream().map(Good::getGoodId).collect(Collectors.toList());
+    public List<Long> viewProducts(int chosenSort, Person person) {
+        return sort(person, chosenSort).stream().map(Good::getGoodId).collect(Collectors.toList());
     }
 
     public boolean isInOff(long productId, Person person) {
@@ -284,7 +275,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
 
     public boolean isThisGoodInAnyAuction(long goodId, Person person) {
         Good good = Shop.getInstance().findGoodById(goodId);
-        Seller seller = (Seller)person;
+        Seller seller = (Seller) person;
         for (Auction auction : Shop.getInstance().getAllAuctionsList()) {
             if (auction.getGood().equals(good) && auction.getSeller().getUsername().equals(seller.getUsername()))
                 return true;
@@ -347,10 +338,10 @@ public class AccountAreaForSellerController extends AccountAreaController {
     }
 
     public void addFileProduct(ArrayList<String> properties, Person person) throws IOException, FileCantBeSavedException, FileIsAlreadyAddedToActiveProductsException {
-        if (((Seller)person).getActiveFileProducts().stream().map(FileProduct::getName).anyMatch(file -> file.equals(properties.get(0))))
+        if (((Seller) person).getActiveFileProducts().stream().map(FileProduct::getName).anyMatch(file -> file.equals(properties.get(0))))
             throw new FileIsAlreadyAddedToActiveProductsException();
-        FileProduct fileProduct = new FileProduct(properties.get(0), (Seller)person, Long.parseLong(properties.get(1)), properties.get(2));
-        ((Seller)person).addFileProduct(fileProduct);
+        FileProduct fileProduct = new FileProduct(properties.get(0), (Seller) person, Long.parseLong(properties.get(1)), properties.get(2));
+        ((Seller) person).addFileProduct(fileProduct);
         Database.getInstance().saveItem(person);
         Shop.getInstance().addFileProduct(fileProduct);
         Database.getInstance().saveItem(fileProduct);
