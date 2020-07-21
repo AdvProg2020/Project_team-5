@@ -7,6 +7,7 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaFor
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
 import ApProject_OnlineShop.GUI.ProductPageRelated.Cart;
+import ApProject_OnlineShop.model.RequestForServer;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
@@ -62,6 +63,9 @@ public class MainMenuController extends FxmlController implements Initializable 
         Optional<ButtonType> result = showAlert
                 (Alert.AlertType.CONFIRMATION, "Exit", "Exit", "are you sure to exit shop?");
         if (result.get() == ButtonType.OK) {
+            if (getCurrentPerson() != null) {
+                connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
+            }
             Platform.exit();
         }
     }
