@@ -314,7 +314,7 @@ public class AccountAreaForSellerController extends AccountAreaController {
             Database.getInstance().saveItem(goodInCart);
             winner.addOrder(orderForCustomer);
             Shop.getInstance().addOrder(orderForCustomer);
-            orderForCustomer.setOrderStatus(Order.OrderStatus.SENT);
+            orderForCustomer.setOrderStatus(Order.OrderStatus.PROCESSING);
             Database.getInstance().saveItem(orderForCustomer);
             winner.setCredit(winner.getCredit() - price);
             Database.getInstance().saveItem(winner);

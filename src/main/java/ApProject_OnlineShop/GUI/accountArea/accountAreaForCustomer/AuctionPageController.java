@@ -40,6 +40,9 @@ public class AuctionPageController extends FxmlController implements Initializab
     @FXML
     private ScrollPane scrollPane;
 
+    @FXML
+    private Label bestPrice;
+
     public TextField messageTextField;
 
     private static String selectedAuctionId;
@@ -50,11 +53,19 @@ public class AuctionPageController extends FxmlController implements Initializab
     public void initialize(URL location, ResourceBundle resources) {
         viewSingleAuction();
         updateLastPriceLabel();
+        updateBestPrice();
         updateChatBox();
         auctionPageChatThread = new AuctionPageChatThread(this, selectedAuctionId);
         new Thread(auctionPageChatThread).start();
         if (!isPersonOfferedPriceInAuction())
             SuccessPageFxController.showPage("offer price", "please first offer a price to participate in auction and chat with other participants");
+    }
+
+    private void updateBestPrice() {
+        ArrayList<String> input = new ArrayList<>();
+        input.add(selectedAuctionId);
+        String bestPrice = connectToServer(new RequestForServer("AuctionsController", "getBestPriceOfAuction", getToken(), input));
+        this.bestPrice.setText(bestPrice);
     }
 
     private void viewSingleAuction() {
