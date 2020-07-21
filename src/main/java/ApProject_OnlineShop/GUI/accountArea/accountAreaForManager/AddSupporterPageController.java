@@ -27,6 +27,7 @@ public class AddSupporterPageController extends FxmlController {
             if (serverResponse.equals("user created successfully")) {
                 SuccessPageFxController.showPage
                         ("successful add", "new manager registered successfully");
+                setScene("manageAllUsersPage.fxml", "manage users");
             } else {
                 ErrorPageFxController.showPage("error for registering", serverResponse);
             }

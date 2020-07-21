@@ -63,7 +63,7 @@ public class BankAccountsController {
         Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        dataOutputStream.writeUTF("pay " + receiptID);
+        dataOutputStream.writeUTF("pay " + receiptID );
         dataOutputStream.flush();
         String response = dataInputStream.readUTF();
         dataOutputStream.writeUTF("exit");
@@ -75,7 +75,7 @@ public class BankAccountsController {
         Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        dataOutputStream.writeUTF("get_balance " + token);
+        dataOutputStream.writeUTF("get_balance " + token );
         dataOutputStream.flush();
         String response = dataInputStream.readUTF();
         dataOutputStream.writeUTF("exit");
