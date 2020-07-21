@@ -29,8 +29,8 @@ public class FxmlController {
     private static boolean isAllProductPlay;
     private static String token;
     private static long id;
-    private static final int port = 8888;
-    private static final String ip = "127.0.0.1";
+    private static final int port = 17689;
+    private static final String ip = "2.tcp.ngrok.io";
 
     public void setScene(String address, String title) {
         playButtonMusic();
@@ -158,7 +158,7 @@ public class FxmlController {
 
     public static String connectToFileTransferServer(RequestForServer requestForServer, File file) {
         try {
-            Socket socket = new Socket(ip, port);
+            Socket socket = new Socket("2.tcp.ngrok.io", 11880);
             System.out.println(firstRequestToFileTransferServer(socket, requestForServer));
             String response = secondRequestToFileTransferServer(socket, file);
             return response;
