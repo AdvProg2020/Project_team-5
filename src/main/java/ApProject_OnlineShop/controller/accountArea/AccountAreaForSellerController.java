@@ -9,6 +9,7 @@ import ApProject_OnlineShop.exception.productExceptions.ProductIsAlreadyInAuctio
 import ApProject_OnlineShop.exception.productExceptions.ProductNotFoundExceptionForSeller;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.Order;
+import ApProject_OnlineShop.model.orders.OrderFileProductForSeller;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.Company;
@@ -352,5 +353,15 @@ public class AccountAreaForSellerController extends AccountAreaController {
         Database.getInstance().saveItem(person);
         Shop.getInstance().addFileProduct(fileProduct);
         Database.getInstance().saveItem(fileProduct);
+    }
+
+    public List<String> getFileOrdersOfSeller(Person person) {
+        Seller seller = (Seller)person;
+        List<String> orders = new ArrayList<>();
+        for (Order order : Shop.getInstance().getAllOrders().values()) {
+            if (order instanceof OrderFileProductForSeller && ((OrderFileProductForSeller) order).getSeller().equals(seller))
+                orders.add(order.getOrderId() + "");
+        }
+        return orders;
     }
 }

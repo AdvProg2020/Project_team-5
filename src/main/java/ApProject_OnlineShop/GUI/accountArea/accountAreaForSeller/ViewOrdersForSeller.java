@@ -116,6 +116,10 @@ public class ViewOrdersForSeller extends FxmlController {
         vBox.getChildren().add(orderStatus);
     }
 
+    public void viewSingleFileOrder(String order) {
+
+    }
+
     public void backToAccountAreaSeller() {
         setScene("accountAreaForSeller.fxml", "main menu");
     }
