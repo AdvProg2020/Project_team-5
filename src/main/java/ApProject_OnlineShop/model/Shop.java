@@ -485,7 +485,9 @@ public class Shop {
     }
 
     public void clearCart(long id) {
-        getCart(id).clear();
+        if (getCart(id) != null) {
+            getCart(id).clear();
+        }
         Server.getCarts().remove(id);
     }
 
