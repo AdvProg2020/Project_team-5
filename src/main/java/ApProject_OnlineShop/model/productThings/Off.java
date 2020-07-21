@@ -101,6 +101,8 @@ public class Off {
     public long getPriceAfterOff(Good good, Seller productSeller) {
         if (!productSeller.getUsername().equals(seller))
             return 0L;
+        if (getStartDate().isAfter(LocalDate.now()) || getEndDate().isBefore(LocalDate.now()))
+            return 0L;
         long price = this.getOffGoods().stream().filter(offGood -> offGood.equals(good))
                 .map(offGood -> offGood.getPriceBySeller(getSeller())).findAny().orElse(0L);
         if (price * (discountPercent / (double) 100) > maxDiscount)
