@@ -33,9 +33,9 @@ public class BankPortalForPurchaseController extends FxmlController implements I
 //            MainController.getInstance().getLoginRegisterController().logoutUser();
 //            Shop.getInstance().clearCart();
             connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
-            ArrayList<String> inputs = new ArrayList<>();
-            inputs.add(getId() + "");
-            connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
+            ArrayList<String> inputs11 = new ArrayList<>();
+            inputs11.add(getId() + "");
+            connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs11));
             FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
             setToken(null);
             setScene("mainMenuLayout.fxml", "Main menu");
@@ -57,6 +57,10 @@ public class BankPortalForPurchaseController extends FxmlController implements I
             String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "purchaseByBankPortal", getToken(), inputs));
             if (serverResponse.equals("purchase was successful")) {
                 SuccessPageFxController.showPage("purchase", "purchase was successful");
+                ArrayList<String> inputs00 = new ArrayList<>();
+                inputs00.add(getId() + "");
+                connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs00));
+                FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
             } else {
                 ErrorPageFxController.showPage("error", serverResponse);
             }

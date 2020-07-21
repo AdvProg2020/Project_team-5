@@ -537,12 +537,13 @@ public class Shop {
         for (DiscountCode discountCode : this.getAllDiscountCodes()) {
             if (discountCode.isDiscountCodeExpired()) {
                 this.removeDiscountCode(discountCode);
+                for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
+                    customer.removeDiscountCode(discountCode);
+                    Database.getInstance().saveItem(customer);
+                }
+                Database.getInstance().deleteItem(discountCode);
             }
-            for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
-                customer.removeDiscountCode(discountCode);
-                Database.getInstance().saveItem(customer);
-            }
-            Database.getInstance().deleteItem(discountCode);
+
         }
         for (Auction auction : this.getAllAuctionsList()) {
             if (LocalDate.now().isAfter(auction.getEndDate())) {

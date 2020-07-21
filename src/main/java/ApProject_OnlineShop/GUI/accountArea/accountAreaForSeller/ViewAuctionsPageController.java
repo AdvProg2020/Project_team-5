@@ -118,7 +118,7 @@ public class ViewAuctionsPageController extends FxmlController implements Initia
 
     public void onEndAuctionPressed(ActionEvent actionEvent) {
         Optional<ButtonType> result = showAlert
-                (Alert.AlertType.CONFIRMATION, "remove", "Remove Auction", "are you sure to remove this auction?");
+                (Alert.AlertType.CONFIRMATION, "remove", "End Auction", "are you sure to end this auction?");
         if (result.get() == ButtonType.OK) {
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(selectedAuctionId);

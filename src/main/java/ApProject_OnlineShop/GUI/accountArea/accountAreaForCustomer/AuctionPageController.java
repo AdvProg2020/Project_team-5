@@ -135,14 +135,12 @@ public class AuctionPageController extends FxmlController implements Initializab
         if (result.get() == ButtonType.OK) {
             //MainController.getInstance().getLoginRegisterController().logoutUser();
             //Shop.getInstance().clearCart();
-            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), null));
+            connectToServer(new RequestForServer("LoginRegisterController", "logoutUser", getToken(), getInputsForServer()));
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
             connectToServer(new RequestForServer("AccountAreaForCustomerController", "clearCart", null, inputs));
             FxmlController.setId(Long.parseLong(connectToServer(new RequestForServer("###cart", null, null, null))));
             setToken(null);
-            auctionPageChatThread.setExit(true);
-            auctionPageBestPriceThread.setExit(true);
             setScene("mainMenuLayout.fxml", "Main menu");
         }
     }

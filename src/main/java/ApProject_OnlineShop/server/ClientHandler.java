@@ -626,17 +626,21 @@ public class ClientHandler extends Thread {
             Customer customer = (Customer) user;
             long offeredPrice = Long.parseLong(requestForServer.getInputs().get(1));
             if (customer.getCredit() >= offeredPrice) {
-                if (auction.getAllCustomersOffers().containsKey(customer)) {
-                    if (auction.getAllCustomersOffers().get(customer) < offeredPrice) {
-                        auction.removeOffer(customer);
+                if (offeredPrice > auction.getGood().getPriceBySeller(auction.getSeller())) {
+                    if (auction.getAllCustomersOffers().containsKey(customer)) {
+                        if (auction.getAllCustomersOffers().get(customer) < offeredPrice) {
+                            auction.removeOffer(customer);
+                            auction.addOffer(customer, offeredPrice);
+                            dataOutputStream.writeUTF("your price offered successfully");
+                        } else {
+                            dataOutputStream.writeUTF("your price offered should be more than previous one.");
+                        }
+                    } else {
                         auction.addOffer(customer, offeredPrice);
                         dataOutputStream.writeUTF("your price offered successfully");
-                    } else {
-                        dataOutputStream.writeUTF("your price offered should be more than previous one.");
                     }
                 } else {
-                    auction.addOffer(customer, offeredPrice);
-                    dataOutputStream.writeUTF("your price offered successfully");
+                    dataOutputStream.writeUTF("you must offer a price more than base price.");
                 }
             } else {
                 dataOutputStream.writeUTF("you do not have enough credit to offer this price.");
