@@ -172,6 +172,12 @@ public class EditFieldPersonsController extends FxmlController implements Initia
             }
             if (edited) {
                 SuccessPageFxController.showPage("field edited", "fields edited succesfully!");
+                password.clear();
+                email.clear();
+                phoneNumber.clear();
+                firstName.clear();
+                lastName.clear();
+                setScene("editFieldPersons.fxml","edit field");
             }
         }
     }

@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class BankAccountsController {
     int bankPort;
-    private static final String host="127.0.0.1";
+    private static final String host = "127.0.0.1";
 
     public BankAccountsController(int bankPort) {
         this.bankPort = bankPort;
@@ -63,7 +63,7 @@ public class BankAccountsController {
         Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        dataOutputStream.writeUTF("pay " + receiptID );
+        dataOutputStream.writeUTF("pay " + receiptID);
         dataOutputStream.flush();
         String response = dataInputStream.readUTF();
         dataOutputStream.writeUTF("exit");
@@ -75,7 +75,7 @@ public class BankAccountsController {
         Socket socket = new Socket(host, bankPort);
         DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         DataOutputStream dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        dataOutputStream.writeUTF("get_balance " + token );
+        dataOutputStream.writeUTF("get_balance " + token);
         dataOutputStream.flush();
         String response = dataInputStream.readUTF();
         dataOutputStream.writeUTF("exit");

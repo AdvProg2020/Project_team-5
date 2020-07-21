@@ -1,7 +1,6 @@
 package ApProject_OnlineShop.bank;
 
 import ApProject_OnlineShop.bank.model.*;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
 
 
 import java.io.DataInputStream;

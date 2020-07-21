@@ -1,7 +1,6 @@
 package ApProject_OnlineShop.bank;
 
 import ApProject_OnlineShop.bank.DateBaseForBank.DataBaseForBank;
-import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import com.google.gson.Gson;
 import ApProject_OnlineShop.bank.model.*;
 

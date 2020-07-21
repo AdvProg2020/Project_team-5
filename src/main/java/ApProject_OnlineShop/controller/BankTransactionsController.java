@@ -9,11 +9,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class BankTransactionsController {
-    private int bankPort;
 
-    public BankTransactionsController(int bankPort) {
-        this.bankPort = bankPort;
-    }
 
     public String moveMoneyFromUserToShop(String username, String password, String money) throws IOException {
         String token = MainController.getInstance().getBankAccountsController().getToken(username, password);
