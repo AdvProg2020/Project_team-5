@@ -29,8 +29,8 @@ public class FxmlController {
     private static boolean isAllProductPlay;
     private static String token;
     private static long id;
-    private static final int port = 8888;
-    private static final String ip = "127.0.0.1";
+    private static final int port = 15360;
+    private static final String ip = "0.tcp.ngrok.io";
 
     public void setScene(String address, String title) {
         playButtonMusic();
