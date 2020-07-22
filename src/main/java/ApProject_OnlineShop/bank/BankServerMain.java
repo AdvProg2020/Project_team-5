@@ -17,6 +17,6 @@ public class BankServerMain {
 //        String port = input.substring("port ".length());
 //        BankServer bankServer=new BankServer(Integer.parseInt(port));
         DataBaseForBank.getInstance().initializeBankServer();
-        BankServer.getInstance().start();
+        BankServer.getInstance().run();
     }
 }

@@ -11,7 +11,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class BankServer extends Thread {
+public class BankServer {
     private static BankServer bankServer = new BankServer();
     private static final int port = 8090;
     private ServerSocket serverSocket;
@@ -42,7 +42,6 @@ public class BankServer extends Thread {
         return bankServer;
     }
 
-    @Override
     public void run() {
         while (true) {
             try {
