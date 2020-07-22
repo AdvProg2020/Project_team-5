@@ -167,6 +167,9 @@ public class ClientHandler extends Thread {
             accountAreaForSupporterHandler(requestForServer);
         } else if (requestForServer.getController().equals("AuctionsController")) {
             auctionControllerHandler(requestForServer);
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
@@ -177,6 +180,9 @@ public class ClientHandler extends Thread {
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getCurrentSort")) {
             dataOutputStream.writeUTF(Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).getCurrentSort());
+            dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
             dataOutputStream.flush();
         }
     }
@@ -282,6 +288,9 @@ public class ClientHandler extends Thread {
             controllerForFiltering.addCategoryFilter(requestForServer.getInputs().get(1));
             dataOutputStream.writeUTF("done");
             dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
@@ -303,6 +312,9 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getThisGoodOff")) {
             Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
             dataOutputStream.writeUTF(new Gson().toJson(good.getThisGoodOff()));
+            dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
             dataOutputStream.flush();
         }
     }
@@ -363,8 +375,9 @@ public class ClientHandler extends Thread {
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
-        } else if (requestForServer.getFunction().equals("getPhoto")) {
-
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
@@ -398,6 +411,9 @@ public class ClientHandler extends Thread {
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getFinalPriceOfAGood")) {
             dataOutputStream.writeUTF("" + Shop.getInstance().getFinalPriceOfAGood(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1)));
+            dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
             dataOutputStream.flush();
         }
     }
@@ -468,6 +484,9 @@ public class ClientHandler extends Thread {
             good.setSeenNumber(good.getSeenNumber() + 1);
             dataOutputStream.writeUTF("done");
             dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
@@ -502,6 +521,9 @@ public class ClientHandler extends Thread {
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("isInOff")) {
             dataOutputStream.writeUTF("" + MainController.getInstance().getAllProductsController().isInOff(Long.parseLong(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
             dataOutputStream.flush();
         }
     }
@@ -704,8 +726,9 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getFileOrdersOfCustomer")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForCustomerController().getFileOrdersOfCustomer(user)));
             dataOutputStream.flush();
-        } else if (requestForServer.getFunction().equals("")) {
-
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
@@ -942,6 +965,9 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getFileOrderInfoGUI")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForManagerController().getFileOrderInfoGUI(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
@@ -1140,6 +1166,9 @@ public class ClientHandler extends Thread {
         } else if (requestForServer.getFunction().equals("getFileOrderInfoGUI")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSellerController().getFileOrderInfoGUI(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
@@ -1189,6 +1218,9 @@ public class ClientHandler extends Thread {
             }
             dataOutputStream.write(imageBytes);
             dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
@@ -1204,10 +1236,13 @@ public class ClientHandler extends Thread {
             int auctionId = Integer.parseInt(requestForServer.getInputs().get(0));
             dataOutputStream.writeUTF(MainController.getInstance().getAuctionsController().getBestPriceOfAuction(auctionId) + "");
             dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
-    private void getCurrentPerson() {
+    private void getCurrentPerson() throws IOException {
         if (user == null) {
             try {
                 dataOutputStream.writeUTF("null");
@@ -1244,6 +1279,9 @@ public class ClientHandler extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
@@ -1308,12 +1346,18 @@ public class ClientHandler extends Thread {
             Server.removeOnlineUser(requestForServer.getToken());
             dataOutputStream.writeUTF("logout successfully");
             dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
+            dataOutputStream.flush();
         }
     }
 
     private void accountAreaForSupporterHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("getCustomersChat")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSupporter().getCustomersChat(requestForServer.getInputs().get(0))));
+            dataOutputStream.flush();
+        } else {
+            dataOutputStream.writeUTF("not a proper response");
             dataOutputStream.flush();
         }
     }
