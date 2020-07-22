@@ -23,8 +23,8 @@ public class RegisteringSellerRequest extends Request {
     private String companyFaxNumber;
     private String companyAddress;
     private String bankAccountId;
-    private SqlSellerApi sqlSellerApi = new SqlSellerApi();
-    private SqlCompanyApi sqlCompanyApi = new SqlCompanyApi();
+    private transient SqlSellerApi sqlSellerApi = new SqlSellerApi();
+    private transient SqlCompanyApi sqlCompanyApi = new SqlCompanyApi();
 
     public RegisteringSellerRequest(String username, String firstName, String lastName, String email, String phoneNumber,
                                     String password, String companyName, String companyWebsite, String companyPhoneNumber,
@@ -71,7 +71,7 @@ public class RegisteringSellerRequest extends Request {
         Shop.getInstance().addCompany(company);
 //        Database.getInstance().saveItem(seller);
 //        Database.getInstance().saveItem(company);
-        sqlSellerApi.save(seller);
         sqlCompanyApi.save(company);
+        sqlSellerApi.save(seller);
     }
 }

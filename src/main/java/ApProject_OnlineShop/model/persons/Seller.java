@@ -8,6 +8,8 @@ import ApProject_OnlineShop.model.productThings.Auction;
 import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,9 +25,11 @@ public class Seller extends Person implements Serializable {
     private Company company;
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<OrderForSeller> previousSells;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "ProductAndSeller", joinColumns = @JoinColumn(name = "SellerId"), inverseJoinColumns = @JoinColumn(name = "ProductID"))
     private List<Good> activeGoods;
 
@@ -36,6 +40,7 @@ public class Seller extends Person implements Serializable {
     private long balance;
 
     @OneToMany(mappedBy = "seller")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Off> activeOffs;
 
     @Transient

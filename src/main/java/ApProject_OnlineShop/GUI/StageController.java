@@ -36,9 +36,9 @@ public class StageController extends FxmlController {
         });
         Parent root = null;
         try {
-            ArrayList<String> allPersonsString = convertJsonToArrayOfString(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)));
-            ArrayList<Person> allPersons = convertArrayListOfJsonToArrayListPersons(allPersonsString);
-            if (allPersons.size() == 0) {
+            //ArrayList<String> allPersonsString = convertJsonToArrayOfString(connectToServer(new RequestForServer("Shop", "getAllPersons", null, null)));
+            //ArrayList<Person> allPersons = convertArrayListOfJsonToArrayListPersons(allPersonsString);
+            if (/*allPersons.size() == 0*/ false) {
                 root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("registerManager.fxml")));
             } else
                 root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("mainMenuLayout.fxml")));
