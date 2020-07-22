@@ -77,7 +77,29 @@ public class ClientHandler extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        RequestForServer requestForServer = new Gson().fromJson(input, RequestForServer.class);
+        if (!validSizeString(input)) {
+            try {
+                dataOutputStream.writeUTF("not formatted input");
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+        RequestForServer requestForServer = null;
+        try {
+            requestForServer = new Gson().fromJson(input, RequestForServer.class);
+        } catch (Exception exception) {
+            try {
+                dataOutputStream.writeUTF("not formatted input");
+                dataOutputStream.flush();
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (requestForServer == null)
+            return;
         try {
             handleRequest(requestForServer);
         } catch (IOException | FileCantBeSavedException e) {
@@ -92,6 +114,14 @@ public class ClientHandler extends Thread {
                 ioException.printStackTrace();
             }
         }
+    }
+
+    private boolean validSizeString(String input) {
+        if (input == null)
+            return false;
+        if (input.length() > 10000)
+            return false;
+        return true;
     }
 
     private void handleRequest(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
