@@ -66,6 +66,18 @@ public class Shop {
         this.massages = new ArrayList<>();
     }
 
+    public void addAllManagers(List<Manager> managers) {
+        this.allPersons.addAll(managers);
+    }
+
+    public void addAllCustomers(List<Customer> customers) {
+        this.allPersons.addAll(customers);
+    }
+
+    public void addAllSellers(List<Seller> sellers) {
+        this.allPersons.addAll(sellers);
+    }
+
     public HashMap<Long, Company> getAllCompanies() {
         return allCompanies;
     }

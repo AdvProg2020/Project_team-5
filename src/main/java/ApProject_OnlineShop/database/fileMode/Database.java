@@ -1,9 +1,6 @@
 package ApProject_OnlineShop.database.fileMode;
 
-import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
-import ApProject_OnlineShop.database.sqlMode.SqlCustomerApi;
-import ApProject_OnlineShop.database.sqlMode.SqlManagerApi;
-import ApProject_OnlineShop.database.sqlMode.SqlSellerApi;
+import ApProject_OnlineShop.database.sqlMode.*;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
@@ -29,12 +26,40 @@ public class Database {
     private SqlManagerApi sqlManagerApi;
     private SqlCustomerApi sqlCustomerApi;
     private SqlSellerApi sqlSellerApi;
-    private
+    private SqlCompanyApi sqlCompanyApi;
+    private SqlCategoryApi sqlCategoryApi;
+    private SqlSubCategoryApi sqlSubCategoryApi;
+    private SqlGoodApi sqlGoodApi;
+    private SqlGoodInCartApi sqlGoodInCartApi;
+    private SqlSellerRelatedInfoAboutGood sqlSellerRelatedInfoAboutGood;
+    private SqlRateApi sqlRateApi;
+    private SqlCommentApi sqlCommentApi;
+    private SqlDiscountCodeApi sqlDiscountCodeApi;
+    private SqlOffApi sqlOffApi;
+    private SqlOrderForCustomerApi sqlOrderForCustomerApi;
+    private SqlOrderForSellerApi sqlOrderForSellerApi;
+    private SqlShopBankAccountApi sqlShopBankAccountApi;
 
     private Database() {
         this.deletingData = new DeletingData();
         this.savingData = new SavingData();
         this.loadingData = new LoadingData();
+        this.sqlManagerApi = new SqlManagerApi();
+        this.sqlCustomerApi = new SqlCustomerApi();
+        this.sqlSellerApi = new SqlSellerApi();
+        this.sqlCategoryApi = new SqlCategoryApi();
+        this.sqlSubCategoryApi = new SqlSubCategoryApi();
+        this.sqlCommentApi = new SqlCommentApi();
+        this.sqlCompanyApi = new SqlCompanyApi();
+        this.sqlDiscountCodeApi = new SqlDiscountCodeApi();
+        this.sqlGoodApi = new SqlGoodApi();
+        this.sqlGoodInCartApi = new SqlGoodInCartApi();
+        this.sqlOffApi = new SqlOffApi();
+        this.sqlOrderForCustomerApi = new SqlOrderForCustomerApi();
+        this.sqlOrderForSellerApi = new SqlOrderForSellerApi();
+        this.sqlRateApi = new SqlRateApi();
+        this.sqlSellerRelatedInfoAboutGood = new SqlSellerRelatedInfoAboutGood();
+        this.sqlShopBankAccountApi = new SqlShopBankAccountApi();
     }
     public static Database getInstance() {
         if (database == null)
@@ -43,27 +68,30 @@ public class Database {
     }
 
     public void initializeShop() throws IOException, FileCantBeDeletedException, FileCantBeSavedException {
-        loadingData.loadManager();
-        loadingData.loadCustomer();
-        loadingData.loadSeller();
+//        loadingData.loadManager();
+//        loadingData.loadCustomer();
+//        loadingData.loadSeller();
+        Shop.getInstance().addAllManagers(sqlManagerApi.getAllObjects());
+        Shop.getInstance().addAllCustomers(sqlCustomerApi.getAllObjects());
+        Shop.getInstance().addAllSellers(sqlSellerApi.getAllObjects());
         loadingData.loadSupporter();
-        loadingData.loadCompany();
-        loadingData.loadCategory();
-        loadingData.loadSubCategory();
+//        loadingData.loadCompany();
+//        loadingData.loadCategory();
+//        loadingData.loadSubCategory();
         loadingData.loadRequests();
         loadingData.loadFileProduct();
-        loadingData.loadProduct();
-        loadingData.loadInfoAboutGood();
-        loadingData.loadComment();
-        loadingData.loadRate();
-        loadingData.loadDiscount();
-        loadingData.loadOff();
-        loadingData.loadGoodsInCarts();
-        loadingData.loadOrderForSeller();
+//        loadingData.loadProduct();
+//        loadingData.loadInfoAboutGood();
+//        loadingData.loadComment();
+//        loadingData.loadRate();
+//        loadingData.loadDiscount();
+//        loadingData.loadOff();
+//        loadingData.loadGoodsInCarts();
+//        loadingData.loadOrderForSeller();
         loadingData.loadOrderFileProductForSeller();
         loadingData.loadOrderFileProductForCustomer();
-        loadingData.loadOrderForCustomer();
-        loadingData.loadShopBankAccount();
+//        loadingData.loadOrderForCustomer();
+//        loadingData.loadShopBankAccount();
         loadingData.loadAuctions();
         for (Request request : Shop.getInstance().getAllRequest()) {
             request.setName();

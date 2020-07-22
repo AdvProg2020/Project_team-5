@@ -8,7 +8,7 @@ public class EntityManagerProducer {
     private static EntityManager entityManager;
 
     public static EntityManager getInstanceOfEntityManager() {
-        if (entityManager == null)
+        if (entityManager == null || !entityManager.isOpen())
             entityManager = EntityManagerFactoryProducer.getInstanceOfEntityManagerFactory().createEntityManager();
         return entityManager;
     }

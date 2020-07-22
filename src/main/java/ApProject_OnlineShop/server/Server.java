@@ -32,11 +32,11 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*try {
+        try {
             Database.getInstance().initializeShop();
         } catch (IOException | FileCantBeDeletedException | FileCantBeSavedException e) {
             e.printStackTrace();
-        }*/
+        }
         System.out.println("Server backs online!");
         while (true) {
             System.out.println("waiting for client to connect");
