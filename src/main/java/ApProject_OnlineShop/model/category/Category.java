@@ -3,6 +3,8 @@ package ApProject_OnlineShop.model.category;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,7 +24,8 @@ public class Category implements Serializable {
     @Column(name = "Name", nullable = false, unique = true)
     private String name;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Column(name = "Property")
     @CollectionTable(name = "DetailOfEachCategory", joinColumns = @JoinColumn(name = "Category", referencedColumnName = "CategoryId"))

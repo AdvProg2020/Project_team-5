@@ -8,6 +8,7 @@ import ApProject_OnlineShop.GUI.accountArea.accountAreaForManager.AccountAreaFor
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSeller.AccountAreaForSellerController;
 import ApProject_OnlineShop.GUI.accountArea.accountAreaForSupporter.AccountAreaForSupporter;
 import ApProject_OnlineShop.GUI.loginRegister.LoginController;
+import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.persons.Manager;
 import ApProject_OnlineShop.model.persons.Seller;
@@ -37,10 +38,7 @@ import javafx.scene.text.Text;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ProductPage extends FxmlController implements Initializable {
     public static long productId = 0;
@@ -107,7 +105,7 @@ public class ProductPage extends FxmlController implements Initializable {
         inputs22.add(productId + "");
         Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
         detailsLabel.setText(good.getDetails());
-        HashMap<String, String> categoryProperties = good.getCategoryProperties();
+        Map<String, String> categoryProperties = good.getCategoryProperties();
         properties.setAlignment(Pos.CENTER);
         properties.setSpacing(13);
         for (String detailKey : categoryProperties.keySet()) {

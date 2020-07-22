@@ -32,6 +32,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class CompareProductPart2InACategoryController extends FxmlController implements Initializable {
@@ -120,8 +121,8 @@ public class CompareProductPart2InACategoryController extends FxmlController imp
         ArrayList<String> inputs23 = new ArrayList<>();
         inputs23.add(productId1 + "");
         Good good1 = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs23)), Good.class);
-        HashMap<String, String> categoryPropertiesGood2 = good2.getCategoryProperties();
-        HashMap<String, String> categoryPropertiesGood1 = good1.getCategoryProperties();
+        Map<String, String> categoryPropertiesGood2 = good2.getCategoryProperties();
+        Map<String, String> categoryPropertiesGood1 = good1.getCategoryProperties();
         if ((categoryPropertiesGood1.keySet().size() + 8) * 50 > 425) {
             gridpane.setPrefHeight((categoryPropertiesGood1.keySet().size() + 8) * 50);
             vbox1.setPrefHeight((categoryPropertiesGood1.keySet().size() + 8) * 50);

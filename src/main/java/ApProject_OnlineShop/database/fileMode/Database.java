@@ -1,5 +1,9 @@
 package ApProject_OnlineShop.database.fileMode;
 
+import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
+import ApProject_OnlineShop.database.sqlMode.SqlCustomerApi;
+import ApProject_OnlineShop.database.sqlMode.SqlManagerApi;
+import ApProject_OnlineShop.database.sqlMode.SqlSellerApi;
 import ApProject_OnlineShop.exception.FileCantBeDeletedException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
@@ -22,6 +26,10 @@ public class Database {
     private SavingData savingData;
     private LoadingData loadingData;
     private static Database database;
+    private SqlManagerApi sqlManagerApi;
+    private SqlCustomerApi sqlCustomerApi;
+    private SqlSellerApi sqlSellerApi;
+    private
 
     private Database() {
         this.deletingData = new DeletingData();
