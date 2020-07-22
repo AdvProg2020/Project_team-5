@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "`Order`")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Order implements Serializable {
     @Transient

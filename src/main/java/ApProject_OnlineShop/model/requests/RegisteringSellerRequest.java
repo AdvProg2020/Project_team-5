@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.model.requests;
 
 import ApProject_OnlineShop.database.fileMode.Database;
+import ApProject_OnlineShop.database.sqlMode.SqlCompanyApi;
+import ApProject_OnlineShop.database.sqlMode.SqlSellerApi;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Company;
@@ -21,7 +23,8 @@ public class RegisteringSellerRequest extends Request {
     private String companyFaxNumber;
     private String companyAddress;
     private String bankAccountId;
-
+    private SqlSellerApi sqlSellerApi = new SqlSellerApi();
+    private SqlCompanyApi sqlCompanyApi = new SqlCompanyApi();
 
     public RegisteringSellerRequest(String username, String firstName, String lastName, String email, String phoneNumber,
                                     String password, String companyName, String companyWebsite, String companyPhoneNumber,
@@ -66,7 +69,9 @@ public class RegisteringSellerRequest extends Request {
         seller.setBankAccountId(this.bankAccountId);
         Shop.getInstance().addPerson(seller);
         Shop.getInstance().addCompany(company);
-        Database.getInstance().saveItem(seller);
-        Database.getInstance().saveItem(company);
+//        Database.getInstance().saveItem(seller);
+//        Database.getInstance().saveItem(company);
+        sqlSellerApi.save(seller);
+        sqlCompanyApi.save(company);
     }
 }

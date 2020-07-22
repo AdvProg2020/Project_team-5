@@ -78,6 +78,9 @@ public class Database {
 //        loadingData.loadCompany();
 //        loadingData.loadCategory();
 //        loadingData.loadSubCategory();
+        Shop.getInstance().addAllCompany(sqlCompanyApi.getAllObjects());
+        Shop.getInstance().addAllCategories(sqlCategoryApi.getAllObjects());
+        Shop.getInstance().addAllSubCategories(sqlSubCategoryApi.getAllObjects());
         loadingData.loadRequests();
         loadingData.loadFileProduct();
 //        loadingData.loadProduct();
@@ -88,10 +91,20 @@ public class Database {
 //        loadingData.loadOff();
 //        loadingData.loadGoodsInCarts();
 //        loadingData.loadOrderForSeller();
+        Shop.getInstance().addAllGoods(sqlGoodApi.getAllObjects());
+        Shop.getInstance().addAllInfoAboutGoods(sqlSellerRelatedInfoAboutGood.getAllObjects());
+        Shop.getInstance().addAllComments(sqlCommentApi.getAllObjects());
+        Shop.getInstance().addAllRate(sqlRateApi.getAllObjects());
+        Shop.getInstance().addAllDiscountCodes(sqlDiscountCodeApi.getAllObjects());
+        Shop.getInstance().addAllOffs(sqlOffApi.getAllObjects());
+        Shop.getInstance().addAllGoodInCarts(sqlGoodInCartApi.getAllObjects());
+        Shop.getInstance().addAllOrderForSellers(sqlOrderForSellerApi.getAllObjects());
         loadingData.loadOrderFileProductForSeller();
         loadingData.loadOrderFileProductForCustomer();
 //        loadingData.loadOrderForCustomer();
 //        loadingData.loadShopBankAccount();
+        Shop.getInstance().addAllOrderForCustomers(sqlOrderForCustomerApi.getAllObjects());
+        Shop.getInstance().setShopBankAccount(sqlShopBankAccountApi.getObjectById(1));
         loadingData.loadAuctions();
         for (Request request : Shop.getInstance().getAllRequest()) {
             request.setName();

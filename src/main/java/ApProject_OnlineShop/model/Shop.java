@@ -8,6 +8,8 @@ import ApProject_OnlineShop.exception.productExceptions.NotEnoughAvailableProduc
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.orders.Order;
+import ApProject_OnlineShop.model.orders.OrderForCustomer;
+import ApProject_OnlineShop.model.orders.OrderForSeller;
 import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.RegisteringSellerRequest;
@@ -78,6 +80,76 @@ public class Shop {
         this.allPersons.addAll(sellers);
     }
 
+    public void addAllCompany(List<Company> companies) {
+        for (Company company : companies) {
+            this.allCompanies.put(company.getId(), company);
+        }
+    }
+
+    public void addAllCategories(List<Category> categories) {
+        for (Category category : categories) {
+            this.allCategories.put(category.getName(), category);
+        }
+    }
+
+    public void addAllSubCategories(List<SubCategory> subCategories) {
+        for (SubCategory subCategory : subCategories) {
+            this.allSubCategories.put(subCategory.getName(), subCategory);
+        }
+    }
+
+    public void addAllGoods(List<Good> goods) {
+        for (Good good : goods) {
+            this.allGoods.put(good.getGoodId(), good);
+        }
+    }
+
+    public void addAllRate(List<Rate> rates) {
+        this.allRates.addAll(rates);
+    }
+
+    public void addAllInfoAboutGoods(List<SellerRelatedInfoAboutGood> infoAboutGoods) {
+        for (SellerRelatedInfoAboutGood infoAboutGood : infoAboutGoods) {
+            this.allSellerRelatedInfoAboutGood.put(infoAboutGood.getSellerRelatedInfoAboutGoodId(), infoAboutGood);
+        }
+    }
+
+    public void addAllComments(List<Comment> comments) {
+        for (Comment comment : comments) {
+            this.allComments.put(comment.getId(), comment);
+        }
+    }
+
+    public void addAllGoodInCarts(List<GoodInCart> goodInCarts) {
+        for (GoodInCart goodInCart : goodInCarts) {
+            this.allGoodInCarts.put(goodInCart.getGoodInCartId(), goodInCart);
+        }
+    }
+
+    public void addAllDiscountCodes(List<DiscountCode> discountCodes) {
+        for (DiscountCode discountCode : discountCodes) {
+            this.allDiscountCodes.put(discountCode.getId(), discountCode);
+        }
+    }
+
+    public void addAllOffs(List<Off> offs) {
+        for (Off off : offs) {
+            this.offs.put(off.getOffId(), off);
+        }
+    }
+
+    public void addAllOrderForSellers(List<OrderForSeller> orderForSellers) {
+        for (OrderForSeller orderForSeller : orderForSellers) {
+            this.allOrders.put(orderForSeller.getOrderId(), orderForSeller);
+        }
+    }
+
+    public void addAllOrderForCustomers(List<OrderForCustomer> orderForCustomers) {
+        for (OrderForCustomer orderForCustomer : orderForCustomers) {
+            this.allOrders.put(orderForCustomer.getOrderId(), orderForCustomer);
+        }
+    }
+
     public HashMap<Long, Company> getAllCompanies() {
         return allCompanies;
     }
@@ -100,11 +172,11 @@ public class Shop {
 
     public void setShopBankAccount(ShopBankAccount shopBankAccount) {
         this.shopBankAccount = shopBankAccount;
-        try {
-            Database.getInstance().saveItem(shopBankAccount);
-        } catch (IOException | FileCantBeSavedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Database.getInstance().saveItem(shopBankAccount);
+//        } catch (IOException | FileCantBeSavedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public HashMap<Long, FileProduct> getAllFileProducts() {
