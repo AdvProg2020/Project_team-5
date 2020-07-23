@@ -44,22 +44,22 @@ public class Database {
         this.deletingData = new DeletingData();
         this.savingData = new SavingData();
         this.loadingData = new LoadingData();
-        this.sqlManagerApi = new SqlManagerApi();
-        this.sqlCustomerApi = new SqlCustomerApi();
-        this.sqlSellerApi = new SqlSellerApi();
-        this.sqlCategoryApi = new SqlCategoryApi();
-        this.sqlSubCategoryApi = new SqlSubCategoryApi();
-        this.sqlCommentApi = new SqlCommentApi();
-        this.sqlCompanyApi = new SqlCompanyApi();
-        this.sqlDiscountCodeApi = new SqlDiscountCodeApi();
-        this.sqlGoodApi = new SqlGoodApi();
-        this.sqlGoodInCartApi = new SqlGoodInCartApi();
-        this.sqlOffApi = new SqlOffApi();
-        this.sqlOrderForCustomerApi = new SqlOrderForCustomerApi();
-        this.sqlOrderForSellerApi = new SqlOrderForSellerApi();
-        this.sqlRateApi = new SqlRateApi();
-        this.sqlSellerRelatedInfoAboutGood = new SqlSellerRelatedInfoAboutGood();
-        this.sqlShopBankAccountApi = new SqlShopBankAccountApi();
+        this.sqlManagerApi = (SqlManagerApi) SqlApiContainer.getInstance().getSqlApi("manager");
+        this.sqlCustomerApi = (SqlCustomerApi) SqlApiContainer.getInstance().getSqlApi("customer");
+        this.sqlSellerApi = (SqlSellerApi) SqlApiContainer.getInstance().getSqlApi("seller");
+        this.sqlCategoryApi = (SqlCategoryApi) SqlApiContainer.getInstance().getSqlApi("category");
+        this.sqlSubCategoryApi = (SqlSubCategoryApi) SqlApiContainer.getInstance().getSqlApi("subCategory");
+        this.sqlCommentApi = (SqlCommentApi) SqlApiContainer.getInstance().getSqlApi("comment");
+        this.sqlCompanyApi = (SqlCompanyApi) SqlApiContainer.getInstance().getSqlApi("company");
+        this.sqlDiscountCodeApi = (SqlDiscountCodeApi) SqlApiContainer.getInstance().getSqlApi("discount");
+        this.sqlGoodApi = (SqlGoodApi) SqlApiContainer.getInstance().getSqlApi("good");
+        this.sqlGoodInCartApi = (SqlGoodInCartApi) SqlApiContainer.getInstance().getSqlApi("goodInCart");
+        this.sqlOffApi = (SqlOffApi) SqlApiContainer.getInstance().getSqlApi("off");
+        this.sqlOrderForCustomerApi = (SqlOrderForCustomerApi) SqlApiContainer.getInstance().getSqlApi("orderForCustomer");
+        this.sqlOrderForSellerApi = (SqlOrderForSellerApi) SqlApiContainer.getInstance().getSqlApi("orderForSeller");
+        this.sqlRateApi = (SqlRateApi) SqlApiContainer.getInstance().getSqlApi("rate");
+        this.sqlSellerRelatedInfoAboutGood = (SqlSellerRelatedInfoAboutGood) SqlApiContainer.getInstance().getSqlApi("sellerRelatedInfoAboutGood");
+        this.sqlShopBankAccountApi = (SqlShopBankAccountApi) SqlApiContainer.getInstance().getSqlApi("ShopBankAccount");
     }
     public static Database getInstance() {
         if (database == null)

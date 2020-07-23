@@ -1,7 +1,5 @@
 package ApProject_OnlineShop.database.sqlMode;
 
-import ApProject_OnlineShop.model.ShopBankAccount;
-
 import java.util.HashMap;
 
 public class SqlApiContainer {
@@ -12,6 +10,7 @@ public class SqlApiContainer {
         apisList = new HashMap<>();
         apisList.put("category", new SqlCategoryApi());
         apisList.put("comment", new SqlCommentApi());
+        apisList.put("company", new SqlCompanyApi());
         apisList.put("customer", new SqlCustomerApi());
         apisList.put("discount", new SqlDiscountCodeApi());
         apisList.put("good", new SqlGoodApi());

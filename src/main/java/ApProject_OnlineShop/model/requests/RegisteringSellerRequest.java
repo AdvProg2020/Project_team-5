@@ -1,6 +1,7 @@
 package ApProject_OnlineShop.model.requests;
 
 import ApProject_OnlineShop.database.fileMode.Database;
+import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
 import ApProject_OnlineShop.database.sqlMode.SqlCompanyApi;
 import ApProject_OnlineShop.database.sqlMode.SqlSellerApi;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
@@ -23,8 +24,8 @@ public class RegisteringSellerRequest extends Request {
     private String companyFaxNumber;
     private String companyAddress;
     private String bankAccountId;
-    private transient SqlSellerApi sqlSellerApi = new SqlSellerApi();
-    private transient SqlCompanyApi sqlCompanyApi = new SqlCompanyApi();
+    private transient SqlSellerApi sqlSellerApi = (SqlSellerApi) SqlApiContainer.getInstance().getSqlApi("seller");
+    private transient SqlCompanyApi sqlCompanyApi = (SqlCompanyApi) SqlApiContainer.getInstance().getSqlApi("company");
 
     public RegisteringSellerRequest(String username, String firstName, String lastName, String email, String phoneNumber,
                                     String password, String companyName, String companyWebsite, String companyPhoneNumber,
