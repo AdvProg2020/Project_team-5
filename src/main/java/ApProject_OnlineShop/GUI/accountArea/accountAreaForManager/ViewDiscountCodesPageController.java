@@ -6,7 +6,10 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.gilecode.yagson.com.google.gson.Gson;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,8 +18,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.*;
 import java.util.*;
 
 public class ViewDiscountCodesPageController extends FxmlController implements Initializable {
@@ -48,7 +53,23 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<DiscountCode> allDiscounts = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)), new TypeToken<ArrayList<DiscountCode>>() {
+        ArrayList<DiscountCode> allDiscounts = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDateTime.class, new TypeAdapter<LocalDateTime>() {
+//                @Override
+//                public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+//                    Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
+//                    return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+//                }
+
+            @Override
+            public void write(final JsonWriter jsonWriter, final LocalDateTime localDateTime) throws IOException {
+                jsonWriter.value(localDateTime.toString());
+            }
+
+            @Override
+            public LocalDateTime read( final JsonReader jsonReader ) throws IOException {
+                return LocalDateTime.parse(jsonReader.nextString());
+            }
+        }).create().fromJson(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)), new TypeToken<ArrayList<DiscountCode>>() {
         }.getType());
         updateTableView(allDiscounts);
     }
@@ -71,8 +92,8 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
     public void onRowSelected() {
         this.selectedDiscount = discountTable.getSelectionModel().getSelectedItem().getCode();
         codeLabel.setText(discountTable.getSelectionModel().getSelectedItem().getCode());
-        startDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getStartDate().toString());
-        endDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getEndDate().toString());
+        //startDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getStartDate().toString());
+        //endDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getEndDate().toString());
         amountLabel.setText(discountTable.getSelectionModel().getSelectedItem().getMaxDiscountAmount().toString());
         percentLabel.setText("" + discountTable.getSelectionModel().getSelectedItem().getDiscountPercent());
         editButton.setDisable(false);

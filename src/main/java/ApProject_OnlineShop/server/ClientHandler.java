@@ -22,19 +22,25 @@ import ApProject_OnlineShop.model.persons.*;
 import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
 import javax.swing.text.html.ImageView;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -341,7 +347,25 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllDiscountCodes")) {
-            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllDiscountCodes(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
+            System.out.println(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDateTime.class, new TypeAdapter<LocalDateTime>() {
+//                @Override
+//                public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+//                    Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
+//                    return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+//                }
+
+                @Override
+                public void write(final JsonWriter jsonWriter, final LocalDateTime localDateTime) throws IOException {
+                    jsonWriter.value(localDateTime.toString());
+                }
+
+                @Override
+                public LocalDateTime read( final JsonReader jsonReader ) throws IOException {
+                    return LocalDateTime.parse(jsonReader.nextString());
+                }
+            }).
+                    create().toJson(Shop.getInstance().getAllDiscountCodes(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(Shop.getInstance().getAllDiscountCodes(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllRequest")) {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllRequest()));

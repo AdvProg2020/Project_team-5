@@ -4,6 +4,8 @@ import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -24,21 +26,27 @@ public class DiscountCode implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DiscountId", nullable = false, unique = true)
+    @Expose
     private long id;
 
     @Column(name = "DiscountCode", nullable = false, unique = true)
+    @Expose
     private String code;
 
     @Column(name = "StartDate", nullable = false)
+    @Expose
     private LocalDateTime startDate;
 
     @Column(name = "EndDate", nullable = false)
+    @Expose
     private LocalDateTime endDate;
 
     @Column(name = "MaxDiscountAmount", nullable = false)
+    @Expose
     private Long maxDiscountAmount;
 
     @Column(name = "Percent", nullable = false)
+    @Expose
     private int discountPercent;
 
     @ElementCollection(fetch = FetchType.EAGER)
