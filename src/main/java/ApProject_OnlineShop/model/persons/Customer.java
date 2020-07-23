@@ -6,6 +6,8 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -19,10 +21,12 @@ import java.util.List;
 public class Customer extends Person implements Serializable {
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "DiscountPerson", joinColumns = @JoinColumn(name = "CustomerId"), inverseJoinColumns = @JoinColumn(name = "DiscountId"))
     private List<DiscountCode> discountCodes;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<OrderForCustomer> previousOrders;
 
     @Column(name = "BankAccountId")

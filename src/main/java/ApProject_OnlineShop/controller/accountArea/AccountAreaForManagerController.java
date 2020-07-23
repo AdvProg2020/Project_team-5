@@ -1,5 +1,8 @@
 package ApProject_OnlineShop.controller.accountArea;
 
+import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
+import ApProject_OnlineShop.database.sqlMode.SqlCustomerApi;
+import ApProject_OnlineShop.database.sqlMode.SqlDiscountCodeApi;
 import ApProject_OnlineShop.exception.*;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
@@ -35,6 +38,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AccountAreaForManagerController extends AccountAreaController {
+    private SqlDiscountCodeApi sqlDiscountCodeApi = (SqlDiscountCodeApi) SqlApiContainer.getInstance().getSqlApi("discount");
+    private SqlCustomerApi sqlCustomerApi = (SqlCustomerApi) SqlApiContainer.getInstance().getSqlApi("customer");
     public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
         if (fields.get(0).length() > 15)
             throw new DiscountCodeCantCreatedException("code length");
@@ -44,10 +49,11 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new DiscountCodeCantCreatedException("end date");
         if (Integer.parseInt(fields.get(4)) > 100 || Integer.parseInt(fields.get(4)) <= 0)
             throw new DiscountCodeCantCreatedException("discount percent");
-        DiscountCode discountCode = new DiscountCode(fields.get(0), LocalDateTime.parse(fields.get(1)), LocalDateTime.parse(fields.get(2)),
+        DiscountCode discountCode = new DiscountCode(fields.get(0), LocalDateTime.now().plusDays(1) /*LocalDateTime.parse(fields.get(1))*/, /*LocalDateTime.parse(fields.get(2))*/LocalDateTime.now().plusMonths(1),
                 Long.parseLong(fields.get(3)), Integer.parseInt(fields.get(4)));
         Shop.getInstance().addDiscountCode(discountCode);
-        Database.getInstance().saveItem(discountCode);
+//        Database.getInstance().saveItem(discountCode);
+        sqlDiscountCodeApi.save(discountCode);
     }
 
     public void addIncludedCustomerToDiscountCode(String code, String username, String numberOfUse)
@@ -68,8 +74,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         discountCode.addCustomerToCode((Customer) person, number);
         Customer customer = (Customer) person;
-        Database.getInstance().saveItem(discountCode);
-        Database.getInstance().saveItem(customer);
+        sqlDiscountCodeApi.save(discountCode);
+//        Database.getInstance().saveItem(discountCode);
+//        Database.getInstance().saveItem(customer);
     }
 
 //    public ArrayList<String> getAllDiscountCodesInfo(ArrayList<DiscountCode> discountCodes) {
