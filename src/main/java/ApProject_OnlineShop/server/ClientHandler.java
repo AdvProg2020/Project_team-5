@@ -19,10 +19,7 @@ import ApProject_OnlineShop.model.Massage;
 import ApProject_OnlineShop.model.RequestForServer;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.*;
-import ApProject_OnlineShop.model.productThings.Auction;
-import ApProject_OnlineShop.model.productThings.FileProduct;
-import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.model.productThings.GoodInCart;
+import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankAccountsControllerHandler;
 import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControllerHandler;
 import com.google.gson.Gson;
@@ -41,6 +38,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ClientHandler extends Thread {
@@ -340,10 +338,10 @@ public class ClientHandler extends Thread {
 
     private void ShopHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("getAllPersons")) {
-            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons()));
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllDiscountCodes")) {
-            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllDiscountCodes()));
+            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllDiscountCodes(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllRequest")) {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllRequest()));
@@ -368,6 +366,10 @@ public class ClientHandler extends Thread {
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getFinalPriceOfAGood")) {
             dataOutputStream.writeUTF("" + Shop.getInstance().getFinalPriceOfAGood(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1)));
+            dataOutputStream.flush();
+        } else if (requestForServer.getFunction().equals("getDiscountIncludedCustomers")) {
+            DiscountCode discountCode = Shop.getInstance().findDiscountCode(requestForServer.getInputs().get(0));
+            dataOutputStream.writeUTF(new Gson().toJson(discountCode.getIncludedCustomers(), new TypeToken<Map<Customer, Integer>>() {}.getType()));
             dataOutputStream.flush();
         }
     }

@@ -616,16 +616,16 @@ public class Shop {
                 Database.getInstance().deleteItem(off);
             }
         }
-        for (DiscountCode discountCode : this.getAllDiscountCodes()) {
-            if (discountCode.isDiscountCodeExpired()) {
-                this.removeDiscountCode(discountCode);
-            }
-            for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
-                customer.removeDiscountCode(discountCode);
-                Database.getInstance().saveItem(customer);
-            }
-            Database.getInstance().deleteItem(discountCode);
-        }
+//        for (DiscountCode discountCode : this.getAllDiscountCodes()) {
+//            if (discountCode.isDiscountCodeExpired()) {
+//                this.removeDiscountCode(discountCode);
+//            }
+//            for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
+//                customer.removeDiscountCode(discountCode);
+//                Database.getInstance().saveItem(customer);
+//            }
+//            Database.getInstance().deleteItem(discountCode);
+//        }
         for (Auction auction : this.getAllAuctionsList()) {
             if (LocalDate.now().isAfter(auction.getEndDate())) {
                 MainController.getInstance().getAccountAreaForSellerController().endAuction(auction.getAuctionId());
