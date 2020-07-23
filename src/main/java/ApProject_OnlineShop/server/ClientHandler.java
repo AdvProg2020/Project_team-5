@@ -102,9 +102,9 @@ public class ClientHandler extends Thread {
             return;
         try {
             handleRequest(requestForServer);
-        } catch (IOException | FileCantBeSavedException e) {
+        } catch (Exception e) {
             try {
-                dataOutputStream.writeUTF(e.getMessage());
+                dataOutputStream.writeUTF("exception occured in server");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -124,7 +124,7 @@ public class ClientHandler extends Thread {
         return true;
     }
 
-    private void handleRequest(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+    private void handleRequest(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getController().equals("###cart")) {
             cartHandler();
             return;
@@ -173,7 +173,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void sortingHandler(RequestForServer requestForServer) throws IOException {
+    private void sortingHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("sortASort")) {
             Server.getControllerForSortingHashMap().get(Long.parseLong(requestForServer.getInputs().get(0))).sortASort(Integer.parseInt(requestForServer.getInputs().get(1)));
             dataOutputStream.writeUTF("done");
@@ -187,7 +187,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void filteringControllerHandler(RequestForServer requestForServer) throws IOException {
+    private void filteringControllerHandler(RequestForServer requestForServer) throws Exception {
         ControllerForFiltering controllerForFiltering = Server.getControllerForFilteringHashMap().get(Long.parseLong(requestForServer.getInputs().get(0)));
         if (requestForServer.getFunction().equals("isOffProductsFilter")) {
             dataOutputStream.writeUTF(controllerForFiltering.isOffProductsFilter() + "");
@@ -294,7 +294,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void goodHandler(RequestForServer requestForServer) throws IOException {
+    private void goodHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("getPriceBySeller")) {
             Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(1));
             Good good = Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)));
@@ -319,7 +319,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void othersHandler(RequestForServer requestForServer) throws IOException {
+    private void othersHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("Good.getGoodsCount")) {
             dataOutputStream.writeUTF(Good.getGoodsCount() + "");
             dataOutputStream.flush();
@@ -381,7 +381,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void ShopHandler(RequestForServer requestForServer) throws IOException {
+    private void ShopHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("getAllPersons")) {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons()));
             dataOutputStream.flush();
@@ -418,7 +418,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void cartHandler() throws IOException {
+    private void cartHandler() throws Exception {
         Server.getCarts().put(Server.getIdForCarts(), new ArrayList<>());
         Server.getControllerForFilteringHashMap().put(Server.getIdForCarts(), new ControllerForFiltering());
         Server.getControllerForSortingHashMap().put(Server.getIdForCarts(), new ControllerForSorting());
@@ -427,7 +427,7 @@ public class ClientHandler extends Thread {
         Server.setIdForCarts(Server.getIdForCarts() + 1);
     }
 
-    private void productControllerHandler(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+    private void productControllerHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("compareWithAnotherProductGUI")) {
             dataOutputStream.writeUTF(convertArrayListToString(MainController.getInstance().getProductController()
                     .compareWithAnotherProductGUI(Long.parseLong(requestForServer.getInputs().get(0)), Long.parseLong(requestForServer.getInputs().get(1)))));
@@ -490,7 +490,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void allProductsHandler(RequestForServer requestForServer) throws IOException {
+    private void allProductsHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("getProductBrief")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAllProductsController().getProductBrief(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
@@ -528,7 +528,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void accountAreaForCustomer(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+    private void accountAreaForCustomer(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("viewDiscountCodes")) {
             if (user == null)
                 return;
@@ -732,7 +732,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void accountAreaForManagerHandler(RequestForServer requestForServer) throws IOException, FileCantBeSavedException {
+    private void accountAreaForManagerHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("createNewDiscountCode")) {
             try {
                 MainController.getInstance().getAccountAreaForManagerController().createNewDiscountCode(requestForServer.getInputs());
@@ -971,7 +971,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void accountAreaForSellerHandler(RequestForServer requestForServer) throws IOException {
+    private void accountAreaForSellerHandler(RequestForServer requestForServer) throws Exception {
         Person person = user;
         if (person == null)
             return;
@@ -1172,7 +1172,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void accountAreaControllerHandler(RequestForServer requestForServer) throws IOException {
+    private void accountAreaControllerHandler(RequestForServer requestForServer) throws Exception {
         Person person = Server.getOnlineUsers().get(requestForServer.getToken());
         if (person == null)
             return;
@@ -1224,7 +1224,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void auctionControllerHandler(RequestForServer requestForServer) throws IOException {
+    private void auctionControllerHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("getMassages")) {
             dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAuctionsController().getMassages(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
@@ -1242,7 +1242,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void getCurrentPerson() throws IOException {
+    private void getCurrentPerson() throws Exception {
         if (user == null) {
             try {
                 dataOutputStream.writeUTF("null");
@@ -1285,7 +1285,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void loginRegisterControllerHandler(RequestForServer requestForServer) throws IOException {
+    private void loginRegisterControllerHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("createAccount")) {
             try {
                 ArrayList<String> details = new ArrayList<>();
@@ -1352,7 +1352,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void accountAreaForSupporterHandler(RequestForServer requestForServer) throws IOException {
+    private void accountAreaForSupporterHandler(RequestForServer requestForServer) throws Exception {
         if (requestForServer.getFunction().equals("getCustomersChat")) {
             dataOutputStream.writeUTF(convertListToString(MainController.getInstance().getAccountAreaForSupporter().getCustomersChat(requestForServer.getInputs().get(0))));
             dataOutputStream.flush();
