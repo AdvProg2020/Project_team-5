@@ -38,6 +38,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -100,6 +101,15 @@ public class ClientHandler extends Thread {
         }
         if (requestForServer == null)
             return;
+        if (requestForServer.getExpireTime().isBefore(LocalTime.now())) {
+            try {
+                dataOutputStream.writeUTF("your message is expired!");
+                dataOutputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
         try {
             handleRequest(requestForServer);
         } catch (Exception e) {
