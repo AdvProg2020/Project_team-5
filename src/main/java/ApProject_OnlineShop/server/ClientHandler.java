@@ -79,7 +79,7 @@ public class ClientHandler extends Thread {
         }
         if (!validSizeString(input)) {
             try {
-                dataOutputStream.writeUTF("not formatted input");
+                dataOutputStream.writeUTF("not valid input");
                 dataOutputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();
