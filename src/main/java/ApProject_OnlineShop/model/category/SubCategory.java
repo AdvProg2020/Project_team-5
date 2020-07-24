@@ -3,6 +3,7 @@ package ApProject_OnlineShop.model.category;
 import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.productThings.Good;
+import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -19,9 +20,11 @@ public class SubCategory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SubCategoryId", nullable = false, unique = true)
+    @Expose
     private int subCategoryId;
 
     @Column(name = "Name", nullable = false, unique = true)
+    @Expose
     private String name;
 
     @ManyToOne
@@ -33,6 +36,7 @@ public class SubCategory implements Serializable {
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     @CollectionTable(name = "DetailOfEachSubCategory", joinColumns = @JoinColumn(name = "SubCategory"))
     @Column(name = "Property")
+    @Expose
     private List<String> details;
 
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)

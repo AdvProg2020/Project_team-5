@@ -6,6 +6,7 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -81,7 +82,7 @@ public class ManageCategoriesPageController extends FxmlController implements In
         singleCategoryVBox.getChildren().add(details);
         ArrayList<String> inputs31 = new ArrayList<>();
         inputs31.add(category);
-        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs31)), Category.class);
+        Category cat = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs31)), Category.class);
         for (String detail : cat.getDetails()) {
             Label label = new Label(detail);
             label.setFont(Font.font(13));

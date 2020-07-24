@@ -405,10 +405,10 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findFileProductById(Long.parseLong(requestForServer.getInputs().get(0))), FileProduct.class));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("findSubCategoryByName")) {
-            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findSubCategoryByName((requestForServer.getInputs().get(0)))));
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(Shop.getInstance().findSubCategoryByName((requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("findCategoryByName")) {
-            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findCategoryByName((requestForServer.getInputs().get(0)))));
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(Shop.getInstance().findCategoryByName((requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getFinalPriceOfAGood")) {
             dataOutputStream.writeUTF("" + Shop.getInstance().getFinalPriceOfAGood(Long.parseLong(requestForServer.getInputs().get(0)), requestForServer.getInputs().get(1)));

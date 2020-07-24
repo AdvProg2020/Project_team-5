@@ -1,9 +1,6 @@
 package ApProject_OnlineShop.controller.accountArea;
 
-import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
-import ApProject_OnlineShop.database.sqlMode.SqlCustomerApi;
-import ApProject_OnlineShop.database.sqlMode.SqlDiscountCodeApi;
-import ApProject_OnlineShop.database.sqlMode.SqlPersonApi;
+import ApProject_OnlineShop.database.sqlMode.*;
 import ApProject_OnlineShop.exception.*;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
@@ -36,6 +33,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
     private SqlDiscountCodeApi sqlDiscountCodeApi = (SqlDiscountCodeApi) SqlApiContainer.getInstance().getSqlApi("discount");
     private SqlCustomerApi sqlCustomerApi = (SqlCustomerApi) SqlApiContainer.getInstance().getSqlApi("customer");
     private SqlPersonApi sqlPersonApi = (SqlPersonApi) SqlApiContainer.getInstance().getSqlApi("person");
+    private SqlCategoryApi sqlCategoryApi = (SqlCategoryApi) SqlApiContainer.getInstance().getSqlApi("category");
+    private SqlSubCategoryApi sqlSubCategoryApi = (SqlSubCategoryApi) SqlApiContainer.getInstance().getSqlApi("subCategory");
 
     public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
         if (fields.get(0).length() > 15)
@@ -223,7 +222,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
         for (int i = 0; i < category.getDetails().size(); i++) {
             if (category.getDetails().get(i).equalsIgnoreCase(property)) {
                 category.getDetails().set(i, newValue);
-                Database.getInstance().saveItem(category);
+                //Database.getInstance().saveItem(category);
+                sqlCategoryApi.save(category);
                 updatePropertyForProducts(Shop.getInstance().findCategoryByName(name), property, newValue);
                 return;
             }
@@ -264,7 +264,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
     public void addCategory(String name, ArrayList<String> properties) throws IOException, FileCantBeSavedException {
         Category category = new Category(name, properties);
         Shop.getInstance().addCategory(category);
-        Database.getInstance().saveItem(category);
+        //Database.getInstance().saveItem(category);
+        sqlCategoryApi.save(category);
     }
 
     public void removeCategory(String categoryName)
@@ -272,8 +273,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         Category category;
         if ((category = Shop.getInstance().findCategoryByName(categoryName)) == null)
             throw new CategoryNotFoundException();
-        Database.getInstance().deleteItem(category);
+        //Database.getInstance().deleteItem(category);
         Shop.getInstance().removeCategory(category);
+        sqlCategoryApi.delete(category);
     }
 
     public void addSubcategory(String categoryName, String subcategoryName, ArrayList<String> properties)
@@ -282,8 +284,10 @@ public class AccountAreaForManagerController extends AccountAreaController {
         SubCategory subCategory = new SubCategory(subcategoryName, properties);
         category.addSubCategory(subCategory);
         Shop.getInstance().addSubCategory(subCategory);
-        Database.getInstance().saveItem(category);
-        Database.getInstance().saveItem(subCategory);
+        //Database.getInstance().saveItem(category);
+        //Database.getInstance().saveItem(subCategory);
+        sqlSubCategoryApi.save(subCategory);
+        sqlCategoryApi.save(category);
     }
 
     public void removeSubCategory(String categoryName, String subCategoryName)
@@ -294,10 +298,11 @@ public class AccountAreaForManagerController extends AccountAreaController {
         SubCategory subCategory;
         if ((subCategory = Shop.getInstance().findSubCategoryByName(subCategoryName)) == null)
             throw new SubCategoryNotFoundException();
-        Database.getInstance().deleteItem(subCategory);
+        //Database.getInstance().deleteItem(subCategory);
         category.deleteSubCategory(subCategory);
         Shop.getInstance().removeSubCategory(subCategory);
-        Database.getInstance().saveItem(category);
+        //Database.getInstance().saveItem(category);
+        sqlSubCategoryApi.delete(subCategory);
     }
 
     public List<String> getSubCategoryProperties(String subcategoryName) {
@@ -309,7 +314,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
         for (int i = 0; i < subCategory.getDetails().size(); i++) {
             if (subCategory.getDetails().get(i).equalsIgnoreCase(property)) {
                 subCategory.getDetails().set(i, newValue);
-                Database.getInstance().saveItem(subCategory);
+                //Database.getInstance().saveItem(subCategory);
+                sqlSubCategoryApi.save(subCategory);
                 updatePropertySubCategoryForProducts(Shop.getInstance().findSubCategoryByName(subCategoryName), property, newValue);
                 return;
             }

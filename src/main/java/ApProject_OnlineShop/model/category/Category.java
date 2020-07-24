@@ -2,6 +2,7 @@ package ApProject_OnlineShop.model.category;
 
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.productThings.Good;
+import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -19,9 +20,11 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CategoryId", nullable = false, unique = true)
+    @Expose
     private int categoryId;
 
     @Column(name = "Name", nullable = false, unique = true)
+    @Expose
     private String name;
 
     @ElementCollection
@@ -29,6 +32,7 @@ public class Category implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Column(name = "Property")
     @CollectionTable(name = "DetailOfEachCategory", joinColumns = @JoinColumn(name = "Category", referencedColumnName = "CategoryId"))
+    @Expose
     private List<String> details;
 
     @OneToMany(mappedBy = "parentCategory")

@@ -6,6 +6,7 @@ import ApProject_OnlineShop.GUI.SuccessPageFxController;
 import ApProject_OnlineShop.model.category.Category;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,7 +56,7 @@ public class EditCategoryPageController extends FxmlController implements Initia
         allFieldsVBox.getChildren().add(details);
         ArrayList<String> inputs33 = new ArrayList<>();
         inputs33.add(currentCategory);
-        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs33)), Category.class);
+        Category cat = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs33)), Category.class);
         for (String detail : cat.getDetails()) {
             Hyperlink hyperlink = new Hyperlink("- " + detail);
             hyperlink.setOnMouseClicked(e -> {
@@ -114,7 +115,7 @@ public class EditCategoryPageController extends FxmlController implements Initia
         }
         ArrayList<String> inputs33 = new ArrayList<>();
         inputs33.add(currentCategory);
-        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs33)), Category.class);
+        Category cat = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs33)), Category.class);
         if (cat.getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newValue))) {
             ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
             newValueField.clear();
@@ -161,7 +162,7 @@ public class EditCategoryPageController extends FxmlController implements Initia
         }
         ArrayList<String> inputs33 = new ArrayList<>();
         inputs33.add(currentCategory);
-        Category cat = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs33)), Category.class);
+        Category cat = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("Shop", "findCategoryByName", null, inputs33)), Category.class);
         if (cat.getDetails().stream().anyMatch(s -> s.equalsIgnoreCase(newProperty))) {
             ErrorPageFxController.showPage("error in editing", "this name is already taken by another property");
             newPropertyField.clear();
