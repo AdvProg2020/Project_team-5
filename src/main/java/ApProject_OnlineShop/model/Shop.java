@@ -487,9 +487,9 @@ public class Shop {
         offs.remove(off.getOffId());
     }
 
-    public void generatePeriodRandomDiscountCodes(LocalDateTime endDate) throws IOException, FileCantBeSavedException {
+    public void generatePeriodRandomDiscountCodes(LocalDate endDate) throws IOException, FileCantBeSavedException {
         String code = DiscountCode.generateRandomDiscountCode();
-        DiscountCode discountCode = new DiscountCode(code, LocalDateTime.now(), endDate, 100000L, 20);
+        DiscountCode discountCode = new DiscountCode(code, LocalDate.now(), endDate, 100000L, 20);
         discountCode.addAllCustomers(randomCustomers(5, 1, discountCode));
         allDiscountCodes.put(discountCode.getId(), discountCode);
         Database.getInstance().saveItem(discountCode);
@@ -588,7 +588,7 @@ public class Shop {
     public List<Good> getOffGoods() {
         Set<Good> offGoods = new HashSet<>();
         for (Off off : offs.values()) {
-            if ((off.getEndDate().isBefore(LocalDateTime.now()) || off.getStartDate().isAfter(LocalDateTime.now())))
+            if ((off.getEndDate().isBefore(LocalDate.now()) || off.getStartDate().isAfter(LocalDate.now())))
                 continue;
             if (off.getOffStatus().equals(Off.OffStatus.ACCEPTED)) {
                 offGoods.addAll(off.getOffGoods());
@@ -601,7 +601,7 @@ public class Shop {
         LocalDateTime localDate = LocalDateTime.now();
         if (localDate.getDayOfMonth() == 1) {
             if (!localDate.equals(lastRandomPeriodDiscountCodeCreatedDate)) {
-                generatePeriodRandomDiscountCodes(LocalDateTime.now().plusMonths(1));
+                generatePeriodRandomDiscountCodes(LocalDate.now().plusMonths(1));
                 lastRandomPeriodDiscountCodeCreatedDate = localDate;
             }
         }

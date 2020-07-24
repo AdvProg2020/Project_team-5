@@ -24,9 +24,9 @@ public class EditingOffRequest extends Request {
         Off off = Shop.getInstance().findOffById(offId);
         for (String field : editedFields.keySet()) {
             if (field.equalsIgnoreCase("start date")) {
-                off.setStartDate(LocalDateTime.parse(editedFields.get(field)));
+                off.setStartDate(LocalDate.parse(editedFields.get(field)));
             } else if (field.equalsIgnoreCase("end date")) {
-                off.setEndDate(LocalDateTime.parse(editedFields.get(field)));
+                off.setEndDate(LocalDate.parse(editedFields.get(field)));
             } else if (field.equalsIgnoreCase("max discount")) {
                 off.setMaxDiscount(Long.parseLong(editedFields.get(field)));
             } else if (field.equalsIgnoreCase("discount percent")) {

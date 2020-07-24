@@ -140,7 +140,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
 
     public long useDiscountCode(String code, Person person, long id) throws Exception {
         DiscountCode discountCode = ((Customer) person).findDiscountCode(code);
-        if (discountCode.getEndDate().isBefore(LocalDateTime.now()))
+        if (discountCode.getEndDate().isBefore(LocalDate.now()))
             throw new DiscountCodeExpired();
         return calculateFinalPrice(discountCode, id);
     }

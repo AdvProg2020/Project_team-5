@@ -138,7 +138,7 @@ public class AccountAreaForManagerTest {
         Assert.assertThrows("can not edit discount code because field name for edit is incorrect.", DiscountCodeCantBeEditedException.class,
                 () -> MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "fieldalaki", "100"));
         MainController.getInstance().getAccountAreaForManagerController().editDiscountCode("RandomDiscount", "startDate", "2020-07-10");
-        LocalDateTime newDate = Shop.getInstance().findDiscountCode("RandomDiscount").getStartDate();
+        LocalDate newDate = Shop.getInstance().findDiscountCode("RandomDiscount").getStartDate();
         LocalDate expectedDate = LocalDate.parse("2020-07-10");
         Assert.assertEquals(newDate.toString(), expectedDate.toString());
         //Assert.assertTrue(new File("Resources\\Discounts\\dis_RandomDiscount.json").exists());

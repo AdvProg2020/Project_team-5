@@ -12,6 +12,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -158,7 +159,7 @@ public class Customer extends Person implements Serializable {
         if (((allPricesOfOrdersWithOutLastOne + this.getPreviousOrders().get(this.getPreviousOrders().size() - 1).getPrice()) / 1000000)
                 - (allPricesOfOrdersWithOutLastOne / 1000000) > 0){
             DiscountCode discountCode=new DiscountCode(DiscountCode.generateRandomDiscountCode()
-                    , LocalDateTime.now(),LocalDateTime.now().plusMonths(1), 10000L,30);
+                    , LocalDate.now(),LocalDate.now().plusMonths(1), 10000L,30);
             discountCode.addCustomerToCode(this,1);
             Shop.getInstance().addDiscountCode(discountCode);
             Database.getInstance().saveItem(discountCode);

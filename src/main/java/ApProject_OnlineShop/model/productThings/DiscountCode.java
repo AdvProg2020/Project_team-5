@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,11 +36,11 @@ public class DiscountCode implements Serializable {
 
     @Column(name = "StartDate", nullable = false)
     @Expose
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "EndDate", nullable = false)
     @Expose
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @Column(name = "MaxDiscountAmount", nullable = false)
     @Expose
@@ -56,7 +57,7 @@ public class DiscountCode implements Serializable {
     @MapKeyJoinColumn(name = "CustomerId")
     private Map<Customer, Integer> includedCustomers;
 
-    public DiscountCode(String code, LocalDateTime startDate, LocalDateTime endDate, Long maxDiscountAmount, int discountPercent) {
+    public DiscountCode(String code, LocalDate startDate, LocalDate endDate, Long maxDiscountAmount, int discountPercent) {
         discountCodeCount++;
         this.code = code;
         this.startDate = startDate;
@@ -94,11 +95,11 @@ public class DiscountCode implements Serializable {
         return code;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -152,11 +153,11 @@ public class DiscountCode implements Serializable {
         this.maxDiscountAmount = maxDiscountAmount;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -216,7 +217,7 @@ public class DiscountCode implements Serializable {
 
 
     public boolean isDiscountCodeExpired() {
-        return LocalDateTime.now().isAfter(this.endDate);
+        return LocalDate.now().isAfter(this.endDate);
     }
 
     public String getPrintableProperties() {

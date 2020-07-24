@@ -30,10 +30,10 @@ public class Off implements Serializable {
     private OffStatus offStatus;
 
     @Column(name = "StartFrom", nullable = false)
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "EndTo", nullable = false)
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @Column(name = "MaxDiscount", nullable = false)
     private long maxDiscount;
@@ -51,7 +51,7 @@ public class Off implements Serializable {
         EDITING
     }
 
-    public Off(List<Good> offGoods, LocalDateTime startDate, LocalDateTime endDate, long maxDiscount, int discountPercent, Seller seller) {
+    public Off(List<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
         offsCount++;
         this.offGoods = offGoods;
         this.offStatus = OffStatus.VALIDATING;
@@ -87,11 +87,11 @@ public class Off implements Serializable {
         return offStatus;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -111,11 +111,11 @@ public class Off implements Serializable {
         this.offStatus = offStatus;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -163,7 +163,7 @@ public class Off implements Serializable {
     }
 
     public boolean isOffExpired() {
-        return LocalDateTime.now().isAfter(this.endDate);
+        return LocalDate.now().isAfter(this.endDate);
     }
 
     public void setOffId(long offId) {

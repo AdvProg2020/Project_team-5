@@ -28,7 +28,7 @@ public class ShopTest {
 
     @Test
     public void generateRandomDiscountCodeTest() throws IOException, FileCantBeSavedException {
-        Shop.getInstance().generatePeriodRandomDiscountCodes(LocalDateTime.now().plusMonths(2));
+        Shop.getInstance().generatePeriodRandomDiscountCodes(LocalDate.now().plusMonths(2));
         Customer customer= (Customer) Shop.getInstance().findUser("yasaman1");
         Assert.assertTrue(customer.getDiscountCodes() != null);
     }

@@ -15,13 +15,13 @@ import java.util.List;
 
 public class AddingOffRequest extends Request {
     private List<Long> offGoods;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private long maxDiscount;
     private int discountPercent;
     private String seller;
 
-    public AddingOffRequest(List<Good> offGoods, LocalDateTime startDate, LocalDateTime endDate, long maxDiscount, int discountPercent, Seller seller) {
+    public AddingOffRequest(List<Good> offGoods, LocalDate startDate, LocalDate endDate, long maxDiscount, int discountPercent, Seller seller) {
         this.offGoods = new ArrayList<>();
         for (Good good : offGoods) {
             this.offGoods.add(good.getGoodId());

@@ -55,7 +55,7 @@ public class Good implements Serializable {
     private int seenNumber;
 
     @Column(name = "ModificationDate")
-    private LocalDateTime modificationDate;
+    private LocalDate modificationDate;
 
     @ElementCollection
     @MapKeyColumn(name = "Property", table = "ValueOfEachCategoryProperty")
@@ -84,7 +84,7 @@ public class Good implements Serializable {
         sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
         this.sellerRelatedInfoAboutGoods = new ArrayList<>();
         this.comments = new ArrayList<>();
-        this.modificationDate = LocalDateTime.now();
+        this.modificationDate = LocalDate.now();
     }
 
     public Good() {
@@ -203,7 +203,7 @@ public class Good implements Serializable {
         return averageRate;
     }
 
-    public LocalDateTime getModificationDate() {
+    public LocalDate getModificationDate() {
         return modificationDate;
     }
 
@@ -272,12 +272,12 @@ public class Good implements Serializable {
     public Seller getSellerThatPutsThisGoodOnOff() {
         for (SellerRelatedInfoAboutGood relatedInfoAboutGood : getSellerRelatedInfoAboutGoods()) {
             for (Off off : relatedInfoAboutGood.getSeller().getActiveOffs()) {
-                if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDateTime.now()) && !off.getStartDate().isAfter(LocalDateTime.now()))
+                if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDate.now()) && !off.getStartDate().isAfter(LocalDate.now()))
                     return relatedInfoAboutGood.getSeller();
             }
         }
         for (Off off : Shop.getInstance().getOffs()) {
-            if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDateTime.now()) && !off.getStartDate().isAfter(LocalDateTime.now()))
+            if (off.getOffGoods().contains(this) && !off.getEndDate().isBefore(LocalDate.now()) && !off.getStartDate().isAfter(LocalDate.now()))
                 return off.getSeller();
         }
         return null;

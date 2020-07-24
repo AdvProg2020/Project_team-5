@@ -18,7 +18,7 @@ public abstract class Order implements Serializable {
     private long orderId;
 
     @Column(name = "ModificationDate", nullable = false)
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(name = "TotalPrice", nullable = false)
     private long price;
@@ -33,7 +33,7 @@ public abstract class Order implements Serializable {
 
     public Order(long price) {
         this.price = price;
-        this.date = LocalDateTime.now();
+        this.date = LocalDate.now();
         this.orderStatus = OrderStatus.PROCESSING;
         ordersCount++;
     }
@@ -45,7 +45,7 @@ public abstract class Order implements Serializable {
         return orderId;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
