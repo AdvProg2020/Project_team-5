@@ -36,6 +36,7 @@ public class Category implements Serializable {
     private List<String> details;
 
     @OneToMany(mappedBy = "parentCategory")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<SubCategory> subCategories;
 
     public Category(String name, ArrayList<String> details) {

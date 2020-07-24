@@ -40,6 +40,7 @@ public class SubCategory implements Serializable {
     private List<String> details;
 
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Good> goods;
 
     public SubCategory(String name, ArrayList<String> details) {
