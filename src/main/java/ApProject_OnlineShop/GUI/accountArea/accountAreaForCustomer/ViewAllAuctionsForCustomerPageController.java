@@ -70,9 +70,11 @@ public class ViewAllAuctionsForCustomerPageController extends FxmlController imp
         this.selectedAuctionId = auction;
         Label title = new Label(auction);
         title.setFont(Font.font(16));
+        VBox.setMargin(title, new Insets(2,20,5,150));
         title.setAlignment(Pos.CENTER);
         singleAuctionVBox.getChildren().add(title);
         Label details = new Label("- Details: ");
+        VBox.setMargin(details, new Insets(2,15,5,15));
         details.setFont(Font.font(14));
         details.setAlignment(Pos.CENTER);
         singleAuctionVBox.getChildren().add(details);
@@ -83,6 +85,7 @@ public class ViewAllAuctionsForCustomerPageController extends FxmlController imp
             Label label = new Label(detail);
             label.setFont(Font.font(13));
             label.setAlignment(Pos.CENTER);
+            VBox.setMargin(label, new Insets(2,15,5,15));
             singleAuctionVBox.getChildren().add(label);
         }
     }
