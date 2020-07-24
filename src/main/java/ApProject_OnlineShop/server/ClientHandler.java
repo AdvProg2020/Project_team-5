@@ -688,7 +688,7 @@ public class ClientHandler extends Thread {
             Auction auction = Shop.getInstance().findAuctionById(Integer.parseInt(requestForServer.getInputs().get(0)));
             Customer customer = (Customer) user;
             long offeredPrice = Long.parseLong(requestForServer.getInputs().get(1));
-            if (customer.getCredit() >= offeredPrice) {
+            if (customer.getCredit() - Shop.getInstance().getShopBankAccount().getMinimumAmount() >= offeredPrice) {
                 if (offeredPrice > auction.getGood().getPriceBySeller(auction.getSeller())) {
                     if (auction.getAllCustomersOffers().containsKey(customer)) {
                         if (auction.getAllCustomersOffers().get(customer) < offeredPrice) {
