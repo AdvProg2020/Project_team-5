@@ -114,6 +114,7 @@ public class ClientHandler extends Thread {
             handleRequest(requestForServer);
         } catch (Exception e) {
             try {
+//                dataOutputStream.writeUTF(e.getMessage());
                 dataOutputStream.writeUTF("exception occured in server");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
