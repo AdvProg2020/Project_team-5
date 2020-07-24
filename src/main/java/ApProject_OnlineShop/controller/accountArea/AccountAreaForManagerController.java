@@ -3,6 +3,7 @@ package ApProject_OnlineShop.controller.accountArea;
 import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
 import ApProject_OnlineShop.database.sqlMode.SqlCustomerApi;
 import ApProject_OnlineShop.database.sqlMode.SqlDiscountCodeApi;
+import ApProject_OnlineShop.database.sqlMode.SqlPersonApi;
 import ApProject_OnlineShop.exception.*;
 import ApProject_OnlineShop.exception.categoryExceptions.CategoryNotFoundException;
 import ApProject_OnlineShop.exception.categoryExceptions.SubCategoryNotFoundException;
@@ -20,26 +21,22 @@ import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.model.orders.Order;
 import ApProject_OnlineShop.model.orders.OrderFileProductForCustomer;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
-import ApProject_OnlineShop.model.persons.Customer;
-import ApProject_OnlineShop.model.persons.Manager;
-import ApProject_OnlineShop.model.persons.Person;
-import ApProject_OnlineShop.model.persons.Supporter;
-import ApProject_OnlineShop.model.productThings.DiscountCode;
-import ApProject_OnlineShop.model.productThings.Good;
-import ApProject_OnlineShop.model.productThings.GoodInCart;
-import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
+import ApProject_OnlineShop.model.orders.OrderForSeller;
+import ApProject_OnlineShop.model.persons.*;
+import ApProject_OnlineShop.model.productThings.*;
 import ApProject_OnlineShop.model.requests.Request;
 import ApProject_OnlineShop.server.Server;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class AccountAreaForManagerController extends AccountAreaController {
     private SqlDiscountCodeApi sqlDiscountCodeApi = (SqlDiscountCodeApi) SqlApiContainer.getInstance().getSqlApi("discount");
     private SqlCustomerApi sqlCustomerApi = (SqlCustomerApi) SqlApiContainer.getInstance().getSqlApi("customer");
+    private SqlPersonApi sqlPersonApi = (SqlPersonApi) SqlApiContainer.getInstance().getSqlApi("person");
+
     public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
         if (fields.get(0).length() > 15)
             throw new DiscountCodeCantCreatedException("code length");
@@ -131,7 +128,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
                     throw new DiscountCodeCantBeEditedException("new discount percent value");
                 discountCode.setDiscountPercent(Integer.parseInt(newValue));
             } else throw new DiscountCodeCantBeEditedException("field name for edit");
-            Database.getInstance().saveItem(discountCode);
+//            Database.getInstance().saveItem(discountCode);
+            sqlDiscountCodeApi.save(discountCode);
         } else throw new DiscountCodeNotFoundException();
     }
 
@@ -147,8 +145,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if (customerToRemove != null) {
             customerToRemove.removeDiscountCode(discountCode);
             discountCode.removeCustomer(customerToRemove.getUsername());
-            Database.getInstance().saveItem(discountCode);
-            Database.getInstance().saveItem(customerToRemove);
+//            Database.getInstance().saveItem(discountCode);
+//            Database.getInstance().saveItem(customerToRemove);
+            sqlDiscountCodeApi.save(discountCode);
         } else {
             throw new Exception("discount code does not include customer with this username");
         }
@@ -161,7 +160,7 @@ public class AccountAreaForManagerController extends AccountAreaController {
         for (Customer customer : discountCode.getIncludedCustomers().keySet()) {
             customer.removeDiscountCode(discountCode);
         }
-        Database.getInstance().deleteItem(discountCode);
+        sqlDiscountCodeApi.delete(discountCode);
         Shop.getInstance().removeDiscountCode(discountCode);
     }
 
@@ -341,7 +340,33 @@ public class AccountAreaForManagerController extends AccountAreaController {
             throw new UsernameNotFoundException();
         if (person instanceof Manager)
             throw new UserCantBeRemovedException();
-        Database.getInstance().deleteItem(person);
+        //Database.getInstance().deleteItem(person);
+        if (person instanceof Customer) {
+            for (OrderForCustomer previousOrder : ((Customer)person).getPreviousOrders())
+                Shop.getInstance().getHasMapOfOrders().remove(previousOrder.getOrderId());
+            for (DiscountCode discountCode : ((Customer)person).getDiscountCodes())
+                discountCode.getIncludedCustomers().remove((Customer)person);
+        } else if (person instanceof Seller) {
+            for (Good good : ((Seller)person).getActiveGoods()) {
+                for (SellerRelatedInfoAboutGood infoAboutGood : good.getSellerRelatedInfoAboutGoods()) {
+                    if (infoAboutGood.getSeller().equals(person)) {
+                        good.removeSeller(((Seller)person));
+                        break;
+                    }
+                }
+            }
+            for (Off off : ((Seller)person).getActiveOffs()) {
+                Shop.getInstance().removeOff(off);
+            }
+            for (Auction auction : ((Seller)person).getActiveAuctions()) {
+                Shop.getInstance().removeAuction(auction);
+                Database.getInstance().deleteItem(auction);
+            }
+            for (OrderForSeller previousSell : ((Seller)person).getPreviousSells()) {
+                Shop.getInstance().getHasMapOfOrders().remove(previousSell.getOrderId());
+            }
+        }
+        sqlPersonApi.delete(person);
         Shop.getInstance().removePerson(person);
     }
 

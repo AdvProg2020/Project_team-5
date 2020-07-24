@@ -119,7 +119,7 @@ public abstract class SqlAPIs<T> {
         try {
             entityTransaction = entityManager.getTransaction();
             entityTransaction.begin();
-            entityManager.remove(targetObject);
+            entityManager.remove(entityManager.contains(targetObject)?entityManager:entityManager.merge(targetObject));
             entityTransaction.commit();
         } catch (Exception e) {
             if (entityTransaction != null)
