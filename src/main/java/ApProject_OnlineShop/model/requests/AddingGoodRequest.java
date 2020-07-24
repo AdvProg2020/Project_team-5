@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.model.requests;
 
 import ApProject_OnlineShop.database.fileMode.Database;
+import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
+import ApProject_OnlineShop.database.sqlMode.SqlGoodApi;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -21,6 +23,7 @@ public class AddingGoodRequest extends Request {
     private int availableNumberOfGood;
     private String seller;
     private long goodId;
+    private transient SqlGoodApi sqlGoodApi = (SqlGoodApi) SqlApiContainer.getInstance().getSqlApi("good");
 
     public AddingGoodRequest(String nameOfGood, String brandOfGood, SubCategory subCategoryOfGood, String detailsOfGood,
                              HashMap<String, String> categoryPropertiesOfGood, long priceOfGood, int availableNumberOfGood, String seller,String id) {
@@ -46,18 +49,21 @@ public class AddingGoodRequest extends Request {
             good.getSubCategory().addGood(good);
             good.setGoodStatus(Good.GoodStatus.CONFIRMED);
             seller1.addToActiveGoods(good);
-            Database.getInstance().saveItem(good.getSubCategory());
-            Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), good.getGoodId());
+            //Database.getInstance().saveItem(good.getSubCategory());
+            //Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), good.getGoodId());
             Shop.getInstance().getHashMapOfGoods().put(good.getGoodId(), good);
-            Database.getInstance().saveItem(good);
+            //Database.getInstance().saveItem(good);
+            sqlGoodApi.save(good);
+
         } else {
             originalGood.addSeller(good.getSellerRelatedInfoAboutGoods().get(0));
             seller1.addToActiveGoods(originalGood);
-            Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), originalGood.getGoodId());
-            Database.getInstance().saveItem(originalGood);
+            //Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), originalGood.getGoodId());
+            //Database.getInstance().saveItem(originalGood);
+            sqlGoodApi.save(originalGood);
         }
         Shop.getInstance().addSellerRelatedInfoAboutGood(good.getSellerRelatedInfoAboutGoods().get(0));
-        Database.getInstance().saveItem(seller1);
+        //Database.getInstance().saveItem(seller1);
     }
 
     @Override

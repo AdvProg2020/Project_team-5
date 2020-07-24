@@ -83,9 +83,9 @@ public abstract class SqlAPIs<T> {
         try {
             entityTransaction = entityManager.getTransaction();
             entityTransaction.begin();
-            int id = -1;
+            long id = -1L;
             if (targetObject != null)
-                id = (Integer) entityManagerFactory.getPersistenceUnitUtil().getIdentifier(targetObject);
+                id = (long) entityManagerFactory.getPersistenceUnitUtil().getIdentifier(targetObject);
 
             if (id == 0)
                 entityManager.persist(targetObject);

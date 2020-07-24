@@ -81,8 +81,8 @@ public class Good implements Serializable {
         this.goodStatus = GoodStatus.BUILTPROCESSING;
         SellerRelatedInfoAboutGood sellerRelatedInfoAboutGood = new SellerRelatedInfoAboutGood(seller,this, price, availableNumber);
         Shop.getInstance().addSellerRelatedInfoAboutGood(sellerRelatedInfoAboutGood);
-        sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
         this.sellerRelatedInfoAboutGoods = new ArrayList<>();
+        sellerRelatedInfoAboutGoods.add(sellerRelatedInfoAboutGood);
         this.comments = new ArrayList<>();
         this.modificationDate = LocalDate.now();
     }
