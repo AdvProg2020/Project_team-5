@@ -9,6 +9,7 @@ import com.gilecode.yagson.com.google.gson.Gson;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,21 +54,25 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<DiscountCode> allDiscounts = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDateTime.class, new TypeAdapter<LocalDateTime>() {
-//                @Override
-//                public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-//                    Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
-//                    return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-//                }
-
+        System.out.println(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)));
+        ArrayList<DiscountCode> allDiscounts = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
             @Override
-            public void write(final JsonWriter jsonWriter, final LocalDateTime localDateTime) throws IOException {
-                jsonWriter.value(localDateTime.toString());
+            public void write(final JsonWriter jsonWriter, final LocalDate localDate) throws IOException {
+                if (localDate == null) {
+                    jsonWriter.nullValue();
+                } else {
+                    jsonWriter.value(localDate.toString());
+                }
             }
 
             @Override
-            public LocalDateTime read( final JsonReader jsonReader ) throws IOException {
-                return LocalDateTime.parse(jsonReader.nextString());
+            public LocalDate read(final JsonReader jsonReader) throws IOException {
+                if (jsonReader.peek() == JsonToken.NULL) {
+                    jsonReader.nextNull();
+                    return null;
+                } else {
+                    return LocalDate.parse(jsonReader.nextString());
+                }
             }
         }).create().fromJson(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)), new TypeToken<ArrayList<DiscountCode>>() {
         }.getType());
@@ -92,8 +97,8 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
     public void onRowSelected() {
         this.selectedDiscount = discountTable.getSelectionModel().getSelectedItem().getCode();
         codeLabel.setText(discountTable.getSelectionModel().getSelectedItem().getCode());
-        //startDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getStartDate().toString());
-        //endDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getEndDate().toString());
+        startDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getStartDate().toString());
+        endDateLabel.setText(discountTable.getSelectionModel().getSelectedItem().getEndDate().toString());
         amountLabel.setText(discountTable.getSelectionModel().getSelectedItem().getMaxDiscountAmount().toString());
         percentLabel.setText("" + discountTable.getSelectionModel().getSelectedItem().getDiscountPercent());
         editButton.setDisable(false);

@@ -25,6 +25,7 @@ import ApProject_OnlineShop.server.clientHandlerForBank.BankTransactionControlle
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import javafx.scene.image.Image;
 
@@ -39,6 +40,7 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -347,25 +349,26 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllDiscountCodes")) {
-            System.out.println(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDateTime.class, new TypeAdapter<LocalDateTime>() {
-//                @Override
-//                public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-//                    Instant instant = Instant.ofEpochMilli(json.getAsJsonPrimitive().getAsLong());
-//                    return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-//                }
-
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
                 @Override
-                public void write(final JsonWriter jsonWriter, final LocalDateTime localDateTime) throws IOException {
-                    jsonWriter.value(localDateTime.toString());
+                public void write(final JsonWriter jsonWriter, final LocalDate localDate) throws IOException {
+                    if (localDate == null) {
+                        jsonWriter.nullValue();
+                    } else {
+                        jsonWriter.value(localDate.toString());
+                    }
                 }
 
                 @Override
-                public LocalDateTime read( final JsonReader jsonReader ) throws IOException {
-                    return LocalDateTime.parse(jsonReader.nextString());
+                public LocalDate read(final JsonReader jsonReader) throws IOException {
+                    if (jsonReader.peek() == JsonToken.NULL) {
+                        jsonReader.nextNull();
+                        return null;
+                    } else {
+                        return LocalDate.parse(jsonReader.nextString());
+                    }
                 }
-            }).
-                    create().toJson(Shop.getInstance().getAllDiscountCodes(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
-            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(Shop.getInstance().getAllDiscountCodes(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
+            }).create().toJson(Shop.getInstance().getAllDiscountCodes(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllRequest")) {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllRequest()));
