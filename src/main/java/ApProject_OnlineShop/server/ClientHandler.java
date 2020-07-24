@@ -346,7 +346,7 @@ public class ClientHandler extends Thread {
 
     private void ShopHandler(RequestForServer requestForServer) throws IOException {
         if (requestForServer.getFunction().equals("getAllPersons")) {
-            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllPersons(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(Shop.getInstance().getAllPersons(), new TypeToken<ArrayList<DiscountCode>>() {}.getType()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getAllDiscountCodes")) {
             dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
@@ -377,7 +377,26 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("findDiscountCode")) {
-            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findDiscountCode((requestForServer.getInputs().get(0)))));
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
+                @Override
+                public void write(final JsonWriter jsonWriter, final LocalDate localDate) throws IOException {
+                    if (localDate == null) {
+                        jsonWriter.nullValue();
+                    } else {
+                        jsonWriter.value(localDate.toString());
+                    }
+                }
+
+                @Override
+                public LocalDate read(final JsonReader jsonReader) throws IOException {
+                    if (jsonReader.peek() == JsonToken.NULL) {
+                        jsonReader.nextNull();
+                        return null;
+                    } else {
+                        return LocalDate.parse(jsonReader.nextString());
+                    }
+                }
+            }).create().toJson(Shop.getInstance().findDiscountCode((requestForServer.getInputs().get(0))), DiscountCode.class));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("findOffById")) {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findOffById(Long.parseLong(requestForServer.getInputs().get(0)))));
@@ -396,7 +415,7 @@ public class ClientHandler extends Thread {
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getDiscountIncludedCustomers")) {
             DiscountCode discountCode = Shop.getInstance().findDiscountCode(requestForServer.getInputs().get(0));
-            dataOutputStream.writeUTF(new Gson().toJson(discountCode.getIncludedCustomers(), new TypeToken<Map<Customer, Integer>>() {}.getType()));
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().enableComplexMapKeySerialization().create().toJson(discountCode.getIncludedCustomers(), new TypeToken<Map<Customer, Integer>>() {}.getType()));
             dataOutputStream.flush();
         }
     }

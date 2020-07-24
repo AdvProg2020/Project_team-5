@@ -6,6 +6,7 @@ import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.orders.OrderForCustomer;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
+import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -31,9 +32,11 @@ public class Customer extends Person implements Serializable {
     private List<OrderForCustomer> previousOrders;
 
     @Column(name = "BankAccountId")
+    @Expose
     private String bankAccountId;
 
     @Column(name = "Credit", nullable = false)
+    @Expose
     private long credit;
 
     public Customer(String username, String firstName, String lastName, String email, String phoneNumber, String password, long credit) {

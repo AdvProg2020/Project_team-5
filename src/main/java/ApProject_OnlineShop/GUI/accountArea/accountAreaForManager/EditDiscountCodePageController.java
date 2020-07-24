@@ -8,6 +8,7 @@ import ApProject_OnlineShop.model.persons.Person;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -231,7 +232,7 @@ public class EditDiscountCodePageController extends FxmlController implements In
     private void updateCustomers() {
         ArrayList<String> input = new ArrayList<>();
         input.add(currentDiscount.getCode());
-        Map<Customer, Integer> includedCustomers = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "getDiscountIncludedCustomers", getToken(), input)), new TypeToken<Map<Customer, Integer>>() {}.getType());
+        Map<Customer, Integer> includedCustomers = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().enableComplexMapKeySerialization().create().fromJson(connectToServer(new RequestForServer("Shop", "getDiscountIncludedCustomers", getToken(), input)), new TypeToken<Map<Customer, Integer>>() {}.getType());
         for (String customer : includedCustomers.keySet().stream().map(Person::getUsername).collect(Collectors.toList())) {
             Label label = new Label();
             label.setText(customer);

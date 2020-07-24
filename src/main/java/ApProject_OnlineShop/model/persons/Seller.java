@@ -8,6 +8,7 @@ import ApProject_OnlineShop.model.productThings.Auction;
 import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
+import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -34,9 +35,11 @@ public class Seller extends Person implements Serializable {
     private List<Good> activeGoods;
 
     @Column(name = "BankAccountId")
+    @Expose
     private String bankAccountId;
 
     @Column(name = "Balance", nullable = false)
+    @Expose
     private long balance;
 
     @OneToMany(mappedBy = "seller")

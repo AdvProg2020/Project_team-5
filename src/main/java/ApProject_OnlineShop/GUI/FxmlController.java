@@ -5,6 +5,7 @@ import ApProject_OnlineShop.model.productThings.FileProduct;
 import ApProject_OnlineShop.model.requests.*;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -298,7 +299,7 @@ public class FxmlController {
         for (String input : inputs) {
             Person person;
             if (input.contains("discountCodesIds")) {
-                person = new Gson().fromJson(input, Customer.class);
+                person = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(input, Customer.class);
             } else if (input.contains("activeGoodsIds")) {
                 person = new Gson().fromJson(input, Seller.class);
             } else {

@@ -1,5 +1,7 @@
 package ApProject_OnlineShop.model.persons;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,27 +12,35 @@ public abstract class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PersonId", nullable = false,  unique = true)
+    @Expose
     private long personId; //TODO
 
     @Column(name = "UserName", unique = true, nullable = false)
+    @Expose
     private String username;
 
     @Column(name = "FirstName")
+    @Expose
     private String firstName;
 
     @Column(name = "LastName")
+    @Expose
     private String lastName;
 
     @Column(name = "Email")
+    @Expose
     private String email;
 
     @Column(name = "PhoneNumber")
+    @Expose
     private String phoneNumber;
 
     @Column(name = "Password", nullable = false)
+    @Expose
     private String password;
 
     @Transient
+    @Expose
     private String role = this.getClass().getSimpleName();
 
     public Person(String username, String firstName, String lastName, String email, String phoneNumber, String password) {

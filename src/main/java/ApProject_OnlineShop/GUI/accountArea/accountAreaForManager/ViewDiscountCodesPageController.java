@@ -54,7 +54,6 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(connectToServer(new RequestForServer("Shop", "getAllDiscountCodes", null, null)));
         ArrayList<DiscountCode> allDiscounts = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
             @Override
             public void write(final JsonWriter jsonWriter, final LocalDate localDate) throws IOException {
@@ -108,7 +107,26 @@ public class ViewDiscountCodesPageController extends FxmlController implements I
     public void onEditDiscountPressed() {
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(selectedDiscount);
-        DiscountCode discountCode = new com.google.gson.Gson().fromJson(connectToServer(new RequestForServer("Shop", "findDiscountCode", null, inputs)), DiscountCode.class);
+        DiscountCode discountCode = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
+            @Override
+            public void write(final JsonWriter jsonWriter, final LocalDate localDate) throws IOException {
+                if (localDate == null) {
+                    jsonWriter.nullValue();
+                } else {
+                    jsonWriter.value(localDate.toString());
+                }
+            }
+
+            @Override
+            public LocalDate read(final JsonReader jsonReader) throws IOException {
+                if (jsonReader.peek() == JsonToken.NULL) {
+                    jsonReader.nextNull();
+                    return null;
+                } else {
+                    return LocalDate.parse(jsonReader.nextString());
+                }
+            }
+        }).create().fromJson(connectToServer(new RequestForServer("Shop", "findDiscountCode", null, inputs)), DiscountCode.class);
         EditDiscountCodePageController.setCurrentDiscount(discountCode);
         setScene("editDiscountPage.fxml", "edit discount");
     }
