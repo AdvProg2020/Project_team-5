@@ -3,6 +3,7 @@ package ApProject_OnlineShop.model.requests;
 import ApProject_OnlineShop.database.fileMode.Database;
 import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
 import ApProject_OnlineShop.database.sqlMode.SqlGoodApi;
+import ApProject_OnlineShop.database.sqlMode.SqlSellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.SubCategory;
@@ -23,7 +24,8 @@ public class AddingGoodRequest extends Request {
     private int availableNumberOfGood;
     private String seller;
     private long goodId;
-    private transient SqlGoodApi sqlGoodApi = (SqlGoodApi) SqlApiContainer.getInstance().getSqlApi("good");
+    private static SqlGoodApi sqlGoodApi = (SqlGoodApi) SqlApiContainer.getInstance().getSqlApi("good");;
+    private static SqlSellerRelatedInfoAboutGood sqlSellerRelatedInfoAboutGood = (SqlSellerRelatedInfoAboutGood) SqlApiContainer.getInstance().getSqlApi("sellerRelatedInfoAboutGood");;
 
     public AddingGoodRequest(String nameOfGood, String brandOfGood, SubCategory subCategoryOfGood, String detailsOfGood,
                              HashMap<String, String> categoryPropertiesOfGood, long priceOfGood, int availableNumberOfGood, String seller,String id) {
@@ -42,18 +44,18 @@ public class AddingGoodRequest extends Request {
     public void acceptRequest() throws IOException, FileCantBeSavedException {
         Good good = new Good(nameOfGood, brandOfGood, Shop.getInstance().findSubCategoryByName(subCategoryOfGood), detailsOfGood,
                 categoryPropertiesOfGood, (Seller) Shop.getInstance().findUser(seller), priceOfGood, availableNumberOfGood);
-        good.setGoodId(goodId);
         Good originalGood;
         Seller seller1 = (Seller) Shop.getInstance().findUser(seller);
         if ((originalGood = Shop.getInstance().getGoodByNameAndBrandAndSubCategory(good.getName(), good.getBrand(), good.getSubCategory())) == null) {
             good.getSubCategory().addGood(good);
             good.setGoodStatus(Good.GoodStatus.CONFIRMED);
             seller1.addToActiveGoods(good);
+            sqlGoodApi.save(good);
+            sqlSellerRelatedInfoAboutGood.save(good.getSellerRelatedInfoAboutGoods().get(0));
             //Database.getInstance().saveItem(good.getSubCategory());
             //Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), good.getGoodId());
             Shop.getInstance().getHashMapOfGoods().put(good.getGoodId(), good);
             //Database.getInstance().saveItem(good);
-            sqlGoodApi.save(good);
 
         } else {
             originalGood.addSeller(good.getSellerRelatedInfoAboutGoods().get(0));
@@ -61,6 +63,7 @@ public class AddingGoodRequest extends Request {
             //Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), originalGood.getGoodId());
             //Database.getInstance().saveItem(originalGood);
             sqlGoodApi.save(originalGood);
+            sqlSellerRelatedInfoAboutGood.save(good.getSellerRelatedInfoAboutGoods().get(0));
         }
         Shop.getInstance().addSellerRelatedInfoAboutGood(good.getSellerRelatedInfoAboutGoods().get(0));
         //Database.getInstance().saveItem(seller1);
