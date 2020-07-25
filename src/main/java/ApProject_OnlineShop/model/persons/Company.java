@@ -28,7 +28,7 @@ public class Company {
     private String address;
 
     public Company(String name, String website, String phoneNumber, String faxNumber, String address) {
-        this.id = companyIdCounter++;
+        companyIdCounter++;
         this.name = name;
         this.website = website;
         this.phoneNumber = phoneNumber;

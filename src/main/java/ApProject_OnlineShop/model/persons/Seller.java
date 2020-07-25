@@ -66,6 +66,8 @@ public class Seller extends Person implements Serializable {
         this.previousSells = new ArrayList<>();
         this.activeGoods = new ArrayList<>();
         this.activeOffs = new ArrayList<>();
+        this.activeAuctions = new ArrayList<>();
+        this.activeFileProducts = new ArrayList<>();
     }
 
    /* public void setBalance(long balance) {
