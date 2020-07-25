@@ -35,6 +35,9 @@ public class AccountAreaForManagerController extends AccountAreaController {
     private SqlPersonApi sqlPersonApi = (SqlPersonApi) SqlApiContainer.getInstance().getSqlApi("person");
     private SqlCategoryApi sqlCategoryApi = (SqlCategoryApi) SqlApiContainer.getInstance().getSqlApi("category");
     private SqlSubCategoryApi sqlSubCategoryApi = (SqlSubCategoryApi) SqlApiContainer.getInstance().getSqlApi("subCategory");
+    private SqlOrderApi sqlOrderApi = (SqlOrderApi) SqlApiContainer.getInstance().getSqlApi("order");
+    private SqlGoodApi sqlGoodApi = (SqlGoodApi) SqlApiContainer.getInstance().getSqlApi("good");
+    private SqlManagerApi sqlManagerApi = (SqlManagerApi) SqlApiContainer.getInstance().getSqlApi("manager");
 
     public void createNewDiscountCode(ArrayList<String> fields) throws DiscountCodeCantCreatedException, IOException, FileCantBeSavedException {
         if (fields.get(0).length() > 15)
@@ -382,7 +385,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
         }
         Manager manager = new Manager(username, details.get(0), details.get(1), details.get(2), details.get(3), details.get(4));
         Shop.getInstance().addPerson(manager);
-        Database.getInstance().saveItem(manager);
+        //Database.getInstance().saveItem(manager);
+        sqlManagerApi.save(manager);
     }
 
 //    public ArrayList<String> getAllGoodsInfo() {
@@ -407,8 +411,10 @@ public class AccountAreaForManagerController extends AccountAreaController {
         if (good == null)
             throw new ProductWithThisIdNotExist();
         Shop.getInstance().removeProductsFromOffs(good);
-        Shop.getInstance().removeRatesOfAGood(good);
-        Database.getInstance().deleteItem(good);
+        //Shop.getInstance().removeRatesOfAGood(good);
+        //Database.getInstance().deleteItem(good);
+        Shop.getInstance().removeProduct(good);
+        sqlGoodApi.delete(good);
     }
 
     public List<String> getAllCategoriesName() {
@@ -488,13 +494,8 @@ public class AccountAreaForManagerController extends AccountAreaController {
             Shop.getInstance().getAllOrders().get(orderId).setOrderStatus(Order.OrderStatus.SENT);
         else if (newStatus.equals("RECEIVED"))
             Shop.getInstance().getAllOrders().get(orderId).setOrderStatus(Order.OrderStatus.RECEIVED);
-        try {
-            Database.getInstance().saveItem(Shop.getInstance().getAllOrders().get(orderId));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileCantBeSavedException e) {
-            e.printStackTrace();
-        }
+        //Database.getInstance().saveItem(Shop.getInstance().getAllOrders().get(orderId));
+        sqlOrderApi.save(Shop.getInstance().getAllOrders().get(orderId));
     }
 
     public ArrayList<String> getOnlineCustomers() {

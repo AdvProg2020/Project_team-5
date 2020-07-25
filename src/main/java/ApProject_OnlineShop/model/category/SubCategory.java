@@ -105,7 +105,6 @@ public class SubCategory implements Serializable {
 
     public void deleteGood(Good good) throws IOException, FileCantBeSavedException {
         this.goods.remove(good);
-        Database.getInstance().saveItem(this);
     }
 
     public Good findGoodById(long goodId) {

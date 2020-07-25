@@ -329,7 +329,6 @@ public class Shop {
                 if (activeOff.doesHaveThisProduct(good)) {
                     activeOff.removeGood(good);
                 }
-                Database.getInstance().saveItem(activeOff);
             }
         }
     }
