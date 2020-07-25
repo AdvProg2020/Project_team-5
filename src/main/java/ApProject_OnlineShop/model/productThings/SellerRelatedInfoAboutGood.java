@@ -2,6 +2,7 @@ package ApProject_OnlineShop.model.productThings;
 
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
+import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 
@@ -14,20 +15,25 @@ public class SellerRelatedInfoAboutGood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ProductAndSellerId", nullable = false, unique = true)
+    @Expose
     private long sellerRelatedInfoAboutGoodId;
 
     @ManyToOne
     @JoinColumn(name = "SellerId", nullable = false)
+    @Expose
     private Seller seller;
 
     @ManyToOne
     @JoinColumn(name = "ProductID", nullable = false)
+    @Expose
     private Good good;
 
     @Column(name = "Price", nullable = false)
+    @Expose
     private long price;
 
     @Column(name = "NumberOfAvailables", nullable = false)
+    @Expose
     private int availableNumber;
 
     public SellerRelatedInfoAboutGood(Seller seller, Good good, long price, int availableNumber) {

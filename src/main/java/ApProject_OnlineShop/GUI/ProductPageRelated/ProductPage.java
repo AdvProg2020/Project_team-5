@@ -17,6 +17,7 @@ import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.SellerRelatedInfoAboutGood;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -103,7 +104,7 @@ public class ProductPage extends FxmlController implements Initializable {
     private void makeProperties() {
         ArrayList<String> inputs22 = new ArrayList<>();
         inputs22.add(productId + "");
-        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+        Good good = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
         detailsLabel.setText(good.getDetails());
         Map<String, String> categoryProperties = good.getCategoryProperties();
         properties.setAlignment(Pos.CENTER);
@@ -141,7 +142,7 @@ public class ProductPage extends FxmlController implements Initializable {
 //        List<SellerRelatedInfoAboutGood> sellersInfo = MainController.getInstance().getProductController().getSellersInfo();
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId + "");
-        List<SellerRelatedInfoAboutGood> sellersInfo = new Gson().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), new TypeToken<List<SellerRelatedInfoAboutGood>>() {
+        List<SellerRelatedInfoAboutGood> sellersInfo = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("ProductController", "getSellersInfo", null, inputs)), new TypeToken<List<SellerRelatedInfoAboutGood>>() {
         }.getType());
         for (SellerRelatedInfoAboutGood eachSellerInfo : sellersInfo) {
             HBox sellerHBox = new HBox();

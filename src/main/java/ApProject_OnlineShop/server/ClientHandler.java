@@ -439,7 +439,7 @@ public class ClientHandler extends Thread {
                     .getMainInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getSellersInfo")) {
-            dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(MainController.getInstance().getProductController().getSellersInfo(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("isInOffBySeller")) {
             Seller seller = (Seller) Shop.getInstance().findUser(requestForServer.getInputs().get(0));

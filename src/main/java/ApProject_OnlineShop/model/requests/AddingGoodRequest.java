@@ -62,8 +62,9 @@ public class AddingGoodRequest extends Request {
             seller1.addToActiveGoods(originalGood);
             //Database.getInstance().saveItem(good.getSellerRelatedInfoAboutGoods().get(0), originalGood.getGoodId());
             //Database.getInstance().saveItem(originalGood);
+            good.getSellerRelatedInfoAboutGoods().get(0).setGood(originalGood);
+            sqlGoodApi.save(originalGood);
             sqlSellerRelatedInfoAboutGood.save(good.getSellerRelatedInfoAboutGoods().get(0));
-            //sqlGoodApi.save(originalGood);
         }
         Shop.getInstance().addSellerRelatedInfoAboutGood(good.getSellerRelatedInfoAboutGoods().get(0));
         //Database.getInstance().saveItem(seller1);

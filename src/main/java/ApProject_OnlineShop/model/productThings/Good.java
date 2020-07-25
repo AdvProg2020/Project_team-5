@@ -51,7 +51,7 @@ public class Good implements Serializable {
     @Expose
     private SubCategory subCategory;
 
-    @OneToMany(mappedBy = "good", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "good", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods;
 
@@ -77,6 +77,7 @@ public class Good implements Serializable {
     @CollectionTable(name = "ValueOfEachCategoryProperty", joinColumns = @JoinColumn(name = "ProductID"))
     @Column(name = "Value")
     @MapKeyColumn(name = "Property", nullable = false)
+    @Expose
     private Map<String, String> categoryProperties;
 
     public enum GoodStatus {
