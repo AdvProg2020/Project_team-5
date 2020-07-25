@@ -23,6 +23,7 @@ import java.util.List;
 public class Seller extends Person implements Serializable {
     @ManyToOne
     @JoinColumn(name = "CompanyID", nullable = false)
+    @Expose
     private Company company;
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)

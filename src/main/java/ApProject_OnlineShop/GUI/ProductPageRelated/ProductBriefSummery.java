@@ -7,6 +7,7 @@ import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.productThings.Off;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -39,7 +40,7 @@ public class ProductBriefSummery extends FxmlController {
         mainVBox.setAlignment(Pos.CENTER);
         ArrayList<String> inputs22 = new ArrayList<>();
         inputs22.add(productId + "");
-        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+        Good good = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
         if (good.getGoodStatus() != Good.GoodStatus.CONFIRMED) {
             HBox box = new HBox();
             box.setMaxHeight(25);
@@ -116,7 +117,7 @@ public class ProductBriefSummery extends FxmlController {
         offBox.setMaxHeight(30);
         ArrayList<String> inputs22 = new ArrayList<>();
         inputs22.add(productId + "");
-        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
+        Good good = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs22)), Good.class);
         Off off = new Gson().fromJson(connectToServer(new RequestForServer("Good", "getThisGoodOff", null, inputs22)), Off.class);
         Label percent = new Label("" + off.getDiscountPercent() + "%");
         percent.setTextFill(Color.RED);

@@ -3,6 +3,10 @@ package ApProject_OnlineShop.model.productThings;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.category.SubCategory;
 import ApProject_OnlineShop.model.persons.Seller;
+import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +19,6 @@ import java.util.Map;
 
 @Entity
 @Table(name = "Product")
-@SecondaryTable(name = "ValueOfEachCategoryProperty", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ProductID", referencedColumnName = "ProductID"))
 public class Good implements Serializable {
     @Transient
     private static long goodsCount = 1;
@@ -23,43 +26,57 @@ public class Good implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ProductID", nullable = false, unique = true)
+    @Expose
     private long goodId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ProductStatus", nullable = false)
+    @Expose
     private GoodStatus goodStatus;
 
     @Column(name = "Name", nullable = false)
+    @Expose
     private String name;
 
     @Column(name = "Brand")
+    @Expose
     private String brand;
 
     @Column(name = "AverageRate", nullable = false)
+    @Expose
     private double averageRate;
 
     @ManyToOne
     @JoinColumn(name = "SubCategoryId", referencedColumnName = "SubCategoryId")
+    @Expose
     private SubCategory subCategory;
 
     @OneToMany(mappedBy = "good", cascade = CascadeType.PERSIST)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<SellerRelatedInfoAboutGood> sellerRelatedInfoAboutGoods;
 
     @Column(name = "Description")
+    @Expose
     private String details;
 
     @OneToMany(mappedBy = "good", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Comment> comments;
 
     @Column(name = "SeenNumber", nullable = false)
+    @Expose
     private int seenNumber;
 
     @Column(name = "ModificationDate")
+    @Expose
     private LocalDate modificationDate;
 
     @ElementCollection
-    @MapKeyColumn(name = "Property", table = "ValueOfEachCategoryProperty")
-    @Column(name = "Value", table = "ValueOfEachCategoryProperty")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @CollectionTable(name = "ValueOfEachCategoryProperty", joinColumns = @JoinColumn(name = "ProductID"))
+    @Column(name = "Value")
+    @MapKeyColumn(name = "Property", nullable = false)
     private Map<String, String> categoryProperties;
 
     public enum GoodStatus {

@@ -8,6 +8,7 @@ import ApProject_OnlineShop.GUI.ProductPageRelated.ProductPage;
 import ApProject_OnlineShop.model.productThings.Good;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -122,7 +123,7 @@ public class ManageAllProductsPageController extends FxmlController implements I
         this.selectedGoodId = productId;
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(productId + "");
-        Good good = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
+        Good good = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("Shop", "findGoodById", null, inputs)), Good.class);
         name.setText(good.getName());
         id.setText("" + productId);
         removeButton.setDisable(false);

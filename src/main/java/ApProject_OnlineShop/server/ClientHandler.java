@@ -374,7 +374,7 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().getAllRequest()));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("findGoodById")) {
-            dataOutputStream.writeUTF(new Gson().toJson(Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(Shop.getInstance().findGoodById(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("findDiscountCode")) {
             dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
