@@ -7,6 +7,11 @@ import ApProject_OnlineShop.GUI.ProductPageRelated.Cart;
 import ApProject_OnlineShop.model.productThings.DiscountCode;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
@@ -20,8 +25,10 @@ import javafx.scene.text.Font;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.*;
 
 public class AccountAreaForCustomerController extends FxmlController implements Initializable {
@@ -120,7 +127,26 @@ public class AccountAreaForCustomerController extends FxmlController implements 
         String code = summeryOfDiscountCode.substring("discount code:".length(), index);
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(code);
-        DiscountCode discountCode = new Gson().fromJson(connectToServer(new RequestForServer("Shop", "findDiscountCode", null, inputs)), DiscountCode.class);
+        DiscountCode discountCode = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
+            @Override
+            public void write(final JsonWriter jsonWriter, final LocalDate localDate) throws IOException {
+                if (localDate == null) {
+                    jsonWriter.nullValue();
+                } else {
+                    jsonWriter.value(localDate.toString());
+                }
+            }
+
+            @Override
+            public LocalDate read(final JsonReader jsonReader) throws IOException {
+                if (jsonReader.peek() == JsonToken.NULL) {
+                    jsonReader.nextNull();
+                    return null;
+                } else {
+                    return LocalDate.parse(jsonReader.nextString());
+                }
+            }
+        }).create().fromJson(connectToServer(new RequestForServer("Shop", "findDiscountCode", null, inputs)), DiscountCode.class);
         List<String> discountCodeDetails = discountCode.getAllDetails();
         GridPane root = style.makeGridPane();
         Label discountCodeInfo = new Label("Discount Code Information");
