@@ -1217,14 +1217,14 @@ public class ClientHandler extends Thread {
         }
         if (user instanceof Customer) {
             try {
-                dataOutputStream.writeUTF("customer###" + gson.toJson(user, Customer.class));
+                dataOutputStream.writeUTF("customer###" + new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(user, Customer.class));
                 dataOutputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else if (user instanceof Seller) {
             try {
-                dataOutputStream.writeUTF("seller###" + gson.toJson(user, Seller.class));
+                dataOutputStream.writeUTF("seller###" + new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(user, Seller.class));
                 dataOutputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();

@@ -241,9 +241,9 @@ public class FxmlController {
         String input = connectToServer(new RequestForServer("getCurrentPerson", null, token, null));
         Person person = null;
         if (input.startsWith("customer")) {
-            person = new Gson().fromJson(input.split("###")[1], Customer.class);
+            person = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(input.split("###")[1], Customer.class);
         } else if (input.startsWith("seller")) {
-            person = new Gson().fromJson(input.split("###")[1], Seller.class);
+            person = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(input.split("###")[1], Seller.class);
         } else if (input.startsWith("manager")) {
             person = new Gson().fromJson(input.split("###")[1], Manager.class);
         } else if (input.startsWith("supporter")) {
