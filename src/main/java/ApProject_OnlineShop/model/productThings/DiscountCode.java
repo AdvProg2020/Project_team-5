@@ -1,6 +1,8 @@
 package ApProject_OnlineShop.model.productThings;
 
 import ApProject_OnlineShop.database.fileMode.Database;
+import ApProject_OnlineShop.database.sqlMode.SqlApiContainer;
+import ApProject_OnlineShop.database.sqlMode.SqlDiscountCodeApi;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Customer;
@@ -192,6 +194,7 @@ public class DiscountCode implements Serializable {
     }
 
     public void discountBeUsedForCustomer(Customer customer) throws Exception {
+        SqlDiscountCodeApi sqlDiscountCodeApi = (SqlDiscountCodeApi) SqlApiContainer.getInstance().getSqlApi("discount");
         for (Customer includedCustomer : this.getIncludedCustomers().keySet()) {
             if (includedCustomer.equals(customer)) {
                 int remainedNumberOfUse = includedCustomers.get(includedCustomer);
@@ -201,14 +204,16 @@ public class DiscountCode implements Serializable {
                     includedCustomers.remove(includedCustomer);
                     includedCustomer.removeDiscountCode(this);
                     if (includedCustomers.size() == 0) {
-                        Database.getInstance().deleteItem(this);
-                        Shop.getInstance().removeDiscountCode(this);
-                        Database.getInstance().saveItem(customer);
+//                        Database.getInstance().deleteItem(this);
+//                        Shop.getInstance().removeDiscountCode(this);
+//                        Database.getInstance().saveItem(customer);
+                        sqlDiscountCodeApi.delete(this);
                         return;
                     }
                 }
-                Database.getInstance().saveItem(this);
-                Database.getInstance().saveItem(customer);
+//                Database.getInstance().saveItem(this);
+//                Database.getInstance().saveItem(customer);
+                sqlDiscountCodeApi.save(this);
                 return;
             }
         }

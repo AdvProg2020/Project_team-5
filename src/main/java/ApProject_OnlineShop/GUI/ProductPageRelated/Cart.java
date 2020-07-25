@@ -7,6 +7,7 @@ import ApProject_OnlineShop.model.persons.Customer;
 import ApProject_OnlineShop.model.productThings.GoodInCart;
 import ApProject_OnlineShop.model.RequestForServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -137,11 +138,11 @@ public class Cart extends FxmlController implements Initializable {
             priceBox.getChildren().add(text);
             ArrayList<String> inputs = new ArrayList<>();
             inputs.add(getId() + "");
-            List<GoodInCart> cart = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getCart", null, inputs)), new TypeToken<List<GoodInCart>>() {
-            }.getType());
-            ArrayList<String> input2 = new ArrayList<>();
-            input2.add(new Gson().toJson(cart));
-            long totalPrice3 = Long.parseLong(connectToServer(new RequestForServer("AccountAreaForCustomerController", "finalPriceOfAList", null, input2)));
+//            List<GoodInCart> cart = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getCart", null, inputs)), new TypeToken<List<GoodInCart>>() {
+//            }.getType());
+//            ArrayList<String> input2 = new ArrayList<>();
+//            input2.add(new Gson().toJson(cart));
+            long totalPrice3 = Long.parseLong(connectToServer(new RequestForServer("AccountAreaForCustomerController", "finalPriceOfAList", null, inputs)));
             Label finalPrice = new Label(" " + totalPrice3 + " Rials");
             finalPrice.setFont(Font.font("Times New Roman", 16));
             finalPrice.setTextFill(Color.RED);
@@ -194,7 +195,7 @@ public class Cart extends FxmlController implements Initializable {
     public void purchase() {
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add(getId() + "");
-        ArrayList<GoodInCart> cart = new Gson().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getCart", null, inputs)), new TypeToken<List<GoodInCart>>() {
+        ArrayList<GoodInCart> cart = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().fromJson(connectToServer(new RequestForServer("AccountAreaForCustomerController", "getCart", null, inputs)), new TypeToken<List<GoodInCart>>() {
         }.getType());
         if (cart.size() == 0) {
             ErrorPageFxController.showPage("error for purchase", "your cart is empty");

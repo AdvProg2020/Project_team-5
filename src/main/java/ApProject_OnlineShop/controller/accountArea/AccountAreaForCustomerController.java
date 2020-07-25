@@ -3,6 +3,7 @@ package ApProject_OnlineShop.controller.accountArea;
 import ApProject_OnlineShop.Main;
 import ApProject_OnlineShop.controller.MainController;
 import ApProject_OnlineShop.database.fileMode.Database;
+import ApProject_OnlineShop.database.sqlMode.*;
 import ApProject_OnlineShop.exception.CustomerNotFoundInAuctionException;
 import ApProject_OnlineShop.exception.FileCantBeSavedException;
 import ApProject_OnlineShop.exception.discountcodeExceptions.DiscountCodeCannotBeUsed;
@@ -30,6 +31,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AccountAreaForCustomerController extends AccountAreaController {
+    SqlCustomerApi sqlCustomerApi = (SqlCustomerApi) SqlApiContainer.getInstance().getSqlApi("customer");
+    SqlOrderForSellerApi sqlOrderForSellerApi = (SqlOrderForSellerApi) SqlApiContainer.getInstance().getSqlApi("orderForSeller");
+    SqlOrderForCustomerApi sqlOrderForCustomerApi = (SqlOrderForCustomerApi) SqlApiContainer.getInstance().getSqlApi("orderForCustomer");
+    SqlSellerApi sqlSellerApi = (SqlSellerApi) SqlApiContainer.getInstance().getSqlApi("seller");
+    SqlSellerRelatedInfoAboutGood sqlSellerRelatedInfoAboutGood = (SqlSellerRelatedInfoAboutGood) SqlApiContainer.getInstance().getSqlApi("sellerRelatedInfoAboutGood");
+    SqlGoodInCartApi sqlGoodInCartApi = (SqlGoodInCartApi) SqlApiContainer.getInstance().getSqlApi("goodInCart");
 //    public long viewBalance() {
 //        return ((Customer) MainController.getInstance().getCurrentPerson()).getCredit();
 //    }
@@ -181,14 +188,17 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         currentUser.addOrder(orderForCustomer);
         for (GoodInCart goodInCart : Shop.getInstance().getCart(id)) {
             Shop.getInstance().getAllGoodInCarts().put(goodInCart.getGoodInCartId(), goodInCart);
-            Database.getInstance().saveItem(goodInCart);
+            sqlGoodInCartApi.save(goodInCart);
+            //Database.getInstance().saveItem(goodInCart);
         }
         Shop.getInstance().addOrder(orderForCustomer);
         orderForCustomer.setOrderStatus(Order.OrderStatus.PROCESSING);
-        Database.getInstance().saveItem(orderForCustomer);
+        //Database.getInstance().saveItem(orderForCustomer);
+        sqlOrderForCustomerApi.save(orderForCustomer);
         currentUser.setCredit(currentUser.getCredit() - price);
         currentUser.donateDiscountCodeTOBestCustomers();
-        Database.getInstance().saveItem(currentUser);
+        //Database.getInstance().saveItem(currentUser);
+        sqlCustomerApi.save(currentUser);
         makeOrderForSeller(person.getUsername(), id);
         reduceAvailableNumberOfGoodsAfterPurchase(id);
         Shop.getInstance().clearCart(id);
@@ -199,6 +209,7 @@ public class AccountAreaForCustomerController extends AccountAreaController {
         ArrayList<GoodInCart> cart = Shop.getInstance().getCart(id);
         for (GoodInCart good : cart) {
             sellerSet.add(good.getSeller());
+            sqlGoodInCartApi.save(good);
         }
         for (Seller seller : sellerSet) {
             List<GoodInCart> sellerProduct = cart.stream().filter(good -> good.getSeller() == seller).collect(Collectors.toList());
@@ -207,8 +218,10 @@ public class AccountAreaForCustomerController extends AccountAreaController {
             seller.addOrder(orderForSeller);
             Shop.getInstance().addOrder(orderForSeller);
             orderForSeller.setOrderStatus(Order.OrderStatus.SENT);
-            Database.getInstance().saveItem(orderForSeller);
-            Database.getInstance().saveItem(seller);
+            //Database.getInstance().saveItem(orderForSeller);
+            // Database.getInstance().saveItem(seller);
+            sqlSellerApi.save(seller);
+            sqlOrderForSellerApi.save(orderForSeller);
         }
     }
 
@@ -222,11 +235,12 @@ public class AccountAreaForCustomerController extends AccountAreaController {
             good.getGood().reduceAvailableNumber(good.getSeller(), good.getNumber());
             for (SellerRelatedInfoAboutGood infoAboutGood : good.getGood().getSellerRelatedInfoAboutGoods()) {
                 if (infoAboutGood.getSeller().equals(good.getSeller())) {
-                    Database.getInstance().saveItem(infoAboutGood, good.getGood().getGoodId());
+                    //Database.getInstance().saveItem(infoAboutGood, good.getGood().getGoodId());
+                    sqlSellerRelatedInfoAboutGood.save(infoAboutGood);
                     break;
                 }
             }
-            Database.getInstance().saveItem(good.getGood());
+//            Database.getInstance().saveItem(good.getGood());
         }
     }
 

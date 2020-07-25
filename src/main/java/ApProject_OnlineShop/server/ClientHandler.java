@@ -637,11 +637,10 @@ public class ClientHandler extends Thread {
             dataOutputStream.writeUTF("Successfully decreased");
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("getCart")) {
-            dataOutputStream.writeUTF(new Gson().toJson(MainController.getInstance().getAccountAreaForCustomerController().getCart(Long.parseLong(requestForServer.getInputs().get(0)))));
+            dataOutputStream.writeUTF(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(MainController.getInstance().getAccountAreaForCustomerController().getCart(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("finalPriceOfAList")) {
-            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(new Gson().fromJson(requestForServer.getInputs().get(0), new TypeToken<List<GoodInCart>>() {
-            }.getType())));
+            dataOutputStream.writeUTF("" + MainController.getInstance().getAccountAreaForCustomerController().finalPriceOfAList(MainController.getInstance().getAccountAreaForCustomerController().getCart(Long.parseLong(requestForServer.getInputs().get(0)))));
             dataOutputStream.flush();
         } else if (requestForServer.getFunction().equals("clearCart")) {
             MainController.getInstance().getAccountAreaForCustomerController().clearCart(Long.parseLong(requestForServer.getInputs().get(0)));

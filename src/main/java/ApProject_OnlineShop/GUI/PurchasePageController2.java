@@ -23,7 +23,8 @@ public class PurchasePageController2 extends FxmlController implements Initializ
     @FXML
     public Label totalPrice, label1;
     @FXML
-    public Button purchaseButton;
+    public MenuButton purchaseButton;
+
     private String discountCodeString;
     private long totalPrice1;
 
@@ -40,7 +41,7 @@ public class PurchasePageController2 extends FxmlController implements Initializ
         inputs.add(totalPrice1 + "");
         inputs.addAll(PurchasePageController1.getUserInfo());
         inputs.add(discountCodeString);
-        inputs.add(FxmlController.getToken() + "");
+        inputs.add(FxmlController.getId() + "");
         String serverResponse = connectToServer(new RequestForServer("AccountAreaForCustomerController", "purchaseByWallet", getToken(), inputs));
         if (serverResponse.equals("purchase was successful")) {
             SuccessPageFxController.showPage("purchase was successful", totalPrice.getText() + " has reduced from your account!");

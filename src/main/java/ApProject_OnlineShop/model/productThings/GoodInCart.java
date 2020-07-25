@@ -2,6 +2,7 @@ package ApProject_OnlineShop.model.productThings;
 
 import ApProject_OnlineShop.model.Shop;
 import ApProject_OnlineShop.model.persons.Seller;
+import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class GoodInCart implements Serializable {
     private Seller seller;
 
     @Column(name = "numberOfProducts", nullable = false)
+    @Expose
     private int number;
 
     public GoodInCart(Good good, Seller seller, int number) {
